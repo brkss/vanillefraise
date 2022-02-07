@@ -1,0 +1,9 @@
+mutation CreateSubscription($priceID: String!, $paymentMethodID: String!) {
+  createSubscription(
+    data: { priceID: $priceID, paymentMethodID: $paymentMethodID }
+  ) {
+    status
+    message
+  }
+}
+

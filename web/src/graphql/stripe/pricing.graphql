@@ -1,0 +1,9 @@
+query Pricing{
+  pricing{
+    priceID
+    amount
+    currency
+    productID
+    productName
+  }
+}
