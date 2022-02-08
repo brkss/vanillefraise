@@ -1,7 +1,14 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home, Splash } from "../screens";
+import {
+  Home,
+  Splash,
+  Settings,
+  Recipes,
+  Activity,
+  Reminder,
+  CreateRecord,
+} from "../screens";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export const AppNavigation: React.FC = () => {
@@ -19,7 +26,7 @@ export const AppNavigation: React.FC = () => {
             iconName = focused ? "ios-disc" : "ios-disc-outline";
           else if (route.name == "Activity")
             iconName = focused ? "ios-eye" : "ios-eye-outline";
-          else if (route.name == "Time")
+          else if (route.name == "Reminders")
             iconName = focused ? "ios-time" : "ios-time-outline";
           else if (route.name == "Record")
             iconName = focused ? "ios-add-circle" : "ios-add-circle-outline";
@@ -33,11 +40,11 @@ export const AppNavigation: React.FC = () => {
       })}
     >
       <Group>
-        <Screen name={"Recipes"} component={Home} />
-        <Screen name={"Activity"} component={Home} />
-        <Screen name={"Record"} component={Home} />
-        <Screen name={"Time"} component={Home} />
-        <Screen name={"Settings"} component={Home} />
+        <Screen name={"Recipes"} component={Recipes} />
+        <Screen name={"Activity"} component={Activity} />
+        <Screen name={"Record"} component={CreateRecord} />
+        <Screen name={"Reminders"} component={Reminder} />
+        <Screen name={"Settings"} component={Settings} />
       </Group>
     </Navigator>
   );
