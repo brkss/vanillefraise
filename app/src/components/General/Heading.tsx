@@ -16,8 +16,7 @@ export const Heading: React.FC<Props> = ({ title }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
-    padding: 15,
-    marginBottom: 10,
+    //marginBottom: 10,
   },
   title: {
     fontSize: 33,

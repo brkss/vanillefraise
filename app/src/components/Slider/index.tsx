@@ -17,6 +17,6 @@ export const Slider: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 15,
+    //marginLeft: 15,
   },
 });

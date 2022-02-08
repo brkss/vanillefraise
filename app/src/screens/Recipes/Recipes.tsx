@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Heading } from "../../components";
-import { Slider } from "../../components";
+import { Heading, Slider, RecipeThumbnail } from "../../components";
 
 export const Recipes: React.FC = () => {
   return (
@@ -12,6 +11,9 @@ export const Recipes: React.FC = () => {
       <View style={styles.sliderContainer}>
         <Slider />
       </View>
+      <View style={styles.recipesContainer}>
+        <RecipeThumbnail />
+      </View>
     </View>
   );
 };
@@ -19,11 +21,15 @@ export const Recipes: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 15,
   },
   headingContainer: {
-    flex: 0.17,
+    flex: 0.15,
   },
   sliderContainer: {
     flex: 0.15,
+  },
+  recipesContainer: {
+    flex: 0.7,
   },
 });
