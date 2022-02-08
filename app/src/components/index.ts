@@ -1,1 +1,1 @@
-export { Input } from "./General";
+export * from "./General";

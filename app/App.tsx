@@ -1,5 +1,4 @@
 import { MainNavigation } from "./src/navigation";
-import { View } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";

@@ -1,12 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Input, Center, Heading, Container, Button } from "native-base";
+import { ActivityIndicator } from "react-native";
+import { Center, Heading, Container } from "native-base";
 import { useLoginMutation } from "../../generated/graphql";
 import { setAccessToken } from "../../utils";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
+import { useFonts } from "expo-font";
+import { Button, Input } from "../../components";
 
 export const Login: React.FC<any> = ({ navigation }) => {
+  const [helviticaCondensed] = useFonts({
+    "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
+  });
   const _ctx = React.useContext(AuthContext);
   const [login] = useLoginMutation();
   const [loading, SetLoading] = React.useState(false);
@@ -62,37 +67,44 @@ export const Login: React.FC<any> = ({ navigation }) => {
     });
   };
 
+  if (!helviticaCondensed) {
+    return <ActivityIndicator />;
+  }
+
   return (
-    <Center w={"100%"} flex={1}>
+    <Center bg={"#1D1D1D"} w={"100%"} flex={1}>
       <Container w={"100%"}>
-        <Heading mb={"10px"}>Login </Heading>
-        <Input
-          value={form.email}
+        <Heading
+          textAlign={"center"}
+          fontFamily={"helvitica-condesed"}
+          color={"white"}
+          fontSize={"70px"}
+          mb={"10px"}
           w={"100%"}
-          size={"md"}
-          variant={"filled"}
-          placeholder={"Email"}
-          onChangeText={(val) => handleForm(val, "email")}
+        >
+          LOGIN{" "}
+        </Heading>
+        <Input
+          onChange={(val) => handleForm(val, "email")}
+          label={"Username"}
         />
         <Input
-          value={form.password}
-          w={"100%"}
-          size={"md"}
-          secureTextEntry={true}
-          variant={"filled"}
-          mt={"10px"}
-          placeholder={"Password"}
-          onChangeText={(val) => handleForm(val, "password")}
+          //value={form.password}
+          onChange={(val) => handleForm(val, "password")}
+          password
+          label={"Password"}
         />
         <Button
-          onPress={() => handleLogin()}
-          colorScheme="dark"
-          mt={"10px"}
-          isLoading={loading}
-          variant={"subtle"}
-        >
-          Login
-        </Button>
+          txt={"LOGIN"}
+          //onPress={() => handleLogin()}
+          //mt={"10px"}
+          //isLoading={loading}
+          //bg={"#0604BA"}
+          //w={"100%"}
+          //color={"#ffffff"}
+          //fontWeight={"bold"}
+          //fontSize={"50px"}
+        />
       </Container>
     </Center>
   );
