@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   },
   input: {
     padding: 15,
+    fontFamily: "helvitica-condesed",
     color: "black",
     borderRadius: 13,
     backgroundColor: "#C0C0C0",

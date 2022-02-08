@@ -94,17 +94,7 @@ export const Login: React.FC<any> = ({ navigation }) => {
           password
           label={"Password"}
         />
-        <Button
-          txt={"LOGIN"}
-          //onPress={() => handleLogin()}
-          //mt={"10px"}
-          //isLoading={loading}
-          //bg={"#0604BA"}
-          //w={"100%"}
-          //color={"#ffffff"}
-          //fontWeight={"bold"}
-          //fontSize={"50px"}
-        />
+        <Button txt={"LOGIN"} clicked={() => handleLogin()} />
       </Container>
     </Center>
   );
