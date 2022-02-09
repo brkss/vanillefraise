@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Heading, Slider, RecipeThumbnail } from "../../components";
-import { recipes } from "../../utils";
+import { recipes, recipes_category } from "../../utils";
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
   return (
@@ -11,7 +11,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       </View>
       <View style={styles.recipesContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Slider />
+          <Slider color={"#C8F6FC"} categories={recipes_category} />
           {recipes.map((recipe, key) => (
             <RecipeThumbnail
               pressed={() => navigation.push("RecipeDetails")}

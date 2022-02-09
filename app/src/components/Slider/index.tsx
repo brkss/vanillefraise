@@ -1,16 +1,23 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
+import { ISlideCategory } from "../../utils/types";
 import { Item } from "./Item";
 
-export const Slider: React.FC = () => {
+interface Props {
+  categories: ISlideCategory[];
+  color: string;
+}
+
+export const Slider: React.FC<Props> = ({ categories, color }) => {
   return (
     <ScrollView
       style={styles.container}
-      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
       horizontal
     >
-      <Item />
-      <Item />
+      {categories.map((cat, key) => (
+        <Item key={key} color={color} name={cat.name} icon={cat.icon} />
+      ))}
     </ScrollView>
   );
 };

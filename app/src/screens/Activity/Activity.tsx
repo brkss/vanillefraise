@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Slider, Heading, ActivityThumbnail } from "../../components";
+import { activity_categories } from "../../utils/data";
 
 export const Activity: React.FC<any> = ({ navigation }) => {
   return (
@@ -10,7 +11,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
       </View>
       <View style={styles.recipesContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Slider />
+          <Slider color={"#C8F6FC"} categories={activity_categories} />
           <ActivityThumbnail />
         </ScrollView>
       </View>

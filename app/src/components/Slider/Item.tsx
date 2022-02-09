@@ -1,11 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const Item: React.FC = () => {
+interface Props {
+  name: string;
+  icon: string;
+  color: string;
+}
+
+export const Item: React.FC<Props> = ({ name, icon, color }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.icon}>🥗</Text>
-      <Text style={styles.title}>Salades</Text>
+    <View style={[styles.container, { backgroundColor: color }]}>
+      <Text style={styles.icon}>{icon}</Text>
+      <Text style={styles.title}>{name}</Text>
     </View>
   );
 };
