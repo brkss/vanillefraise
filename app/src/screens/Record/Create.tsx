@@ -7,7 +7,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
-        <Heading title={"Activity"} />
+        <Heading title={"Create Record"} />
       </View>
       <View style={styles.contentContainer}>
         <ScrollView>
