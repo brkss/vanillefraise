@@ -1,6 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { Heading, Slider, RecordForm } from "../../components";
+import {
+  Heading,
+  Slider,
+  RecordForm,
+  RecordHistorySlide,
+} from "../../components";
 import { record_category } from "../../utils";
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
@@ -13,6 +18,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         <ScrollView>
           <Slider color={"#FDEBA8"} categories={record_category} />
           <RecordForm />
+          <RecordHistorySlide />
         </ScrollView>
       </View>
     </View>
