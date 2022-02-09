@@ -8,8 +8,6 @@ export const Instructions: React.FC = () => {
       <Text style={styles.title}>Instructions</Text>
       <Item />
       <Item />
-      <Item />
-      <Item />
     </View>
   );
 };

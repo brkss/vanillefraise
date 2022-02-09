@@ -6,7 +6,12 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { Ingredients, Instructions, RecipeMetaData } from "../../components";
+import {
+  Close,
+  Ingredients,
+  Instructions,
+  RecipeMetaData,
+} from "../../components";
 
 const ings = [
   "nonstick cooking spray",
@@ -26,7 +31,9 @@ export const RecipeDetails: React.FC = () => {
           source={{
             uri: "https://images.101cookbooks.com/TEMPEH-CRUMBLE-BOWL-H.jpg?w=680&auto=format",
           }}
-        ></ImageBackground>
+        >
+          <Close pressed={() => {}} />
+        </ImageBackground>
         <View style={styles.content}>
           <RecipeMetaData />
           <Ingredients ingredients={ings} />
