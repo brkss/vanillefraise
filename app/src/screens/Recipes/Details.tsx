@@ -22,7 +22,7 @@ const ings = [
   "2 tablespoons all-purpose flour",
 ];
 
-export const RecipeDetails: React.FC = () => {
+export const RecipeDetails: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
@@ -32,7 +32,7 @@ export const RecipeDetails: React.FC = () => {
             uri: "https://images.101cookbooks.com/TEMPEH-CRUMBLE-BOWL-H.jpg?w=680&auto=format",
           }}
         >
-          <Close pressed={() => {}} />
+          <Close pressed={() => navigation.popToTop()} />
         </ImageBackground>
         <View style={styles.content}>
           <RecipeMetaData />

@@ -1,10 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Slider, Heading, ActivityThumbnail } from "../../components";
 
-export const Activity: React.FC = () => {
+export const Activity: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Activity</Text>
+      <View style={styles.headingContainer}>
+        <Heading title={"Activity"} />
+      </View>
+      <View style={styles.recipesContainer}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Slider />
+          <ActivityThumbnail />
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -12,7 +21,13 @@ export const Activity: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 15,
+    paddingBottom: 0,
+  },
+  headingContainer: {
+    flex: 0.14,
+  },
+  recipesContainer: {
+    flex: 0.86,
   },
 });

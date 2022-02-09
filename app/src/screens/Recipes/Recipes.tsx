@@ -9,11 +9,9 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       <View style={styles.headingContainer}>
         <Heading title={"Recipes"} />
       </View>
-      <View style={styles.sliderContainer}>
-        <Slider />
-      </View>
       <View style={styles.recipesContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
+          <Slider />
           {recipes.map((recipe, key) => (
             <RecipeThumbnail
               pressed={() => navigation.push("RecipeDetails")}
@@ -39,10 +37,7 @@ const styles = StyleSheet.create({
   headingContainer: {
     flex: 0.14,
   },
-  sliderContainer: {
-    flex: 0.14,
-  },
   recipesContainer: {
-    flex: 0.72,
+    flex: 0.86,
   },
 });
