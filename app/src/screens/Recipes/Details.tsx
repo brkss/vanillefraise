@@ -6,7 +6,7 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { Ingredients } from "../../components";
+import { Ingredients, Instructions, RecipeMetaData } from "../../components";
 
 const ings = [
   "nonstick cooking spray",
@@ -28,12 +28,9 @@ export const RecipeDetails: React.FC = () => {
           }}
         ></ImageBackground>
         <View style={styles.content}>
-          <Text style={styles.title}>Spicy Tempeh Crumble Bowl </Text>
-          <Text style={styles.description}>
-            Simmered with French onion soup in a slow cooker, these seasoned
-            pork chops make an easy dinner that's sure to please.
-          </Text>
+          <RecipeMetaData />
           <Ingredients ingredients={ings} />
+          <Instructions />
         </View>
       </ScrollView>
     </View>
@@ -48,16 +45,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: "100%",
   },
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
-  },
   content: {
     padding: 10,
-  },
-  description: {
-    fontSize: 14,
-    opacity: 0.8,
-    marginTop: 10,
   },
 });

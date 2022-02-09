@@ -2,3 +2,5 @@ export * from "./General";
 export * from "./Slider";
 export * from "./RecipeThumbnail";
 export * from "./Ingredient";
+export * from "./Instruction";
+export * from "./RecipeMetaData";

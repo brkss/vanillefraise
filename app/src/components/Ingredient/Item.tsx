@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderRadius: 11,
   },
   txt: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "700",
     opacity: 0.7,
   },
