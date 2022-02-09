@@ -1,14 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-  Home,
-  Splash,
   Settings,
   Recipes,
   Activity,
   Reminder,
   CreateRecord,
 } from "../screens";
+import { RecipeNavigation } from "./RecipesNavigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export const AppNavigation: React.FC = () => {
@@ -40,7 +39,7 @@ export const AppNavigation: React.FC = () => {
       })}
     >
       <Group>
-        <Screen name={"Recipes"} component={Recipes} />
+        <Screen name={"Recipes"} component={RecipeNavigation} />
         <Screen name={"Activity"} component={Activity} />
         <Screen name={"Record"} component={CreateRecord} />
         <Screen name={"Reminders"} component={Reminder} />

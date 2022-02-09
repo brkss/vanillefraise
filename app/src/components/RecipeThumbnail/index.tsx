@@ -1,20 +1,42 @@
 import React from "react";
-import { ImageBackground, Text, StyleSheet, View } from "react-native";
+import {
+  ImageBackground,
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from "react-native";
 
-export const RecipeThumbnail: React.FC = () => {
+interface Props {
+  title: string;
+  time: string;
+  carbs?: string;
+  img: string;
+  pressed: () => void;
+}
+
+export const RecipeThumbnail: React.FC<Props> = ({
+  img,
+  title,
+  time,
+  carbs,
+  pressed,
+}) => {
   return (
-    <ImageBackground
-      source={{
-        uri: "https://images.101cookbooks.com/CITRUS-RECIPES-2020-h.jpg?w=680&auto=format",
-      }}
-      imageStyle={{ borderRadius: 13 }}
-      style={styles.container}
-    >
-      <View style={styles.shadow} />
-      <Text style={styles.title}>Sunny Citrus</Text>
-      <Text style={styles.time}>about 1 hr to make.</Text>
-      <Text style={styles.carbs}>120g of carbs</Text>
-    </ImageBackground>
+    <TouchableOpacity onPress={() => pressed()}>
+      <ImageBackground
+        source={{
+          uri: img,
+        }}
+        imageStyle={{ borderRadius: 13 }}
+        style={styles.container}
+      >
+        <View style={styles.shadow} />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.time}>about {time} to make.</Text>
+        {carbs && <Text style={styles.carbs}>120g of carbs</Text>}
+      </ImageBackground>
+    </TouchableOpacity>
   );
 };
 
@@ -38,6 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "white",
     left: 10,
+    width: "90%",
   },
   time: {
     fontSize: 13,
