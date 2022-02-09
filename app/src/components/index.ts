@@ -5,3 +5,4 @@ export * from "./Ingredient";
 export * from "./Instruction";
 export * from "./RecipeMetaData";
 export * from "./ActivityThumbnail";
+export * from "./RecordForm";

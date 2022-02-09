@@ -11,7 +11,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
       </View>
       <View style={styles.recipesContainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Slider color={"#C8F6FC"} categories={activity_categories} />
+          <Slider color={"#D9EFB8"} categories={activity_categories} />
           <ActivityThumbnail />
         </ScrollView>
       </View>
