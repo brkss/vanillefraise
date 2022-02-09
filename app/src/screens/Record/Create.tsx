@@ -10,8 +10,10 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         <Heading title={"Activity"} />
       </View>
       <View style={styles.contentContainer}>
-        <Slider color={"#FDEBA8"} categories={record_category} />
-        <RecordForm />
+        <ScrollView>
+          <Slider color={"#FDEBA8"} categories={record_category} />
+          <RecordForm />
+        </ScrollView>
       </View>
     </View>
   );

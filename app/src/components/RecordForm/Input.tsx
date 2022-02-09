@@ -11,11 +11,22 @@ export const Input: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flexDirection: "row",
+    backgroundColor: "#EAEAEA",
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 20,
+  },
   input: {
-    width: "80%",
+    width: "90%",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   unit: {
-    width: "20%",
+    width: "10%",
+    textAlign: "right",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
