@@ -4,11 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
+  BaseEntity,
 } from "typeorm";
 import { Recipe } from "./Recipe";
 
 @Entity("instructions")
-export class Instruction {
+export class Instruction extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
