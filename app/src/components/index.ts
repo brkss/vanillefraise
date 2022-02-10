@@ -8,3 +8,4 @@ export * from "./ActivityThumbnail";
 export * from "./RecordForm";
 export * from "./RecordHistorySlide";
 export * from "./RemindersSlider";
+export * from "./ReminderForm";

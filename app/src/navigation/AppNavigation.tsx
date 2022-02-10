@@ -8,6 +8,7 @@ import {
   CreateRecord,
 } from "../screens";
 import { RecipeNavigation } from "./RecipesNavigation";
+import { RemindersNavigation } from "./RemindersNavigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export const AppNavigation: React.FC = () => {
@@ -42,7 +43,7 @@ export const AppNavigation: React.FC = () => {
         <Screen name={"Recipes"} component={RecipeNavigation} />
         <Screen name={"Activity"} component={Activity} />
         <Screen name={"Record"} component={CreateRecord} />
-        <Screen name={"Reminders"} component={Reminder} />
+        <Screen name={"Reminders"} component={RemindersNavigation} />
         <Screen name={"Settings"} component={Settings} />
       </Group>
     </Navigator>

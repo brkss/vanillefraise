@@ -3,7 +3,11 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Item } from "./Item";
 
-export const ReminderSlider: React.FC = () => {
+interface Props {
+  create: () => void;
+}
+
+export const ReminderSlider: React.FC<Props> = ({ create }) => {
   return (
     <View style={styles.container}>
       <View style={styles.slide}>
@@ -13,7 +17,12 @@ export const ReminderSlider: React.FC = () => {
         </ScrollView>
       </View>
       <View style={styles.action}>
-        <Ionicons name={"ios-add-circle"} size={42} style={styles.icon} />
+        <Ionicons
+          onPress={() => create()}
+          name={"ios-add-circle"}
+          size={42}
+          style={styles.icon}
+        />
       </View>
     </View>
   );
