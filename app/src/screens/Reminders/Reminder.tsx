@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { ReminderSlider } from "../../components";
 
 export const Reminder: React.FC = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
+        <ReminderSlider />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Lunch,</Text>
           <Text style={styles.subtitle}>Remaning.</Text>

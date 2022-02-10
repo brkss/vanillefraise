@@ -7,3 +7,4 @@ export * from "./RecipeMetaData";
 export * from "./ActivityThumbnail";
 export * from "./RecordForm";
 export * from "./RecordHistorySlide";
+export * from "./RemindersSlider";
