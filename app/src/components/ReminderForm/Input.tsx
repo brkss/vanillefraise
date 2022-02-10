@@ -20,5 +20,7 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     fontWeight: "bold",
+    fontFamily: "helvitica-condesed",
+    fontSize: 17,
   },
 });

@@ -12,6 +12,7 @@ export const Button: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    paddingTop: 14,
     borderRadius: 13,
     backgroundColor: "#0604BA",
   },
@@ -20,5 +21,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
     fontWeight: "bold",
+    fontFamily: "helvitica-condesed",
   },
 });

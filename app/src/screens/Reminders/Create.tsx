@@ -5,12 +5,14 @@ import { ReminderForm } from "../../components";
 export const CreateReminder: React.FC = () => {
   return (
     <View style={styles.container}>
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1 }}>
         <View>
           <Text style={styles.title}>Create</Text>
           <Text style={styles.subtitle}>Reminder.</Text>
         </View>
-        <ReminderForm />
+        <View style={{ flex: 1, alignSelf: "stretch" }}>
+          <ReminderForm />
+        </View>
       </SafeAreaView>
     </View>
   );

@@ -23,6 +23,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
                 key={key}
               />
             ))}
+            <View style={{ height: 200 }} />
           </ScrollView>
         </View>
       </SafeAreaView>

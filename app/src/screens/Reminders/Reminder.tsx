@@ -5,7 +5,7 @@ import { ReminderSlider } from "../../components";
 export const Reminder: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1, justifyContent: "space-evenly" }}>
         <ReminderSlider create={() => navigation.push("CreateReminder")} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Lunch,</Text>
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0030FF",
     padding: 15,
+    paddingVertical: 50,
     paddingBottom: 0,
   },
   titleContainer: {},
