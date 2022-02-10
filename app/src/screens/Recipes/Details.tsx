@@ -11,6 +11,7 @@ import {
   Ingredients,
   Instructions,
   RecipeMetaData,
+  Button,
 } from "../../components";
 
 const ings = [
@@ -38,6 +39,13 @@ export const RecipeDetails: React.FC<any> = ({ navigation }) => {
           <RecipeMetaData />
           <Ingredients ingredients={ings} />
           <Instructions />
+          <Button
+            color={"#2A2A2A"}
+            bg={"#B6DA81"}
+            txt={"Start Cooking"}
+            clicked={() => navigation.push("Cooking")}
+          />
+          <View style={{ height: 50 }} />
         </View>
       </ScrollView>
     </View>

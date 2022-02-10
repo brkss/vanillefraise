@@ -20,7 +20,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
             <Slider color={"#FDEBA8"} categories={record_category} />
             <RecordForm />
             <RecordHistorySlide />
-            <View style={{ height: 200 }} />
+            <View style={{ height: 100 }} />
           </ScrollView>
         </View>
       </SafeAreaView>

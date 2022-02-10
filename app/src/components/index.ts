@@ -9,3 +9,4 @@ export * from "./RecordForm";
 export * from "./RecordHistorySlide";
 export * from "./RemindersSlider";
 export * from "./ReminderForm";
+export * from "./CookingSteps";

@@ -1,4 +1,5 @@
 import { MainNavigation } from "./src/navigation";
+import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -97,6 +98,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <AuthProvider>
         <NativeBaseProvider>
+          <StatusBar style={"auto"} />
           <MainNavigation />
         </NativeBaseProvider>
       </AuthProvider>
