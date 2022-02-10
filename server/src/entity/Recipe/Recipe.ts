@@ -35,6 +35,9 @@ export class Recipe extends BaseEntity {
   @Column({ nullable: true })
   total?: string;
 
+  @Column({ default: true })
+  public: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
