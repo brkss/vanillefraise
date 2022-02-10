@@ -4,12 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   OneToMany,
+  BaseEntity,
 } from "typeorm";
 import { Instruction } from "./Instuction";
 import { Ingredient } from "./Ingredient";
 
 @Entity("recipes")
-export class Recipe {
+export class Recipe extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -24,6 +25,15 @@ export class Recipe {
 
   @Column()
   image: string;
+
+  @Column({ nullable: true })
+  prep?: string;
+
+  @Column({ nullable: true })
+  cook?: string;
+
+  @Column({ nullable: true })
+  total?: string;
 
   @CreateDateColumn()
   created_at: Date;
