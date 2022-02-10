@@ -3,6 +3,7 @@ import RecipesParser from "recipes-parser";
 const recipeScraper = require("recipe-scraper");
 import * as path from "path";
 import fs from "fs";
+import { downloadImage } from "../../utils/helpers/donwloadImage";
 
 import units from "recipes-parser/lib/nlp/en/units.json";
 import globalUnit from "recipes-parser/lib/nlp/en/global_unit.json";
@@ -24,6 +25,7 @@ export class CreateRecipeResolver {
     try {
       const recipe = await recipeScraper(uri);
       const parser = new RecipesParser(rules, units, globalUnit);
+      await downloadImage(recipe.image, "../../cdn/images/img.jpg");
       const ingredients = parser.getIngredientsFromText(
         recipe.ingredients,
         false
