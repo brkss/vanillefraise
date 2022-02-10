@@ -3,7 +3,7 @@ import RecipesParser from "recipes-parser";
 const recipeScraper = require("recipe-scraper");
 import * as path from "path";
 import fs from "fs";
-//import { downloadImage } from "../../utils/helpers/donwloadImage";
+import { downloadImage } from "../../utils/helpers/donwloadImage";
 import { Recipe, Ingredient, Instruction } from "../../entity/Recipe";
 
 // config !
@@ -26,8 +26,11 @@ export class CreateRecipeResolver {
     if (!uri) return false;
     try {
       const recipe_data = await recipeScraper(uri);
+      const img = `${recipe_data.name.split(" ").join("_")}.jpg`;
+      await downloadImage(recipe_data.image, `../../cdn/images/${img}`);
       const recipe = new Recipe();
       recipe.name = recipe_data.name;
+      recipe.image = img;
       recipe.description = recipe_data.description;
       recipe.prep = recipe_data.time.prep;
       recipe.cook = recipe_data.time.cook;
@@ -35,7 +38,7 @@ export class CreateRecipeResolver {
       await recipe.save();
 
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
-
+      await this.createRecipeInstructions(recipe, recipe_data.instructions);
       /*
       const img = `../../cdn/images/${recipe_data.name.split(" ").join("_")}.jpg`;
       await downloadImage(recipe_data.image, img);
@@ -58,8 +61,9 @@ export class CreateRecipeResolver {
       const ingredient_parsed = parser.getIngredientsFromText([ing], false);
       const ingredient = new Ingredient();
       ingredient.raw = ing;
-      ingredient.unit = ingredient_parsed[0].result?.unit.toString();
-      ingredient.amount = Number(ingredient_parsed[0].result?.amount);
+      ingredient.unit = String(ingredient_parsed[0].result?.unit) || undefined;
+      ingredient.amount =
+        Number(ingredient_parsed[0].result?.amount) || undefined;
       ingredient.ingredients = ingredient_parsed[0].result?.ingredient;
       ingredient.recipe = recipe;
       await ingredient.save();
@@ -73,7 +77,7 @@ export class CreateRecipeResolver {
       const instruction = new Instruction();
       instruction.recipe = recipe;
       instruction.raw = inst;
-      instruction.save();
+      await instruction.save();
     }
   }
 }
