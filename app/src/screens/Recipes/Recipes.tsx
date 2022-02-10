@@ -1,29 +1,31 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { Heading, Slider, RecipeThumbnail } from "../../components";
 import { recipes, recipes_category } from "../../utils";
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.headingContainer}>
-        <Heading title={"Recipes"} />
-      </View>
-      <View style={styles.recipesContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Slider color={"#C8F6FC"} categories={recipes_category} />
-          {recipes.map((recipe, key) => (
-            <RecipeThumbnail
-              pressed={() => navigation.push("RecipeDetails")}
-              title={recipe.title}
-              img={recipe.img}
-              time={recipe.time}
-              carbs={recipe.carbs}
-              key={key}
-            />
-          ))}
-        </ScrollView>
-      </View>
+      <SafeAreaView>
+        <View style={styles.headingContainer}>
+          <Heading title={"Recipes"} />
+        </View>
+        <View style={styles.recipesContainer}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Slider color={"#C8F6FC"} categories={recipes_category} />
+            {recipes.map((recipe, key) => (
+              <RecipeThumbnail
+                pressed={() => navigation.push("RecipeDetails")}
+                title={recipe.title}
+                img={recipe.img}
+                time={recipe.time}
+                carbs={recipe.carbs}
+                key={key}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     </View>
   );
 };
@@ -35,9 +37,9 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   headingContainer: {
-    flex: 0.14,
+    //flex: 0.14,
   },
   recipesContainer: {
-    flex: 0.86,
+    //flex: 0.86,
   },
 });

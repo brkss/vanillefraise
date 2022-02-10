@@ -24,6 +24,7 @@ export const Slider: React.FC<Props> = ({ categories, color }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     marginBottom: 30,
   },
 });
