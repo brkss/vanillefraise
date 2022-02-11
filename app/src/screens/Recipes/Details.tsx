@@ -40,8 +40,8 @@ export const RecipeDetails: React.FC<any> = ({ navigation }) => {
           <Ingredients ingredients={ings} />
           <Instructions />
           <Button
-            color={"#2A2A2A"}
-            bg={"#B6DA81"}
+            //color={"#2A2A2A"}
+            //bg={"#B6DA81"}
             txt={"Start Cooking"}
             clicked={() => navigation.push("Cooking")}
           />

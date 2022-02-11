@@ -1,13 +1,32 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import { Start, IngredientStep } from "../../components";
+import { Start, IngredientStep, InstructionsStep } from "../../components";
+import { useFonts } from "expo-font";
 
 export const Cooking: React.FC = () => {
+  const [step, SetStep] = React.useState("start");
+  const [helviticaCondensed] = useFonts({
+    "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
+  });
+
+  const changeStep = (s: string) => {
+    SetStep(s);
+  };
+
+  if (!helviticaCondensed) return <View />;
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <IngredientStep />
-        {/*<Start finish={() => console.log("Finished !")} />*/}
+        <InstructionsStep />
+        {/*
+          {
+            start: <Start finish={() => changeStep("ingredients")} />,
+            ingredients: (
+              <IngredientStep finish={() => changeStep("instructions")} />
+            ),
+          }[step]
+          */}
       </SafeAreaView>
     </View>
   );

@@ -1,24 +1,37 @@
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, Text, ScrollView, Animated } from "react-native";
 import { useFonts } from "expo-font";
 import { Item } from "./Item";
 import { Button } from "../../";
 
-export const IngredientStep: React.FC = () => {
+interface Props {
+  finish: () => void;
+}
+
+export const IngredientStep: React.FC<Props> = ({ finish }) => {
+  const opcAnim = React.useRef(new Animated.Value(0)).current;
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
 
+  React.useEffect(() => {
+    Animated.timing(opcAnim, {
+      toValue: 1,
+      useNativeDriver: false,
+      duration: 500,
+    }).start();
+  }, [opcAnim]);
+
   if (!helviticaCondensed) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Loading..</Text>
-      </View>
+      <View
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      ></View>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: opcAnim }]}>
       <Text style={styles.title}>
         You'll need these following ingredients for your recipes
       </Text>
@@ -32,8 +45,8 @@ export const IngredientStep: React.FC = () => {
         <Item />
         <Item />
       </ScrollView>
-      <Button txt={"Done !"} clicked={() => {}} />
-    </View>
+      <Button txt={"Done !"} clicked={() => finish()} />
+    </Animated.View>
   );
 };
 

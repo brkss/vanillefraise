@@ -12,7 +12,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.recipesContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Slider color={"#C8F6FC"} categories={recipes_category} />
+            <Slider color={"#FCE3A0"} categories={recipes_category} />
             {recipes.map((recipe, key) => (
               <RecipeThumbnail
                 pressed={() => navigation.push("RecipeDetails")}

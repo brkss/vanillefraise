@@ -16,6 +16,7 @@ export const Start: React.FC<Props> = ({ finish }) => {
   const AnimatedTouchableOpacity =
     Animated.createAnimatedComponent(TouchableOpacity);
   const alphaAnim = React.useRef(new Animated.Value(130)).current;
+  const betaAnim = React.useRef(new Animated.Value(0)).current;
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
@@ -26,7 +27,13 @@ export const Start: React.FC<Props> = ({ finish }) => {
       duration: 500,
       useNativeDriver: false,
     }).start(() => {
-      finish();
+      Animated.timing(betaAnim, {
+        toValue: 1400,
+        duration: 500,
+        useNativeDriver: false,
+      }).start(() => {
+        finish();
+      });
     });
   };
 
@@ -45,6 +52,7 @@ export const Start: React.FC<Props> = ({ finish }) => {
         <Text style={styles.info}>You’re cooking</Text>
         <Text style={styles.title}>Spicy Tempeh {"\n"} Crumble Bowl</Text>
       </View>
+
       <AnimatedTouchableOpacity
         onPress={() => start()}
         style={[
@@ -54,6 +62,12 @@ export const Start: React.FC<Props> = ({ finish }) => {
       >
         <Text style={styles.btnTxt}>Start</Text>
       </AnimatedTouchableOpacity>
+      <Animated.View
+        style={[
+          styles.transistor,
+          { height: betaAnim, width: betaAnim, borderRadius: betaAnim },
+        ]}
+      />
       <Text style={styles.cheers}>have fun 👨‍🍳</Text>
     </View>
   );
@@ -104,4 +118,11 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   metadata: {},
+  transistor: {
+    position: "absolute",
+    flex: 1,
+    alignSelf: "center",
+    backgroundColor: "#FBF0D3",
+    zIndex: 999,
+  },
 });
