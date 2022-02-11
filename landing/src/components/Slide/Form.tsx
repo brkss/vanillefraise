@@ -1,7 +1,6 @@
 import React from "react";
-import { Box, Input, Center, Button, Text } from "@chakra-ui/react";
+import { Input, Center, Button, Text } from "@chakra-ui/react";
 import { Alert } from "../Alert";
-import NetlifyForm from "react-netlify-form";
 
 export const Form: React.FC = () => {
   const [error, SetError] = React.useState("");
@@ -14,7 +13,7 @@ export const Form: React.FC = () => {
       <form method="POST" name={"maillist"}>
         <input type="hidden" name="form-name" value="maillist" />
         <Text fontWeight={"bold"} fontSize={"17px"} opacity={0.7} mb={"5px"}>
-          Waiting List
+          Join Waiting List
         </Text>
         <Input
           type={"email"}
