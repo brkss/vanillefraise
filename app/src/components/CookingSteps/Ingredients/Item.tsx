@@ -1,12 +1,28 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export const Item: React.FC = () => {
+  const [checked, SetChecked] = React.useState(false);
   return (
-    <View style={styles.container}>
-      <View style={styles.check}></View>
-      <Text style={styles.txt}>Some random ingredient !</Text>
-    </View>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => SetChecked(!checked)}
+    >
+      <View
+        style={[
+          styles.check,
+          { backgroundColor: checked ? "#94CB8B" : "#343433" },
+        ]}
+      ></View>
+      <Text
+        style={[
+          styles.txt,
+          { textDecorationLine: checked ? "line-through" : "none" },
+        ]}
+      >
+        Some random ingredient !
+      </Text>
+    </TouchableOpacity>
   );
 };
 
