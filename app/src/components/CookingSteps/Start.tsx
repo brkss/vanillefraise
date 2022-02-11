@@ -1,11 +1,34 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import { useFonts } from "expo-font";
 
-export const Start: React.FC = () => {
+interface Props {
+  finish: () => void;
+}
+
+export const Start: React.FC<Props> = ({ finish }) => {
+  const AnimatedTouchableOpacity =
+    Animated.createAnimatedComponent(TouchableOpacity);
+  const alphaAnim = React.useRef(new Animated.Value(130)).current;
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
+
+  const start = () => {
+    Animated.timing(alphaAnim, {
+      toValue: 1000,
+      duration: 500,
+      useNativeDriver: false,
+    }).start(() => {
+      finish();
+    });
+  };
 
   if (!helviticaCondensed)
     return (
@@ -22,9 +45,15 @@ export const Start: React.FC = () => {
         <Text style={styles.info}>You’re cooking</Text>
         <Text style={styles.title}>Spicy Tempeh {"\n"} Crumble Bowl</Text>
       </View>
-      <TouchableOpacity style={styles.btn}>
+      <AnimatedTouchableOpacity
+        onPress={() => start()}
+        style={[
+          styles.btn,
+          { borderRadius: alphaAnim, height: alphaAnim, width: alphaAnim },
+        ]}
+      >
         <Text style={styles.btnTxt}>Start</Text>
-      </TouchableOpacity>
+      </AnimatedTouchableOpacity>
       <Text style={styles.cheers}>have fun 👨‍🍳</Text>
     </View>
   );

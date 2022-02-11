@@ -6,7 +6,7 @@ export const Cooking: React.FC = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <Start />
+        <Start finish={() => console.log("Finished !")} />
       </SafeAreaView>
     </View>
   );
