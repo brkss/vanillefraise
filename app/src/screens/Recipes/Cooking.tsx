@@ -18,15 +18,15 @@ export const Cooking: React.FC = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <InstructionsStep />
-        {/*
+        {
           {
             start: <Start finish={() => changeStep("ingredients")} />,
             ingredients: (
               <IngredientStep finish={() => changeStep("instructions")} />
             ),
+            instructions: <InstructionsStep />,
           }[step]
-          */}
+        }
       </SafeAreaView>
     </View>
   );

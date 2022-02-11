@@ -14,7 +14,7 @@ export const ActivityThumbnail: React.FC = () => {
         <View style={styles.chart}>
           <Svg height="100" width="100">
             <Polyline
-              points="0,76 20,80 40,60 60,20 80,10 100,30"
+              points="0,76 50,84 100,30"
               fill="none"
               stroke="#FFB119"
               strokeWidth="3"
