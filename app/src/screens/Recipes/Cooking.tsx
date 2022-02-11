@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import { Start } from "../../components";
+import { Start, IngredientStep } from "../../components";
 
 export const Cooking: React.FC = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <Start finish={() => console.log("Finished !")} />
+        <IngredientStep />
+        {/*<Start finish={() => console.log("Finished !")} />*/}
       </SafeAreaView>
     </View>
   );
