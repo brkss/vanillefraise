@@ -8,6 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 export const Item: React.FC = () => {
+  const rotate = useSharedValue(Math.random() * 9);
   const offset = useSharedValue({ x: 0, y: 0 });
   const start = useSharedValue({ x: 0, y: 0 });
   const isPressed = useSharedValue(false);
@@ -33,27 +34,27 @@ export const Item: React.FC = () => {
   const style = useAnimatedStyle(() => {
     return {
       transform: [
+        { perspective: 1500 },
+        { rotate: `${rotate.value}deg` },
         { translateX: offset.value.x },
         { translateY: offset.value.y },
-        { scale: withSpring(isPressed ? 0.9 : 1) },
+        { scale: withSpring(isPressed.value ? 0.9 : 1) },
       ],
     };
   });
 
   return (
-    <View style={styles.container}>
-      <GestureDetector gesture={gesture}>
-        <Animated.View style={style}>
-          <Text style={styles.number}>#1</Text>
-          <Text style={styles.txt}>
-            Spray a skillet with cooking spray and heat over medium-high heat.
-            Quickly brown pork chops in the skillet, seasoning with garlic salt,
-            5 to 7 minutes total. Transfer to a slow cooker and pour French
-            onion soup on top.
-          </Text>
-        </Animated.View>
-      </GestureDetector>
-    </View>
+    <GestureDetector gesture={gesture}>
+      <Animated.View style={[styles.container, style]}>
+        <Text style={styles.number}>#1</Text>
+        <Text style={styles.txt}>
+          Spray a skillet with cooking spray and heat over medium-high heat.
+          Quickly brown pork chops in the skillet, seasoning with garlic salt, 5
+          to 7 minutes total. Transfer to a slow cooker and pour French onion
+          soup on top.
+        </Text>
+      </Animated.View>
+    </GestureDetector>
   );
 };
 

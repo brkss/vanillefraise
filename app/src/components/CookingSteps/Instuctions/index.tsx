@@ -8,7 +8,8 @@ export const InstructionsStep: React.FC = () => {
       <Text style={styles.hint}>
         You got it chef ! just follow these instructions
       </Text>
-      <View>
+      <View style={styles.items}>
+        <Item />
         <Item />
       </View>
     </View>
@@ -22,5 +23,9 @@ const styles = StyleSheet.create({
   hint: {
     fontFamily: "helvitica-condesed",
     fontSize: 17,
+  },
+  items: {
+    flex: 1,
+    justifyContent: "center",
   },
 });
