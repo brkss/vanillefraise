@@ -1,31 +1,38 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
 } from "react-native-reanimated";
+import { snapPoint } from "react-native-redash";
+
+const { width: wWidth } = Dimensions.get("window");
+const SNAP_POINTS = [-wWidth, 0, wWidth];
 
 export const Item: React.FC = () => {
   const rotate = useSharedValue(Math.random() * 9);
-  const offset = useSharedValue({ x: 0, y: 0 });
+  //const offset = useSharedValue({ x: 0, y: 0 });
+  const offsetX = useSharedValue(0);
+  const offsetY = useSharedValue(0);
   const start = useSharedValue({ x: 0, y: 0 });
   const isPressed = useSharedValue(false);
   const gesture = Gesture.Pan()
     .onBegin(() => {
       isPressed.value = true;
     })
-    .onUpdate((e) => {
-      offset.value = {
-        x: e.translationX + start.value.x,
-        y: e.translationY + start.value.y,
-      };
+    .onUpdate(({ translationX, translationY }) => {
+      offsetX.value = translationX + start.value.x;
+      offsetY.value = translationY + start.value.y;
     })
-    .onEnd(() => {
+    .onEnd(({ velocityX, velocityY }) => {
+      const dest = snapPoint(offsetX.value, velocityX, SNAP_POINTS);
+      offsetX.value = withSpring(dest, { velocity: velocityX });
+      offsetY.value = withSpring(0, { velocity: velocityY });
       start.value = {
-        x: offset.value.x,
-        y: offset.value.y,
+        x: offsetX.value,
+        y: offsetY.value,
       };
     })
     .onFinalize(() => {
@@ -36,8 +43,8 @@ export const Item: React.FC = () => {
       transform: [
         { perspective: 1500 },
         { rotate: `${rotate.value}deg` },
-        { translateX: offset.value.x },
-        { translateY: offset.value.y },
+        { translateX: offsetX.value },
+        { translateY: offsetY.value },
         { scale: withSpring(isPressed.value ? 0.9 : 1) },
       ],
     };
