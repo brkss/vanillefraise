@@ -1,6 +1,11 @@
 import React from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
-import { Start, IngredientStep, InstructionsStep } from "../../components";
+import {
+  Start,
+  IngredientStep,
+  InstructionsStep,
+  FinishStep,
+} from "../../components";
 import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -38,6 +43,7 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
               instructions: (
                 <InstructionsStep finish={() => changeStep("finish")} />
               ),
+              finish: <FinishStep />,
             }[step]
           }
         </View>
