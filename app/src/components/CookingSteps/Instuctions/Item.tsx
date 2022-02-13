@@ -19,9 +19,10 @@ const DURATION = 250;
 interface Props {
   index: number;
   shuffleBack: Animated.SharedValue<boolean>;
+  swipedAll: Animated.SharedValue<boolean>;
 }
 
-export const Item: React.FC<Props> = ({ index, shuffleBack }) => {
+export const Item: React.FC<Props> = ({ index, shuffleBack, swipedAll }) => {
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(-height);
   const start = useSharedValue({ x: 0, y: 0 });
@@ -72,6 +73,7 @@ export const Item: React.FC<Props> = ({ index, shuffleBack }) => {
       const isSwipedLeftOrRight = dest !== 0;
       if (isLast && isSwipedLeftOrRight) {
         shuffleBack.value = true;
+        swipedAll.value = true;
       }
     })
     .onFinalize(() => {

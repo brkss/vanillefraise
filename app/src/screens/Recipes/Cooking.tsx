@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import { Start, IngredientStep, InstructionsStep } from "../../components";
 import { useFonts } from "expo-font";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 export const Cooking: React.FC<any> = ({ navigation }) => {
   const [step, SetStep] = React.useState("start");
@@ -25,13 +20,14 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.top}>
-          <TouchableOpacity
-            style={styles.cancelBtn}
+          <AntDesign
+            name={"closecircle"}
             onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.cancelBtnText}>Cancel</Text>
-          </TouchableOpacity>
+            size={40}
+            style={{ opacity: 0.7 }}
+          />
         </View>
+
         <View style={styles.content}>
           {
             {
@@ -39,7 +35,9 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
               ingredients: (
                 <IngredientStep finish={() => changeStep("instructions")} />
               ),
-              instructions: <InstructionsStep />,
+              instructions: (
+                <InstructionsStep finish={() => changeStep("finish")} />
+              ),
             }[step]
           }
         </View>
