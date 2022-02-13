@@ -28,7 +28,7 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
           <AntDesign
             name={"closecircle"}
             onPress={() => navigation.goBack()}
-            size={40}
+            size={33}
             style={{ opacity: 0.7 }}
           />
         </View>
