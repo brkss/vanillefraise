@@ -43,7 +43,12 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
               instructions: (
                 <InstructionsStep finish={() => changeStep("finish")} />
               ),
-              finish: <FinishStep />,
+              finish: (
+                <FinishStep
+                  restart={() => changeStep("start")}
+                  finish={() => navigation.goBack()}
+                />
+              ),
             }[step]
           }
         </View>
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#FBF0D3",
+    backgroundColor: "#DAFFD3",
   },
   content: {
     flex: 1,

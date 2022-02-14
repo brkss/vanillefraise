@@ -4,7 +4,12 @@ import { useFonts } from "expo-font";
 import { Button } from "../";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export const FinishStep: React.FC = () => {
+interface Props {
+  finish: () => void;
+  restart: () => void;
+}
+
+export const FinishStep: React.FC<Props> = ({ finish, restart }) => {
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
@@ -20,12 +25,12 @@ export const FinishStep: React.FC = () => {
         </TouchableOpacity>
       </View>
       <View>
-        <Button txt={"Yess 🎉"} clicked={() => {}} />
+        <Button txt={"Yess 🎉"} clicked={() => finish()} />
         <Button
           bg={"#F7DB91"}
           color={"#434343"}
           txt={"Restart"}
-          clicked={() => {}}
+          clicked={() => restart()}
         />
       </View>
     </View>

@@ -7,6 +7,7 @@ import {
   Animated,
 } from "react-native";
 import { useFonts } from "expo-font";
+import { colors } from "../../utils";
 
 interface Props {
   finish: () => void;
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   btn: {
     height: 130,
     width: 130,
-    backgroundColor: "#FCE3A0",
+    backgroundColor: "#94F183",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 130,
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     flex: 1,
     alignSelf: "center",
-    backgroundColor: "#FBF0D3",
+    backgroundColor: "#DAFFD3",
     zIndex: 999,
   },
 });
