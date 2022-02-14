@@ -12,7 +12,7 @@ export const FinishStep: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.hint}>Did you Make it ?</Text>
+      <Text style={styles.hint}>Did you make it ?</Text>
       <View style={styles.instagram}>
         <TouchableOpacity style={styles.takepic}>
           <Ionicons name={"ios-camera"} size={24} />
