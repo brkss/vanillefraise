@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { colors } from "../../utils";
 
 interface Props {
   txt: string;
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   circle: {
     height: 30,
     width: 30,
-    backgroundColor: "#d0cece",
+    backgroundColor: colors.c2,
     marginRight: 10,
     borderRadius: 11,
   },

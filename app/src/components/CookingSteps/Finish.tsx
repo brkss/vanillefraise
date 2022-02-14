@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
 import { Button } from "../";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { colors } from "../../utils";
 
 interface Props {
   finish: () => void;
@@ -27,7 +28,7 @@ export const FinishStep: React.FC<Props> = ({ finish, restart }) => {
       <View>
         <Button txt={"Yess 🎉"} clicked={() => finish()} />
         <Button
-          bg={"#F7DB91"}
+          bg={colors.c3}
           color={"#434343"}
           txt={"Restart"}
           clicked={() => restart()}
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     height: 160,
     width: 160,
     borderRadius: 160,
-    backgroundColor: "#F7DB91",
+    backgroundColor: colors.c3,
     justifyContent: "center",
     alignItems: "center",
   },

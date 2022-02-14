@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { colors } from "../../utils";
 
 export const Item: React.FC = () => {
   return (
@@ -17,7 +18,7 @@ export const Item: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "#d4d4d4",
+    backgroundColor: colors.c2,
     borderRadius: 13,
     marginBottom: 10,
   },

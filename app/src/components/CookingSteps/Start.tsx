@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   btn: {
     height: 130,
     width: 130,
-    backgroundColor: "#94F183",
+    backgroundColor: colors.c1,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 130,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     flex: 1,
     alignSelf: "center",
-    backgroundColor: "#DAFFD3",
+    backgroundColor: colors.c2,
     zIndex: 999,
   },
 });

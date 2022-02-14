@@ -8,6 +8,7 @@ import {
 } from "../../components";
 import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { colors } from "../../utils";
 
 export const Cooking: React.FC<any> = ({ navigation }) => {
   const [step, SetStep] = React.useState("start");
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#DAFFD3",
+    backgroundColor: colors.c2,
   },
   content: {
     flex: 1,

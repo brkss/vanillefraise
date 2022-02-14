@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { Heading, Slider, RecipeThumbnail } from "../../components";
 import { recipes, recipes_category } from "../../utils";
+import { colors } from "../../utils";
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
   return (
@@ -12,7 +13,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.recipesContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Slider color={"#FCE3A0"} categories={recipes_category} />
+            <Slider color={colors.c3} categories={recipes_category} />
             {recipes.map((recipe, key) => (
               <RecipeThumbnail
                 pressed={() => navigation.push("RecipeDetails")}

@@ -11,6 +11,7 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import { snapPoint } from "react-native-redash";
+import { colors } from "../../../utils";
 
 const { width: wWidth, height } = Dimensions.get("window");
 const SNAP_POINTS = [-wWidth, 0, wWidth];
@@ -116,9 +117,9 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 12,
-    //borderColor: "#C8B275",
-    //borderWidth: 1,
-    backgroundColor: "#C3F9B9",
+    borderColor: colors.c1,
+    borderWidth: 1,
+    backgroundColor: colors.c3,
     borderRadius: 27,
   },
   number: {
