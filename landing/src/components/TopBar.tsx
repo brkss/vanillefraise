@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Image, Container } from "@chakra-ui/react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo-new.png";
 
 export const TopBar: React.FC = () => {
   return (
