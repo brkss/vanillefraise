@@ -20,7 +20,10 @@ export const Activity: React.FC<any> = ({ navigation }) => {
         </View>
         <Slider color={"#D9EFB8"} categories={activity_categories} />
         <View style={styles.actions}>
-          <Pressable style={styles.create}>
+          <Pressable
+            onPress={() => navigation.push("NewActivity")}
+            style={styles.create}
+          >
             <Ionicons name={"ios-add-circle-outline"} size={24} />
             <View style={{ justifyContent: "center" }}>
               <Text style={styles.createTxt}>Create New Activity</Text>
