@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   reminderContainer: {
     flex: 0.33,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
   reminder: {

@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 20,
     padding: 20,
+    opacity: 0.7,
   },
   title: {
     fontSize: 20,
@@ -29,5 +30,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     color: "#434343",
     fontFamily: "helvitica-condesed",
+    //textAlign: "right",
+    opacity: 0.8,
   },
 });
