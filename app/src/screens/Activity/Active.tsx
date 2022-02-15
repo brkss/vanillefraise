@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
-import { ActiveAction } from "../../components";
+import { ActiveAction, ActiveReminder } from "../../components";
 
 export const Active: React.FC = () => {
   const [helviticaCondensed] = useFonts({
@@ -14,9 +14,7 @@ export const Active: React.FC = () => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.reminderContainer}>
-          <View style={styles.reminder} />
-          <View style={styles.reminder} />
-          <View style={styles.reminder} />
+          <ActiveReminder />
         </View>
         <View style={styles.timeContainer}>
           <Text style={styles.time}>00:02:45</Text>
