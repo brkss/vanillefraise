@@ -1,9 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
-import { ActiveAction, ActiveReminder } from "../../components";
+import { ActiveAction, ActiveReminder, ActiveTimer } from "../../components";
 
-export const Active: React.FC = () => {
+export const Active: React.FC<any> = ({ route }) => {
+  const { time } = route.params;
+
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
@@ -17,7 +19,7 @@ export const Active: React.FC = () => {
           <ActiveReminder />
         </View>
         <View style={styles.timeContainer}>
-          <Text style={styles.time}>00:02:45</Text>
+          <ActiveTimer time={time} />
         </View>
         <View style={styles.actionsContainer}>
           <Text style={styles.support}>You're doing great</Text>
@@ -39,13 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  time: {
-    fontWeight: "bold",
-    fontSize: 68,
-    color: "white",
-    textAlign: "center",
-    fontFamily: "helvitica-condesed",
-  },
+
   reminderContainer: {
     flex: 0.33,
     justifyContent: "space-evenly",

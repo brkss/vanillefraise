@@ -14,7 +14,11 @@ export const ActivityConfig: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.content}>
-          <ActivityConfigNow start={() => navigation.push("Active")} />
+          <ActivityConfigNow
+            start={() =>
+              navigation.push("Active", { time: new Date().getTime() })
+            }
+          />
         </View>
       </SafeAreaView>
     </View>
