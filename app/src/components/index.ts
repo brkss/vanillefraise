@@ -12,3 +12,4 @@ export * from "./ReminderForm";
 export * from "./CookingSteps";
 export * from "./ActivityCategory";
 export * from "./ActivitySlider";
+export * from "./ActivityConfig";
