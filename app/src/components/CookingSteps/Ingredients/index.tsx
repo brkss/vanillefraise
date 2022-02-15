@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, ScrollView, Animated } from "react-native";
 import { useFonts } from "expo-font";
 import { Item } from "./Item";
-import { Button } from "../../";
+import { Button } from "../../General/Button";
 
 interface Props {
   finish: () => void;

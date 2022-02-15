@@ -7,7 +7,7 @@ import Animated, {
   useAnimatedReaction,
   withSpring,
 } from "react-native-reanimated";
-import { Button } from "../../";
+import { Button } from "../../General/Button";
 
 interface Props {
   finish: () => void;

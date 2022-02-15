@@ -20,6 +20,7 @@
     "apollo-link-token-refresh": "^0.3.3",
     "expo": "~44.0.0",
     "expo-font": "~10.0.4",
+    "expo-linear-gradient": "~11.0.0",
     "expo-secure-store": "~11.1.0",
     "expo-status-bar": "~1.2.0",
     "graphql": "^16.2.0",

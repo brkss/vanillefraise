@@ -9,6 +9,7 @@ import {
 import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils";
+import { LinearGradient } from "expo-linear-gradient";
 
 export const Cooking: React.FC<any> = ({ navigation }) => {
   const [step, SetStep] = React.useState("start");
@@ -23,7 +24,7 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
   if (!helviticaCondensed) return <View />;
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={["#D5BDAF", "#F5EBE0"]} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.top}>
           <AntDesign
@@ -54,7 +55,7 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
           }
         </View>
       </SafeAreaView>
-    </View>
+    </LinearGradient>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
-import { Button } from "../";
+import { Button } from "../General/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { colors } from "../../utils";
 
