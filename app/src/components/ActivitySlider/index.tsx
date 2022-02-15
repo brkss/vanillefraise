@@ -3,17 +3,21 @@ import { Pressable, ScrollView, Text, StyleSheet, View } from "react-native";
 
 interface Props {
   change: (status: string) => void;
+  current: string;
 }
 
-export const ActivitySlider: React.FC<Props> = ({ change }) => {
+export const ActivitySlider: React.FC<Props> = ({ change, current }) => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
-        <Pressable style={styles.item} onPress={() => change("SCHEDULE")}>
+        <Pressable
+          style={[styles.item, { opacity: current == "SCHEDULE" ? 1 : 0.7 }]}
+          onPress={() => change("SCHEDULE")}
+        >
           <Text style={styles.itemTxt}>Schedule</Text>
         </Pressable>
         <Pressable
-          style={[styles.item, { opacity: 0.7 }]}
+          style={[styles.item, { opacity: current == "NOW" ? 1 : 0.7 }]}
           onPress={() => change("NOW")}
         >
           <Text style={styles.itemTxt}>Now</Text>
