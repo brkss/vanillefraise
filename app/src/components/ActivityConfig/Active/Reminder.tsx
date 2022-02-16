@@ -5,7 +5,6 @@ export const ActiveReminder: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>🥛 DRINK WATER</Text>
-      <Text style={styles.time}>-00:20:00</Text>
     </View>
   );
 };

@@ -1,26 +1,32 @@
 import React from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
 
-export const ActiveAction: React.FC = () => {
+interface Props {
+  stop: () => void;
+}
+
+export const ActiveAction: React.FC<Props> = ({ stop }) => {
+  const [showHint, SetShowHint] = React.useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Pressable style={styles.btn}>
+        <Pressable
+          onLongPress={() => stop()}
+          onPress={() => SetShowHint(true)}
+          style={styles.btn}
+        >
           <Text style={styles.btnText}>STOP</Text>
         </Pressable>
       </View>
-      <View style={styles.item}>
-        <Pressable style={styles.btn}>
-          <Text style={styles.btnText}>PAUSE</Text>
-        </Pressable>
-      </View>
+      {showHint ? <Text style={styles.hint}>Keep pressing to stop</Text> : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    //flexDirection: "row",
+    alignItems: "center",
   },
   item: {
     width: "50%",
@@ -39,5 +45,13 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontFamily: "helvitica-condesed",
     marginBottom: 7,
+  },
+  hint: {
+    fontFamily: "helvitica-condesed",
+    textAlign: "center",
+    color: "white",
+    marginBottom: 5,
+    fontSize: 20,
+    opacity: 0.8,
   },
 });

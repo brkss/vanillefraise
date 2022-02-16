@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
 import { ActiveAction, ActiveReminder, ActiveTimer } from "../../components";
 
-export const Active: React.FC<any> = ({ route }) => {
+export const Active: React.FC<any> = ({ route, navigation }) => {
   const { time } = route.params;
 
   const [helviticaCondensed] = useFonts({
@@ -23,7 +23,7 @@ export const Active: React.FC<any> = ({ route }) => {
         </View>
         <View style={styles.actionsContainer}>
           <Text style={styles.support}>You're doing great</Text>
-          <ActiveAction />
+          <ActiveAction stop={() => navigation.push("ActivityList")} />
         </View>
       </SafeAreaView>
     </View>

@@ -36,17 +36,19 @@ const formatTime = (t: number) => {
 };
 
 export const ActiveTimer: React.FC<Props> = ({ time }) => {
-  const [timeLeft, setTimeLeft] = React.useState<ITime>(calculateTime(time));
+  const [timePassed, setTimePassed] = React.useState<ITime>(
+    calculateTime(time)
+  );
   React.useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeft(calculateTime(time));
+      setTimePassed(calculateTime(time));
     }, 1000);
-  });
+  }, [timePassed]);
   return (
     <View style={styles.container}>
       <Text style={styles.time}>
-        {formatTime(timeLeft.hours)}:{formatTime(timeLeft.minutes)}:
-        {formatTime(timeLeft.seconds)}
+        {formatTime(timePassed.hours)}:{formatTime(timePassed.minutes)}:
+        {formatTime(timePassed.seconds)}
       </Text>
     </View>
   );
