@@ -10,7 +10,7 @@ interface ITime {
 }
 
 export const Active: React.FC<any> = ({ route, navigation }) => {
-  const { time, category } = route.params;
+  const { time, catid } = route.params;
   const [currentTime, SetCurrentTime] = React.useState<ITime>({
     seconds: 0,
     minutes: 0,
@@ -30,6 +30,7 @@ export const Active: React.FC<any> = ({ route, navigation }) => {
         minutes: currentTime.minutes,
         hours: currentTime.hours,
       },
+      category: catid,
     };
     console.log(
       `time ${currentTime.hours}:${currentTime.minutes}:${currentTime.seconds}`

@@ -19,7 +19,11 @@ export const NewActivity: React.FC<any> = ({ navigation }) => {
           <Text style={styles.heading}>NEW{"\n"}ACTIVITY.</Text>
         </View>
         <View>
-          <ActivityCategory choosed={() => navigation.push("ConfigActivity")} />
+          <ActivityCategory
+            choosed={(catid: string) =>
+              navigation.push("ConfigActivity", { catid: catid })
+            }
+          />
         </View>
       </SafeAreaView>
     </View>
