@@ -3,14 +3,39 @@ import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
 import { ActiveAction, ActiveReminder, ActiveTimer } from "../../components";
 
+interface ITime {
+  seconds: number;
+  minutes: number;
+  hours: number;
+}
+
 export const Active: React.FC<any> = ({ route, navigation }) => {
-  const { time } = route.params;
+  const { time, category } = route.params;
+  const [currentTime, SetCurrentTime] = React.useState<ITime>({
+    seconds: 0,
+    minutes: 0,
+    hours: 0,
+  });
 
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
 
   if (!helviticaCondensed) return <View />;
+
+  const activityData = () => {
+    const data = {
+      duration: {
+        seconds: currentTime.seconds,
+        minutes: currentTime.minutes,
+        hours: currentTime.hours,
+      },
+    };
+    console.log(
+      `time ${currentTime.hours}:${currentTime.minutes}:${currentTime.seconds}`
+    );
+    navigation.push("ActivityList");
+  };
 
   return (
     <View style={styles.container}>
@@ -19,11 +44,14 @@ export const Active: React.FC<any> = ({ route, navigation }) => {
           <ActiveReminder />
         </View>
         <View style={styles.timeContainer}>
-          <ActiveTimer time={time} />
+          <ActiveTimer
+            time={time}
+            timeChange={(t: ITime) => SetCurrentTime(t)}
+          />
         </View>
         <View style={styles.actionsContainer}>
-          <Text style={styles.support}>You're doing great</Text>
-          <ActiveAction stop={() => navigation.push("ActivityList")} />
+          <Text style={styles.support}>You're doing great </Text>
+          <ActiveAction stop={() => activityData()} />
         </View>
       </SafeAreaView>
     </View>

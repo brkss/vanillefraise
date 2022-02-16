@@ -15,6 +15,13 @@ export type Scalars = {
   Float: number;
 };
 
+export type ActivityCategory = {
+  __typename?: 'ActivityCategory';
+  icon?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type AuthDefaultResponse = {
   __typename?: 'AuthDefaultResponse';
   message?: Maybe<Scalars['String']>;
@@ -30,12 +37,19 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createRecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
+  seedActivityCategories: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
+};
+
+
+export type MutationCreateRecipeArgs = {
+  uri: Scalars['String'];
 };
 
 
@@ -65,6 +79,7 @@ export type MutationVerifyResetTokenArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  activity_categories: Array<ActivityCategory>;
   ping: Scalars['String'];
   work: Scalars['String'];
 };
@@ -80,6 +95,11 @@ export type ResetPasswordInput = {
   token: Scalars['String'];
 };
 
+export type SeedActivityCategoriesMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SeedActivityCategoriesMutation = { __typename?: 'Mutation', seedActivityCategories: boolean };
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -94,6 +114,36 @@ export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 export type PingQuery = { __typename?: 'Query', ping: string };
 
 
+export const SeedActivityCategoriesDocument = gql`
+    mutation SeedActivityCategories {
+  seedActivityCategories
+}
+    `;
+export type SeedActivityCategoriesMutationFn = Apollo.MutationFunction<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>;
+
+/**
+ * __useSeedActivityCategoriesMutation__
+ *
+ * To run a mutation, you first call `useSeedActivityCategoriesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSeedActivityCategoriesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [seedActivityCategoriesMutation, { data, loading, error }] = useSeedActivityCategoriesMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSeedActivityCategoriesMutation(baseOptions?: Apollo.MutationHookOptions<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>(SeedActivityCategoriesDocument, options);
+      }
+export type SeedActivityCategoriesMutationHookResult = ReturnType<typeof useSeedActivityCategoriesMutation>;
+export type SeedActivityCategoriesMutationResult = Apollo.MutationResult<SeedActivityCategoriesMutation>;
+export type SeedActivityCategoriesMutationOptions = Apollo.BaseMutationOptions<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(data: {email: $email, password: $password}) {

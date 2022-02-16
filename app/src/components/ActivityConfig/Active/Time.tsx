@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 interface Props {
   time: number;
+  timeChange: (t: ITime) => void;
 }
 
 interface ITime {
@@ -35,13 +36,14 @@ const formatTime = (t: number) => {
   return `${t}`;
 };
 
-export const ActiveTimer: React.FC<Props> = ({ time }) => {
+export const ActiveTimer: React.FC<Props> = ({ time, timeChange }) => {
   const [timePassed, setTimePassed] = React.useState<ITime>(
     calculateTime(time)
   );
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setTimePassed(calculateTime(time));
+      timeChange(timePassed);
     }, 1000);
   }, [timePassed]);
   return (

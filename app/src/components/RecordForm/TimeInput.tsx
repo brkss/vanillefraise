@@ -13,23 +13,26 @@ export const TimeInput: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <DateTimePicker
-        testID="dateTimePicker"
-        value={date}
-        mode={"date"}
-        is24Hour={true}
-        display="default"
-        onChange={onChange}
-      />
-      <DateTimePicker
-        testID="dateTimePicker"
-        value={date}
-        mode={"time"}
-        is24Hour={true}
-        display="default"
-        onChange={onChange}
-        style={{ marginTop: 10 }}
-      />
+      <View style={styles.item}>
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={"date"}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      </View>
+      <View style={[styles.item]}>
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={"time"}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      </View>
     </View>
   );
 };
@@ -37,5 +40,9 @@ export const TimeInput: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
+    flexDirection: "row-reverse",
+  },
+  item: {
+    width: "40%",
   },
 });
