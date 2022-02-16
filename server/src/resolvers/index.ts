@@ -1,3 +1,4 @@
-export { UserResolver } from "./user.resolver";
-export { SecurityResolver } from "./auth";
-export { CreateRecipeResolver } from "./recipes";
+export * from "./user.resolver";
+export * from "./auth";
+export * from "./recipes";
+export * from "./activity";
