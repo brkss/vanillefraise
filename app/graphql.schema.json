@@ -426,7 +426,7 @@
         "description": null,
         "fields": [
           {
-            "name": "activity_categories",
+            "name": "activityCategories",
             "description": null,
             "args": [],
             "type": {

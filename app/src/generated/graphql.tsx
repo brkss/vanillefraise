@@ -79,7 +79,7 @@ export type MutationVerifyResetTokenArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  activity_categories: Array<ActivityCategory>;
+  activityCategories: Array<ActivityCategory>;
   ping: Scalars['String'];
   work: Scalars['String'];
 };
@@ -94,6 +94,11 @@ export type ResetPasswordInput = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
 };
+
+export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ActivityCategoriesQuery = { __typename?: 'Query', activityCategories: Array<{ __typename?: 'ActivityCategory', id: string, name: string, icon?: string | null | undefined }> };
 
 export type SeedActivityCategoriesMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -114,6 +119,42 @@ export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 export type PingQuery = { __typename?: 'Query', ping: string };
 
 
+export const ActivityCategoriesDocument = gql`
+    query ActivityCategories {
+  activityCategories {
+    id
+    name
+    icon
+  }
+}
+    `;
+
+/**
+ * __useActivityCategoriesQuery__
+ *
+ * To run a query within a React component, call `useActivityCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActivityCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActivityCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useActivityCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>(ActivityCategoriesDocument, options);
+      }
+export function useActivityCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>(ActivityCategoriesDocument, options);
+        }
+export type ActivityCategoriesQueryHookResult = ReturnType<typeof useActivityCategoriesQuery>;
+export type ActivityCategoriesLazyQueryHookResult = ReturnType<typeof useActivityCategoriesLazyQuery>;
+export type ActivityCategoriesQueryResult = Apollo.QueryResult<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>;
 export const SeedActivityCategoriesDocument = gql`
     mutation SeedActivityCategories {
   seedActivityCategories

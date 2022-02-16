@@ -1,0 +1,9 @@
+
+
+query ActivityCategories {
+  activityCategories {
+    id
+    name
+    icon
+  }
+}
