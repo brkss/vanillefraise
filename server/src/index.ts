@@ -2,12 +2,7 @@ import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { buildSchema } from "type-graphql";
-import {
-  UserResolver,
-  SecurityResolver,
-  CreateRecipeResolver,
-} from "./resolvers";
+import { build } from "./utils/build";
 import { createConnection } from "typeorm";
 import cookieParser from "cookie-parser";
 import { refreshToken } from "./utils/token";
@@ -32,10 +27,7 @@ import cors from "cors";
   app.post("/refresh_token", async (req, res) => await refreshToken(res, req));
 
   const apolloServer = new ApolloServer({
-    schema: await buildSchema({
-      resolvers: [UserResolver, SecurityResolver, CreateRecipeResolver],
-      validate: false,
-    }),
+    schema: await build(),
     context: ({ req, res }) => ({ req, res }),
   });
 
