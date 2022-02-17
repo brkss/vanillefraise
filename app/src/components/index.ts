@@ -13,3 +13,4 @@ export * from "./CookingSteps";
 export * from "./ActivityCategory";
 export * from "./ActivitySlider";
 export * from "./ActivityConfig";
+export * from "./Register";

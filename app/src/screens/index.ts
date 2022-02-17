@@ -1,6 +1,6 @@
-export { Home } from "./Home";
-export { Login } from "./Auth";
-export { Splash } from "./Splash";
+export * from "./Home";
+export * from "./Auth";
+export * from "./Splash";
 export * from "./Recipes";
 export * from "./Activity";
 export * from "./Record";
