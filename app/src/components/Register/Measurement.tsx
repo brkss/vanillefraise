@@ -5,7 +5,7 @@ import { InvisibleInput } from "../General/InvisibleInput";
 export const Measurement: React.FC = () => {
   return (
     <View style={styles.container}>
-      <InvisibleInput label={"WEIGHT"} txtChange={(t) => {}} />
+      <InvisibleInput unit={"KG"} label={"WEIGHT"} txtChange={(t) => {}} />
     </View>
   );
 };
@@ -13,5 +13,6 @@ export const Measurement: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "space-evenly",
   },
 });
