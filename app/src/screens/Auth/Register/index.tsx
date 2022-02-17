@@ -6,11 +6,12 @@ import {
   RegisterInformation,
   Measurement,
   RegisterGender,
+  BMIResult,
 } from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const Register: React.FC = () => {
-  const [status, setStatus] = React.useState("GENDER");
+  const [status, setStatus] = React.useState("RESULT");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
@@ -36,6 +37,7 @@ export const Register: React.FC = () => {
               INFORMATION: <RegisterInformation />,
               MEASUREMENT: <Measurement />,
               GENDER: <RegisterGender />,
+              RESULT: <BMIResult />,
             }[status]
           }
         </View>
