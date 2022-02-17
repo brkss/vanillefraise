@@ -58,10 +58,6 @@ export const RegisterSpecialCondition: React.FC<Props> = ({ other }) => {
             <Text style={styles.choiseText}>{c.name}</Text>
           </Pressable>
         ))}
-
-        <Pressable onPress={() => other()} style={styles.choise}>
-          <Text style={styles.choiseText}>Other</Text>
-        </Pressable>
       </View>
       <Button txt={"Continue"} clicked={() => {}} />
     </View>

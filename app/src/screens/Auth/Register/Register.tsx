@@ -8,11 +8,12 @@ import {
   RegisterGender,
   BMIResult,
   RegisterSpecialCondition,
+  RegisterOutro,
 } from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const Register: React.FC<any> = ({ navigation }) => {
-  const [status, setStatus] = React.useState("SC");
+  const [status, setStatus] = React.useState("OUTRO");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
@@ -47,6 +48,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
                   other={() => navigation.push("osc")}
                 />
               ),
+              OUTRO: <RegisterOutro />,
             }[status]
           }
         </View>
