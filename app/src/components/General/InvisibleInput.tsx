@@ -25,10 +25,12 @@ export const InvisibleInput: React.FC<Props> = ({
         textContentType={(type as any) || "none"}
         placeholder={label}
         onChangeText={(t) => txtChange(t)}
-        style={[styles.input, { width: unit ? "80%" : "100%" }]}
+        style={[styles.input, { width: unit ? "70%" : "100%" }]}
       />
       {unit ? (
-        <Text style={[styles.unit, { width: "20%" }]}>{unit}</Text>
+        <Text style={[styles.unit, { width: "30%", textAlign: "right" }]}>
+          {unit}
+        </Text>
       ) : null}
     </View>
   );

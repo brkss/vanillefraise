@@ -6,6 +6,8 @@ export const Measurement: React.FC = () => {
   return (
     <View style={styles.container}>
       <InvisibleInput unit={"KG"} label={"WEIGHT"} txtChange={(t) => {}} />
+      <InvisibleInput unit={"CM"} label={"HEIGHT"} txtChange={(t) => {}} />
+      <InvisibleInput unit={"YEARS"} label={"AGE"} txtChange={(t) => {}} />
     </View>
   );
 };
