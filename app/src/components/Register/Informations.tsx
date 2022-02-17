@@ -3,7 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 
-export const RegisterInformation: React.FC = () => {
+interface Props {
+  pass: () => void;
+}
+
+export const RegisterInformation: React.FC<Props> = ({pass}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Basic {"\n"}Informations</Text>
@@ -16,7 +20,7 @@ export const RegisterInformation: React.FC = () => {
         />
         <InvisibleInput secure label={"PASSWORD"} txtChange={(v) => {}} />
         <InvisibleInput secure label={"RE-PASSWORD"} txtChange={(v) => {}} />
-        <Button txt={"SAVE"} clicked={() => {}} />
+        <Button txt={"SAVE"} clicked={() => pass()} />
       </View>
     </View>
   );

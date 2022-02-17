@@ -2,7 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Button } from "../General/Button";
 
-export const RegisterGender: React.FC = () => {
+interface Props {
+  pass: () => void;
+}
+
+export const RegisterGender: React.FC<Props> = ({pass}) => {
   const [selected, setSelected] = React.useState("MALE");
   return (
     <View style={styles.container}>
@@ -24,7 +28,7 @@ export const RegisterGender: React.FC = () => {
       >
         <Text style={styles.choisetxt}>FEMALE</Text>
       </Pressable>
-      <Button txt={"SAVE"} clicked={() => {}} />
+      <Button txt={"SAVE"} clicked={() => pass()} />
     </View>
   );
 };

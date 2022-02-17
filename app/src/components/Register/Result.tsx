@@ -3,7 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Button } from "../General/Button";
 
-export const BMIResult: React.FC = () => {
+interface Props {
+  pass: () => void;
+}
+
+export const BMIResult: React.FC<Props> = ({pass}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>YOUR BASAL METABOLIC INDEX </Text>
@@ -27,7 +31,7 @@ export const BMIResult: React.FC = () => {
           during physical activities{" "}
         </Text>
       </View>
-      <Button txt={"Continue"} clicked={() => {}} />
+      <Button txt={"Continue"} clicked={() => pass()} />
     </View>
   );
 };

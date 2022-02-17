@@ -3,13 +3,17 @@ import { View, Text, StyleSheet } from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 
-export const Measurement: React.FC = () => {
+interface Props {
+  pass: () => void;
+}
+
+export const Measurement: React.FC<Props> = ({pass}) => {
   return (
     <View style={styles.container}>
       <InvisibleInput unit={"KG"} label={"WEIGHT"} txtChange={(t) => {}} />
       <InvisibleInput unit={"CM"} label={"HEIGHT"} txtChange={(t) => {}} />
       <InvisibleInput unit={"YEARS"} label={"AGE"} txtChange={(t) => {}} />
-      <Button clicked={() => {}} txt={"SAVE"} />
+      <Button clicked={() => pass()} txt={"SAVE"} />
     </View>
   );
 };

@@ -13,7 +13,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 
 export const Register: React.FC<any> = ({ navigation }) => {
-  const [status, setStatus] = React.useState("OUTRO");
+  const [status, setStatus] = React.useState("INTRO");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
@@ -38,17 +38,25 @@ export const Register: React.FC<any> = ({ navigation }) => {
         <View style={styles.content}>
           {
             {
-              INTRO: <RegisterIntro pass={() => {}} />,
-              INFORMATION: <RegisterInformation />,
-              MEASUREMENT: <Measurement />,
-              GENDER: <RegisterGender />,
-              RESULT: <BMIResult />,
+              INTRO: (
+                <RegisterIntro
+                  login={() => navigation("login")}
+                  pass={() => setStatus("INFORMATION")}
+                />
+              ),
+              INFORMATION: (
+                <RegisterInformation pass={() => setStatus("MEASUREMENT")} />
+              ),
+              MEASUREMENT: <Measurement pass={() => setStatus("GENDER")} />,
+              GENDER: <RegisterGender pass={() => setStatus("RESULT")} />,
+              RESULT: <BMIResult pass={() => setStatus("SC")} />,
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}
+                  pass={() => setStatus("OUTRO")}
                 />
               ),
-              OUTRO: <RegisterOutro />,
+              OUTRO: <RegisterOutro pass={() => {}} />,
             }[status]
           }
         </View>

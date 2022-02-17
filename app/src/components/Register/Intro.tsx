@@ -4,9 +4,10 @@ import { Button } from "../General/Button";
 
 interface Props {
   pass: () => void;
+  login: () => void;
 }
 
-export const RegisterIntro: React.FC<Props> = ({ pass }) => {
+export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Hello,</Text>
@@ -14,6 +15,9 @@ export const RegisterIntro: React.FC<Props> = ({ pass }) => {
         Brace yourself and let me take you on trip to find balence
       </Text>
       <Button txt={"Start"} clicked={() => pass()} />
+      <View style={{ marginTop: 10 }}>
+        <Button txt={"Login"} clicked={() => login()} />
+      </View>
     </View>
   );
 };
