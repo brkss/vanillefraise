@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
-import { RegisterIntro, RegisterInformation } from "../../../components";
+import {
+  RegisterIntro,
+  RegisterInformation,
+  Measurement,
+} from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const Register: React.FC = () => {
-  const [status, setStatus] = React.useState("INFORMATION");
+  const [status, setStatus] = React.useState("MEASUREMENT");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
@@ -29,6 +33,7 @@ export const Register: React.FC = () => {
             {
               INTRO: <RegisterIntro pass={() => {}} />,
               INFORMATION: <RegisterInformation />,
+              MEASUREMENT: <Measurement />,
             }[status]
           }
         </View>
