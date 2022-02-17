@@ -9,7 +9,11 @@ import {
 import { Button } from "../General/Button";
 import { useSpecialConditionsQuery } from "../../generated/graphql";
 
-export const RegisterSpecialCondition: React.FC = () => {
+interface Props {
+  other: () => void;
+}
+
+export const RegisterSpecialCondition: React.FC<Props> = ({ other }) => {
   const { data, loading, error } = useSpecialConditionsQuery();
   const [selected, SetSelected] = React.useState<string[]>([]);
 
@@ -54,6 +58,10 @@ export const RegisterSpecialCondition: React.FC = () => {
             <Text style={styles.choiseText}>{c.name}</Text>
           </Pressable>
         ))}
+
+        <Pressable onPress={() => other()} style={styles.choise}>
+          <Text style={styles.choiseText}>Other</Text>
+        </Pressable>
       </View>
       <Button txt={"Continue"} clicked={() => {}} />
     </View>

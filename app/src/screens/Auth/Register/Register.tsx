@@ -11,7 +11,7 @@ import {
 } from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
-export const Register: React.FC = () => {
+export const Register: React.FC<any> = ({ navigation }) => {
   const [status, setStatus] = React.useState("SC");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
@@ -42,7 +42,11 @@ export const Register: React.FC = () => {
               MEASUREMENT: <Measurement />,
               GENDER: <RegisterGender />,
               RESULT: <BMIResult />,
-              SC: <RegisterSpecialCondition />,
+              SC: (
+                <RegisterSpecialCondition
+                  other={() => navigation.push("osc")}
+                />
+              ),
             }[status]
           }
         </View>
