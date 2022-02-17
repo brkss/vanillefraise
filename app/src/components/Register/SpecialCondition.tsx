@@ -1,26 +1,58 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Pressable,
+} from "react-native";
 import { Button } from "../General/Button";
-
-const conditions = [
-  "Type 1 Diabetes",
-  "Thyroid",
-  "Allergies",
-  "Celiac Diseas",
-  "Other",
-];
+import { useSpecialConditionsQuery } from "../../generated/graphql";
 
 export const RegisterSpecialCondition: React.FC = () => {
+  const { data, loading, error } = useSpecialConditionsQuery();
+  const [selected, SetSelected] = React.useState<string[]>([]);
+
+  const selectCondition = (id: string) => {
+    console.log("Selected this condition : ", id);
+    if (selected.includes(id)) {
+      const index = selected.findIndex((x) => x == id);
+      if (index != -1) selected.splice(index, 1);
+      SetSelected([...selected]);
+    } else {
+      SetSelected([...selected, id]);
+    }
+  };
+
+  if (loading || error) {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>
         Do you have any special conditions that require specific diets ?
       </Text>
       <View style={{ flex: 1, justifyContent: "center" }}>
-        {conditions.map((c, key) => (
-          <View key={key} style={styles.choise}>
-            <Text style={styles.choiseText}>{c}</Text>
-          </View>
+        {data?.specialconditions.map((c, key) => (
+          <Pressable
+            onPress={() => selectCondition(c.id)}
+            key={key}
+            style={[
+              styles.choise,
+              {
+                backgroundColor: selected.includes(c.id)
+                  ? "#E3CEC1"
+                  : "#F0DED3",
+              },
+            ]}
+          >
+            <Text style={styles.choiseText}>{c.name}</Text>
+          </Pressable>
         ))}
       </View>
       <Button txt={"Continue"} clicked={() => {}} />

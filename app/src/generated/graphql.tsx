@@ -44,6 +44,7 @@ export type Mutation = {
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
   seedActivityCategories: Scalars['Boolean'];
+  seedSpecialConditions: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
 };
 
@@ -81,6 +82,7 @@ export type Query = {
   __typename?: 'Query';
   activityCategories: Array<ActivityCategory>;
   ping: Scalars['String'];
+  specialconditions: Array<SpecialCondition>;
   work: Scalars['String'];
 };
 
@@ -93,6 +95,13 @@ export type RegisterInput = {
 export type ResetPasswordInput = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
+};
+
+export type SpecialCondition = {
+  __typename?: 'SpecialCondition';
+  active: Scalars['Boolean'];
+  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -117,6 +126,11 @@ export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PingQuery = { __typename?: 'Query', ping: string };
+
+export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SpecialConditionsQuery = { __typename?: 'Query', specialconditions: Array<{ __typename?: 'SpecialCondition', id: string, name: string }> };
 
 
 export const ActivityCategoriesDocument = gql`
@@ -254,3 +268,38 @@ export function usePingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PingQ
 export type PingQueryHookResult = ReturnType<typeof usePingQuery>;
 export type PingLazyQueryHookResult = ReturnType<typeof usePingLazyQuery>;
 export type PingQueryResult = Apollo.QueryResult<PingQuery, PingQueryVariables>;
+export const SpecialConditionsDocument = gql`
+    query SpecialConditions {
+  specialconditions {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useSpecialConditionsQuery__
+ *
+ * To run a query within a React component, call `useSpecialConditionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSpecialConditionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSpecialConditionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSpecialConditionsQuery(baseOptions?: Apollo.QueryHookOptions<SpecialConditionsQuery, SpecialConditionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SpecialConditionsQuery, SpecialConditionsQueryVariables>(SpecialConditionsDocument, options);
+      }
+export function useSpecialConditionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SpecialConditionsQuery, SpecialConditionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SpecialConditionsQuery, SpecialConditionsQueryVariables>(SpecialConditionsDocument, options);
+        }
+export type SpecialConditionsQueryHookResult = ReturnType<typeof useSpecialConditionsQuery>;
+export type SpecialConditionsLazyQueryHookResult = ReturnType<typeof useSpecialConditionsLazyQuery>;
+export type SpecialConditionsQueryResult = Apollo.QueryResult<SpecialConditionsQuery, SpecialConditionsQueryVariables>;

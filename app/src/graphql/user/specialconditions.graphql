@@ -1,0 +1,6 @@
+query SpecialConditions{
+  specialconditions{
+    id
+    name
+  }
+}
