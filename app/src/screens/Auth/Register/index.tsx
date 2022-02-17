@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
-import { RegisterIntro } from "../../../components";
+import { RegisterIntro, RegisterInformation } from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const Register: React.FC = () => {
+  const [status, setStatus] = React.useState("INFORMATION");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
@@ -24,7 +25,12 @@ export const Register: React.FC = () => {
     >
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.content}>
-          <RegisterIntro pass={() => {}} />
+          {
+            {
+              INTRO: <RegisterIntro pass={() => {}} />,
+              INFORMATION: <RegisterInformation />,
+            }[status]
+          }
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -35,8 +41,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    //alignItems: "center",
+    //justifyContent: "space-evenly",
   },
-  content: {},
+  content: {
+    flex: 1,
+  },
 });
