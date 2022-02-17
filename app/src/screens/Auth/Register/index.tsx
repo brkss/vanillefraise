@@ -5,11 +5,12 @@ import {
   RegisterIntro,
   RegisterInformation,
   Measurement,
+  RegisterGender,
 } from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const Register: React.FC = () => {
-  const [status, setStatus] = React.useState("MEASUREMENT");
+  const [status, setStatus] = React.useState("GENDER");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
@@ -34,6 +35,7 @@ export const Register: React.FC = () => {
               INTRO: <RegisterIntro pass={() => {}} />,
               INFORMATION: <RegisterInformation />,
               MEASUREMENT: <Measurement />,
+              GENDER: <RegisterGender />,
             }[status]
           }
         </View>
