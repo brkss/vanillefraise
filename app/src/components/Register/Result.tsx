@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Button } from "../General/Button";
 
 export const BMIResult: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ export const BMIResult: React.FC = () => {
           during physical activities{" "}
         </Text>
       </View>
+      <Button txt={"Continue"} clicked={() => {}} />
     </View>
   );
 };
