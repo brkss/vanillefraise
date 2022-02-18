@@ -12,7 +12,30 @@ import {
 } from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
 
+interface IUserData {
+  name: string | "";
+  email: string | "";
+  password: string | "";
+  weight: number | undefined;
+  height: number | undefined;
+  age: number | undefined;
+  sc: string[] | [];
+  gender: string | "";
+  bmi: number | undefined;
+}
+
 export const Register: React.FC<any> = ({ navigation }) => {
+  const [data, setDate] = React.useState<IUserData>({
+    name: "",
+    email: "",
+    password: "",
+    weight: undefined,
+    height: undefined,
+    bmi: undefined,
+    gender: "",
+    sc: [],
+    age: undefined,
+  });
   const [status, setStatus] = React.useState("INTRO");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
@@ -40,12 +63,18 @@ export const Register: React.FC<any> = ({ navigation }) => {
             {
               INTRO: (
                 <RegisterIntro
-                  login={() => navigation("login")}
+                  login={() => navigation.push("login")}
                   pass={() => setStatus("INFORMATION")}
                 />
               ),
               INFORMATION: (
-                <RegisterInformation pass={() => setStatus("MEASUREMENT")} />
+                <RegisterInformation
+                  pass={(data: {
+                    name: string;
+                    email: string;
+                    password: string;
+                  }) => setStatus("MEASUREMENT")}
+                />
               ),
               MEASUREMENT: <Measurement pass={() => setStatus("GENDER")} />,
               GENDER: <RegisterGender pass={() => setStatus("RESULT")} />,

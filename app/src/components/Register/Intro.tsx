@@ -14,9 +14,17 @@ export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
       <Text style={styles.info}>
         Brace yourself and let me take you on trip to find balence
       </Text>
-      <Button txt={"Start"} clicked={() => pass()} />
-      <View style={{ marginTop: 10 }}>
-        <Button txt={"Login"} clicked={() => login()} />
+
+      <View style={{ width: "100%" }}>
+        <Button txt={"Register"} clicked={() => pass()} />
+        <View style={{ marginTop: 10, width: "100%" }}>
+          <Button
+            bg={"#D6CCC2"}
+            color={"#434343"}
+            txt={"Login"}
+            clicked={() => login()}
+          />
+        </View>
       </View>
     </View>
   );
