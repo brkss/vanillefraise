@@ -11,6 +11,12 @@ import {
   RegisterOutro,
 } from "../../../components";
 import { LinearGradient } from "expo-linear-gradient";
+import {
+  IGender,
+  IInformationData,
+  IMeasurementData,
+  ISCData,
+} from "../../../utils/types/Register";
 
 interface IUserData {
   name: string | "";
@@ -24,8 +30,15 @@ interface IUserData {
   bmi: number | undefined;
 }
 
+type IRegisterData = {
+  information?: IInformationData;
+  gender?: IGender;
+  measurement?: IMeasurementData;
+  sc?: ISCData;
+};
+
 export const Register: React.FC<any> = ({ navigation }) => {
-  const [data, setDate] = React.useState<IUserData>({
+  const [data, setData] = React.useState<IUserData>({
     name: "",
     email: "",
     password: "",
@@ -41,7 +54,18 @@ export const Register: React.FC<any> = ({ navigation }) => {
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
 
-  //const pass = () => {};
+  const handlePass = (d: IRegisterData) => {
+    if (d.information) {
+      setData({
+        ...data,
+        name: d.information.name,
+        email: d.information.email,
+        password: d.information.password,
+      });
+      setStatus("MEASUREMENT");
+    }
+    console.log("DATA saved in register screen ! +++> ", data);
+  };
 
   if (!helviticaCondensed) {
     return <View />;
@@ -69,20 +93,24 @@ export const Register: React.FC<any> = ({ navigation }) => {
               ),
               INFORMATION: (
                 <RegisterInformation
-                  pass={(data: {
-                    name: string;
-                    email: string;
-                    password: string;
-                  }) => setStatus("MEASUREMENT")}
+                  pass={(data: IInformationData) =>
+                    handlePass({ information: data })
+                  }
                 />
               ),
-              MEASUREMENT: <Measurement pass={() => setStatus("GENDER")} />,
-              GENDER: <RegisterGender pass={() => setStatus("RESULT")} />,
+              MEASUREMENT: (
+                <Measurement
+                  pass={(data: IMeasurementData) => setStatus("GENDER")}
+                />
+              ),
+              GENDER: (
+                <RegisterGender pass={(data: IGender) => setStatus("RESULT")} />
+              ),
               RESULT: <BMIResult pass={() => setStatus("SC")} />,
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}
-                  pass={() => setStatus("OUTRO")}
+                  pass={(data: ISCData) => setStatus("OUTRO")}
                 />
               ),
               OUTRO: <RegisterOutro pass={() => {}} />,

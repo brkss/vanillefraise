@@ -28,7 +28,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       username: form.email,
     };
     console.log("INFORMATION DATA => ", data);
-    //pass(data);
+    pass(data);
   };
 
   return (
