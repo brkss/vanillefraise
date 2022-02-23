@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Settings, CreateRecord } from "../screens";
+import { Settings, CreateRecord, MentalHealthIntro } from "../screens";
 import { RecipeNavigation } from "./RecipesNavigation";
 import { RemindersNavigation } from "./RemindersNavigation";
 import { ActivityNavigation } from "./ActivityNavigation";
@@ -25,7 +25,8 @@ export const AppNavigation: React.FC = () => {
             iconName = focused ? "ios-time" : "ios-time-outline";
           else if (route.name == "Record")
             iconName = focused ? "ios-add-circle" : "ios-add-circle-outline";
-
+          else if (route.name == "Mental")
+            iconName = focused ? "ios-sunny" : "ios-sunny-outline";
           // You can return any component that you like here!
           return <Ionicons name={iconName as any} size={size} color={color} />;
         },
@@ -38,7 +39,8 @@ export const AppNavigation: React.FC = () => {
         <Screen name={"Recipes"} component={RecipeNavigation} />
         <Screen name={"Activity"} component={ActivityNavigation} />
         <Screen name={"Record"} component={CreateRecord} />
-        <Screen name={"Reminders"} component={RemindersNavigation} />
+        {/*<Screen name={"Reminders"} component={RemindersNavigation} />*/}
+        <Screen name={"Mental"} component={MentalHealthIntro} />
         <Screen name={"Settings"} component={Settings} />
       </Group>
     </Navigator>

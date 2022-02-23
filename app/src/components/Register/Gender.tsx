@@ -1,13 +1,19 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Button } from "../General/Button";
+import { IGender } from "../../utils/types/Register";
 
 interface Props {
-  pass: () => void;
+  pass: (data: IGender) => void;
 }
 
-export const RegisterGender: React.FC<Props> = ({pass}) => {
+export const RegisterGender: React.FC<Props> = ({ pass }) => {
   const [selected, setSelected] = React.useState("MALE");
+  const saveData = () => {
+    const data: IGender = { gender: selected };
+    pass(data);
+  };
+
   return (
     <View style={styles.container}>
       <Pressable
@@ -28,7 +34,7 @@ export const RegisterGender: React.FC<Props> = ({pass}) => {
       >
         <Text style={styles.choisetxt}>FEMALE</Text>
       </Pressable>
-      <Button txt={"SAVE"} clicked={() => pass()} />
+      <Button txt={"SAVE"} clicked={() => saveData()} />
     </View>
   );
 };

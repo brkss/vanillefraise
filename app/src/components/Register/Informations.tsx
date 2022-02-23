@@ -45,6 +45,10 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
           txtChange={(v) => handleForm("email", v)}
         />
         <InvisibleInput
+          label={"USERNAME"}
+          txtChange={(v) => handleForm("username", v)}
+        />
+        <InvisibleInput
           secure
           label={"PASSWORD"}
           txtChange={(v) => handleForm("password", v)}

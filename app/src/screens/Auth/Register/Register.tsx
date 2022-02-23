@@ -63,6 +63,20 @@ export const Register: React.FC<any> = ({ navigation }) => {
         password: d.information.password,
       });
       setStatus("MEASUREMENT");
+    } else if (d.measurement) {
+      setData({
+        ...data,
+        weight: d.measurement.weight,
+        age: d.measurement.age,
+        height: d.measurement.height,
+      });
+      setStatus("GENDER");
+    } else if (d.gender) {
+      setData({
+        ...data,
+        gender: d.gender.gender,
+      });
+      setStatus("RESULT");
     }
     console.log("DATA saved in register screen ! +++> ", data);
   };
@@ -100,17 +114,21 @@ export const Register: React.FC<any> = ({ navigation }) => {
               ),
               MEASUREMENT: (
                 <Measurement
-                  pass={(data: IMeasurementData) => setStatus("GENDER")}
+                  pass={(data: IMeasurementData) =>
+                    handlePass({ measurement: data })
+                  }
                 />
               ),
               GENDER: (
-                <RegisterGender pass={(data: IGender) => setStatus("RESULT")} />
+                <RegisterGender
+                  pass={(data: IGender) => handlePass({ gender: data })}
+                />
               ),
               RESULT: <BMIResult pass={() => setStatus("SC")} />,
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}
-                  pass={(data: ISCData) => setStatus("OUTRO")}
+                  pass={() => setStatus("OUTRO")}
                 />
               ),
               OUTRO: <RegisterOutro pass={() => {}} />,
