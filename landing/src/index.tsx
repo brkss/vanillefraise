@@ -7,7 +7,7 @@ import "./assets/index.css";
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
-      <Application />
+    <Application />
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
