@@ -36,7 +36,8 @@ export class UserResolver {
         message: "Invalid Data !",
       };
 
-    const user = await User.findOne({ where: { email: data.email } });
+    // treated email field as username in request input just till i change it in client side !
+    const user = await User.findOne({ where: [{ email: data.email }, {username: data.email}] });
     if (!user) {
       return {
         status: false,
@@ -68,7 +69,7 @@ export class UserResolver {
     @Arg("data") data: RegisterInput,
     @Ctx() { res }: IContext
   ): Promise<AuthDefaultResponse> {
-    if (!data.name || !data.email || !data.password) {
+    if (!data.name || !data.email || !data.password || !data.username) {
       return {
         status: false,
         message: "Invalid Data !",
@@ -79,6 +80,7 @@ export class UserResolver {
       const user = new User();
       user.name = data.name;
       user.email = data.email;
+      user.username = data.username;
       user.password = await hash(data.password, 5);
       await user.save();
       // send refresh token as cookie
@@ -94,9 +96,15 @@ export class UserResolver {
     } catch (e) {
       console.log("something went wrong ! ", e);
       if (e.code == "ER_DUP_ENTRY") {
+        let cause = '';
+        const user = await User.findOne({where: {username: data.username}});
+        if(user)
+          cause = 'username';
+        else
+          cause = 'email';
         return {
           status: false,
-          message: "This email already exist !",
+          message: `This ${cause} already exist !`,
         };
       }
       return {
