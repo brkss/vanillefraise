@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, Text} from "react-native";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -69,7 +69,7 @@ export const MentalIntroCircle: React.FC<Props> = ({
     <View pointerEvents={"box-none"}>
       <GestureDetector gesture={gesture}>
         <Animated.View style={[styles.circle, style]}>
-          <Text style={[styles.iconT, {fontSize: d * .5}]}>{icon}</Text>
+          <Text style={[styles.iconT, { fontSize: d * 0.5 }]}>{icon}</Text>
         </Animated.View>
       </GestureDetector>
     </View>
@@ -78,10 +78,11 @@ export const MentalIntroCircle: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   circle: {
+    ...StyleSheet.absoluteFillObject,
     height: 40,
     width: 40,
     borderRadius: 40,
-    backgroundColor: "white",
+    backgroundColor: "#D6D6D6",
     justifyContent: "center",
     alignItems: "center",
   },
