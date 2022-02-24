@@ -1,5 +1,6 @@
-import { Column, Entity, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, BaseEntity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { ObjectType, Field } from 'type-graphql';
+import { Recipe } from './Recipe'
 
 @ObjectType()
 @Entity('recipes_categories')
@@ -20,5 +21,9 @@ export class RecipeCategory extends BaseEntity {
   @Field()
   @Column({default: true})
   active: boolean;
+  
+  @Field(() => [Recipe])
+  @ManyToMany(() => Recipe, recipes => recipes.categories, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+  recipes: Recipe[];
 
 }

@@ -5,15 +5,16 @@ import {
   CreateDateColumn,
   OneToMany,
   BaseEntity,
+  ManyToMany,
 } from "typeorm";
 import { Instruction } from "./Instuction";
 import { Ingredient } from "./Ingredient";
-import {ObjectType, Field} from "type-graphql";
+import { ObjectType, Field } from "type-graphql";
+import { RecipeCategory } from "./Category";
 
 @ObjectType()
 @Entity("recipes")
 export class Recipe extends BaseEntity {
-  
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -22,11 +23,11 @@ export class Recipe extends BaseEntity {
   @Column()
   name: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   @Column({ nullable: true })
   description?: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   @Column({ nullable: true })
   serving?: number;
 
@@ -34,20 +35,20 @@ export class Recipe extends BaseEntity {
   @Column()
   image: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   @Column({ nullable: true })
   cook?: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   @Column({ nullable: true })
   prep?: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   @Column({ nullable: true })
   total?: string;
 
   @Field()
-  @Column({unique: true})
+  @Column({ unique: true })
   url: string;
 
   @Field()
@@ -71,4 +72,11 @@ export class Recipe extends BaseEntity {
     onUpdate: "CASCADE",
   })
   instructions: Instruction;
+
+  @Field(() => [RecipeCategory])
+  @ManyToMany(() => RecipeCategory, (categories) => categories.recipes, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  categories: RecipeCategory[];
 }
