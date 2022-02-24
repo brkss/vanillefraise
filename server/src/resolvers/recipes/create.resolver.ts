@@ -4,8 +4,9 @@ const recipeScraper = require("recipe-scraper");
 import * as path from "path";
 import fs from "fs";
 import { downloadImage } from "../../utils/helpers/donwloadImage";
-import { Recipe, Ingredient, Instruction } from "../../entity/Recipe";
+import { Recipe, Ingredient, Instruction, RecipeCategory } from "../../entity/Recipe";
 import { CreateRecipeResponse } from '../../utils/responses';
+import { CreateRecipeInput } from '../../utils/inputs/recipes/createrecipe.input';
 
 // config !
 import units from "recipes-parser/lib/nlp/en/units.json";
@@ -23,12 +24,13 @@ const rules = fs.readFileSync(
 @Resolver()
 export class CreateRecipeResolver {
   @Mutation(() => CreateRecipeResponse)
-  async createRecipe(@Arg("uri") uri: string): Promise<CreateRecipeResponse> {
-    if (!uri) return {
+  async createRecipe(@Arg("data") data: CreateRecipeInput): Promise<CreateRecipeResponse> {
+    if (!data.url) return {
       message: "Invalid URl",
       status: false
     };
     try {
+      const uri = data.url;
       const recipeCheck = await Recipe.findOne({where: {url: uri}});
       if(recipeCheck){
         return {
@@ -48,6 +50,18 @@ export class CreateRecipeResolver {
       recipe.total = recipe_data.time.total;
       recipe.url = uri;
       await recipe.save();
+      for(let cat_id of data.categories){
+        const category = await RecipeCategory.findOne({where: {id: cat_id}});
+        if(!category){
+          await recipe.remove();
+          return {
+            status: false,
+            message: "Error : Category not found !"
+          }
+        }
+        category.recipes.push(recipe);
+        await category.save();
+      }
 
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
       await this.createRecipeInstructions(recipe, recipe_data.instructions);

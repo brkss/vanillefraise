@@ -6,6 +6,7 @@ import {
   OneToMany,
   BaseEntity,
   ManyToMany,
+  JoinTable
 } from "typeorm";
 import { Instruction } from "./Instuction";
 import { Ingredient } from "./Ingredient";
@@ -74,9 +75,7 @@ export class Recipe extends BaseEntity {
   instructions: Instruction;
 
   @Field(() => [RecipeCategory])
-  @ManyToMany(() => RecipeCategory, (categories) => categories.recipes, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  })
+  @ManyToMany(() => RecipeCategory, (categories) => categories.recipes)
+  @JoinTable()
   categories: RecipeCategory[];
 }
