@@ -7,6 +7,7 @@ import Animated, {
   withTiming,
   Easing,
 } from "react-native-reanimated";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 interface Props {
   d: number;
@@ -20,6 +21,7 @@ const { height: wH, width: wW } = Dimensions.get("window");
 export const MentalIntroCircle: React.FC<Props> = ({ d, y, x, duration }) => {
   const offsetX = useSharedValue((wW - d) / 2);
   const offsetY = useSharedValue(wH);
+  const start = useSharedValue({ x: x, y: y });
   const circleDim = useSharedValue(d);
 
   React.useEffect(() => {
@@ -31,11 +33,15 @@ export const MentalIntroCircle: React.FC<Props> = ({ d, y, x, duration }) => {
       150,
       withTiming(x, { duration: duration, easing: Easing.inOut(Easing.ease) })
     );
-    circleDim.value = withDelay(
-      150,
-      withTiming(d, { duration: duration, easing: Easing.inOut(Easing.ease) })
-    );
   }, []);
+
+  const gesture = Gesture.Pan().onUpdate(({ translationX, translationY }) => {
+    offsetX.value = start.value.x + translationX;
+    offsetY.value = start.value.y + translationY;
+  }).onEnd(() => {
+    offsetX.value = withTiming(start.value.x, {duration: 500});
+    offsetY.value = withTiming(start.value.y, {duration: 500});
+  });
 
   const style = useAnimatedStyle(() => {
     return {
@@ -50,7 +56,13 @@ export const MentalIntroCircle: React.FC<Props> = ({ d, y, x, duration }) => {
     };
   });
 
-  return <Animated.View style={[styles.circle, style]} />;
+  return (
+    <View pointerEvents={"box-none"}>
+      <GestureDetector gesture={gesture}>
+        <Animated.View style={[styles.circle, style]} />
+      </GestureDetector>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
