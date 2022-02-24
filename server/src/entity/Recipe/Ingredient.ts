@@ -38,6 +38,9 @@ export class Ingredient extends BaseEntity {
   created_at: string;
 
   @Field(() => Recipe)
-  @ManyToOne(() => Recipe, (recipe) => recipe.ingredients)
+  @ManyToOne(() => Recipe, (recipe) => recipe.ingredients, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   recipe: Recipe;
 }

@@ -25,6 +25,9 @@ export class Instruction extends BaseEntity {
   created_at: Date;
 
   @Field(() => Recipe)
-  @ManyToOne(() => Recipe, (recipe) => recipe.instructions)
+  @ManyToOne(() => Recipe, (recipe) => recipe.instructions, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   recipe: Recipe;
 }
