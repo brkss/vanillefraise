@@ -25,6 +25,10 @@ export class CreateRecipeResolver {
   async createRecipe(@Arg("uri") uri: string): Promise<boolean> {
     if (!uri) return false;
     try {
+      const recipeCheck = await Recipe.findOne({where: {url: uri}});
+      if(recipeCheck){
+        return false;
+      }
       const recipe_data = await recipeScraper(uri);
       const img = `${recipe_data.name.split(" ").join("_")}.jpg`;
       await downloadImage(recipe_data.image, `../../cdn/images/${img}`);
@@ -35,6 +39,7 @@ export class CreateRecipeResolver {
       recipe.prep = recipe_data.time.prep;
       recipe.cook = recipe_data.time.cook;
       recipe.total = recipe_data.time.total;
+      recipe.url = uri;
       await recipe.save();
 
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);

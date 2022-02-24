@@ -6,19 +6,25 @@ import {
   ManyToOne,
   BaseEntity,
 } from "typeorm";
+import { ObjectType, Field } from 'type-graphql';
 import { Recipe } from "./Recipe";
 
+@ObjectType()
 @Entity("instructions")
 export class Instruction extends BaseEntity {
+  @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Field()
+  @Column('text')
   raw: string;
 
+  @Field()
   @CreateDateColumn()
   created_at: Date;
 
+  @Field(() => Recipe)
   @ManyToOne(() => Recipe, (recipe) => recipe.instructions)
   recipe: Recipe;
 }

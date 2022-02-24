@@ -11,7 +11,7 @@ export class ActivityCategoryResolver {
       for (let cat of data) {
         const category = new ActivityCategory();
         category.name = cat.name;
-        //category.icon = cat.icon.toString();
+        category.icon = cat.icon.toString();
         await category.save();
       }
       return true;
