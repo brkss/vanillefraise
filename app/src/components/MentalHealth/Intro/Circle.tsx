@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, Text} from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -14,11 +14,18 @@ interface Props {
   x: number;
   y: number;
   duration: number;
+  icon: string;
 }
 
 const { height: wH, width: wW } = Dimensions.get("window");
 
-export const MentalIntroCircle: React.FC<Props> = ({ d, y, x, duration }) => {
+export const MentalIntroCircle: React.FC<Props> = ({
+  d,
+  y,
+  x,
+  duration,
+  icon,
+}) => {
   const offsetX = useSharedValue((wW - d) / 2);
   const offsetY = useSharedValue(wH);
   const start = useSharedValue({ x: x, y: y });
@@ -35,13 +42,15 @@ export const MentalIntroCircle: React.FC<Props> = ({ d, y, x, duration }) => {
     );
   }, []);
 
-  const gesture = Gesture.Pan().onUpdate(({ translationX, translationY }) => {
-    offsetX.value = start.value.x + translationX;
-    offsetY.value = start.value.y + translationY;
-  }).onEnd(() => {
-    offsetX.value = withTiming(start.value.x, {duration: 500});
-    offsetY.value = withTiming(start.value.y, {duration: 500});
-  });
+  const gesture = Gesture.Pan()
+    .onUpdate(({ translationX, translationY }) => {
+      offsetX.value = start.value.x + translationX;
+      offsetY.value = start.value.y + translationY;
+    })
+    .onEnd(() => {
+      offsetX.value = withTiming(start.value.x, { duration: 500 });
+      offsetY.value = withTiming(start.value.y, { duration: 500 });
+    });
 
   const style = useAnimatedStyle(() => {
     return {
@@ -59,7 +68,9 @@ export const MentalIntroCircle: React.FC<Props> = ({ d, y, x, duration }) => {
   return (
     <View pointerEvents={"box-none"}>
       <GestureDetector gesture={gesture}>
-        <Animated.View style={[styles.circle, style]} />
+        <Animated.View style={[styles.circle, style]}>
+          <Text style={[styles.iconT, {fontSize: d * .5}]}>{icon}</Text>
+        </Animated.View>
       </GestureDetector>
     </View>
   );
@@ -71,5 +82,10 @@ const styles = StyleSheet.create({
     width: 40,
     borderRadius: 40,
     backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  iconT: {
+    fontSize: 17,
   },
 });
