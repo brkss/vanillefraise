@@ -2,7 +2,7 @@ import { ObjectType, Field } from 'type-graphql';
 
 
 @ObjectType()
-export class {
+export class CreateRecipeResponse {
 
   @Field()
   status: boolean;

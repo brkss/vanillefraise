@@ -47,7 +47,7 @@ export class Recipe extends BaseEntity {
   total?: string;
 
   @Field()
-  @Column()
+  @Column({unique: true})
   url: string;
 
   @Field()

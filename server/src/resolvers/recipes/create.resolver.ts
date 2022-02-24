@@ -5,6 +5,7 @@ import * as path from "path";
 import fs from "fs";
 import { downloadImage } from "../../utils/helpers/donwloadImage";
 import { Recipe, Ingredient, Instruction } from "../../entity/Recipe";
+import { CreateRecipeResponse } from '../../utils/responses';
 
 // config !
 import units from "recipes-parser/lib/nlp/en/units.json";
@@ -21,13 +22,19 @@ const rules = fs.readFileSync(
 
 @Resolver()
 export class CreateRecipeResolver {
-  @Mutation(() => Boolean)
-  async createRecipe(@Arg("uri") uri: string): Promise<boolean> {
-    if (!uri) return false;
+  @Mutation(() => CreateRecipeResponse)
+  async createRecipe(@Arg("uri") uri: string): Promise<CreateRecipeResponse> {
+    if (!uri) return {
+      message: "Invalid URl",
+      status: false
+    };
     try {
       const recipeCheck = await Recipe.findOne({where: {url: uri}});
       if(recipeCheck){
-        return false;
+        return {
+          message: "Recipe already exsit",
+          status: false,
+        };
       }
       const recipe_data = await recipeScraper(uri);
       const img = `${recipe_data.name.split(" ").join("_")}.jpg`;
@@ -55,9 +62,15 @@ export class CreateRecipeResolver {
       */
     } catch (e) {
       console.log("something went wrong : ", e);
-      return false;
+      return {
+        message: "Something went wrong ",
+        status: false
+      };
     }
-    return true;
+    return {
+      status: true,
+      message: "Recipe created successfuly ! "
+    };
   }
 
   async createRecipeIngredients(recipe: Recipe, ings: string[]) {
