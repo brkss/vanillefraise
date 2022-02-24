@@ -1,0 +1,8 @@
+
+query RecipeCategories{
+  recipeCategories{
+    id
+    name
+    icon
+  }
+}

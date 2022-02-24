@@ -3,59 +3,8 @@ import { View, Text, StyleSheet, SafeAreaView, Dimensions } from "react-native";
 import { MentalIntroCircle } from "../../components/MentalHealth";
 import { useFonts } from "expo-font";
 import { Button } from "../../components";
+import { circles } from "../../utils/data/mentalintro.data";
 const { width: w, height: h } = Dimensions.get("window");
-
-const circles = [
-  {
-    x: 0.3,
-    y: 0,
-    d: 100,
-    duration: 900,
-    icon: "🧘‍♀️",
-  },
-  {
-    x: 0.7,
-    y: 0.1,
-    d: 70,
-    duration: 1000,
-    icon: "🧠",
-  },
-  {
-    x: 0.7,
-    y: 0.23,
-    d: 90,
-    duration: 1000,
-    icon: "🐝",
-  },
-  {
-    x: 0.4,
-    y: 0.18,
-    d: 56,
-    duration: 1200,
-    icon: "❤️",
-  },
-  {
-    x: 0.1,
-    y: 0.17,
-    d: 40,
-    duration: 1100,
-    icon: "🦋",
-  },
-  {
-    x: 0,
-    y: 0.26,
-    d: 56,
-    duration: 1200,
-    icon: "😄",
-  },
-  {
-    x: 0.3,
-    y: 0.3,
-    d: 70,
-    duration: 1100,
-    icon: "🐇",
-  },
-];
 
 export const MentalHealthIntro: React.FC = () => {
   const [helviticaCondensed] = useFonts({
@@ -68,7 +17,7 @@ export const MentalHealthIntro: React.FC = () => {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.headerContainer}>
           <Text style={styles.header}>
-            I{"\n"}9{"\n"}80{"\n"}60.
+            Improve{"\n"}Your{"\n"}Mental{"\n"}Health.
           </Text>
         </View>
         <View style={{ flex: 1 }}>
