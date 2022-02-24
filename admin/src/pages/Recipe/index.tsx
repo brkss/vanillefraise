@@ -10,15 +10,17 @@ import {
   Input,
   Spinner,
 } from "@chakra-ui/react";
-import { RecipeCategories } from "../../components";
+import { RecipeCategories, RecipePurview } from "../../components";
 import { useRecipeCategoriesQuery } from "../../generated/graphql";
 
 export const CreateRecipe: React.FC = () => {
   const { data, loading, error } = useRecipeCategoriesQuery();
   const [categories, SetCategories] = React.useState<string[]>([]);
+  const [url, setUrl] = React.useState('');
 
   const handleSelecting = (cats: string[]) => {
     SetCategories(cats);
+    console.log(`selected : ${cats} \n length : ${cats.length}`);
   };
 
   if (loading || error) {
@@ -42,6 +44,7 @@ export const CreateRecipe: React.FC = () => {
                 size={"lg"}
                 placeholder={"URL"}
                 variant={"filled"}
+                onChange={(e) => setUrl(e.currentTarget.value)}
               />
               <RecipeCategories
                 onSelect={(cats) => handleSelecting(cats)}
@@ -49,6 +52,9 @@ export const CreateRecipe: React.FC = () => {
               />
             </Box>
           </Center>
+        </GridItem>
+        <GridItem colSpan={3}>
+          <RecipePurview url={url} />
         </GridItem>
       </Grid>
     </Box>
