@@ -8,16 +8,30 @@ import {
   Button,
   Text,
   Input,
+  Spinner,
 } from "@chakra-ui/react";
+import { RecipeCategories } from "../../components";
+import { useRecipeCategoriesQuery } from "../../generated/graphql";
 
 export const CreateRecipe: React.FC = () => {
+
+  const {data, loading, error } = useRecipeCategoriesQuery()
+
+  if(loading || error){
+    return(
+      <Center h={'100vh'}>
+        <Spinner />
+      </Center>
+    )
+  }
+
   return (
     <Box h={"100vh"}>
       <Grid templateColumns="repeat(6, 1fr)" h={"100%"}>
         <GridItem p={"20px"} colSpan={3} bg={"gray.50"} height={"100%"}>
           <Heading> Create Recipe </Heading>
           <Center w={"80%"} h={"70%"}>
-            <Box w={"100%"} m={"auto"} textAlign={'center'}>
+            <Box w={"100%"} m={"auto"} textAlign={"center"}>
               <Input
                 w={"100%"}
                 m={"auto"}
@@ -25,6 +39,7 @@ export const CreateRecipe: React.FC = () => {
                 placeholder={"URL"}
                 variant={"filled"}
               />
+              <RecipeCategories categories={data!.recipeCategories as any} />
             </Box>
           </Center>
         </GridItem>
