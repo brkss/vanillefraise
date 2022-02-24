@@ -14,15 +14,19 @@ import { RecipeCategories } from "../../components";
 import { useRecipeCategoriesQuery } from "../../generated/graphql";
 
 export const CreateRecipe: React.FC = () => {
+  const { data, loading, error } = useRecipeCategoriesQuery();
+  const [categories, SetCategories] = React.useState<string[]>([]);
 
-  const {data, loading, error } = useRecipeCategoriesQuery()
+  const handleSelecting = (cats: string[]) => {
+    SetCategories(cats);
+  };
 
-  if(loading || error){
-    return(
-      <Center h={'100vh'}>
+  if (loading || error) {
+    return (
+      <Center h={"100vh"}>
         <Spinner />
       </Center>
-    )
+    );
   }
 
   return (
@@ -39,7 +43,10 @@ export const CreateRecipe: React.FC = () => {
                 placeholder={"URL"}
                 variant={"filled"}
               />
-              <RecipeCategories categories={data!.recipeCategories as any} />
+              <RecipeCategories
+                onSelect={(cats) => handleSelecting(cats)}
+                categories={data!.recipeCategories as any}
+              />
             </Box>
           </Center>
         </GridItem>
