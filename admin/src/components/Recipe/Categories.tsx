@@ -16,13 +16,16 @@ export const RecipeCategories: React.FC<Props> = ({ categories, onSelect }) => {
   const [selected, SetSelected] = React.useState<string[]>([]);
   const handleSelecting = (id: string) => {
     const index = selected.findIndex((x) => x === id);
+    let cs = [];
     if (index !== -1) {
       selected.splice(index, 1);
-      SetSelected([...selected])
+      cs = selected;
+      SetSelected([...cs])
     } else {
-      SetSelected([...selected, id]);
+      cs = [...selected, id];
+      SetSelected([...cs]);
     }
-    onSelect(selected);
+    onSelect(cs);
   };
 
   return (

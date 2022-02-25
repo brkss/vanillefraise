@@ -1,2 +1,2 @@
 export * from './Categories';
-export * from './Pureview';
+export * from './Preview';

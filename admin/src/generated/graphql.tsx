@@ -32,6 +32,11 @@ export type AuthDefaultResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
+export type CreateRecipeInput = {
+  categories: Array<Scalars['String']>;
+  url: Scalars['String'];
+};
+
 export type CreateRecipeResponse = {
   __typename?: 'CreateRecipeResponse';
   message: Scalars['String'];
@@ -65,6 +70,7 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createRecipe: CreateRecipeResponse;
+  deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
@@ -78,7 +84,12 @@ export type Mutation = {
 
 
 export type MutationCreateRecipeArgs = {
-  uri: Scalars['String'];
+  data: CreateRecipeInput;
+};
+
+
+export type MutationDeleterecipeArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -118,6 +129,7 @@ export type Query = {
 
 export type Recipe = {
   __typename?: 'Recipe';
+  categories: Array<RecipeCategory>;
   cook?: Maybe<Scalars['String']>;
   created_at: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
@@ -139,6 +151,7 @@ export type RecipeCategory = {
   icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   name: Scalars['String'];
+  recipes: Array<Recipe>;
 };
 
 export type RegisterInput = {
@@ -163,6 +176,14 @@ export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null }> };
+
+export type CreateRecipeMutationVariables = Exact<{
+  url: Scalars['String'];
+  categories: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type CreateRecipeMutation = { __typename?: 'Mutation', createRecipe: { __typename?: 'CreateRecipeResponse', status: boolean, message: string } };
 
 
 export const RecipeCategoriesDocument = gql`
@@ -201,3 +222,38 @@ export function useRecipeCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type RecipeCategoriesQueryHookResult = ReturnType<typeof useRecipeCategoriesQuery>;
 export type RecipeCategoriesLazyQueryHookResult = ReturnType<typeof useRecipeCategoriesLazyQuery>;
 export type RecipeCategoriesQueryResult = Apollo.QueryResult<RecipeCategoriesQuery, RecipeCategoriesQueryVariables>;
+export const CreateRecipeDocument = gql`
+    mutation CreateRecipe($url: String!, $categories: [String!]!) {
+  createRecipe(data: {url: $url, categories: $categories}) {
+    status
+    message
+  }
+}
+    `;
+export type CreateRecipeMutationFn = Apollo.MutationFunction<CreateRecipeMutation, CreateRecipeMutationVariables>;
+
+/**
+ * __useCreateRecipeMutation__
+ *
+ * To run a mutation, you first call `useCreateRecipeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRecipeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createRecipeMutation, { data, loading, error }] = useCreateRecipeMutation({
+ *   variables: {
+ *      url: // value for 'url'
+ *      categories: // value for 'categories'
+ *   },
+ * });
+ */
+export function useCreateRecipeMutation(baseOptions?: Apollo.MutationHookOptions<CreateRecipeMutation, CreateRecipeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateRecipeMutation, CreateRecipeMutationVariables>(CreateRecipeDocument, options);
+      }
+export type CreateRecipeMutationHookResult = ReturnType<typeof useCreateRecipeMutation>;
+export type CreateRecipeMutationResult = Apollo.MutationResult<CreateRecipeMutation>;
+export type CreateRecipeMutationOptions = Apollo.BaseMutationOptions<CreateRecipeMutation, CreateRecipeMutationVariables>;

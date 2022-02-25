@@ -6,7 +6,7 @@ interface Props {
   url: string;
 }
 
-export const RecipePurview: React.FC<Props> = ({ url }) => {
+export const RecipePreview: React.FC<Props> = ({ url }) => {
   /*
   React.useEffect(() => {
     (async () => {
@@ -21,7 +21,7 @@ export const RecipePurview: React.FC<Props> = ({ url }) => {
   */
   return (
     <Center p={"20px"} h={"100vh"}>
-      <Text fontWeight={'bold'} textAlign={"center"}> Purview is currently unavailable </Text>
+      <Text fontWeight={'bold'} textAlign={"center"}> Recipe Preview is currently unavailable.</Text>
     </Center>
   );
 };

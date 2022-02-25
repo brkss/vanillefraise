@@ -1,0 +1,6 @@
+mutation CreateRecipe($url: String!, $categories: [String!]!){
+  createRecipe(data: {url: $url, categories: $categories}){
+    status
+    message
+  }
+}
