@@ -1,20 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const Info: React.FC = () => {
+interface Props {
+  prep?: string;
+  cook?: string;
+  total?: string;
+}
+
+export const Info: React.FC<Props> = ({ prep, cook, total }) => {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.title}>Prep</Text>
-        <Text style={styles.value}>1 hour</Text>
+        <Text style={styles.value}>{prep || "unknown"}</Text>
       </View>
-      <View style={styles.item}>
+      <View style={[styles.item, { alignItems: "center" }]}>
         <Text style={styles.title}>Cook</Text>
-        <Text style={styles.value}>18 min</Text>
+        <Text style={styles.value}>{cook || "unknown"}</Text>
       </View>
-      <View style={styles.item}>
-        <Text style={styles.title}>Carbs</Text>
-        <Text style={styles.value}>200g</Text>
+      <View style={[styles.item, { alignItems: "flex-end" }]}>
+        <Text style={styles.title}>Total Time</Text>
+        <Text style={styles.value}>{total || "unknown"}</Text>
       </View>
     </View>
   );
@@ -26,7 +32,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   item: {
-    width: "30%",
+    width: "33%",
     alignItems: "flex-start",
   },
   title: {

@@ -2,15 +2,28 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Info } from "./Info";
 
-export const RecipeMetaData: React.FC = () => {
+interface Props {
+  title: string;
+  description?: string;
+  prep?: string;
+  cook?: string;
+  total?: string;
+}
+
+export const RecipeMetaData: React.FC<Props> = ({
+  title,
+  description,
+  prep,
+  cook,
+  total,
+}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Spicy Tempeh Crumble Bowl </Text>
-      <Info />
-      <Text style={styles.description}>
-        Simmered with French onion soup in a slow cooker, these seasoned pork
-        chops make an easy dinner that's sure to please.
-      </Text>
+      <Text style={styles.title}> {title.trim()} </Text>
+      <Info prep={prep} cook={cook} total={total} />
+      {description ? (
+        <Text style={styles.description}>{description}</Text>
+      ) : null}
     </View>
   );
 };
@@ -20,6 +33,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: "bold",
+    textAlign: "left",
   },
   description: {
     fontSize: 14,

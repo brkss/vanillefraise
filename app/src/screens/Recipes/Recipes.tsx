@@ -45,7 +45,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
             />
             {recipes.map((recipe, key) => (
               <RecipeThumbnail
-                pressed={() => navigation.push("RecipeDetails")}
+                pressed={() => navigation.push("RecipeDetails", {id: recipe.id})}
                 title={recipe.name}
                 img={`${CDN}/${recipe.image}`}
                 time={recipe.total}

@@ -1,0 +1,26 @@
+query Recipe($id: String!){
+  recipe(id: $id){
+    status
+    message
+    recipe{
+      id
+      name
+      description
+      serving
+      image
+      cook
+      prep
+      total
+      ingredients{
+        unit
+        raw
+        amount
+        ingredients
+      }
+      instructions{
+        id
+        raw
+      }
+    }
+  }
+}

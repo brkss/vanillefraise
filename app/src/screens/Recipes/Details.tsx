@@ -12,7 +12,10 @@ import {
   Instructions,
   RecipeMetaData,
   Button,
+  Loading,
 } from "../../components";
+import { useRecipeQuery } from "../../generated/graphql";
+import { CDN } from "../../utils/config/defaults";
 
 const ings = [
   "nonstick cooking spray",
@@ -23,20 +26,39 @@ const ings = [
   "2 tablespoons all-purpose flour",
 ];
 
-export const RecipeDetails: React.FC<any> = ({ navigation }) => {
+export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
+  const { id } = route.params;
+  const { data, loading, error } = useRecipeQuery({
+    fetchPolicy: "cache-first",
+    variables: {
+      id: id,
+    },
+  });
+
+  if (loading || error || !data || !data.recipe.status) {
+    return <Loading />;
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <ImageBackground
           style={styles.image}
           source={{
-            uri: "https://images.101cookbooks.com/TEMPEH-CRUMBLE-BOWL-H.jpg?w=680&auto=format",
+            uri: `${CDN}/${data.recipe.recipe!.image}`,
           }}
         >
           <Close pressed={() => navigation.popToTop()} />
         </ImageBackground>
         <View style={styles.content}>
-          <RecipeMetaData />
+          <RecipeMetaData
+            title={data.recipe.recipe!.name}
+            description={data.recipe.recipe!.description || undefined}
+            prep={data.recipe.recipe?.prep || undefined}  
+            cook={data.recipe.recipe?.cook || undefined}
+            total={data.recipe.recipe?.total|| undefined}
+            
+          />
           <Ingredients ingredients={ings} />
           <Instructions />
           <Button
