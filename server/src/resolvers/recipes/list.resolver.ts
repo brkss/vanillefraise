@@ -1,5 +1,5 @@
 import { Resolver, Query } from "type-graphql";
-import { Recipe, RecipeCategory } from "../../entity/Recipe";
+import { Recipe } from "../../entity/Recipe";
 
 @Resolver()
 export class RecipesListResolver {
