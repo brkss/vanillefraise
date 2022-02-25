@@ -1,5 +1,4 @@
 
-
 query Recipes{
 	recipes{
     id

@@ -1,17 +1,18 @@
 import React from "react";
 import { Box, Text } from "@chakra-ui/react";
 
-export const ListItem: React.FC = () => {
+interface Props {
+  title: string;
+  description?: string | null;
+}
+
+export const ListItem: React.FC<Props> = ({ title, description }) => {
   return (
-    <Box mb={'10px'} bg={"gray.50"} p={"20px"} borderRadius={"13px"}>
-      <Text>Avocado Bowl</Text>
-      <Text>
-        The secret to light, fluffy matzo balls is twofold: using seltzer
-        instead of tap water and letting the mixture rest in the refrigerator so
-        it's fully hydrated before cooking. In this easy soup recipe, the
-        vegetables can be finely sliced to make an elegant soup or coarsely
-        chopped or sliced for a more rustic presentation.
+    <Box mb={"10px"} bg={"#fbf3ed"} p={"20px"} borderRadius={"13px"}>
+      <Text fontWeight={"bold"} fontSize={"23px"} mb={"5px"}>
+        {title}
       </Text>
+      <Text fontSize={"13px"}>{description}</Text>
     </Box>
   );
 };
