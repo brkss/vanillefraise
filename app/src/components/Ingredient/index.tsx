@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { IngredientItem } from "./Item";
 
 interface Props {
-  ingredients: string[];
+  ingredients: any[];
 }
 
 export const Ingredients: React.FC<Props> = ({ ingredients }) => {
@@ -11,7 +11,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Ingredients</Text>
       {ingredients.map((ing, key) => (
-        <IngredientItem key={key} txt={ing} />
+        <IngredientItem key={key} txt={ing.raw} />
       ))}
     </View>
   );

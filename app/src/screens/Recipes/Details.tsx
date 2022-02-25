@@ -54,13 +54,12 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           <RecipeMetaData
             title={data.recipe.recipe!.name}
             description={data.recipe.recipe!.description || undefined}
-            prep={data.recipe.recipe?.prep || undefined}  
+            prep={data.recipe.recipe?.prep || undefined}
             cook={data.recipe.recipe?.cook || undefined}
-            total={data.recipe.recipe?.total|| undefined}
-            
+            total={data.recipe.recipe?.total || undefined}
           />
-          <Ingredients ingredients={ings} />
-          <Instructions />
+          <Ingredients ingredients={data.recipe.recipe!.ingredients} />
+          <Instructions instructions={data.recipe.recipe!.instructions} />
           <Button
             //color={"#2A2A2A"}
             //bg={"#B6DA81"}

@@ -2,12 +2,19 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Item } from "./Item";
 
-export const Instructions: React.FC = () => {
+interface Props {
+  instructions: any[]
+}
+
+export const Instructions: React.FC<Props> = ({instructions}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Instructions</Text>
-      <Item />
-      <Item />
+      {
+        instructions.map((instruction, key) => (
+          <Item txt={instruction.raw} key={key} />
+        ))
+      }
     </View>
   );
 };
