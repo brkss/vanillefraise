@@ -7,6 +7,7 @@ import { createConnection } from "typeorm";
 import cookieParser from "cookie-parser";
 import { refreshToken } from "./utils/token";
 import cors from "cors";
+import path from 'path';
 
 (async () => {
   await createConnection();
@@ -25,6 +26,10 @@ import cors from "cors";
   });
 
   app.post("/refresh_token", async (req, res) => await refreshToken(res, req));
+
+  // cdn
+  const dir = path.join(__dirname, "cdn/images");
+  app.use("/images", express.static(dir));
 
   const apolloServer = new ApolloServer({
     schema: await build(),
