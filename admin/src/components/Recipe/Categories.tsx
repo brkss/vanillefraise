@@ -32,7 +32,7 @@ export const RecipeCategories: React.FC<Props> = ({ categories, onSelect }) => {
     <Box mt={"20px"}>
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
         {categories.map((category, key) => (
-          <GridItem>
+          <GridItem key={key}>
             <Box
               cursor={"pointer"}
               onClick={() => handleSelecting(category.id)}
