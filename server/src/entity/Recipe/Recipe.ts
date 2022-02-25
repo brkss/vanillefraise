@@ -25,7 +25,7 @@ export class Recipe extends BaseEntity {
   name: string;
 
   @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   description?: string;
 
   @Field({ nullable: true })
