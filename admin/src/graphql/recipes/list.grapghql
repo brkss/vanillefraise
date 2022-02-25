@@ -1,0 +1,14 @@
+
+
+query Recipes{
+	recipes{
+    id
+    name
+    description
+    serving
+    image
+    cook
+    prep
+    total
+  }
+}

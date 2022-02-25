@@ -10,7 +10,7 @@ import {
   Input,
   Spinner,
 } from "@chakra-ui/react";
-import { RecipeCategories, RecipePreview } from "../../components";
+import { RecipeCategories, RecipeList } from "../../components";
 import { useRecipeCategoriesQuery } from "../../generated/graphql";
 import { useCreateRecipeMutation } from "../../generated/graphql";
 
@@ -108,7 +108,7 @@ export const CreateRecipe: React.FC = () => {
           </Center>
         </GridItem>
         <GridItem colSpan={3}>
-          <RecipePreview url={url} />
+          <RecipeList />
         </GridItem>
       </Grid>
     </Box>
