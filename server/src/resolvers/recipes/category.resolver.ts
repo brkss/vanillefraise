@@ -6,7 +6,7 @@ import { recipe_categories } from "../../utils/data/recipe_categories";
 export class RecipeCategoryResolver {
   @Query(() => [RecipeCategory])
   async recipeCategories(): Promise<RecipeCategory[]> {
-    return await RecipeCategory.find({where: {active: true}});
+    return await RecipeCategory.find({where: {active: true}, relations: ['recipes']});
   }
 
   @Mutation(() => Boolean)
