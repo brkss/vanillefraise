@@ -12,13 +12,15 @@ import {
 } from "@chakra-ui/react";
 import { RecipeCategories, RecipePreview } from "../../components";
 import { useRecipeCategoriesQuery } from "../../generated/graphql";
-import { useCreateRecipeMutation } from '../../generated/graphql';
+import { useCreateRecipeMutation } from "../../generated/graphql";
 
 export const CreateRecipe: React.FC = () => {
   const { data, loading, error } = useRecipeCategoriesQuery();
+  const [err, setErr] = React.useState("");
   const [categories, SetCategories] = React.useState<string[]>([]);
   const [url, setUrl] = React.useState("");
   const [create] = useCreateRecipeMutation();
+  const [_loading, SetLoading] = React.useState(false);
 
   const handleSelecting = (cats: string[]) => {
     SetCategories(cats);
@@ -26,13 +28,26 @@ export const CreateRecipe: React.FC = () => {
   };
 
   const handleRecipeCreating = () => {
+    SetLoading(true);
     create({
       variables: {
         url: url,
-        categories: categories
-      }
-    }) 
-  }
+        categories: categories,
+      },
+    })
+      .then((res) => {
+        SetLoading(false);
+        if (res.errors || !res.data || !res.data.createRecipe.status) {
+          setErr(res.data?.createRecipe.message || "Something went wrong !");
+        }
+        setUrl("");
+        SetCategories([]);
+        console.log("Create recipe response => ", res);
+      })
+      .catch((e) => {
+        console.log("Something went wrong : ", e);
+      });
+  };
 
   if (loading || error) {
     return (
@@ -64,12 +79,22 @@ export const CreateRecipe: React.FC = () => {
                 placeholder={"URL"}
                 variant={"filled"}
                 onChange={(e) => setUrl(e.currentTarget.value)}
+                value={url}
+                disabled={_loading}
               />
               <RecipeCategories
+                loading={_loading}
                 onSelect={(cats) => handleSelecting(cats)}
                 categories={data!.recipeCategories as any}
               />
-              <Button d={"block"} mt={"20px"} mr={"auto"} onClick={() => {}}>
+              <Button
+                d={"block"}
+                mt={"20px"}
+                mr={"auto"}
+                onClick={() => handleRecipeCreating()}
+                loadingText={"Creating..."}
+                isLoading={_loading}
+              >
                 Create
               </Button>
             </Box>

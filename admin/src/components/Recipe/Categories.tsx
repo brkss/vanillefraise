@@ -10,22 +10,24 @@ interface ICategory {
 interface Props {
   categories: ICategory[];
   onSelect: (cats: string[]) => void;
+  loading: boolean;
 }
 
-export const RecipeCategories: React.FC<Props> = ({ categories, onSelect }) => {
+export const RecipeCategories: React.FC<Props> = ({ categories, onSelect, loading }) => {
   const [selected, SetSelected] = React.useState<string[]>([]);
   const handleSelecting = (id: string) => {
     const index = selected.findIndex((x) => x === id);
     let cs = [];
-    if (index !== -1) {
+    if (index !== -1 && !loading) {
       selected.splice(index, 1);
       cs = selected;
       SetSelected([...cs])
-    } else {
+      onSelect(cs);
+    } else if(!loading) {
       cs = [...selected, id];
       SetSelected([...cs]);
+      onSelect(cs);
     }
-    onSelect(cs);
   };
 
   return (
