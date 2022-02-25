@@ -1,21 +1,32 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { Heading, Slider, RecipeThumbnail, Loading } from "../../components";
-import { recipes, recipes_category } from "../../utils";
+//import { recipes, recipes_category } from "../../utils";
 import { colors } from "../../utils";
-import { useRecipeCategoriesQuery } from '../../generated/graphql';
+import { useRecipeCategoriesQuery } from "../../generated/graphql";
+import { CDN } from "../../utils/config/defaults";
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
+  const [category, SetCategory] = React.useState("");
+  const [recipes, SetRecipes] = React.useState<any[]>([]);
+  const { data, loading, error } = useRecipeCategoriesQuery({
+    fetchPolicy: "cache-first",
+    onCompleted: (data) => {
+      if (data.recipeCategories) {
+        SetCategory(data.recipeCategories[0].id);
+        SetRecipes(data.recipeCategories[0].recipes);
+      }
+    },
+  });
 
-  const [category, SetCategory] = React.useState('');
-  const { data, loading, error } = useRecipeCategoriesQuery({fetchPolicy: 'cache-first', onCompleted: (data => {
-    if(data.recipeCategories){
-      SetCategory(data.recipeCategories[0].id);
-    }
-  })});
-  
-  if(loading || error){
-    return <Loading />
+  const handleSelectingCategory = (cat_id: string) => {
+    SetCategory(cat_id);
+    const category = data!.recipeCategories.find(x => x.id === cat_id);
+    SetRecipes(category!.recipes);
+  }
+
+  if (loading || error) {
+    return <Loading />;
   }
 
   return (
@@ -26,13 +37,18 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.recipesContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Slider color={colors.c3} selected={category} onSelect={(category: string) => SetCategory(category)} categories={ data!.recipeCategories as any } />
+            <Slider
+              color={colors.c3}
+              selected={category}
+              onSelect={(category: string) => handleSelectingCategory(category)}
+              categories={data!.recipeCategories as any}
+            />
             {recipes.map((recipe, key) => (
               <RecipeThumbnail
                 pressed={() => navigation.push("RecipeDetails")}
-                title={recipe.title}
-                img={recipe.img}
-                time={recipe.time}
+                title={recipe.name}
+                img={`${CDN}/${recipe.image}`}
+                time={recipe.total}
                 carbs={recipe.carbs}
                 key={key}
               />

@@ -32,6 +32,11 @@ export type AuthDefaultResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
+export type CreateRecipeInput = {
+  categories: Array<Scalars['String']>;
+  url: Scalars['String'];
+};
+
 export type CreateRecipeResponse = {
   __typename?: 'CreateRecipeResponse';
   message: Scalars['String'];
@@ -65,6 +70,7 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createRecipe: CreateRecipeResponse;
+  deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
@@ -78,7 +84,12 @@ export type Mutation = {
 
 
 export type MutationCreateRecipeArgs = {
-  uri: Scalars['String'];
+  data: CreateRecipeInput;
+};
+
+
+export type MutationDeleterecipeArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -118,6 +129,7 @@ export type Query = {
 
 export type Recipe = {
   __typename?: 'Recipe';
+  categories: Array<RecipeCategory>;
   cook?: Maybe<Scalars['String']>;
   created_at: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
@@ -139,6 +151,7 @@ export type RecipeCategory = {
   icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   name: Scalars['String'];
+  recipes: Array<Recipe>;
 };
 
 export type RegisterInput = {
@@ -185,7 +198,7 @@ export type PingQuery = { __typename?: 'Query', ping: string };
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null | undefined }> };
+export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null | undefined, recipes: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> }> };
 
 export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -334,6 +347,12 @@ export const RecipeCategoriesDocument = gql`
     id
     name
     icon
+    recipes {
+      id
+      name
+      total
+      image
+    }
   }
 }
     `;
