@@ -49,7 +49,7 @@ export class CreateRecipeResolver {
       recipe.cook = recipe_data.time.cook;
       recipe.total = recipe_data.time.total;
       recipe.url = uri;
-      await recipe.save();
+      let categories : RecipeCategory[] = []; 
       for(let cat_id of data.categories){
         const category = await RecipeCategory.findOne({where: {id: cat_id}});
         if(!category){
@@ -59,9 +59,10 @@ export class CreateRecipeResolver {
             message: "Error : Category not found !"
           }
         }
-        category.recipes.push(recipe);
-        await category.save();
+        categories.push(category);
       }
+      recipe.categories = categories;
+      await recipe.save();
 
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
       await this.createRecipeInstructions(recipe, recipe_data.instructions);
