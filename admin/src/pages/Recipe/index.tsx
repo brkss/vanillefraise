@@ -22,9 +22,15 @@ export const CreateRecipe: React.FC = () => {
   const [create] = useCreateRecipeMutation();
   const [_loading, SetLoading] = React.useState(false);
 
-  const handleSelecting = (cats: string[]) => {
-    SetCategories(cats);
-    console.log(`selected : ${cats} \n length : ${cats.length}`);
+  const handleSelecting = (id: string) => {
+    const index = categories.findIndex((x) => x === id);
+    //let cs = [];
+    if (index !== -1 && !_loading) {
+      categories.splice(index, 1);
+      SetCategories([...categories]);
+    } else if (!_loading) {
+      SetCategories([...categories, id]);
+    }
   };
 
   const handleRecipeCreating = () => {
@@ -83,6 +89,7 @@ export const CreateRecipe: React.FC = () => {
                 disabled={_loading}
               />
               <RecipeCategories
+                selectedCategories={categories}
                 loading={_loading}
                 onSelect={(cats) => handleSelecting(cats)}
                 categories={data!.recipeCategories as any}

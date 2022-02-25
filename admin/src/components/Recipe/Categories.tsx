@@ -9,15 +9,20 @@ interface ICategory {
 
 interface Props {
   categories: ICategory[];
-  onSelect: (cats: string[]) => void;
+  onSelect: (id: string) => void;
   loading: boolean;
+  selectedCategories: string[];
 }
 
-export const RecipeCategories: React.FC<Props> = ({ categories, onSelect, loading }) => {
-  const [selected, SetSelected] = React.useState<string[]>([]);
+export const RecipeCategories: React.FC<Props> = ({ categories, onSelect, loading, selectedCategories }) => {
+  const [selected, SetSelected] = React.useState<string[]>([...selectedCategories]);
   const handleSelecting = (id: string) => {
-    const index = selected.findIndex((x) => x === id);
-    let cs = [];
+    if(!loading){
+      onSelect(id);
+    }
+    //const index = selected.findIndex((x) => x === id);
+    //let cs = [];
+    /*
     if (index !== -1 && !loading) {
       selected.splice(index, 1);
       cs = selected;
@@ -27,8 +32,10 @@ export const RecipeCategories: React.FC<Props> = ({ categories, onSelect, loadin
       cs = [...selected, id];
       SetSelected([...cs]);
       onSelect(cs);
-    }
+      }
+     */
   };
+  
 
   return (
     <Box mt={"20px"}>
@@ -40,7 +47,7 @@ export const RecipeCategories: React.FC<Props> = ({ categories, onSelect, loadin
               onClick={() => handleSelecting(category.id)}
               p={"15px 23px"}
               borderRadius={"13px"}
-              bg={selected.indexOf(category.id) === -1 ? "#fbe7d8" : "#f5c983"}
+              bg={selectedCategories.indexOf(category.id) === -1 ? "#fbe7d8" : "#f5c983"}
             >
               <Text d={"inline-block"} mr={"10px"}>
                 {category.icon}
