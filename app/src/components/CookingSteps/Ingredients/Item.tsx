@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-export const Item: React.FC = () => {
+interface Props {
+  txt: string;
+}
+
+export const Item: React.FC<Props> = ({txt}) => {
   const [checked, SetChecked] = React.useState(false);
   return (
     <TouchableOpacity
@@ -19,8 +23,8 @@ export const Item: React.FC = () => {
           styles.txt,
           { textDecorationLine: checked ? "line-through" : "none" },
         ]}
-      >
-        Some random ingredient !
+        >
+        {txt}
       </Text>
     </TouchableOpacity>
   );

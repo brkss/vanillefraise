@@ -11,9 +11,11 @@ import { colors } from "../../utils";
 
 interface Props {
   finish: () => void;
+  name: string;
+  total: string;
 }
 
-export const Start: React.FC<Props> = ({ finish }) => {
+export const Start: React.FC<Props> = ({ finish, name, total }) => {
   const AnimatedTouchableOpacity =
     Animated.createAnimatedComponent(TouchableOpacity);
   const alphaAnim = React.useRef(new Animated.Value(130)).current;
@@ -48,10 +50,10 @@ export const Start: React.FC<Props> = ({ finish }) => {
   return (
     <View style={styles.container}>
       <View style={{ height: 100 }} />
-      <Text style={styles.time}>About 28 mins in total</Text>
+      <Text style={styles.time}>About {total} in total</Text>
       <View style={styles.metadata}>
         <Text style={styles.info}>You’re cooking</Text>
-        <Text style={styles.title}>Spicy Tempeh {"\n"} Crumble Bowl</Text>
+        <Text style={styles.title}>{name}</Text>
       </View>
 
       <AnimatedTouchableOpacity

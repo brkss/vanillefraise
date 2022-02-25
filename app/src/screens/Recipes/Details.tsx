@@ -64,7 +64,9 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             //color={"#2A2A2A"}
             //bg={"#B6DA81"}
             txt={"Start Cooking"}
-            clicked={() => navigation.push("Cooking")}
+            clicked={() => navigation.push("Cooking", {
+              id: data.recipe.recipe!.id
+            })}
           />
           <View style={{ height: 50 }} />
         </View>

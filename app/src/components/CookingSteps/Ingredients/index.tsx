@@ -6,9 +6,10 @@ import { Button } from "../../General/Button";
 
 interface Props {
   finish: () => void;
+  ingredients: any[];
 }
 
-export const IngredientStep: React.FC<Props> = ({ finish }) => {
+export const IngredientStep: React.FC<Props> = ({ finish, ingredients }) => {
   const opcAnim = React.useRef(new Animated.Value(0)).current;
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
@@ -40,10 +41,12 @@ export const IngredientStep: React.FC<Props> = ({ finish }) => {
         bounces={false}
         showsVerticalScrollIndicator={false}
         style={styles.ings}
-      >
-        <Item />
-        <Item />
-        <Item />
+        >
+        {
+          ingredients.map((ing, key) => (
+            <Item txt={ing.raw}  />            
+          ))
+        }
       </ScrollView>
       <Button txt={"Done !"} clicked={() => finish()} />
     </Animated.View>

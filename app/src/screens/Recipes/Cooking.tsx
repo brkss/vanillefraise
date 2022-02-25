@@ -5,13 +5,19 @@ import {
   IngredientStep,
   InstructionsStep,
   FinishStep,
+  Loading,
 } from "../../components";
 import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRecipeQuery } from '../../generated/graphql';
 
-export const Cooking: React.FC<any> = ({ navigation }) => {
+export const Cooking: React.FC<any> = ({ route, navigation }) => {
+  const { id } = route.params;
+  const { data, loading, error } = useRecipeQuery({fetchPolicy: 'cache-first', variables: {
+    id: id
+  }});
   const [step, SetStep] = React.useState("start");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
@@ -21,7 +27,7 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
     SetStep(s);
   };
 
-  if (!helviticaCondensed) return <View />;
+  if (!helviticaCondensed || loading || error || !data) return <Loading />;
 
   return (
     <LinearGradient colors={["#D5BDAF", "#F5EBE0"]} style={styles.container}>
@@ -38,9 +44,9 @@ export const Cooking: React.FC<any> = ({ navigation }) => {
         <View style={styles.content}>
           {
             {
-              start: <Start finish={() => changeStep("ingredients")} />,
+              start: <Start total={data!.recipe.recipe!.total || 'unknown'} name={data!.recipe.recipe!.name} finish={() => changeStep("ingredients")} />,
               ingredients: (
-                <IngredientStep finish={() => changeStep("instructions")} />
+                <IngredientStep ingredients={data!.recipe.recipe!.ingredients} finish={() => changeStep("instructions")} />
               ),
               instructions: (
                 <InstructionsStep finish={() => changeStep("finish")} />
