@@ -1,18 +1,20 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 interface Props {
   name: string;
   icon: string;
   color: string;
+  selected: boolean;
+  onSelect: () => void;
 }
 
-export const Item: React.FC<Props> = ({ name, icon, color }) => {
+export const Item: React.FC<Props> = ({ name, icon, color, selected, onSelect }) => {
   return (
-    <View style={[styles.container, { backgroundColor: color }]}>
+    <Pressable onPress={() => onSelect()} style={[styles.container, { backgroundColor: selected ? '#ffe1b5' : color }]}>
       <Text style={styles.icon}>{icon}</Text>
       <Text style={styles.title}>{name}</Text>
-    </View>
+    </Pressable>
   );
 };
 

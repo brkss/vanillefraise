@@ -1,14 +1,17 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { ISlideCategory } from "../../utils/types";
+//import { ISlideCategory } from "../../utils/types";
 import { Item } from "./Item";
+//import { RecipeCategoriesQuery } from '../../generated/graphql';
 
 interface Props {
-  categories: ISlideCategory[];
+  categories: any[];
   color: string;
+  selected: string;
+  onSelect: (id: string) => void;
 }
 
-export const Slider: React.FC<Props> = ({ categories, color }) => {
+export const Slider: React.FC<Props> = ({ categories, color, selected, onSelect }) => {
   return (
     <ScrollView
       style={styles.container}
@@ -16,7 +19,7 @@ export const Slider: React.FC<Props> = ({ categories, color }) => {
       horizontal
     >
       {categories.map((cat, key) => (
-        <Item key={key} color={color} name={cat.name} icon={cat.icon} />
+        <Item onSelect={() => onSelect(cat.id)} key={key} color={color} name={cat.name} icon={cat.icon} selected={selected === cat.id} />
       ))}
     </ScrollView>
   );

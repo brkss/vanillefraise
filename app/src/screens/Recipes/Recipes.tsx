@@ -1,10 +1,23 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
-import { Heading, Slider, RecipeThumbnail } from "../../components";
+import { Heading, Slider, RecipeThumbnail, Loading } from "../../components";
 import { recipes, recipes_category } from "../../utils";
 import { colors } from "../../utils";
+import { useRecipeCategoriesQuery } from '../../generated/graphql';
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
+
+  const [category, SetCategory] = React.useState('');
+  const { data, loading, error } = useRecipeCategoriesQuery({fetchPolicy: 'cache-first', onCompleted: (data => {
+    if(data.recipeCategories){
+      SetCategory(data.recipeCategories[0].id);
+    }
+  })});
+  
+  if(loading || error){
+    return <Loading />
+  }
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -13,7 +26,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.recipesContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Slider color={colors.c3} categories={recipes_category} />
+            <Slider color={colors.c3} selected={category} onSelect={(category: string) => SetCategory(category)} categories={ data!.recipeCategories as any } />
             {recipes.map((recipe, key) => (
               <RecipeThumbnail
                 pressed={() => navigation.push("RecipeDetails")}
