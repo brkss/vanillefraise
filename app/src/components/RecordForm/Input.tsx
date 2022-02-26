@@ -1,11 +1,20 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 
-export const Input: React.FC = () => {
+interface Props {
+  onChange: (value: string) => void;
+  unit: string;
+}
+
+export const Input: React.FC<Props> = ({ onChange, unit }) => {
   return (
     <View style={styles.container}>
-      <TextInput placeholder={"Value"} style={styles.input} />
-      <Text style={styles.unit}>g</Text>
+      <TextInput
+        placeholder={"Value"}
+        onChangeText={(v) => onChange(v)}
+        style={styles.input}
+      />
+      <Text style={styles.unit}>{unit}</Text>
     </View>
   );
 };
@@ -19,12 +28,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: "90%",
+    width: "80%",
     fontSize: 16,
     fontWeight: "bold",
   },
   unit: {
-    width: "10%",
+    width: "20%",
     textAlign: "right",
     fontWeight: "bold",
     fontSize: 16,

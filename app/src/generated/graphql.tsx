@@ -185,6 +185,7 @@ export type RecordCategory = {
   id: Scalars['String'];
   name: Scalars['String'];
   records: Array<Record>;
+  unit: Scalars['String'];
 };
 
 export type RegisterInput = {
@@ -254,7 +255,7 @@ export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'Recipe
 export type RecordCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecordCategoriesQuery = { __typename?: 'Query', recordCategories: Array<{ __typename?: 'RecordCategory', id: string, name: string, icon: string }> };
+export type RecordCategoriesQuery = { __typename?: 'Query', recordCategories: Array<{ __typename?: 'RecordCategory', id: string, name: string, icon: string, unit: string }> };
 
 export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -501,6 +502,7 @@ export const RecordCategoriesDocument = gql`
     id
     name
     icon
+    unit
   }
 }
     `;

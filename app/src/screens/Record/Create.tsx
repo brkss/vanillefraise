@@ -8,24 +8,21 @@ import {
   Loading,
 } from "../../components";
 import { record_category } from "../../utils";
-import { useRecordCategoriesQuery } from '../../generated/graphql';
+import { useRecordCategoriesQuery } from "../../generated/graphql";
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
-
-
-  const [selected, SetSelected] = React.useState('');
-  const {loading, data, error} = useRecordCategoriesQuery({
+  const [selected, SetSelected] = React.useState("");
+  const [value, setValue] = React.useState<number | Date>();
+  const { loading, data, error } = useRecordCategoriesQuery({
     onCompleted: (data) => {
-      if(data && data.recordCategories.length > 0){
-       SetSelected(data.recordCategories[0].id); 
+      if (data && data.recordCategories.length > 0) {
+        SetSelected(data.recordCategories[0].id);
       }
-    }
+    },
   });
 
-  if(loading || error || !data){
-    return(
-      <Loading />
-    )
+  if (loading || error || !data) {
+    return <Loading />;
   }
 
   return (
@@ -36,8 +33,19 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.contentContainer}>
           <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-            <Slider onSelect={(id) => SetSelected(id)} selected={selected}  color={"#FDEBA8"} categories={data!.recordCategories} />
-            <RecordForm />
+            <Slider
+              onSelect={(id) => SetSelected(id)}
+              selected={selected}
+              color={"#FDEBA8"}
+              categories={data!.recordCategories}
+            />
+            <RecordForm
+              unit={
+                data.recordCategories.find((x) => x.id === selected)?.unit ||
+                "x"
+              }
+              valueChange={(value: number) => setValue(value)}
+            />
             <RecordHistorySlide />
             <View style={{ height: 100 }} />
           </ScrollView>

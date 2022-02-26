@@ -3,5 +3,6 @@ query RecordCategories{
     id
     name
     icon
+    unit
   }
 }
