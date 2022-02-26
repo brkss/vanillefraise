@@ -5,7 +5,7 @@ interface Props {
   txt: string;
 }
 
-export const Item: React.FC<Props> = ({txt}) => {
+export const Item: React.FC<Props> = ({ txt }) => {
   const [checked, SetChecked] = React.useState(false);
   return (
     <TouchableOpacity
@@ -23,7 +23,7 @@ export const Item: React.FC<Props> = ({txt}) => {
           styles.txt,
           { textDecorationLine: checked ? "line-through" : "none" },
         ]}
-        >
+      >
         {txt}
       </Text>
     </TouchableOpacity>
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#343433",
   },
   txt: {
+    flexShrink: 1,
     fontSize: 21,
     fontWeight: "bold",
   },

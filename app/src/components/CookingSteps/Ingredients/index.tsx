@@ -44,7 +44,7 @@ export const IngredientStep: React.FC<Props> = ({ finish, ingredients }) => {
         >
         {
           ingredients.map((ing, key) => (
-            <Item txt={ing.raw}  />            
+            <Item key={key} txt={ing.raw}  />            
           ))
         }
       </ScrollView>

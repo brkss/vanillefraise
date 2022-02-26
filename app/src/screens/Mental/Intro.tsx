@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
   },
   headerContainer: {},
   header: {
-    fontSize: 70,
-    lineHeight: 70,
+    fontSize: 50,
+    lineHeight: 50,
     fontWeight: "bold",
     color: "white",
     fontFamily: "helvitica-condesed",
