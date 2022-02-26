@@ -9,6 +9,7 @@ import {
   SpecialConditionResolver,
   DeleteRecipeResolver,
   RecipeItemResolver,
+  RecordCategoryResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -23,7 +24,8 @@ export const build = async () => {
       SpecialConditionResolver,
       DeleteRecipeResolver,
       RecipeItemResolver,
+      RecordCategoryResolver
     ],
     validate: false,
   });
-};
+} ;

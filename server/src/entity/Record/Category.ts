@@ -17,7 +17,12 @@ export class RecordCategory extends BaseEntity {
   @Column({ nullable: true })
   icon?: string;
 
+  @Field()
+  @Column()
+  unit: string;
+
   @Field(() => [Record])
   @OneToMany(() => Record, records => records.category)
   records: Record[];
+  
 }

@@ -3,3 +3,4 @@ export * from "./auth";
 export * from "./recipes";
 export * from "./activity";
 export * from './user';
+export * from './records';
