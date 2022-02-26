@@ -78,6 +78,7 @@ export type Mutation = {
   resetPassword: AuthDefaultResponse;
   seedActivityCategories: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
+  seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
 };
@@ -124,6 +125,7 @@ export type Query = {
   recipe: RecipeItemResponse;
   recipeCategories: Array<RecipeCategory>;
   recipes: Array<Recipe>;
+  recordCategories: Array<RecordCategory>;
   specialconditions: Array<SpecialCondition>;
   work: Scalars['String'];
 };
@@ -167,6 +169,24 @@ export type RecipeItemResponse = {
   status: Scalars['Boolean'];
 };
 
+export type Record = {
+  __typename?: 'Record';
+  category: RecordCategory;
+  id: Scalars['String'];
+  time: Scalars['DateTime'];
+  unit: Scalars['String'];
+  user: User;
+  value: Scalars['Float'];
+};
+
+export type RecordCategory = {
+  __typename?: 'RecordCategory';
+  icon: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  records: Array<Record>;
+};
+
 export type RegisterInput = {
   email: Scalars['String'];
   name: Scalars['String'];
@@ -183,6 +203,17 @@ export type SpecialCondition = {
   __typename?: 'SpecialCondition';
   id: Scalars['String'];
   name: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  created_at: Scalars['DateTime'];
+  email: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  records: Array<Record>;
+  username: Scalars['String'];
+  version: Scalars['Float'];
 };
 
 export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
@@ -219,6 +250,11 @@ export type RecipeQueryVariables = Exact<{
 
 
 export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, ingredients: Array<{ __typename?: 'Ingredient', unit?: string | null | undefined, raw: string, amount?: number | null | undefined, ingredients?: string | null | undefined }>, instructions: Array<{ __typename?: 'Instruction', id: string, raw: string }> } | null | undefined } };
+
+export type RecordCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RecordCategoriesQuery = { __typename?: 'Query', recordCategories: Array<{ __typename?: 'RecordCategory', id: string, name: string, icon: string }> };
 
 export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -459,6 +495,42 @@ export function useRecipeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Rec
 export type RecipeQueryHookResult = ReturnType<typeof useRecipeQuery>;
 export type RecipeLazyQueryHookResult = ReturnType<typeof useRecipeLazyQuery>;
 export type RecipeQueryResult = Apollo.QueryResult<RecipeQuery, RecipeQueryVariables>;
+export const RecordCategoriesDocument = gql`
+    query RecordCategories {
+  recordCategories {
+    id
+    name
+    icon
+  }
+}
+    `;
+
+/**
+ * __useRecordCategoriesQuery__
+ *
+ * To run a query within a React component, call `useRecordCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecordCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecordCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRecordCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<RecordCategoriesQuery, RecordCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecordCategoriesQuery, RecordCategoriesQueryVariables>(RecordCategoriesDocument, options);
+      }
+export function useRecordCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecordCategoriesQuery, RecordCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecordCategoriesQuery, RecordCategoriesQueryVariables>(RecordCategoriesDocument, options);
+        }
+export type RecordCategoriesQueryHookResult = ReturnType<typeof useRecordCategoriesQuery>;
+export type RecordCategoriesLazyQueryHookResult = ReturnType<typeof useRecordCategoriesLazyQuery>;
+export type RecordCategoriesQueryResult = Apollo.QueryResult<RecordCategoriesQuery, RecordCategoriesQueryVariables>;
 export const SpecialConditionsDocument = gql`
     query SpecialConditions {
   specialconditions {

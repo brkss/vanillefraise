@@ -5,10 +5,29 @@ import {
   Slider,
   RecordForm,
   RecordHistorySlide,
+  Loading,
 } from "../../components";
 import { record_category } from "../../utils";
+import { useRecordCategoriesQuery } from '../../generated/graphql';
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
+
+
+  const [selected, SetSelected] = React.useState('');
+  const {loading, data, error} = useRecordCategoriesQuery({
+    onCompleted: (data) => {
+      if(data && data.recordCategories.length > 0){
+       SetSelected(data.recordCategories[0].id); 
+      }
+    }
+  });
+
+  if(loading || error || !data){
+    return(
+      <Loading />
+    )
+  }
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -17,7 +36,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.contentContainer}>
           <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-            <Slider color={"#FDEBA8"} categories={record_category} />
+            <Slider onSelect={(id) => SetSelected(id)} selected={selected}  color={"#FDEBA8"} categories={data!.recordCategories} />
             <RecordForm />
             <RecordHistorySlide />
             <View style={{ height: 100 }} />

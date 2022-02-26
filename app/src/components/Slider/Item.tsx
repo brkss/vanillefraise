@@ -9,9 +9,21 @@ interface Props {
   onSelect: () => void;
 }
 
-export const Item: React.FC<Props> = ({ name, icon, color, selected, onSelect }) => {
+export const Item: React.FC<Props> = ({
+  name,
+  icon,
+  color,
+  selected,
+  onSelect,
+}) => {
   return (
-    <Pressable onPress={() => onSelect()} style={[styles.container, { backgroundColor: selected ? '#ffe1b5' : color }]}>
+    <Pressable
+      onPress={() => onSelect()}
+      style={[
+        styles.container,
+        { backgroundColor: selected ? "#ffe1b5" : color },
+      ]}
+    >
       <Text style={styles.icon}>{icon}</Text>
       <Text style={styles.title}>{name}</Text>
     </Pressable>
@@ -24,6 +36,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 88,
     width: 68,
+    paddingHorizontal: 3,
     //padding: 15,
     maxHeight: 100,
     borderRadius: 13,
@@ -38,5 +51,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "bold",
     marginTop: 4,
+    textAlign: "center",
   },
 });
