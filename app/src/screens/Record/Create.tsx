@@ -12,6 +12,8 @@ import { useRecordCategoriesQuery } from "../../generated/graphql";
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
   const [selected, SetSelected] = React.useState("");
+  const [time, SetTime] = React.useState(new Date());
+  const [date, SetDate] = React.useState(new  Date());
   const [value, setValue] = React.useState<number | Date>();
   const { loading, data, error } = useRecordCategoriesQuery({
     onCompleted: (data) => {
@@ -40,6 +42,8 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               categories={data!.recordCategories}
             />
             <RecordForm
+              timeChange={(time) => SetTime(time)}
+              dateChange={(date) => SetTime(date)}
               unit={
                 data.recordCategories.find((x) => x.id === selected)?.unit ||
                 "x"
