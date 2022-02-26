@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
 import { ResetPassword } from "./ResetPassword";
+import { Record } from './Record';
 
 @ObjectType()
 @Entity("users")
@@ -46,4 +47,8 @@ export class User extends BaseEntity {
 
   @OneToMany(() => ResetPassword, (resetpasswords) => resetpasswords.user)
   resetpasswords: ResetPassword[];
+
+  @Field(() => [Record])
+  @OneToMany(() => Record, records => records.user)
+  records: Record[];
 }
