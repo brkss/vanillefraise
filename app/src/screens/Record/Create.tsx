@@ -6,17 +6,23 @@ import {
   RecordForm,
   RecordHistorySlide,
   Loading,
+  Alert,
 } from "../../components";
 import { record_category } from "../../utils";
 import { useRecordCategoriesQuery } from "../../generated/graphql";
-import { useCreateRecordMutation } from '../../generated/graphql';
+import { useCreateRecordMutation } from "../../generated/graphql";
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
+  const [alertData, SetAlertData] = React.useState({
+    show: false,
+    type: "success",
+    text: "",
+  });
   const [create] = useCreateRecordMutation();
   const [selected, SetSelected] = React.useState("");
   const [time, SetTime] = React.useState(new Date());
   const [date, SetDate] = React.useState(new Date());
-  const [value, setValue] = React.useState<string>('');
+  const [value, setValue] = React.useState<string>("");
   const { loading, data, error } = useRecordCategoriesQuery({
     onCompleted: (data) => {
       if (data && data.recordCategories.length > 0) {
@@ -24,7 +30,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
       }
     },
   });
-
+  styles;
   if (loading || error || !data) {
     return <Loading />;
   }
@@ -44,16 +50,23 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         category: data.category,
         value: data.value,
         date: data.date,
-        time: data.time
-      }
-    }).then(res => {
-      if(res.data?.createRecord.status){
-        setValue("");
-      }
-      console.log("Create record response : ", res);
-    }).catch(e => {
-      console.log("Something went wrong while creating record : ", e);
+        time: data.time,
+      },
     })
+      .then((res) => {
+        if (res.data?.createRecord.status) {
+          setValue("");
+          SetAlertData({
+            show: true,
+            type: "success",
+            text: "Record Created Successfuly !"
+          })
+        }
+        console.log("Create record response : ", res);
+      })
+      .catch((e) => {
+        console.log("Something went wrong while creating record : ", e);
+      });
     console.log("data => ", data);
   };
 
@@ -71,6 +84,11 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               color={"#FDEBA8"}
               categories={data!.recordCategories}
             />
+            {
+              alertData.show ? 
+                <Alert onClick={() => SetAlertData({...alertData, show: false})} type={alertData.type as any} txt={alertData.text} />
+              : null
+            }
             <RecordForm
               value={value}
               timeChange={(time) => SetTime(time)}
@@ -80,7 +98,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
                 "x"
               }
               valueChange={(value: number) => setValue(value.toString())}
-              onSave={() => saveRecord()}  
+              onSave={() => saveRecord()}
             />
             <RecordHistorySlide />
             <View style={{ height: 100 }} />
