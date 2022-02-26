@@ -49,7 +49,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
                 <IngredientStep ingredients={data!.recipe.recipe!.ingredients} finish={() => changeStep("instructions")} />
               ),
               instructions: (
-                <InstructionsStep finish={() => changeStep("finish")} />
+                <InstructionsStep instructions={data!.recipe.recipe!.instructions} finish={() => changeStep("finish")} />
               ),
               finish: (
                 <FinishStep

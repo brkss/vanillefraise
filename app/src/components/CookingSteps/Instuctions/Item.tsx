@@ -21,9 +21,10 @@ interface Props {
   index: number;
   shuffleBack: Animated.SharedValue<boolean>;
   swipedAll: Animated.SharedValue<boolean>;
+  txt: string;
 }
 
-export const Item: React.FC<Props> = ({ index, shuffleBack, swipedAll }) => {
+export const Item: React.FC<Props> = ({ index, shuffleBack, swipedAll, txt }) => {
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(-height);
   const start = useSharedValue({ x: 0, y: 0 });
@@ -98,10 +99,7 @@ export const Item: React.FC<Props> = ({ index, shuffleBack, swipedAll }) => {
         <Animated.View style={[styles.container, style]}>
           <Text style={styles.number}>#{index + 1}</Text>
           <Text style={styles.txt}>
-            Spray a skillet with cooking spray and heat over medium-high heat.
-            Quickly brown pork chops in the skillet, seasoning with garlic salt,
-            5 to 7 minutes total. Transfer to a slow cooker and pour French
-            onion soup on top.
+            {txt}
           </Text>
         </Animated.View>
       </GestureDetector>

@@ -11,9 +11,10 @@ import { Button } from "../../General/Button";
 
 interface Props {
   finish: () => void;
+  instructions: any[];
 }
 
-export const InstructionsStep: React.FC<Props> = ({ finish }) => {
+export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
   const shuffleBack = useSharedValue(false);
   const swipedAll = useSharedValue(false);
   const btnOpacity = useSharedValue(0);
@@ -37,9 +38,15 @@ export const InstructionsStep: React.FC<Props> = ({ finish }) => {
         You got it chef ! just follow these instructions
       </Text>
       <View style={styles.items}>
-        <Item swipedAll={swipedAll} shuffleBack={shuffleBack} index={0} />
-        <Item swipedAll={swipedAll} shuffleBack={shuffleBack} index={1} />
-        <Item swipedAll={swipedAll} shuffleBack={shuffleBack} index={2} />
+        {instructions.map((inst, key) => (
+          <Item
+            swipedAll={swipedAll}
+            shuffleBack={shuffleBack}
+            txt={inst.raw}
+            index={key}
+            key={key}
+          />
+        ))}
       </View>
       <Animated.View style={style}>
         <Button txt={"Done !"} clicked={() => finish()} />
