@@ -10,12 +10,13 @@ interface Props {
   dateChange: (date: Date) => void;
   unit: string;
   onSave: () => void;
+  value: string;
 }
 
-export const RecordForm: React.FC<Props> = ({valueChange, unit, timeChange, dateChange, onSave}) => {
+export const RecordForm: React.FC<Props> = ({value, valueChange, unit, timeChange, dateChange, onSave}) => {
   return (
     <View style={styles.container}>
-      <Input unit={unit} onChange={(v: string) => valueChange(Number(v))} />
+      <Input unit={unit} value={value} onChange={(v: string) => valueChange(Number(v))} />
       <TimeInput onDateChange={(date) => dateChange(date)} onTimeChange={(time) => timeChange(time)} />
       <Button txt="Save" clicked={() => onSave()} />
     </View>

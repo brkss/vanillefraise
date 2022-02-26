@@ -16,7 +16,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
   const [selected, SetSelected] = React.useState("");
   const [time, SetTime] = React.useState(new Date());
   const [date, SetDate] = React.useState(new Date());
-  const [value, setValue] = React.useState<number | Date>();
+  const [value, setValue] = React.useState<string>('');
   const { loading, data, error } = useRecordCategoriesQuery({
     onCompleted: (data) => {
       if (data && data.recordCategories.length > 0) {
@@ -47,6 +47,9 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         time: data.time
       }
     }).then(res => {
+      if(res.data?.createRecord.status){
+        setValue("");
+      }
       console.log("Create record response : ", res);
     }).catch(e => {
       console.log("Something went wrong while creating record : ", e);
@@ -69,13 +72,14 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               categories={data!.recordCategories}
             />
             <RecordForm
+              value={value}
               timeChange={(time) => SetTime(time)}
               dateChange={(date) => SetTime(date)}
               unit={
                 data.recordCategories.find((x) => x.id === selected)?.unit ||
                 "x"
               }
-              valueChange={(value: number) => setValue(value)}
+              valueChange={(value: number) => setValue(value.toString())}
               onSave={() => saveRecord()}  
             />
             <RecordHistorySlide />
