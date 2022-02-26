@@ -9,8 +9,10 @@ import {
 } from "../../components";
 import { record_category } from "../../utils";
 import { useRecordCategoriesQuery } from "../../generated/graphql";
+import { useCreateRecordMutation } from '../../generated/graphql';
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
+  const [create] = useCreateRecordMutation();
   const [selected, SetSelected] = React.useState("");
   const [time, SetTime] = React.useState(new Date());
   const [date, SetDate] = React.useState(new Date());
@@ -33,10 +35,22 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
     }
     const data = {
       time: time,
-      data: date,
-      value: value,
-      category: selected,
+      date: date,
+      value: Number(value),
+      category: Number(selected),
     };
+    create({
+      variables: {
+        category: data.category,
+        value: data.value,
+        date: data.date,
+        time: data.time
+      }
+    }).then(res => {
+      console.log("Create record response : ", res);
+    }).catch(e => {
+      console.log("Something went wrong while creating record : ", e);
+    })
     console.log("data => ", data);
   };
 

@@ -578,7 +578,9 @@ export type RecordCategoriesLazyQueryHookResult = ReturnType<typeof useRecordCat
 export type RecordCategoriesQueryResult = Apollo.QueryResult<RecordCategoriesQuery, RecordCategoriesQueryVariables>;
 export const CreateRecordDocument = gql`
     mutation CreateRecord($value: Float!, $category: Float!, $time: DateTime!, $date: DateTime!) {
-  createRecord(data: {value: $value, category: $value, time: $time, date: $date}) {
+  createRecord(
+    data: {value: $value, category: $category, time: $time, date: $date}
+  ) {
     status
     message
     record {
