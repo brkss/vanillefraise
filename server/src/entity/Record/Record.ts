@@ -21,7 +21,7 @@ export class Record extends BaseEntity {
 
   @Field()
   @Column()
-  unit: string;
+  date: Date;
 
   @Field(() => RecordCategory)
   @ManyToOne(() => RecordCategory, category => category.records, {
