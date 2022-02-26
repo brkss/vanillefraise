@@ -9,14 +9,15 @@ interface Props {
   timeChange: (time: Date) => void;
   dateChange: (date: Date) => void;
   unit: string;
+  onSave: () => void;
 }
 
-export const RecordForm: React.FC<Props> = ({valueChange, unit, timeChange, dateChange}) => {
+export const RecordForm: React.FC<Props> = ({valueChange, unit, timeChange, dateChange, onSave}) => {
   return (
     <View style={styles.container}>
       <Input unit={unit} onChange={(v: string) => valueChange(Number(v))} />
       <TimeInput onDateChange={(date) => dateChange(date)} onTimeChange={(time) => timeChange(time)} />
-      <Button txt="Save" clicked={() => {}} />
+      <Button txt="Save" clicked={() => onSave()} />
     </View>
   );
 };

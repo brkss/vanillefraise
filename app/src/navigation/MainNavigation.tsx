@@ -51,7 +51,7 @@ export const MainNavigation: React.FC = () => {
   return (
     <>
       <NavigationContainer>
-        {token ? <AppNavigation /> : <AppNavigation />}
+        {token ? <AppNavigation /> : <AuthNavigation />}
       </NavigationContainer>
     </>
   );

@@ -43,6 +43,20 @@ export type CreateRecipeResponse = {
   status: Scalars['Boolean'];
 };
 
+export type CreateRecordInput = {
+  category: Scalars['Float'];
+  date: Scalars['DateTime'];
+  time: Scalars['DateTime'];
+  value: Scalars['Float'];
+};
+
+export type CreateRecordResponse = {
+  __typename?: 'CreateRecordResponse';
+  message: Scalars['String'];
+  record: Record;
+  status: Scalars['Boolean'];
+};
+
 export type Ingredient = {
   __typename?: 'Ingredient';
   amount?: Maybe<Scalars['Float']>;
@@ -62,6 +76,13 @@ export type Instruction = {
   recipe: Recipe;
 };
 
+export type ListRecordsResponse = {
+  __typename?: 'ListRecordsResponse';
+  message?: Maybe<Scalars['String']>;
+  records?: Maybe<Array<Record>>;
+  status: Scalars['Boolean'];
+};
+
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -70,6 +91,7 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createRecipe: CreateRecipeResponse;
+  createRecord: CreateRecordResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
   logout: AuthDefaultResponse;
@@ -86,6 +108,11 @@ export type Mutation = {
 
 export type MutationCreateRecipeArgs = {
   data: CreateRecipeInput;
+};
+
+
+export type MutationCreateRecordArgs = {
+  data: CreateRecordInput;
 };
 
 
@@ -126,6 +153,7 @@ export type Query = {
   recipeCategories: Array<RecipeCategory>;
   recipes: Array<Recipe>;
   recordCategories: Array<RecordCategory>;
+  records: ListRecordsResponse;
   specialconditions: Array<SpecialCondition>;
   work: Scalars['String'];
 };
@@ -133,6 +161,11 @@ export type Query = {
 
 export type QueryRecipeArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryRecordsArgs = {
+  cat_id: Scalars['Float'];
 };
 
 export type Recipe = {
@@ -172,9 +205,9 @@ export type RecipeItemResponse = {
 export type Record = {
   __typename?: 'Record';
   category: RecordCategory;
+  date: Scalars['DateTime'];
   id: Scalars['String'];
   time: Scalars['DateTime'];
-  unit: Scalars['String'];
   user: User;
   value: Scalars['Float'];
 };
@@ -256,6 +289,16 @@ export type RecordCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecordCategoriesQuery = { __typename?: 'Query', recordCategories: Array<{ __typename?: 'RecordCategory', id: string, name: string, icon: string, unit: string }> };
+
+export type CreateRecordMutationVariables = Exact<{
+  value: Scalars['Float'];
+  category: Scalars['Float'];
+  time: Scalars['DateTime'];
+  date: Scalars['DateTime'];
+}>;
+
+
+export type CreateRecordMutation = { __typename?: 'Mutation', createRecord: { __typename?: 'CreateRecordResponse', status: boolean, message: string, record: { __typename?: 'Record', id: string, value: number, time: any, date: any } } };
 
 export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -533,6 +576,49 @@ export function useRecordCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type RecordCategoriesQueryHookResult = ReturnType<typeof useRecordCategoriesQuery>;
 export type RecordCategoriesLazyQueryHookResult = ReturnType<typeof useRecordCategoriesLazyQuery>;
 export type RecordCategoriesQueryResult = Apollo.QueryResult<RecordCategoriesQuery, RecordCategoriesQueryVariables>;
+export const CreateRecordDocument = gql`
+    mutation CreateRecord($value: Float!, $category: Float!, $time: DateTime!, $date: DateTime!) {
+  createRecord(data: {value: $value, category: $value, time: $time, date: $date}) {
+    status
+    message
+    record {
+      id
+      value
+      time
+      date
+    }
+  }
+}
+    `;
+export type CreateRecordMutationFn = Apollo.MutationFunction<CreateRecordMutation, CreateRecordMutationVariables>;
+
+/**
+ * __useCreateRecordMutation__
+ *
+ * To run a mutation, you first call `useCreateRecordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRecordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createRecordMutation, { data, loading, error }] = useCreateRecordMutation({
+ *   variables: {
+ *      value: // value for 'value'
+ *      category: // value for 'category'
+ *      time: // value for 'time'
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useCreateRecordMutation(baseOptions?: Apollo.MutationHookOptions<CreateRecordMutation, CreateRecordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateRecordMutation, CreateRecordMutationVariables>(CreateRecordDocument, options);
+      }
+export type CreateRecordMutationHookResult = ReturnType<typeof useCreateRecordMutation>;
+export type CreateRecordMutationResult = Apollo.MutationResult<CreateRecordMutation>;
+export type CreateRecordMutationOptions = Apollo.BaseMutationOptions<CreateRecordMutation, CreateRecordMutationVariables>;
 export const SpecialConditionsDocument = gql`
     query SpecialConditions {
   specialconditions {

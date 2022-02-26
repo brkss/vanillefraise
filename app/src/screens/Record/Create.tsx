@@ -13,7 +13,7 @@ import { useRecordCategoriesQuery } from "../../generated/graphql";
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
   const [selected, SetSelected] = React.useState("");
   const [time, SetTime] = React.useState(new Date());
-  const [date, SetDate] = React.useState(new  Date());
+  const [date, SetDate] = React.useState(new Date());
   const [value, setValue] = React.useState<number | Date>();
   const { loading, data, error } = useRecordCategoriesQuery({
     onCompleted: (data) => {
@@ -26,6 +26,19 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
   if (loading || error || !data) {
     return <Loading />;
   }
+
+  const saveRecord = () => {
+    if (!value || !date || !time || !selected) {
+      return;
+    }
+    const data = {
+      time: time,
+      data: date,
+      value: value,
+      category: selected,
+    };
+    console.log("data => ", data);
+  };
 
   return (
     <View style={styles.container}>
@@ -49,6 +62,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
                 "x"
               }
               valueChange={(value: number) => setValue(value)}
+              onSave={() => saveRecord()}  
             />
             <RecordHistorySlide />
             <View style={{ height: 100 }} />
