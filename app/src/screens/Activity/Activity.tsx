@@ -26,17 +26,19 @@ export const Activity: React.FC<any> = ({ navigation }) => {
   });
   const _records = useRecordsQuery({
     variables: {
-      category: Number(selected),
+      category: Number(data.recordCategories[0].id),
     },
   });
+
+  const handleSelect = (id: string) => {
+    setSelected(id);
+    _records.refetch({ category: Number(id) });
+  };
 
   if (
     loading ||
     error ||
-    !data ||
-    !_records.data ||
-    _records.loading ||
-    _records.error
+    !data 
   ) {
     return <Loading />;
   }
@@ -50,7 +52,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
         <View style={{ height: 140 }}>
           <Slider
             selected={selected}
-            onSelect={(sel) => setSelected(sel)}
+            onSelect={(sel) => handleSelect(sel)}
             color={"#D9EFB8"}
             categories={[
               { id: "sports", name: "Sports", icon: "🏃‍♀️" },
@@ -70,22 +72,26 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           </Pressable>
         </View>
         <View style={styles.recipesContainer}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {selected != "sports" ? (
-              _records.data.records.records?.map((rec, key) => (
-                <ActivityThumbnail
-                  unit={rec.category.unit}
-                  value={rec.value}
-                  feedback={"You know better !"}
-                  time={rec.time}
-                  key={key}
-                />
-              ))
-            ) : (
-              <Text>Sports !</Text>
-            )}
-            <View style={{ height: 150 }} />
-          </ScrollView>
+          {_records.loading || _records.error ? (
+            <Loading />
+          ) : (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {selected != "sports" ? (
+                _records.data.records.records?.map((rec, key) => (
+                  <ActivityThumbnail
+                    unit={rec.category.unit}
+                    value={rec.value}
+                    feedback={"You know better !"}
+                    time={rec.time}
+                    key={key}
+                  />
+                ))
+              ) : (
+                <Text>Sports !</Text>
+              )}
+              <View style={{ height: 150 }} />
+            </ScrollView>
+          )}
         </View>
       </SafeAreaView>
     </View>
