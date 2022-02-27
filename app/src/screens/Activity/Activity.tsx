@@ -68,10 +68,10 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           </Pressable>
         </View>
         <View style={styles.recipesContainer}>
-          <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+          <ScrollView showsVerticalScrollIndicator={false}>
             {selected != "sports" ? (
               _records.data.records.records?.map((rec, key) => (
-                <ActivityThumbnail key={key} />
+                <ActivityThumbnail unit={rec.category.unit} value={rec.value} feedback={'You know better !'} time={rec.time} key={key} />
               ))
             ) : (
               <Text>Sports !</Text>
