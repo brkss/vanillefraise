@@ -1,12 +1,27 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+//import { EmojiProvider, Emoji } from "react-apple-emojis";
+//import emojiData from 'react-apple-emojis/lib/data.json'
 
-export const Item: React.FC = () => {
+interface Props {
+  name: string;
+  icon: string;
+  onSelect: () => void;
+  isSelected: boolean;
+}
+
+export const Item: React.FC<Props> = ({ icon, name, onSelect, isSelected }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.icon}> 😄 </Text>
-      <Text style={styles.title}>GOOD</Text>
-    </View>
+    <Pressable
+      onPress={() => onSelect()}
+      style={[
+        styles.container,
+        { backgroundColor: isSelected ? "#B7E0A1" : "#DCDCDC" },
+      ]}
+    >
+      <Text style={styles.icon}>{icon}</Text>
+      <Text style={styles.title}>{name}</Text>
+    </Pressable>
   );
 };
 

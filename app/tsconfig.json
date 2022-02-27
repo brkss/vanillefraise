@@ -2,5 +2,8 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true
-  }
+  },
+  "resolveJsonModule": true,
+  "esModuleInterop": true,
+  "include": ["decs.d.ts"]
 }

@@ -88,6 +88,23 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type Mood = {
+  __typename?: 'Mood';
+  active: Scalars['Boolean'];
+  icon: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  records: Array<MoodRecord>;
+};
+
+export type MoodRecord = {
+  __typename?: 'MoodRecord';
+  date: Scalars['DateTime'];
+  id: Scalars['String'];
+  mood: Mood;
+  user: User;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createRecipe: CreateRecipeResponse;
@@ -99,6 +116,7 @@ export type Mutation = {
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
   seedActivityCategories: Scalars['Boolean'];
+  seedMoodCategories: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
@@ -148,6 +166,7 @@ export type MutationVerifyResetTokenArgs = {
 export type Query = {
   __typename?: 'Query';
   activityCategories: Array<ActivityCategory>;
+  moods: Array<Mood>;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeCategories: Array<RecipeCategory>;
@@ -244,6 +263,7 @@ export type User = {
   created_at: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['String'];
+  moodrecords: Array<MoodRecord>;
   name: Scalars['String'];
   records: Array<Record>;
   username: Scalars['String'];
@@ -267,6 +287,11 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
+
+export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MoodsQuery = { __typename?: 'Query', moods: Array<{ __typename?: 'Mood', id: string, name: string, icon: string }> };
 
 export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -416,6 +441,42 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const MoodsDocument = gql`
+    query Moods {
+  moods {
+    id
+    name
+    icon
+  }
+}
+    `;
+
+/**
+ * __useMoodsQuery__
+ *
+ * To run a query within a React component, call `useMoodsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMoodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMoodsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMoodsQuery(baseOptions?: Apollo.QueryHookOptions<MoodsQuery, MoodsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MoodsQuery, MoodsQueryVariables>(MoodsDocument, options);
+      }
+export function useMoodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MoodsQuery, MoodsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MoodsQuery, MoodsQueryVariables>(MoodsDocument, options);
+        }
+export type MoodsQueryHookResult = ReturnType<typeof useMoodsQuery>;
+export type MoodsLazyQueryHookResult = ReturnType<typeof useMoodsLazyQuery>;
+export type MoodsQueryResult = Apollo.QueryResult<MoodsQuery, MoodsQueryVariables>;
 export const PingDocument = gql`
     query Ping {
   ping
