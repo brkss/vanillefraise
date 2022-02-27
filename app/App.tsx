@@ -46,7 +46,7 @@ const requestLink = new ApolloLink(
 );
 
 const link: any = new TokenRefreshLink({
-  accessTokenField: "accessToken",
+  accessTokenField: "token",
   isTokenValidOrUndefined: () => {
     const token = getAccessToken();
     if (!token) return true;

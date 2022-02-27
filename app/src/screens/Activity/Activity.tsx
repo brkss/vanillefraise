@@ -7,18 +7,33 @@ import {
   SafeAreaView,
   Pressable,
 } from "react-native";
-import { Slider, Heading, ActivityThumbnail } from "../../components";
+import { Slider, Heading, ActivityThumbnail, Loading } from "../../components";
 import { activity_categories } from "../../utils/data";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useRecordCategoriesQuery } from "../../generated/graphql";
 
 export const Activity: React.FC<any> = ({ navigation }) => {
+  const { data, loading, error } = useRecordCategoriesQuery();
+
+  if (loading || error || !data) {
+    return <Loading />;
+  }
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.headingContainer}>
           <Heading title={"Activity"} />
         </View>
-        <Slider color={"#D9EFB8"} categories={activity_categories} />
+        <Slider
+          selected={""}
+          onSelect={() => {}}
+          color={"#D9EFB8"}
+          categories={[
+            { id: "sports", name: "Sports", icon: "🏃‍♀️" },
+            ...data.recordCategories,
+          ]}
+        />
         <View style={styles.actions}>
           <Pressable
             onPress={() => navigation.push("NewActivity")}

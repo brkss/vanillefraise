@@ -59,8 +59,8 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
           SetAlertData({
             show: true,
             type: "success",
-            text: "Record Created Successfuly !"
-          })
+            text: "Record Created Successfuly !",
+          });
         }
         console.log("Create record response : ", res);
       })
@@ -84,11 +84,13 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               color={"#FDEBA8"}
               categories={data!.recordCategories}
             />
-            {
-              alertData.show ? 
-                <Alert onClick={() => SetAlertData({...alertData, show: false})} type={alertData.type as any} txt={alertData.text} />
-              : null
-            }
+            {alertData.show ? (
+              <Alert
+                onClick={() => SetAlertData({ ...alertData, show: false })}
+                type={alertData.type as any}
+                txt={alertData.text}
+              />
+            ) : null}
             <RecordForm
               value={value}
               timeChange={(time) => SetTime(time)}
@@ -100,7 +102,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               valueChange={(value: number) => setValue(value.toString())}
               onSave={() => saveRecord()}
             />
-            <RecordHistorySlide />
+            {/*<RecordHistorySlide />*/}
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
