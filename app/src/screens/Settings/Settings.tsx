@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Button } from "../../components";
+import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
+import { Heading } from "../../components";
 import { useSeedActivityCategoriesMutation } from "../../generated/graphql";
 
 export const Settings: React.FC = () => {
@@ -18,10 +18,28 @@ export const Settings: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Settings</Text>
-      <View>
-        <Button txt={"seed categories"} clicked={() => createCategories()} />
-      </View>
+      <SafeAreaView>
+        <Heading title={"Settings"} />
+        <View style={styles.profile}>
+          <View style={styles.profilePic} />
+          <Text style={styles.name}>User Name.</Text>
+          <Text style={styles.username}>@avocado</Text>
+        </View>
+        <View style={styles.options}>
+          <Pressable style={styles.option}>
+            <Text style={styles.optionText}>Personal Information </Text>
+          </Pressable>
+          <Pressable style={styles.option}>
+            <Text style={styles.optionText}>Change Password</Text>
+          </Pressable>
+          <Pressable style={styles.option}>
+            <Text style={styles.optionText}>About This Version</Text>
+          </Pressable>
+          <Pressable style={styles.option}>
+            <Text style={styles.optionText}>Logout</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
     </View>
   );
 };
@@ -29,7 +47,40 @@ export const Settings: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    padding: 15,
+  },
+  profile: {
     alignItems: "center",
+    marginTop: 20,
+  },
+  profilePic: {
+    height: 135,
+    width: 135,
+    backgroundColor: "#B9C7FD",
+    borderRadius: 135,
+  },
+  name: {
+    marginTop: 10,
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+  username: {
+    marginTop: 5,
+    fontSize: 17,
+    opacity: 0.7,
+    fontWeight: "bold",
+  },
+  options: {
+    marginTop: 20,
+  },
+  option: {
+    padding: 20,
+    borderRadius: 13,
+    backgroundColor: "#E5E2E2",
+    marginBottom: 20,
+  },
+  optionText: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
