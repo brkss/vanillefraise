@@ -3,10 +3,16 @@ import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { Item } from "./Item";
 import { useMoodsQuery } from "../../generated/graphql";
 import { Loading, Button } from "../General";
+import { useCreateMoodRecordMutation } from "../../generated/graphql";
 
-export const TodaysMood: React.FC = () => {
+interface Props {
+  triggerAlert: (msg: string) => void;
+}
+
+export const TodaysMood: React.FC<Props> = ({ triggerAlert }) => {
   const [selected, SetSelected] = React.useState<string[]>([]);
   const { data, loading, error } = useMoodsQuery();
+  const [save] = useCreateMoodRecordMutation();
 
   const handleSelection = (id: string) => {
     console.log("SELECTED : ", id);
@@ -18,6 +24,26 @@ export const TodaysMood: React.FC = () => {
       selected.push(id);
       SetSelected([...selected]);
     }
+  };
+
+  const saveRecord = () => {
+    if (selected.length == 0) return;
+    save({
+      variables: {
+        moods: selected,
+      },
+    })
+      .then((res) => {
+        if (res.data.createMoodRecord.status) {
+          SetSelected([])
+          triggerAlert(res.data.createMoodRecord.message || "Record Created Successfuly");
+        }
+        console.log("res creating mood record => ", res);
+      })
+      .catch((e) => {
+        triggerAlert("Something went wrong !");
+        console.log("Something went wrong creating mood record : ", e);
+      });
   };
 
   if (loading || !data || error) {
@@ -43,7 +69,7 @@ export const TodaysMood: React.FC = () => {
         ))}
       </ScrollView>
       {selected.length > 0 ? (
-        <Button txt={"That's it"} clicked={() => {}} />
+        <Button  txt={"That's it"} clicked={() => saveRecord()} />
       ) : null}
     </View>
   );

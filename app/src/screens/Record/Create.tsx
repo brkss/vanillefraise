@@ -104,7 +104,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               onSave={() => saveRecord()}
             />
             {/*<RecordHistorySlide />*/}
-            <TodaysMood />
+            <TodaysMood triggerAlert={(msg) => SetAlertData({text: msg, type: 'success', show: true})} />
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
