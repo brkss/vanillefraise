@@ -12,6 +12,7 @@ import {
   RecordCategoryResolver,
   CreateRecordResolver,
   RecordListResolver,
+  MoodResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -28,7 +29,8 @@ export const build = async () => {
       RecipeItemResolver,
       RecordCategoryResolver,
       CreateRecordResolver,
-      RecordListResolver
+      RecordListResolver,
+      MoodResolver,
     ],
     validate: false,
   });

@@ -23,7 +23,6 @@ export const refreshToken = async (res: Response, req: Request) => {
       token: "",
     });
   }
-
   // find user
   const user = await User.findOne({ where: { id: payload.userID } });
   if (!user) {

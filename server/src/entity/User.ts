@@ -9,6 +9,7 @@ import {
 import { ObjectType, Field } from "type-graphql";
 import { ResetPassword } from "./ResetPassword";
 import { Record } from './Record';
+import { MoodRecord } from './Mental';
 
 @ObjectType()
 @Entity("users")
@@ -51,4 +52,9 @@ export class User extends BaseEntity {
   @Field(() => [Record])
   @OneToMany(() => Record, records => records.user)
   records: Record[];
+
+  @Field(() => [MoodRecord])
+  @OneToMany(() => MoodRecord, moodrecords => moodrecords.user)
+  moodrecords: MoodRecord[];
+
 }
