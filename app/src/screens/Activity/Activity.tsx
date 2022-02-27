@@ -43,19 +43,21 @@ export const Activity: React.FC<any> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView>
+      <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.headingContainer}>
           <Heading title={"Activity"} />
         </View>
-        <Slider
-          selected={selected}
-          onSelect={(sel) => setSelected(sel)}
-          color={"#D9EFB8"}
-          categories={[
-            { id: "sports", name: "Sports", icon: "🏃‍♀️" },
-            ...data.recordCategories,
-          ]}
-        />
+        <View style={{ height: 140 }}>
+          <Slider
+            selected={selected}
+            onSelect={(sel) => setSelected(sel)}
+            color={"#D9EFB8"}
+            categories={[
+              { id: "sports", name: "Sports", icon: "🏃‍♀️" },
+              ...data.recordCategories,
+            ]}
+          />
+        </View>
         <View style={styles.actions}>
           <Pressable
             onPress={() => navigation.push("NewActivity")}
@@ -71,11 +73,18 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           <ScrollView showsVerticalScrollIndicator={false}>
             {selected != "sports" ? (
               _records.data.records.records?.map((rec, key) => (
-                <ActivityThumbnail unit={rec.category.unit} value={rec.value} feedback={'You know better !'} time={rec.time} key={key} />
+                <ActivityThumbnail
+                  unit={rec.category.unit}
+                  value={rec.value}
+                  feedback={"You know better !"}
+                  time={rec.time}
+                  key={key}
+                />
               ))
             ) : (
               <Text>Sports !</Text>
             )}
+            <View style={{ height: 150 }} />
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -94,7 +103,7 @@ const styles = StyleSheet.create({
   },
   recipesContainer: {
     //flex: 0.86,
-    //flex: 1,
+    flex: 1,
   },
   actions: {
     marginVertical: 15,
