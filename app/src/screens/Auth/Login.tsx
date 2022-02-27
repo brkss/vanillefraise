@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Pressable, Text } from "react-native";
 import { Center, Heading, Container } from "native-base";
 import { useLoginMutation } from "../../generated/graphql";
 import { setAccessToken } from "../../utils";
@@ -95,6 +95,12 @@ export const Login: React.FC<any> = ({ navigation }) => {
           label={"Password"}
         />
         <Button txt={"LOGIN"} clicked={() => handleLogin()} />
+        <Pressable
+          style={{ marginTop: 20 }}
+          onPress={() => navigation.push("register")}
+        >
+          <Text style={{ color: "white" }}>You dont have an account ?</Text>
+        </Pressable>
       </Container>
     </Center>
   );

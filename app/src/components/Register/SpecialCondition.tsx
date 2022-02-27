@@ -8,10 +8,11 @@ import {
 } from "react-native";
 import { Button } from "../General/Button";
 import { useSpecialConditionsQuery } from "../../generated/graphql";
+import { ISCData } from '../../utils/types/Register';
 
 interface Props {
   other: () => void;
-  pass: () => void;
+  pass: (data: ISCData) => void;
 }
 
 export const RegisterSpecialCondition: React.FC<Props> = ({ other, pass }) => {
@@ -37,6 +38,14 @@ export const RegisterSpecialCondition: React.FC<Props> = ({ other, pass }) => {
     );
   }
 
+  const handlePass = () => {
+    if(selected.length == 0){
+      return ;
+      // trigger error !
+    }
+    pass({sc: selected});
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>
@@ -60,7 +69,7 @@ export const RegisterSpecialCondition: React.FC<Props> = ({ other, pass }) => {
           </Pressable>
         ))}
       </View>
-      <Button txt={"Continue"} clicked={() => pass()} />
+      <Button txt={"Continue"} clicked={() => handlePass()} />
     </View>
   );
 };

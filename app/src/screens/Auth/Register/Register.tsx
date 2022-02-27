@@ -77,6 +77,13 @@ export const Register: React.FC<any> = ({ navigation }) => {
         gender: d.gender.gender,
       });
       setStatus("RESULT");
+    } else if(d.sc){
+      setData({
+        ...data,
+        sc: d.sc.sc
+      });
+      console.log("sc data : ", d.sc.sc);
+      setStatus("OUTRO");
     }
     console.log("DATA saved in register screen ! +++> ", data);
   };
@@ -128,10 +135,10 @@ export const Register: React.FC<any> = ({ navigation }) => {
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}
-                  pass={() => setStatus("OUTRO")}
+                  pass={(data: ISCData) => handlePass({ sc: data })}
                 />
               ),
-              OUTRO: <RegisterOutro pass={() => {}} />,
+              OUTRO: <RegisterOutro pass={() => console.log("FINAL DATA", data)} />,
             }[status]
           }
         </View>
