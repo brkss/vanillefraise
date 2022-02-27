@@ -1,0 +1,17 @@
+query Records($category: Float!){
+  records(cat_id: $category){
+    status
+    message
+    records{
+      id
+      time
+      value
+      date
+      category{
+        id
+        name
+        unit
+      }
+    }
+  }
+}

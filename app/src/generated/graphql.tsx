@@ -300,6 +300,13 @@ export type CreateRecordMutationVariables = Exact<{
 
 export type CreateRecordMutation = { __typename?: 'Mutation', createRecord: { __typename?: 'CreateRecordResponse', status: boolean, message: string, record: { __typename?: 'Record', id: string, value: number, time: any, date: any } } };
 
+export type RecordsQueryVariables = Exact<{
+  category: Scalars['Float'];
+}>;
+
+
+export type RecordsQuery = { __typename?: 'Query', records: { __typename?: 'ListRecordsResponse', status: boolean, message?: string | null | undefined, records?: Array<{ __typename?: 'Record', id: string, time: any, value: number, date: any, category: { __typename?: 'RecordCategory', id: string, name: string, unit: string } }> | null | undefined } };
+
 export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -621,6 +628,53 @@ export function useCreateRecordMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateRecordMutationHookResult = ReturnType<typeof useCreateRecordMutation>;
 export type CreateRecordMutationResult = Apollo.MutationResult<CreateRecordMutation>;
 export type CreateRecordMutationOptions = Apollo.BaseMutationOptions<CreateRecordMutation, CreateRecordMutationVariables>;
+export const RecordsDocument = gql`
+    query Records($category: Float!) {
+  records(cat_id: $category) {
+    status
+    message
+    records {
+      id
+      time
+      value
+      date
+      category {
+        id
+        name
+        unit
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useRecordsQuery__
+ *
+ * To run a query within a React component, call `useRecordsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecordsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecordsQuery({
+ *   variables: {
+ *      category: // value for 'category'
+ *   },
+ * });
+ */
+export function useRecordsQuery(baseOptions: Apollo.QueryHookOptions<RecordsQuery, RecordsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecordsQuery, RecordsQueryVariables>(RecordsDocument, options);
+      }
+export function useRecordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecordsQuery, RecordsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecordsQuery, RecordsQueryVariables>(RecordsDocument, options);
+        }
+export type RecordsQueryHookResult = ReturnType<typeof useRecordsQuery>;
+export type RecordsLazyQueryHookResult = ReturnType<typeof useRecordsLazyQuery>;
+export type RecordsQueryResult = Apollo.QueryResult<RecordsQuery, RecordsQueryVariables>;
 export const SpecialConditionsDocument = gql`
     query SpecialConditions {
   specialconditions {
