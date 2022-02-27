@@ -10,12 +10,34 @@ import {
 import { Slider, Heading, ActivityThumbnail, Loading } from "../../components";
 import { activity_categories } from "../../utils/data";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useRecordCategoriesQuery } from "../../generated/graphql";
+import {
+  useRecordCategoriesQuery,
+  useRecordsQuery,
+} from "../../generated/graphql";
 
 export const Activity: React.FC<any> = ({ navigation }) => {
-  const { data, loading, error } = useRecordCategoriesQuery();
+  const [selected, setSelected] = React.useState("");
+  const { data, loading, error } = useRecordCategoriesQuery({
+    onCompleted: (res) => {
+      if (res.recordCategories.length > 0) {
+        setSelected(res.recordCategories[0].id);
+      }
+    },
+  });
+  const _records = useRecordsQuery({
+    variables: {
+      category: Number(selected),
+    },
+  });
 
-  if (loading || error || !data) {
+  if (
+    loading ||
+    error ||
+    !data ||
+    !_records.data ||
+    _records.loading ||
+    _records.error
+  ) {
     return <Loading />;
   }
 
@@ -26,8 +48,8 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           <Heading title={"Activity"} />
         </View>
         <Slider
-          selected={""}
-          onSelect={() => {}}
+          selected={selected}
+          onSelect={(sel) => setSelected(sel)}
           color={"#D9EFB8"}
           categories={[
             { id: "sports", name: "Sports", icon: "🏃‍♀️" },
@@ -47,7 +69,13 @@ export const Activity: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.recipesContainer}>
           <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-            <ActivityThumbnail />
+            {selected != "sports" ? (
+              _records.data.records.records?.map((rec, key) => (
+                <ActivityThumbnail key={key} />
+              ))
+            ) : (
+              <Text>Sports !</Text>
+            )}
           </ScrollView>
         </View>
       </SafeAreaView>
