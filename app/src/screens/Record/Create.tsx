@@ -7,6 +7,7 @@ import {
   RecordHistorySlide,
   Loading,
   Alert,
+  TodaysMood
 } from "../../components";
 import { record_category } from "../../utils";
 import { useRecordCategoriesQuery } from "../../generated/graphql";
@@ -103,6 +104,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               onSave={() => saveRecord()}
             />
             {/*<RecordHistorySlide />*/}
+            <TodaysMood />
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
