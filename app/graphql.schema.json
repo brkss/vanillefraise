@@ -138,6 +138,41 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "CreateMoodRecordInput",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "moods",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "CreateRecipeInput",
         "description": null,
         "fields": null,
@@ -895,14 +930,14 @@
             "description": null,
             "args": [
               {
-                "name": "mood_id",
+                "name": "data",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "CreateMoodRecordInput",
                     "ofType": null
                   }
                 },

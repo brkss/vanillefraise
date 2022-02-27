@@ -1,5 +1,5 @@
-mutation CreateMoodRecord($mood_id: String!){
-  createMoodRecord(mood_id: "13b94d8f-400a-472e-91b5-70afcc49cfaf"){
+mutation CreateMoodRecord($moods: [String!]!){
+  createMoodRecord(data: {moods: $moods}){
     status
     message
   }

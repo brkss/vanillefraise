@@ -32,6 +32,10 @@ export type AuthDefaultResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
+export type CreateMoodRecordInput = {
+  moods: Array<Scalars['String']>;
+};
+
 export type CreateRecipeInput = {
   categories: Array<Scalars['String']>;
   url: Scalars['String'];
@@ -132,7 +136,7 @@ export type Mutation = {
 
 
 export type MutationCreateMoodRecordArgs = {
-  mood_id: Scalars['String'];
+  data: CreateMoodRecordInput;
 };
 
 
@@ -301,7 +305,7 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
 
 export type CreateMoodRecordMutationVariables = Exact<{
-  mood_id: Scalars['String'];
+  moods: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
@@ -461,8 +465,8 @@ export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const CreateMoodRecordDocument = gql`
-    mutation CreateMoodRecord($mood_id: String!) {
-  createMoodRecord(mood_id: "13b94d8f-400a-472e-91b5-70afcc49cfaf") {
+    mutation CreateMoodRecord($moods: [String!]!) {
+  createMoodRecord(data: {moods: $moods}) {
     status
     message
   }
@@ -483,7 +487,7 @@ export type CreateMoodRecordMutationFn = Apollo.MutationFunction<CreateMoodRecor
  * @example
  * const [createMoodRecordMutation, { data, loading, error }] = useCreateMoodRecordMutation({
  *   variables: {
- *      mood_id: // value for 'mood_id'
+ *      moods: // value for 'moods'
  *   },
  * });
  */
