@@ -2,9 +2,17 @@ import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
 import { Heading } from "../../components";
 import { useSeedActivityCategoriesMutation } from "../../generated/graphql";
+import { AuthContext } from '../../utils/auth/AuthProvider';
+import * as SecureStore from 'expo-secure-store';
 
-export const Settings: React.FC = () => {
+export const Settings: React.FC<any> = () => {
+  const _ctx = React.useContext(AuthContext);
   const [seed] = useSeedActivityCategoriesMutation();
+
+  const logout = async () => {
+    _ctx.login('');
+    await SecureStore.deleteItemAsync('TOKEN');
+  }
 
   const createCategories = () => {
     seed()
@@ -35,7 +43,7 @@ export const Settings: React.FC = () => {
           <Pressable style={styles.option}>
             <Text style={styles.optionText}>About This Version</Text>
           </Pressable>
-          <Pressable style={styles.option}>
+          <Pressable onPress={() => logout()} style={styles.option}>
             <Text style={styles.optionText}>Logout</Text>
           </Pressable>
         </View>
