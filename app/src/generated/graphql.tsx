@@ -57,6 +57,12 @@ export type CreateRecordResponse = {
   status: Scalars['Boolean'];
 };
 
+export type DefaultResponse = {
+  __typename?: 'DefaultResponse';
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type Ingredient = {
   __typename?: 'Ingredient';
   amount?: Maybe<Scalars['Float']>;
@@ -107,6 +113,7 @@ export type MoodRecord = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecord: CreateRecordResponse;
   deleterecipe: Scalars['Boolean'];
@@ -121,6 +128,11 @@ export type Mutation = {
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
+};
+
+
+export type MutationCreateMoodRecordArgs = {
+  mood_id: Scalars['String'];
 };
 
 
@@ -288,6 +300,13 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
 
+export type CreateMoodRecordMutationVariables = Exact<{
+  mood_id: Scalars['String'];
+}>;
+
+
+export type CreateMoodRecordMutation = { __typename?: 'Mutation', createMoodRecord: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
 export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -441,6 +460,40 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const CreateMoodRecordDocument = gql`
+    mutation CreateMoodRecord($mood_id: String!) {
+  createMoodRecord(mood_id: "13b94d8f-400a-472e-91b5-70afcc49cfaf") {
+    status
+    message
+  }
+}
+    `;
+export type CreateMoodRecordMutationFn = Apollo.MutationFunction<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>;
+
+/**
+ * __useCreateMoodRecordMutation__
+ *
+ * To run a mutation, you first call `useCreateMoodRecordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMoodRecordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMoodRecordMutation, { data, loading, error }] = useCreateMoodRecordMutation({
+ *   variables: {
+ *      mood_id: // value for 'mood_id'
+ *   },
+ * });
+ */
+export function useCreateMoodRecordMutation(baseOptions?: Apollo.MutationHookOptions<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>(CreateMoodRecordDocument, options);
+      }
+export type CreateMoodRecordMutationHookResult = ReturnType<typeof useCreateMoodRecordMutation>;
+export type CreateMoodRecordMutationResult = Apollo.MutationResult<CreateMoodRecordMutation>;
+export type CreateMoodRecordMutationOptions = Apollo.BaseMutationOptions<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>;
 export const MoodsDocument = gql`
     query Moods {
   moods {
