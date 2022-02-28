@@ -5,13 +5,14 @@ import {
   Column,
   OneToMany,
   CreateDateColumn,
-  OneToOne
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
 import { ResetPassword } from "./ResetPassword";
-import { Record } from './Record';
-import { MoodRecord } from './Mental';
-import { UserInformation } from './UserInfo';
+import { Record } from "./Record";
+import { MoodRecord } from "./Mental";
+import { SpecialCondition } from "./UserInfo";
 
 @ObjectType()
 @Entity("users")
@@ -48,19 +49,42 @@ export class User extends BaseEntity {
   @Column({ default: 1 })
   version: number;
 
+  @Field()
+  @Column()
+  weight: number;
+
+  @Field()
+  @Column()
+  height: number;
+
+  @Field()
+  @Column()
+  gender: string;
+
+  @Field()
+  @Column()
+  bmi: number;
+
+  @Field()
+  @Column()
+  birth: Date;
+
   @OneToMany(() => ResetPassword, (resetpasswords) => resetpasswords.user)
   resetpasswords: ResetPassword[];
 
   @Field(() => [Record])
-  @OneToMany(() => Record, records => records.user)
+  @OneToMany(() => Record, (records) => records.user)
   records: Record[];
 
   @Field(() => [MoodRecord])
-  @OneToMany(() => MoodRecord, moodrecords => moodrecords.user)
+  @OneToMany(() => MoodRecord, (moodrecords) => moodrecords.user)
   moodrecords: MoodRecord[];
 
-  @Field(() => UserInformation)
-  @OneToOne(() => UserInformation, info => info.user)
-  info: UserInformation
-
+  @Field(() => [SpecialCondition])
+  @ManyToMany(
+    () => SpecialCondition,
+    (specialconditions) => specialconditions.users
+  )
+  @JoinTable()
+  specialconditions: SpecialCondition[];
 }

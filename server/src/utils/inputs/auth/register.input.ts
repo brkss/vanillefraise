@@ -13,4 +13,23 @@ export class RegisterInput {
 
   @Field()
   password: string;
+
+  @Field()
+  birth: Date;
+
+  @Field()
+  bmi: number;
+
+  @Field()
+  gender: string;
+
+  @Field()
+  height: number;
+
+  @Field()
+  weight: number;
+
+  @Field(() => [String])
+  sc: string[];
+
 }
