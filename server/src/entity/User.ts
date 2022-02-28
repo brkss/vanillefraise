@@ -5,11 +5,13 @@ import {
   Column,
   OneToMany,
   CreateDateColumn,
+  OneToOne
 } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
 import { ResetPassword } from "./ResetPassword";
 import { Record } from './Record';
 import { MoodRecord } from './Mental';
+import { UserInformation } from './UserInfo';
 
 @ObjectType()
 @Entity("users")
@@ -56,5 +58,9 @@ export class User extends BaseEntity {
   @Field(() => [MoodRecord])
   @OneToMany(() => MoodRecord, moodrecords => moodrecords.user)
   moodrecords: MoodRecord[];
+
+  @Field(() => UserInformation)
+  @OneToOne(() => UserInformation, info => info.user)
+  info: UserInformation
 
 }
