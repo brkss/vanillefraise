@@ -8,7 +8,8 @@ export interface IInformationData {
 export interface IMeasurementData {
   weight: number;
   height: number;
-  age: number;
+  //age: number;
+  birth: Date;
   bmi: number;
 }
 

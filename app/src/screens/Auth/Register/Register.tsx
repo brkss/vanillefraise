@@ -10,7 +10,7 @@ import {
   RegisterSpecialCondition,
   RegisterOutro,
 } from "../../../components";
-import { LinearGradient } from "expo-linear-gradient";
+//import { LinearGradient } from "expo-linear-gradient";
 import {
   IGender,
   IInformationData,
@@ -24,7 +24,7 @@ interface IUserData {
   password: string | "";
   weight: number | undefined;
   height: number | undefined;
-  age: number | undefined;
+  birth: Date | undefined;
   sc: string[] | [];
   gender: string | "";
   bmi: number | undefined;
@@ -47,7 +47,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
     bmi: undefined,
     gender: "",
     sc: [],
-    age: undefined,
+    birth: undefined,
   });
   const [status, setStatus] = React.useState("INTRO");
   const [helviticaCondensed] = useFonts({
@@ -67,7 +67,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
       setData({
         ...data,
         weight: d.measurement.weight,
-        age: d.measurement.age,
+        birth: d.measurement.birth,
         height: d.measurement.height,
       });
       setStatus("GENDER");
@@ -131,7 +131,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
                   pass={(data: IGender) => handlePass({ gender: data })}
                 />
               ),
-              RESULT: <BMIResult pass={() => setStatus("SC")} />,
+              RESULT: <BMIResult gender={data.gender} height={data.height} birth={data.birth} weight={data.weight} pass={() => setStatus("SC")} />,
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}

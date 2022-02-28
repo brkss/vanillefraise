@@ -5,15 +5,48 @@ import { Button } from "../General/Button";
 
 interface Props {
   pass: () => void;
+  birth: Date;
+  weight: number;
+  gender: string;
+  height: number;
 }
 
-export const BMIResult: React.FC<Props> = ({pass}) => {
+const getAge = (dateString: any) => {
+  var today = new Date();
+  var birthDate = new Date(dateString);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+};
+
+export const BMIResult: React.FC<Props> = ({
+  pass,
+  birth,
+  weight,
+  gender,
+  height,
+}) => {
+  const [bmr, setBmr] = React.useState(0);
+  const calcBMR = () => {
+    let BMR = 1;
+    if (gender == "MALE") {
+      BMR = 88.362 + 13.397 * weight + 4.799 * height - 5.677 * getAge(birth);
+    } else if (gender == "FEMALE") {
+      BMR = 447.593 + 9.247 * weight + 3.098 * height - 4.33 * getAge(birth);
+    }
+    
+    return Math.floor(BMR)
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>YOUR BASAL METABOLIC INDEX </Text>
       <View style={styles.result}>
         <View style={[styles.item, { width: "50%", alignItems: "flex-end" }]}>
-          <Text style={styles.number}>1'340</Text>
+          <Text style={styles.number}>{calcBMR()}</Text>
         </View>
         <View style={styles.numberInfo}>
           <Text style={styles.unit}>Calories</Text>
