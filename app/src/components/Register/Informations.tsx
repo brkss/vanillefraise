@@ -19,13 +19,13 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
   };
 
   const handleSendingData = () => {
-    if (!form || !form.name || !form.email || !form.password) return;
+    if (!form || !form.name || !form.email || !form.username || !form.password) return;
     // trigger error !
     const data: IInformationData = {
       name: form.name,
       email: form.email,
       password: form.password,
-      username: form.email,
+      username: form.username,
     };
     console.log("INFORMATION DATA => ", data);
     pass(data);

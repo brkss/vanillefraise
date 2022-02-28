@@ -4,6 +4,7 @@ import { Settings, CreateRecord, MentalHealthIntro } from "../screens";
 import { RecipeNavigation } from "./RecipesNavigation";
 import { RemindersNavigation } from "./RemindersNavigation";
 import { ActivityNavigation } from "./ActivityNavigation";
+import { SettingsNavigation } from './SettingsNavigation';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export const AppNavigation: React.FC = () => {
@@ -41,7 +42,7 @@ export const AppNavigation: React.FC = () => {
         <Screen name={"Record"} component={CreateRecord} />
         {/*<Screen name={"Reminders"} component={RemindersNavigation} />*/}
         <Screen name={"Mental"} component={MentalHealthIntro} />
-        <Screen name={"Settings"} component={Settings} />
+        <Screen name={"Settings"} component={SettingsNavigation} />
       </Group>
     </Navigator>
   );
