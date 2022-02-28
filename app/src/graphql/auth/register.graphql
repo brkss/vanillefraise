@@ -1,0 +1,33 @@
+mutation Register(
+  $name: String!
+  $email: String!
+  $username: String!
+  $password: String!
+  $birth: DateTime!
+  $bmi: Float!
+  $gender: String!
+  $height: Float!
+  $weight: Float!
+  $sc: [String!]!
+) {
+  register(
+    data: {
+      name: $name
+      email: $email
+      username: $username
+      password: $password
+      birth: $birth
+      bmi: $bmi
+      gender: $gender
+      height: $height
+      weight: $weight
+      sc: $sc
+    }
+  ) {
+    status
+    message
+    token
+    rToken
+  }
+}
+

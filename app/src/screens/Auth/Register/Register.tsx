@@ -18,8 +18,10 @@ import {
   ISCData,
 } from "../../../utils/types/Register";
 import { calcBMR } from "../../../utils/modules/bmr";
+import { useRegisterMutation } from "../../../generated/graphql";
 
 interface IUserData {
+  username: string | "";
   name: string | "";
   email: string | "";
   password: string | "";
@@ -40,6 +42,7 @@ type IRegisterData = {
 
 export const Register: React.FC<any> = ({ navigation }) => {
   const [data, setData] = React.useState<IUserData>({
+    username: "",
     name: "",
     email: "",
     password: "",
@@ -54,11 +57,13 @@ export const Register: React.FC<any> = ({ navigation }) => {
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
+  const [register] = useRegisterMutation();
 
   const handlePass = (d: IRegisterData) => {
     if (d.information) {
       setData({
         ...data,
+        username: d.information.username,
         name: d.information.name,
         email: d.information.email,
         password: d.information.password,
@@ -88,6 +93,35 @@ export const Register: React.FC<any> = ({ navigation }) => {
       setStatus("OUTRO");
     }
     console.log("DATA saved in register screen ! +++> ", data);
+  };
+
+  const handleRegister = () => {
+    register({
+      variables: {
+        sc: data.sc,
+        gender: data.gender,
+        height: Number(data.height),
+        weight: Number(data.weight),
+        birth: data.birth,
+        bmi: Number(data.bmi),
+        password: data.password,
+        email: data.email,
+        name: data.name,
+        username: data.username,
+      },
+    })
+      .then((res) => {
+        if(res.data.register.status){
+          // registered successfuly !
+        }else {
+          setStatus('INTRO');
+        }
+        console.log("register response => ", res);
+      })
+      .catch((e) => {
+        setStatus('INTRO')
+        console.log("Sonething went wrong while trying to register => ", e);
+      });
   };
 
   if (!helviticaCondensed) {
@@ -133,21 +167,14 @@ export const Register: React.FC<any> = ({ navigation }) => {
                   pass={(data: IGender) => handlePass({ gender: data })}
                 />
               ),
-              RESULT: (
-                <BMIResult
-                  bmr={data.bmi}
-                  pass={() => setStatus("SC")}
-                />
-              ),
+              RESULT: <BMIResult bmr={data.bmi} pass={() => setStatus("SC")} />,
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}
                   pass={(data: ISCData) => handlePass({ sc: data })}
                 />
               ),
-              OUTRO: (
-                <RegisterOutro pass={() => console.log("FINAL DATA", data)} />
-              ),
+              OUTRO: <RegisterOutro pass={() => handleRegister()} />,
             }[status]
           }
         </View>
