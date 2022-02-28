@@ -1,28 +1,22 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
-import { Heading } from "../../components";
-import { useSeedActivityCategoriesMutation } from "../../generated/graphql";
-import { AuthContext } from '../../utils/auth/AuthProvider';
-import * as SecureStore from 'expo-secure-store';
+import { Heading, Loading } from "../../components";
+import { AuthContext } from "../../utils/auth/AuthProvider";
+import * as SecureStore from "expo-secure-store";
+import { useMeQuery } from "../../generated/graphql";
 
 export const Settings: React.FC<any> = () => {
+  const { data, loading, error } = useMeQuery();
   const _ctx = React.useContext(AuthContext);
-  const [seed] = useSeedActivityCategoriesMutation();
 
   const logout = async () => {
-    _ctx.login('');
-    await SecureStore.deleteItemAsync('TOKEN');
-  }
-
-  const createCategories = () => {
-    seed()
-      .then((res) => {
-        console.log("seed result => ", res);
-      })
-      .catch((e) => {
-        console.log("Something went wrong creating categories => ", e);
-      });
+    _ctx.login("");
+    await SecureStore.deleteItemAsync("TOKEN");
   };
+
+  if (loading || error) {
+    return <Loading />;
+  }
 
   return (
     <View style={styles.container}>
@@ -30,8 +24,8 @@ export const Settings: React.FC<any> = () => {
         <Heading title={"Settings"} />
         <View style={styles.profile}>
           <View style={styles.profilePic} />
-          <Text style={styles.name}>User Name.</Text>
-          <Text style={styles.username}>@avocado</Text>
+          <Text style={styles.name}> {data.me.name} </Text>
+          <Text style={styles.username}>@{data.me.username}</Text>
         </View>
         <View style={styles.options}>
           <Pressable style={styles.option}>
