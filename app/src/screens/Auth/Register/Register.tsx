@@ -17,6 +17,7 @@ import {
   IMeasurementData,
   ISCData,
 } from "../../../utils/types/Register";
+import { calcBMR } from "../../../utils/modules/bmr";
 
 interface IUserData {
   name: string | "";
@@ -75,12 +76,13 @@ export const Register: React.FC<any> = ({ navigation }) => {
       setData({
         ...data,
         gender: d.gender.gender,
+        bmi: calcBMR(data.birth, data.weight, data.height, d.gender.gender),
       });
       setStatus("RESULT");
-    } else if(d.sc){
+    } else if (d.sc) {
       setData({
         ...data,
-        sc: d.sc.sc
+        sc: d.sc.sc,
       });
       console.log("sc data : ", d.sc.sc);
       setStatus("OUTRO");
@@ -131,14 +133,21 @@ export const Register: React.FC<any> = ({ navigation }) => {
                   pass={(data: IGender) => handlePass({ gender: data })}
                 />
               ),
-              RESULT: <BMIResult gender={data.gender} height={data.height} birth={data.birth} weight={data.weight} pass={() => setStatus("SC")} />,
+              RESULT: (
+                <BMIResult
+                  bmr={data.bmi}
+                  pass={() => setStatus("SC")}
+                />
+              ),
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}
                   pass={(data: ISCData) => handlePass({ sc: data })}
                 />
               ),
-              OUTRO: <RegisterOutro pass={() => console.log("FINAL DATA", data)} />,
+              OUTRO: (
+                <RegisterOutro pass={() => console.log("FINAL DATA", data)} />
+              ),
             }[status]
           }
         </View>
