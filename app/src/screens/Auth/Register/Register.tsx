@@ -19,6 +19,9 @@ import {
 } from "../../../utils/types/Register";
 import { calcBMR } from "../../../utils/modules/bmr";
 import { useRegisterMutation } from "../../../generated/graphql";
+import { AuthContext } from '../../../utils/auth/AuthProvider';
+import { setAccessToken } from '../../../utils/token/token';
+import * as SecureStore from 'expo-secure-store';
 
 interface IUserData {
   username: string | "";
@@ -41,6 +44,7 @@ type IRegisterData = {
 };
 
 export const Register: React.FC<any> = ({ navigation }) => {
+  const _ctx = React.useContext(AuthContext);
   const [data, setData] = React.useState<IUserData>({
     username: "",
     name: "",
@@ -110,9 +114,18 @@ export const Register: React.FC<any> = ({ navigation }) => {
         username: data.username,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if(res.data.register.status){
           // registered successfuly !
+          const _token = res.data.register.token;
+          const _refreshToken = res.data.register.rToken;
+          await SecureStore.setItemAsync("TOKEN", _refreshToken);
+          setAccessToken(_token);
+          _ctx.login(_token);
+          console.log(
+            "refresh token : ",
+            await SecureStore.getItemAsync("TOKEN")
+          );
         }else {
           setStatus('INTRO');
         }
@@ -123,7 +136,6 @@ export const Register: React.FC<any> = ({ navigation }) => {
         console.log("Sonething went wrong while trying to register => ", e);
       });
   };
-
   if (!helviticaCondensed) {
     return <View />;
   }
