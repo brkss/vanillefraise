@@ -13,6 +13,7 @@ import {
   RecipeMetaData,
   Button,
   Loading,
+  Info
 } from "../../components";
 import { useRecipeQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
@@ -47,7 +48,8 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           source={{
             uri: `${CDN}/${data.recipe.recipe!.image}`,
           }}
-        >
+          >
+          <Info clicked={() => {}} />
           <Close pressed={() => navigation.popToTop()} />
         </ImageBackground>
         <View style={styles.content}>

@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   percent: {
     fontSize: 11,
     fontWeight: "bold",
+    marginBottom: 6,
   },
   icon: {
     fontSize: 20,
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   },
   bar: {
     height: 100,
-    backgroundColor: "#C6E8C1",
+    backgroundColor: "#ACD4A7",
     width: 15,
     borderRadius: 200,
     marginBottom: 10,

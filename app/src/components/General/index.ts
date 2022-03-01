@@ -5,3 +5,4 @@ export * from "./Close";
 export * from "./InvisibleInput";
 export * from './Loading';
 export * from './Alert';
+export * from './Info';

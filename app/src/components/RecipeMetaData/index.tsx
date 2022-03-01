@@ -19,7 +19,7 @@ export const RecipeMetaData: React.FC<Props> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> {title.trim()} </Text>
+      <Text style={styles.title}>{title.trim()} </Text>
       <Info prep={prep} cook={cook} total={total} />
       {description ? (
         <Text style={styles.description}>{description}</Text>
