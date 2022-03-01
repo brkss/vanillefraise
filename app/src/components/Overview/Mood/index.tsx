@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useMoodsQuery } from "../../../generated/graphql";
 import { Loading } from "../../General/Loading";
+import { MoodStatsItem } from "./Item";
+
 
 export const MoodStats: React.FC = () => {
   const [moods, SetMoods] = React.useState<any[][]>([[]]);
@@ -25,10 +27,10 @@ export const MoodStats: React.FC = () => {
   return (
     <View style={styles.container}>
       {moods.map((chunk, key) => (
-        <View style={styles.row}>
+        <View key={key} style={styles.row}>
           {chunk.map((mood, key) => (
             <View key={key} style={styles.item}>
-              <Text>{mood.name}</Text>
+              <MoodStatsItem percent={Math.floor(Math.random() * 100 )} icon={mood.icon} title={mood.name} />
             </View>
           ))}
         </View>

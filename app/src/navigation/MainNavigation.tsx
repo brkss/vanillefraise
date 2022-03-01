@@ -15,7 +15,17 @@ export const MainNavigation: React.FC = () => {
 
   // refresh token
   React.useEffect(() => {
-        {token ? <><AppNavigation /><OverviewNavigation /></> : <AuthNavigation />}    SecureStore.getItemAsync("TOKEN")
+    {
+      token ? (
+        <>
+          <AppNavigation />
+          <OverviewNavigation />
+        </>
+      ) : (
+        <AuthNavigation />
+      );
+    }
+    SecureStore.getItemAsync("TOKEN")
       .then(async (_token) => {
         console.log("fetch new access token : ", _token);
         if (_token) {
