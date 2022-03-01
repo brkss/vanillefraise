@@ -8,7 +8,7 @@ export const MoodOverview : React.FC = () => {
   return(
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
-        <Heading title={'Mood \nOverview'} />
+        <Heading title={'Overview'} />
       </SafeAreaView>
     </View>
   )

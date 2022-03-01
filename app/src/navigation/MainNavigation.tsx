@@ -7,6 +7,7 @@ import * as SecureStore from "expo-secure-store";
 import { Spinner, Center } from "native-base";
 import { URI } from "../utils";
 import { setAccessToken } from "../utils/token/token";
+import { OverviewNavigation } from "./OverviewNavigation";
 
 export const MainNavigation: React.FC = () => {
   const { token, login } = React.useContext(AuthContext);
@@ -14,7 +15,7 @@ export const MainNavigation: React.FC = () => {
 
   // refresh token
   React.useEffect(() => {
-    SecureStore.getItemAsync("TOKEN")
+        {token ? <><AppNavigation /><OverviewNavigation /></> : <AuthNavigation />}    SecureStore.getItemAsync("TOKEN")
       .then(async (_token) => {
         console.log("fetch new access token : ", _token);
         if (_token) {
@@ -51,7 +52,13 @@ export const MainNavigation: React.FC = () => {
   return (
     <>
       <NavigationContainer>
-        {token ? <AppNavigation /> : <AuthNavigation />}
+        {token ? (
+          <>
+            <AppNavigation />
+          </>
+        ) : (
+          <AuthNavigation />
+        )}
       </NavigationContainer>
     </>
   );
