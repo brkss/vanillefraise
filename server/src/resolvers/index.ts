@@ -5,3 +5,4 @@ export * from "./activity";
 export * from './user';
 export * from './records';
 export * from './mental';
+export * from './nutrition';
