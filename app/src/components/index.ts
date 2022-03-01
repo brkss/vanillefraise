@@ -15,3 +15,4 @@ export * from "./ActivitySlider";
 export * from "./ActivityConfig";
 export * from "./Register";
 export * from './TodaysMood';
+export * from './Overview';
