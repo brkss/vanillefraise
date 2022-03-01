@@ -388,7 +388,7 @@ export type RecordsQuery = { __typename?: 'Query', records: { __typename?: 'List
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, name: string, username: string } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, name: string, username: string, email: string } | null | undefined };
 
 export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -881,6 +881,7 @@ export const MeDocument = gql`
     id
     name
     username
+    email
   }
 }
     `;

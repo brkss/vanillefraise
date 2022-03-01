@@ -7,6 +7,7 @@ interface Props {
   secure?: boolean;
   type?: string;
   unit?: string;
+  value?: string;
 }
 
 export const InvisibleInput: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const InvisibleInput: React.FC<Props> = ({
   type,
   secure,
   unit,
+  value
 }) => {
   return (
     <View
@@ -25,6 +27,7 @@ export const InvisibleInput: React.FC<Props> = ({
         textContentType={(type as any) || "none"}
         placeholder={label}
         onChangeText={(t) => txtChange(t)}
+        value={value}
         style={[styles.input, { width: unit ? "70%" : "100%" }]}
       />
       {unit ? (

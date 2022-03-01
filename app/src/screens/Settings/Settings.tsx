@@ -5,7 +5,7 @@ import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useMeQuery } from "../../generated/graphql";
 
-export const Settings: React.FC<any> = () => {
+export const Settings: React.FC<any> = ({navigation}) => {
   const { data, loading, error } = useMeQuery();
   const _ctx = React.useContext(AuthContext);
 
@@ -28,10 +28,10 @@ export const Settings: React.FC<any> = () => {
           <Text style={styles.username}>@{data.me.username}</Text>
         </View>
         <View style={styles.options}>
-          <Pressable style={styles.option}>
+          <Pressable style={styles.option} onPress={() => navigation.push('PersonalInformation')} >
             <Text style={styles.optionText}>Personal Information </Text>
           </Pressable>
-          <Pressable style={styles.option}>
+          <Pressable style={styles.option} onPress={() => navigation.push('PasswordSettings')}>
             <Text style={styles.optionText}>Change Password</Text>
           </Pressable>
           <Pressable style={styles.option}>
