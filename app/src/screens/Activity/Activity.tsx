@@ -35,11 +35,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
     _records.refetch({ category: Number(id) });
   };
 
-  if (
-    loading ||
-    error ||
-    !data 
-  ) {
+  if (loading || error || !data) {
     return <Loading />;
   }
 
@@ -47,7 +43,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.headingContainer}>
-          <Heading title={"Activity"} />
+            <Heading title={"Activity"} />
         </View>
         <View style={{ height: 140 }}>
           <Slider
