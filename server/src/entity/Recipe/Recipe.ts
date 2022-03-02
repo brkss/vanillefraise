@@ -6,12 +6,19 @@ import {
   OneToMany,
   BaseEntity,
   ManyToMany,
-  JoinTable
+  JoinTable,
 } from "typeorm";
 import { Instruction } from "./Instuction";
 import { Ingredient } from "./Ingredient";
 import { ObjectType, Field } from "type-graphql";
 import { RecipeCategory } from "./Category";
+import {
+  RecipeDietLabel,
+  RecipeHealthLabel,
+  RecipeTotalDaily,
+  RecipeTotalNutrition,
+  RecipeTotalNutritionKcal,
+} from "../Nutrition";
 
 @ObjectType()
 @Entity("recipes")
@@ -25,7 +32,7 @@ export class Recipe extends BaseEntity {
   name: string;
 
   @Field({ nullable: true })
-  @Column('text', { nullable: true })
+  @Column("text", { nullable: true })
   description?: string;
 
   @Field({ nullable: true })
@@ -73,6 +80,32 @@ export class Recipe extends BaseEntity {
     onUpdate: "CASCADE",
   })
   instructions: Instruction;
+
+  @Field(() => [RecipeDietLabel])
+  @OneToMany(() => RecipeDietLabel, (dietlabel) => dietlabel.recipe)
+  dietlabel: RecipeDietLabel[];
+
+  @Field(() => [RecipeHealthLabel])
+  @OneToMany(() => RecipeHealthLabel, (healthlabel) => healthlabel.recipe)
+  healthlabel: RecipeHealthLabel[];
+
+  @Field(() => [RecipeTotalDaily])
+  @OneToMany(() => RecipeTotalDaily, (totaldaily) => totaldaily.recipe)
+  totalDaily: RecipeTotalDaily[];
+
+  @Field(() => [RecipeTotalNutrition])
+  @OneToMany(
+    () => RecipeTotalNutrition,
+    (totalnutrition) => totalnutrition.recipe
+  )
+  totalnutrition: RecipeTotalNutrition[];
+
+  @Field(() => RecipeTotalNutritionKcal)
+  @OneToMany(
+    () => RecipeTotalNutritionKcal,
+    (totalnutritionkcal) => totalnutritionkcal.recipe
+  )
+  totalnutritionkcal: RecipeTotalNutritionKcal[];
 
   @Field(() => [RecipeCategory])
   @ManyToMany(() => RecipeCategory, (categories) => categories.recipes)

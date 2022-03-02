@@ -4,9 +4,15 @@ const recipeScraper = require("recipe-scraper");
 import * as path from "path";
 import fs from "fs";
 import { downloadImage } from "../../utils/helpers/donwloadImage";
-import { Recipe, Ingredient, Instruction, RecipeCategory } from "../../entity/Recipe";
-import { CreateRecipeResponse } from '../../utils/responses';
-import { CreateRecipeInput } from '../../utils/inputs/recipes/createrecipe.input';
+import {
+  Recipe,
+  Ingredient,
+  Instruction,
+  RecipeCategory,
+} from "../../entity/Recipe";
+import { CreateRecipeResponse } from "../../utils/responses";
+import { CreateRecipeInput } from "../../utils/inputs/recipes/createrecipe.input";
+import { recipeNutrition } from "../../utils/nutrition";
 
 // config !
 import units from "recipes-parser/lib/nlp/en/units.json";
@@ -24,15 +30,18 @@ const rules = fs.readFileSync(
 @Resolver()
 export class CreateRecipeResolver {
   @Mutation(() => CreateRecipeResponse)
-  async createRecipe(@Arg("data") data: CreateRecipeInput): Promise<CreateRecipeResponse> {
-    if (!data.url) return {
-      message: "Invalid URl",
-      status: false
-    };
+  async createRecipe(
+    @Arg("data") data: CreateRecipeInput
+  ): Promise<CreateRecipeResponse> {
+    if (!data.url)
+      return {
+        message: "Invalid URl",
+        status: false,
+      };
     try {
       const uri = data.url;
-      const recipeCheck = await Recipe.findOne({where: {url: uri}});
-      if(recipeCheck){
+      const recipeCheck = await Recipe.findOne({ where: { url: uri } });
+      if (recipeCheck) {
         return {
           message: "Recipe already exsit",
           status: false,
@@ -49,43 +58,41 @@ export class CreateRecipeResolver {
       recipe.cook = recipe_data.time.cook;
       recipe.total = recipe_data.time.total;
       recipe.url = uri;
-      let categories : RecipeCategory[] = []; 
-      for(let cat_id of data.categories){
-        const category = await RecipeCategory.findOne({where: {id: cat_id}});
-        if(!category){
-          await recipe.remove();
-          return {
-            status: false,
-            message: "Error : Category not found !"
-          }
-        }
-        categories.push(category);
+      const categories = await this.getRecipeCategories(data.categories);
+      if (categories.length !== data.categories.length) {
+        return {
+          status: false,
+          message: "Error : Category not found !",
+        };
       }
       recipe.categories = categories;
       await recipe.save();
 
+      // get recipe nutrition : 
+      await recipeNutrition({name: recipe_data.name, ingr: recipe_data.ingredients})
+
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
       await this.createRecipeInstructions(recipe, recipe_data.instructions);
-      /*
-      const img = `../../cdn/images/${recipe_data.name.split(" ").join("_")}.jpg`;
-      await downloadImage(recipe_data.image, img);
-      console.log("recipe => ", recipe_data);
-      //console.log("ingredients => ", ingredients);
-      const recipe = new Recipe();
-      recipe.name = recipe_data.name;
-      recipe.description = recipe_data.description;
-      */
     } catch (e) {
       console.log("something went wrong : ", e);
       return {
         message: "Something went wrong ",
-        status: false
+        status: false,
       };
     }
     return {
       status: true,
-      message: "Recipe created successfuly ! "
+      message: "Recipe created successfuly ! ",
     };
+  }
+
+  async getRecipeCategories(cats: string[]): Promise<RecipeCategory[]> {
+    let categories: RecipeCategory[] = [];
+    for (let cat_id of cats) {
+      const category = await RecipeCategory.findOne({ where: { id: cat_id } });
+      if (category) categories.push(category);
+    }
+    return categories;
   }
 
   async createRecipeIngredients(recipe: Recipe, ings: string[]) {
