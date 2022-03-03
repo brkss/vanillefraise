@@ -82,7 +82,7 @@ export class Recipe extends BaseEntity {
   instructions: Instruction;
 
   @Field(() => [RecipeDietLabel])
-  @OneToMany(() => RecipeDietLabel, (dietlabel) => dietlabel.recipe)
+  @OneToMany(() => RecipeDietLabel, (dietl) => dietl.recipe)
   dietlabel: RecipeDietLabel[];
 
   @Field(() => [RecipeHealthLabel])
@@ -100,7 +100,7 @@ export class Recipe extends BaseEntity {
   )
   totalnutrition: RecipeTotalNutrition[];
 
-  @Field(() => RecipeTotalNutritionKcal)
+  @Field(() => [RecipeTotalNutritionKcal])
   @OneToMany(
     () => RecipeTotalNutritionKcal,
     (totalnutritionkcal) => totalnutritionkcal.recipe

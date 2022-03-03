@@ -12,6 +12,7 @@ export const recipeNutrition = async (data: IInput) => {
     title: data.name,
     ingr: data.ingr,
   });
+  console.log("Res => ", res.data);
   return res;
   /*
   .then(async res => {

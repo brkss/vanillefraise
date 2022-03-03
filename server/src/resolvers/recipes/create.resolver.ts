@@ -13,6 +13,13 @@ import {
 import { CreateRecipeResponse } from "../../utils/responses";
 import { CreateRecipeInput } from "../../utils/inputs/recipes/createrecipe.input";
 import { recipeNutrition } from "../../utils/nutrition";
+import {
+  RecipeDietLabel,
+  RecipeHealthLabel,
+  RecipeTotalDaily,
+  RecipeTotalNutrition,
+  RecipeTotalNutritionKcal,
+} from "../../entity/Nutrition";
 
 // config !
 import units from "recipes-parser/lib/nlp/en/units.json";
@@ -68,9 +75,11 @@ export class CreateRecipeResolver {
       recipe.categories = categories;
       await recipe.save();
 
-      // get recipe nutrition : 
-      await recipeNutrition({name: recipe_data.name, ingr: recipe_data.ingredients})
 
+      await this.createRecipeNutritionData(recipe, {
+        name: recipe_data.name,
+        ingr: recipe_data.ingredients
+      })
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
       await this.createRecipeInstructions(recipe, recipe_data.instructions);
     } catch (e) {
@@ -118,6 +127,63 @@ export class CreateRecipeResolver {
       instruction.recipe = recipe;
       instruction.raw = inst;
       await instruction.save();
+    }
+  }
+
+  async createRecipeNutritionData(
+    recipe: Recipe,
+    data: { name: string; ingr: string[] }
+  ) {
+    const nutrition = await recipeNutrition(data);
+
+    if (!data) return;
+
+    // recipe diet label
+    for (let dlabel of nutrition.data.dietLabels) {
+      const dietLabel = new RecipeDietLabel();
+      dietLabel.label = dlabel;
+      dietLabel.recipe = recipe;
+      await dietLabel.save();
+    }
+    // recipe health label
+    for (let hlabel of nutrition.data.healthLabels) {
+      const healthLabel = new RecipeHealthLabel();
+      healthLabel.label = hlabel;
+      healthLabel.recipe = recipe;
+      await healthLabel.save();
+    }
+    // recipe's total nutrition !
+    const totalNutrientsData = nutrition.data.totalNutrients;
+    for (let tnutrition of Object.keys(totalNutrientsData)) {
+      const totalNutrients = new RecipeTotalNutrition();
+      totalNutrients.recipe = recipe;
+      totalNutrients.label = totalNutrientsData[tnutrition].label;
+      totalNutrients.quantity = totalNutrientsData[tnutrition].quantity;
+      totalNutrients.unit = totalNutrientsData[tnutrition].unit;
+      totalNutrients.code = tnutrition;
+      await totalNutrients.save();
+    }
+    // recipe's total daily
+    const totalDailyData = nutrition.data.totalDaily;
+    for (let tdaily of Object.keys(totalDailyData)) {
+      const totalDaily = new RecipeTotalDaily();
+      totalDaily.recipe = recipe;
+      totalDaily.label = totalDailyData[tdaily].label;
+      totalDaily.quantity = totalDailyData[tdaily].quantity;
+      totalDaily.unit = totalDailyData[tdaily].unit;
+      totalDaily.code = tdaily;
+      await totalDaily.save();
+    }
+    // recipe's total daily
+    const totalNutrientKcalData = nutrition.data.totalNutrientsKCal;
+    for (let tnutrKcal of Object.keys(totalNutrientKcalData)) {
+      const totalNutritionKcal = new RecipeTotalNutritionKcal();
+      totalNutritionKcal.recipe = recipe;
+      totalNutritionKcal.label = totalNutrientKcalData[tnutrKcal].label;
+      totalNutritionKcal.quantity = totalNutrientKcalData[tnutrKcal].quantity;
+      totalNutritionKcal.unit = totalNutrientKcalData[tnutrKcal].unit;
+      totalNutritionKcal.code = tnutrKcal;
+      await totalNutritionKcal.save();
     }
   }
 }
