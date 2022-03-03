@@ -15,6 +15,7 @@ import {
   MoodResolver,
   UserInfoResolver,
   NutritionGuideResolver,
+  RecipeNutritionResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -34,7 +35,8 @@ export const build = async () => {
       RecordListResolver,
       MoodResolver,
       UserInfoResolver,
-      NutritionGuideResolver
+      NutritionGuideResolver,
+      RecipeNutritionResolver
     ],
     validate: false,
   });
