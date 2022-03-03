@@ -9,19 +9,19 @@ import {
 
 @ObjectType()
 export class RecipeNutritionResponse {
-  @Field(() => [RecipeDietLabel])
-  dietLabels: RecipeDietLabel[];
+  @Field(() => [RecipeDietLabel], {nullable: true})
+  dietLabels?: RecipeDietLabel[];
 
-  @Field(() => [RecipeHealthLabel])
-  healthLabels: RecipeHealthLabel[];
+  @Field(() => [RecipeHealthLabel], {nullable: true})
+  healthLabels?: RecipeHealthLabel[];
 
-  @Field(() => [RecipeTotalDaily])
+  @Field(() => [RecipeTotalDaily], {nullable: true})
   totalDaily: RecipeTotalDaily[];
 
-  @Field(() => RecipeTotalNutrition)
-  totalNutrition: RecipeTotalNutrition[];
+  @Field(() => RecipeTotalNutrition, {nullable: true})
+  totalNutrition?: RecipeTotalNutrition[];
 
-  @Field(() => [RecipeTotalNutritionKcal])
-  totalNutritionKcal: RecipeTotalNutritionKcal[]
+  @Field(() => [RecipeTotalNutritionKcal], {nullable: true})
+  totalNutritionKcal?: RecipeTotalNutritionKcal[]
 
 }
