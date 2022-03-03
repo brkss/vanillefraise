@@ -16,7 +16,7 @@ export class RecipeNutritionResponse {
   healthLabels: RecipeHealthLabel[];
 
   @Field(() => [RecipeTotalDaily])
-  totalhDaily: RecipeTotalDaily[];
+  totalDaily: RecipeTotalDaily[];
 
   @Field(() => RecipeTotalNutrition)
   totalNutrition: RecipeTotalNutrition[];
