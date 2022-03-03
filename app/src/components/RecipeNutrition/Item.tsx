@@ -16,7 +16,7 @@ export const RecipeNutritionItem: React.FC<Props> = ({
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.row}>
-        <Text style={styles.quantity}>{quantity}</Text>
+        <Text style={styles.quantity}>{quantity.toFixed(2)}</Text>
         <Text style={styles.unit}>{unit}</Text>
       </View>
     </View>
@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
     marginRight: 15,
     borderRadius: 14,
     minHeight: 100,
+    minWidth: 130,
     alignItems: "baseline",
-    justifyContent: 'flex-end'
+    justifyContent: "flex-end",
   },
   row: {
     flexDirection: "row",

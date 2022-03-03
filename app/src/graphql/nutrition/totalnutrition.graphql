@@ -1,0 +1,10 @@
+query TotalNutrition($recipe_id: String!){
+  getRecipeNutrition(recipe_id: $recipe_id ){
+    totalNutrition{
+      id
+      label
+      quantity
+      unit
+    }
+  } 
+}

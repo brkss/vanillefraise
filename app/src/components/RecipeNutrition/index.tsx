@@ -1,32 +1,39 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { RecipeNutritionItem } from "./Item";
+import { nutrition_data } from "../../utils/data/nutritions.data";
+import { useTotalNutritionQuery } from '../../generated/graphql';
 
-export const RecipeNutrition: React.FC = () => {
+interface Props {
+  recipeId: string;
+}
+
+export const RecipeNutrition: React.FC<Props> = ({recipeId}) => {
+
+  const { data, loading, error } = useTotalNutritionQuery({
+    variables: {
+      recipe_id: recipeId
+    }
+  });
+
+  if(loading || error){
+    return <View />
+  }
+
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Nutrition Facts</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-        <RecipeNutritionItem
-          label={"Vitamin C, total ascorbic acid"}
-          quantity={82.05}
-          unit={"mg"}
-        />
-        <RecipeNutritionItem
-          label={"Vitamin C, total ascorbic acid"}
-          quantity={82.05}
-          unit={"mg"}
-        />
-        <RecipeNutritionItem
-          label={"Vitamin C, total ascorbic acid"}
-          quantity={82.05}
-          unit={"mg"}
-        />
-        <RecipeNutritionItem
-          label={"Vitamin C, total ascorbic acid"}
-          quantity={82.05}
-          unit={"mg"}
-        />
+        {data.getRecipeNutrition.totalNutrition.map((nut, key) => (
+          <RecipeNutritionItem
+            key={key}
+            label={nut.label}
+            quantity={nut.quantity}
+            unit={nut.unit}
+          />
+        ))}
       </ScrollView>
     </View>
   );

@@ -61,7 +61,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             cook={data.recipe.recipe?.cook || undefined}
             total={data.recipe.recipe?.total || undefined}
           />
-          <RecipeNutrition />
+          <RecipeNutrition recipeId={id} />
           <Ingredients ingredients={data.recipe.recipe!.ingredients} />
           <Instructions instructions={data.recipe.recipe!.instructions} />
           <Button

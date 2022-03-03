@@ -128,6 +128,7 @@ export type Mutation = {
   resetPassword: AuthDefaultResponse;
   seedActivityCategories: Scalars['Boolean'];
   seedMoodCategories: Scalars['Boolean'];
+  seedNutritionGuide: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
@@ -182,6 +183,7 @@ export type MutationVerifyResetTokenArgs = {
 export type Query = {
   __typename?: 'Query';
   activityCategories: Array<ActivityCategory>;
+  getRecipeNutrition: RecipeNutritionResponse;
   me?: Maybe<User>;
   moods: Array<Mood>;
   ping: Scalars['String'];
@@ -192,6 +194,11 @@ export type Query = {
   records: ListRecordsResponse;
   specialconditions: Array<SpecialCondition>;
   work: Scalars['String'];
+};
+
+
+export type QueryGetRecipeNutritionArgs = {
+  recipe_id: Scalars['String'];
 };
 
 
@@ -210,6 +217,8 @@ export type Recipe = {
   cook?: Maybe<Scalars['String']>;
   created_at: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
+  dietlabel: Array<RecipeDietLabel>;
+  healthlabel: Array<RecipeHealthLabel>;
   id: Scalars['String'];
   image: Scalars['String'];
   ingredients: Array<Ingredient>;
@@ -219,6 +228,9 @@ export type Recipe = {
   public: Scalars['Boolean'];
   serving?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['String']>;
+  totalDaily: Array<RecipeTotalDaily>;
+  totalnutrition: Array<RecipeTotalNutrition>;
+  totalnutritionkcal: Array<RecipeTotalNutritionKcal>;
   url: Scalars['String'];
 };
 
@@ -231,11 +243,64 @@ export type RecipeCategory = {
   recipes: Array<Recipe>;
 };
 
+export type RecipeDietLabel = {
+  __typename?: 'RecipeDietLabel';
+  id: Scalars['String'];
+  label: Scalars['String'];
+  recipe: Recipe;
+};
+
+export type RecipeHealthLabel = {
+  __typename?: 'RecipeHealthLabel';
+  id: Scalars['String'];
+  label: Scalars['String'];
+  recipe: Recipe;
+};
+
 export type RecipeItemResponse = {
   __typename?: 'RecipeItemResponse';
   message?: Maybe<Scalars['String']>;
   recipe?: Maybe<Recipe>;
   status: Scalars['Boolean'];
+};
+
+export type RecipeNutritionResponse = {
+  __typename?: 'RecipeNutritionResponse';
+  dietLabels?: Maybe<Array<RecipeDietLabel>>;
+  healthLabels?: Maybe<Array<RecipeHealthLabel>>;
+  totalDaily?: Maybe<Array<RecipeTotalDaily>>;
+  totalNutrition?: Maybe<Array<RecipeTotalNutrition>>;
+  totalNutritionKcal?: Maybe<Array<RecipeTotalNutritionKcal>>;
+};
+
+export type RecipeTotalDaily = {
+  __typename?: 'RecipeTotalDaily';
+  code: Scalars['String'];
+  id: Scalars['String'];
+  label: Scalars['String'];
+  quantity: Scalars['Float'];
+  recipe: Recipe;
+  unit: Scalars['String'];
+};
+
+export type RecipeTotalNutrition = {
+  __typename?: 'RecipeTotalNutrition';
+  code: Scalars['String'];
+  id: Scalars['String'];
+  label: Scalars['String'];
+  quantity: Scalars['Float'];
+  recipe: Recipe;
+  unit: Scalars['String'];
+};
+
+export type RecipeTotalNutritionKcal = {
+  __typename?: 'RecipeTotalNutritionKcal';
+  code: Scalars['String'];
+  id: Scalars['String'];
+  label: Scalars['String'];
+  quantity: Scalars['Float'];
+  recipe: Recipe;
+  unit: Scalars['String'];
 };
 
 export type Record = {
@@ -345,6 +410,13 @@ export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MoodsQuery = { __typename?: 'Query', moods: Array<{ __typename?: 'Mood', id: string, name: string, icon: string }> };
+
+export type TotalNutritionQueryVariables = Exact<{
+  recipe_id: Scalars['String'];
+}>;
+
+
+export type TotalNutritionQuery = { __typename?: 'Query', getRecipeNutrition: { __typename?: 'RecipeNutritionResponse', totalNutrition?: Array<{ __typename?: 'RecipeTotalNutrition', id: string, label: string, quantity: number, unit: string }> | null | undefined } };
 
 export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -616,6 +688,46 @@ export function useMoodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Mood
 export type MoodsQueryHookResult = ReturnType<typeof useMoodsQuery>;
 export type MoodsLazyQueryHookResult = ReturnType<typeof useMoodsLazyQuery>;
 export type MoodsQueryResult = Apollo.QueryResult<MoodsQuery, MoodsQueryVariables>;
+export const TotalNutritionDocument = gql`
+    query TotalNutrition($recipe_id: String!) {
+  getRecipeNutrition(recipe_id: $recipe_id) {
+    totalNutrition {
+      id
+      label
+      quantity
+      unit
+    }
+  }
+}
+    `;
+
+/**
+ * __useTotalNutritionQuery__
+ *
+ * To run a query within a React component, call `useTotalNutritionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTotalNutritionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTotalNutritionQuery({
+ *   variables: {
+ *      recipe_id: // value for 'recipe_id'
+ *   },
+ * });
+ */
+export function useTotalNutritionQuery(baseOptions: Apollo.QueryHookOptions<TotalNutritionQuery, TotalNutritionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TotalNutritionQuery, TotalNutritionQueryVariables>(TotalNutritionDocument, options);
+      }
+export function useTotalNutritionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TotalNutritionQuery, TotalNutritionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TotalNutritionQuery, TotalNutritionQueryVariables>(TotalNutritionDocument, options);
+        }
+export type TotalNutritionQueryHookResult = ReturnType<typeof useTotalNutritionQuery>;
+export type TotalNutritionLazyQueryHookResult = ReturnType<typeof useTotalNutritionLazyQuery>;
+export type TotalNutritionQueryResult = Apollo.QueryResult<TotalNutritionQuery, TotalNutritionQueryVariables>;
 export const PingDocument = gql`
     query Ping {
   ping
