@@ -1,7 +1,8 @@
 import React from "react";
 import { View, StyleSheet, SafeAreaView, Text } from "react-native";
 import { useFonts } from "expo-font";
-import { Heading } from "../../components";
+import { ExerciseFeedBack } from "../../components";
+
 
 export const FinishExercise: React.FC = () => {
   const [helviticaCondensed] = useFonts({
@@ -14,6 +15,9 @@ export const FinishExercise: React.FC = () => {
         <Text style={styles.heading}>How Was It ?</Text>
         <View style={styles.info}>
           <Text style={styles.infoText}>Tennis for 1:02:00</Text>
+          <View>
+            <ExerciseFeedBack />
+          </View>
         </View>
       </SafeAreaView>
     </View>
