@@ -23,9 +23,9 @@ export class RecipeNutritionResolver {
 
     res.dietLabels = await RecipeDietLabel.find({where: {recipe: recipe}});
     res.healthLabels = await RecipeHealthLabel.find({where: {recipe: recipe}});
-    res.totalDaily = await RecipeTotalDaily.find({where: {recipe: recipe_id}});
-    res.totalNutrition = await RecipeTotalNutrition.find({where: {recipe: recipe_id}});
-    res.totalNutritionKcal = await RecipeTotalNutritionKcal.find({where: {recipe: recipe_id}});
+    res.totalDaily = await RecipeTotalDaily.find({where: {recipe: recipe}});
+    res.totalNutrition = await RecipeTotalNutrition.find({where: {recipe: recipe}});
+    res.totalNutritionKcal = await RecipeTotalNutritionKcal.find({where: {recipe: recipe}});
 
     return res;
 

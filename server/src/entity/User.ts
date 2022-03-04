@@ -13,6 +13,7 @@ import { ResetPassword } from "./ResetPassword";
 import { Record } from "./Record";
 import { MoodRecord } from "./Mental";
 import { SpecialCondition } from "./UserInfo";
+import { Activity } from './Activity';
 
 @ObjectType()
 @Entity("users")
@@ -87,4 +88,9 @@ export class User extends BaseEntity {
   )
   @JoinTable()
   specialconditions: SpecialCondition[];
+
+  @Field(() => [Activity])
+  @OneToMany(() => Activity, activities => activities.user)
+  activities: Activity[];
+
 }

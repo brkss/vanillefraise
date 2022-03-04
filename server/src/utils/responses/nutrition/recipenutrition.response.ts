@@ -16,9 +16,9 @@ export class RecipeNutritionResponse {
   healthLabels?: RecipeHealthLabel[];
 
   @Field(() => [RecipeTotalDaily], {nullable: true})
-  totalDaily: RecipeTotalDaily[];
+  totalDaily?: RecipeTotalDaily[];
 
-  @Field(() => RecipeTotalNutrition, {nullable: true})
+  @Field(() => [RecipeTotalNutrition], {nullable: true})
   totalNutrition?: RecipeTotalNutrition[];
 
   @Field(() => [RecipeTotalNutritionKcal], {nullable: true})

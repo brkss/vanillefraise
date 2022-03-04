@@ -1,5 +1,6 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
+import { Activity } from './Activity';
 
 @ObjectType()
 @Entity("activity_categories")
@@ -15,4 +16,8 @@ export class ActivityCategory extends BaseEntity {
   @Field({ nullable: true })
   @Column({ nullable: true })
   icon?: string;
+
+  @Field(() => [Activity])
+  @OneToMany(() => Activity, activities => activities.category)
+  activities: Activity[]
 }
