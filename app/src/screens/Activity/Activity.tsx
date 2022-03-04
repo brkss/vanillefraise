@@ -8,7 +8,6 @@ import {
   Pressable,
 } from "react-native";
 import { Slider, Heading, ActivityThumbnail, Loading } from "../../components";
-import { activity_categories } from "../../utils/data";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   useRecordCategoriesQuery,
@@ -26,7 +25,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
   });
   const _records = useRecordsQuery({
     variables: {
-      category: Number(data.recordCategories[0].id),
+      category: Number(selected),
     },
   });
 
@@ -43,17 +42,14 @@ export const Activity: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.headingContainer}>
-            <Heading title={"Activity"} />
+          <Heading title={"Activity"} />
         </View>
         <View style={{ height: 140 }}>
           <Slider
             selected={selected}
             onSelect={(sel) => handleSelect(sel)}
             color={"#D9EFB8"}
-            categories={[
-              { id: "sports", name: "Sports", icon: "🏃‍♀️" },
-              ...data.recordCategories,
-            ]}
+            categories={data.recordCategories}
           />
         </View>
         <View style={styles.actions}>
