@@ -16,7 +16,7 @@ export const NewActivity: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView>
         <View>
-          <Text style={styles.heading}>NEW{"\n"}ACTIVITY.</Text>
+          <Text style={styles.heading}>NEW{"\n"}Exercise.</Text>
         </View>
         <View>
           <ActivityCategory

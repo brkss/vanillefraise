@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Activity, NewActivity, ActivityConfig, Active } from "../screens";
+import { Activity, NewActivity, ActivityConfig, Active, FinishExercise } from "../screens";
 
 export const ActivityNavigation: React.FC = () => {
   const { Group, Screen, Navigator } = createStackNavigator();
@@ -14,6 +14,7 @@ export const ActivityNavigation: React.FC = () => {
         <Screen name={"NewActivity"} component={NewActivity} />
         <Screen name={"ConfigActivity"} component={ActivityConfig} />
         <Screen name={"Active"} component={Active} />
+        <Screen name={'FinishExercise'} component={FinishExercise} />
       </Group>
     </Navigator>
   );

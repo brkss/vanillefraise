@@ -35,7 +35,7 @@ export const Active: React.FC<any> = ({ route, navigation }) => {
     console.log(
       `time ${currentTime.hours}:${currentTime.minutes}:${currentTime.seconds}`
     );
-    navigation.push("ActivityList");
+    navigation.push("FinishExercise");
   };
 
   return (
