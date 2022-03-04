@@ -3,14 +3,55 @@ import { View, StyleSheet, SafeAreaView, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { ExerciseFeedBack, Button } from "../../components";
 
+interface IFeedBack {
+  id: string;
+  icon: string;
+  name: string;
+}
+
+const feedback : IFeedBack[] = [
+  {
+    id: "1",
+    name: "Low",
+    icon: "😴"
+  },
+  {
+    id: "2",
+    name: "Normal",
+    icon: "👌"
+  },
+  {
+    id: "3",
+    name: "Intense",
+    icon: "🥵"
+  },
+  {
+    id: "4",
+    name: "Strong",
+    icon: "🔥"
+  }
+]
+
 export const FinishExercise: React.FC<any> = ({route}) => {
 
+  const [selected, setSelected] = React.useState(feedback[0].id);
   const { catid, hours, minutes, seconds } = route.params;
 
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
 
+
+  const saveActivity = () => {
+    const data = {
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+      category: catid,
+      feedback: feedback.find(x => x.id == selected) 
+    }
+    console.log("Activity Data => ", data);
+  }
 
   return (
     <View style={styles.container}>
@@ -19,10 +60,10 @@ export const FinishExercise: React.FC<any> = ({route}) => {
         <View style={styles.info}>
           <Text style={styles.infoText}>Tennis for 1:02:00</Text>
           <View style={{ marginTop: 20 }}>
-            <ExerciseFeedBack />
+           <ExerciseFeedBack feedback={feedback} selected={selected} onSelect={(id: string) => setSelected(id)} />
           </View>
         </View>
-        <Button txt={'SAVE IT'} clicked={() => {}} />
+        <Button txt={'SAVE IT'} clicked={() => saveActivity() } />
       </SafeAreaView>
     </View>
   );
