@@ -2,21 +2,41 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Item } from "./Item";
 
+const feedback = [
+  {
+    id: "1",
+    name: "Low",
+    icon: "😴"
+  },
+  {
+    id: "2",
+    name: "Normal",
+    icon: "👌"
+  },
+  {
+    id: "3",
+    name: "Intense",
+    icon: "🥵"
+  },
+  {
+    id: "4",
+    name: "Strong",
+    icon: "🔥"
+  }
+]
+
 export const ExerciseFeedBack: React.FC = () => {
+  const [selected, SetSelected] = React.useState(feedback[1].id)
   return (
     <View style={styles.container}>
-      <View style={styles.item}>
-        <Item />
+      {
+        feedback.map((fb, key) => (
+       <View style={styles.item} key={key}>
+         <Item onSelect={() => SetSelected(fb.id)} selected={selected === fb.id} name={fb.name} icon={fb.icon} />
       </View>
-      <View style={styles.item}>
-        <Item />
-      </View>
-      <View style={styles.item}>
-        <Item />
-      </View>
-      <View style={styles.item}>
-        <Item />
-      </View>
+   
+        ))
+      }
     </View>
   );
 };

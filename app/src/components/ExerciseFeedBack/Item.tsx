@@ -1,14 +1,22 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export const Item: React.FC = () => {
+interface Props {
+  name: string;
+  icon: string;
+  selected: boolean;
+  onSelect: () => void;
+}
+
+export const Item: React.FC<Props> = ({ name, icon, selected, onSelect }) => {
   return (
-    <View style={styles.container}>
+    <Pressable onPress={() => onSelect()} style={styles.container}>
       <View style={styles.iconContainer}>
-        <Text style={styles.icon}>🐝</Text>
+        <Text style={styles.icon}>{icon}</Text>
       </View>
-      <Text style={styles.title}>Low</Text>
-    </View>
+      <Text style={styles.title}>{name}</Text>
+      <View style={[styles.indec, { opacity: selected ? 1 : 0 }]} />
+    </Pressable>
   );
 };
 
@@ -32,5 +40,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "400",
     textAlign: "center",
+  },
+  indec: {
+    height: 10,
+    width: 10,
+    backgroundColor: "black",
+    borderRadius: 10,
+    alignSelf: "center",
+    marginTop: 7,
   },
 });
