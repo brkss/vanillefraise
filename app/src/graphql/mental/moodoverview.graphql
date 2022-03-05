@@ -1,0 +1,12 @@
+query MoodOverview{
+  moodOverview{
+    status
+    message
+    data{
+      name
+      id
+      icon
+      percent
+    }
+  }
+}

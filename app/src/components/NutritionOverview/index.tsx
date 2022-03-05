@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "400",
     color: "#434343",
-    marginTop: 10,
+    marginVertical: 10,
   },
   row: {
     flexDirection: "row",

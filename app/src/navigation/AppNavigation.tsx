@@ -1,8 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Settings, CreateRecord, MentalHealthIntro } from "../screens";
+import { CreateRecord, MentalHealthIntro } from "../screens";
 import { RecipeNavigation } from "./RecipesNavigation";
-import { RemindersNavigation } from "./RemindersNavigation";
 import { ActivityNavigation } from "./ActivityNavigation";
 import { SettingsNavigation } from "./SettingsNavigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -22,7 +21,7 @@ export const AppNavigation: React.FC = () => {
           else if (route.name == "Recipes")
             iconName = focused ? "ios-disc" : "ios-disc-outline";
           else if (route.name == "Overview")
-            iconName = focused ? "ios-eye" : "ios-eye-outline"
+            iconName = focused ? "ios-newspaper" : "ios-newspaper-outline";
           else if (route.name == "Activity")
             iconName = focused ? "ios-eye" : "ios-eye-outline";
           else if (route.name == "Reminders")

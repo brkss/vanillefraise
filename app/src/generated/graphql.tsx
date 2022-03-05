@@ -131,6 +131,21 @@ export type Mood = {
   records: Array<MoodRecord>;
 };
 
+export type MoodOverviewData = {
+  __typename?: 'MoodOverviewData';
+  icon: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  percent: Scalars['Float'];
+};
+
+export type MoodOverviewResponse = {
+  __typename?: 'MoodOverviewResponse';
+  data?: Maybe<Array<MoodOverviewData>>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type MoodRecord = {
   __typename?: 'MoodRecord';
   date: Scalars['DateTime'];
@@ -215,6 +230,7 @@ export type Query = {
   activityCategories: Array<ActivityCategory>;
   getRecipeNutrition: RecipeNutritionResponse;
   me?: Maybe<User>;
+  moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
@@ -446,6 +462,11 @@ export type CreateMoodRecordMutationVariables = Exact<{
 
 
 export type CreateMoodRecordMutation = { __typename?: 'Mutation', createMoodRecord: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
+export type MoodOverviewQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MoodOverviewQuery = { __typename?: 'Query', moodOverview: { __typename?: 'MoodOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'MoodOverviewData', name: string, id: string, icon: string, percent: number }> | null | undefined } };
 
 export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -732,6 +753,47 @@ export function useCreateMoodRecordMutation(baseOptions?: Apollo.MutationHookOpt
 export type CreateMoodRecordMutationHookResult = ReturnType<typeof useCreateMoodRecordMutation>;
 export type CreateMoodRecordMutationResult = Apollo.MutationResult<CreateMoodRecordMutation>;
 export type CreateMoodRecordMutationOptions = Apollo.BaseMutationOptions<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>;
+export const MoodOverviewDocument = gql`
+    query MoodOverview {
+  moodOverview {
+    status
+    message
+    data {
+      name
+      id
+      icon
+      percent
+    }
+  }
+}
+    `;
+
+/**
+ * __useMoodOverviewQuery__
+ *
+ * To run a query within a React component, call `useMoodOverviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMoodOverviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMoodOverviewQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMoodOverviewQuery(baseOptions?: Apollo.QueryHookOptions<MoodOverviewQuery, MoodOverviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MoodOverviewQuery, MoodOverviewQueryVariables>(MoodOverviewDocument, options);
+      }
+export function useMoodOverviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MoodOverviewQuery, MoodOverviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MoodOverviewQuery, MoodOverviewQueryVariables>(MoodOverviewDocument, options);
+        }
+export type MoodOverviewQueryHookResult = ReturnType<typeof useMoodOverviewQuery>;
+export type MoodOverviewLazyQueryHookResult = ReturnType<typeof useMoodOverviewLazyQuery>;
+export type MoodOverviewQueryResult = Apollo.QueryResult<MoodOverviewQuery, MoodOverviewQueryVariables>;
 export const MoodsDocument = gql`
     query Moods {
   moods {

@@ -22,6 +22,7 @@ export const RecipeThumbnail: React.FC<Props> = ({
   carbs,
   pressed,
 }) => {
+  console.log("Image : ", img);
   return (
     <TouchableOpacity onPress={() => pressed()}>
       <ImageBackground
