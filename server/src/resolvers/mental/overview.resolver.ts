@@ -1,4 +1,4 @@
-import { Resolver, Query, UseMiddleware, Mutation, Ctx } from "type-graphql";
+import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
 import { User } from "../../entity/User";
 import { MoodRecord, Mood } from "../../entity/Mental";
 import { isUserAuth } from "../../utils/middlewares";

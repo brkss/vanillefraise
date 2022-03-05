@@ -40,7 +40,7 @@ export class CreateRecipeResolver {
   async createRecipe(
     @Arg("data") data: CreateRecipeInput
   ): Promise<CreateRecipeResponse> {
-    if (!data.url)
+    if (!data.url || data.categories.length == 0)
       return {
         message: "Invalid URl",
         status: false,
