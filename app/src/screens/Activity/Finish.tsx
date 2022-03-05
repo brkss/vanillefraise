@@ -33,7 +33,7 @@ const feedback : IFeedBack[] = [
   }
 ]
 
-export const FinishExercise: React.FC<any> = ({route}) => {
+export const FinishExercise: React.FC<any> = ({route, navigation}) => {
 
   const [selected, setSelected] = React.useState(feedback[0].id);
   const { catid, hours, minutes, seconds } = route.params;
@@ -60,6 +60,9 @@ export const FinishExercise: React.FC<any> = ({route}) => {
         duration: `${data.hours}:${data.minutes}:${data.seconds}`
       }
     }).then((res) => {
+      if(res.data.createActivity.status){
+        navigation.push('ActivityList')
+      }
       console.log('Create Activity Result : ', res);
     })
     console.log("Activity Data => ", data);

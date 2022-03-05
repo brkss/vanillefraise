@@ -18,3 +18,4 @@ export * from './TodaysMood';
 export * from './Overview';
 export * from './RecipeNutrition'
 export * from './ExerciseFeedBack';
+export * from './CaloriesOverview';
