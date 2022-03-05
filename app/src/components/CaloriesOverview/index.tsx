@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { LoadingBar } from './LoadingBar';
 
 export const CaloriesOverview: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ export const CaloriesOverview: React.FC = () => {
         <Text style={styles.needCalories}> / 2400</Text>
       </View>
       <Text style={styles.unit}>calories</Text>
+      <LoadingBar />
       <Text style={styles.recipeCooked}>You cooked 2 recipes till now.</Text>
     </View>
   );
