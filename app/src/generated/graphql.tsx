@@ -17,8 +17,19 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type Activity = {
+  __typename?: 'Activity';
+  calories?: Maybe<Scalars['Float']>;
+  category: ActivityCategory;
+  duration: Scalars['String'];
+  feedback?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  user: User;
+};
+
 export type ActivityCategory = {
   __typename?: 'ActivityCategory';
+  activities: Array<Activity>;
   icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   name: Scalars['String'];
@@ -30,6 +41,19 @@ export type AuthDefaultResponse = {
   rToken?: Maybe<Scalars['String']>;
   status: Scalars['Boolean'];
   token?: Maybe<Scalars['String']>;
+};
+
+export type CreateActivityInput = {
+  calories?: InputMaybe<Scalars['Float']>;
+  category: Scalars['String'];
+  duration: Scalars['String'];
+  feedback?: InputMaybe<Scalars['String']>;
+};
+
+export type CreateActivityResponse = {
+  __typename?: 'CreateActivityResponse';
+  message: Scalars['String'];
+  status: Scalars['Boolean'];
 };
 
 export type CreateMoodRecordInput = {
@@ -117,6 +141,7 @@ export type MoodRecord = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecord: CreateRecordResponse;
@@ -133,6 +158,11 @@ export type Mutation = {
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
+};
+
+
+export type MutationCreateActivityArgs = {
+  data: CreateActivityInput;
 };
 
 
@@ -349,6 +379,7 @@ export type SpecialCondition = {
 
 export type User = {
   __typename?: 'User';
+  activities: Array<Activity>;
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
   created_at: Scalars['DateTime'];
@@ -369,6 +400,16 @@ export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ActivityCategoriesQuery = { __typename?: 'Query', activityCategories: Array<{ __typename?: 'ActivityCategory', id: string, name: string, icon?: string | null | undefined }> };
+
+export type CreateActivityMutationVariables = Exact<{
+  category: Scalars['String'];
+  duration: Scalars['String'];
+  feedback: Scalars['String'];
+  calories: Scalars['Float'];
+}>;
+
+
+export type CreateActivityMutation = { __typename?: 'Mutation', createActivity: { __typename?: 'CreateActivityResponse', status: boolean, message: string } };
 
 export type SeedActivityCategoriesMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -504,6 +545,45 @@ export function useActivityCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type ActivityCategoriesQueryHookResult = ReturnType<typeof useActivityCategoriesQuery>;
 export type ActivityCategoriesLazyQueryHookResult = ReturnType<typeof useActivityCategoriesLazyQuery>;
 export type ActivityCategoriesQueryResult = Apollo.QueryResult<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>;
+export const CreateActivityDocument = gql`
+    mutation CreateActivity($category: String!, $duration: String!, $feedback: String!, $calories: Float!) {
+  createActivity(
+    data: {category: $category, duration: $duration, feedback: $feedback, calories: $calories}
+  ) {
+    status
+    message
+  }
+}
+    `;
+export type CreateActivityMutationFn = Apollo.MutationFunction<CreateActivityMutation, CreateActivityMutationVariables>;
+
+/**
+ * __useCreateActivityMutation__
+ *
+ * To run a mutation, you first call `useCreateActivityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateActivityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createActivityMutation, { data, loading, error }] = useCreateActivityMutation({
+ *   variables: {
+ *      category: // value for 'category'
+ *      duration: // value for 'duration'
+ *      feedback: // value for 'feedback'
+ *      calories: // value for 'calories'
+ *   },
+ * });
+ */
+export function useCreateActivityMutation(baseOptions?: Apollo.MutationHookOptions<CreateActivityMutation, CreateActivityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateActivityMutation, CreateActivityMutationVariables>(CreateActivityDocument, options);
+      }
+export type CreateActivityMutationHookResult = ReturnType<typeof useCreateActivityMutation>;
+export type CreateActivityMutationResult = Apollo.MutationResult<CreateActivityMutation>;
+export type CreateActivityMutationOptions = Apollo.BaseMutationOptions<CreateActivityMutation, CreateActivityMutationVariables>;
 export const SeedActivityCategoriesDocument = gql`
     mutation SeedActivityCategories {
   seedActivityCategories

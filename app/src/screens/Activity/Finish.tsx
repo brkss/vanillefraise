@@ -1,7 +1,8 @@
 import React from "react";
 import { View, StyleSheet, SafeAreaView, Text } from "react-native";
 import { useFonts } from "expo-font";
-import { ExerciseFeedBack, Button } from "../../components";
+import { ExerciseFeedBack, Button, Loading } from "../../components";
+import { useCreateActivityMutation } from '../../generated/graphql';
 
 interface IFeedBack {
   id: string;
@@ -36,6 +37,7 @@ export const FinishExercise: React.FC<any> = ({route}) => {
 
   const [selected, setSelected] = React.useState(feedback[0].id);
   const { catid, hours, minutes, seconds } = route.params;
+  const [create] = useCreateActivityMutation();
 
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
@@ -50,7 +52,21 @@ export const FinishExercise: React.FC<any> = ({route}) => {
       category: catid,
       feedback: feedback.find(x => x.id == selected) 
     }
+    create({
+      variables: {
+        feedback: data.feedback.name,
+        category: data.category,
+        calories: 0,
+        duration: `${data.hours}:${data.minutes}:${data.seconds}`
+      }
+    }).then((res) => {
+      console.log('Create Activity Result : ', res);
+    })
     console.log("Activity Data => ", data);
+  }
+
+  if(!helviticaCondensed){
+    return <Loading />
   }
 
   return (
