@@ -122,10 +122,13 @@ export class CreateRecipeResolver {
   }
 
   async createRecipeInstructions(recipe: Recipe, insts: string[]) {
+    let index = 0;
     for (let inst of insts) {
       const instruction = new Instruction();
+      instruction.index = index + 1; 
       instruction.recipe = recipe;
       instruction.raw = inst;
+      index ++;
       await instruction.save();
     }
   }

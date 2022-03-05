@@ -21,8 +21,13 @@ export class Instruction extends BaseEntity {
   raw: string;
 
   @Field()
+  @Column()
+  index: number;
+  
+  @Field()
   @CreateDateColumn()
   created_at: Date;
+
 
   @Field(() => Recipe)
   @ManyToOne(() => Recipe, (recipe) => recipe.instructions, {
