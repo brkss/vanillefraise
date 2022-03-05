@@ -1,12 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useMoodsQuery } from "../../../generated/graphql";
 import { Loading } from "../../General/Loading";
 import { MoodStatsItem } from "./Item";
 import { useMoodOverviewQuery } from "../../../generated/graphql";
 
 export const MoodStats: React.FC = () => {
-  const [moods, SetMoods] = React.useState<any[][]>([[]]);
   const { loading, error, data } = useMoodOverviewQuery();
 
   if (loading || error) {
