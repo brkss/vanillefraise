@@ -11,17 +11,21 @@ import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils";
 import { LinearGradient } from "expo-linear-gradient";
-import { useRecipeQuery } from '../../generated/graphql';
+import { useRecipeQuery } from "../../generated/graphql";
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
   const { id } = route.params;
-  const { data, loading, error } = useRecipeQuery({fetchPolicy: 'cache-first', variables: {
-    id: id
-  }});
+  const { data, loading, error } = useRecipeQuery({
+    fetchPolicy: "cache-first",
+    variables: {
+      id: id,
+    },
+  });
   const [step, SetStep] = React.useState("start");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
+
 
   const changeStep = (s: string) => {
     SetStep(s);
@@ -44,12 +48,24 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
         <View style={styles.content}>
           {
             {
-              start: <Start total={data!.recipe.recipe!.total || 'unknown'} name={data!.recipe.recipe!.name} finish={() => changeStep("ingredients")} />,
+              start: (
+                <Start
+                  total={data!.recipe.recipe!.total || "unknown"}
+                  name={data!.recipe.recipe!.name}
+                  finish={() => changeStep("ingredients")}
+                />
+              ),
               ingredients: (
-                <IngredientStep ingredients={data!.recipe.recipe!.ingredients} finish={() => changeStep("instructions")} />
+                <IngredientStep
+                  ingredients={data!.recipe.recipe!.ingredients}
+                  finish={() => changeStep("instructions")}
+                />
               ),
               instructions: (
-                <InstructionsStep instructions={data!.recipe.recipe!.instructions} finish={() => changeStep("finish")} />
+                <InstructionsStep
+                  instructions={data!.recipe.recipe!.instructions}
+                  finish={() => changeStep("finish")}
+                />
               ),
               finish: (
                 <FinishStep
