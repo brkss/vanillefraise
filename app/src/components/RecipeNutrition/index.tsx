@@ -2,31 +2,38 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { RecipeNutritionItem } from "./Item";
 import { nutrition_data } from "../../utils/data/nutritions.data";
-import { useTotalNutritionQuery } from '../../generated/graphql';
+import { useTotalNutritionQuery } from "../../generated/graphql";
 
 interface Props {
   recipeId: string;
 }
 
-export const RecipeNutrition: React.FC<Props> = ({recipeId}) => {
-
+export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
+  const [nutrition, setNutrition] = React.useState([]);
   const { data, loading, error } = useTotalNutritionQuery({
     variables: {
-      recipe_id: recipeId
-    }
+      recipe_id: recipeId,
+    },
+    onCompleted: (res) => {
+      if (res.getRecipeNutrition.totalNutrition.length > 0) {
+        const v = res.getRecipeNutrition.totalNutrition.sort(
+          ({ quantity: a }, { quantity: b }) => b - a
+        );
+        setNutrition(v);
+      }
+      console.log("recipe nutrition result : ", res);
+    },
   });
 
-  if(loading || error){
-    return <View />
+  if (loading || error) {
+    return <View />;
   }
-
-
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Nutrition Facts</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-        {data.getRecipeNutrition.totalNutrition.map((nut, key) => (
+        {nutrition.map((nut, key) => (
           <RecipeNutritionItem
             key={key}
             label={nut.label}
