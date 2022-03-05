@@ -12,7 +12,7 @@ export class Activity extends BaseEntity {
 
   @Field()
   @Column()
-  duration: number;
+  duration: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true })

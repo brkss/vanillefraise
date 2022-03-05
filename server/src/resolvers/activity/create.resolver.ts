@@ -1,8 +1,8 @@
 import { Resolver, Mutation, UseMiddleware, Arg, Ctx } from "type-graphql";
 import { Activity, ActivityCategory } from "../../entity/Activity";
-import { isUserAuth } from "src/utils/middlewares"; 
+import { isUserAuth } from "../../utils/middlewares"; 
 import { User } from '../../entity/User';
-import {IContext} from "src/utils/types/Context";
+import {IContext} from "../../utils/types/Context";
 import { CreateActivityResponse } from '../../utils/responses/activity';
 import { CreateActivityInput } from '../../utils/inputs/activity'
 
@@ -11,15 +11,12 @@ export class CreateActivityResolver {
   @UseMiddleware(isUserAuth)
   @Mutation(() => CreateActivityResponse)
   async createActivity(@Arg('data') data: CreateActivityInput, @Ctx() ctx: IContext) : Promise<CreateActivityResponse> {
-
-  
     if(!data.category || !data.calories || !data.duration || !data.feedback){
       return {
         status: false,
         message: "Invalid Data !"
       }
     }
-    
     const user = await User.findOne({where: {id: ctx.payload.userID}});
     const category = await ActivityCategory.findOne({where: {id: data.category}});
     if(!user || !category){
@@ -41,7 +38,6 @@ export class CreateActivityResolver {
         status: true,
         message: "Activity Created suuccessfuly ! "
       }
-
     }catch(e){
       console.log("Somnething went wrong while creating activity !");
       return {
@@ -49,10 +45,5 @@ export class CreateActivityResolver {
         message: "Something went wrong ! "
       }
     }
-        
-
-
   }
-
-
 }

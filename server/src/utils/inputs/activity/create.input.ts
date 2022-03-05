@@ -6,7 +6,7 @@ export class CreateActivityInput {
   category: string;
 
   @Field()
-  duration: number;
+  duration: string;
 
   @Field({ nullable: true })
   feedback?: string;
