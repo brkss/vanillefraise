@@ -11,7 +11,7 @@ export class CreateActivityResolver {
   @UseMiddleware(isUserAuth)
   @Mutation(() => CreateActivityResponse)
   async createActivity(@Arg('data') data: CreateActivityInput, @Ctx() ctx: IContext) : Promise<CreateActivityResponse> {
-    if(!data.category || !data.calories || !data.duration || !data.feedback){
+    if(!data.category || !data.duration || !data.feedback){
       return {
         status: false,
         message: "Invalid Data !"
