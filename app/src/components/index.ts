@@ -19,3 +19,4 @@ export * from './Overview';
 export * from './RecipeNutrition'
 export * from './ExerciseFeedBack';
 export * from './CaloriesOverview';
+export * from './NutritionOverview';
