@@ -14,7 +14,7 @@ import {
   Button,
   Loading,
   Info,
-  RecipeNutrition
+  RecipeNutrition,
 } from "../../components";
 import { useRecipeQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
@@ -49,8 +49,8 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           source={{
             uri: `${CDN}/${data.recipe.recipe!.image}`,
           }}
-          >
-          <Info clicked={() => navigation.push('RecipeNutrition')} />
+        >
+          <Info clicked={() => navigation.push("RecipeNutrition")} />
           <Close pressed={() => navigation.popToTop()} />
         </ImageBackground>
         <View style={styles.content}>
@@ -63,14 +63,20 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           />
           <RecipeNutrition recipeId={id} />
           <Ingredients ingredients={data.recipe.recipe!.ingredients} />
-          <Instructions instructions={data.recipe.recipe!.instructions} />
+          <Instructions
+            instructions={data.recipe.recipe!.instructions.sort(
+              ({ index: a }, { index: b }) =>  a - b 
+            )}
+          />
           <Button
             //color={"#2A2A2A"}
             //bg={"#B6DA81"}
             txt={"Start Cooking"}
-            clicked={() => navigation.push("Cooking", {
-              id: data.recipe.recipe!.id
-            })}
+            clicked={() =>
+              navigation.push("Cooking", {
+                id: data.recipe.recipe!.id,
+              })
+            }
           />
           <View style={{ height: 50 }} />
         </View>
