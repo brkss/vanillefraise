@@ -38,15 +38,18 @@ export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
         You got it chef ! just follow these instructions
       </Text>
       <View style={styles.items}>
-        {instructions.map((inst, key) => (
-          <Item
-            swipedAll={swipedAll}
-            shuffleBack={shuffleBack}
-            txt={inst.raw}
-            index={key}
-            key={key}
-          />
-        ))}
+        {instructions.reverse().map((inst, key) => {
+          return (
+            <Item
+              swipedAll={swipedAll}
+              shuffleBack={shuffleBack}
+              txt={inst.raw}
+              index={key}
+              num={instructions.length - key - 1}
+              key={key}
+            />
+          );
+        })}
       </View>
       <Animated.View style={style}>
         <Button txt={"Done !"} clicked={() => finish()} />

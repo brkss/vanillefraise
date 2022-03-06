@@ -63,7 +63,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
               ),
               instructions: (
                 <InstructionsStep
-                  instructions={data!.recipe.recipe!.instructions}
+                instructions={data!.recipe.recipe!.instructions.sort(({index: a}, {index: b}) => a - b)}
                   finish={() => changeStep("finish")}
                 />
               ),

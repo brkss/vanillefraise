@@ -22,9 +22,10 @@ interface Props {
   shuffleBack: Animated.SharedValue<boolean>;
   swipedAll: Animated.SharedValue<boolean>;
   txt: string;
+  num: number;
 }
 
-export const Item: React.FC<Props> = ({ index, shuffleBack, swipedAll, txt }) => {
+export const Item: React.FC<Props> = ({ num, index, shuffleBack, swipedAll, txt }) => {
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(-height);
   const start = useSharedValue({ x: 0, y: 0 });
@@ -97,7 +98,7 @@ export const Item: React.FC<Props> = ({ index, shuffleBack, swipedAll, txt }) =>
     <View pointerEvents={"box-none"} style={styles.box}>
       <GestureDetector gesture={gesture}>
         <Animated.View style={[styles.container, style]}>
-          <Text style={styles.number}>#{index + 1}</Text>
+          <Text style={styles.number}>#{num + 1}</Text>
           <Text style={styles.txt}>
             {txt}
           </Text>
