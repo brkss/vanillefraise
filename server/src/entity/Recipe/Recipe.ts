@@ -19,6 +19,7 @@ import {
   RecipeTotalNutrition,
   RecipeTotalNutritionKcal,
 } from "../Nutrition";
+import { CookedRecipe } from "../UserInfo";
 
 @ObjectType()
 @Entity("recipes")
@@ -106,6 +107,10 @@ export class Recipe extends BaseEntity {
     (totalnutritionkcal) => totalnutritionkcal.recipe
   )
   totalnutritionkcal: RecipeTotalNutritionKcal[];
+
+  @Field(() => [CookedRecipe])
+  @OneToMany(() => CookedRecipe, cookedrecipe => cookedrecipe)
+  cookedrecipes: CookedRecipe[];
 
   @Field(() => [RecipeCategory])
   @ManyToMany(() => RecipeCategory, (categories) => categories.recipes)

@@ -12,7 +12,7 @@ import { ObjectType, Field } from "type-graphql";
 import { ResetPassword } from "./ResetPassword";
 import { Record } from "./Record";
 import { MoodRecord } from "./Mental";
-import { SpecialCondition } from "./UserInfo";
+import { SpecialCondition, CookedRecipe } from "./UserInfo";
 import { Activity } from './Activity';
 
 @ObjectType()
@@ -88,6 +88,10 @@ export class User extends BaseEntity {
   )
   @JoinTable()
   specialconditions: SpecialCondition[];
+
+  @Field(() => [CookedRecipe])
+  @OneToMany(() => CookedRecipe, cookedrecipes => cookedrecipes.user)
+  cookedrecipes: CookedRecipe[];
 
   @Field(() => [Activity])
   @OneToMany(() => Activity, activities => activities.user)
