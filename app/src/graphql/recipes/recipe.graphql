@@ -20,6 +20,7 @@ query Recipe($id: String!){
       instructions{
         id
         raw
+        index
       }
     }
   }
