@@ -19,7 +19,8 @@ import {
   CreateActivityResolver,
   MoodOverviewResolver,
   CookedRecipeResolver,
-  NutritionOverviewResolver
+  NutritionOverviewResolver,
+  SeedNutritionRecomendationResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -44,8 +45,9 @@ export const build = async () => {
       CreateActivityResolver,
       MoodOverviewResolver,
       CookedRecipeResolver,
-      NutritionOverviewResolver
+      NutritionOverviewResolver,
+      SeedNutritionRecomendationResolver,
     ],
     validate: false,
   });
-} ;
+};

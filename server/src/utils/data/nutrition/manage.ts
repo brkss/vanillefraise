@@ -1,14 +1,90 @@
+import {
+  children_elements_data,
+  female_elements_data,
+  lactation_elements_data,
+  male_elements_data,
+  pregnancy_elements_data,
+} from "./elements";
+import {
+  children_vitamins_data,
+  female_vitamins_data,
+  lactation_vitamins_data,
+  male_vitamins_data,
+  pregnancy_vitamins_data,
+} from "./vitamins";
+import {
+  children_micronutrients_data,
+  female_micronutrients_data,
+  lactation_micronutrients_data,
+  male_micronutrients_data,
+  pregnancy_micronutrients_data,
+} from "./micronutrients";
 
-export const getAgeRange = (data: any[]) => {
-  const res = data.map((el) => {
-    const age = el.age.split(" ")[0].split("–");
-    console.log("AGE => ", age);
-    return {
-      ...el,
-      ageStart: age[0],
-      ageEnd: age[1],
-    };
+const recs: any[][] = [
+  [
+    ...JSON.parse(children_micronutrients_data),
+    ...JSON.parse(pregnancy_micronutrients_data),
+    ...JSON.parse(lactation_micronutrients_data),
+    ...JSON.parse(male_micronutrients_data),
+    ...JSON.parse(female_micronutrients_data),
+  ],
+  [
+    ...JSON.parse(children_vitamins_data),
+    ...JSON.parse(pregnancy_vitamins_data),
+    ...JSON.parse(lactation_vitamins_data),
+    ...JSON.parse(male_vitamins_data),
+    ...JSON.parse(female_vitamins_data),
+  ],
+  [
+    ...JSON.parse(children_elements_data),
+    ...JSON.parse(pregnancy_elements_data),
+    ...JSON.parse(lactation_elements_data),
+    ...JSON.parse(male_elements_data),
+    ...JSON.parse(female_elements_data),
+  ],
+];
+
+//console.log("Merged data => ", data);
+
+export const getData = () => {
+  const data = getAgeRange(recs);
+  let results: any[] = [];
+  data.forEach((d) => {
+    const keys = Object.keys(d[0]);
+    keys.splice(0, 1);
+    keys.splice(keys.length - 3, keys.length - 1);
+    console.log("key => ", keys);
+    d.forEach((chunk: any) => {
+      for (let key of keys) {
+        const o = {
+          name: key,
+          code: null,
+          quantity: Number(chunk[key]),
+          unit: null,
+          population: chunk["gender"],
+          ageStart: chunk["ageStart"],
+          ageEnd: chunk["ageEnd"],
+        };
+        results.push(o);
+      }
+    });
   });
-  return res;
+  return results;
 };
 
+export const getAgeRange = (data: any[][]) => {
+  let results : any[][] = [];
+  data.forEach((d) => {
+    const res = d.map((el) => {
+      const age = el.age.split(" ")[0].split("–");
+      console.log("AGE => ", age);
+      return {
+        ...el,
+        ageStart: Number(age[0]),
+        ageEnd: Number(age[1]),
+      };
+    });
+    results.push(res);
+  });
+  return results;
+};
