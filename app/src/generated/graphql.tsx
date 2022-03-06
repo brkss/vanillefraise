@@ -242,6 +242,7 @@ export type MutationVerifyResetTokenArgs = {
 export type Query = {
   __typename?: 'Query';
   activityCategories: Array<ActivityCategory>;
+  cookedRecipesCount: Scalars['Float'];
   getRecipeNutrition: RecipeNutritionResponse;
   me?: Maybe<User>;
   moodOverview: MoodOverviewResponse;
@@ -512,6 +513,11 @@ export type CookedRecipeMutationVariables = Exact<{
 
 
 export type CookedRecipeMutation = { __typename?: 'Mutation', cookedRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
+export type CookedRecipesCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CookedRecipesCountQuery = { __typename?: 'Query', cookedRecipesCount: number };
 
 export type RecipeQueryVariables = Exact<{
   id: Scalars['String'];
@@ -1001,6 +1007,38 @@ export function useCookedRecipeMutation(baseOptions?: Apollo.MutationHookOptions
 export type CookedRecipeMutationHookResult = ReturnType<typeof useCookedRecipeMutation>;
 export type CookedRecipeMutationResult = Apollo.MutationResult<CookedRecipeMutation>;
 export type CookedRecipeMutationOptions = Apollo.BaseMutationOptions<CookedRecipeMutation, CookedRecipeMutationVariables>;
+export const CookedRecipesCountDocument = gql`
+    query CookedRecipesCount {
+  cookedRecipesCount
+}
+    `;
+
+/**
+ * __useCookedRecipesCountQuery__
+ *
+ * To run a query within a React component, call `useCookedRecipesCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCookedRecipesCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCookedRecipesCountQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCookedRecipesCountQuery(baseOptions?: Apollo.QueryHookOptions<CookedRecipesCountQuery, CookedRecipesCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CookedRecipesCountQuery, CookedRecipesCountQueryVariables>(CookedRecipesCountDocument, options);
+      }
+export function useCookedRecipesCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CookedRecipesCountQuery, CookedRecipesCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CookedRecipesCountQuery, CookedRecipesCountQueryVariables>(CookedRecipesCountDocument, options);
+        }
+export type CookedRecipesCountQueryHookResult = ReturnType<typeof useCookedRecipesCountQuery>;
+export type CookedRecipesCountLazyQueryHookResult = ReturnType<typeof useCookedRecipesCountLazyQuery>;
+export type CookedRecipesCountQueryResult = Apollo.QueryResult<CookedRecipesCountQuery, CookedRecipesCountQueryVariables>;
 export const RecipeDocument = gql`
     query Recipe($id: String!) {
   recipe(id: $id) {

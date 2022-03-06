@@ -1,0 +1,9 @@
+query RecipeByCategory($cat_id: String!){
+  recipeByCategory(cat_id: $cat_id){
+    id
+    name
+    description
+    serving
+    
+  }
+}

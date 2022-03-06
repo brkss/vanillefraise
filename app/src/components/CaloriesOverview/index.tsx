@@ -1,8 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { LoadingBar } from './LoadingBar';
+import { useCookedRecipesCountQuery } from '../../generated/graphql';
+import { Loading } from '../General/Loading';
 
 export const CaloriesOverview: React.FC = () => {
+
+  const _count = useCookedRecipesCountQuery();
+
+  if(_count.loading || _count.error){
+    return <Loading />
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.caloriesContainer}>
@@ -11,7 +20,7 @@ export const CaloriesOverview: React.FC = () => {
       </View>
       <Text style={styles.unit}>calories</Text>
       <LoadingBar />
-      <Text style={styles.recipeCooked}>You cooked 2 recipes till now.</Text>
+      <Text style={styles.recipeCooked}>You cooked  {_count.data.cookedRecipesCount} recipes.</Text>
     </View>
   );
 };
