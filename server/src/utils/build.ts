@@ -17,7 +17,8 @@ import {
   NutritionGuideResolver,
   RecipeNutritionResolver,
   CreateActivityResolver,
-  MoodOverviewResolver
+  MoodOverviewResolver,
+  CookedRecipeResolver
 } from "../resolvers";
 
 export const build = async () => {
@@ -40,7 +41,8 @@ export const build = async () => {
       NutritionGuideResolver,
       RecipeNutritionResolver,
       CreateActivityResolver,
-      MoodOverviewResolver
+      MoodOverviewResolver,
+      CookedRecipeResolver
     ],
     validate: false,
   });
