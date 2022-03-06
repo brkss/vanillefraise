@@ -11,9 +11,10 @@ import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils";
 import { LinearGradient } from "expo-linear-gradient";
-import { useRecipeQuery } from "../../generated/graphql";
+import { useRecipeQuery, useCookedRecipeMutation } from "../../generated/graphql";
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
+  const [cooked] = useCookedRecipeMutation();
   const { id } = route.params;
   const { data, loading, error } = useRecipeQuery({
     fetchPolicy: "cache-first",
@@ -26,10 +27,22 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
 
-
   const changeStep = (s: string) => {
     SetStep(s);
   };
+  const finish = () => {
+    cooked({
+      variables: {
+        recipeID: id
+      }
+    }).then(res => {
+      if(!res.errors || res.data.cookedRecipe.status === true){
+        navigation.goBack();
+      }
+    }).catch((e) => {
+      console.log("Sonething went wrong => ", e)
+    })
+  }
 
   if (!helviticaCondensed || loading || error || !data) return <Loading />;
 
@@ -70,7 +83,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
               finish: (
                 <FinishStep
                   restart={() => changeStep("start")}
-                  finish={() => navigation.goBack()}
+                  finish={() => finish()}
                 />
               ),
             }[step]
