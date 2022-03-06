@@ -43,6 +43,13 @@ export type AuthDefaultResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
+export type CookedRecipe = {
+  __typename?: 'CookedRecipe';
+  id: Scalars['String'];
+  recipe: Recipe;
+  user: User;
+};
+
 export type CreateActivityInput = {
   calories?: InputMaybe<Scalars['Float']>;
   category: Scalars['String'];
@@ -157,6 +164,7 @@ export type MoodRecord = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  cookedRecipe: DefaultResponse;
   createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
@@ -174,6 +182,11 @@ export type Mutation = {
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
+};
+
+
+export type MutationCookedRecipeArgs = {
+  recipeID: Scalars['String'];
 };
 
 
@@ -262,6 +275,7 @@ export type Recipe = {
   __typename?: 'Recipe';
   categories: Array<RecipeCategory>;
   cook?: Maybe<Scalars['String']>;
+  cookedrecipes: Array<CookedRecipe>;
   created_at: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   dietlabel: Array<RecipeDietLabel>;
@@ -399,6 +413,7 @@ export type User = {
   activities: Array<Activity>;
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
+  cookedrecipes: Array<CookedRecipe>;
   created_at: Scalars['DateTime'];
   email: Scalars['String'];
   gender: Scalars['String'];
@@ -490,6 +505,13 @@ export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null | undefined, recipes: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> }> };
+
+export type CookedRecipeMutationVariables = Exact<{
+  recipeID: Scalars['String'];
+}>;
+
+
+export type CookedRecipeMutation = { __typename?: 'Mutation', cookedRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
 export type RecipeQueryVariables = Exact<{
   id: Scalars['String'];
@@ -945,6 +967,40 @@ export function useRecipeCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type RecipeCategoriesQueryHookResult = ReturnType<typeof useRecipeCategoriesQuery>;
 export type RecipeCategoriesLazyQueryHookResult = ReturnType<typeof useRecipeCategoriesLazyQuery>;
 export type RecipeCategoriesQueryResult = Apollo.QueryResult<RecipeCategoriesQuery, RecipeCategoriesQueryVariables>;
+export const CookedRecipeDocument = gql`
+    mutation CookedRecipe($recipeID: String!) {
+  cookedRecipe(recipeID: $recipeID) {
+    status
+    message
+  }
+}
+    `;
+export type CookedRecipeMutationFn = Apollo.MutationFunction<CookedRecipeMutation, CookedRecipeMutationVariables>;
+
+/**
+ * __useCookedRecipeMutation__
+ *
+ * To run a mutation, you first call `useCookedRecipeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCookedRecipeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [cookedRecipeMutation, { data, loading, error }] = useCookedRecipeMutation({
+ *   variables: {
+ *      recipeID: // value for 'recipeID'
+ *   },
+ * });
+ */
+export function useCookedRecipeMutation(baseOptions?: Apollo.MutationHookOptions<CookedRecipeMutation, CookedRecipeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CookedRecipeMutation, CookedRecipeMutationVariables>(CookedRecipeDocument, options);
+      }
+export type CookedRecipeMutationHookResult = ReturnType<typeof useCookedRecipeMutation>;
+export type CookedRecipeMutationResult = Apollo.MutationResult<CookedRecipeMutation>;
+export type CookedRecipeMutationOptions = Apollo.BaseMutationOptions<CookedRecipeMutation, CookedRecipeMutationVariables>;
 export const RecipeDocument = gql`
     query Recipe($id: String!) {
   recipe(id: $id) {

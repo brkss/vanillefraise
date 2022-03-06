@@ -1,0 +1,6 @@
+mutation CookedRecipe($recipeID: String!){
+  cookedRecipe(recipeID: $recipeID){
+    status
+    message
+  }
+}
