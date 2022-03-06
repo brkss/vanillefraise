@@ -25,4 +25,7 @@ class NutritionOverviewData {
 
   @Field()
   quantity: number;
+  
+  @Field()
+  unit: string;
 }

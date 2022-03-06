@@ -38,7 +38,8 @@ export class NutritionOverviewResolver {
       return {
         name: n.name,
         code: n.code,
-        quantity: quantity 
+        quantity: quantity, 
+        unit: n.unit
       }
     });
 
