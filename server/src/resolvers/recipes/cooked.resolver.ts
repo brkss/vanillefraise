@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Ctx, UseMiddleware } from 'type-graphql';
 import { CookedRecipe } from '../../entity/UserInfo';
 import { User } from '../../entity/User';
 import { Recipe } from '../../entity/Recipe';
@@ -46,6 +46,15 @@ export class CookedRecipeResolver {
       }
     }
     
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Query(() => Number)
+  async cookedRecipesCount(@Ctx() ctx: IContext) : Promise<number>{
+    const user = await User.findOne({where: {id: ctx.payload.userID}});
+    const count = await CookedRecipe.count({where: {user: user}});
+    return count;
+
   }
 
 } 
