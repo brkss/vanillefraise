@@ -1,31 +1,3 @@
-interface Model {
-  rangeStart: number;
-  rangeEnd: number;
-  name: string;
-  code: string;
-  gender: string;
-  quantity: number;
-  unit: string;
-}
-//let data = male.forEach(prt => { const p = Array.from($0.children);  })
-const names = [
-  "Calcium",
-  "Chromium",
-  "Copper",
-  "Fluoride",
-  "Iodine",
-  "Iron",
-  "Magnesium",
-  "Manganese",
-  "Molybdenum",
-  "Phosphorus",
-  "Selenium",
-  "Zinc",
-  "Potassium",
-  "Sodium",
-  "Chloride",
-];
-
 export const male_elements_data =
   '[{"age":"9–13 y","Calcium":"1,300","Chromium":"25*","Copper":"700","Fluoride":"2*","Iodine":"120","Iron":"8","Magnesium":"240","Manganese":"1.9*","Molybdenum":"34","Phosphorus":"1,250","Selenium":"40","Zinc":"8","Potassium":"2,500*","Sodium":"1,200*","Chloride":"2.3*","gender":"MALE"},{"age":"14–18 y","Calcium":"1,300","Chromium":"35*","Copper":"890","Fluoride":"3*","Iodine":"150","Iron":"11","Magnesium":"410","Manganese":"2.2*","Molybdenum":"43","Phosphorus":"1,250","Selenium":"55","Zinc":"11","Potassium":"3,000*","Sodium":"1,500*","Chloride":"2.3*","gender":"MALE"},{"age":"19–30 y","Calcium":"1,000","Chromium":"35*","Copper":"900","Fluoride":"4*","Iodine":"150","Iron":"8","Magnesium":"400","Manganese":"2.3*","Molybdenum":"45","Phosphorus":"700","Selenium":"55","Zinc":"11","Potassium":"3,400*","Sodium":"1,500*","Chloride":"2.3*","gender":"MALE"},{"age":"31–50 y","Calcium":"1,000","Chromium":"35*","Copper":"900","Fluoride":"4*","Iodine":"150","Iron":"8","Magnesium":"420","Manganese":"2.3*","Molybdenum":"45","Phosphorus":"700","Selenium":"55","Zinc":"11","Potassium":"3,400*","Sodium":"1,500*","Chloride":"2.3*","gender":"MALE"},{"age":"51–70 y","Calcium":"1,000","Chromium":"30*","Copper":"900","Fluoride":"4*","Iodine":"150","Iron":"8","Magnesium":"420","Manganese":"2.3*","Molybdenum":"45","Phosphorus":"700","Selenium":"55","Zinc":"11","Potassium":"3,400*","Sodium":"1,500*","Chloride":"2.0*","gender":"MALE"},{"age":"70–100 y","Calcium":"1,200","Chromium":"30*","Copper":"900","Fluoride":"4*","Iodine":"150","Iron":"8","Magnesium":"420","Manganese":"2.3*","Molybdenum":"45","Phosphorus":"700","Selenium":"55","Zinc":"11","Potassium":"3,400*","Sodium":"1,500*","Chloride":"1.8*","gender":"MALE"}]';
 

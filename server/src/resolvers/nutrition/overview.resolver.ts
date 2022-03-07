@@ -1,7 +1,6 @@
 import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
 import { User } from "../../entity/User";
 import { CookedRecipe } from "../../entity/UserInfo/CookedRecipe";
-import { Recipe } from "../../entity/Recipe";
 import { Nutrition, RecipeTotalNutrition } from "../../entity/Nutrition";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
