@@ -1,0 +1,3 @@
+query IsRequested($service: String!){
+  isRequested(service: "MENTAL_HEALTH")
+}

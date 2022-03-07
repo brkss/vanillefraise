@@ -1,0 +1,3 @@
+mutation RequestEarlyAccess($service: String!){
+  requestEarlyAccess(service: "MENTAL_HEALTH")
+}

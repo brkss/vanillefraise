@@ -98,6 +98,12 @@ export type DefaultResponse = {
   status: Scalars['Boolean'];
 };
 
+export type EarlyAccessRequest = {
+  __typename?: 'EarlyAccessRequest';
+  id: Scalars['String'];
+  user: User;
+};
+
 export type Ingredient = {
   __typename?: 'Ingredient';
   amount?: Maybe<Scalars['Float']>;
@@ -173,6 +179,7 @@ export type Mutation = {
   login: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
+  requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
   seedActivityCategories: Scalars['Boolean'];
@@ -226,6 +233,11 @@ export type MutationRegisterArgs = {
 };
 
 
+export type MutationRequestEarlyAccessArgs = {
+  service: Scalars['String'];
+};
+
+
 export type MutationRequestResetPasswordArgs = {
   email: Scalars['String'];
 };
@@ -261,6 +273,7 @@ export type Query = {
   activityCategories: Array<ActivityCategory>;
   cookedRecipesCount: Scalars['Float'];
   getRecipeNutrition: RecipeNutritionResponse;
+  isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
@@ -280,6 +293,11 @@ export type Query = {
 
 export type QueryGetRecipeNutritionArgs = {
   recipe_id: Scalars['String'];
+};
+
+
+export type QueryIsRequestedArgs = {
+  service: Scalars['String'];
 };
 
 
@@ -446,6 +464,7 @@ export type User = {
   bmi: Scalars['Float'];
   cookedrecipes: Array<CookedRecipe>;
   created_at: Scalars['DateTime'];
+  earequest: Array<EarlyAccessRequest>;
   email: Scalars['String'];
   gender: Scalars['String'];
   height: Scalars['Float'];
@@ -502,6 +521,20 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
+
+export type IsRequestedQueryVariables = Exact<{
+  service: Scalars['String'];
+}>;
+
+
+export type IsRequestedQuery = { __typename?: 'Query', isRequested: boolean };
+
+export type RequestEarlyAccessMutationVariables = Exact<{
+  service: Scalars['String'];
+}>;
+
+
+export type RequestEarlyAccessMutation = { __typename?: 'Mutation', requestEarlyAccess: boolean };
 
 export type CreateMoodRecordMutationVariables = Exact<{
   moods: Array<Scalars['String']> | Scalars['String'];
@@ -797,6 +830,70 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const IsRequestedDocument = gql`
+    query IsRequested($service: String!) {
+  isRequested(service: "MENTAL_HEALTH")
+}
+    `;
+
+/**
+ * __useIsRequestedQuery__
+ *
+ * To run a query within a React component, call `useIsRequestedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsRequestedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIsRequestedQuery({
+ *   variables: {
+ *      service: // value for 'service'
+ *   },
+ * });
+ */
+export function useIsRequestedQuery(baseOptions: Apollo.QueryHookOptions<IsRequestedQuery, IsRequestedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<IsRequestedQuery, IsRequestedQueryVariables>(IsRequestedDocument, options);
+      }
+export function useIsRequestedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IsRequestedQuery, IsRequestedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<IsRequestedQuery, IsRequestedQueryVariables>(IsRequestedDocument, options);
+        }
+export type IsRequestedQueryHookResult = ReturnType<typeof useIsRequestedQuery>;
+export type IsRequestedLazyQueryHookResult = ReturnType<typeof useIsRequestedLazyQuery>;
+export type IsRequestedQueryResult = Apollo.QueryResult<IsRequestedQuery, IsRequestedQueryVariables>;
+export const RequestEarlyAccessDocument = gql`
+    mutation RequestEarlyAccess($service: String!) {
+  requestEarlyAccess(service: "MENTAL_HEALTH")
+}
+    `;
+export type RequestEarlyAccessMutationFn = Apollo.MutationFunction<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
+
+/**
+ * __useRequestEarlyAccessMutation__
+ *
+ * To run a mutation, you first call `useRequestEarlyAccessMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRequestEarlyAccessMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [requestEarlyAccessMutation, { data, loading, error }] = useRequestEarlyAccessMutation({
+ *   variables: {
+ *      service: // value for 'service'
+ *   },
+ * });
+ */
+export function useRequestEarlyAccessMutation(baseOptions?: Apollo.MutationHookOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>(RequestEarlyAccessDocument, options);
+      }
+export type RequestEarlyAccessMutationHookResult = ReturnType<typeof useRequestEarlyAccessMutation>;
+export type RequestEarlyAccessMutationResult = Apollo.MutationResult<RequestEarlyAccessMutation>;
+export type RequestEarlyAccessMutationOptions = Apollo.BaseMutationOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
 export const CreateMoodRecordDocument = gql`
     mutation CreateMoodRecord($moods: [String!]!) {
   createMoodRecord(data: {moods: $moods}) {
