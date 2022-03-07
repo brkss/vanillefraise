@@ -20,8 +20,8 @@ export const NewActivity: React.FC<any> = ({ navigation }) => {
         </View>
         <View>
           <ActivityCategory
-            choosed={(catid: string) =>
-              navigation.push("ConfigActivity", { catid: catid })
+            choosed={(catid: string, name: string) =>
+              navigation.push("ConfigActivity", { catid: catid, name: name })
             }
           />
         </View>

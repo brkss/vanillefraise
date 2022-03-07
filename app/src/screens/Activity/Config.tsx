@@ -5,7 +5,7 @@ import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const ActivityConfig: React.FC<any> = ({ route, navigation }) => {
-  const { catid } = route.params;
+  const { catid, name } = route.params;
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
@@ -17,7 +17,8 @@ export const ActivityConfig: React.FC<any> = ({ route, navigation }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.content}>
           <ActivityConfigNow
-            start={() =>
+          activity={name}
+          start={() =>
               navigation.push("Active", {
                 time: new Date().getTime(),
                 catid: catid,

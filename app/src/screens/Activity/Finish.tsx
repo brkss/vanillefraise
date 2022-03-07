@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, SafeAreaView, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { ExerciseFeedBack, Button, Loading } from "../../components";
-import { useCreateActivityMutation } from '../../generated/graphql';
+import { useCreateActivityMutation } from "../../generated/graphql";
 
 interface IFeedBack {
   id: string;
@@ -10,31 +10,30 @@ interface IFeedBack {
   name: string;
 }
 
-const feedback : IFeedBack[] = [
+const feedback: IFeedBack[] = [
   {
     id: "1",
     name: "Low",
-    icon: "😴"
+    icon: "😴",
   },
   {
     id: "2",
     name: "Normal",
-    icon: "👌"
+    icon: "👌",
   },
   {
     id: "3",
     name: "Intense",
-    icon: "🥵"
+    icon: "🥵",
   },
   {
     id: "4",
     name: "Strong",
-    icon: "🔥"
-  }
-]
+    icon: "🔥",
+  },
+];
 
-export const FinishExercise: React.FC<any> = ({route, navigation}) => {
-
+export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
   const [selected, setSelected] = React.useState(feedback[0].id);
   const { catid, hours, minutes, seconds } = route.params;
   const [create] = useCreateActivityMutation();
@@ -43,33 +42,32 @@ export const FinishExercise: React.FC<any> = ({route, navigation}) => {
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
 
-
   const saveActivity = () => {
     const data = {
       hours: hours,
       minutes: minutes,
       seconds: seconds,
       category: catid,
-      feedback: feedback.find(x => x.id == selected) 
-    }
+      feedback: feedback.find((x) => x.id == selected),
+    };
     create({
       variables: {
         feedback: data.feedback.name,
         category: data.category,
         calories: 0,
-        duration: `${data.hours}:${data.minutes}:${data.seconds}`
-      }
+        duration: `${data.hours}:${data.minutes}:${data.seconds}`,
+      },
     }).then((res) => {
-      if(res.data.createActivity.status){
-        navigation.push('ActivityList')
+      if (res.data.createActivity.status) {
+        navigation.push("tabs");
       }
-      console.log('Create Activity Result : ', res);
-    })
+      console.log("Create Activity Result : ", res);
+    });
     console.log("Activity Data => ", data);
-  }
+  };
 
-  if(!helviticaCondensed){
-    return <Loading />
+  if (!helviticaCondensed) {
+    return <Loading />;
   }
 
   return (
@@ -79,10 +77,14 @@ export const FinishExercise: React.FC<any> = ({route, navigation}) => {
         <View style={styles.info}>
           <Text style={styles.infoText}>Tennis for 1:02:00</Text>
           <View style={{ marginTop: 20 }}>
-           <ExerciseFeedBack feedback={feedback} selected={selected} onSelect={(id: string) => setSelected(id)} />
+            <ExerciseFeedBack
+              feedback={feedback}
+              selected={selected}
+              onSelect={(id: string) => setSelected(id)}
+            />
           </View>
         </View>
-        <Button txt={'SAVE IT'} clicked={() => saveActivity() } />
+        <Button txt={"SAVE IT"} clicked={() => saveActivity()} />
       </SafeAreaView>
     </View>
   );

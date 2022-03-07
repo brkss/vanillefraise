@@ -12,10 +12,7 @@ export const ActivityNavigation: React.FC = () => {
       </Group>
       <Group>
         <Screen name={"NewActivity"} component={NewActivity} />
-        <Screen name={"ConfigActivity"} component={ActivityConfig} />
-        <Screen name={"Active"} component={Active} />
-        <Screen name={'FinishExercise'} component={FinishExercise} />
-      </Group>
+              </Group>
     </Navigator>
   );
 };

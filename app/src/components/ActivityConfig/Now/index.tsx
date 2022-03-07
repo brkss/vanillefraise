@@ -4,14 +4,13 @@ import { colors } from "../../../utils/colors";
 
 interface Props {
   start: () => void;
+  activity: string;
 }
 
-export const ActivityConfigNow: React.FC<Props> = ({ start }) => {
+export const ActivityConfigNow: React.FC<Props> = ({ start, activity }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.info}>
-        You're playing something,{"\n"}For 1 hour.
-      </Text>
+      <Text style={styles.info}>You're playing {activity}</Text>
       <Text style={styles.calories}>320 - 550 Cal</Text>
       <Pressable style={styles.btn} onPress={() => start()}>
         <Text style={styles.btnText}>Start</Text>

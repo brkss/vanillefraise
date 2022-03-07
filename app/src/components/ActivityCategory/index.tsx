@@ -2,16 +2,13 @@ import React from "react";
 import {
   View,
   StyleSheet,
-  ScrollView,
-  Text,
   ActivityIndicator,
 } from "react-native";
 import { Item } from "./Item";
-import { activity_types } from "../../utils/data/ActivityTypes.data";
 import { useActivityCategoriesQuery } from "../../generated/graphql";
 
 interface Props {
-  choosed: (catid: string) => void;
+  choosed: (catid: string, name: string) => void;
 }
 
 export const ActivityCategory: React.FC<Props> = ({ choosed }) => {
@@ -30,7 +27,7 @@ export const ActivityCategory: React.FC<Props> = ({ choosed }) => {
         {data?.activityCategories.map((type, key) => (
           <View key={key} style={styles.item}>
             <Item
-              choosed={() => choosed(type.id)}
+              choosed={() => choosed(type.id, type.name)}
               title={type.name}
               icon={type.icon || "?"}
             />
