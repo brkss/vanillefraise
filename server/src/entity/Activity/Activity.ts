@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { ActivityCategory } from './ActivityCategory';
 import { User } from '../User';
@@ -21,6 +21,9 @@ export class Activity extends BaseEntity {
   @Field({ nullable: true })
   @Column({ nullable: true })
   calories?: number;
+
+  @CreateDateColumn()
+  created_at: Date;
 
   @Field(() => ActivityCategory)
   @ManyToOne(() => ActivityCategory, category => category.activities, {

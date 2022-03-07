@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { ObjectType, Field } from 'type-graphql';
 import { Mood } from './Mood';
 import { User } from '../User';
@@ -14,6 +14,9 @@ export class MoodRecord extends BaseEntity {
   @Field()
   @Column()
   date: Date;
+
+  @CreateDateColumn()
+  created_at: Date;
 
   @Field(() => Mood)
   @ManyToOne(() => Mood, mood => mood.records, {

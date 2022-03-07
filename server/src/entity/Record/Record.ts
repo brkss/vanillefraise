@@ -1,14 +1,20 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { RecordCategory } from './Category';
-import { User } from '../User';
-import { ObjectType, Field } from 'type-graphql';
+import {
+  Entity,
+  BaseEntity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+} from "typeorm";
+import { RecordCategory } from "./Category";
+import { User } from "../User";
+import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
 @Entity()
 export class Record extends BaseEntity {
-
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Field()
@@ -23,18 +29,20 @@ export class Record extends BaseEntity {
   @Column()
   date: Date;
 
+  @CreateDateColumn()
+  created_at: Date;
+
   @Field(() => RecordCategory)
-  @ManyToOne(() => RecordCategory, category => category.records, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+  @ManyToOne(() => RecordCategory, (category) => category.records, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   })
   category: RecordCategory;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.records, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+  @ManyToOne(() => User, (user) => user.records, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   })
   user: User;
-
 }

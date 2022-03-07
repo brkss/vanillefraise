@@ -3,6 +3,7 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   ManyToOne,
+  CreateDateColumn,
 } from "typeorm";
 import { User } from "../User";
 import { Recipe } from "../Recipe";
@@ -14,6 +15,9 @@ export class CookedRecipe extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @CreateDateColumn()
+  created_at: Date;
 
   @Field(() => Recipe)
   @ManyToOne(() => Recipe, (recipe) => recipe.cookedrecipes, {
