@@ -832,7 +832,7 @@ export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const IsRequestedDocument = gql`
     query IsRequested($service: String!) {
-  isRequested(service: "MENTAL_HEALTH")
+  isRequested(service: $service)
 }
     `;
 
@@ -865,7 +865,7 @@ export type IsRequestedLazyQueryHookResult = ReturnType<typeof useIsRequestedLaz
 export type IsRequestedQueryResult = Apollo.QueryResult<IsRequestedQuery, IsRequestedQueryVariables>;
 export const RequestEarlyAccessDocument = gql`
     mutation RequestEarlyAccess($service: String!) {
-  requestEarlyAccess(service: "MENTAL_HEALTH")
+  requestEarlyAccess(service: $service)
 }
     `;
 export type RequestEarlyAccessMutationFn = Apollo.MutationFunction<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
