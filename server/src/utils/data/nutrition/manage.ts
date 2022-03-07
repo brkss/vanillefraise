@@ -60,7 +60,7 @@ export const getData = (): INutritionRecomendation[] => {
         const o: INutritionRecomendation = {
           name: key,
           code: null,
-          quantity: parseFloat(chunk[key]) || -1,
+          quantity: parseFloat(chunk[key].replace(',', '')) || -1,
           unit: null,
           population: chunk["gender"],
           ageStart: Number(chunk["ageStart"]),

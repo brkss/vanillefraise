@@ -16,7 +16,7 @@ export class NutritionOverviewResponse {
 }
 
 @ObjectType()
-class NutritionOverviewData {
+export class NutritionOverviewData {
   @Field()
   name: string;
 
@@ -28,4 +28,7 @@ class NutritionOverviewData {
   
   @Field()
   unit: string;
+  
+  @Field()
+  recomendation: number;
 }
