@@ -20,13 +20,12 @@ import { useRecipeQuery, useRecipeEnergyQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
-  
   const { id } = route.params;
   const _energy = useRecipeEnergyQuery({
     variables: {
-      recipe_id: id
-    }
-  })
+      recipe_id: id,
+    },
+  });
   const { data, loading, error } = useRecipeQuery({
     fetchPolicy: "cache-first",
     variables: {
@@ -34,7 +33,14 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
     },
   });
 
-  if (loading || error || !data || _energy.loading || _energy.error || !data.recipe.status) {
+  if (
+    loading ||
+    error ||
+    !data ||
+    _energy.loading ||
+    _energy.error ||
+    !data.recipe.status
+  ) {
     return <Loading />;
   }
 
@@ -47,7 +53,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             uri: `${CDN}/${data.recipe.recipe!.image}`,
           }}
         >
-          <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => navigation.push("RecipeNutrition")} />
+          <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
           <Close pressed={() => navigation.popToTop()} />
         </ImageBackground>
         <View style={styles.content}>
@@ -62,7 +68,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           <Ingredients ingredients={data.recipe.recipe!.ingredients} />
           <Instructions
             instructions={data.recipe.recipe!.instructions.sort(
-              ({ index: a }, { index: b }) =>  a - b 
+              ({ index: a }, { index: b }) => a - b
             )}
           />
           <Button
