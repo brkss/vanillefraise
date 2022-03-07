@@ -19,6 +19,7 @@ import {
   male_micronutrients_data,
   pregnancy_micronutrients_data,
 } from "./micronutrients";
+import { INutritionRecomendation } from "../../types/NutritionRecomendation";
 
 const recs: any[][] = [
   [
@@ -46,9 +47,9 @@ const recs: any[][] = [
 
 //console.log("Merged data => ", data);
 
-export const getData = () => {
+export const getData = (): INutritionRecomendation[] => {
   const data = getAgeRange(recs);
-  let results: any[] = [];
+  let results: INutritionRecomendation[] = [];
   data.forEach((d) => {
     const keys = Object.keys(d[0]);
     keys.splice(0, 1);
@@ -56,14 +57,14 @@ export const getData = () => {
     console.log("key => ", keys);
     d.forEach((chunk: any) => {
       for (let key of keys) {
-        const o = {
+        const o: INutritionRecomendation = {
           name: key,
           code: null,
-          quantity: Number(chunk[key]),
+          quantity: parseFloat(chunk[key]) || -1,
           unit: null,
           population: chunk["gender"],
-          ageStart: chunk["ageStart"],
-          ageEnd: chunk["ageEnd"],
+          ageStart: Number(chunk["ageStart"]),
+          ageEnd: Number(chunk["ageEnd"]),
         };
         results.push(o);
       }
@@ -73,15 +74,15 @@ export const getData = () => {
 };
 
 export const getAgeRange = (data: any[][]) => {
-  let results : any[][] = [];
+  let results: any[][] = [];
   data.forEach((d) => {
     const res = d.map((el) => {
       const age = el.age.split(" ")[0].split("–");
       console.log("AGE => ", age);
       return {
         ...el,
-        ageStart: Number(age[0]),
-        ageEnd: Number(age[1]),
+        ageStart: parseInt(age[0]),
+        ageEnd: parseInt(age[1]),
       };
     });
     results.push(res);

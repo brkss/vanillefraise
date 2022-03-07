@@ -1,21 +1,20 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class NutritionRecomendation extends BaseEntity {
-
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   code: string;
 
   @Column()
   quantity: number;
 
-  @Column()
+  @Column({ nullable: true })
   unit: string;
 
   @Column()
@@ -26,5 +25,4 @@ export class NutritionRecomendation extends BaseEntity {
 
   @Column()
   ageEnd: number;
-
 }
