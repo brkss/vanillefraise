@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { NutrientItem } from "./Item";
+import { useUserNutritionQuery } from "../../generated/graphql";
+import { Loading } from "../General/Loading";
 
 const nutrients = [
   {
@@ -26,6 +28,12 @@ const nutrients = [
 ];
 
 export const NutritionOverview: React.FC = () => {
+  const { data, loading, error } = useUserNutritionQuery();
+
+  if (loading || error) {
+    return <Loading />;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>About your nutrition</Text>
@@ -35,9 +43,9 @@ export const NutritionOverview: React.FC = () => {
         in recipes section.
       </Text>
       <View style={styles.row}>
-        {nutrients.map((n, key) => (
+        {data.userNutrition.data.sort(({quantity: a}, {quantity: b}) => b - a).map((n, key) => (
           <View style={styles.item} key={key}>
-            <NutrientItem value={n.value} unit={n.unit} title={n.title} />
+            <NutrientItem value={n.quantity} unit={n.unit} title={n.name} recomended={n.recomendation} />
           </View>
         ))}
       </View>
@@ -67,6 +75,6 @@ const styles = StyleSheet.create({
   item: {
     width: "50%",
     padding: 5,
-    height: 100,
+    height: 120,
   },
 });

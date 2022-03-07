@@ -179,6 +179,7 @@ export type Mutation = {
   seedMoodCategories: Scalars['Boolean'];
   seedNutritionGuide: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
+  seedRecomendation: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
@@ -239,6 +240,22 @@ export type MutationVerifyResetTokenArgs = {
   token: Scalars['String'];
 };
 
+export type NutritionOverviewData = {
+  __typename?: 'NutritionOverviewData';
+  code: Scalars['String'];
+  name: Scalars['String'];
+  quantity: Scalars['Float'];
+  recomendation: Scalars['Float'];
+  unit: Scalars['String'];
+};
+
+export type NutritionOverviewResponse = {
+  __typename?: 'NutritionOverviewResponse';
+  data?: Maybe<Array<NutritionOverviewData>>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type Query = {
   __typename?: 'Query';
   activityCategories: Array<ActivityCategory>;
@@ -249,11 +266,13 @@ export type Query = {
   moods: Array<Mood>;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
+  recipeByCategory: Array<Recipe>;
   recipeCategories: Array<RecipeCategory>;
   recipes: Array<Recipe>;
   recordCategories: Array<RecordCategory>;
   records: ListRecordsResponse;
   specialconditions: Array<SpecialCondition>;
+  userNutrition: NutritionOverviewResponse;
   work: Scalars['String'];
 };
 
@@ -265,6 +284,11 @@ export type QueryGetRecipeNutritionArgs = {
 
 export type QueryRecipeArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryRecipeByCategoryArgs = {
+  cat_id: Scalars['String'];
 };
 
 
@@ -490,6 +514,11 @@ export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MoodsQuery = { __typename?: 'Query', moods: Array<{ __typename?: 'Mood', id: string, name: string, icon: string }> };
 
+export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionOverviewData', name: string, code: string, quantity: number, unit: string, recomendation: number }> | null | undefined } };
+
 export type TotalNutritionQueryVariables = Exact<{
   recipe_id: Scalars['String'];
 }>;
@@ -518,6 +547,13 @@ export type CookedRecipesCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CookedRecipesCountQuery = { __typename?: 'Query', cookedRecipesCount: number };
+
+export type RecipeByCategoryQueryVariables = Exact<{
+  cat_id: Scalars['String'];
+}>;
+
+
+export type RecipeByCategoryQuery = { __typename?: 'Query', recipeByCategory: Array<{ __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined }> };
 
 export type RecipeQueryVariables = Exact<{
   id: Scalars['String'];
@@ -859,6 +895,48 @@ export function useMoodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Mood
 export type MoodsQueryHookResult = ReturnType<typeof useMoodsQuery>;
 export type MoodsLazyQueryHookResult = ReturnType<typeof useMoodsLazyQuery>;
 export type MoodsQueryResult = Apollo.QueryResult<MoodsQuery, MoodsQueryVariables>;
+export const UserNutritionDocument = gql`
+    query UserNutrition {
+  userNutrition {
+    status
+    message
+    data {
+      name
+      code
+      quantity
+      unit
+      recomendation
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserNutritionQuery__
+ *
+ * To run a query within a React component, call `useUserNutritionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserNutritionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserNutritionQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserNutritionQuery(baseOptions?: Apollo.QueryHookOptions<UserNutritionQuery, UserNutritionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserNutritionQuery, UserNutritionQueryVariables>(UserNutritionDocument, options);
+      }
+export function useUserNutritionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserNutritionQuery, UserNutritionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserNutritionQuery, UserNutritionQueryVariables>(UserNutritionDocument, options);
+        }
+export type UserNutritionQueryHookResult = ReturnType<typeof useUserNutritionQuery>;
+export type UserNutritionLazyQueryHookResult = ReturnType<typeof useUserNutritionLazyQuery>;
+export type UserNutritionQueryResult = Apollo.QueryResult<UserNutritionQuery, UserNutritionQueryVariables>;
 export const TotalNutritionDocument = gql`
     query TotalNutrition($recipe_id: String!) {
   getRecipeNutrition(recipe_id: $recipe_id) {
@@ -1039,6 +1117,44 @@ export function useCookedRecipesCountLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type CookedRecipesCountQueryHookResult = ReturnType<typeof useCookedRecipesCountQuery>;
 export type CookedRecipesCountLazyQueryHookResult = ReturnType<typeof useCookedRecipesCountLazyQuery>;
 export type CookedRecipesCountQueryResult = Apollo.QueryResult<CookedRecipesCountQuery, CookedRecipesCountQueryVariables>;
+export const RecipeByCategoryDocument = gql`
+    query RecipeByCategory($cat_id: String!) {
+  recipeByCategory(cat_id: $cat_id) {
+    id
+    name
+    description
+    serving
+  }
+}
+    `;
+
+/**
+ * __useRecipeByCategoryQuery__
+ *
+ * To run a query within a React component, call `useRecipeByCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecipeByCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecipeByCategoryQuery({
+ *   variables: {
+ *      cat_id: // value for 'cat_id'
+ *   },
+ * });
+ */
+export function useRecipeByCategoryQuery(baseOptions: Apollo.QueryHookOptions<RecipeByCategoryQuery, RecipeByCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecipeByCategoryQuery, RecipeByCategoryQueryVariables>(RecipeByCategoryDocument, options);
+      }
+export function useRecipeByCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecipeByCategoryQuery, RecipeByCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecipeByCategoryQuery, RecipeByCategoryQueryVariables>(RecipeByCategoryDocument, options);
+        }
+export type RecipeByCategoryQueryHookResult = ReturnType<typeof useRecipeByCategoryQuery>;
+export type RecipeByCategoryLazyQueryHookResult = ReturnType<typeof useRecipeByCategoryLazyQuery>;
+export type RecipeByCategoryQueryResult = Apollo.QueryResult<RecipeByCategoryQuery, RecipeByCategoryQueryVariables>;
 export const RecipeDocument = gql`
     query Recipe($id: String!) {
   recipe(id: $id) {

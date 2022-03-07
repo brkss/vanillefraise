@@ -5,6 +5,7 @@ interface Props {
   title: string;
   value: number;
   unit: string;
+  recomended: number;
 }
 
 const resize = (str: string) => {
@@ -12,23 +13,57 @@ const resize = (str: string) => {
   return str;
 };
 
-export const NutrientItem: React.FC<Props> = ({ unit, value, title }) => {
+const calcPercent = (recomended: number, val: number) => {
+  if ((recomended === 0 || recomended === -1) && val == 0) return 10;
+  else if ((recomended === 0 || recomended == -1) && val > 0) return 100;
+  const res = (val * 100) / recomended;
+  if (res > 100) return 100;
+  if (res < 10) return 10;
+  return res;
+};
+
+const getColor = (val: number) => {
+  if (val <= 60 && val > 30) return "#F8DFAF";
+  else if (val <= 30) return "#FFBBA0";
+  else return "#B7D89D";
+};
+
+export const NutrientItem: React.FC<Props> = ({
+  unit,
+  value,
+  title,
+  recomended,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{resize(title)}</Text>
       <Text style={styles.value}>
         {value} {unit}
       </Text>
-      <View style={styles.bar} />
+      {recomended > 0 ? (
+        <Text style={styles.recomended}>
+          {recomended} {unit} recomended per day.
+        </Text>
+      ) : null}
+      <View
+        style={[
+          styles.bar,
+          {
+            backgroundColor: getColor(calcPercent(recomended, value)),
+            width: `${calcPercent(recomended, value)}%`,
+          },
+        ]}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    justifyContent: "flex-end",
     padding: 10,
     backgroundColor: "#ECE8E8",
-    height: 90,
+    height: 110,
     marginBottom: 10,
     borderRadius: 14,
   },
@@ -47,6 +82,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#B7D89D",
     width: "60%",
     borderRadius: 10,
-    
+  },
+  recomended: {
+    fontSize: 10,
+    color: "#434343",
   },
 });

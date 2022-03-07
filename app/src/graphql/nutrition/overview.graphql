@@ -1,0 +1,13 @@
+query UserNutrition{
+  userNutrition{
+    status
+    message
+    data{
+      name
+      code
+      quantity
+      unit
+      recomendation
+    }
+  }
+}
