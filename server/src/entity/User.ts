@@ -14,6 +14,7 @@ import { Record } from "./Record";
 import { MoodRecord } from "./Mental";
 import { SpecialCondition, CookedRecipe } from "./UserInfo";
 import { Activity } from './Activity';
+import { EarlyAccessRequest } from './UserInfo/EarlyAccess';
 
 @ObjectType()
 @Entity("users")
@@ -92,6 +93,10 @@ export class User extends BaseEntity {
   @Field(() => [CookedRecipe])
   @OneToMany(() => CookedRecipe, cookedrecipes => cookedrecipes.user)
   cookedrecipes: CookedRecipe[];
+
+  @Field(() => [EarlyAccessRequest])
+  @OneToMany(() => EarlyAccessRequest, earequest => earequest.user)
+  earequest: EarlyAccessRequest[]
 
   @Field(() => [Activity])
   @OneToMany(() => Activity, activities => activities.user)

@@ -21,6 +21,7 @@ import {
   CookedRecipeResolver,
   NutritionOverviewResolver,
   SeedNutritionRecomendationResolver,
+  RequestEarlyAccessResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -47,6 +48,7 @@ export const build = async () => {
       CookedRecipeResolver,
       NutritionOverviewResolver,
       SeedNutritionRecomendationResolver,
+      RequestEarlyAccessResolver,
     ],
     validate: false,
   });
