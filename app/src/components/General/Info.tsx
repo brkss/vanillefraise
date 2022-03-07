@@ -4,15 +4,16 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
   clicked: () => void;
+  txt: string;
 }
 
-export const Info: React.FC<Props> = ({ clicked }) => {
+export const Info: React.FC<Props> = ({ clicked, txt }) => {
   return (
     <Pressable onPress={() => clicked()} style={styles.container}>
       <View style={styles.row}>
         <Ionicons size={27} name={"ios-information-circle-sharp"} />
-        <Text style={{ fontSize: 22, marginHorizontal: 5, fontWeight: "bold" }}>
-          Nutrition Info
+        <Text style={{ fontSize: 17, marginHorizontal: 5, fontWeight: "bold" }}>
+          {txt}
         </Text>
       </View>
     </Pressable>
@@ -32,5 +33,6 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+    alignItems: "center",
   },
 });

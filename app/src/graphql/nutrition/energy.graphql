@@ -1,0 +1,3 @@
+query RecipeEnergy($recipe_id: String!){
+  recipeEnergy(recipe_id: $recipe_id)
+}

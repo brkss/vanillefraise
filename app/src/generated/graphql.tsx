@@ -268,6 +268,7 @@ export type Query = {
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
   recipeCategories: Array<RecipeCategory>;
+  recipeEnergy: Scalars['Float'];
   recipes: Array<Recipe>;
   recordCategories: Array<RecordCategory>;
   records: ListRecordsResponse;
@@ -289,6 +290,11 @@ export type QueryRecipeArgs = {
 
 export type QueryRecipeByCategoryArgs = {
   cat_id: Scalars['String'];
+};
+
+
+export type QueryRecipeEnergyArgs = {
+  recipe_id: Scalars['String'];
 };
 
 
@@ -513,6 +519,13 @@ export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MoodsQuery = { __typename?: 'Query', moods: Array<{ __typename?: 'Mood', id: string, name: string, icon: string }> };
+
+export type RecipeEnergyQueryVariables = Exact<{
+  recipe_id: Scalars['String'];
+}>;
+
+
+export type RecipeEnergyQuery = { __typename?: 'Query', recipeEnergy: number };
 
 export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -895,6 +908,39 @@ export function useMoodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Mood
 export type MoodsQueryHookResult = ReturnType<typeof useMoodsQuery>;
 export type MoodsLazyQueryHookResult = ReturnType<typeof useMoodsLazyQuery>;
 export type MoodsQueryResult = Apollo.QueryResult<MoodsQuery, MoodsQueryVariables>;
+export const RecipeEnergyDocument = gql`
+    query RecipeEnergy($recipe_id: String!) {
+  recipeEnergy(recipe_id: $recipe_id)
+}
+    `;
+
+/**
+ * __useRecipeEnergyQuery__
+ *
+ * To run a query within a React component, call `useRecipeEnergyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecipeEnergyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecipeEnergyQuery({
+ *   variables: {
+ *      recipe_id: // value for 'recipe_id'
+ *   },
+ * });
+ */
+export function useRecipeEnergyQuery(baseOptions: Apollo.QueryHookOptions<RecipeEnergyQuery, RecipeEnergyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecipeEnergyQuery, RecipeEnergyQueryVariables>(RecipeEnergyDocument, options);
+      }
+export function useRecipeEnergyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecipeEnergyQuery, RecipeEnergyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecipeEnergyQuery, RecipeEnergyQueryVariables>(RecipeEnergyDocument, options);
+        }
+export type RecipeEnergyQueryHookResult = ReturnType<typeof useRecipeEnergyQuery>;
+export type RecipeEnergyLazyQueryHookResult = ReturnType<typeof useRecipeEnergyLazyQuery>;
+export type RecipeEnergyQueryResult = Apollo.QueryResult<RecipeEnergyQuery, RecipeEnergyQueryVariables>;
 export const UserNutritionDocument = gql`
     query UserNutrition {
   userNutrition {
