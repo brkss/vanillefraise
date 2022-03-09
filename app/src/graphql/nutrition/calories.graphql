@@ -1,0 +1,9 @@
+query UserCalories{
+  userCalories{
+    status
+    message
+    target
+    value
+    burnt
+  }
+}

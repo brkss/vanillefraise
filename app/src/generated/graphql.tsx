@@ -286,6 +286,7 @@ export type Query = {
   recordCategories: Array<RecordCategory>;
   records: ListRecordsResponse;
   specialconditions: Array<SpecialCondition>;
+  userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   work: Scalars['String'];
 };
@@ -478,6 +479,16 @@ export type User = {
   weight: Scalars['Float'];
 };
 
+export type UserCaloriesResponse = {
+  __typename?: 'UserCaloriesResponse';
+  burnt?: Maybe<Scalars['Float']>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+  target?: Maybe<Scalars['Float']>;
+  unit?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
 export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -552,6 +563,11 @@ export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MoodsQuery = { __typename?: 'Query', moods: Array<{ __typename?: 'Mood', id: string, name: string, icon: string }> };
+
+export type UserCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserCaloriesQuery = { __typename?: 'Query', userCalories: { __typename?: 'UserCaloriesResponse', status: boolean, message?: string | null | undefined, target?: number | null | undefined, value?: number | null | undefined, burnt?: number | null | undefined } };
 
 export type RecipeEnergyQueryVariables = Exact<{
   recipe_id: Scalars['String'];
@@ -1005,6 +1021,44 @@ export function useMoodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Mood
 export type MoodsQueryHookResult = ReturnType<typeof useMoodsQuery>;
 export type MoodsLazyQueryHookResult = ReturnType<typeof useMoodsLazyQuery>;
 export type MoodsQueryResult = Apollo.QueryResult<MoodsQuery, MoodsQueryVariables>;
+export const UserCaloriesDocument = gql`
+    query UserCalories {
+  userCalories {
+    status
+    message
+    target
+    value
+    burnt
+  }
+}
+    `;
+
+/**
+ * __useUserCaloriesQuery__
+ *
+ * To run a query within a React component, call `useUserCaloriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserCaloriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserCaloriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserCaloriesQuery(baseOptions?: Apollo.QueryHookOptions<UserCaloriesQuery, UserCaloriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserCaloriesQuery, UserCaloriesQueryVariables>(UserCaloriesDocument, options);
+      }
+export function useUserCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserCaloriesQuery, UserCaloriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserCaloriesQuery, UserCaloriesQueryVariables>(UserCaloriesDocument, options);
+        }
+export type UserCaloriesQueryHookResult = ReturnType<typeof useUserCaloriesQuery>;
+export type UserCaloriesLazyQueryHookResult = ReturnType<typeof useUserCaloriesLazyQuery>;
+export type UserCaloriesQueryResult = Apollo.QueryResult<UserCaloriesQuery, UserCaloriesQueryVariables>;
 export const RecipeEnergyDocument = gql`
     query RecipeEnergy($recipe_id: String!) {
   recipeEnergy(recipe_id: $recipe_id)
