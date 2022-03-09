@@ -59,7 +59,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           >
             <Ionicons name={"ios-add-circle-outline"} size={24} />
             <View style={{ justifyContent: "center" }}>
-              <Text style={styles.createTxt}>Create New Activity</Text>
+              <Text style={styles.createTxt}>START EXERCISE </Text>
             </View>
           </Pressable>
         </View>
