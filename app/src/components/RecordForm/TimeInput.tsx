@@ -40,7 +40,7 @@ export const TimeInput: React.FC<Props> = ({onTimeChange, onDateChange}) => {
       <View style={[styles.item]}>
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={time}
           mode={"time"}
           is24Hour={true}
           display="default"

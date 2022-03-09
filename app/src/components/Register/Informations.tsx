@@ -54,7 +54,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
           txtChange={(v) => handleForm("password", v)}
         />
         <InvisibleInput secure label={"RE-PASSWORD"} txtChange={(v) => {}} />
-        <Button txt={"SAVE"} clicked={() => handleSendingData()} />
+        <Button txt={"NEXT"} clicked={() => handleSendingData()} />
       </View>
     </View>
   );

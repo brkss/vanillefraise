@@ -8,14 +8,10 @@ interface Props {
   bmr: number;
 }
 
-export const BMIResult: React.FC<Props> = ({
-  pass,
-  bmr
-}) => {
-  
+export const BMIResult: React.FC<Props> = ({ pass, bmr }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>YOUR BASAL METABOLIC INDEX </Text>
+      <Text style={styles.heading}>BASAL METABOLIC INDEX </Text>
       <View style={styles.result}>
         <View style={[styles.item, { width: "50%", alignItems: "flex-end" }]}>
           <Text style={styles.number}>{bmr}</Text>
@@ -36,7 +32,7 @@ export const BMIResult: React.FC<Props> = ({
           during physical activities{" "}
         </Text>
       </View>
-      <Button txt={"Continue"} clicked={() => pass()} />
+      <Button txt={"NEXT"} clicked={() => pass()} />
     </View>
   );
 };
@@ -47,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   heading: {
+    color: "#434343",
     fontSize: 30,
     fontFamily: "helvitica-condesed",
     fontWeight: "bold",
@@ -84,9 +81,9 @@ const styles = StyleSheet.create({
   },
   infoTxt: {
     textAlign: "center",
-    fontWeight: "bold",
+    //fontWeight: "bold",
     fontSize: 23,
-    fontFamily: "helvitica-condesed",
+    //fontFamily: "helvitica-condesed",
     color: "#434343",
   },
 });

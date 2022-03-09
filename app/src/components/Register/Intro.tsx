@@ -10,11 +10,13 @@ interface Props {
 export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Hello,</Text>
-      <Text style={styles.info}>
-        Brace yourself and let me take you on trip to find balence
-      </Text>
-
+      <View>
+        <Text style={styles.heading}>Hello.</Text>
+        <Text style={styles.info}>
+          Brace yourself and let me take you on trip to find your balence,
+          eating and keeping health mentally and physically
+        </Text>
+      </View>
       <View style={{ width: "100%" }}>
         <Button txt={"Register"} clicked={() => pass()} />
         <View style={{ marginTop: 10, width: "100%" }}>
@@ -36,17 +38,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
     color: "#434343",
+    textAlign: "left",
   },
   info: {
-    fontWeight: "bold",
+    marginTop: 10,
+    //fontWeight: "bold",
     fontSize: 21,
-    fontFamily: "helvitica-condesed",
-    textAlign: "center",
+    //fontFamily: "helvitica-condesed",
+    textAlign: "left",
     color: "#434343",
+    opacity: 0.8,
   },
   container: {
     flex: 1,
-    alignItems: "center",
+    //alignItems: "center",
     justifyContent: "space-evenly",
   },
 });

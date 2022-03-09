@@ -69,7 +69,7 @@ export const RegisterSpecialCondition: React.FC<Props> = ({ other, pass }) => {
           </Pressable>
         ))}
       </View>
-      <Button txt={"Continue"} clicked={() => handlePass()} />
+      <Button txt={"Next"} clicked={() => handlePass()} />
     </View>
   );
 };

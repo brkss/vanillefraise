@@ -34,7 +34,7 @@ export const RegisterGender: React.FC<Props> = ({ pass }) => {
       >
         <Text style={styles.choisetxt}>FEMALE</Text>
       </Pressable>
-      <Button txt={"SAVE"} clicked={() => saveData()} />
+      <Button txt={"NEXT"} clicked={() => saveData()} />
     </View>
   );
 };

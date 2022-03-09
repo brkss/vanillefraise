@@ -72,7 +72,7 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
           />
         </View>
       )}
-      <Button clicked={() => saveData()} txt={"SAVE"} />
+      <Button clicked={() => saveData()} txt={"NEXT"} />
     </View>
   );
 };
