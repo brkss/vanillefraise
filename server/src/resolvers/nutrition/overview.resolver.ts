@@ -1,6 +1,7 @@
 import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
 import { User } from "../../entity/User";
 import { CookedRecipe } from "../../entity/UserInfo/CookedRecipe";
+import { Recipe } from "../../entity/Recipe";
 import { Nutrition, RecipeTotalNutrition } from "../../entity/Nutrition";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
@@ -11,6 +12,7 @@ import {
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
 import { getAge } from "../../utils/helpers/getAge";
 import { LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
+import { UserCaloriesResponse } from "../../utils/responses/nutrition/calories.response";
 
 @Resolver()
 export class NutritionOverviewResolver {
@@ -75,5 +77,47 @@ export class NutritionOverviewResolver {
       status: true,
       data: rec,
     };
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Query(() => UserCaloriesResponse)
+  async userCalories(@Ctx() ctx: IContext): Promise<UserCaloriesResponse> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) {
+      return {
+        status: false,
+        message: "User Not Found !",
+      };
+    }
+
+    try {
+      const target = user.bmi;
+      const cookedRecipes = await CookedRecipe.find({
+        where: { user: user },
+        relations: ["recipe"],
+      });
+      let taken = 0;
+      for (let cr of cookedRecipes) {
+        const recipe = await Recipe.findOne({ where: { id: cr.recipe.id } });
+        const energy = await RecipeTotalNutrition.findOne({
+          where: { recipe: recipe, code: "ENERC_KCAL" },
+        });
+        if (energy) taken += energy.quantity;
+      }
+
+      return {
+        status: true,
+        burnt: 0,
+        target: target,
+        value: taken,
+        unit: 'KCal'
+      };
+    } catch (e) {
+      console.log("Something went wrong : ", e);
+      return {
+        status: false,
+        message: "Something went wrong !",
+      };
+    }
   }
 }
