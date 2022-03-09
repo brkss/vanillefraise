@@ -34,7 +34,8 @@ export class MoodOverviewResolver {
         icon: mood.icon,
         id: mood.id,
         percent:
-          (records.filter((x) => x.mood.id == mood.id).length * 100) / count,
+          (records.filter((x) => x.mood.id == mood.id).length * 100) / count ||
+          0,
       };
       data.push(obj);
     });
