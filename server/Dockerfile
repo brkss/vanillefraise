@@ -8,6 +8,8 @@ COPY .. .
 
 RUN npm install --save
 
+RUN npm rebuild bcrypt --build-from-source
+
 EXPOSE 4000
 
 VOLUME ["usr/src/app/node_modules"]
