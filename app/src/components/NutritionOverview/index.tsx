@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { NutrientItem } from "./Item";
 import { useUserNutritionQuery } from "../../generated/graphql";
 import { Loading } from "../General/Loading";
+import dayjs from 'dayjs'; 
 
 const nutrients = [
   {
@@ -37,7 +38,7 @@ export const NutritionOverview: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>About your nutrition</Text>
-      <Text>Last 10 Days</Text>
+      <Text>{dayjs().format('DD/MM/YYYY')}</Text>
       <Text style={styles.info}>
         nutrition counted here is sum of nutrition related to recipes you cooked
         in recipes section.
