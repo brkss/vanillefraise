@@ -11,8 +11,9 @@ import {
 } from "../../utils/responses/nutrition";
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
 import { getAge } from "../../utils/helpers/getAge";
-import { LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
+import { Like, LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
 import { UserCaloriesResponse } from "../../utils/responses/nutrition/calories.response";
+import dayjs from "dayjs";
 
 @Resolver()
 export class NutritionOverviewResolver {
@@ -36,7 +37,7 @@ export class NutritionOverviewResolver {
     const recipesNutrition: RecipeTotalNutrition[] = [];
     const cookedRecipes = await CookedRecipe.find({
       where: { user: user },
-      relations: ["recipe"],
+      //relations: ['recipe'],
     });
     for (let cooked of cookedRecipes) {
       const nutrition = await RecipeTotalNutrition.find({
@@ -93,11 +94,15 @@ export class NutritionOverviewResolver {
     try {
       const target = user.bmi;
       const cookedRecipes = await CookedRecipe.find({
-        where: { user: user },
+        where: {
+          user: user,
+          created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`),
+        },
         relations: ["recipe"],
       });
       let taken = 0;
       for (let cr of cookedRecipes) {
+        console.log("RECIPE ID : ", cr.recipe.id);
         const recipe = await Recipe.findOne({ where: { id: cr.recipe.id } });
         const energy = await RecipeTotalNutrition.findOne({
           where: { recipe: recipe, code: "ENERC_KCAL" },
@@ -110,7 +115,7 @@ export class NutritionOverviewResolver {
         burnt: 0,
         target: target,
         value: taken,
-        unit: 'KCal'
+        unit: "KCal",
       };
     } catch (e) {
       console.log("Something went wrong : ", e);
