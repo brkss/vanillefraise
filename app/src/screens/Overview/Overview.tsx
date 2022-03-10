@@ -5,9 +5,10 @@ import {
   Heading,
   MoodStats,
   CaloriesOverview,
-  NutritionOverview
+  NutritionOverview,
 } from "../../components";
 import { useFonts } from "expo-font";
+import dayjs from "dayjs";
 
 export const Overview: React.FC = () => {
   const [helviticaCondensed] = useFonts({
@@ -26,7 +27,7 @@ export const Overview: React.FC = () => {
           <CaloriesOverview />
           <View>
             <Text style={styles.subtitle}>About your mood</Text>
-            <Text>Last 10 Days</Text>
+            <Text>{dayjs().format("DD/MM/YYYY")} </Text>
             <View style={{ marginBottom: 30 }}>
               <MoodStats />
             </View>

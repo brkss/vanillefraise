@@ -1,10 +1,14 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-export const LoadingBar: React.FC = () => {
+interface Props {
+  progress: number;
+}
+
+export const LoadingBar: React.FC<Props> = ({progress}) => {
   return (
     <View style={styles.container}>
-      <View style={[styles.bar, { width: "88%" }]} />
+      <View style={[styles.bar, { width: `${progress}%` }]} />
     </View>
   );
 };

@@ -5,6 +5,11 @@ import { useCookedRecipesCountQuery } from "../../generated/graphql";
 import { Loading } from "../General/Loading";
 import { useUserCaloriesQuery } from "../../generated/graphql";
 
+const calcProgress = (target: number, value: number): number => {
+  if (value >= target) return 100;
+  return (value * 100) / target;
+};
+
 export const CaloriesOverview: React.FC = () => {
   const { data, loading, error } = useUserCaloriesQuery();
   const _count = useCookedRecipesCountQuery();
@@ -26,7 +31,7 @@ export const CaloriesOverview: React.FC = () => {
         <Text style={styles.needCalories}> / {data.userCalories.target}</Text>
       </View>
       <Text style={styles.unit}>calories</Text>
-      <LoadingBar />
+      <LoadingBar progress={calcProgress(data.userCalories.target, data.userCalories.value)} />
       <Text style={styles.recipeCooked}>
         You cooked {_count.data.cookedRecipesCount} recipes.
       </Text>
