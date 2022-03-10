@@ -10,7 +10,20 @@ import cors from "cors";
 import path from 'path';
 
 (async () => {
-  await createConnection();
+  await createConnection({
+    type: "mysql",
+    host: process.env.DB_HOST || "127.0.0.1",
+    port: 3306,
+    username: process.env.DB_USER || "root",
+    password: process.env.DB_PASS || "root",
+    database: process.env.DB_NAME || "opencc",
+    charset: "utf8mb4_unicode_ci",
+    synchronize: true,
+    logging: false,
+    entities: ["dist/entity/**/*.js"],
+    migrations: ["dist/migration/**/*.js"] ,
+    subscribers: ["dist/subscriber/**/*.js"]
+  });
   const app = express();
   app.use(
     cors({
