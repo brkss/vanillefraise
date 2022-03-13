@@ -36,7 +36,7 @@ export class NutritionOverviewResolver {
     const nutrients = await Nutrition.find();
     const recipesNutrition: RecipeTotalNutrition[] = [];
     const cookedRecipes = await CookedRecipe.find({
-      where: { user: user },
+      where: { user: user, created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`) },
       //relations: ['recipe'],
     });
     for (let cooked of cookedRecipes) {
