@@ -9,7 +9,7 @@ import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
 import { CreateActivityResponse } from "../../utils/responses/activity";
 import { CreateActivityInput } from "../../utils/inputs/activity";
-import { parseTime } from "../../utils/helpers";
+//import { parseTime } from "../../utils/helpers";
 
 @Resolver()
 export class CreateActivityResolver {
@@ -66,7 +66,8 @@ export class CreateActivityResolver {
     user: User,
     category: ActivityCategory
   ): Promise<number> {
-    const parsedTime = parseTime(time);
+    console.log('time => ', time);
+    //const parsedTime = parseTime(time);
     /*
     if (parsedTime.hours < 1 || parsedTime.minutes < 55) {
       return 0;
