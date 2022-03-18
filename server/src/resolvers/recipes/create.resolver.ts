@@ -34,6 +34,7 @@ const rules = fs.readFileSync(
   }
 );
 
+
 @Resolver()
 export class CreateRecipeResolver {
   @Mutation(() => CreateRecipeResponse)
@@ -82,6 +83,13 @@ export class CreateRecipeResolver {
       })
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
       await this.createRecipeInstructions(recipe, recipe_data.instructions);
+    
+      return {
+        status: true,
+        message: "Recipe created successfuly ! ",
+        recipe: recipe
+      };
+
     } catch (e) {
       console.log("something went wrong : ", e);
       return {
@@ -89,11 +97,7 @@ export class CreateRecipeResolver {
         status: false,
       };
     }
-    return {
-      status: true,
-      message: "Recipe created successfuly ! ",
-    };
-  }
+      }
 
   async getRecipeCategories(cats: string[]): Promise<RecipeCategory[]> {
     let categories: RecipeCategory[] = [];

@@ -7,8 +7,8 @@ import {
   MoodOverviewResponse,
   MoodOverviewData,
 } from "../../utils/responses/mental";
-import dayjs from 'dayjs';
-import { Like } from 'typeorm';
+//import dayjs from "dayjs";
+//import { Like } from "typeorm";
 
 @Resolver()
 export class MoodOverviewResolver {
@@ -23,7 +23,9 @@ export class MoodOverviewResolver {
       };
     }
     const records = await MoodRecord.find({
-      where: { user: user, /*created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`)*/ },
+      where: {
+        user: user /*created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`)*/,
+      },
       relations: ["mood"],
     });
     const moods = await Mood.find();
