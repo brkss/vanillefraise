@@ -27,7 +27,7 @@ export const Overview: React.FC = () => {
           <CaloriesOverview />
           <View>
             <Text style={styles.subtitle}>About your mood</Text>
-            <Text>{dayjs().format("DD/MM/YYYY")} </Text>
+            <Text> According to your records </Text>
             <View style={{ marginBottom: 30 }}>
               <MoodStats />
             </View>

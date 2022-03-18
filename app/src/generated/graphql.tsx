@@ -27,9 +27,19 @@ export type Activity = {
   user: User;
 };
 
+export type ActivityCalories = {
+  __typename?: 'ActivityCalories';
+  category: ActivityCategory;
+  id: Scalars['String'];
+  name: Scalars['String'];
+  val: Scalars['Float'];
+  zone: Scalars['Float'];
+};
+
 export type ActivityCategory = {
   __typename?: 'ActivityCategory';
   activities: Array<Activity>;
+  calories: Array<ActivityCalories>;
   icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   name: Scalars['String'];
@@ -75,6 +85,7 @@ export type CreateRecipeInput = {
 export type CreateRecipeResponse = {
   __typename?: 'CreateRecipeResponse';
   message: Scalars['String'];
+  recipe?: Maybe<Recipe>;
   status: Scalars['Boolean'];
 };
 
@@ -182,6 +193,7 @@ export type Mutation = {
   requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
+  seedActivityCalories: Scalars['Boolean'];
   seedActivityCategories: Scalars['Boolean'];
   seedMoodCategories: Scalars['Boolean'];
   seedNutritionGuide: Scalars['Boolean'];
@@ -272,6 +284,7 @@ export type Query = {
   __typename?: 'Query';
   activityCategories: Array<ActivityCategory>;
   cookedRecipesCount: Scalars['Float'];
+  getActivityCalories: Scalars['Float'];
   getRecipeNutrition: RecipeNutritionResponse;
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
@@ -289,6 +302,11 @@ export type Query = {
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   work: Scalars['String'];
+};
+
+
+export type QueryGetActivityCaloriesArgs = {
+  cat: Scalars['String'];
 };
 
 
@@ -489,6 +507,13 @@ export type UserCaloriesResponse = {
   value?: Maybe<Scalars['Float']>;
 };
 
+export type GetActivityCaloriesQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetActivityCaloriesQuery = { __typename?: 'Query', getActivityCalories: number };
+
 export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -657,6 +682,39 @@ export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 export type SpecialConditionsQuery = { __typename?: 'Query', specialconditions: Array<{ __typename?: 'SpecialCondition', id: string, name: string }> };
 
 
+export const GetActivityCaloriesDocument = gql`
+    query GetActivityCalories($id: String!) {
+  getActivityCalories(cat: $id)
+}
+    `;
+
+/**
+ * __useGetActivityCaloriesQuery__
+ *
+ * To run a query within a React component, call `useGetActivityCaloriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetActivityCaloriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetActivityCaloriesQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetActivityCaloriesQuery(baseOptions: Apollo.QueryHookOptions<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>(GetActivityCaloriesDocument, options);
+      }
+export function useGetActivityCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>(GetActivityCaloriesDocument, options);
+        }
+export type GetActivityCaloriesQueryHookResult = ReturnType<typeof useGetActivityCaloriesQuery>;
+export type GetActivityCaloriesLazyQueryHookResult = ReturnType<typeof useGetActivityCaloriesLazyQuery>;
+export type GetActivityCaloriesQueryResult = Apollo.QueryResult<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>;
 export const ActivityCategoriesDocument = gql`
     query ActivityCategories {
   activityCategories {

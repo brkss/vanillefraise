@@ -17,8 +17,9 @@ export const ActivityConfig: React.FC<any> = ({ route, navigation }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.content}>
           <ActivityConfigNow
-          activity={name}
-          start={() =>
+            category={catid}
+            activity={name}
+            start={() =>
               navigation.push("Active", {
                 time: new Date().getTime(),
                 catid: catid,
