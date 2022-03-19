@@ -286,6 +286,7 @@ export type Query = {
   cookedRecipesCount: Scalars['Float'];
   getActivityCalories: Scalars['Float'];
   getRecipeNutrition: RecipeNutritionResponse;
+  getUserBurnedCalories: Scalars['Float'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
   moodOverview: MoodOverviewResponse;
@@ -528,6 +529,11 @@ export type CreateActivityMutationVariables = Exact<{
 
 
 export type CreateActivityMutation = { __typename?: 'Mutation', createActivity: { __typename?: 'CreateActivityResponse', status: boolean, message: string } };
+
+export type GetUserBurnedCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserBurnedCaloriesQuery = { __typename?: 'Query', getUserBurnedCalories: number };
 
 export type SeedActivityCategoriesMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -790,6 +796,38 @@ export function useCreateActivityMutation(baseOptions?: Apollo.MutationHookOptio
 export type CreateActivityMutationHookResult = ReturnType<typeof useCreateActivityMutation>;
 export type CreateActivityMutationResult = Apollo.MutationResult<CreateActivityMutation>;
 export type CreateActivityMutationOptions = Apollo.BaseMutationOptions<CreateActivityMutation, CreateActivityMutationVariables>;
+export const GetUserBurnedCaloriesDocument = gql`
+    query GetUserBurnedCalories {
+  getUserBurnedCalories
+}
+    `;
+
+/**
+ * __useGetUserBurnedCaloriesQuery__
+ *
+ * To run a query within a React component, call `useGetUserBurnedCaloriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserBurnedCaloriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserBurnedCaloriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserBurnedCaloriesQuery(baseOptions?: Apollo.QueryHookOptions<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>(GetUserBurnedCaloriesDocument, options);
+      }
+export function useGetUserBurnedCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>(GetUserBurnedCaloriesDocument, options);
+        }
+export type GetUserBurnedCaloriesQueryHookResult = ReturnType<typeof useGetUserBurnedCaloriesQuery>;
+export type GetUserBurnedCaloriesLazyQueryHookResult = ReturnType<typeof useGetUserBurnedCaloriesLazyQuery>;
+export type GetUserBurnedCaloriesQueryResult = Apollo.QueryResult<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>;
 export const SeedActivityCategoriesDocument = gql`
     mutation SeedActivityCategories {
   seedActivityCategories
