@@ -22,7 +22,8 @@ import {
   NutritionOverviewResolver,
   SeedNutritionRecomendationResolver,
   RequestEarlyAccessResolver,
-  ActivityCaloriesResolver
+  ActivityCaloriesResolver,
+  ActivityOverviewResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -50,7 +51,8 @@ export const build = async () => {
       NutritionOverviewResolver,
       SeedNutritionRecomendationResolver,
       RequestEarlyAccessResolver,
-      ActivityCaloriesResolver
+      ActivityCaloriesResolver,
+      ActivityOverviewResolver
     ],
     validate: false,
   });
