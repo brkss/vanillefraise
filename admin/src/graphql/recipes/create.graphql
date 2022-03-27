@@ -1,6 +1,16 @@
-mutation CreateRecipe($url: String!, $categories: [String!]!){
-  createRecipe(data: {url: $url, categories: $categories}){
+mutation CreateRecipe($url: String!, $categories: [String!]!) {
+  createRecipe(data: { url: $url, categories: $categories }) {
     status
     message
+    recipe {
+      id
+      name
+      description
+      serving
+      image
+      cook
+      prep
+      total
+    }
   }
 }

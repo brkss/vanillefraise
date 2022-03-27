@@ -11,8 +11,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { RecipeCategories, RecipeList } from "../../components";
-import { useRecipeCategoriesQuery } from "../../generated/graphql";
-import { useCreateRecipeMutation } from "../../generated/graphql";
+import { useRecipeCategoriesQuery, useCreateRecipeMutation, RecipesQuery,RecipesDocument } from "../../generated/graphql";
 
 export const CreateRecipe: React.FC = () => {
   const { data, loading, error } = useRecipeCategoriesQuery();
@@ -39,6 +38,22 @@ export const CreateRecipe: React.FC = () => {
       variables: {
         url: url,
         categories: categories,
+      },
+      update: (store, { data }) => {
+        if (!data || !data.createRecipe.recipe) {
+          return null;
+        }
+        const oldRecipes = store.readQuery<RecipesQuery>({
+          query: RecipesDocument,
+        })?.recipes;
+        const newRecipe = data.createRecipe.recipe;
+        console.log("UPDATE DA SHIT");
+        store.writeQuery<RecipesQuery>({
+          query: RecipesDocument,
+          data: {
+            recipes: [newRecipe!, ...oldRecipes!],
+          },
+        });
       },
     })
       .then((res) => {
