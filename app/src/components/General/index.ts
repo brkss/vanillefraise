@@ -6,3 +6,4 @@ export * from "./InvisibleInput";
 export * from './Loading';
 export * from './Alert';
 export * from './Info';
+export * from './Error'
