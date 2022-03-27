@@ -5,7 +5,7 @@ interface Props {
   progress: number;
 }
 
-export const LoadingBar: React.FC<Props> = ({progress}) => {
+export const LoadingBar: React.FC<Props> = ({ progress }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.bar, { width: `${progress}%` }]} />
@@ -17,6 +17,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "flex-start",
     marginVertical: 10,
+    backgroundColor: "#D6D4D4",
+    borderRadius: 70,
   },
   bar: {
     height: 20,

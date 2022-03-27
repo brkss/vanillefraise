@@ -31,7 +31,13 @@ export const CaloriesOverview: React.FC = () => {
         <Text style={styles.needCalories}> / {data.userCalories.target}</Text>
       </View>
       <Text style={styles.unit}>calories</Text>
-      <LoadingBar progress={calcProgress(data.userCalories.target, data.userCalories.value)} />
+      <Text style={styles.burned}>1200 Cal Burned</Text>
+      <LoadingBar
+        progress={calcProgress(
+          data.userCalories.target,
+          data.userCalories.value
+        )}
+      />
       <Text style={styles.recipeCooked}>
         You cooked {_count.data.cookedRecipesCount} recipes.
       </Text>
@@ -66,6 +72,11 @@ const styles = StyleSheet.create({
   recipeCooked: {
     fontSize: 18,
     fontWeight: "400",
+    color: "#434343",
+  },
+  burned: {
+    fontFamily: "helvitica-condesed",
+    fontSize: 25,
     color: "#434343",
   },
 });

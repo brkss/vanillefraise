@@ -13,6 +13,7 @@ import {
   useRecordCategoriesQuery,
   useRecordsQuery,
 } from "../../generated/graphql";
+import { colors } from '../../utils/colors';
 
 export const Activity: React.FC<any> = ({ navigation }) => {
   const [selected, setSelected] = React.useState("");
@@ -48,7 +49,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           <Slider
             selected={selected}
             onSelect={(sel) => handleSelect(sel)}
-            color={"#D9EFB8"}
+            color={colors.c3}
             categories={data.recordCategories}
           />
         </View>

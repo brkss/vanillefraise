@@ -8,7 +8,6 @@ import {
   NutritionOverview,
 } from "../../components";
 import { useFonts } from "expo-font";
-import dayjs from "dayjs";
 
 export const Overview: React.FC = () => {
   const [helviticaCondensed] = useFonts({

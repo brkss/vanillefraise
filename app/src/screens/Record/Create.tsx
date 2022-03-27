@@ -4,14 +4,13 @@ import {
   Heading,
   Slider,
   RecordForm,
-  RecordHistorySlide,
   Loading,
   Alert,
   TodaysMood
 } from "../../components";
-import { record_category } from "../../utils";
 import { useRecordCategoriesQuery } from "../../generated/graphql";
 import { useCreateRecordMutation } from "../../generated/graphql";
+import { colors } from '../../utils/colors';
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
   const [alertData, SetAlertData] = React.useState({
@@ -82,7 +81,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
             <Slider
               onSelect={(id) => SetSelected(id)}
               selected={selected}
-              color={"#FDEBA8"}
+              color={colors.c3}
               categories={data!.recordCategories}
             />
             {alertData.show ? (
