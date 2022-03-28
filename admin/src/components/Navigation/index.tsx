@@ -24,7 +24,7 @@ export const Navigation: React.FC = () => {
         <Grid gap={5} templateColumns="repeat(10, 1fr)" h={"100%"}>
           {links.map((l, key) => (
             <GridItem colSpan={2}>
-              <NavigationItem clicked={() => {}} text={l.txt} />
+              <NavigationItem link={l.link} text={l.txt} />
             </GridItem>
           ))}
         </Grid>

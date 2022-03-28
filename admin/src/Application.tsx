@@ -8,6 +8,7 @@ import {
 import { routes } from "./utils/config/routes";
 
 export const Application: React.FC = () => {
+  
   return (
     <>
       <BrowserRouter>
