@@ -10,7 +10,7 @@ import bcrypt from 'bcrypt';
 export class UserPasswordResolver {
 
   @UseMiddleware(isUserAuth)
-  @Mutation()
+  @Mutation(() => ChangePasswordResponse)
   async changePassword(@Arg('data') data : ChangePasswordInput, @Ctx() ctx: IContext) : Promise<ChangePasswordResponse>{
 
     if(!data || !data.newpass || !data.oldpass){

@@ -24,6 +24,7 @@ import {
   RequestEarlyAccessResolver,
   ActivityCaloriesResolver,
   ActivityOverviewResolver,
+  UserPasswordResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -52,7 +53,8 @@ export const build = async () => {
       SeedNutritionRecomendationResolver,
       RequestEarlyAccessResolver,
       ActivityCaloriesResolver,
-      ActivityOverviewResolver
+      ActivityOverviewResolver,
+      UserPasswordResolver,
     ],
     validate: false,
   });
