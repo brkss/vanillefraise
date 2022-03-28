@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Overview } from '../screens';
+import { Overview, Meal } from '../screens';
 
 export const OverviewNavigation : React.FC = () => {
 
@@ -11,6 +11,7 @@ export const OverviewNavigation : React.FC = () => {
     <Navigator screenOptions={{headerShown: false}}>
       <Group>
         <Screen name={'GeneralOverview'} component={Overview} />
+        <Screen name={'Meal'} component={Meal} />
       </Group>
     </Navigator>
 
