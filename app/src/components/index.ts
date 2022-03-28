@@ -21,3 +21,4 @@ export * from './ExerciseFeedBack';
 export * from './CaloriesOverview';
 export * from './NutritionOverview';
 export * from './OverviewMeals';
+export * from './Meal'

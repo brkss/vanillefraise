@@ -1,7 +1,7 @@
 import React from "react";
 import { View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
-import { Loading } from "../../components";
+import { Loading, MealRecipes } from "../../components";
 
 export const Meal: React.FC = () => {
   const [helviticaCondensed] = useFonts({
@@ -20,6 +20,7 @@ export const Meal: React.FC = () => {
           <Text style={styles.calories}>1100 Cal</Text>
           <Text style={styles.time}>⏱ 42min</Text>
         </View>
+        <MealRecipes />
       </SafeAreaView>
     </View>
   );
