@@ -6,6 +6,7 @@ import {IContext} from 'src/utils/types/Context';
 import { User } from '../../entity/User';
 import bcrypt from 'bcrypt';
 
+
 @Resolver()
 export class UserPasswordResolver {
 
