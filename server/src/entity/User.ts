@@ -13,8 +13,9 @@ import { ResetPassword } from "./ResetPassword";
 import { Record } from "./Record";
 import { MoodRecord } from "./Mental";
 import { SpecialCondition, CookedRecipe } from "./UserInfo";
-import { Activity } from './Activity';
-import { EarlyAccessRequest } from './UserInfo/EarlyAccess';
+import { Activity } from "./Activity";
+import { EarlyAccessRequest } from "./UserInfo/EarlyAccess";
+import { MealRecipes } from "./Meals/MealRecipes";
 
 @ObjectType()
 @Entity("users")
@@ -91,15 +92,18 @@ export class User extends BaseEntity {
   specialconditions: SpecialCondition[];
 
   @Field(() => [CookedRecipe])
-  @OneToMany(() => CookedRecipe, cookedrecipes => cookedrecipes.user)
+  @OneToMany(() => CookedRecipe, (cookedrecipes) => cookedrecipes.user)
   cookedrecipes: CookedRecipe[];
 
   @Field(() => [EarlyAccessRequest])
-  @OneToMany(() => EarlyAccessRequest, earequest => earequest.user)
-  earequest: EarlyAccessRequest[]
+  @OneToMany(() => EarlyAccessRequest, (earequest) => earequest.user)
+  earequest: EarlyAccessRequest[];
+
+  @Field(() => [MealRecipes])
+  @OneToMany(() => MealRecipes, (mealrecipes) => mealrecipes.user)
+  mealrecipes: MealRecipes[];
 
   @Field(() => [Activity])
-  @OneToMany(() => Activity, activities => activities.user)
+  @OneToMany(() => Activity, (activities) => activities.user)
   activities: Activity[];
-
 }

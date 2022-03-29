@@ -8,6 +8,7 @@ import {
 import { Recipe } from "../Recipe";
 import { Meal } from "./Meal";
 import { ObjectType, Field } from 'type-graphql';
+import { User } from '../User';
 
 @ObjectType()
 @Entity()
@@ -29,6 +30,13 @@ export class MealRecipes extends BaseEntity {
     onUpdate: "CASCADE",
   })
   meal: Meal;
+
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.mealrecipes, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+  user: User;
 
   @Field()
   @Column("date")
