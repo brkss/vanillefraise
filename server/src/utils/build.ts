@@ -25,6 +25,8 @@ import {
   ActivityCaloriesResolver,
   ActivityOverviewResolver,
   UserPasswordResolver,
+  CreateMealsResolver,
+  ListMealsResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -55,6 +57,8 @@ export const build = async () => {
       ActivityCaloriesResolver,
       ActivityOverviewResolver,
       UserPasswordResolver,
+      CreateMealsResolver,
+      ListMealsResolver
     ],
     validate: false,
   });

@@ -14,6 +14,10 @@ export class Meal extends BaseEntity {
   @Column()
   name: string;
 
+  @Field()
+  @Column()
+  index: number;
+
   @Field(() => [MealRecipes])
   @OneToMany(() => MealRecipes, mealrecipes => mealrecipes.meal)
   mealrecipes: MealRecipes[];

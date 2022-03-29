@@ -7,3 +7,4 @@ export * from './records';
 export * from './mental';
 export * from './nutrition';
 export * from './recomendation';
+export * from './meals';
