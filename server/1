@@ -21,7 +21,7 @@ import {
   RecipeTotalNutritionKcal,
 } from "../../entity/Nutrition";
 
-/******* config ! ************/
+// config !
 import units from "recipes-parser/lib/nlp/en/units.json";
 import globalUnit from "recipes-parser/lib/nlp/en/global_unit.json";
 const rules = fs.readFileSync(
@@ -33,6 +33,7 @@ const rules = fs.readFileSync(
     encoding: "utf8",
   }
 );
+
 
 @Resolver()
 export class CreateRecipeResolver {
@@ -75,18 +76,20 @@ export class CreateRecipeResolver {
       recipe.categories = categories;
       await recipe.save();
 
+
       await this.createRecipeNutritionData(recipe, {
         name: recipe_data.name,
-        ingr: recipe_data.ingredients,
-      });
+        ingr: recipe_data.ingredients
+      })
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
       await this.createRecipeInstructions(recipe, recipe_data.instructions);
-
+    
       return {
         status: true,
         message: "Recipe created successfuly ! ",
-        recipe: recipe,
+        recipe: recipe
       };
+
     } catch (e) {
       console.log("something went wrong : ", e);
       return {
@@ -94,7 +97,7 @@ export class CreateRecipeResolver {
         status: false,
       };
     }
-  }
+      }
 
   async getRecipeCategories(cats: string[]): Promise<RecipeCategory[]> {
     let categories: RecipeCategory[] = [];
@@ -108,33 +111,33 @@ export class CreateRecipeResolver {
   async createRecipeIngredients(recipe: Recipe, ings: string[]) {
     const parser = new RecipesParser(rules, units, globalUnit);
     for (let ing of ings) {
-      if (ing.length > 0) {
-        const ingredient_parsed = parser.getIngredientsFromText([ing], false);
-        const ingredient = new Ingredient();
-        ingredient.raw = ing;
-        ingredient.unit =
-          String(ingredient_parsed[0].result?.unit) || undefined;
-        ingredient.amount =
-          Number(ingredient_parsed[0].result?.amount) || undefined;
-        ingredient.ingredients = ingredient_parsed[0].result?.ingredient;
-        ingredient.recipe = recipe;
-        await ingredient.save();
-      }
+      const ingredient_parsed = parser.getIngredientsFromText([ing], false);
+      const ingredient = new Ingredient();
+      ingredient.raw = ing;
+      ingredient.unit = String(ingredient_parsed[0].result?.unit) || undefined;
+      ingredient.amount =
+        Number(ingredient_parsed[0].result?.amount) || undefined;
+      ingredient.ingredients = ingredient_parsed[0].result?.ingredient;
+      ingredient.recipe = recipe;
+      await ingredient.save();
+      //console.log("ing parsed ===> ", ingredient_parsed);
+      //console.log("ing raaaaw ===> ", ing);
     }
   }
 
   async createRecipeInstructions(recipe: Recipe, insts: string[]) {
     let index = 0;
     for (let inst of insts) {
-      if (inst.length > 0) {
-        const instruction = new Instruction();
-        instruction.index = index + 1;
-        instruction.recipe = recipe;
-        instruction.raw = inst;
-        index++;
-        await instruction.save();
+      if(inst){
+const instruction = new Instruction();
+      instruction.index = index + 1; 
+      instruction.recipe = recipe;
+      instruction.raw = inst;
+      index++;
+      await instruction.save();
+
       }
-    }
+          }
   }
 
   async createRecipeNutritionData(

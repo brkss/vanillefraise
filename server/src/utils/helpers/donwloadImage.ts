@@ -4,8 +4,6 @@ import path from "path";
 
 export const downloadImage = async (url: string, dest: string) => {
   const dir = path.join(__dirname, dest);
-  console.log("URL : ", url);
-  console.log("DIR : ", dir);
   axios({
     url,
     responseType: "stream",

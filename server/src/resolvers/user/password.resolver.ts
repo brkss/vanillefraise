@@ -43,7 +43,6 @@ export class UserPasswordResolver {
       message: "Your password has been changed !"
     }
 
-
   }
 
 }
