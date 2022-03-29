@@ -12,7 +12,7 @@ export const Instructions: React.FC<Props> = ({instructions}) => {
       <Text style={styles.title}>Instructions</Text>
       {
         instructions.map((instruction, key) => (
-          <Item txt={instruction.raw} key={key} />
+          <Item index={instruction.index} txt={instruction.raw} key={key} />
         ))
       }
     </View>

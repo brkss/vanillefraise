@@ -26,7 +26,7 @@ export const MealsOverview: React.FC<Props> = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.row}>
         {meals.map((meal, key) => (
-          <View style={styles.item}>
+          <View key={key} style={styles.item}>
             <MealItem color={meal.color} navigate={() => navigation.push('Meal')} title={meal.title} />
           </View>
         ))}
