@@ -1,7 +1,8 @@
 import React from "react";
-import { View, SafeAreaView, StyleSheet, Text } from "react-native";
+import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { Loading, MealRecipes } from "../../components";
+
 
 export const Meal: React.FC = () => {
   const [helviticaCondensed] = useFonts({
@@ -20,7 +21,9 @@ export const Meal: React.FC = () => {
           <Text style={styles.calories}>1100 Cal</Text>
           <Text style={styles.time}>⏱ 42min</Text>
         </View>
-        <MealRecipes />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <MealRecipes />
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
@@ -40,6 +43,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
+    alignItems: "baseline",
   },
   calories: {
     //lineHeight: 25,
@@ -50,9 +54,10 @@ const styles = StyleSheet.create({
     width: "50%",
   },
   time: {
+    marginTop: -5,
     fontFamily: "condensed",
-    fontSize: 25,
+    fontSize: 24,
     textAlign: "right",
-    width: "50%",
+    width: "48%",
   },
 });
