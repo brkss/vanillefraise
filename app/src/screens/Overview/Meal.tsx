@@ -1,8 +1,7 @@
 import React from "react";
 import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
-import { Loading, MealRecipes } from "../../components";
-
+import { Loading, MealRecipes, MealGrocery } from "../../components";
 
 export const Meal: React.FC = () => {
   const [helviticaCondensed] = useFonts({
@@ -23,6 +22,7 @@ export const Meal: React.FC = () => {
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <MealRecipes />
+          <MealGrocery />
         </ScrollView>
       </SafeAreaView>
     </View>
