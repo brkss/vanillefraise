@@ -45,6 +45,11 @@ export type ActivityCategory = {
   name: Scalars['String'];
 };
 
+export type AddMealRecipeInput = {
+  mealID: Scalars['String'];
+  recipeID: Scalars['String'];
+};
+
 export type AuthDefaultResponse = {
   __typename?: 'AuthDefaultResponse';
   message?: Maybe<Scalars['String']>;
@@ -158,6 +163,23 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type Meal = {
+  __typename?: 'Meal';
+  id: Scalars['String'];
+  index: Scalars['Float'];
+  mealrecipes: Array<MealRecipes>;
+  name: Scalars['String'];
+};
+
+export type MealRecipes = {
+  __typename?: 'MealRecipes';
+  date: Scalars['DateTime'];
+  id: Scalars['String'];
+  meal: Meal;
+  recipe: Recipe;
+  user: User;
+};
+
 export type Mood = {
   __typename?: 'Mood';
   active: Scalars['Boolean'];
@@ -192,6 +214,7 @@ export type MoodRecord = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addMealRecipe: DefaultResponse;
   changePassword: ChangePasswordResponse;
   cookedRecipe: DefaultResponse;
   createActivity: CreateActivityResponse;
@@ -207,6 +230,7 @@ export type Mutation = {
   resetPassword: AuthDefaultResponse;
   seedActivityCalories: Scalars['Boolean'];
   seedActivityCategories: Scalars['Boolean'];
+  seedMeals: Scalars['Boolean'];
   seedMoodCategories: Scalars['Boolean'];
   seedNutritionGuide: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
@@ -214,6 +238,11 @@ export type Mutation = {
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
   verifyResetToken: Scalars['Boolean'];
+};
+
+
+export type MutationAddMealRecipeArgs = {
+  data: AddMealRecipeInput;
 };
 
 
@@ -306,6 +335,7 @@ export type Query = {
   getUserBurnedCalories: Scalars['Float'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
+  meals: Array<Meal>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
   ping: Scalars['String'];
@@ -370,6 +400,7 @@ export type Recipe = {
   image: Scalars['String'];
   ingredients: Array<Ingredient>;
   instructions: Array<Instruction>;
+  mealrecipes: Array<MealRecipes>;
   name: Scalars['String'];
   prep?: Maybe<Scalars['String']>;
   public: Scalars['Boolean'];
@@ -506,6 +537,7 @@ export type User = {
   gender: Scalars['String'];
   height: Scalars['Float'];
   id: Scalars['String'];
+  mealrecipes: Array<MealRecipes>;
   moodrecords: Array<MoodRecord>;
   name: Scalars['String'];
   records: Array<Record>;
@@ -594,6 +626,11 @@ export type RequestEarlyAccessMutationVariables = Exact<{
 
 
 export type RequestEarlyAccessMutation = { __typename?: 'Mutation', requestEarlyAccess: boolean };
+
+export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: string, name: string, index: number }> };
 
 export type CreateMoodRecordMutationVariables = Exact<{
   moods: Array<Scalars['String']> | Scalars['String'];
@@ -1031,6 +1068,42 @@ export function useRequestEarlyAccessMutation(baseOptions?: Apollo.MutationHookO
 export type RequestEarlyAccessMutationHookResult = ReturnType<typeof useRequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationResult = Apollo.MutationResult<RequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationOptions = Apollo.BaseMutationOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
+export const MealsDocument = gql`
+    query Meals {
+  meals {
+    id
+    name
+    index
+  }
+}
+    `;
+
+/**
+ * __useMealsQuery__
+ *
+ * To run a query within a React component, call `useMealsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMealsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMealsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMealsQuery(baseOptions?: Apollo.QueryHookOptions<MealsQuery, MealsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MealsQuery, MealsQueryVariables>(MealsDocument, options);
+      }
+export function useMealsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MealsQuery, MealsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MealsQuery, MealsQueryVariables>(MealsDocument, options);
+        }
+export type MealsQueryHookResult = ReturnType<typeof useMealsQuery>;
+export type MealsLazyQueryHookResult = ReturnType<typeof useMealsLazyQuery>;
+export type MealsQueryResult = Apollo.QueryResult<MealsQuery, MealsQueryVariables>;
 export const CreateMoodRecordDocument = gql`
     mutation CreateMoodRecord($moods: [String!]!) {
   createMoodRecord(data: {moods: $moods}) {
