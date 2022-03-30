@@ -73,6 +73,13 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           />
           <Button
             //color={"#2A2A2A"}
+            bg={"#595959"}
+            txt={"Add To Meal"}
+            clicked={() => {}}
+          />
+
+          <Button
+            //color={"#2A2A2A"}
             //bg={"#B6DA81"}
             txt={"Start Cooking"}
             clicked={() =>

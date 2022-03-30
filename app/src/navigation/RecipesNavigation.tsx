@@ -10,10 +10,7 @@ export const RecipeNavigation: React.FC = () => {
       <Group>
         <Screen name={"ListRecipes"} component={Recipes} />
       </Group>
-      <Group screenOptions={{ presentation: "modal" }}>
-        <Screen name={"RecipeDetails"} component={RecipeDetails} />
-        <Screen name={'RecipeNutrition'} component={RecipeNutrition} />
-      </Group>
+      
     </Navigator>
   );
 };

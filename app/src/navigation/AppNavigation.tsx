@@ -1,7 +1,13 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TabsNavigation } from "./TabsNavigation";
-import { Cooking, ActivityConfig, Active, FinishExercise } from "../screens";
+import {
+  Cooking,
+  ActivityConfig,
+  Active,
+  FinishExercise,
+  RecipeDetails,
+} from "../screens";
 
 export const AppNavigation: React.FC = () => {
   const { Group, Navigator, Screen } = createStackNavigator();
@@ -10,13 +16,19 @@ export const AppNavigation: React.FC = () => {
     <Navigator>
       <Group screenOptions={{ headerShown: false }}>
         <Screen name={"tabs"} component={TabsNavigation} />
-        <Screen  options={{
-          headerLeft: () => null
-        }} name={"Cooking"} component={Cooking} />
+        <Screen
+          options={{
+            headerLeft: () => null,
+          }}
+          name={"Cooking"}
+          component={Cooking}
+        />
         <Screen name={"ConfigActivity"} component={ActivityConfig} />
         <Screen name={"Active"} component={Active} />
-        <Screen name={'FinishExercise'} component={FinishExercise} />
-
+        <Screen name={"FinishExercise"} component={FinishExercise} />
+      </Group>
+      <Group screenOptions={{ presentation: "modal", headerShown: false }}>
+        <Screen name={"RecipeDetails"} component={RecipeDetails} />
       </Group>
     </Navigator>
   );

@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
   num: {
     backgroundColor: "black",
     color: "white",
-    width: 30,
-    height: 30,
-    fontSize: 20,
+    width: 20,
+    height: 20,
+    fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
     justifyContent: "center",
-    paddingTop: 2,
+    paddingTop: 1,
   },
   txt: {
     fontSize: 16,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   numItem: {
     padding: 5,
     width: "10%",
-    alignItems: "center",
+    alignItems: "flex-start",
     //justifyContent: "center",
   },
   txtItem: {

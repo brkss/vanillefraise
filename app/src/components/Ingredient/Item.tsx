@@ -22,11 +22,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   circle: {
-    height: 30,
-    width: 30,
-    backgroundColor: colors.c2,
+    height: 20,
+    width: 20,
+    backgroundColor: "#696969",
+    //backgroundColor: colors.c2,
     marginRight: 10,
-    borderRadius: 11,
+    borderRadius: 20,
   },
   txt: {
     fontSize: 14,
