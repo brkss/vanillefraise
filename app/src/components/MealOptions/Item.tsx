@@ -9,8 +9,14 @@ interface Props {
 
 export const Option: React.FC<Props> = ({ pressed, txt, selected }) => {
   return (
-    <Pressable style={styles.container} onPress={() => pressed()}>
-      <Text style={styles.txt}>{txt}</Text>
+    <Pressable
+      style={[
+        styles.container,
+        { backgroundColor: selected ? "black" : "transparent" },
+      ]}
+      onPress={() => pressed()}
+    >
+      <Text style={[styles.txt, {color: selected ? 'white' : 'black'}]}>{txt}</Text>
     </Pressable>
   );
 };

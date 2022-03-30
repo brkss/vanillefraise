@@ -1,0 +1,9 @@
+mutation AddMealRecipe($recipe: String!, $meal: String!){
+	addMealRecipe(data: {
+  	recipeID: $recipe,
+    mealID: $meal
+  }){
+    status
+    message
+  }
+}

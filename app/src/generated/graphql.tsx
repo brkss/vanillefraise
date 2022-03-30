@@ -627,6 +627,14 @@ export type RequestEarlyAccessMutationVariables = Exact<{
 
 export type RequestEarlyAccessMutation = { __typename?: 'Mutation', requestEarlyAccess: boolean };
 
+export type AddMealRecipeMutationVariables = Exact<{
+  recipe: Scalars['String'];
+  meal: Scalars['String'];
+}>;
+
+
+export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1068,6 +1076,41 @@ export function useRequestEarlyAccessMutation(baseOptions?: Apollo.MutationHookO
 export type RequestEarlyAccessMutationHookResult = ReturnType<typeof useRequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationResult = Apollo.MutationResult<RequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationOptions = Apollo.BaseMutationOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
+export const AddMealRecipeDocument = gql`
+    mutation AddMealRecipe($recipe: String!, $meal: String!) {
+  addMealRecipe(data: {recipeID: $recipe, mealID: $meal}) {
+    status
+    message
+  }
+}
+    `;
+export type AddMealRecipeMutationFn = Apollo.MutationFunction<AddMealRecipeMutation, AddMealRecipeMutationVariables>;
+
+/**
+ * __useAddMealRecipeMutation__
+ *
+ * To run a mutation, you first call `useAddMealRecipeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddMealRecipeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addMealRecipeMutation, { data, loading, error }] = useAddMealRecipeMutation({
+ *   variables: {
+ *      recipe: // value for 'recipe'
+ *      meal: // value for 'meal'
+ *   },
+ * });
+ */
+export function useAddMealRecipeMutation(baseOptions?: Apollo.MutationHookOptions<AddMealRecipeMutation, AddMealRecipeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddMealRecipeMutation, AddMealRecipeMutationVariables>(AddMealRecipeDocument, options);
+      }
+export type AddMealRecipeMutationHookResult = ReturnType<typeof useAddMealRecipeMutation>;
+export type AddMealRecipeMutationResult = Apollo.MutationResult<AddMealRecipeMutation>;
+export type AddMealRecipeMutationOptions = Apollo.BaseMutationOptions<AddMealRecipeMutation, AddMealRecipeMutationVariables>;
 export const MealsDocument = gql`
     query Meals {
   meals {

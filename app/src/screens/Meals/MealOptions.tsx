@@ -1,11 +1,41 @@
 import React from 'react';
 import { View, StyleSheet, Text, SafeAreaView  } from 'react-native';
 import { MealOptionsSelect, Button } from '../../components';
+import { useAddMealRecipeMutation } from '../../generated/graphql';
 
-export const MealsOptions : React.FC<any> = ({route}) => {
+export const MealsOptions : React.FC<any> = ({route, navigation}) => {
 
+  const [add] = useAddMealRecipeMutation();
+  const [meal, setMeal] = React.useState('');
   const { recipe } = route.params;
   console.log("Recipe ID : ", recipe);
+
+  const save = () => {
+
+    if(!recipe || !meal){
+      // error
+      return;
+    }
+    add({
+      variables: {
+        meal: meal,
+        recipe: recipe
+      }
+    }).then(res => {
+
+      if(res.data.addMealRecipe.status){
+        navigation.goBack();
+      }else{
+        console.log(res.data.addMealRecipe.message || "ERROR ADDING RECIPE TO MEAL");
+      }
+
+
+    }).catch(e => {
+      console.log("Something went wrong adding recipe to meal => ", e);
+    });
+
+
+  }
 
   return(
      <View style={styles.container}>
@@ -13,8 +43,8 @@ export const MealsOptions : React.FC<any> = ({route}) => {
         <SafeAreaView>
         <Text style={styles.heading}>Meals</Text>
         <View>
-          <MealOptionsSelect />
-          <Button clicked={() => {}} txt={'ADD'} />
+          <MealOptionsSelect select={(id) => setMeal(id)} />
+          <Button clicked={() => save()} txt={'ADD'} />
         </View>
     </SafeAreaView>
       </View>
