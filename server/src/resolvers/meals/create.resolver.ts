@@ -64,12 +64,12 @@ export class CreateMealsResolver {
         message: "Something went wrong : invalid Meal or Recipe",
       };
     }
-
+    
     try {
       const mr = new MealRecipes();
       mr.recipe = recipe;
       mr.meal = meal;
-      mr.date = new Date();
+      mr.date = data.date || new Date();
       mr.user = user;
       await mr.save();
     } catch (e) {

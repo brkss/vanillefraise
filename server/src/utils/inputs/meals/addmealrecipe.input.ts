@@ -5,6 +5,9 @@ import { InputType, Field } from 'type-graphql';
 export class AddMealRecipeInput {
 
 
+  @Field({nullable: true})
+  date?: Date;
+
   @Field()
   recipeID: string;
 
