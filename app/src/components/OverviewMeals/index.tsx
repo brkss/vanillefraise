@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MealItem } from "./Item";
+import { useMealsQuery } from "../../generated/graphql";
+import { Loading } from "../General/Loading";
 
 interface Props {
   navigation: any;
@@ -21,13 +23,23 @@ const meals = [
   },
 ];
 
-export const MealsOverview: React.FC<Props> = ({navigation}) => {
+export const MealsOverview: React.FC<Props> = ({ navigation }) => {
+  const { data, loading, error } = useMealsQuery();
+
+  if (loading || error) {
+    return <Loading />;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        {meals.map((meal, key) => (
+        {data.meals.map((meal, key) => (
           <View key={key} style={styles.item}>
-            <MealItem color={meal.color} navigate={() => navigation.push('Meal')} title={meal.title} />
+            <MealItem
+              color={meals[key].color}
+              navigate={() => navigation.push("Meal")}
+              title={meal.name}
+            />
           </View>
         ))}
       </View>

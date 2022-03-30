@@ -75,7 +75,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             //color={"#2A2A2A"}
             bg={"#595959"}
             txt={"Add To Meal"}
-            clicked={() => {}}
+            clicked={() => navigation.push("MealsOptions", {recipe: data.recipe.recipe.id})}
           />
 
           <Button

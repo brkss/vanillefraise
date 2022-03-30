@@ -22,3 +22,4 @@ export * from './CaloriesOverview';
 export * from './NutritionOverview';
 export * from './OverviewMeals';
 export * from './Meal'
+export * from './MealOptions';

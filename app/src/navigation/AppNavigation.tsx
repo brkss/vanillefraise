@@ -7,6 +7,7 @@ import {
   Active,
   FinishExercise,
   RecipeDetails,
+  MealsOptions
 } from "../screens";
 
 export const AppNavigation: React.FC = () => {
@@ -29,6 +30,19 @@ export const AppNavigation: React.FC = () => {
       </Group>
       <Group screenOptions={{ presentation: "modal", headerShown: false }}>
         <Screen name={"RecipeDetails"} component={RecipeDetails} />
+      </Group>
+      <Group
+        screenOptions={{
+          headerShown: false,
+          presentation: "modal",
+          cardStyle: {
+            backgroundColor: "transparent",
+            opacity: 0.99,
+          },
+        }}
+      >
+        
+        <Screen name={"MealsOptions"} component={MealsOptions} />
       </Group>
     </Navigator>
   );
