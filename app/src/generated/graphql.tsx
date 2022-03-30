@@ -46,6 +46,7 @@ export type ActivityCategory = {
 };
 
 export type AddMealRecipeInput = {
+  date?: InputMaybe<Scalars['DateTime']>;
   mealID: Scalars['String'];
   recipeID: Scalars['String'];
 };
@@ -630,6 +631,7 @@ export type RequestEarlyAccessMutation = { __typename?: 'Mutation', requestEarly
 export type AddMealRecipeMutationVariables = Exact<{
   recipe: Scalars['String'];
   meal: Scalars['String'];
+  date?: InputMaybe<Scalars['DateTime']>;
 }>;
 
 
@@ -1077,8 +1079,8 @@ export type RequestEarlyAccessMutationHookResult = ReturnType<typeof useRequestE
 export type RequestEarlyAccessMutationResult = Apollo.MutationResult<RequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationOptions = Apollo.BaseMutationOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
 export const AddMealRecipeDocument = gql`
-    mutation AddMealRecipe($recipe: String!, $meal: String!) {
-  addMealRecipe(data: {recipeID: $recipe, mealID: $meal}) {
+    mutation AddMealRecipe($recipe: String!, $meal: String!, $date: DateTime) {
+  addMealRecipe(data: {recipeID: $recipe, mealID: $meal, date: $date}) {
     status
     message
   }
@@ -1101,6 +1103,7 @@ export type AddMealRecipeMutationFn = Apollo.MutationFunction<AddMealRecipeMutat
  *   variables: {
  *      recipe: // value for 'recipe'
  *      meal: // value for 'meal'
+ *      date: // value for 'date'
  *   },
  * });
  */

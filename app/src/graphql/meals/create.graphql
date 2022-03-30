@@ -1,7 +1,8 @@
-mutation AddMealRecipe($recipe: String!, $meal: String!){
+mutation AddMealRecipe($recipe: String!, $meal: String!, $date: DateTime){
 	addMealRecipe(data: {
   	recipeID: $recipe,
-    mealID: $meal
+    mealID: $meal,
+    date: $date
   }){
     status
     message
