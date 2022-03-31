@@ -61,5 +61,6 @@ export const build = async () => {
       ListMealsResolver
     ],
     validate: false,
+    dateScalarMode: 'isoDate'
   });
 };

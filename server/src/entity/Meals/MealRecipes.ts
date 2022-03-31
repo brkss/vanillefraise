@@ -39,6 +39,6 @@ export class MealRecipes extends BaseEntity {
   user: User;
 
   @Field()
-  @Column("date")
-  date: Date;
+  @Column()
+  date: string;
 }

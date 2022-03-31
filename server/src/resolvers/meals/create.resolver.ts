@@ -69,7 +69,7 @@ export class CreateMealsResolver {
       const mr = new MealRecipes();
       mr.recipe = recipe;
       mr.meal = meal;
-      mr.date = data.date || new Date();
+      mr.date = data.date?.toLocaleDateString() || new Date().toLocaleDateString();
       mr.user = user;
       await mr.save();
     } catch (e) {
