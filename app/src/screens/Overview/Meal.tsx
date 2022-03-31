@@ -2,13 +2,22 @@ import React from "react";
 import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { Loading, MealRecipes, MealGrocery } from "../../components";
+import CalendarStrip from "react-native-calendar-strip";
+import { useMealRecipesQuery } from '../../generated/graphql';
 
-export const Meal: React.FC = () => {
+export const Meal: React.FC<any> = ({route}) => {
+  const { mealID } = route.params;
+  const { data, loading, error } = useMealRecipesQuery({
+    variables: {
+      date: new Date(),
+      meal: mealID 
+    }
+  });
   const [helviticaCondensed] = useFonts({
     condensed: require("../../assets/helvitica-condensed.otf"),
   });
 
-  if (!helviticaCondensed) {
+  if (!helviticaCondensed || loading || error ) {
     return <Loading />;
   }
 
@@ -20,6 +29,27 @@ export const Meal: React.FC = () => {
           <Text style={styles.calories}>1100 Cal</Text>
           <Text style={styles.time}>⏱ 42min</Text>
         </View>
+        <CalendarStrip
+          selectedDate={new Date()}
+          scrollable
+          calendarAnimation={{ type: "sequence", duration: 30 }}
+          daySelectionAnimation={{
+            type: "background",
+            duration: 300,
+            highlightColor: "#9265DC",
+          }}
+          style={{ height: 90, paddingTop: 0, paddingBottom: 0 }}
+          calendarHeaderStyle={{ color: "black" }}
+          //calendarColor={"#3343CE"}
+          dateNumberStyle={{ color: "black" }}
+          dateNameStyle={{ color: "black" }}
+          iconContainer={{ flex: 0.1 }}
+          highlightDateNameStyle={{ color: "white" }}
+          highlightDateNumberStyle={{ color: "white" }}
+          highlightDateContainerStyle={{ backgroundColor: "black" }}
+          onDateSelected={(date) => {}}
+          useIsoWeekday={false}
+        />
         <ScrollView showsVerticalScrollIndicator={false}>
           <MealRecipes />
           <MealGrocery />

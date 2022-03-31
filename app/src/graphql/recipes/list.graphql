@@ -4,6 +4,5 @@ query RecipeByCategory($cat_id: String!){
     name
     description
     serving
-    
   }
 }

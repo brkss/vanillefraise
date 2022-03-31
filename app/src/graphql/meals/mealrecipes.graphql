@@ -1,0 +1,16 @@
+query MealRecipes($meal: String!, $date: DateTime!){
+  mealRecipes(data: {date: $date, meal: $meal}){
+   status
+    message
+    recipes{
+    	id
+    	name
+  	}
+    ingredients{
+      id
+      amount
+      unit
+      ingredients
+    }
+  }
+}

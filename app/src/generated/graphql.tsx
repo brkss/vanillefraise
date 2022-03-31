@@ -172,13 +172,27 @@ export type Meal = {
   name: Scalars['String'];
 };
 
+export type MealRecipeResponse = {
+  __typename?: 'MealRecipeResponse';
+  ingredients?: Maybe<Array<Ingredient>>;
+  mealrecipes?: Maybe<Array<MealRecipes>>;
+  message?: Maybe<Scalars['String']>;
+  recipes?: Maybe<Array<Recipe>>;
+  status: Scalars['Boolean'];
+};
+
 export type MealRecipes = {
   __typename?: 'MealRecipes';
-  date: Scalars['DateTime'];
+  date: Scalars['String'];
   id: Scalars['String'];
   meal: Meal;
   recipe: Recipe;
   user: User;
+};
+
+export type MealRecipesInput = {
+  date: Scalars['DateTime'];
+  meal: Scalars['String'];
 };
 
 export type Mood = {
@@ -336,6 +350,7 @@ export type Query = {
   getUserBurnedCalories: Scalars['Float'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
+  mealRecipes: MealRecipeResponse;
   meals: Array<Meal>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
@@ -366,6 +381,11 @@ export type QueryGetRecipeNutritionArgs = {
 
 export type QueryIsRequestedArgs = {
   service: Scalars['String'];
+};
+
+
+export type QueryMealRecipesArgs = {
+  data: MealRecipesInput;
 };
 
 
@@ -636,6 +656,14 @@ export type AddMealRecipeMutationVariables = Exact<{
 
 
 export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
+export type MealRecipesQueryVariables = Exact<{
+  meal: Scalars['String'];
+  date: Scalars['DateTime'];
+}>;
+
+
+export type MealRecipesQuery = { __typename?: 'Query', mealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined } };
 
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1114,6 +1142,53 @@ export function useAddMealRecipeMutation(baseOptions?: Apollo.MutationHookOption
 export type AddMealRecipeMutationHookResult = ReturnType<typeof useAddMealRecipeMutation>;
 export type AddMealRecipeMutationResult = Apollo.MutationResult<AddMealRecipeMutation>;
 export type AddMealRecipeMutationOptions = Apollo.BaseMutationOptions<AddMealRecipeMutation, AddMealRecipeMutationVariables>;
+export const MealRecipesDocument = gql`
+    query MealRecipes($meal: String!, $date: DateTime!) {
+  mealRecipes(data: {date: $date, meal: $meal}) {
+    status
+    message
+    recipes {
+      id
+      name
+    }
+    ingredients {
+      id
+      amount
+      unit
+      ingredients
+    }
+  }
+}
+    `;
+
+/**
+ * __useMealRecipesQuery__
+ *
+ * To run a query within a React component, call `useMealRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMealRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMealRecipesQuery({
+ *   variables: {
+ *      meal: // value for 'meal'
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useMealRecipesQuery(baseOptions: Apollo.QueryHookOptions<MealRecipesQuery, MealRecipesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MealRecipesQuery, MealRecipesQueryVariables>(MealRecipesDocument, options);
+      }
+export function useMealRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MealRecipesQuery, MealRecipesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MealRecipesQuery, MealRecipesQueryVariables>(MealRecipesDocument, options);
+        }
+export type MealRecipesQueryHookResult = ReturnType<typeof useMealRecipesQuery>;
+export type MealRecipesLazyQueryHookResult = ReturnType<typeof useMealRecipesLazyQuery>;
+export type MealRecipesQueryResult = Apollo.QueryResult<MealRecipesQuery, MealRecipesQueryVariables>;
 export const MealsDocument = gql`
     query Meals {
   meals {
