@@ -14,8 +14,8 @@ export const MealGrocery : React.FC<Props> = ({ingredients}) => {
       <View style={styles.items}>
       {
         ingredients.map((ing, key) => (
-
-          <GroceryItem txt={ing.ingredients} />
+          
+          ing.ingredients ? <GroceryItem txt={ing.ingredients} /> : null
         ))
       }  
     </View>
