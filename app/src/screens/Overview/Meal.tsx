@@ -3,7 +3,8 @@ import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { Loading, MealRecipes, MealGrocery } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
-import { useGetMealRecipesQuery, useMrQuery } from "../../generated/graphql";
+import { useGetMealRecipesQuery} from "../../generated/graphql";
+
 
 export const Meal: React.FC<any> = ({ route }) => {
   const { mealID } = route.params;
@@ -57,7 +58,7 @@ export const Meal: React.FC<any> = ({ route }) => {
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <MealRecipes recipes={data.getMealRecipes.recipes} />
-          <MealGrocery />
+          <MealGrocery ingredients={data.getMealRecipes.ingredients} />
         </ScrollView>
       </SafeAreaView>
     </View>

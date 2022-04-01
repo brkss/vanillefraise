@@ -2,16 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { GroceryItem } from './Item';
 
-export const MealGrocery : React.FC = () => {
+interface Props {
+  ingredients: any[];
+}
+
+export const MealGrocery : React.FC<Props> = ({ingredients}) => {
 
   return(
     <View style={styles.container}>
       <Text style={styles.title}>What you'll need</Text>
       <View style={styles.items}>
-      <GroceryItem />
-      <GroceryItem />
-      <GroceryItem />
-      <GroceryItem />
+      {
+        ingredients.map((ing, key) => (
+
+          <GroceryItem txt={ing.ingredients} />
+        ))
+      }  
     </View>
     </View>
   )

@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const GroceryItem: React.FC = () => {
+interface Props {
+  txt: string;
+}
+
+export const GroceryItem: React.FC<Props> = ({txt}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.txt}>
-        fresh herbs (mint, parsley, or cilantro) for serving{" "}
+        {txt}
       </Text>
     </View>
   );
