@@ -5,6 +5,8 @@ query GetMealRecipes($meal: String!, $date: DateTime!) {
     recipes {
       id
       name
+      total
+      image
     }
     ingredients {
       id
