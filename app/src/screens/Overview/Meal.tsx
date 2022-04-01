@@ -3,21 +3,26 @@ import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { Loading, MealRecipes, MealGrocery } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
-import { useMealRecipesQuery } from '../../generated/graphql';
+import { useGetMealRecipesQuery, useMrQuery } from "../../generated/graphql";
 
-export const Meal: React.FC<any> = ({route}) => {
+export const Meal: React.FC<any> = ({ route }) => {
   const { mealID } = route.params;
-  const { data, loading, error } = useMealRecipesQuery({
+
+  const { data, loading, error } = useGetMealRecipesQuery({
     variables: {
-      date: new Date(),
-      meal: mealID 
-    }
+      date: new Date().toString(),
+      meal: mealID,
+    },
+    onCompleted: (res) => {
+      console.log("Meal Recipes Results => ", res);
+    },
   });
+
   const [helviticaCondensed] = useFonts({
     condensed: require("../../assets/helvitica-condensed.otf"),
   });
 
-  if (!helviticaCondensed || loading || error ) {
+  if (!helviticaCondensed || loading || error) {
     return <Loading />;
   }
 
@@ -51,7 +56,7 @@ export const Meal: React.FC<any> = ({route}) => {
           useIsoWeekday={false}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <MealRecipes />
+          <MealRecipes recipes={data.getMealRecipes.recipes} />
           <MealGrocery />
         </ScrollView>
       </SafeAreaView>

@@ -1,0 +1,6 @@
+query Mr($date: DateTime!, $meal: String!){
+  mr(data: {date: $date, meal: $meal}){
+    status
+    message
+  }
+}

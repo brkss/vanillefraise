@@ -1,29 +1,31 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RecipeThumbnail } from "../../RecipeThumbnail";
+import { CDN } from '../../../utils/config/defaults';
 
-export const MealRecipes: React.FC = () => {
+interface Props {
+  recipes: any[]
+}
+
+export const MealRecipes: React.FC<Props> = ({recipes}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recipes</Text>
       <Text style={styles.date}>28/03/2022</Text>
       <View style={styles.recipes}>
-        <RecipeThumbnail
-          title={"Chickpea Salad Sandwich"}
-          img={
-            "https://images.101cookbooks.com/CHICKPEA-SALAD-SANDWICH-RECIPE-h.jpg?w=680&auto=format"
-          }
-          time={"20"}
-          pressed={() => {}}
-        />
-        <RecipeThumbnail
-          title={"Chickpea Salad Sandwich"}
-          img={
-            "https://images.101cookbooks.com/toasted-coconut-milk.jpg?w=680&auto=format"
-          }
-          time={"20"}
-          pressed={() => {}}
-        />
+        {
+          recipes.map((recipe, key) => (
+            <RecipeThumbnail
+                pressed={() => {}}
+                title={recipe.name}
+                img={`${CDN}/${recipe.image}`}
+                time={recipe.total}
+                carbs={recipe.carbs}
+                key={key}
+              />
+          ))
+        }
+        
       </View>
     </View>
   );

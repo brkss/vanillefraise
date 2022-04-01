@@ -346,14 +346,15 @@ export type Query = {
   activityCategories: Array<ActivityCategory>;
   cookedRecipesCount: Scalars['Float'];
   getActivityCalories: Scalars['Float'];
+  getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
-  mealRecipes: MealRecipeResponse;
   meals: Array<Meal>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
+  mr: MealRecipeResponse;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
@@ -374,6 +375,11 @@ export type QueryGetActivityCaloriesArgs = {
 };
 
 
+export type QueryGetMealRecipesArgs = {
+  data: MealRecipesInput;
+};
+
+
 export type QueryGetRecipeNutritionArgs = {
   recipe_id: Scalars['String'];
 };
@@ -384,7 +390,7 @@ export type QueryIsRequestedArgs = {
 };
 
 
-export type QueryMealRecipesArgs = {
+export type QueryMrArgs = {
   data: MealRecipesInput;
 };
 
@@ -657,18 +663,26 @@ export type AddMealRecipeMutationVariables = Exact<{
 
 export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
-export type MealRecipesQueryVariables = Exact<{
+export type GetMealRecipesQueryVariables = Exact<{
   meal: Scalars['String'];
   date: Scalars['DateTime'];
 }>;
 
 
-export type MealRecipesQuery = { __typename?: 'Query', mealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined } };
+export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined } };
 
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: string, name: string, index: number }> };
+
+export type MrQueryVariables = Exact<{
+  date: Scalars['DateTime'];
+  meal: Scalars['String'];
+}>;
+
+
+export type MrQuery = { __typename?: 'Query', mr: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined } };
 
 export type CreateMoodRecordMutationVariables = Exact<{
   moods: Array<Scalars['String']> | Scalars['String'];
@@ -1142,9 +1156,9 @@ export function useAddMealRecipeMutation(baseOptions?: Apollo.MutationHookOption
 export type AddMealRecipeMutationHookResult = ReturnType<typeof useAddMealRecipeMutation>;
 export type AddMealRecipeMutationResult = Apollo.MutationResult<AddMealRecipeMutation>;
 export type AddMealRecipeMutationOptions = Apollo.BaseMutationOptions<AddMealRecipeMutation, AddMealRecipeMutationVariables>;
-export const MealRecipesDocument = gql`
-    query MealRecipes($meal: String!, $date: DateTime!) {
-  mealRecipes(data: {date: $date, meal: $meal}) {
+export const GetMealRecipesDocument = gql`
+    query GetMealRecipes($meal: String!, $date: DateTime!) {
+  getMealRecipes(data: {date: $date, meal: $meal}) {
     status
     message
     recipes {
@@ -1162,33 +1176,33 @@ export const MealRecipesDocument = gql`
     `;
 
 /**
- * __useMealRecipesQuery__
+ * __useGetMealRecipesQuery__
  *
- * To run a query within a React component, call `useMealRecipesQuery` and pass it any options that fit your needs.
- * When your component renders, `useMealRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMealRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMealRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMealRecipesQuery({
+ * const { data, loading, error } = useGetMealRecipesQuery({
  *   variables: {
  *      meal: // value for 'meal'
  *      date: // value for 'date'
  *   },
  * });
  */
-export function useMealRecipesQuery(baseOptions: Apollo.QueryHookOptions<MealRecipesQuery, MealRecipesQueryVariables>) {
+export function useGetMealRecipesQuery(baseOptions: Apollo.QueryHookOptions<GetMealRecipesQuery, GetMealRecipesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MealRecipesQuery, MealRecipesQueryVariables>(MealRecipesDocument, options);
+        return Apollo.useQuery<GetMealRecipesQuery, GetMealRecipesQueryVariables>(GetMealRecipesDocument, options);
       }
-export function useMealRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MealRecipesQuery, MealRecipesQueryVariables>) {
+export function useGetMealRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMealRecipesQuery, GetMealRecipesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MealRecipesQuery, MealRecipesQueryVariables>(MealRecipesDocument, options);
+          return Apollo.useLazyQuery<GetMealRecipesQuery, GetMealRecipesQueryVariables>(GetMealRecipesDocument, options);
         }
-export type MealRecipesQueryHookResult = ReturnType<typeof useMealRecipesQuery>;
-export type MealRecipesLazyQueryHookResult = ReturnType<typeof useMealRecipesLazyQuery>;
-export type MealRecipesQueryResult = Apollo.QueryResult<MealRecipesQuery, MealRecipesQueryVariables>;
+export type GetMealRecipesQueryHookResult = ReturnType<typeof useGetMealRecipesQuery>;
+export type GetMealRecipesLazyQueryHookResult = ReturnType<typeof useGetMealRecipesLazyQuery>;
+export type GetMealRecipesQueryResult = Apollo.QueryResult<GetMealRecipesQuery, GetMealRecipesQueryVariables>;
 export const MealsDocument = gql`
     query Meals {
   meals {
@@ -1225,6 +1239,43 @@ export function useMealsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Meal
 export type MealsQueryHookResult = ReturnType<typeof useMealsQuery>;
 export type MealsLazyQueryHookResult = ReturnType<typeof useMealsLazyQuery>;
 export type MealsQueryResult = Apollo.QueryResult<MealsQuery, MealsQueryVariables>;
+export const MrDocument = gql`
+    query Mr($date: DateTime!, $meal: String!) {
+  mr(data: {date: $date, meal: $meal}) {
+    status
+    message
+  }
+}
+    `;
+
+/**
+ * __useMrQuery__
+ *
+ * To run a query within a React component, call `useMrQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMrQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMrQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      meal: // value for 'meal'
+ *   },
+ * });
+ */
+export function useMrQuery(baseOptions: Apollo.QueryHookOptions<MrQuery, MrQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MrQuery, MrQueryVariables>(MrDocument, options);
+      }
+export function useMrLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MrQuery, MrQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MrQuery, MrQueryVariables>(MrDocument, options);
+        }
+export type MrQueryHookResult = ReturnType<typeof useMrQuery>;
+export type MrLazyQueryHookResult = ReturnType<typeof useMrLazyQuery>;
+export type MrQueryResult = Apollo.QueryResult<MrQuery, MrQueryVariables>;
 export const CreateMoodRecordDocument = gql`
     mutation CreateMoodRecord($moods: [String!]!) {
   createMoodRecord(data: {moods: $moods}) {

@@ -10,13 +10,12 @@ import {
 } from "../../components";
 import { useFonts } from "expo-font";
 
-
 export const Overview: React.FC<any> = ({navigation}) => {
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
 
-  if (!helviticaCondensed) {
+  if (!helviticaCondensed ) {
     return <Loading />;
   }
 
