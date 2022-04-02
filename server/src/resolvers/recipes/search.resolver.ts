@@ -3,6 +3,7 @@ import { Recipe, Ingredient } from "../../entity/Recipe";
 import { RecipeTotalNutrition } from "../../entity/Nutrition/TotalNutrition";
 import { Like } from "typeorm";
 import { SearchResultResponse } from "../../utils/responses/recipes";
+import { MoreThan } from "typeorm";
 
 @Resolver()
 export class SearchRecipeResolver {
@@ -26,7 +27,7 @@ export class SearchRecipeResolver {
 
     // search in nutritions
     const nutritions = await RecipeTotalNutrition.find({
-      where: { label: Like(`%${query}%`) },
+      where: { label: Like(`%${query}%`), quantity: MoreThan(0) },
       relations: ["recipe"],
     });
 
