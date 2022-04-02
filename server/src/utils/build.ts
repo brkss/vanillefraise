@@ -27,6 +27,7 @@ import {
   UserPasswordResolver,
   CreateMealsResolver,
   ListMealsResolver,
+  SearchRecipeResolver
 } from "../resolvers";
 
 export const build = async () => {
@@ -58,7 +59,8 @@ export const build = async () => {
       ActivityOverviewResolver,
       UserPasswordResolver,
       CreateMealsResolver,
-      ListMealsResolver
+      ListMealsResolver,
+      SearchRecipeResolver
     ],
     validate: false,
     dateScalarMode: 'isoDate'
