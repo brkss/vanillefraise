@@ -164,6 +164,19 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type MarkedDates = {
+  __typename?: 'MarkedDates';
+  count: Scalars['Float'];
+  date: Scalars['String'];
+};
+
+export type MarkedDaysResponse = {
+  __typename?: 'MarkedDaysResponse';
+  markedDates?: Maybe<Array<MarkedDates>>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type Meal = {
   __typename?: 'Meal';
   id: Scalars['String'];
@@ -345,6 +358,7 @@ export type Query = {
   __typename?: 'Query';
   activityCategories: Array<ActivityCategory>;
   cookedRecipesCount: Scalars['Float'];
+  daysWithRecipes: MarkedDaysResponse;
   getActivityCalories: Scalars['Float'];
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
@@ -662,6 +676,11 @@ export type AddMealRecipeMutationVariables = Exact<{
 
 
 export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
+export type DaysWithRecipesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DaysWithRecipesQuery = { __typename?: 'Query', daysWithRecipes: { __typename?: 'MarkedDaysResponse', status: boolean, message?: string | null | undefined, markedDates?: Array<{ __typename?: 'MarkedDates', date: string, count: number }> | null | undefined } };
 
 export type GetMealRecipesQueryVariables = Exact<{
   meal: Scalars['String'];
@@ -1148,6 +1167,45 @@ export function useAddMealRecipeMutation(baseOptions?: Apollo.MutationHookOption
 export type AddMealRecipeMutationHookResult = ReturnType<typeof useAddMealRecipeMutation>;
 export type AddMealRecipeMutationResult = Apollo.MutationResult<AddMealRecipeMutation>;
 export type AddMealRecipeMutationOptions = Apollo.BaseMutationOptions<AddMealRecipeMutation, AddMealRecipeMutationVariables>;
+export const DaysWithRecipesDocument = gql`
+    query DaysWithRecipes {
+  daysWithRecipes {
+    status
+    message
+    markedDates {
+      date
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useDaysWithRecipesQuery__
+ *
+ * To run a query within a React component, call `useDaysWithRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDaysWithRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDaysWithRecipesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDaysWithRecipesQuery(baseOptions?: Apollo.QueryHookOptions<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>(DaysWithRecipesDocument, options);
+      }
+export function useDaysWithRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>(DaysWithRecipesDocument, options);
+        }
+export type DaysWithRecipesQueryHookResult = ReturnType<typeof useDaysWithRecipesQuery>;
+export type DaysWithRecipesLazyQueryHookResult = ReturnType<typeof useDaysWithRecipesLazyQuery>;
+export type DaysWithRecipesQueryResult = Apollo.QueryResult<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>;
 export const GetMealRecipesDocument = gql`
     query GetMealRecipes($meal: String!, $date: DateTime!) {
   getMealRecipes(data: {date: $date, meal: $meal}) {

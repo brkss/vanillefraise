@@ -1,0 +1,10 @@
+query DaysWithRecipes{
+  daysWithRecipes{
+    status
+    message
+    markedDates{
+      date
+      count
+    }
+  }
+}

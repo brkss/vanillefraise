@@ -3,11 +3,27 @@ import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { Loading, MealRecipes, MealGrocery } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
-import { useGetMealRecipesQuery } from "../../generated/graphql";
+import {
+  useGetMealRecipesQuery,
+  useDaysWithRecipesQuery,
+} from "../../generated/graphql";
+
+interface MarkedDate {
+  count: number;
+  date: string;
+}
 
 export const Meal: React.FC<any> = ({ route }) => {
   const { mealID, mealName } = route.params;
+  const [markedDates, setMarkedDates] = React.useState<any[]>([]); 
   const [date, setDate] = React.useState(new Date());
+  const _daysWithMeals = useDaysWithRecipesQuery({
+    onCompleted: (res) => {
+      if(res.daysWithRecipes.status){
+        setMarkedDates(generateMarkedDates(res.daysWithRecipes.markedDates))
+      }
+    }
+  });
   const { data, loading, error, refetch } = useGetMealRecipesQuery({
     variables: {
       date: date.toString(),
@@ -17,6 +33,21 @@ export const Meal: React.FC<any> = ({ route }) => {
       console.log("Meal Recipes Results => ", res);
     },
   });
+  const generateMarkedDates = (dates: MarkedDate[]) => {
+    const markedDates : any[] = [];
+    dates.map((date) => {
+      markedDates.push({
+        date: date.date,
+         dots: [
+          {
+            color: 'black',
+            selectedColor: 'white'
+          },
+        ], 
+      })
+    })
+    return markedDates;
+  }
 
   const [helviticaCondensed] = useFonts({
     condensed: require("../../assets/helvitica-condensed.otf"),
@@ -34,30 +65,35 @@ export const Meal: React.FC<any> = ({ route }) => {
           <Text style={styles.calories}>1100 Cal</Text>
           <Text style={styles.time}>⏱ 42min</Text>
         </View>
-        <CalendarStrip
-          selectedDate={date}
-          scrollable
-          calendarAnimation={{ type: "sequence", duration: 30 }}
-          daySelectionAnimation={{
-            type: "background",
-            duration: 300,
-            highlightColor: "#9265DC",
-          }}
-          style={{ height: 90, paddingTop: 0, paddingBottom: 0 }}
-          calendarHeaderStyle={{ color: "black" }}
-          //calendarColor={"#3343CE"}
-          dateNumberStyle={{ color: "black" }}
-          dateNameStyle={{ color: "black" }}
-          iconContainer={{ flex: 0.1 }}
-          highlightDateNameStyle={{ color: "white" }}
-          highlightDateNumberStyle={{ color: "white" }}
-          highlightDateContainerStyle={{ backgroundColor: "black" }}
-          onDateSelected={(d) => {
-            setDate(d.toDate());
-            refetch({ date: date.toString(), meal: mealID });
-          }}
-          useIsoWeekday={false}
-        />
+        {_daysWithMeals.loading || _daysWithMeals.error ? (
+          <Loading />
+        ) : (
+          <CalendarStrip
+            selectedDate={date}
+            scrollable
+            
+            calendarAnimation={{ type: "sequence", duration: 30 }}
+            daySelectionAnimation={{
+              type: "background",
+              duration: 300,
+              highlightColor: "#9265DC",
+            }}
+            style={{ height: 90, paddingTop: 0, paddingBottom: 0 }}
+            calendarHeaderStyle={{ color: "black" }}
+            markedDates={markedDates}
+            dateNumberStyle={{ color: "black" }}
+            dateNameStyle={{ color: "black" }}
+            iconContainer={{ flex: 0.1 }}
+            highlightDateNameStyle={{ color: "white" }}
+            highlightDateNumberStyle={{ color: "white" }}
+            highlightDateContainerStyle={{ backgroundColor: "black" }}
+            onDateSelected={(d) => {
+              setDate(d.toDate());
+              refetch({ date: date.toString(), meal: mealID });
+            }}
+            useIsoWeekday={false}
+          />
+        )}
         {loading || error ? (
           <Loading />
         ) : (
