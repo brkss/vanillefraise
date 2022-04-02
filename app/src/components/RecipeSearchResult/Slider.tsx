@@ -54,7 +54,7 @@ export const RecipeSearchSlider: React.FC<Props> = ({ select }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 0,
-    marginVertical: 10,
+    marginVertical: 20,
   },
   item: {
     padding: 10,
