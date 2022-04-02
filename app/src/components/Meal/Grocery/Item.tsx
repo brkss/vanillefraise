@@ -7,10 +7,12 @@ interface Props {
   unit: string;
 }
 
-export const GroceryItem: React.FC<Props> = ({ txt, qtt, unit}) => {
+export const GroceryItem: React.FC<Props> = ({ txt, qtt, unit }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.qtt}>{qtt} {unit}</Text>
+      <Text style={styles.qtt}>
+        {qtt} {unit === "undefined" ? "" : unit}
+      </Text>
       <Text style={styles.txt}>{txt}</Text>
     </View>
   );
@@ -29,5 +31,5 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   qtt: {},
-  unit: {}
+  unit: {},
 });
