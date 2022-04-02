@@ -1,10 +1,14 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
-export const SearchInput: React.FC = () => {
+interface Props {
+  change: (v: string) => void; 
+}
+
+export const SearchInput: React.FC<Props> = ({change}) => {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} placeholder={"Search..."} />
+      <TextInput style={styles.input} onChangeText={(v) => change(v)} placeholder={"Search..."} />
     </View>
   );
 };

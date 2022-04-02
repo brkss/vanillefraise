@@ -6,6 +6,7 @@ import {
   RecipeThumbnail,
   Loading,
   SearchInput,
+  RecipeSearchResult,
 } from "../../components";
 //import { recipes, recipes_category } from "../../utils";
 import { colors } from "../../utils";
@@ -13,6 +14,7 @@ import { useRecipeCategoriesQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
+  const [searchQuery, setSearchQuery] = React.useState("");
   const [category, SetCategory] = React.useState("");
   const [recipes, SetRecipes] = React.useState<any[]>([]);
   const { data, loading, error } = useRecipeCategoriesQuery({
@@ -31,6 +33,10 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
     SetRecipes(category!.recipes);
   };
 
+  const handleSearch = (v: string) => {
+    setSearchQuery(v);
+  };
+
   if (loading || error) {
     return <Loading />;
   }
@@ -40,30 +46,36 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       <SafeAreaView>
         <View style={styles.headingContainer}>
           <Heading title={"Recipes"} />
-          <SearchInput />
+          <SearchInput change={(v) => setSearchQuery(v)} />
         </View>
         <View style={styles.recipesContainer}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Slider
-              color={colors.c3}
-              selected={category}
-              onSelect={(category: string) => handleSelectingCategory(category)}
-              categories={data!.recipeCategories as any}
-            />
-            {recipes.map((recipe, key) => (
-              <RecipeThumbnail
-                pressed={() =>
-                  navigation.push("RecipeDetails", { id: recipe.id })
+          {searchQuery.length > 0 ? (
+            <RecipeSearchResult navigation={navigation} query={searchQuery} />
+          ) : (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Slider
+                color={colors.c3}
+                selected={category}
+                onSelect={(category: string) =>
+                  handleSelectingCategory(category)
                 }
-                title={recipe.name}
-                img={`${CDN}/${recipe.image}`}
-                time={recipe.total}
-                carbs={recipe.carbs}
-                key={key}
+                categories={data!.recipeCategories as any}
               />
-            ))}
-            <View style={{ height: 200 }} />
-          </ScrollView>
+              {recipes.map((recipe, key) => (
+                <RecipeThumbnail
+                  pressed={() =>
+                    navigation.push("RecipeDetails", { id: recipe.id })
+                  }
+                  title={recipe.name}
+                  img={`${CDN}/${recipe.image}`}
+                  time={recipe.total}
+                  carbs={recipe.carbs}
+                  key={key}
+                />
+              ))}
+              <View style={{ height: 200 }} />
+            </ScrollView>
+          )}
         </View>
       </SafeAreaView>
     </View>
