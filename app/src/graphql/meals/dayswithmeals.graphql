@@ -1,5 +1,5 @@
-query DaysWithRecipes{
-  daysWithRecipes{
+query DaysWithRecipes($mealID: String!){
+  daysWithRecipes(mealID: $mealID){
     status
     message
     markedDates{

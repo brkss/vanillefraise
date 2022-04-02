@@ -368,7 +368,6 @@ export type Query = {
   meals: Array<Meal>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
-  mr: MealRecipeResponse;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
@@ -381,6 +380,11 @@ export type Query = {
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   work: Scalars['String'];
+};
+
+
+export type QueryDaysWithRecipesArgs = {
+  mealID: Scalars['String'];
 };
 
 
@@ -401,11 +405,6 @@ export type QueryGetRecipeNutritionArgs = {
 
 export type QueryIsRequestedArgs = {
   service: Scalars['String'];
-};
-
-
-export type QueryMrArgs = {
-  data: MealRecipesInput;
 };
 
 
@@ -677,7 +676,9 @@ export type AddMealRecipeMutationVariables = Exact<{
 
 export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
-export type DaysWithRecipesQueryVariables = Exact<{ [key: string]: never; }>;
+export type DaysWithRecipesQueryVariables = Exact<{
+  mealID: Scalars['String'];
+}>;
 
 
 export type DaysWithRecipesQuery = { __typename?: 'Query', daysWithRecipes: { __typename?: 'MarkedDaysResponse', status: boolean, message?: string | null | undefined, markedDates?: Array<{ __typename?: 'MarkedDates', date: string, count: number }> | null | undefined } };
@@ -1168,8 +1169,8 @@ export type AddMealRecipeMutationHookResult = ReturnType<typeof useAddMealRecipe
 export type AddMealRecipeMutationResult = Apollo.MutationResult<AddMealRecipeMutation>;
 export type AddMealRecipeMutationOptions = Apollo.BaseMutationOptions<AddMealRecipeMutation, AddMealRecipeMutationVariables>;
 export const DaysWithRecipesDocument = gql`
-    query DaysWithRecipes {
-  daysWithRecipes {
+    query DaysWithRecipes($mealID: String!) {
+  daysWithRecipes(mealID: $mealID) {
     status
     message
     markedDates {
@@ -1192,10 +1193,11 @@ export const DaysWithRecipesDocument = gql`
  * @example
  * const { data, loading, error } = useDaysWithRecipesQuery({
  *   variables: {
+ *      mealID: // value for 'mealID'
  *   },
  * });
  */
-export function useDaysWithRecipesQuery(baseOptions?: Apollo.QueryHookOptions<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>) {
+export function useDaysWithRecipesQuery(baseOptions: Apollo.QueryHookOptions<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<DaysWithRecipesQuery, DaysWithRecipesQueryVariables>(DaysWithRecipesDocument, options);
       }
