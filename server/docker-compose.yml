@@ -34,7 +34,7 @@ services:
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - 8080:8080
+      - 9090:9090
     depends_on:
       - security
     networks:
@@ -43,4 +43,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
