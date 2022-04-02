@@ -376,6 +376,7 @@ export type Query = {
   recipes: Array<Recipe>;
   recordCategories: Array<RecordCategory>;
   records: ListRecordsResponse;
+  searchRecipes: SearchResultResponse;
   specialconditions: Array<SpecialCondition>;
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
@@ -425,6 +426,11 @@ export type QueryRecipeEnergyArgs = {
 
 export type QueryRecordsArgs = {
   cat_id: Scalars['Float'];
+};
+
+
+export type QuerySearchRecipesArgs = {
+  query: Scalars['String'];
 };
 
 export type Recipe = {
@@ -556,6 +562,13 @@ export type RegisterInput = {
 export type ResetPasswordInput = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
+};
+
+export type SearchResultResponse = {
+  __typename?: 'SearchResultResponse';
+  ingredients: Array<Ingredient>;
+  nutritients: Array<RecipeTotalNutrition>;
+  recipes: Array<Recipe>;
 };
 
 export type SpecialCondition = {
@@ -772,6 +785,13 @@ export type RecipeQueryVariables = Exact<{
 
 
 export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, ingredients: Array<{ __typename?: 'Ingredient', unit?: string | null | undefined, raw: string, amount?: number | null | undefined, ingredients?: string | null | undefined }>, instructions: Array<{ __typename?: 'Instruction', id: string, raw: string, index: number }> } | null | undefined } };
+
+export type SearchRecipesQueryVariables = Exact<{
+  query: Scalars['String'];
+}>;
+
+
+export type SearchRecipesQuery = { __typename?: 'Query', searchRecipes: { __typename?: 'SearchResultResponse', recipes: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }>, ingredients: Array<{ __typename?: 'Ingredient', recipe: { __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string } }>, nutritients: Array<{ __typename?: 'RecipeTotalNutrition', recipe: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, image: string } }> } };
 
 export type RecordCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1792,6 +1812,62 @@ export function useRecipeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Rec
 export type RecipeQueryHookResult = ReturnType<typeof useRecipeQuery>;
 export type RecipeLazyQueryHookResult = ReturnType<typeof useRecipeLazyQuery>;
 export type RecipeQueryResult = Apollo.QueryResult<RecipeQuery, RecipeQueryVariables>;
+export const SearchRecipesDocument = gql`
+    query SearchRecipes($query: String!) {
+  searchRecipes(query: $query) {
+    recipes {
+      id
+      name
+      total
+      image
+    }
+    ingredients {
+      recipe {
+        id
+        name
+        total
+        image
+      }
+    }
+    nutritients {
+      recipe {
+        id
+        name
+        description
+        image
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useSearchRecipesQuery__
+ *
+ * To run a query within a React component, call `useSearchRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchRecipesQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useSearchRecipesQuery(baseOptions: Apollo.QueryHookOptions<SearchRecipesQuery, SearchRecipesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchRecipesQuery, SearchRecipesQueryVariables>(SearchRecipesDocument, options);
+      }
+export function useSearchRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchRecipesQuery, SearchRecipesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchRecipesQuery, SearchRecipesQueryVariables>(SearchRecipesDocument, options);
+        }
+export type SearchRecipesQueryHookResult = ReturnType<typeof useSearchRecipesQuery>;
+export type SearchRecipesLazyQueryHookResult = ReturnType<typeof useSearchRecipesLazyQuery>;
+export type SearchRecipesQueryResult = Apollo.QueryResult<SearchRecipesQuery, SearchRecipesQueryVariables>;
 export const RecordCategoriesDocument = gql`
     query RecordCategories {
   recordCategories {

@@ -1,0 +1,26 @@
+query SearchRecipes($query: String!){
+  searchRecipes(query: $query){
+    recipes{
+      id
+      name
+      total
+      image
+    }
+    ingredients {
+      recipe{
+        id
+        name
+        total
+        image
+      }
+    }
+    nutritients{
+      recipe{
+        id
+        name
+        description
+        image
+      }
+    }
+  }
+}
