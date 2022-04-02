@@ -18,6 +18,9 @@ export const Meal: React.FC<any> = ({ route }) => {
   const [markedDates, setMarkedDates] = React.useState<any[]>([]); 
   const [date, setDate] = React.useState(new Date());
   const _daysWithMeals = useDaysWithRecipesQuery({
+    variables: {
+      mealID: mealID
+    },
     onCompleted: (res) => {
       if(res.daysWithRecipes.status){
         setMarkedDates(generateMarkedDates(res.daysWithRecipes.markedDates))
