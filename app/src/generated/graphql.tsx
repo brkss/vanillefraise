@@ -791,7 +791,7 @@ export type SearchRecipesQueryVariables = Exact<{
 }>;
 
 
-export type SearchRecipesQuery = { __typename?: 'Query', searchRecipes: { __typename?: 'SearchResultResponse', recipes: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }>, ingredients: Array<{ __typename?: 'Ingredient', recipe: { __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string } }>, nutritients: Array<{ __typename?: 'RecipeTotalNutrition', recipe: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, image: string } }> } };
+export type SearchRecipesQuery = { __typename?: 'Query', searchRecipes: { __typename?: 'SearchResultResponse', recipes: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }>, ingredients: Array<{ __typename?: 'Ingredient', recipe: { __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string } }>, nutritients: Array<{ __typename?: 'RecipeTotalNutrition', recipe: { __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string } }> } };
 
 export type RecordCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1833,7 +1833,7 @@ export const SearchRecipesDocument = gql`
       recipe {
         id
         name
-        description
+        total
         image
       }
     }

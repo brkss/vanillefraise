@@ -18,7 +18,7 @@ query SearchRecipes($query: String!){
       recipe{
         id
         name
-        description
+        total
         image
       }
     }
