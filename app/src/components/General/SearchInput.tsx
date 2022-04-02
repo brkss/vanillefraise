@@ -12,6 +12,7 @@ export const SearchInput: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 0,
+    marginBottom: 5,
   },
   input: {
     backgroundColor: "#EBEBEB",
