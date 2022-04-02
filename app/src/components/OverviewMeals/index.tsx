@@ -37,7 +37,7 @@ export const MealsOverview: React.FC<Props> = ({ navigation }) => {
           <View key={key} style={styles.item}>
             <MealItem
               color={meals[key].color}
-              navigate={() => navigation.push("Meal", { mealID: meal.id})}
+              navigate={() => navigation.push("Meal", { mealID: meal.id, mealName: meal.name})}
               title={meal.name}
             />
           </View>

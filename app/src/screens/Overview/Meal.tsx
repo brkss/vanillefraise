@@ -3,15 +3,14 @@ import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { Loading, MealRecipes, MealGrocery } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
-import { useGetMealRecipesQuery} from "../../generated/graphql";
-
+import { useGetMealRecipesQuery } from "../../generated/graphql";
 
 export const Meal: React.FC<any> = ({ route }) => {
-  const { mealID } = route.params;
-
-  const { data, loading, error } = useGetMealRecipesQuery({
+  const { mealID, mealName } = route.params;
+  const [date, setDate] = React.useState(new Date());
+  const { data, loading, error, refetch } = useGetMealRecipesQuery({
     variables: {
-      date: new Date().toString(),
+      date: date.toString(),
       meal: mealID,
     },
     onCompleted: (res) => {
@@ -23,20 +22,20 @@ export const Meal: React.FC<any> = ({ route }) => {
     condensed: require("../../assets/helvitica-condensed.otf"),
   });
 
-  if (!helviticaCondensed || loading || error) {
+  if (!helviticaCondensed) {
     return <Loading />;
   }
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <Text style={styles.title}>BREAKFAST</Text>
+        <Text style={styles.title}>{mealName}</Text>
         <View style={styles.row}>
           <Text style={styles.calories}>1100 Cal</Text>
           <Text style={styles.time}>⏱ 42min</Text>
         </View>
         <CalendarStrip
-          selectedDate={new Date()}
+          selectedDate={date}
           scrollable
           calendarAnimation={{ type: "sequence", duration: 30 }}
           daySelectionAnimation={{
@@ -53,13 +52,20 @@ export const Meal: React.FC<any> = ({ route }) => {
           highlightDateNameStyle={{ color: "white" }}
           highlightDateNumberStyle={{ color: "white" }}
           highlightDateContainerStyle={{ backgroundColor: "black" }}
-          onDateSelected={(date) => {}}
+          onDateSelected={(d) => {
+            setDate(d.toDate());
+            refetch({ date: date.toString(), meal: mealID });
+          }}
           useIsoWeekday={false}
         />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <MealRecipes recipes={data.getMealRecipes.recipes} />
-          <MealGrocery ingredients={data.getMealRecipes.ingredients} />
-        </ScrollView>
+        {loading || error ? (
+          <Loading />
+        ) : (
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <MealRecipes recipes={data.getMealRecipes.recipes} />
+            <MealGrocery ingredients={data.getMealRecipes.ingredients} />
+          </ScrollView>
+        )}
       </SafeAreaView>
     </View>
   );

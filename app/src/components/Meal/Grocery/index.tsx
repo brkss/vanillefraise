@@ -1,32 +1,34 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { GroceryItem } from './Item';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { GroceryItem } from "./Item";
 
 interface Props {
   ingredients: any[];
 }
 
-export const MealGrocery : React.FC<Props> = ({ingredients}) => {
-
-  return(
+export const MealGrocery: React.FC<Props> = ({ ingredients }) => {
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>What you'll need</Text>
       <View style={styles.items}>
-      {
-        ingredients.map((ing, key) => (
-          
-          ing.ingredients ? <GroceryItem txt={ing.ingredients} /> : null
-        ))
-      }  
+        {ingredients.map((ing, key) =>
+          ing.ingredients ? (
+            <GroceryItem
+              unit={ing.unit}
+              qtt={ing.amount}
+              key={key}
+              txt={ing.ingredients}
+            />
+          ) : null
+        )}
+      </View>
     </View>
-    </View>
-  )
-
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5
+    padding: 5,
   },
   title: {
     fontWeight: "bold",
@@ -35,6 +37,6 @@ const styles = StyleSheet.create({
     color: "#434343",
   },
   items: {
-    marginTop: 10
-  }
-})
+    marginTop: 10,
+  },
+});

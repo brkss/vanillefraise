@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RecipeThumbnail } from "../../RecipeThumbnail";
 import { CDN } from '../../../utils/config/defaults';
+import { NoMealFound } from './Nothing';
 
 interface Props {
   recipes: any[]
@@ -13,7 +14,9 @@ export const MealRecipes: React.FC<Props> = ({recipes}) => {
       <Text style={styles.title}>Recipes</Text>
       <Text style={styles.date}>28/03/2022</Text>
       <View style={styles.recipes}>
+        
         {
+          recipes.length > 0 ?
           recipes.map((recipe, key) => (
             <RecipeThumbnail
                 pressed={() => {}}
@@ -23,7 +26,7 @@ export const MealRecipes: React.FC<Props> = ({recipes}) => {
                 carbs={recipe.carbs}
                 key={key}
               />
-          ))
+              )) : <NoMealFound />
         }
         
       </View>

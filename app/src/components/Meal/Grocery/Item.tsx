@@ -3,14 +3,15 @@ import { View, Text, StyleSheet } from "react-native";
 
 interface Props {
   txt: string;
+  qtt: number;
+  unit: string;
 }
 
-export const GroceryItem: React.FC<Props> = ({txt}) => {
+export const GroceryItem: React.FC<Props> = ({ txt, qtt, unit}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.txt}>
-        {txt}
-      </Text>
+      <Text style={styles.qtt}>{qtt} {unit}</Text>
+      <Text style={styles.txt}>{txt}</Text>
     </View>
   );
 };
@@ -27,4 +28,6 @@ const styles = StyleSheet.create({
     color: "#434343",
     fontWeight: "600",
   },
+  qtt: {},
+  unit: {}
 });
