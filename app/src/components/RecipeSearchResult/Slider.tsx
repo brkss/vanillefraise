@@ -21,7 +21,14 @@ interface Props {
   select: (selected: string) => void;
 }
 
-export const RecipeSearchSlider: React.FC<Props> = ({select}) => {
+export const RecipeSearchSlider: React.FC<Props> = ({ select }) => {
+  const [selected, setSelected] = React.useState("BY_NAME");
+
+  const handleSelect = (f: string) => {
+    setSelected(f);
+    select(f);
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -29,7 +36,14 @@ export const RecipeSearchSlider: React.FC<Props> = ({select}) => {
       showsHorizontalScrollIndicator={false}
     >
       {filters.map((filter, key) => (
-        <Pressable key={key} style={styles.item} onPress={() => select(filter.id)}>
+        <Pressable
+          key={key}
+          style={[
+            styles.item,
+            { backgroundColor: selected == filter.id ? colors.c1 : colors.c2 },
+          ]}
+          onPress={() => handleSelect(filter.id)}
+        >
           <Text style={styles.txt}>{filter.name}</Text>
         </Pressable>
       ))}
