@@ -1,6 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
-import { Heading, Slider, RecipeThumbnail, Loading } from "../../components";
+import {
+  Heading,
+  Slider,
+  RecipeThumbnail,
+  Loading,
+  SearchInput,
+} from "../../components";
 //import { recipes, recipes_category } from "../../utils";
 import { colors } from "../../utils";
 import { useRecipeCategoriesQuery } from "../../generated/graphql";
@@ -21,9 +27,9 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
 
   const handleSelectingCategory = (cat_id: string) => {
     SetCategory(cat_id);
-    const category = data!.recipeCategories.find(x => x.id === cat_id);
+    const category = data!.recipeCategories.find((x) => x.id === cat_id);
     SetRecipes(category!.recipes);
-  }
+  };
 
   if (loading || error) {
     return <Loading />;
@@ -34,6 +40,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       <SafeAreaView>
         <View style={styles.headingContainer}>
           <Heading title={"Recipes"} />
+          <SearchInput />
         </View>
         <View style={styles.recipesContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -45,7 +52,9 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
             />
             {recipes.map((recipe, key) => (
               <RecipeThumbnail
-                pressed={() => navigation.push("RecipeDetails", {id: recipe.id})}
+                pressed={() =>
+                  navigation.push("RecipeDetails", { id: recipe.id })
+                }
                 title={recipe.name}
                 img={`${CDN}/${recipe.image}`}
                 time={recipe.total}
