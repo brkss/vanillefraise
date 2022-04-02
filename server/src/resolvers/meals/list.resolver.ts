@@ -19,28 +19,10 @@ export class ListMealsResolver {
   }
 
   @UseMiddleware(isUserAuth)
-  @Query(() => MealRecipeResponse)
-  async mr(
-    @Arg("data") data: MealRecipesInput,
-    @Ctx() ctx: IContext
-  ): Promise<MealRecipeResponse> {
-    const user = await User.findOne({ where: { id: ctx.payload.userID } });
-    if (!data || !data.date || !data.meal || !user)
-      return {
-        status: false,
-        message: "Invalid Data !",
-      };
-    return {
-      status: true,
-      message: "Test !",
-    };
-  }
-
-  @UseMiddleware(isUserAuth)
   @Query(() => MarkedDaysResponse)
-  async daysWithRecipes(@Ctx() ctx: IContext): Promise<MarkedDaysResponse> {
+  async daysWithRecipes(@Arg('mealID') mealID: string, @Ctx() ctx: IContext): Promise<MarkedDaysResponse> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
-    if (!user) {
+    if (!user || !mealID) {
       return {
         status: false,
         message: "Invalid Data !",
@@ -51,9 +33,11 @@ export class ListMealsResolver {
       .select("meal_recipes.date", "date")
       .addSelect("COUNT(meal_recipes.id)", "count")
       .where("meal_recipes.userId = :userID", { userID: user.id })
+      .andWhere("meal_recipes.mealId = :mealID", {mealID: mealID})
       .groupBy("meal_recipes.date")
       .getRawMany();
 
+    console.log("USER ID : ", user.id);
     console.log("Results : ", mr);
 
     return {
