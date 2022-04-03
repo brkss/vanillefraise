@@ -54,6 +54,14 @@ export const Meal: React.FC<any> = ({ route }) => {
     return markedDates;
   };
 
+  const markAsCooked = () => {
+    let mr: string[] = [];
+    data.getMealRecipes.mealrecipes.forEach((r) => {
+      mr.push(r.id);
+    });
+    console.log("meal recipes ids: ", mr);
+  };
+
   const [helviticaCondensed] = useFonts({
     condensed: require("../../assets/helvitica-condensed.otf"),
   });
@@ -67,8 +75,10 @@ export const Meal: React.FC<any> = ({ route }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.row}>
           <Text style={[styles.title, { width: "50%" }]}>{mealName}</Text>
-          <View style={[{ width: "50%", alignItems: 'flex-end' }]}>
-            <MarkAsFinished  marked={() => {}} />
+          <View style={[{ width: "50%", alignItems: "flex-end" }]}>
+            {loading || error ? null : (
+              <MarkAsFinished marked={() => markAsCooked()} />
+            )}
           </View>
         </View>
         <View style={styles.row}>
