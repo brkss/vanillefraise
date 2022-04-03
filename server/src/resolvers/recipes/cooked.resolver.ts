@@ -62,7 +62,7 @@ export class CookedRecipeResolver {
   @UseMiddleware(isUserAuth)
   @Mutation(() => DefaultResponse)
   async cookedRecipes(
-    @Arg("rcipesID", () => [String]) mealRecipesID: string[],
+    @Arg("mealRecipesID", () => [String]) mealRecipesID: string[],
     @Ctx() ctx: IContext
   ): Promise<DefaultResponse> {
     if (!mealRecipesID|| mealRecipesID.length == 0) {
