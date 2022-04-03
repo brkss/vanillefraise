@@ -12,6 +12,7 @@ import { Recipe } from "../../entity/Recipe";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
 import { DefaultResponse } from "../../utils/responses/default.response";
+import { MealRecipes } from '../../entity/Meals/MealRecipes';
 
 @Resolver()
 export class CookedRecipeResolver {
@@ -61,30 +62,32 @@ export class CookedRecipeResolver {
   @UseMiddleware(isUserAuth)
   @Mutation(() => DefaultResponse)
   async cookedRecipes(
-    @Arg("rcipesID") recipesID: string[],
+    @Arg("rcipesID", () => [String]) mealRecipesID: string[],
     @Ctx() ctx: IContext
   ): Promise<DefaultResponse> {
-    if (!recipesID || recipesID.length == 0) {
+    if (!mealRecipesID|| mealRecipesID.length == 0) {
       return {
         status: false,
         message: "Invalid Data !",
       };
     }
 
-    const user = await User.findOne({where: {id: ctx.payload.userID}});
-    if(!user){
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) {
       return {
         status: false,
-        message: "Invalid User !"
-      }  
+        message: "Invalid User !",
+      };
     }
 
-    for(let recipeId of recipesID){
-      const recipe = await Recipe.findOne({where: {id: recipeId}});
-      if(recipe){
+    for (let mealRecipeId of mealRecipesID) {
+      const mr = await MealRecipes.findOne({where: {id: mealRecipeId}, relations: ['recipe']});
+      if(mr && !mr.cooked){
         const cr = new CookedRecipe();
-        cr.recipe = recipe;
-        cr.user = user;
+        cr.recipe = mr.recipe;
+        cr.user = cr.user;
+        mr.cooked = true;
+        await mr.save();
         await cr.save();
       }
     }

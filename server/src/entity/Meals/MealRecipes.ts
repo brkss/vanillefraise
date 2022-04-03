@@ -41,4 +41,8 @@ export class MealRecipes extends BaseEntity {
   @Field()
   @Column()
   date: string;
+
+  @Field()
+  @Column('boolean', {default: false})
+  cooked: boolean;
 }
