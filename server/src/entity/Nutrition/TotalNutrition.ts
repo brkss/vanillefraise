@@ -1,15 +1,18 @@
-import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Recipe } from '../Recipe';
-import { ObjectType, Field } from 'type-graphql';
-
+import {
+  Entity,
+  Column,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+} from "typeorm";
+import { Recipe } from "../Recipe";
+import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
 @Entity()
 export class RecipeTotalNutrition extends BaseEntity {
-
-
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Field()
@@ -29,9 +32,9 @@ export class RecipeTotalNutrition extends BaseEntity {
   code: string;
 
   @Field(() => Recipe)
-  @ManyToOne(() => Recipe, recipe => recipe.totalnutrition, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+  @ManyToOne(() => Recipe, (recipe) => recipe.totalnutrition, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   })
-  recipe: Recipe
+  recipe: Recipe;
 }

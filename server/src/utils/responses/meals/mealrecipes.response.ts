@@ -20,4 +20,10 @@ export class MealRecipeResponse {
   @Field(() => [MealRecipes] ,{nullable: true})
   mealrecipes?: MealRecipes[];
 
+  @Field({nullable: true})
+  time?: number;
+
+  @Field({nullable: true})
+  calories?: number;
+
 } 
