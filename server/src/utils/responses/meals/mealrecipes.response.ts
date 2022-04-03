@@ -26,4 +26,7 @@ export class MealRecipeResponse {
   @Field({nullable: true})
   calories?: number;
 
+  @Field({nullable: true})
+  cooked?: boolean;
+
 } 

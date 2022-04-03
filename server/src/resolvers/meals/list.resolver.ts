@@ -9,6 +9,7 @@ import {
 } from "../../utils/responses/meals";
 import { User } from "../../entity/User";
 import { Like, getRepository } from "typeorm";
+import { DefaultResponse } from "src/utils/responses";
 
 @Resolver()
 export class ListMealsResolver {
@@ -40,7 +41,6 @@ export class ListMealsResolver {
       .groupBy("meal_recipes.date")
       .getRawMany();
     console.log("USER ID : ", user.id);
-    console.log("Results : ", mr);
 
     return {
       status: true,
@@ -77,6 +77,7 @@ export class ListMealsResolver {
       relations: ["recipe", "recipe.ingredients", "recipe.totalnutrition"],
     });
 
+    const mri = mr.map((mealrecipe) => mealrecipe.id);
     const recipes = mr.map((mealrecipe) => mealrecipe.recipe);
     // count total time in minutes
     let cal = 0;
@@ -97,6 +98,7 @@ export class ListMealsResolver {
     }
     //console.log("ingredients => ", ingredients);
 
+    const cooked = await this.checkIfCooked(user, mri);
     return {
       status: true,
       message: `DATE : ${data.date.toLocaleDateString()}`,
@@ -105,6 +107,36 @@ export class ListMealsResolver {
       ingredients: ingredients,
       time: total,
       calories: cal,
+      cooked: cooked.status,
+    };
+  }
+
+  async checkIfCooked(
+    user: User,
+    mealRecipesID: string[]
+  ): Promise<DefaultResponse> {
+    if (!user || !mealRecipesID || mealRecipesID.length == 0) {
+      return {
+        status: false,
+        message: "Invalid Data !",
+      };
+    }
+    let count = 0;
+    for (let mri of mealRecipesID) {
+      let mr = await MealRecipes.findOne({ where: { id: mri, user: user } });
+      if (!mr) {
+        return {
+          status: false,
+        };
+      }
+      if (mr.cooked) count++;
+    }
+    if (count == mealRecipesID.length)
+      return {
+        status: true,
+      };
+    return {
+      status: false,
     };
   }
 }

@@ -16,6 +16,38 @@ import { MealRecipes } from '../../entity/Meals/MealRecipes';
 
 @Resolver()
 export class CookedRecipeResolver {
+  
+  @UseMiddleware(isUserAuth)
+  @Mutation(() => DefaultResponse)
+  async checkCookedMeal(@Arg('mealRecipesID', () => [String]) mealRecipesID: string[], @Ctx() ctx: IContext)  : Promise<DefaultResponse> {
+    
+    const user = await User.findOne({where: {id: ctx.payload.userID}})
+    if(!user || !mealRecipesID || mealRecipesID.length == 0){
+      return{
+        status: false,
+        message: "Invalid Data !"
+      }
+    }
+    let count = 0;
+    for(let mri of mealRecipesID){
+      let mr = await MealRecipes.findOne({where: {id: mri}});
+      if(!mr){
+        return {
+          status: false,
+        }
+      }
+      if(mr.cooked)
+        count++;
+    }
+    if(count == mealRecipesID.length)
+      return {
+        status: true
+      }
+    return {
+        status: false
+    }
+  }
+
   @UseMiddleware(isUserAuth)
   @Mutation(() => DefaultResponse)
   async cookedRecipe(
