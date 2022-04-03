@@ -62,8 +62,14 @@ export const Meal: React.FC<any> = ({ route }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>{mealName}</Text>
         <View style={styles.row}>
-          <Text style={styles.calories}>1100 Cal</Text>
-          <Text style={styles.time}>⏱ 42min</Text>
+          <Text style={styles.calories}>
+            {" "}
+            {loading || error ? "__" : data.getMealRecipes.calories} Cal
+          </Text>
+          <Text style={styles.time}>
+            {" "}
+            ⏱ {loading || error ? "__" : data.getMealRecipes.time} min
+          </Text>
         </View>
         {_daysWithMeals.loading || _daysWithMeals.error ? (
           <Loading />
