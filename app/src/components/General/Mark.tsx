@@ -3,14 +3,25 @@ import { Pressable, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
-  marked: () => void;
+  mark: () => void;
+  marked: boolean;
 }
 
-export const MarkAsFinished: React.FC<Props> = ({marked}) => {
+export const MarkAsFinished: React.FC<Props> = ({ marked, mark }) => {
   return (
-    <Pressable style={styles.container} onPress={() => marked()}>
-      <Ionicons name={"checkmark-circle-outline"} color={"white"} size={16} />
-      <Text style={styles.txt}>Mark As Cooked</Text>
+    <Pressable
+      style={[
+        styles.container,
+        { backgroundColor: marked ? "#5EA353" : "black" },
+      ]}
+      onPress={() => mark()}
+    >
+      <Ionicons
+        name={marked ? "checkmark-circle-outline" : "restaurant-outline"}
+        color={"white"}
+        size={16}
+      />
+      <Text style={styles.txt}>{marked ? "COOKED" : "MARK AS COOKED"}</Text>
     </Pressable>
   );
 };
@@ -18,7 +29,7 @@ export const MarkAsFinished: React.FC<Props> = ({marked}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    paddingHorizontal: 17,
+    paddingHorizontal: 15,
     backgroundColor: "black",
     borderRadius: 15,
     marginBottom: 3,

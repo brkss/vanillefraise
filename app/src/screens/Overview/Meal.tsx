@@ -20,10 +20,21 @@ interface MarkedDate {
 }
 
 export const Meal: React.FC<any> = ({ route }) => {
+  const [iscooked, setIscooked] = React.useState(false);
   const [cooked] = useCookedRecipesMutation();
   const { mealID, mealName } = route.params;
   const [markedDates, setMarkedDates] = React.useState<any[]>([]);
   const [date, setDate] = React.useState(new Date());
+
+  const getMealRecipesIds = (): string[] => {
+    let mr: string[] = [];
+    data.getMealRecipes.mealrecipes.forEach((r) => {
+      mr.push(r.id);
+    });
+
+    return mr;
+  };
+
   const _daysWithMeals = useDaysWithRecipesQuery({
     variables: {
       mealID: mealID,
@@ -57,10 +68,7 @@ export const Meal: React.FC<any> = ({ route }) => {
   };
 
   const markAsCooked = () => {
-    let mr: string[] = [];
-    data.getMealRecipes.mealrecipes.forEach((r) => {
-      mr.push(r.id);
-    });
+    const mr = getMealRecipesIds();
     cooked({
       variables: {
         mealrecipesid: mr,
@@ -86,7 +94,7 @@ export const Meal: React.FC<any> = ({ route }) => {
           <Text style={[styles.title, { width: "50%" }]}>{mealName}</Text>
           <View style={[{ width: "50%", alignItems: "flex-end" }]}>
             {loading || error ? null : (
-              <MarkAsFinished marked={() => markAsCooked()} />
+              <MarkAsFinished marked={data.getMealRecipes.cooked} mark={() => markAsCooked()} />
             )}
           </View>
         </View>

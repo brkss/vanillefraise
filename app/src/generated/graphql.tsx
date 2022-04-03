@@ -188,6 +188,7 @@ export type Meal = {
 export type MealRecipeResponse = {
   __typename?: 'MealRecipeResponse';
   calories?: Maybe<Scalars['Float']>;
+  cooked?: Maybe<Scalars['Boolean']>;
   ingredients?: Maybe<Array<Ingredient>>;
   mealrecipes?: Maybe<Array<MealRecipes>>;
   message?: Maybe<Scalars['String']>;
@@ -748,7 +749,7 @@ export type GetMealRecipesQueryVariables = Exact<{
 }>;
 
 
-export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string }> | null | undefined } };
+export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, cooked?: boolean | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string }> | null | undefined } };
 
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1357,6 +1358,7 @@ export const GetMealRecipesDocument = gql`
     message
     time
     calories
+    cooked
     recipes {
       id
       name

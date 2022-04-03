@@ -4,6 +4,7 @@ query GetMealRecipes($meal: String!, $date: DateTime!) {
     message
     time
     calories
+    cooked
     recipes {
       id
       name
