@@ -12,7 +12,6 @@ export const MealRecipes: React.FC<Props> = ({recipes}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recipes</Text>
-      <Text style={styles.date}>28/03/2022</Text>
       <View style={styles.recipes}>
         
         {
