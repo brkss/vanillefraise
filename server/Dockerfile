@@ -1,4 +1,5 @@
-FROM node:14.5.0 
+#FROM node:14.5.0 
+FROM arm64v8/node 
 
 WORKDIR /usr/src/app
 

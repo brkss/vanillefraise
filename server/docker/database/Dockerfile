@@ -5,4 +5,4 @@ ENV MYSQL_USER eynak
 ENV MYSQL_PASSWORD tsew
 ENV MYSQL_DATABASE opencc
 
-ADD ./setup.sql /docker-entrypoint-initdb.d
+ADD ./bqq.sql /docker-entrypoint-initdb.d
