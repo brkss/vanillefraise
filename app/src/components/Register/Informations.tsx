@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 import { IInformationData } from "../../utils/types/Register";
@@ -64,7 +64,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
       <Text style={styles.heading}>Basic {"\n"}Informations</Text>
       {error ? <Error txt={error} close={() => setError("")} /> : null}
       <View style={styles.form}>
@@ -89,7 +89,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
         <InvisibleInput secure label={"RE-PASSWORD"} txtChange={(v) => {}} />
         <Button txt={"NEXT"} clicked={() => handleSendingData()} />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
