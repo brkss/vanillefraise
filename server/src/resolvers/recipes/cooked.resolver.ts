@@ -1,60 +1,105 @@
-import { Resolver, Query, Mutation, Arg, Ctx, UseMiddleware } from 'type-graphql';
-import { CookedRecipe } from '../../entity/UserInfo';
-import { User } from '../../entity/User';
-import { Recipe } from '../../entity/Recipe';
-import { isUserAuth } from '../../utils/middlewares';
-import {IContext} from '../../utils/types/Context';
-import { DefaultResponse } from '../../utils/responses/default.response';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+} from "type-graphql";
+import { CookedRecipe } from "../../entity/UserInfo";
+import { User } from "../../entity/User";
+import { Recipe } from "../../entity/Recipe";
+import { isUserAuth } from "../../utils/middlewares";
+import { IContext } from "../../utils/types/Context";
+import { DefaultResponse } from "../../utils/responses/default.response";
 
 @Resolver()
 export class CookedRecipeResolver {
-
   @UseMiddleware(isUserAuth)
   @Mutation(() => DefaultResponse)
-  async cookedRecipe(@Arg('recipeID') recipeID: string, @Ctx() ctx: IContext) : Promise<DefaultResponse>{
-  
-    if(!recipeID){
+  async cookedRecipe(
+    @Arg("recipeID") recipeID: string,
+    @Ctx() ctx: IContext
+  ): Promise<DefaultResponse> {
+    if (!recipeID) {
       return {
         status: false,
-        message: "Invalid Arguments !"
-      }
+        message: "Invalid Arguments !",
+      };
     }
 
     try {
-      const user = await User.findOne({where: {id: ctx.payload.userID}});
-      const recipe = await Recipe.findOne({where: {id: recipeID}});
-      if(!user || !recipe){
+      const user = await User.findOne({ where: { id: ctx.payload.userID } });
+      const recipe = await Recipe.findOne({ where: { id: recipeID } });
+      if (!user || !recipe) {
         return {
           status: false,
-          message: "Invalid Recipe !"
-        }
+          message: "Invalid Recipe !",
+        };
       }
       const cookedRecipe = new CookedRecipe();
       cookedRecipe.recipe = recipe;
       cookedRecipe.user = user;
-      await cookedRecipe.save(); 
+      await cookedRecipe.save();
 
       return {
         status: true,
-        message: "Recipe flaged as cooked !"
-      }
-    }catch(e){
-      console.log("Something went wrong trying to flag recipe as cooked => ", e);
+        message: "Recipe flaged as cooked !",
+      };
+    } catch (e) {
+      console.log(
+        "Something went wrong trying to flag recipe as cooked => ",
+        e
+      );
       return {
         status: false,
-        message: "Something went wrong !"
+        message: "Something went wrong !",
+      };
+    }
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Mutation(() => DefaultResponse)
+  async cookedRecipes(
+    @Arg("rcipesID") recipesID: string[],
+    @Ctx() ctx: IContext
+  ): Promise<DefaultResponse> {
+    if (!recipesID || recipesID.length == 0) {
+      return {
+        status: false,
+        message: "Invalid Data !",
+      };
+    }
+
+    const user = await User.findOne({where: {id: ctx.payload.userID}});
+    if(!user){
+      return {
+        status: false,
+        message: "Invalid User !"
+      }  
+    }
+
+    for(let recipeId of recipesID){
+      const recipe = await Recipe.findOne({where: {id: recipeId}});
+      if(recipe){
+        const cr = new CookedRecipe();
+        cr.recipe = recipe;
+        cr.user = user;
+        await cr.save();
       }
     }
-    
+
+    return {
+      status: true,
+      message: "Recipes Marked successfuly !",
+    };
   }
 
   @UseMiddleware(isUserAuth)
   @Query(() => Number)
-  async cookedRecipesCount(@Ctx() ctx: IContext) : Promise<number>{
-    const user = await User.findOne({where: {id: ctx.payload.userID}});
-    const count = await CookedRecipe.count({where: {user: user}});
+  async cookedRecipesCount(@Ctx() ctx: IContext): Promise<number> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    const count = await CookedRecipe.count({ where: { user: user } });
     return count;
-
   }
-
-} 
+}
