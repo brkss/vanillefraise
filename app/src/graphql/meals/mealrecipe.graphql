@@ -2,6 +2,8 @@ query GetMealRecipes($meal: String!, $date: DateTime!) {
   getMealRecipes(data: { date: $date, meal: $meal }) {
     status
     message
+    time
+    calories
     recipes {
       id
       name

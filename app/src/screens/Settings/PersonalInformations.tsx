@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView } from "react-native";
 import { Heading, InvisibleInput, Button, Loading } from "../../components";
 import { useFonts } from "expo-font";
 import { useMeQuery } from "../../generated/graphql";
@@ -40,7 +40,7 @@ export const PersonalInformation: React.FC = () => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Heading title={"Personal \nInformations"} />
-        <View style={{ flex: 1, justifyContent: "space-evenly" }}>
+        <KeyboardAvoidingView behavior={'padding'} style={{ flex: 1, justifyContent: "space-evenly" }}>
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Name</Text>
             <InvisibleInput
@@ -66,7 +66,7 @@ export const PersonalInformation: React.FC = () => {
             />
           </View>
           <Button txt={"SAVE"} clicked={() => {}} />
-        </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );

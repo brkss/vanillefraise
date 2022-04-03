@@ -15,42 +15,39 @@ interface MarkedDate {
 
 export const Meal: React.FC<any> = ({ route }) => {
   const { mealID, mealName } = route.params;
-  const [markedDates, setMarkedDates] = React.useState<any[]>([]); 
+  const [markedDates, setMarkedDates] = React.useState<any[]>([]);
   const [date, setDate] = React.useState(new Date());
   const _daysWithMeals = useDaysWithRecipesQuery({
     variables: {
-      mealID: mealID
+      mealID: mealID,
     },
     onCompleted: (res) => {
-      if(res.daysWithRecipes.status){
-        setMarkedDates(generateMarkedDates(res.daysWithRecipes.markedDates))
+      if (res.daysWithRecipes.status) {
+        setMarkedDates(generateMarkedDates(res.daysWithRecipes.markedDates));
       }
-    }
+    },
   });
   const { data, loading, error, refetch } = useGetMealRecipesQuery({
     variables: {
       date: date.toString(),
       meal: mealID,
     },
-    onCompleted: (res) => {
-      console.log("Meal Recipes Results => ", res);
-    },
   });
   const generateMarkedDates = (dates: MarkedDate[]) => {
-    const markedDates : any[] = [];
+    const markedDates: any[] = [];
     dates.map((date) => {
       markedDates.push({
         date: date.date,
-         dots: [
+        dots: [
           {
-            color: 'black',
-            selectedColor: 'white'
+            color: "black",
+            selectedColor: "white",
           },
-        ], 
-      })
-    })
+        ],
+      });
+    });
     return markedDates;
-  }
+  };
 
   const [helviticaCondensed] = useFonts({
     condensed: require("../../assets/helvitica-condensed.otf"),
@@ -74,7 +71,6 @@ export const Meal: React.FC<any> = ({ route }) => {
           <CalendarStrip
             selectedDate={date}
             scrollable
-            
             calendarAnimation={{ type: "sequence", duration: 30 }}
             daySelectionAnimation={{
               type: "background",
