@@ -8,3 +8,4 @@ export * from './Alert';
 export * from './Info';
 export * from './Error'
 export * from './SearchInput'
+export * from './Mark';

@@ -1,7 +1,12 @@
 import React from "react";
 import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
-import { Loading, MealRecipes, MealGrocery } from "../../components";
+import {
+  MarkAsFinished,
+  Loading,
+  MealRecipes,
+  MealGrocery,
+} from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
 import {
   useGetMealRecipesQuery,
@@ -60,7 +65,12 @@ export const Meal: React.FC<any> = ({ route }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <Text style={styles.title}>{mealName}</Text>
+        <View style={styles.row}>
+          <Text style={[styles.title, { width: "50%" }]}>{mealName}</Text>
+          <View style={[{ width: "50%", alignItems: 'flex-end' }]}>
+            <MarkAsFinished  marked={() => {}} />
+          </View>
+        </View>
         <View style={styles.row}>
           <Text style={styles.calories}>
             {" "}
