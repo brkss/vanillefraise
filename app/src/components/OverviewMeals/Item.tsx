@@ -7,10 +7,12 @@ interface Props {
   navigate: () => void;
 }
 
-export const MealItem: React.FC<Props> = ({color, title, navigate}) => {
+export const MealItem: React.FC<Props> = ({ color, title, navigate }) => {
   return (
-    <Pressable onPress={() => navigate()} style={[styles.container, {backgroundColor: color}]}>
-      <Text style={styles.recipe}>2 Recipes</Text>
+    <Pressable
+      onPress={() => navigate()}
+      style={[styles.container, { backgroundColor: color }]}
+    >
       <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
@@ -20,8 +22,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 8,
     height: 70,
-    justifyContent: 'flex-end',
-    borderRadius: 11
+    justifyContent: "flex-end",
+    borderRadius: 11,
   },
   recipe: {
     fontSize: 11,
