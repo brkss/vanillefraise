@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 import { IMeasurementData } from "../../utils/types/Register";
@@ -44,7 +50,7 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
       <InvisibleInput
         unit={"KG"}
         label={"WEIGHT"}
@@ -83,7 +89,7 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
         </View>
       )}
       <Button clicked={() => saveData()} txt={"NEXT"} />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

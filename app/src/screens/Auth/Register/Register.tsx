@@ -19,9 +19,9 @@ import {
 } from "../../../utils/types/Register";
 import { calcBMR } from "../../../utils/modules/bmr";
 import { useRegisterMutation } from "../../../generated/graphql";
-import { AuthContext } from '../../../utils/auth/AuthProvider';
-import { setAccessToken } from '../../../utils/token/token';
-import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from "../../../utils/auth/AuthProvider";
+import { setAccessToken } from "../../../utils/token/token";
+import * as SecureStore from "expo-secure-store";
 
 interface IUserData {
   username: string | "";
@@ -102,7 +102,8 @@ export const Register: React.FC<any> = ({ navigation }) => {
   const handleRegister = () => {
     register({
       variables: {
-        sc: data.sc,
+        sc: [],
+        //sc: data.sc,
         gender: data.gender,
         height: Number(data.height),
         weight: Number(data.weight),
@@ -115,7 +116,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
       },
     })
       .then(async (res) => {
-        if(res.data.register.status){
+        if (res.data.register.status) {
           // registered successfuly !
           const _token = res.data.register.token;
           const _refreshToken = res.data.register.rToken;
@@ -126,13 +127,13 @@ export const Register: React.FC<any> = ({ navigation }) => {
             "refresh token : ",
             await SecureStore.getItemAsync("TOKEN")
           );
-        }else {
-          setStatus('INTRO');
+        } else {
+          setStatus("INTRO");
         }
         console.log("register response => ", res);
       })
       .catch((e) => {
-        setStatus('INTRO')
+        setStatus("INTRO");
         console.log("Sonething went wrong while trying to register => ", e);
       });
   };
@@ -179,7 +180,9 @@ export const Register: React.FC<any> = ({ navigation }) => {
                   pass={(data: IGender) => handlePass({ gender: data })}
                 />
               ),
-              RESULT: <BMIResult bmr={data.bmi} pass={() => setStatus("SC")} />,
+              RESULT: (
+                <BMIResult bmr={data.bmi} pass={() => setStatus("OUTRO")} />
+              ),
               SC: (
                 <RegisterSpecialCondition
                   other={() => navigation.push("osc")}
