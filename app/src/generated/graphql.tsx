@@ -247,6 +247,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addMealRecipe: DefaultResponse;
   changePassword: ChangePasswordResponse;
+  checkCookedMeal: DefaultResponse;
   checkInfoValidity: UserInfoValidityResponse;
   cookedRecipe: DefaultResponse;
   cookedRecipes: DefaultResponse;
@@ -281,6 +282,11 @@ export type MutationAddMealRecipeArgs = {
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+
+export type MutationCheckCookedMealArgs = {
+  mealRecipesID: Array<Scalars['String']>;
 };
 
 
@@ -705,6 +711,13 @@ export type RequestEarlyAccessMutationVariables = Exact<{
 
 
 export type RequestEarlyAccessMutation = { __typename?: 'Mutation', requestEarlyAccess: boolean };
+
+export type CheckCookedMealMutationVariables = Exact<{
+  mealrecipesID: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type CheckCookedMealMutation = { __typename?: 'Mutation', checkCookedMeal: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
 export type CookedRecipesMutationVariables = Exact<{
   mealrecipesid: Array<Scalars['String']> | Scalars['String'];
@@ -1193,6 +1206,40 @@ export function useRequestEarlyAccessMutation(baseOptions?: Apollo.MutationHookO
 export type RequestEarlyAccessMutationHookResult = ReturnType<typeof useRequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationResult = Apollo.MutationResult<RequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationOptions = Apollo.BaseMutationOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
+export const CheckCookedMealDocument = gql`
+    mutation CheckCookedMeal($mealrecipesID: [String!]!) {
+  checkCookedMeal(mealRecipesID: $mealrecipesID) {
+    status
+    message
+  }
+}
+    `;
+export type CheckCookedMealMutationFn = Apollo.MutationFunction<CheckCookedMealMutation, CheckCookedMealMutationVariables>;
+
+/**
+ * __useCheckCookedMealMutation__
+ *
+ * To run a mutation, you first call `useCheckCookedMealMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCheckCookedMealMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [checkCookedMealMutation, { data, loading, error }] = useCheckCookedMealMutation({
+ *   variables: {
+ *      mealrecipesID: // value for 'mealrecipesID'
+ *   },
+ * });
+ */
+export function useCheckCookedMealMutation(baseOptions?: Apollo.MutationHookOptions<CheckCookedMealMutation, CheckCookedMealMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CheckCookedMealMutation, CheckCookedMealMutationVariables>(CheckCookedMealDocument, options);
+      }
+export type CheckCookedMealMutationHookResult = ReturnType<typeof useCheckCookedMealMutation>;
+export type CheckCookedMealMutationResult = Apollo.MutationResult<CheckCookedMealMutation>;
+export type CheckCookedMealMutationOptions = Apollo.BaseMutationOptions<CheckCookedMealMutation, CheckCookedMealMutationVariables>;
 export const CookedRecipesDocument = gql`
     mutation CookedRecipes($mealrecipesid: [String!]!) {
   cookedRecipes(mealRecipesID: $mealrecipesid) {

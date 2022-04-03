@@ -1,0 +1,6 @@
+mutation CheckCookedMeal($mealrecipesID: [String!]!){
+  checkCookedMeal(mealRecipesID: $mealrecipesID){
+    status
+    message
+  }
+}
