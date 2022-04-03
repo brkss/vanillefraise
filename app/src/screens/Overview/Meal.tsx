@@ -11,6 +11,7 @@ import CalendarStrip from "react-native-calendar-strip";
 import {
   useGetMealRecipesQuery,
   useDaysWithRecipesQuery,
+  useCookedRecipesMutation,
 } from "../../generated/graphql";
 
 interface MarkedDate {
@@ -19,6 +20,7 @@ interface MarkedDate {
 }
 
 export const Meal: React.FC<any> = ({ route }) => {
+  const [cooked] = useCookedRecipesMutation();
   const { mealID, mealName } = route.params;
   const [markedDates, setMarkedDates] = React.useState<any[]>([]);
   const [date, setDate] = React.useState(new Date());
@@ -59,7 +61,14 @@ export const Meal: React.FC<any> = ({ route }) => {
     data.getMealRecipes.mealrecipes.forEach((r) => {
       mr.push(r.id);
     });
-    console.log("meal recipes ids: ", mr);
+    cooked({
+      variables: {
+        mealrecipesid: mr,
+      },
+    }).then((res) => {
+      console.log("cooked recipes result : ", res);
+    });
+    //console.log("meal recipes ids: ", mr);
   };
 
   const [helviticaCondensed] = useFonts({
