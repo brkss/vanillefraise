@@ -6,9 +6,10 @@ import { NoMealFound } from './Nothing';
 
 interface Props {
   recipes: any[]
+  navigation: any
 }
 
-export const MealRecipes: React.FC<Props> = ({recipes}) => {
+export const MealRecipes: React.FC<Props> = ({recipes, navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recipes</Text>
@@ -18,7 +19,7 @@ export const MealRecipes: React.FC<Props> = ({recipes}) => {
           recipes.length > 0 ?
           recipes.map((recipe, key) => (
             <RecipeThumbnail
-                pressed={() => {}}
+                pressed={() =>  navigation.push("RecipeDetails", { id: recipe.id }) } 
                 title={recipe.name}
                 img={`${CDN}/${recipe.image}`}
                 time={recipe.total}

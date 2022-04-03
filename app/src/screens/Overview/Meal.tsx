@@ -19,7 +19,7 @@ interface MarkedDate {
   date: string;
 }
 
-export const Meal: React.FC<any> = ({ route }) => {
+export const Meal: React.FC<any> = ({ route, navigation }) => {
   const [iscooked, setIscooked] = React.useState(false);
   const [cooked] = useCookedRecipesMutation();
   const { mealID, mealName } = route.params;
@@ -94,7 +94,10 @@ export const Meal: React.FC<any> = ({ route }) => {
           <Text style={[styles.title, { width: "50%" }]}>{mealName}</Text>
           <View style={[{ width: "50%", alignItems: "flex-end" }]}>
             {loading || error ? null : (
-              <MarkAsFinished marked={data.getMealRecipes.cooked} mark={() => markAsCooked()} />
+              <MarkAsFinished
+                marked={data.getMealRecipes.cooked}
+                mark={() => markAsCooked()}
+              />
             )}
           </View>
         </View>
@@ -140,7 +143,10 @@ export const Meal: React.FC<any> = ({ route }) => {
           <Loading />
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
-            <MealRecipes recipes={data.getMealRecipes.recipes} />
+            <MealRecipes
+              navigation={navigation}
+              recipes={data.getMealRecipes.recipes}
+            />
             <MealGrocery ingredients={data.getMealRecipes.ingredients} />
           </ScrollView>
         )}
