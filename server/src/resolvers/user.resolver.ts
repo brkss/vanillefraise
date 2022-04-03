@@ -9,7 +9,7 @@ import {
 import { AuthDefaultResponse } from "../utils/responses";
 import { RegisterInput, LoginInput } from "../utils/inputs";
 import { User } from "../entity/User";
-import { SpecialCondition } from '../entity/UserInfo';
+import { SpecialCondition } from "../entity/UserInfo";
 import { hash, compare } from "bcrypt";
 import {
   generateAccessToken,
@@ -18,13 +18,40 @@ import {
 } from "../utils/token";
 import { IContext } from "../utils/types/Context";
 import { isUserAuth } from "../utils/middlewares";
-
+import { UserInfoValidtyInput } from "../utils/inputs/auth";
+import { UserInfoValidityResponse } from "../utils/responses/auth";
 
 @Resolver()
 export class UserResolver {
   @Query(() => String)
   ping() {
     return "pong";
+  }
+
+  @Mutation(() => UserInfoValidityResponse)
+  async checkInfoValidity(
+    @Arg("data") data: UserInfoValidtyInput
+  ): Promise<UserInfoValidityResponse> {
+    if (!data || !data.email || !data.username) {
+      return {
+        email: false,
+        username: false,
+      };
+    }
+
+    const response = {
+      email: false,
+      username: false,
+    };
+
+    const userEmail = await User.find({ where: { email: data.email } });
+    const userUsername = await User.find({
+      where: { username: data.username },
+    });
+    if (userEmail.length == 0) response.email = true;
+    if (userUsername.length == 0) response.username = true;
+
+    return response;
   }
 
   @Mutation(() => AuthDefaultResponse)
@@ -102,18 +129,17 @@ export class UserResolver {
       user.gender = data.gender;
       user.bmi = data.bmi;
       user.birth = data.birth;
-      
-      const sc : SpecialCondition[] = [];
-      for(let s of data.sc){
-        const condition = await SpecialCondition.findOne({where: { id: s }});
-        if(condition)
-          sc.push(condition);
+
+      const sc: SpecialCondition[] = [];
+      for (let s of data.sc) {
+        const condition = await SpecialCondition.findOne({ where: { id: s } });
+        if (condition) sc.push(condition);
       }
-      if(sc.length !== data.sc.length){
+      if (sc.length !== data.sc.length) {
         return {
           status: false,
-          message: "Some special conditions were not found ! "
-        }
+          message: "Some special conditions were not found ! ",
+        };
       }
       user.specialconditions = sc;
       await user.save();
