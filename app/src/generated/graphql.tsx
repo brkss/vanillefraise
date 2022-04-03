@@ -244,6 +244,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addMealRecipe: DefaultResponse;
   changePassword: ChangePasswordResponse;
+  checkInfoValidity: UserInfoValidityResponse;
   cookedRecipe: DefaultResponse;
   createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
@@ -276,6 +277,11 @@ export type MutationAddMealRecipeArgs = {
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+
+export type MutationCheckInfoValidityArgs = {
+  data: UserInfoValidtyInput;
 };
 
 
@@ -610,6 +616,17 @@ export type UserCaloriesResponse = {
   value?: Maybe<Scalars['Float']>;
 };
 
+export type UserInfoValidityResponse = {
+  __typename?: 'UserInfoValidityResponse';
+  email: Scalars['Boolean'];
+  username: Scalars['Boolean'];
+};
+
+export type UserInfoValidtyInput = {
+  email: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type GetActivityCaloriesQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -814,6 +831,14 @@ export type RecordsQueryVariables = Exact<{
 
 
 export type RecordsQuery = { __typename?: 'Query', records: { __typename?: 'ListRecordsResponse', status: boolean, message?: string | null | undefined, records?: Array<{ __typename?: 'Record', id: string, time: any, value: number, date: any, category: { __typename?: 'RecordCategory', id: string, name: string, unit: string } }> | null | undefined } };
+
+export type CheckInfoValidtyMutationVariables = Exact<{
+  username: Scalars['String'];
+  email: Scalars['String'];
+}>;
+
+
+export type CheckInfoValidtyMutation = { __typename?: 'Mutation', checkInfoValidity: { __typename?: 'UserInfoValidityResponse', email: boolean, username: boolean } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1997,6 +2022,41 @@ export function useRecordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Re
 export type RecordsQueryHookResult = ReturnType<typeof useRecordsQuery>;
 export type RecordsLazyQueryHookResult = ReturnType<typeof useRecordsLazyQuery>;
 export type RecordsQueryResult = Apollo.QueryResult<RecordsQuery, RecordsQueryVariables>;
+export const CheckInfoValidtyDocument = gql`
+    mutation CheckInfoValidty($username: String!, $email: String!) {
+  checkInfoValidity(data: {username: $username, email: $email}) {
+    email
+    username
+  }
+}
+    `;
+export type CheckInfoValidtyMutationFn = Apollo.MutationFunction<CheckInfoValidtyMutation, CheckInfoValidtyMutationVariables>;
+
+/**
+ * __useCheckInfoValidtyMutation__
+ *
+ * To run a mutation, you first call `useCheckInfoValidtyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCheckInfoValidtyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [checkInfoValidtyMutation, { data, loading, error }] = useCheckInfoValidtyMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useCheckInfoValidtyMutation(baseOptions?: Apollo.MutationHookOptions<CheckInfoValidtyMutation, CheckInfoValidtyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CheckInfoValidtyMutation, CheckInfoValidtyMutationVariables>(CheckInfoValidtyDocument, options);
+      }
+export type CheckInfoValidtyMutationHookResult = ReturnType<typeof useCheckInfoValidtyMutation>;
+export type CheckInfoValidtyMutationResult = Apollo.MutationResult<CheckInfoValidtyMutation>;
+export type CheckInfoValidtyMutationOptions = Apollo.BaseMutationOptions<CheckInfoValidtyMutation, CheckInfoValidtyMutationVariables>;
 export const MeDocument = gql`
     query Me {
   me {

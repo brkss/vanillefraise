@@ -1,0 +1,6 @@
+mutation CheckInfoValidty($username: String!, $email: String!){
+  checkInfoValidity(data: {username: $username, email: $email}){
+    email
+    username
+  }
+}

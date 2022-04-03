@@ -8,13 +8,20 @@ interface Props {
 }
 
 export const Input: React.FC<Props> = ({ value, onChange, unit }) => {
+  const [val, setVal] = React.useState("");
+  const handleValue = (v: string) => {
+    if (!v || (Number(v) && Number(v) > 0)) {
+      setVal(v);
+      onChange(v);
+    }
+  };
   return (
     <View style={styles.container}>
       <TextInput
         placeholder={"Value"}
-        onChangeText={(v) => onChange(v)}
+        onChangeText={(v) => handleValue(v)}
         style={styles.input}
-        value={value}
+        value={val}
       />
       <Text style={styles.unit}>{unit}</Text>
     </View>

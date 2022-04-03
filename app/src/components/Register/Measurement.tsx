@@ -29,7 +29,17 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
   };
 
   const saveData = () => {
-    if (!form || !form.weight || !form.height || !form.birth) return;
+    if (
+      !form ||
+      !form.weight ||
+      !form.height ||
+      !form.birth ||
+      !Number(form.weight) ||
+      Number(form.weight) < 0 ||
+      Number(form.height) < 0 ||
+      !Number(form.height)
+    )
+      return;
     pass(form as any);
   };
 

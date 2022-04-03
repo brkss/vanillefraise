@@ -3,14 +3,17 @@ import { View, Text, StyleSheet } from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 import { IInformationData } from "../../utils/types/Register";
+import { useCheckInfoValidtyMutation } from "../../generated/graphql";
+import { Error } from "../General/Error";
 
 interface Props {
   pass: (data: IInformationData) => void;
 }
 
 export const RegisterInformation: React.FC<Props> = ({ pass }) => {
+  const [error, setError] = React.useState("");
   const [form, SetForm] = React.useState<any>({});
-
+  const [check] = useCheckInfoValidtyMutation();
   const handleForm = (key: string, val: string) => {
     SetForm({
       ...form,
@@ -18,8 +21,37 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
     });
   };
 
-  const handleSendingData = () => {
-    if (!form || !form.name || !form.email || !form.username || !form.password) return;
+  const handleSendingData = async () => {
+    if (
+      !form ||
+      !form.name ||
+      !form.email ||
+      !form.username ||
+      !form.password
+    ) {
+      setError("Invalid Data");
+      return;
+    }
+    const res = await check({
+      variables: {
+        username: form.username,
+        email: form.email,
+      },
+    });
+    if (
+      !res.data.checkInfoValidity.email ||
+      !res.data.checkInfoValidity.username
+    ) {
+      setError(
+        `Invalid ${!res.data.checkInfoValidity.email ? "Email" : ""} ${
+          !res.data.checkInfoValidity.email &&
+          !res.data.checkInfoValidity.username
+            ? "and"
+            : ""
+        } ${!res.data.checkInfoValidity.username ? "Username" : ""}`
+      );
+      return;
+    }
     // trigger error !
     const data: IInformationData = {
       name: form.name,
@@ -34,6 +66,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Basic {"\n"}Informations</Text>
+      {error ? <Error txt={error} close={() => setError("")} /> : null}
       <View style={styles.form}>
         <InvisibleInput
           label={"NAME"}
