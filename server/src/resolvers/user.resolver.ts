@@ -109,8 +109,8 @@ export class UserResolver {
       !data.bmi ||
       !data.gender ||
       !data.height ||
-      !data.weight ||
-      data.sc.length == 0
+      !data.weight
+      //data.sc.length == 0
     ) {
       return {
         status: false,
