@@ -13,7 +13,7 @@ import {
   useRecordCategoriesQuery,
   useRecordsQuery,
 } from "../../generated/graphql";
-import { colors } from '../../utils/colors';
+import { colors } from "../../utils/colors";
 
 export const Activity: React.FC<any> = ({ navigation }) => {
   const [selected, setSelected] = React.useState("");
@@ -43,16 +43,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.headingContainer}>
-          <Heading title={"Activity"} />
-        </View>
-        
-        <View style={{ height: 140 }}>
-          <Slider
-            selected={selected}
-            onSelect={(sel) => handleSelect(sel)}
-            color={colors.c3}
-            categories={data.recordCategories}
-          />
+          <Heading title={"Activities"} />
         </View>
         <View style={styles.actions}>
           <Pressable
@@ -61,10 +52,19 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           >
             <Ionicons name={"ios-add-circle-outline"} size={24} />
             <View style={{ justifyContent: "center" }}>
-              <Text style={styles.createTxt}>START EXERCISE </Text>
+              <Text style={styles.createTxt}>NEW PHYSICAL EXERCISE </Text>
             </View>
           </Pressable>
         </View>
+        <View style={{ height: 140 }}>
+          <Slider
+            selected={selected}
+            onSelect={(sel) => handleSelect(sel)}
+            color={colors.c3}
+            categories={data.recordCategories}
+          />
+        </View>
+
         <View style={styles.recipesContainer}>
           {_records.loading || _records.error ? (
             <Loading />
@@ -112,6 +112,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "nowrap",
     opacity: 0.7,
+    padding: 20,
+    borderRadius: 15,
+    backgroundColor: "#E6E3E3",
   },
   createTxt: {
     justifyContent: "center",
