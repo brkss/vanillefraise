@@ -118,6 +118,7 @@ export class CookedRecipeResolver {
         const cr = new CookedRecipe();
         cr.recipe = mr.recipe;
         cr.user = cr.user;
+        cr.created_at = new Date(mr.date);
         mr.cooked = true;
         await mr.save();
         await cr.save();
