@@ -1,5 +1,6 @@
+import React from "react";
+import { StatusBar, Text } from "react-native";
 import { MainNavigation } from "./src/navigation";
-import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -12,6 +13,8 @@ import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode from "jwt-decode";
 import { AuthProvider } from "./src/utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
+import * as Network from "expo-network";
+import { NotConnected } from "./src/screens";
 
 const cache = new InMemoryCache({});
 
@@ -94,14 +97,28 @@ const client: any = new ApolloClient({
 });
 
 export default function App() {
+  const [isConnected, setIsConnected] = React.useState(false);
+  React.useEffect(() => {
+    (async () => {
+      const state = await Network.getNetworkStateAsync();
+      setIsConnected(state.isConnected);
+    })();
+  });
+
   return (
-    <ApolloProvider client={client}>
-      <AuthProvider>
-        <NativeBaseProvider>
-          <StatusBar style={"auto"} />
-          <MainNavigation />
-        </NativeBaseProvider>
-      </AuthProvider>
-    </ApolloProvider>
+    <>
+      {!isConnected ? (
+        <NotConnected />
+      ) : (
+        <ApolloProvider client={client}>
+          <AuthProvider>
+            <NativeBaseProvider>
+              <StatusBar style={"auto"} />
+              <MainNavigation />
+            </NativeBaseProvider>
+          </AuthProvider>
+        </ApolloProvider>
+      )}
+    </>
   );
 }

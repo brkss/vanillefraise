@@ -9,3 +9,4 @@ export * from "./Settings";
 export * from './Mental';
 export * from './Overview';
 export * from './Meals';
+export * from './NotConnected';

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    fontSize: 11,
+    fontSize: 10,
   },
   bar: {
     height: 100,
