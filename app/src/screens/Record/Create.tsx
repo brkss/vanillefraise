@@ -95,6 +95,10 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
             <Text style={{ fontSize: 24, fontWeight: "bold" }}>
               Health Related Records
             </Text>
+            <Text style={styles.subtitle}>
+              Health Related Records help you track your chronic conditons meds
+              intake.
+            </Text>
             <Slider
               onSelect={(id) => SetSelected(id)}
               selected={selected}
@@ -139,5 +143,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     //flex: 0.86,
+  },
+  subtitle: {
+    fontSize: 13,
+    fontWeight: "300",
+    opacity: 0.8,
+    marginTop: 5,
   },
 });

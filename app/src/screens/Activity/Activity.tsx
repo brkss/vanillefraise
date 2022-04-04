@@ -45,6 +45,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
         <View style={styles.headingContainer}>
           <Heading title={"Activity"} />
         </View>
+        
         <View style={{ height: 140 }}>
           <Slider
             selected={selected}

@@ -35,8 +35,10 @@ export const TodaysMood: React.FC<Props> = ({ triggerAlert }) => {
     })
       .then((res) => {
         if (res.data.createMoodRecord.status) {
-          SetSelected([])
-          triggerAlert(res.data.createMoodRecord.message || "Record Created Successfuly");
+          SetSelected([]);
+          triggerAlert(
+            res.data.createMoodRecord.message || "Record Created Successfuly"
+          );
         }
         console.log("res creating mood record => ", res);
       })
@@ -53,6 +55,9 @@ export const TodaysMood: React.FC<Props> = ({ triggerAlert }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>How you feeling today ?</Text>
+      <Text style={styles.subtitle}>
+        Mood Records help you understand your everyday behavior.
+      </Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -69,7 +74,7 @@ export const TodaysMood: React.FC<Props> = ({ triggerAlert }) => {
         ))}
       </ScrollView>
       {selected.length > 0 ? (
-        <Button  txt={"That's it"} clicked={() => saveRecord()} />
+        <Button txt={"That's it"} clicked={() => saveRecord()} />
       ) : null}
     </View>
   );
@@ -88,5 +93,11 @@ const styles = StyleSheet.create({
     //
     marginTop: 20,
     marginBottom: 15,
+  },
+  subtitle: {
+    fontSize: 13,
+    fontWeight: "300",
+    opacity: 0.8,
+    marginTop: 5,
   },
 });
