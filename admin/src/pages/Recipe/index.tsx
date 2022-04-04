@@ -11,7 +11,13 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { RecipeCategories, RecipeList } from "../../components";
-import { useRecipeCategoriesQuery, useCreateRecipeMutation, RecipesQuery,RecipesDocument } from "../../generated/graphql";
+import {
+  useRecipeCategoriesQuery,
+  useCreateRecipeMutation,
+  RecipesQuery,
+  RecipesDocument,
+} from "../../generated/graphql";
+import { Link } from "react-router-dom";
 
 export const CreateRecipe: React.FC = () => {
   const { data, loading, error } = useRecipeCategoriesQuery();
@@ -119,6 +125,19 @@ export const CreateRecipe: React.FC = () => {
               >
                 Create
               </Button>
+              <Link
+                target={"_blank"}
+                style={{
+                  marginTop: "20px",
+                  width: "100%",
+                  display: "block",
+                  textAlign: "left",
+                  fontWeight: "bold",
+                }}
+                to={"/resourses"}
+              >
+                Where to find recipes ?
+              </Link>
             </Box>
           </Center>
         </GridItem>

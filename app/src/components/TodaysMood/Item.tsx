@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 //import { EmojiProvider, Emoji } from "react-apple-emojis";
 //import emojiData from 'react-apple-emojis/lib/data.json'
+import { colors } from "../../utils/colors";
 
 interface Props {
   name: string;
@@ -16,7 +17,7 @@ export const Item: React.FC<Props> = ({ icon, name, onSelect, isSelected }) => {
       onPress={() => onSelect()}
       style={[
         styles.container,
-        { backgroundColor: isSelected ? "#B7E0A1" : "#DCDCDC" },
+        { backgroundColor: isSelected ? "#B7E0A1" : colors.c3 },
       ]}
     >
       <Text style={styles.icon}>{icon}</Text>
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#EFE6FF",
     borderRadius: 13,
     height: 100,
     width: 90,

@@ -1,5 +1,5 @@
 import { IRoute } from "../types/Route";
-import { Home, CreateRecipe } from "../../pages";
+import { Home, CreateRecipe, Resourses } from "../../pages";
 
 export const routes: IRoute[] = [
   {
@@ -13,5 +13,11 @@ export const routes: IRoute[] = [
     exact: true,
     path: "/create-recipe",
     component: CreateRecipe,
+  },
+  {
+    name: "Resourses",
+    exact: true,
+    component: Resourses,
+    path: "/resourses",
   },
 ];

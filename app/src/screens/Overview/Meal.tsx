@@ -76,6 +76,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
     }).then((res) => {
       console.log("cooked recipes result : ", res);
     });
+    refetch();
     //console.log("meal recipes ids: ", mr);
   };
 
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
-    alignItems: "baseline",
+    alignItems: "center",
   },
   calories: {
     //lineHeight: 25,

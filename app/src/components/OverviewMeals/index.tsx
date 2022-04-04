@@ -11,15 +11,18 @@ interface Props {
 const meals = [
   {
     title: "BREAKFAST",
-    color: "#C3C3C3",
+    //color: "#C3C3C3",
+    color: "#B3DFCE",
   },
   {
     title: "LUNCH",
-    color: "#D2D2D2",
+    //color: "#D2D2D2",
+    color: "#BCF3DF",
   },
   {
     title: "DINNER",
-    color: "#E2E2E2",
+    //color: "#E2E2E2",
+    color: "#C5F6E4",
   },
 ];
 
@@ -37,7 +40,12 @@ export const MealsOverview: React.FC<Props> = ({ navigation }) => {
           <View key={key} style={styles.item}>
             <MealItem
               color={meals[key].color}
-              navigate={() => navigation.push("Meal", { mealID: meal.id, mealName: meal.name})}
+              navigate={() =>
+                navigation.push("Meal", {
+                  mealID: meal.id,
+                  mealName: meal.name,
+                })
+              }
               title={meal.name}
             />
           </View>

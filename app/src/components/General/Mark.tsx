@@ -14,7 +14,9 @@ export const MarkAsFinished: React.FC<Props> = ({ marked, mark }) => {
         styles.container,
         { backgroundColor: marked ? "#5EA353" : "black" },
       ]}
-      onPress={() => {if(!marked)mark()} }
+      onPress={() => {
+        if (!marked) mark();
+      }}
     >
       <Ionicons
         name={marked ? "checkmark-circle-outline" : "restaurant-outline"}
@@ -35,10 +37,12 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     flexDirection: "row",
     flexWrap: "wrap",
+    marginTop: -5,
   },
   txt: {
     fontWeight: "bold",
     color: "white",
+    fontSize: 13,
     marginLeft: 10,
   },
 });

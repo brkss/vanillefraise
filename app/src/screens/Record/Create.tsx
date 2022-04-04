@@ -6,11 +6,11 @@ import {
   RecordForm,
   Loading,
   Alert,
-  TodaysMood
+  TodaysMood,
 } from "../../components";
 import { useRecordCategoriesQuery } from "../../generated/graphql";
 import { useCreateRecordMutation } from "../../generated/graphql";
-import { colors } from '../../utils/colors';
+import { colors } from "../../utils/colors";
 
 export const CreateRecord: React.FC<any> = ({ navigation }) => {
   const [alertData, SetAlertData] = React.useState({
@@ -78,6 +78,27 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.contentContainer}>
           <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+            <TodaysMood
+              triggerAlert={(msg) =>
+                SetAlertData({ text: msg, type: "success", show: true })
+              }
+            />
+            <View
+              style={{
+                borderTopWidth: 1,
+                borderTopColor: "#434343",
+                marginVertical: 15,
+                marginBottom: 20,
+                opacity: 0.4,
+              }}
+            />
+            <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+              Health Related Records
+            </Text>
+            <Text style={styles.subtitle}>
+              Health Related Records help you track your chronic conditons meds
+              intake.
+            </Text>
             <Slider
               onSelect={(id) => SetSelected(id)}
               selected={selected}
@@ -103,7 +124,6 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               onSave={() => saveRecord()}
             />
             {/*<RecordHistorySlide />*/}
-            <TodaysMood triggerAlert={(msg) => SetAlertData({text: msg, type: 'success', show: true})} />
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
@@ -123,5 +143,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     //flex: 0.86,
+  },
+  subtitle: {
+    fontSize: 13,
+    fontWeight: "300",
+    opacity: 0.8,
+    marginTop: 5,
   },
 });
