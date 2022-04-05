@@ -53,7 +53,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             <Text style={styles.subtitle}>About your mood</Text>
             <Text> According to your records </Text>
             <View style={{ marginBottom: 30 }}>
-              <MoodStats />
+              <MoodStats refreshing={refreshing} />
             </View>
           </View>
           <NutritionOverview />

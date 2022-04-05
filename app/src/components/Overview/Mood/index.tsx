@@ -4,8 +4,18 @@ import { Loading } from "../../General/Loading";
 import { MoodStatsItem } from "./Item";
 import { useMoodOverviewQuery } from "../../../generated/graphql";
 
-export const MoodStats: React.FC = () => {
-  const { loading, error, data } = useMoodOverviewQuery();
+interface Props {
+  refreshing: boolean;
+}
+
+export const MoodStats: React.FC<Props> = ({refreshing}) => {
+  const { loading, error, data, refetch } = useMoodOverviewQuery();
+
+  React.useEffect(() => {
+    if(refreshing){
+      refetch();
+    }
+  }, [refreshing]);
 
   if (loading || error) {
     return <Loading />;

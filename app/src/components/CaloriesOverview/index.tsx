@@ -21,8 +21,9 @@ export const CaloriesOverview: React.FC<Props> = ({refreshing}) => {
   React.useEffect(() => {
     if(refreshing){
       refetch();
+      _count.refetch();
     }
-  })
+  }, [refreshing])
 
   if (
     _count.loading ||
