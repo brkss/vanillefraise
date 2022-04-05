@@ -9,6 +9,10 @@ import {
   Text,
   Input,
   Spinner,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { RecipeCategories, RecipeList } from "../../components";
 import {
@@ -99,6 +103,13 @@ export const CreateRecipe: React.FC = () => {
                 {" "}
                 Create Recipe{" "}
               </Heading>
+              {err ? (
+                <Alert status="error" mb={7} rounded={8}>
+                  <AlertIcon />
+                  <AlertTitle mr={2}>Error : </AlertTitle>
+                  <AlertDescription>{err}</AlertDescription>
+                </Alert>
+              ) : null}
               <Input
                 w={"100%"}
                 m={"auto"}
