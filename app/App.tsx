@@ -1,5 +1,4 @@
 import React from "react";
-import { StatusBar, Text } from "react-native";
 import { MainNavigation } from "./src/navigation";
 import { NativeBaseProvider } from "native-base";
 import { ApolloClient } from "apollo-client";
@@ -15,6 +14,7 @@ import { AuthProvider } from "./src/utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import * as Network from "expo-network";
 import { NotConnected } from "./src/screens";
+import { StatusBar } from "expo-status-bar";
 
 const cache = new InMemoryCache({});
 

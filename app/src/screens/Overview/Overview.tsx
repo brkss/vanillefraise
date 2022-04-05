@@ -1,21 +1,38 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import {
+  RefreshControl,
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import {
   Loading,
   Heading,
   MoodStats,
   CaloriesOverview,
   NutritionOverview,
-  MealsOverview
+  MealsOverview,
 } from "../../components";
 import { useFonts } from "expo-font";
 
-export const Overview: React.FC<any> = ({navigation}) => {
+const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
+export const Overview: React.FC<any> = ({ navigation }) => {
+  const [refreshing, setRefreshing] = React.useState(false);
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
 
-  if (!helviticaCondensed ) {
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  if (!helviticaCondensed) {
     return <Loading />;
   }
 
@@ -23,7 +40,13 @@ export const Overview: React.FC<any> = ({navigation}) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Heading title={"Overview"} />
-        <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          showsVerticalScrollIndicator={false}
+          //bounces={false}
+        >
           <CaloriesOverview />
           <MealsOverview navigation={navigation} />
           <View>
