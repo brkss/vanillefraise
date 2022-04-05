@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  RefreshControl,
+} from "react-native";
 import {
   Heading,
   Slider,
@@ -12,12 +19,14 @@ import {
 import { colors } from "../../utils";
 import { useRecipeCategoriesQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
+import { wait } from "../../utils/modules/wait";
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
+  const [refreshing, setRefreshing] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [category, SetCategory] = React.useState("");
   const [recipes, SetRecipes] = React.useState<any[]>([]);
-  const { data, loading, error } = useRecipeCategoriesQuery({
+  const { data, loading, error, refetch } = useRecipeCategoriesQuery({
     fetchPolicy: "cache-first",
     onCompleted: (data) => {
       if (data.recipeCategories) {
@@ -26,6 +35,12 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       }
     },
   });
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const handleSelectingCategory = (cat_id: string) => {
     SetCategory(cat_id);
@@ -52,7 +67,12 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
           {searchQuery.length > 0 ? (
             <RecipeSearchResult navigation={navigation} query={searchQuery} />
           ) : (
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+              showsVerticalScrollIndicator={false}
+            >
               <Slider
                 color={colors.c3}
                 selected={category}

@@ -10,9 +10,19 @@ const calcProgress = (target: number, value: number): number => {
   return (value * 100) / target;
 };
 
-export const CaloriesOverview: React.FC = () => {
-  const { data, loading, error } = useUserCaloriesQuery();
+interface Props {
+  refreshing: boolean;
+}
+
+export const CaloriesOverview: React.FC<Props> = ({refreshing}) => {
+  const { data, loading, error, refetch } = useUserCaloriesQuery();
   const _count = useCookedRecipesCountQuery();
+
+  React.useEffect(() => {
+    if(refreshing){
+      refetch();
+    }
+  })
 
   if (
     _count.loading ||
