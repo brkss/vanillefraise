@@ -37,7 +37,7 @@ export class NutritionOverviewResolver {
     const recipesNutrition: RecipeTotalNutrition[] = [];
     const cookedRecipes = await CookedRecipe.find({
       where: { user: user },
-      //relations: ['recipe'],
+      relations: ["recipe"],
     });
     for (let cooked of cookedRecipes) {
       const nutrition = await RecipeTotalNutrition.find({
@@ -59,6 +59,8 @@ export class NutritionOverviewResolver {
       };
     });
 
+    console.log("Nutritients results : ", results);
+
     const rec: NutritionOverviewData[] = [];
 
     for (let res of results) {
@@ -73,6 +75,8 @@ export class NutritionOverviewResolver {
         recomendation: nr?.quantity || -1,
       });
     }
+
+    console.log("RES : ", rec);
 
     return {
       status: true,

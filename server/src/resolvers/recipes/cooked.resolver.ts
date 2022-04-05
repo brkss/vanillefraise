@@ -12,40 +12,40 @@ import { Recipe } from "../../entity/Recipe";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
 import { DefaultResponse } from "../../utils/responses/default.response";
-import { MealRecipes } from '../../entity/Meals/MealRecipes';
+import { MealRecipes } from "../../entity/Meals/MealRecipes";
 
 @Resolver()
 export class CookedRecipeResolver {
-  
   @UseMiddleware(isUserAuth)
   @Mutation(() => DefaultResponse)
-  async checkCookedMeal(@Arg('mealRecipesID', () => [String]) mealRecipesID: string[], @Ctx() ctx: IContext)  : Promise<DefaultResponse> {
-    
-    const user = await User.findOne({where: {id: ctx.payload.userID}})
-    if(!user || !mealRecipesID || mealRecipesID.length == 0){
-      return{
+  async checkCookedMeal(
+    @Arg("mealRecipesID", () => [String]) mealRecipesID: string[],
+    @Ctx() ctx: IContext
+  ): Promise<DefaultResponse> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user || !mealRecipesID || mealRecipesID.length == 0) {
+      return {
         status: false,
-        message: "Invalid Data !"
-      }
+        message: "Invalid Data !",
+      };
     }
     let count = 0;
-    for(let mri of mealRecipesID){
-      let mr = await MealRecipes.findOne({where: {id: mri}});
-      if(!mr){
+    for (let mri of mealRecipesID) {
+      let mr = await MealRecipes.findOne({ where: { id: mri } });
+      if (!mr) {
         return {
           status: false,
-        }
+        };
       }
-      if(mr.cooked)
-        count++;
+      if (mr.cooked) count++;
     }
-    if(count == mealRecipesID.length)
+    if (count == mealRecipesID.length)
       return {
-        status: true
-      }
+        status: true,
+      };
     return {
-        status: false
-    }
+      status: false,
+    };
   }
 
   @UseMiddleware(isUserAuth)
@@ -97,7 +97,7 @@ export class CookedRecipeResolver {
     @Arg("mealRecipesID", () => [String]) mealRecipesID: string[],
     @Ctx() ctx: IContext
   ): Promise<DefaultResponse> {
-    if (!mealRecipesID|| mealRecipesID.length == 0) {
+    if (!mealRecipesID || mealRecipesID.length == 0) {
       return {
         status: false,
         message: "Invalid Data !",
@@ -113,11 +113,14 @@ export class CookedRecipeResolver {
     }
 
     for (let mealRecipeId of mealRecipesID) {
-      const mr = await MealRecipes.findOne({where: {id: mealRecipeId}, relations: ['recipe']});
-      if(mr && !mr.cooked){
+      const mr = await MealRecipes.findOne({
+        where: { id: mealRecipeId },
+        relations: ["recipe"],
+      });
+      if (mr && !mr.cooked) {
         const cr = new CookedRecipe();
         cr.recipe = mr.recipe;
-        cr.user = cr.user;
+        cr.user = user;
         cr.created_at = new Date(mr.date);
         mr.cooked = true;
         await mr.save();
