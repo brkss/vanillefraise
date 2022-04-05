@@ -20,7 +20,7 @@ import { useFonts } from "expo-font";
 const wait = (timeout: number) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
-
+// TO DO FIX REFRESH !
 export const Overview: React.FC<any> = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [helviticaCondensed] = useFonts({
@@ -56,7 +56,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
               <MoodStats refreshing={refreshing} />
             </View>
           </View>
-          <NutritionOverview />
+          <NutritionOverview refreshing={refreshing} />
         </ScrollView>
       </SafeAreaView>
     </View>

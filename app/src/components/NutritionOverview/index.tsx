@@ -3,33 +3,19 @@ import { View, Text, StyleSheet } from "react-native";
 import { NutrientItem } from "./Item";
 import { useUserNutritionQuery } from "../../generated/graphql";
 import { Loading } from "../General/Loading";
-import dayjs from 'dayjs'; 
+import dayjs from "dayjs";
 
-const nutrients = [
-  {
-    title: "Vitamin E (alpha-tocopherol)",
-    unit: "mg",
-    value: 402,
-  },
-  {
-    title: "Vitamin D (D2 + D3)",
-    unit: "µg",
-    value: 30,
-  },
-  {
-    title: "Carbohydrate, by difference",
-    unit: "g",
-    value: 600,
-  },
-  {
-    title: "Zinc, Zn",
-    unit: "mg",
-    value: 50,
-  },
-];
+interface Props {
+  refreshing: boolean;
+}
 
-export const NutritionOverview: React.FC = () => {
-  const { data, loading, error } = useUserNutritionQuery();
+export const NutritionOverview: React.FC<Props> = ({ refreshing }) => {
+  const { data, loading, error, refetch } = useUserNutritionQuery();
+  React.useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+  }, [refreshing]);
 
   if (loading || error) {
     return <Loading />;
@@ -38,17 +24,24 @@ export const NutritionOverview: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>About your nutrition</Text>
-      <Text>{dayjs().format('DD/MM/YYYY')}</Text>
+      <Text>{dayjs().format("DD/MM/YYYY")}</Text>
       <Text style={styles.info}>
         nutrition counted here is sum of nutrition related to recipes you cooked
         in recipes section.
       </Text>
       <View style={styles.row}>
-        {data.userNutrition.data.sort(({quantity: a}, {quantity: b}) => b - a).map((n, key) => (
-          <View style={styles.item} key={key}>
-            <NutrientItem value={n.quantity} unit={n.unit} title={n.name} recomended={n.recomendation} />
-          </View>
-        ))}
+        {data.userNutrition.data
+          .sort(({ quantity: a }, { quantity: b }) => b - a)
+          .map((n, key) => (
+            <View style={styles.item} key={key}>
+              <NutrientItem
+                value={n.quantity}
+                unit={n.unit}
+                title={n.name}
+                recomended={n.recomendation}
+              />
+            </View>
+          ))}
       </View>
     </View>
   );
