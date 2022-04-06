@@ -8,6 +8,11 @@ export class RecipesListResolver {
     return await Recipe.find();
   }
 
+  @Query(() => [RecipeCategory])
+  async recipeCategories() : Promise<RecipeCategory[]> {
+    return await RecipeCategory.find({where: {active: true}});
+  }
+
   @Query(() => [Recipe])
   async recipeByCategory(@Arg("cat_id") cat_id: string): Promise<Recipe[]> {
     if (!cat_id) {

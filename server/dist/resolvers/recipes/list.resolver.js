@@ -19,6 +19,9 @@ let RecipesListResolver = class RecipesListResolver {
     async recipes() {
         return await Recipe_1.Recipe.find();
     }
+    async recipeCategories() {
+        return await Recipe_1.RecipeCategory.find({ where: { active: true } });
+    }
     async recipeByCategory(cat_id) {
         if (!cat_id) {
             return [];
@@ -36,6 +39,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipesListResolver.prototype, "recipes", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => [Recipe_1.RecipeCategory]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], RecipesListResolver.prototype, "recipeCategories", null);
 __decorate([
     (0, type_graphql_1.Query)(() => [Recipe_1.Recipe]),
     __param(0, (0, type_graphql_1.Arg)("cat_id")),
