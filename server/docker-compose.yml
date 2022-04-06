@@ -27,6 +27,8 @@ services:
       - 3318:3306
     networks:
       - app-network
+    volumes:
+      - ./docker/database/data:/var/lib/mysql
   nginx:
     image: nginx:alpine
     container_name: web-proxy
