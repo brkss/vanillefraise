@@ -17,7 +17,10 @@ import {
 } from "../../components";
 //import { recipes, recipes_category } from "../../utils";
 import { colors } from "../../utils";
-import { useRecipeCategoriesQuery } from "../../generated/graphql";
+import {
+  useRecipeCategoriesQuery,
+  useRecipeByCategoryQuery,
+} from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 import { wait } from "../../utils/modules/wait";
 
@@ -26,6 +29,24 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [category, SetCategory] = React.useState("");
   const [recipes, SetRecipes] = React.useState<any[]>([]);
+
+  const _categories = useRecipeCategoriesQuery({
+    fetchPolicy: "cache-first",
+    onCompleted: (res) => {
+      if (res.recipeCategories) {
+        SetCategory(res.recipeCategories[0].id);
+      }
+    },
+  });
+
+  const _recipes = useRecipeByCategoryQuery({
+    fetchPolicy: "cache-first",
+    variables: {
+      cat_id: "NO",
+    },
+  });
+
+  /*
   const { data, loading, error, refetch } = useRecipeCategoriesQuery({
     fetchPolicy: "cache-first",
     onCompleted: (data) => {
@@ -35,24 +56,27 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       }
     },
   });
-
+  */
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    refetch();
+    _recipes.refetch();
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
   const handleSelectingCategory = (cat_id: string) => {
     SetCategory(cat_id);
-    const category = data!.recipeCategories.find((x) => x.id === cat_id);
-    SetRecipes(category!.recipes);
+    const category = _categories.data!.recipeCategories.find(
+      (x) => x.id === cat_id
+    );
+    _recipes.refetch({ cat_id: category.id });
+    //SetRecipes(category!.recipes);
   };
 
   const handleSearch = (v: string) => {
     setSearchQuery(v);
   };
 
-  if (loading || error) {
+  if (_categories.loading || _categories.error) {
     return <Loading />;
   }
 
@@ -79,20 +103,24 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
                 onSelect={(category: string) =>
                   handleSelectingCategory(category)
                 }
-                categories={data!.recipeCategories as any}
+                categories={_categories.data!.recipeCategories as any}
               />
-              {recipes.map((recipe, key) => (
-                <RecipeThumbnail
-                  pressed={() =>
-                    navigation.push("RecipeDetails", { id: recipe.id })
-                  }
-                  title={recipe.name}
-                  img={`${CDN}/${recipe.image}`}
-                  time={recipe.total}
-                  carbs={recipe.carbs}
-                  key={key}
-                />
-              ))}
+              {_recipes.loading || _recipes.error ? (
+                <Loading />
+              ) : (
+                _recipes.data.recipeByCategory.map((recipe, key) => (
+                  <RecipeThumbnail
+                    pressed={() =>
+                      navigation.push("RecipeDetails", { id: recipe.id })
+                    }
+                    title={recipe.name}
+                    img={`${CDN}/${recipe.image}`}
+                    time={recipe.total}
+                    carbs={"-1"}
+                    key={key}
+                  />
+                ))
+              )}
               <View style={{ height: 200 }} />
             </ScrollView>
           )}

@@ -78,6 +78,13 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
         </View>
         <View style={styles.contentContainer}>
           <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+            {alertData.show ? (
+              <Alert
+                onClick={() => SetAlertData({ ...alertData, show: false })}
+                type={alertData.type as any}
+                txt={alertData.text}
+              />
+            ) : null}
             <TodaysMood
               triggerAlert={(msg) =>
                 SetAlertData({ text: msg, type: "success", show: true })
@@ -92,6 +99,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
                 opacity: 0.4,
               }}
             />
+
             <Text style={{ fontSize: 24, fontWeight: "bold" }}>
               Health Related Records
             </Text>
@@ -105,13 +113,7 @@ export const CreateRecord: React.FC<any> = ({ navigation }) => {
               color={colors.c3}
               categories={data!.recordCategories}
             />
-            {alertData.show ? (
-              <Alert
-                onClick={() => SetAlertData({ ...alertData, show: false })}
-                type={alertData.type as any}
-                txt={alertData.text}
-              />
-            ) : null}
+
             <RecordForm
               value={value}
               timeChange={(time) => SetTime(time)}

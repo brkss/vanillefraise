@@ -4,11 +4,5 @@ query RecipeCategories{
     id
     name
     icon
-    recipes {
-      id
-      name
-      total
-      image
-    }
   }
 }

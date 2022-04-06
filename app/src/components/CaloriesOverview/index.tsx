@@ -14,16 +14,16 @@ interface Props {
   refreshing: boolean;
 }
 
-export const CaloriesOverview: React.FC<Props> = ({refreshing}) => {
+export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
   const { data, loading, error, refetch } = useUserCaloriesQuery();
   const _count = useCookedRecipesCountQuery();
 
   React.useEffect(() => {
-    if(refreshing){
+    if (refreshing) {
       refetch();
       _count.refetch();
     }
-  }, [refreshing])
+  }, [refreshing]);
 
   if (
     _count.loading ||
@@ -42,7 +42,7 @@ export const CaloriesOverview: React.FC<Props> = ({refreshing}) => {
         <Text style={styles.needCalories}> / {data.userCalories.target}</Text>
       </View>
       <Text style={styles.unit}>calories</Text>
-      <Text style={styles.burned}>1200 Cal Burned</Text>
+      {/*<Text style={styles.burned}>1200 Cal Burned</Text>*/}
       <LoadingBar
         progress={calcProgress(
           data.userCalories.target,

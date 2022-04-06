@@ -805,7 +805,7 @@ export type PingQuery = { __typename?: 'Query', ping: string };
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null | undefined, recipes: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> }> };
+export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null | undefined }> };
 
 export type CookedRecipeMutationVariables = Exact<{
   recipeID: Scalars['String'];
@@ -824,7 +824,7 @@ export type RecipeByCategoryQueryVariables = Exact<{
 }>;
 
 
-export type RecipeByCategoryQuery = { __typename?: 'Query', recipeByCategory: Array<{ __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined }> };
+export type RecipeByCategoryQuery = { __typename?: 'Query', recipeByCategory: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> };
 
 export type RecipeQueryVariables = Exact<{
   id: Scalars['String'];
@@ -1744,12 +1744,6 @@ export const RecipeCategoriesDocument = gql`
     id
     name
     icon
-    recipes {
-      id
-      name
-      total
-      image
-    }
   }
 }
     `;
@@ -1851,8 +1845,8 @@ export const RecipeByCategoryDocument = gql`
   recipeByCategory(cat_id: $cat_id) {
     id
     name
-    description
-    serving
+    total
+    image
   }
 }
     `;
