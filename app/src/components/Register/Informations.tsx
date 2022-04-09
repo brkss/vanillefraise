@@ -5,6 +5,7 @@ import { Button } from "../General/Button";
 import { IInformationData } from "../../utils/types/Register";
 import { useCheckInfoValidtyMutation } from "../../generated/graphql";
 import { Error } from "../General/Error";
+import { validateEmail, validateUsername } from "../../utils/modules/validate";
 
 interface Props {
   pass: (data: IInformationData) => void;
@@ -30,6 +31,14 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       !form.password
     ) {
       setError("Invalid Data");
+      return;
+    }
+    if (!validateUsername(form.username)) {
+      setError("Invalid Username");
+      return;
+    }
+    if (!validateEmail(form.email)) {
+      setError("Invalid Email");
       return;
     }
     const res = await check({
