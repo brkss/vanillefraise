@@ -5,11 +5,12 @@ import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useMeQuery } from "../../generated/graphql";
 
-export const Settings: React.FC<any> = ({navigation}) => {
+export const Settings: React.FC<any> = ({ navigation }) => {
   const { data, loading, error } = useMeQuery();
   const _ctx = React.useContext(AuthContext);
 
   const logout = async () => {
+    _ctx.logout();
     _ctx.login("");
     await SecureStore.deleteItemAsync("TOKEN");
   };
@@ -28,16 +29,22 @@ export const Settings: React.FC<any> = ({navigation}) => {
           <Text style={styles.username}>@{data.me.username}</Text>
         </View>
         <View style={styles.options}>
-          <Pressable style={styles.option} onPress={() => navigation.push('PersonalInformation')} >
+          <Pressable
+            style={styles.option}
+            onPress={() => navigation.push("PersonalInformation")}
+          >
             <Text style={styles.optionText}>Personal Information </Text>
           </Pressable>
-          <Pressable style={styles.option} onPress={() => navigation.push('PasswordSettings')}>
+          <Pressable
+            style={styles.option}
+            onPress={() => navigation.push("PasswordSettings")}
+          >
             <Text style={styles.optionText}>Change Password</Text>
           </Pressable>
           <Pressable style={styles.option}>
             <Text style={styles.optionText}>About This Version</Text>
           </Pressable>
-          <Pressable onPress={() => logout()} style={styles.option}>
+          <Pressable onPress={async () => await logout()} style={styles.option}>
             <Text style={styles.optionText}>Logout</Text>
           </Pressable>
         </View>

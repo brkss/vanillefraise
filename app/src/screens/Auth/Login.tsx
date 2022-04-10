@@ -6,7 +6,8 @@ import { setAccessToken } from "../../utils";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useFonts } from "expo-font";
-import { Button, Input } from "../../components";
+import { Button, Input, Error } from "../../components";
+import { _log } from '../../utils/debug';
 
 export const Login: React.FC<any> = ({ navigation }) => {
   const [helviticaCondensed] = useFonts({
@@ -59,10 +60,6 @@ export const Login: React.FC<any> = ({ navigation }) => {
         await SecureStore.setItemAsync("TOKEN", _refreshToken);
         setAccessToken(_token);
         _ctx.login(_token);
-        console.log(
-          "refresh token : ",
-          await SecureStore.getItemAsync("TOKEN")
-        );
       }
     });
   };
@@ -84,6 +81,7 @@ export const Login: React.FC<any> = ({ navigation }) => {
         >
           LOGIN{" "}
         </Heading>
+        {error ? <Error txt={error} close={() => SetError("")} /> : null}
         <Input
           onChange={(val) => handleForm(val, "email")}
           label={"Username"}
@@ -105,4 +103,3 @@ export const Login: React.FC<any> = ({ navigation }) => {
     </Center>
   );
 };
-

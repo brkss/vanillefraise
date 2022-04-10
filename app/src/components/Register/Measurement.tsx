@@ -18,7 +18,9 @@ interface Props {
 export const Measurement: React.FC<Props> = ({ pass }) => {
   const [show, setShow] = React.useState(true);
   const [date, setDate] = React.useState(new Date("4/9/2000"));
-  const [form, SetForm] = React.useState<any>();
+  const [form, SetForm] = React.useState<any>({
+    birth: date
+  });
   const handleForm = (key: string, value: string | Date) => {
     SetForm({
       ...form,

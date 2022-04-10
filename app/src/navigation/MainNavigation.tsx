@@ -49,7 +49,7 @@ export const MainNavigation: React.FC = () => {
         console.log("Something went wrong !", e);
         SetLoading(false);
       });
-  }, []);
+  }, [token]);
 
   if (loading) {
     return (
