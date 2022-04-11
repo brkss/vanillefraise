@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { Pressable, View, Text, StyleSheet, SafeAreaView } from "react-native";
 
 const formatTime = (time: number) => {
   return time < 10 ? `0${time}` : `${time}`;
@@ -9,15 +9,40 @@ export const ActivityTime: React.FC = () => {
   const [hours, setHours] = React.useState(1);
   const [minutes, setMinutes] = React.useState(0);
 
+  const handleTime = (action: string, time_cat: string) => {
+    if (action == "longp") {
+      // decrement
+      if (time_cat == "hours")
+        setHours((curr) => (curr - 1 < 0 ? 0 : curr - 1));
+      else setMinutes((curr) => (curr - 15 < 0 ? 0 : curr - 15));
+    } else if (action == "singlep") {
+      // increment
+      if (time_cat == "hours")
+        setHours((curr) => (curr + 1 > 4 ? 0 : curr + 1));
+      else setMinutes((curr) => (curr + 15 > 59 ? 0 : curr + 15));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <View style={styles.item}>
+        <Pressable
+          onLongPress={() => handleTime("longp", "hours")}
+          onPress={() => handleTime("singlep", "hours")}
+          style={[styles.item, { alignItems: "flex-end" }]}
+        >
           <Text style={styles.time}>{formatTime(hours)}</Text>
+        </Pressable>
+        <View style={{ width: "5%", alignItems: "center" }}>
+          <Text style={styles.time}>:</Text>
         </View>
-        <View style={styles.item}>
+        <Pressable
+          onLongPress={() => handleTime("longp", "minutes")}
+          onPress={() => handleTime("singlep", "minutes")}
+          style={styles.item}
+        >
           <Text style={styles.time}>{formatTime(minutes)}</Text>
-        </View>
+        </Pressable>
       </View>
     </View>
   );
@@ -26,15 +51,19 @@ export const ActivityTime: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 0,
+    alignItems: "center",
   },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
   },
   item: {
-    width: "50%",
+    width: "45%",
+    paddingHorizontal: 10,
   },
   time: {
     fontWeight: "bold",
+    fontSize: 40,
+    fontFamily: "helvitica-condesed",
   },
 });
