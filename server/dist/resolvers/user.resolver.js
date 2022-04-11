@@ -23,12 +23,17 @@ const token_1 = require("../utils/token");
 const middlewares_1 = require("../utils/middlewares");
 const auth_1 = require("../utils/inputs/auth");
 const auth_2 = require("../utils/responses/auth");
+const helpers_1 = require("../utils/helpers");
 let UserResolver = class UserResolver {
     ping() {
         return "pong";
     }
     async checkInfoValidity(data) {
-        if (!data || !data.email || !data.username) {
+        if (!data ||
+            !data.email ||
+            !data.username ||
+            !(0, helpers_1.validateEmail)(data.email) ||
+            !(0, helpers_1.validateUsername)(data.username)) {
             return {
                 email: false,
                 username: false,
@@ -40,7 +45,7 @@ let UserResolver = class UserResolver {
         };
         const userEmail = await User_1.User.find({ where: { email: data.email } });
         const userUsername = await User_1.User.find({
-            where: { username: data.username },
+            where: { username: (0, helpers_1.formatUsername)(data.username) },
         });
         if (userEmail.length == 0)
             response.email = true;
@@ -88,7 +93,9 @@ let UserResolver = class UserResolver {
             !data.bmi ||
             !data.gender ||
             !data.height ||
-            !data.weight) {
+            !data.weight ||
+            !(0, helpers_1.validateEmail)(data.email) ||
+            !(0, helpers_1.validateUsername)(data.username)) {
             return {
                 status: false,
                 message: "Invalid Data !",
@@ -98,7 +105,7 @@ let UserResolver = class UserResolver {
             const user = new User_1.User();
             user.name = data.name;
             user.email = data.email;
-            user.username = data.username;
+            user.username = (0, helpers_1.formatUsername)(data.username);
             user.password = await (0, bcrypt_1.hash)(data.password, 5);
             user.weight = data.weight;
             user.height = data.height;

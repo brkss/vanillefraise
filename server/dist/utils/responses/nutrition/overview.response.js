@@ -34,6 +34,10 @@ let NutritionOverviewData = class NutritionOverviewData {
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
+], NutritionOverviewData.prototype, "id", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
 ], NutritionOverviewData.prototype, "name", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),

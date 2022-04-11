@@ -20,6 +20,11 @@ import { IContext } from "../utils/types/Context";
 import { isUserAuth } from "../utils/middlewares";
 import { UserInfoValidtyInput } from "../utils/inputs/auth";
 import { UserInfoValidityResponse } from "../utils/responses/auth";
+import {
+  formatUsername,
+  validateEmail,
+  validateUsername,
+} from "../utils/helpers";
 
 @Resolver()
 export class UserResolver {
@@ -32,7 +37,13 @@ export class UserResolver {
   async checkInfoValidity(
     @Arg("data") data: UserInfoValidtyInput
   ): Promise<UserInfoValidityResponse> {
-    if (!data || !data.email || !data.username) {
+    if (
+      !data ||
+      !data.email ||
+      !data.username ||
+      !validateEmail(data.email) ||
+      !validateUsername(data.username)
+    ) {
       return {
         email: false,
         username: false,
@@ -46,10 +57,12 @@ export class UserResolver {
 
     const userEmail = await User.find({ where: { email: data.email } });
     const userUsername = await User.find({
-      where: { username: data.username },
+      where: { username: formatUsername(data.username) },
     });
     if (userEmail.length == 0) response.email = true;
     if (userUsername.length == 0) response.username = true;
+
+    //if(data.username.length > 10 || data.username)
 
     return response;
   }
@@ -109,7 +122,9 @@ export class UserResolver {
       !data.bmi ||
       !data.gender ||
       !data.height ||
-      !data.weight
+      !data.weight ||
+      !validateEmail(data.email) ||
+      !validateUsername(data.username)
       //data.sc.length == 0
     ) {
       return {
@@ -122,7 +137,7 @@ export class UserResolver {
       const user = new User();
       user.name = data.name;
       user.email = data.email;
-      user.username = data.username;
+      user.username = formatUsername(data.username);
       user.password = await hash(data.password, 5);
       user.weight = data.weight;
       user.height = data.height;

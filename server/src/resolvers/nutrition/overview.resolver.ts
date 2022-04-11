@@ -55,6 +55,7 @@ export class NutritionOverviewResolver {
         if (rn.code == n.code) quantity += rn.quantity;
       }
       return {
+        id: n.id,
         name: n.name,
         code: n.code,
         quantity: quantity,
