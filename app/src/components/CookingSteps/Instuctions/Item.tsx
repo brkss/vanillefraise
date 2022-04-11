@@ -25,7 +25,13 @@ interface Props {
   num: number;
 }
 
-export const Item: React.FC<Props> = ({ num, index, shuffleBack, swipedAll, txt }) => {
+export const Item: React.FC<Props> = ({
+  num,
+  index,
+  shuffleBack,
+  swipedAll,
+  txt,
+}) => {
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(-height);
   const start = useSharedValue({ x: 0, y: 0 });
@@ -99,9 +105,7 @@ export const Item: React.FC<Props> = ({ num, index, shuffleBack, swipedAll, txt 
       <GestureDetector gesture={gesture}>
         <Animated.View style={[styles.container, style]}>
           <Text style={styles.number}>#{num + 1}</Text>
-          <Text style={styles.txt}>
-            {txt}
-          </Text>
+          <Text style={styles.txt}>{txt}</Text>
         </Animated.View>
       </GestureDetector>
     </View>
@@ -116,13 +120,15 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 12,
-    //borderColor: colors.c1,
-    //borderWidth: 1,
-    shadowColor: "#000",
-    shadowOffset: { width: 5, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 7,
-    elevation: 5,
+    borderColor: colors.c1,
+    borderWidth: 1,
+
+    //shadowColor: "#000",
+    //shadowOffset: { width: 5, height: 10 },
+    //shadowOpacity: 0.1,
+    //shadowRadius: 7,
+    //elevation: 5,
+
     backgroundColor: colors.c3,
     borderRadius: 27,
   },

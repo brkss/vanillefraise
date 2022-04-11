@@ -8,7 +8,7 @@ import {
   FinishExercise,
   RecipeDetails,
   MealsOptions,
-  RecipesByNutritions
+  RecipesByNutritions,
 } from "../screens";
 
 export const AppNavigation: React.FC = () => {
@@ -16,7 +16,7 @@ export const AppNavigation: React.FC = () => {
 
   return (
     <Navigator>
-      <Group screenOptions={{ headerShown: false, cardStyle: {backgroundColor: 'black'} }}>
+      <Group screenOptions={{ headerShown: false }}>
         <Screen name={"tabs"} component={TabsNavigation} />
         <Screen
           options={{
@@ -43,7 +43,6 @@ export const AppNavigation: React.FC = () => {
           },
         }}
       >
-        
         <Screen name={"MealsOptions"} component={MealsOptions} />
       </Group>
     </Navigator>

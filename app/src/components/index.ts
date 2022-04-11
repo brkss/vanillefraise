@@ -24,3 +24,4 @@ export * from './OverviewMeals';
 export * from './Meal'
 export * from './MealOptions';
 export * from './RecipeSearchResult';
+export * from './ActivityRecord';

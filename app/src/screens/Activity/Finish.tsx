@@ -1,7 +1,12 @@
 import React from "react";
 import { View, StyleSheet, SafeAreaView, Text } from "react-native";
 import { useFonts } from "expo-font";
-import { ExerciseFeedBack, Button, Loading } from "../../components";
+import {
+  ExerciseFeedBack,
+  Button,
+  Loading,
+  ActivityTime,
+} from "../../components";
 import { useCreateActivityMutation } from "../../generated/graphql";
 
 interface IFeedBack {
@@ -75,7 +80,10 @@ export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.heading}>How Was It ?</Text>
         <View style={styles.info}>
-          <Text style={styles.infoText}>Tennis for 1:02:00</Text>
+          <Text style={styles.infoText}>SPORT NAME</Text>
+          <View style={styles.timeContainer}>
+            <ActivityTime />
+          </View>
           <View style={{ marginTop: 20 }}>
             <ExerciseFeedBack
               feedback={feedback}
@@ -112,5 +120,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#434343",
     textAlign: "center",
+  },
+  timeContainer: {
+    padding: 0,
   },
 });
