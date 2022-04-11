@@ -185,6 +185,14 @@ export type Meal = {
   name: Scalars['String'];
 };
 
+export type MealListResponse = {
+  __typename?: 'MealListResponse';
+  count: Scalars['Float'];
+  id: Scalars['String'];
+  index: Scalars['Float'];
+  name: Scalars['String'];
+};
+
 export type MealRecipeResponse = {
   __typename?: 'MealRecipeResponse';
   calories?: Maybe<Scalars['Float']>;
@@ -387,7 +395,7 @@ export type Query = {
   getUserBurnedCalories: Scalars['Float'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
-  meals: Array<Meal>;
+  meals: Array<MealListResponse>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
   ping: Scalars['String'];
@@ -760,7 +768,7 @@ export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __ty
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: string, name: string, index: number }> };
+export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'MealListResponse', id: string, name: string, index: number, count: number }> };
 
 export type CreateMoodRecordMutationVariables = Exact<{
   moods: Array<Scalars['String']> | Scalars['String'];
@@ -1425,6 +1433,7 @@ export const MealsDocument = gql`
     id
     name
     index
+    count
   }
 }
     `;

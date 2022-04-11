@@ -1,7 +1,8 @@
-query Meals{
-  meals{
+query Meals {
+  meals {
     id
     name
     index
+    count
   }
 }
