@@ -363,7 +363,6 @@ export type MutationVerifyResetTokenArgs = {
 export type NutritionOverviewData = {
   __typename?: 'NutritionOverviewData';
   code: Scalars['String'];
-  id: Scalars['String'];
   name: Scalars['String'];
   quantity: Scalars['Float'];
   recomendation: Scalars['Float'];
@@ -394,6 +393,7 @@ export type Query = {
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
+  recipeByNutrition: Array<Recipe>;
   recipeCategories: Array<RecipeCategory>;
   recipeEnergy: Scalars['Float'];
   recipes: Array<Recipe>;
@@ -439,6 +439,11 @@ export type QueryRecipeArgs = {
 
 export type QueryRecipeByCategoryArgs = {
   cat_id: Scalars['String'];
+};
+
+
+export type QueryRecipeByNutritionArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -789,7 +794,7 @@ export type RecipeEnergyQuery = { __typename?: 'Query', recipeEnergy: number };
 export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionOverviewData', id: string, name: string, code: string, quantity: number, unit: string, recomendation: number }> | null | undefined } };
+export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionOverviewData', name: string, code: string, quantity: number, unit: string, recomendation: number }> | null | undefined } };
 
 export type TotalNutritionQueryVariables = Exact<{
   recipe_id: Scalars['String'];
@@ -1631,7 +1636,6 @@ export const UserNutritionDocument = gql`
     status
     message
     data {
-      id
       name
       code
       quantity

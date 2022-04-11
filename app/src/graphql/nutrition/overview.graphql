@@ -3,7 +3,6 @@ query UserNutrition{
     status
     message
     data{
-      id
       name
       code
       quantity
