@@ -42,7 +42,7 @@ export const TabsNavigation: React.FC = () => {
         <Screen name={"Overview"} component={OverviewNavigation} />
         <Screen name={"Recipes"} component={RecipeNavigation} />
         <Screen name={"Activity"} component={ActivityNavigation} />
-        <Screen name={"Record"} component={CreateRecord} />
+        {/*<Screen name={"Record"} component={CreateRecord} />*/}
         {/*<Screen name={"Reminders"} component={RemindersNavigation} />*/}
         <Screen name={"Mental"} component={MentalHealthIntro} />
         <Screen name={"Settings"} component={SettingsNavigation} />

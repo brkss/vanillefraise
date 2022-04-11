@@ -7,7 +7,14 @@ import {
   SafeAreaView,
   Pressable,
 } from "react-native";
-import { Slider, Heading, ActivityThumbnail, Loading } from "../../components";
+import {
+  Alert,
+  TodaysMood,
+  Slider,
+  Heading,
+  ActivityThumbnail,
+  Loading,
+} from "../../components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   useRecordCategoriesQuery,
@@ -16,6 +23,12 @@ import {
 import { colors } from "../../utils/colors";
 
 export const Activity: React.FC<any> = ({ navigation }) => {
+  const [alertData, SetAlertData] = React.useState({
+    show: false,
+    type: "success",
+    text: "",
+  });
+
   const [selected, setSelected] = React.useState("");
   const { data, loading, error } = useRecordCategoriesQuery({
     onCompleted: (res) => {
@@ -56,6 +69,20 @@ export const Activity: React.FC<any> = ({ navigation }) => {
             </View>
           </Pressable>
         </View>
+
+        {alertData.show ? (
+          <Alert
+            onClick={() => SetAlertData({ ...alertData, show: false })}
+            type={alertData.type as any}
+            txt={alertData.text}
+          />
+        ) : null}
+        <TodaysMood
+          triggerAlert={(msg) =>
+            SetAlertData({ text: msg, type: "success", show: true })
+          }
+        />
+        {/*
         <View style={{ height: 140 }}>
           <Slider
             selected={selected}
@@ -86,7 +113,8 @@ export const Activity: React.FC<any> = ({ navigation }) => {
               <View style={{ height: 150 }} />
             </ScrollView>
           )}
-        </View>
+          </View>
+        */}
       </SafeAreaView>
     </View>
   );
