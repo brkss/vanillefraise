@@ -16,7 +16,7 @@ export const AppNavigation: React.FC = () => {
 
   return (
     <Navigator>
-      <Group screenOptions={{ headerShown: false }}>
+      <Group screenOptions={{ headerShown: false, cardStyle: {backgroundColor: 'black'} }}>
         <Screen name={"tabs"} component={TabsNavigation} />
         <Screen
           options={{

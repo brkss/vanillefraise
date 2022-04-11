@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import { MainNavigation } from "./src/navigation";
 import { NativeBaseProvider } from "native-base";
 import { ApolloClient } from "apollo-client";
@@ -21,15 +22,15 @@ const cache = new InMemoryCache({});
 const requestLink = new ApolloLink(
   (operation, forward) => {
     const token = getAccessToken();
-    if(token)
+    if (token)
       operation.setContext({
         headers: {
-            authorization: `bearer ${token}`,
-        }
+          authorization: `bearer ${token}`,
+        },
       });
     return forward(operation);
   }
-    /*
+  /*
     new Observable((observer) => {
       let handle: any;
       Promise.resolve(operation)
@@ -123,8 +124,8 @@ export default function App() {
         <ApolloProvider client={client}>
           <AuthProvider>
             <NativeBaseProvider>
-              <StatusBar style={"auto"} />
-              <MainNavigation />
+                <StatusBar style={"auto"} />
+                <MainNavigation />
             </NativeBaseProvider>
           </AuthProvider>
         </ApolloProvider>

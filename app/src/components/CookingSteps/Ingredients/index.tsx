@@ -34,19 +34,17 @@ export const IngredientStep: React.FC<Props> = ({ finish, ingredients }) => {
   return (
     <Animated.View style={[styles.container, { opacity: opcAnim }]}>
       <Text style={styles.title}>
-        You'll need these following ingredients for your recipes
+        You'll need the following ingredients for your recipe
       </Text>
       <Text style={styles.hint}>press any ingredient you’ve prepared !</Text>
       <ScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
         style={styles.ings}
-        >
-        {
-          ingredients.map((ing, key) => (
-            <Item key={key} txt={ing.raw}  />            
-          ))
-        }
+      >
+        {ingredients.map((ing, key) => (
+          <Item key={key} txt={ing.raw} />
+        ))}
       </ScrollView>
       <Button txt={"Done !"} clicked={() => finish()} />
     </Animated.View>
@@ -63,14 +61,15 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   hint: {
-    marginVertical: 15,
+    marginTop: 15,
+    //marginBottom: 5,
     opacity: 0.7,
     fontSize: 20,
     fontFamily: "helvitica-condesed",
   },
   ings: {
     flex: 1,
-    marginTop: 30,
+    marginTop: 10,
     //justifyContent: "space-evenly",
   },
 });
