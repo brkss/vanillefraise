@@ -6,6 +6,7 @@ import { MealRecipesInput } from "../../utils/inputs/meals";
 import {
   MealRecipeResponse,
   MarkedDaysResponse,
+  MealListResponse,
 } from "../../utils/responses/meals";
 import { User } from "../../entity/User";
 import { Like, getRepository } from "typeorm";
@@ -14,14 +15,27 @@ import { DefaultResponse } from "src/utils/responses";
 @Resolver()
 export class ListMealsResolver {
   @UseMiddleware(isUserAuth)
-  @Query(() => [Meal])
-  async meals(@Ctx() ctx: IContext): Promise<Meal[]> {
-    const user = await User.findOne({where: {id: ctx.payload.userID}});
-    if(!user)
-      return [];
-    // filter by date and get meals recipes count and calory count ! 
+  @Query(() => [MealListResponse])
+  async meals(@Ctx() ctx: IContext): Promise<MealListResponse[]> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return [];
+    // filter by date and get meals recipes count and calory count !
+    const date = new Date();
     const meals = await Meal.find();
-    return meals;
+    const meal_recipes = await MealRecipes.find({
+      where: {
+        user: user,
+        date: Like(`%${date.toLocaleDateString()}%`),
+      },
+      relations: ["recipe", "meal"],
+    });
+    const meals_result = meals.map((meal) => ({
+      id: meal.id,
+      name: meal.name,
+      index: meal.index,
+      count: meal_recipes.filter((mr) => mr.meal.id == meal.id).length,
+    }));
+    return meals_result;
   }
 
   @UseMiddleware(isUserAuth)

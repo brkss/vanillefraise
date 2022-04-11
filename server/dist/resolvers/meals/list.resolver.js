@@ -25,8 +25,22 @@ let ListMealsResolver = class ListMealsResolver {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return [];
+        const date = new Date();
         const meals = await Meals_1.Meal.find();
-        return meals;
+        const meal_recipes = await Meals_1.MealRecipes.find({
+            where: {
+                user: user,
+                date: (0, typeorm_1.Like)(`%${date.toLocaleDateString()}%`),
+            },
+            relations: ["recipe", "meal"],
+        });
+        const meals_result = meals.map((meal) => ({
+            id: meal.id,
+            name: meal.name,
+            index: meal.index,
+            count: meal_recipes.filter((mr) => mr.meal.id == meal.id).length,
+        }));
+        return meals_result;
     }
     async daysWithRecipes(mealID, ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -132,7 +146,7 @@ let ListMealsResolver = class ListMealsResolver {
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Query)(() => [Meals_1.Meal]),
+    (0, type_graphql_1.Query)(() => [meals_2.MealListResponse]),
     __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
