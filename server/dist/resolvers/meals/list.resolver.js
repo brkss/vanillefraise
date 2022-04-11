@@ -21,7 +21,10 @@ const meals_2 = require("../../utils/responses/meals");
 const User_1 = require("../../entity/User");
 const typeorm_1 = require("typeorm");
 let ListMealsResolver = class ListMealsResolver {
-    async meals() {
+    async meals(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return [];
         const meals = await Meals_1.Meal.find();
         return meals;
     }
@@ -128,9 +131,11 @@ let ListMealsResolver = class ListMealsResolver {
     }
 };
 __decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
     (0, type_graphql_1.Query)(() => [Meals_1.Meal]),
+    __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ListMealsResolver.prototype, "meals", null);
 __decorate([

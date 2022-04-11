@@ -13,8 +13,13 @@ import { DefaultResponse } from "src/utils/responses";
 
 @Resolver()
 export class ListMealsResolver {
+  @UseMiddleware(isUserAuth)
   @Query(() => [Meal])
-  async meals(): Promise<Meal[]> {
+  async meals(@Ctx() ctx: IContext): Promise<Meal[]> {
+    const user = await User.findOne({where: {id: ctx.payload.userID}});
+    if(!user)
+      return [];
+    // filter by date and get meals recipes count and calory count ! 
     const meals = await Meal.find();
     return meals;
   }
