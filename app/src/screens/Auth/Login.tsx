@@ -2,7 +2,7 @@ import React from "react";
 import { ActivityIndicator, Pressable, Text, StyleSheet } from "react-native";
 import { Center, Heading, Container } from "native-base";
 import { useLoginMutation } from "../../generated/graphql";
-import { setAccessToken } from "../../utils";
+import { getAccessToken, setAccessToken } from "../../utils";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useFonts } from "expo-font";
@@ -56,10 +56,12 @@ export const Login: React.FC<any> = ({ navigation }) => {
       ) {
         // login successfuly !!
         const _token = res.data.login.token;
+        console.log(`LOGIN : FETCHED TOKEN : ${_token}`);
         const _refreshToken = res.data.login.rToken;
         await SecureStore.setItemAsync("TOKEN", _refreshToken);
         setAccessToken(_token);
         _ctx.login(_token);
+        console.log(`LOGIN : GLOBAL TOKEN : ${getAccessToken()}`);
       }
     });
   };

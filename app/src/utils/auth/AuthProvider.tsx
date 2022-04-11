@@ -1,7 +1,8 @@
 import React from "react";
 import * as SecureStore from "expo-secure-store";
-//import Update from "expo-updates";
+import * as Update from "expo-updates";
 import useState from "react-usestateref";
+import { setAccessToken } from "../token/token";
 
 type IToken = null | string;
 
@@ -24,10 +25,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         token: ref.current,
         login: (_token) => {
           SetToken(_token);
+          setAccessToken(_token);
         },
         logout: async () => {
+          setAccessToken("");
           SetToken("");
           await SecureStore.setItemAsync("TOKEN", "");
+          await Update.reloadAsync();
           //const val = await SecureStore.getItemAsync("TOKEN");
         },
       }}

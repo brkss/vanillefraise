@@ -4,6 +4,7 @@ import { Heading, Loading } from "../../components";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useMeQuery } from "../../generated/graphql";
+import  Update  from 'expo-updates';
 
 export const Settings: React.FC<any> = ({ navigation }) => {
   const { data, loading, error } = useMeQuery();

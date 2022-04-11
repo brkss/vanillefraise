@@ -19,7 +19,17 @@ import { StatusBar } from "expo-status-bar";
 const cache = new InMemoryCache({});
 
 const requestLink = new ApolloLink(
-  (operation, forward) =>
+  (operation, forward) => {
+    const token = getAccessToken();
+    if(token)
+      operation.setContext({
+        headers: {
+            authorization: `bearer ${token}`,
+        }
+      });
+    return forward(operation);
+  }
+    /*
     new Observable((observer) => {
       let handle: any;
       Promise.resolve(operation)
@@ -45,7 +55,7 @@ const requestLink = new ApolloLink(
       return () => {
         if (handle) handle.unsubscribe();
       };
-    })
+      })*/
 );
 
 const link: any = new TokenRefreshLink({
