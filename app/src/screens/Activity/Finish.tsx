@@ -40,8 +40,10 @@ const feedback: IFeedBack[] = [
 
 export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
   const [selected, setSelected] = React.useState(feedback[0].id);
-  const { catid, hours, minutes, seconds } = route.params;
+  const { category, name } = route.params;
   const [create] = useCreateActivityMutation();
+  const [minutes, setMinutes] = React.useState(0);
+  const [hours, setHours] = React.useState(1);
 
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
@@ -51,8 +53,8 @@ export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
     const data = {
       hours: hours,
       minutes: minutes,
-      seconds: seconds,
-      category: catid,
+      seconds: 0,
+      category: category,
       feedback: feedback.find((x) => x.id == selected),
     };
     create({
@@ -78,11 +80,17 @@ export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <Text style={styles.heading}>How Was It ?</Text>
+        {/*<Text style={styles.heading}>How Was It ?</Text>*/}
         <View style={styles.info}>
-          <Text style={styles.infoText}>SPORT NAME</Text>
+          <Text style={styles.infoText}>How was {name} ?</Text>
+          <Text style={styles.hint}>
+            one press to increment time, long press to decrement !
+          </Text>
           <View style={styles.timeContainer}>
-            <ActivityTime />
+            <ActivityTime
+              changeHours={(val: number) => setHours(val)}
+              changeMinutes={(val: number) => setMinutes(val)}
+            />
           </View>
           <View style={{ marginTop: 20 }}>
             <ExerciseFeedBack
@@ -123,5 +131,12 @@ const styles = StyleSheet.create({
   },
   timeContainer: {
     padding: 0,
+  },
+  hint: {
+    fontSize: 12,
+    fontWeight: "300",
+    opacity: 0.7,
+    textAlign: "center",
+    marginTop: 10,
   },
 });

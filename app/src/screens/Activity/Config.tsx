@@ -20,10 +20,11 @@ export const ActivityConfig: React.FC<any> = ({ route, navigation }) => {
             category={catid}
             activity={name}
             start={() =>
-              navigation.push("Active", {
+              navigation.push("FinishExercise", {
                 time: new Date().getTime(),
-                catid: catid,
-              })
+                category: catid,
+                name: name,
+            })
             }
           />
         </View>
