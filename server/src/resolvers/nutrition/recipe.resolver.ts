@@ -8,6 +8,7 @@ import {
   RecipeTotalNutritionKcal,
 } from "../../entity/Nutrition";
 import { Recipe } from "../../entity/Recipe";
+import { MoreThan } from "typeorm";
 
 @Resolver()
 export class RecipeNutritionResolver {
@@ -19,8 +20,7 @@ export class RecipeNutritionResolver {
     const nutrition = await RecipeTotalNutrition.findOne({
       where: { recipe: recipe, code: "ENERC_KCAL" },
     });
-    if(!nutrition)
-      return -1;
+    if (!nutrition) return -1;
     return nutrition.quantity;
   }
 
@@ -50,7 +50,18 @@ export class RecipeNutritionResolver {
     res.totalNutritionKcal = await RecipeTotalNutritionKcal.find({
       where: { recipe: recipe },
     });
-
     return res;
+  }
+
+  @Query(() => [Recipe])
+  async recipeByNutrition(@Arg("code") code: string): Promise<Recipe[]> {
+    if (!code) return [];
+    const nutritions = await RecipeTotalNutrition.find({
+      where: { code: code, quantity: MoreThan(0) },
+      relations: ["recipe"],
+      order: { quantity: 'DESC' }
+    });
+    const recipes = nutritions.map((nut) => nut.recipe);
+    return recipes;
   }
 }

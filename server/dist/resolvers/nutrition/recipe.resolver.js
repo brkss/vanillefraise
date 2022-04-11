@@ -17,6 +17,7 @@ const type_graphql_1 = require("type-graphql");
 const nutrition_1 = require("../../utils/responses/nutrition");
 const Nutrition_1 = require("../../entity/Nutrition");
 const Recipe_1 = require("../../entity/Recipe");
+const typeorm_1 = require("typeorm");
 let RecipeNutritionResolver = class RecipeNutritionResolver {
     async recipeEnergy(recipe_id) {
         if (!recipe_id)
@@ -55,6 +56,17 @@ let RecipeNutritionResolver = class RecipeNutritionResolver {
         });
         return res;
     }
+    async recipeByNutrition(code) {
+        if (!code)
+            return [];
+        const nutritions = await Nutrition_1.RecipeTotalNutrition.find({
+            where: { code: code, quantity: (0, typeorm_1.MoreThan)(0) },
+            relations: ["recipe"],
+            order: { quantity: 'DESC' }
+        });
+        const recipes = nutritions.map((nut) => nut.recipe);
+        return recipes;
+    }
 };
 __decorate([
     (0, type_graphql_1.Query)(() => Number),
@@ -70,6 +82,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], RecipeNutritionResolver.prototype, "getRecipeNutrition", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => [Recipe_1.Recipe]),
+    __param(0, (0, type_graphql_1.Arg)("code")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RecipeNutritionResolver.prototype, "recipeByNutrition", null);
 RecipeNutritionResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], RecipeNutritionResolver);

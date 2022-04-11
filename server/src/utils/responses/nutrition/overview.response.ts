@@ -19,9 +19,6 @@ export class NutritionOverviewResponse {
 export class NutritionOverviewData {
   
   @Field()
-  id: string;
-
-  @Field()
   name: string;
 
   @Field()

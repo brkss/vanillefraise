@@ -59,11 +59,11 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
         const results = nutrients.map((n) => {
             let quantity = 0;
             for (let rn of recipesNutrition) {
-                if (rn.code == n.code)
+                if (rn.code == n.code) {
                     quantity += rn.quantity;
+                }
             }
             return {
-                id: n.id,
                 name: n.name,
                 code: n.code,
                 quantity: quantity,
