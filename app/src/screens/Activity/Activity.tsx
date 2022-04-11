@@ -3,24 +3,22 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   SafeAreaView,
   Pressable,
+  ScrollView,
 } from "react-native";
 import {
   Alert,
   TodaysMood,
-  Slider,
   Heading,
-  ActivityThumbnail,
   Loading,
+  MoodStats,
 } from "../../components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   useRecordCategoriesQuery,
   useRecordsQuery,
 } from "../../generated/graphql";
-import { colors } from "../../utils/colors";
 
 export const Activity: React.FC<any> = ({ navigation }) => {
   const [alertData, SetAlertData] = React.useState({
@@ -58,31 +56,56 @@ export const Activity: React.FC<any> = ({ navigation }) => {
         <View style={styles.headingContainer}>
           <Heading title={"Activities"} />
         </View>
-        <View style={styles.actions}>
-          <Pressable
-            onPress={() => navigation.push("NewActivity")}
-            style={styles.create}
-          >
-            <Ionicons name={"ios-add-circle-outline"} size={24} />
-            <View style={{ justifyContent: "center" }}>
-              <Text style={styles.createTxt}>NEW PHYSICAL EXERCISE </Text>
-            </View>
-          </Pressable>
-        </View>
-
-        {alertData.show ? (
-          <Alert
-            onClick={() => SetAlertData({ ...alertData, show: false })}
-            type={alertData.type as any}
-            txt={alertData.text}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.actions}>
+            <Pressable
+              onPress={() => navigation.push("NewActivity")}
+              style={styles.create}
+            >
+              <Ionicons name={"ios-add-circle-outline"} size={24} />
+              <View style={{ justifyContent: "center" }}>
+                <Text style={styles.createTxt}>NEW PHYSICAL EXERCISE </Text>
+              </View>
+            </Pressable>
+          </View>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: "#434343",
+              marginVertical: 15,
+              marginBottom: 20,
+              opacity: 0.4,
+            }}
           />
-        ) : null}
-        <TodaysMood
-          triggerAlert={(msg) =>
-            SetAlertData({ text: msg, type: "success", show: true })
-          }
-        />
-        {/*
+          {alertData.show ? (
+            <Alert
+              onClick={() => SetAlertData({ ...alertData, show: false })}
+              type={alertData.type as any}
+              txt={alertData.text}
+            />
+          ) : null}
+          <TodaysMood
+            triggerAlert={(msg) =>
+              SetAlertData({ text: msg, type: "success", show: true })
+            }
+          />
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: "#434343",
+              marginVertical: 15,
+              marginBottom: 20,
+              opacity: 0.4,
+            }}
+          />
+          <View>
+            <Text style={styles.subtitle}>About your mood</Text>
+            <Text> According to your records </Text>
+            <View style={{ marginBottom: 30 }}>
+              <MoodStats refreshing={false} />
+            </View>
+          </View>
+          {/*
         <View style={{ height: 140 }}>
           <Slider
             selected={selected}
@@ -114,7 +137,8 @@ export const Activity: React.FC<any> = ({ navigation }) => {
             </ScrollView>
           )}
           </View>
-        */}
+          */}
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
@@ -150,5 +174,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     marginLeft: 5,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });

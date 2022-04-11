@@ -49,6 +49,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
         >
           <CaloriesOverview refreshing={refreshing} />
           <MealsOverview refreshing={refreshing} navigation={navigation} />
+          {/*
           <View>
             <Text style={styles.subtitle}>About your mood</Text>
             <Text> According to your records </Text>
@@ -56,6 +57,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
               <MoodStats refreshing={refreshing} />
             </View>
           </View>
+          */}
           <NutritionOverview
             clicked={(code: string, name: string) =>
               navigation.push("RecipesByNutritions", { code: code, name: name })
