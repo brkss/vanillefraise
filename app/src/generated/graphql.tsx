@@ -443,7 +443,7 @@ export type QueryRecipeByCategoryArgs = {
 
 
 export type QueryRecipeByNutritionArgs = {
-  id: Scalars['String'];
+  code: Scalars['String'];
 };
 
 
@@ -795,6 +795,13 @@ export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionOverviewData', name: string, code: string, quantity: number, unit: string, recomendation: number }> | null | undefined } };
+
+export type RecipeByNutritionQueryVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+
+export type RecipeByNutritionQuery = { __typename?: 'Query', recipeByNutrition: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> };
 
 export type TotalNutritionQueryVariables = Exact<{
   recipe_id: Scalars['String'];
@@ -1672,6 +1679,44 @@ export function useUserNutritionLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type UserNutritionQueryHookResult = ReturnType<typeof useUserNutritionQuery>;
 export type UserNutritionLazyQueryHookResult = ReturnType<typeof useUserNutritionLazyQuery>;
 export type UserNutritionQueryResult = Apollo.QueryResult<UserNutritionQuery, UserNutritionQueryVariables>;
+export const RecipeByNutritionDocument = gql`
+    query RecipeByNutrition($code: String!) {
+  recipeByNutrition(code: $code) {
+    id
+    name
+    total
+    image
+  }
+}
+    `;
+
+/**
+ * __useRecipeByNutritionQuery__
+ *
+ * To run a query within a React component, call `useRecipeByNutritionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecipeByNutritionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecipeByNutritionQuery({
+ *   variables: {
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useRecipeByNutritionQuery(baseOptions: Apollo.QueryHookOptions<RecipeByNutritionQuery, RecipeByNutritionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecipeByNutritionQuery, RecipeByNutritionQueryVariables>(RecipeByNutritionDocument, options);
+      }
+export function useRecipeByNutritionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecipeByNutritionQuery, RecipeByNutritionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecipeByNutritionQuery, RecipeByNutritionQueryVariables>(RecipeByNutritionDocument, options);
+        }
+export type RecipeByNutritionQueryHookResult = ReturnType<typeof useRecipeByNutritionQuery>;
+export type RecipeByNutritionLazyQueryHookResult = ReturnType<typeof useRecipeByNutritionLazyQuery>;
+export type RecipeByNutritionQueryResult = Apollo.QueryResult<RecipeByNutritionQuery, RecipeByNutritionQueryVariables>;
 export const TotalNutritionDocument = gql`
     query TotalNutrition($recipe_id: String!) {
   getRecipeNutrition(recipe_id: $recipe_id) {

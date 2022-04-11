@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 interface Props {
   refreshing: boolean;
-  clicked: (id: string) => void;
+  clicked: (code: string, title: string) => void;
 }
 
 export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
@@ -36,7 +36,7 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
           .map((n, key) => (
             <View style={styles.item} key={key}>
               <NutrientItem
-                clicked={() => clicked(n.id)}
+                clicked={() => clicked(n.code, n.name)}
                 value={n.quantity}
                 unit={n.unit}
                 title={n.name}

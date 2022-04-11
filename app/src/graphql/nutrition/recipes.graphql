@@ -1,0 +1,8 @@
+query RecipeByNutrition($code: String!){
+	recipeByNutrition(code: $code){
+    id
+    name
+    total
+    image
+  }  
+}

@@ -57,8 +57,8 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             </View>
           </View>
           <NutritionOverview
-            clicked={(id: string) =>
-              navigation.push("RecipesByNutritions", { id: id })
+            clicked={(code: string, name: string) =>
+              navigation.push("RecipesByNutritions", { code: code, name: name })
             }
             refreshing={refreshing}
           />
