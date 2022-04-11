@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Pressable, View, Text, StyleSheet } from "react-native";
 
 interface Props {
   title: string;
   value: number;
   unit: string;
   recomended: number;
+  clicked: () => void;
 }
 
 const resize = (str: string) => {
@@ -33,9 +34,10 @@ export const NutrientItem: React.FC<Props> = ({
   value,
   title,
   recomended,
+  clicked
 }) => {
   return (
-    <View style={styles.container}>
+    <Pressable onPress={() => clicked()} style={styles.container}>
       <Text style={styles.title}>{resize(title)}</Text>
       <Text style={styles.value}>
         {value} {unit}
@@ -54,7 +56,7 @@ export const NutrientItem: React.FC<Props> = ({
           },
         ]}
       />
-    </View>
+    </Pressable>
   );
 };
 

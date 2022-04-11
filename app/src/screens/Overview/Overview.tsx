@@ -56,7 +56,12 @@ export const Overview: React.FC<any> = ({ navigation }) => {
               <MoodStats refreshing={refreshing} />
             </View>
           </View>
-          <NutritionOverview refreshing={refreshing} />
+          <NutritionOverview
+            clicked={(id: string) =>
+              navigation.push("RecipesByNutritions", { id: id })
+            }
+            refreshing={refreshing}
+          />
         </ScrollView>
       </SafeAreaView>
     </View>

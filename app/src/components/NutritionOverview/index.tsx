@@ -7,9 +7,10 @@ import dayjs from "dayjs";
 
 interface Props {
   refreshing: boolean;
+  clicked: (id: string) => void;
 }
 
-export const NutritionOverview: React.FC<Props> = ({ refreshing }) => {
+export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
   const { data, loading, error, refetch } = useUserNutritionQuery();
   React.useEffect(() => {
     if (refreshing) {
@@ -35,6 +36,7 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing }) => {
           .map((n, key) => (
             <View style={styles.item} key={key}>
               <NutrientItem
+                clicked={() => clicked(n.id)}
                 value={n.quantity}
                 unit={n.unit}
                 title={n.name}

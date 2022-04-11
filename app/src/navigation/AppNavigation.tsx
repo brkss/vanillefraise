@@ -7,7 +7,8 @@ import {
   Active,
   FinishExercise,
   RecipeDetails,
-  MealsOptions
+  MealsOptions,
+  RecipesByNutritions
 } from "../screens";
 
 export const AppNavigation: React.FC = () => {
@@ -30,6 +31,7 @@ export const AppNavigation: React.FC = () => {
       </Group>
       <Group screenOptions={{ presentation: "modal", headerShown: false }}>
         <Screen name={"RecipeDetails"} component={RecipeDetails} />
+        <Screen name={"RecipesByNutritions"} component={RecipesByNutritions} />
       </Group>
       <Group
         screenOptions={{
