@@ -48,7 +48,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
           //bounces={false}
         >
           <CaloriesOverview refreshing={refreshing} />
-          <MealsOverview navigation={navigation} />
+          <MealsOverview refreshing={refreshing} navigation={navigation} />
           <View>
             <Text style={styles.subtitle}>About your mood</Text>
             <Text> According to your records </Text>

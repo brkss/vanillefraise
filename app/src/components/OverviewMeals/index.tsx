@@ -6,6 +6,7 @@ import { Loading } from "../General/Loading";
 
 interface Props {
   navigation: any;
+  refreshing: boolean;
 }
 
 const meals = [
@@ -26,8 +27,14 @@ const meals = [
   },
 ];
 
-export const MealsOverview: React.FC<Props> = ({ navigation }) => {
-  const { data, loading, error } = useMealsQuery();
+export const MealsOverview: React.FC<Props> = ({ navigation, refreshing }) => {
+  const { data, loading, error, refetch } = useMealsQuery();
+
+  React.useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+  }, [refreshing]);
 
   if (loading || error) {
     return <Loading />;
@@ -40,6 +47,7 @@ export const MealsOverview: React.FC<Props> = ({ navigation }) => {
           <View key={key} style={styles.item}>
             <MealItem
               color={meals[key].color}
+              recipes={meal.count}
               navigate={() =>
                 navigation.push("Meal", {
                   mealID: meal.id,

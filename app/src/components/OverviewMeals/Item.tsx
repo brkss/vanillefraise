@@ -5,14 +5,21 @@ interface Props {
   title: string;
   color: string;
   navigate: () => void;
+  recipes: number;
 }
 
-export const MealItem: React.FC<Props> = ({ color, title, navigate }) => {
+export const MealItem: React.FC<Props> = ({
+  color,
+  title,
+  navigate,
+  recipes,
+}) => {
   return (
     <Pressable
       onPress={() => navigate()}
       style={[styles.container, { backgroundColor: color }]}
     >
+      <Text style={styles.recipes}>{recipes} recipes</Text>
       <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
@@ -32,5 +39,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 19,
+  },
+  recipes: {
+    fontSize: 13,
+    color: "#434343",
   },
 });
