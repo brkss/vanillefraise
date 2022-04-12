@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
+import { colors } from "../../../utils/colors";
 
 interface Props {
   name: string;
@@ -15,7 +16,7 @@ export const Record: React.FC<Props> = ({ icon, calories, date, name }) => {
       <Text style={styles.icon}>{icon}</Text>
       <Text style={styles.txt}>{name}</Text>
       <Text style={styles.calories}>{calories} Cal</Text>
-      <Text style={styles.date}>{dayjs(date).format('DD/MM/YYYY hh:mm')}</Text>
+      <Text style={styles.date}>{dayjs(date).format("DD/MM/YYYY hh:mm")}</Text>
     </View>
   );
 };
@@ -23,7 +24,7 @@ export const Record: React.FC<Props> = ({ icon, calories, date, name }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: "#ffeceb",
+    backgroundColor: colors.c3,
     marginRight: 10,
     //alignItems: "center",
     borderRadius: 12,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   icon: {
-    textAlign: "center",
+    //textAlign: "center",
     fontSize: 40,
   },
   date: {
