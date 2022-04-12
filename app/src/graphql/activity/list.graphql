@@ -4,6 +4,7 @@ query Activities{
     duration
     feedback
     calories
+    created_at
     category{
       name
       icon

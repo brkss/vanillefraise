@@ -21,6 +21,7 @@ export type Activity = {
   __typename?: 'Activity';
   calories?: Maybe<Scalars['Float']>;
   category: ActivityCategory;
+  created_at: Scalars['DateTime'];
   duration: Scalars['String'];
   feedback?: Maybe<Scalars['String']>;
   id: Scalars['String'];
@@ -683,7 +684,7 @@ export type CreateActivityMutation = { __typename?: 'Mutation', createActivity: 
 export type ActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename?: 'Activity', id: string, duration: string, feedback?: string | null | undefined, calories?: number | null | undefined, category: { __typename?: 'ActivityCategory', name: string, icon?: string | null | undefined } }> };
+export type ActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename?: 'Activity', id: string, duration: string, feedback?: string | null | undefined, calories?: number | null | undefined, created_at: any, category: { __typename?: 'ActivityCategory', name: string, icon?: string | null | undefined } }> };
 
 export type GetUserBurnedCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1031,6 +1032,7 @@ export const ActivitiesDocument = gql`
     duration
     feedback
     calories
+    created_at
     category {
       name
       icon

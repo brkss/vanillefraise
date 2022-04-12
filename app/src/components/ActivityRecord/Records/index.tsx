@@ -1,8 +1,14 @@
 import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { Record } from "./Item";
+import { useActivitiesQuery } from "../../../generated/graphql";
+import { Loading } from "../../General/Loading";
 
 export const ActivityRecords: React.FC = () => {
+  const { loading, data, error } = useActivitiesQuery();
+  if (loading || error) {
+    return <Loading />;
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Latest Physical Activities</Text>
@@ -11,11 +17,14 @@ export const ActivityRecords: React.FC = () => {
         showsHorizontalScrollIndicator={false}
         horizontal
       >
-        <Record />
-        <Record />
-        <Record />
-        <Record />
-        <Record />
+        {data.activities.map((actv, key) => (
+          <Record
+            name={actv.category.name}
+            icon={actv.category.icon}
+            calories={actv.calories}
+            date={actv.created_at}
+          />
+        ))}
       </ScrollView>
     </View>
   );
