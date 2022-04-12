@@ -7,7 +7,7 @@ import { createConnection } from "typeorm";
 import cookieParser from "cookie-parser";
 import { refreshToken } from "./utils/token";
 import cors from "cors";
-import path from 'path';
+import path from "path";
 
 (async () => {
   await createConnection({
@@ -21,8 +21,8 @@ import path from 'path';
     synchronize: true,
     logging: false,
     entities: ["dist/entity/**/*.js"],
-    migrations: ["dist/migration/**/*.js"] ,
-    subscribers: ["dist/subscriber/**/*.js"]
+    migrations: ["dist/migration/**/*.js"],
+    subscribers: ["dist/subscriber/**/*.js"],
   });
   const app = express();
   app.use(
@@ -35,7 +35,8 @@ import path from 'path';
   app.use(cookieParser());
 
   app.get("/", (_, res) => {
-    res.send("hello from express !");
+    res.redirect("https://opencc.tech");
+    //res.send("hello from express !");
   });
 
   app.post("/refresh_token", async (req, res) => await refreshToken(res, req));
@@ -47,6 +48,7 @@ import path from 'path';
   const apolloServer = new ApolloServer({
     schema: await build(),
     context: ({ req, res }) => ({ req, res }),
+    playground: false
   });
 
   apolloServer.applyMiddleware({ app, cors: false });

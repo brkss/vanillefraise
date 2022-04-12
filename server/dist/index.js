@@ -26,7 +26,7 @@ const path_1 = __importDefault(require("path"));
         logging: false,
         entities: ["dist/entity/**/*.js"],
         migrations: ["dist/migration/**/*.js"],
-        subscribers: ["dist/subscriber/**/*.js"]
+        subscribers: ["dist/subscriber/**/*.js"],
     });
     const app = (0, express_1.default)();
     app.use((0, cors_1.default)({
@@ -35,7 +35,7 @@ const path_1 = __importDefault(require("path"));
     }));
     app.use((0, cookie_parser_1.default)());
     app.get("/", (_, res) => {
-        res.send("hello from express !");
+        res.redirect("https://opencc.tech");
     });
     app.post("/refresh_token", async (req, res) => await (0, token_1.refreshToken)(res, req));
     const dir = path_1.default.join(__dirname, "cdn/images");
@@ -43,6 +43,7 @@ const path_1 = __importDefault(require("path"));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, build_1.build)(),
         context: ({ req, res }) => ({ req, res }),
+        playground: false
     });
     apolloServer.applyMiddleware({ app, cors: false });
     app.listen(process.env.PORT, () => {
