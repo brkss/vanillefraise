@@ -13,6 +13,7 @@ import {
   Heading,
   Loading,
   MoodStats,
+  ActivityRecords
 } from "../../components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
@@ -68,6 +69,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
               </View>
             </Pressable>
           </View>
+          <ActivityRecords />
           <View
             style={{
               borderTopWidth: 1,
