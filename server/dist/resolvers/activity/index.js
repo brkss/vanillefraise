@@ -14,4 +14,5 @@ __exportStar(require("./category.resolver"), exports);
 __exportStar(require("./create.resolver"), exports);
 __exportStar(require("./calories.resolver"), exports);
 __exportStar(require("./overview.resolver"), exports);
+__exportStar(require("./list.resolver"), exports);
 //# sourceMappingURL=index.js.map

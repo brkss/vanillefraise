@@ -33,7 +33,8 @@ const build = async () => {
             resolvers_1.UserPasswordResolver,
             resolvers_1.CreateMealsResolver,
             resolvers_1.ListMealsResolver,
-            resolvers_1.SearchRecipeResolver
+            resolvers_1.SearchRecipeResolver,
+            resolvers_1.ActivityListResolver
         ],
         validate: false,
         dateScalarMode: 'isoDate'

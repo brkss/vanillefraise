@@ -22,6 +22,7 @@ export class Activity extends BaseEntity {
   @Column({ nullable: true })
   calories?: number;
 
+  @Field()
   @CreateDateColumn()
   created_at: Date;
 

@@ -12,41 +12,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActivityOverviewResolver = void 0;
+exports.ActivityListResolver = void 0;
 const type_graphql_1 = require("type-graphql");
-const Activity_1 = require("../../entity/Activity");
-const auth_mw_1 = require("../../utils/middlewares/auth.mw");
+const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
-const typeorm_1 = require("typeorm");
-let ActivityOverviewResolver = class ActivityOverviewResolver {
-    async getUserBurnedCalories(ctx) {
-        const user = await User_1.User.findOne({
-            where: {
-                id: ctx.payload.userID,
-            },
+const Activity_1 = require("../../entity/Activity");
+let ActivityListResolver = class ActivityListResolver {
+    async activities(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return [];
+        const activities = await Activity_1.Activity.find({
+            where: { user: user },
+            order: { created_at: 'DESC' },
+            relations: ['category']
         });
-        if (!user) {
-            return 0;
-        }
-        const { sum } = await (0, typeorm_1.getRepository)(Activity_1.Activity)
-            .createQueryBuilder("activities")
-            .select("SUM(calories)", "sum")
-            .where("userID = :userid and DATE(created_at) = CURDATE()")
-            .setParameters({ userid: user.id })
-            .getRawOne();
-        return sum;
+        return activities;
     }
 };
 __decorate([
-    (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
-    (0, type_graphql_1.Query)(() => Number),
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => [Activity_1.Activity]),
     __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], ActivityOverviewResolver.prototype, "getUserBurnedCalories", null);
-ActivityOverviewResolver = __decorate([
+], ActivityListResolver.prototype, "activities", null);
+ActivityListResolver = __decorate([
     (0, type_graphql_1.Resolver)()
-], ActivityOverviewResolver);
-exports.ActivityOverviewResolver = ActivityOverviewResolver;
-//# sourceMappingURL=overview.resolver.js.map
+], ActivityListResolver);
+exports.ActivityListResolver = ActivityListResolver;
+//# sourceMappingURL=list.resolver.js.map
