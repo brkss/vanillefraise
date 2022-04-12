@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { LoadingBar } from "./LoadingBar";
-import { useCookedRecipesCountQuery } from "../../generated/graphql";
+import {
+  useCookedRecipesCountQuery,
+  useGetUserBurnedCaloriesQuery,
+} from "../../generated/graphql";
 import { Loading } from "../General/Loading";
 import { useUserCaloriesQuery } from "../../generated/graphql";
 
@@ -16,18 +19,23 @@ interface Props {
 
 export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
   const { data, loading, error, refetch } = useUserCaloriesQuery();
+  const _burnedCalories = useGetUserBurnedCaloriesQuery();
+
   const _count = useCookedRecipesCountQuery();
 
   React.useEffect(() => {
     if (refreshing) {
       refetch();
       _count.refetch();
+      _burnedCalories.refetch();
     }
   }, [refreshing]);
 
   if (
     _count.loading ||
     _count.error ||
+    _burnedCalories.loading ||
+    _burnedCalories.error ||
     loading ||
     error ||
     !data.userCalories.status
@@ -42,7 +50,9 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
         <Text style={styles.needCalories}> / {data.userCalories.target}</Text>
       </View>
       <Text style={styles.unit}>calories</Text>
-      {/*<Text style={styles.burned}>1200 Cal Burned</Text>*/}
+      <Text style={styles.burned}>
+        {_burnedCalories.data.getUserBurnedCalories} Cal Burned
+      </Text>
       <LoadingBar
         progress={calcProgress(
           data.userCalories.target,
@@ -77,6 +87,7 @@ const styles = StyleSheet.create({
   unit: {
     marginTop: -10,
     fontSize: 26,
+    lineHeight: 26,
     fontFamily: "helvitica-condesed",
     opacity: 0.7,
   },
@@ -87,7 +98,8 @@ const styles = StyleSheet.create({
   },
   burned: {
     fontFamily: "helvitica-condesed",
-    fontSize: 25,
+    fontSize: 24,
+    //lineHeight: 26,
     color: "#434343",
   },
 });
