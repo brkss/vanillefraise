@@ -1,0 +1,12 @@
+query Activities{
+  activities{
+    id
+    duration
+    feedback
+    calories
+    category{
+      name
+      icon
+    }
+  }
+}
