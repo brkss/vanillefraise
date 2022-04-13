@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 import { IInformationData } from "../../utils/types/Register";
@@ -73,7 +73,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
   };
 
   return (
-    <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+    <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : null} style={styles.container}>
       <Text style={styles.heading}>Basic {"\n"}Informations</Text>
       {error ? <Error txt={error} close={() => setError("")} /> : null}
       <View style={styles.form}>

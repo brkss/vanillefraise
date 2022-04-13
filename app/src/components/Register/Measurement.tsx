@@ -5,21 +5,23 @@ import {
   StyleSheet,
   Platform,
   KeyboardAvoidingView,
+  Pressable,
 } from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 import { IMeasurementData } from "../../utils/types/Register";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import dayjs from "dayjs";
 
 interface Props {
   pass: (data: IMeasurementData) => void;
 }
 
 export const Measurement: React.FC<Props> = ({ pass }) => {
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = React.useState(Platform.OS == "ios");
   const [date, setDate] = React.useState(new Date("4/9/2000"));
   const [form, SetForm] = React.useState<any>({
-    birth: date
+    birth: date,
   });
   const handleForm = (key: string, value: string | Date) => {
     SetForm({
@@ -29,10 +31,11 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
   };
 
   const onChange = (event: any, selectedDate: Date) => {
-    event.preventDefault();
+    //event.preventDefault();
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
+    console.log("CHANGE DATE !");
     handleForm("birth", currentDate);
   };
 
@@ -52,7 +55,10 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
   };
 
   return (
-    <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : null}
+      style={styles.container}
+    >
       <InvisibleInput
         unit={"KG"}
         label={"WEIGHT"}
@@ -68,28 +74,32 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
         label={"AGE"}
         txtChange={(t) => handleForm("age", t)}
       />*/}
-      {show && (
-        <View>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-              color: "#434343",
-              fontFamily: "helvitica-condesed",
-            }}
-          >
-            BIRTHDAY
-          </Text>
+      <View>
+        <Text
+          style={{
+            fontSize: 25,
+            fontWeight: "bold",
+            color: "#434343",
+            fontFamily: "helvitica-condesed",
+          }}
+        >
+          BIRTHDAY
+        </Text>
+        {show && (
           <DateTimePicker
             testID="dateTimePicker"
             value={date}
             mode={"date"}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
+            display={Platform.OS == "ios" ? "default" : "calendar"}
+            onChange={(e: any, date: Date) => onChange(e, date)}
           />
-        </View>
-      )}
+        )}
+        {Platform.OS == "android" && (
+          <Pressable onPress={() => setShow((curr) => !curr)}>
+            <Text style={styles.date}>{dayjs(date).format("DD/MM/YYYY")}</Text>
+          </Pressable>
+        )}
+      </View>
       <Button clicked={() => saveData()} txt={"NEXT"} />
     </KeyboardAvoidingView>
   );
@@ -99,5 +109,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-evenly",
+  },
+  date: {
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "right",
+    fontFamily: "helvitica-condesed",
   },
 });

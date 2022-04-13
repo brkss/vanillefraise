@@ -23,6 +23,7 @@ export const ActivityRecords: React.FC = () => {
             icon={actv.category.icon}
             calories={actv.calories}
             date={actv.created_at}
+            key={key}
           />
         ))}
       </ScrollView>
