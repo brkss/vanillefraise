@@ -34,10 +34,11 @@ const build = async () => {
             resolvers_1.CreateMealsResolver,
             resolvers_1.ListMealsResolver,
             resolvers_1.SearchRecipeResolver,
-            resolvers_1.ActivityListResolver
+            resolvers_1.ActivityListResolver,
+            resolvers_1.MealRecipeResolver,
         ],
         validate: false,
-        dateScalarMode: 'isoDate'
+        dateScalarMode: "isoDate",
     });
 };
 exports.build = build;

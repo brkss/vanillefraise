@@ -28,7 +28,8 @@ import {
   CreateMealsResolver,
   ListMealsResolver,
   SearchRecipeResolver,
-  ActivityListResolver
+  ActivityListResolver,
+  MealRecipeResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -62,9 +63,10 @@ export const build = async () => {
       CreateMealsResolver,
       ListMealsResolver,
       SearchRecipeResolver,
-      ActivityListResolver
+      ActivityListResolver,
+      MealRecipeResolver,
     ],
     validate: false,
-    dateScalarMode: 'isoDate'
+    dateScalarMode: "isoDate",
   });
 };
