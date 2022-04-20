@@ -43,17 +43,17 @@ __decorate([
 ], Activity.prototype, "created_at", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => ActivityCategory_1.ActivityCategory),
-    (0, typeorm_1.ManyToOne)(() => ActivityCategory_1.ActivityCategory, category => category.activities, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+    (0, typeorm_1.ManyToOne)(() => ActivityCategory_1.ActivityCategory, (category) => category.activities, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
     }),
     __metadata("design:type", ActivityCategory_1.ActivityCategory)
 ], Activity.prototype, "category", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => User_1.User),
-    (0, typeorm_1.ManyToOne)(() => User_1.User, user => user.activities, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.activities, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
     }),
     __metadata("design:type", User_1.User)
 ], Activity.prototype, "user", void 0);

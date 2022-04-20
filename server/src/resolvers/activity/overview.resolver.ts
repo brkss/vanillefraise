@@ -26,6 +26,6 @@ export class ActivityOverviewResolver {
       .setParameters({ userid: user.id })
       .getRawOne();
 
-    return sum;
+    return sum == null ? 0 : sum;
   }
 }

@@ -27,35 +27,35 @@ let UserPasswordResolver = class UserPasswordResolver {
         if (!data || !data.newpass || !data.oldpass) {
             return {
                 status: false,
-                message: "Invalid Data !"
+                message: "Invalid Data !",
             };
         }
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user) {
             return {
                 status: false,
-                message: "User Not Found !"
+                message: "User Not Found !",
             };
         }
-        const verify = await bcrypt_1.default.compare(data.newpass, user.password);
+        const verify = await bcrypt_1.default.compare(data.oldpass, user.password);
         if (!verify) {
             return {
                 status: false,
-                message: "Invaid Password !"
+                message: "Invaid Password !",
             };
         }
         user.password = await bcrypt_1.default.hash(data.newpass, 5);
         await user.save();
         return {
             status: true,
-            message: "Your password has been changed !"
+            message: "Your password has been changed !",
         };
     }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
     (0, type_graphql_1.Mutation)(() => auth_2.ChangePasswordResponse),
-    __param(0, (0, type_graphql_1.Arg)('data')),
+    __param(0, (0, type_graphql_1.Arg)("data")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [auth_1.ChangePasswordInput, Object]),

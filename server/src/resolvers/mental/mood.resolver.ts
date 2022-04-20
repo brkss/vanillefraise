@@ -68,6 +68,7 @@ export class MoodResolver {
         record.date = new Date();
         await record.save();
       }
+
       return {
         status: true,
         message: "Mood Record Created Successfuly !",

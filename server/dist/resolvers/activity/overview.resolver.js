@@ -34,7 +34,7 @@ let ActivityOverviewResolver = class ActivityOverviewResolver {
             .where("userID = :userid and DATE(created_at) = CURDATE()")
             .setParameters({ userid: user.id })
             .getRawOne();
-        return sum;
+        return sum == null ? 0 : sum;
     }
 };
 __decorate([

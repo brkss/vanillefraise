@@ -48,7 +48,7 @@ import path from "path";
   const apolloServer = new ApolloServer({
     schema: await build(),
     context: ({ req, res }) => ({ req, res }),
-    playground: false
+    //playground: false
   });
 
   apolloServer.applyMiddleware({ app, cors: false });

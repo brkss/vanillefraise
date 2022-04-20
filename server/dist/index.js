@@ -43,7 +43,6 @@ const path_1 = __importDefault(require("path"));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, build_1.build)(),
         context: ({ req, res }) => ({ req, res }),
-        playground: false
     });
     apolloServer.applyMiddleware({ app, cors: false });
     app.listen(process.env.PORT, () => {
