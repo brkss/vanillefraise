@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Pressable,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import {
   Alert,
@@ -21,12 +22,22 @@ import {
   useRecordsQuery,
 } from "../../generated/graphql";
 
+const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 export const Activity: React.FC<any> = ({ navigation }) => {
+  const [refreshing, setRefreshing] = React.useState(false);
   const [alertData, SetAlertData] = React.useState({
     show: false,
     type: "success",
     text: "",
   });
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const [selected, setSelected] = React.useState("");
   const { data, loading, error } = useRecordCategoriesQuery({
@@ -57,7 +68,12 @@ export const Activity: React.FC<any> = ({ navigation }) => {
         <View style={styles.headingContainer}>
           <Heading title={"Activities"} />
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.actions}>
             <Pressable
               onPress={() => navigation.push("NewActivity")}
@@ -87,9 +103,10 @@ export const Activity: React.FC<any> = ({ navigation }) => {
             />
           ) : null}
           <TodaysMood
-            triggerAlert={(msg) =>
-              SetAlertData({ text: msg, type: "success", show: true })
-            }
+            triggerAlert={(msg) => {
+              onRefresh();
+              SetAlertData({ text: msg, type: "success", show: true });
+            }}
           />
           <View
             style={{
@@ -104,7 +121,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
             <Text style={styles.subtitle}>About your mood</Text>
             <Text> According to your records </Text>
             <View style={{ marginBottom: 30 }}>
-              <MoodStats refreshing={false} />
+              <MoodStats refreshing={refreshing} />
             </View>
           </View>
           {/*

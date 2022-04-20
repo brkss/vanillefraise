@@ -25,7 +25,6 @@ export const TodaysMood: React.FC<Props> = ({ triggerAlert }) => {
       SetSelected([...selected]);
     }
   };
-
   const saveRecord = () => {
     if (selected.length == 0) return;
     save({
@@ -51,7 +50,6 @@ export const TodaysMood: React.FC<Props> = ({ triggerAlert }) => {
   if (loading || !data || error) {
     return <Loading />;
   }
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>How you feeling today ?</Text>
