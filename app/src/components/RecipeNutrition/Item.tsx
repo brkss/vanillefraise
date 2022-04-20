@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { colors } from '../../utils/colors';
 
 interface Props {
   label: string;
@@ -25,8 +26,10 @@ export const RecipeNutritionItem: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
+    borderWidth: 1,
     padding: 17,
-    backgroundColor: "#D8D8D8",
+    backgroundColor: colors.c3,
+    //backgroundColor: "#D8D8D8",
     marginRight: 15,
     borderRadius: 14,
     minHeight: 100,

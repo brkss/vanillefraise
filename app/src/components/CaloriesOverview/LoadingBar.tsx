@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     backgroundColor: "#D6D4D4",
     borderRadius: 70,
+    borderWidth: 1,
+
   },
   bar: {
     height: 20,

@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     padding: 8,
     height: 70,
     justifyContent: "flex-end",
+    borderWidth: 1,
     borderRadius: 11,
   },
   recipe: {

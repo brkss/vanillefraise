@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     height: 100,
     width: 90,
+    //borderWidth: 1,
   },
   title: {
     fontSize: 14,

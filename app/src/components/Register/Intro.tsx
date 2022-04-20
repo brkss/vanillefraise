@@ -14,7 +14,7 @@ export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
         <Text style={styles.heading}>Hello.</Text>
         <Text style={styles.info}>
           Brace yourself and let me take you on trip to find your balence,
-          eating and keeping health mentally and physically
+          eating and staying healthy mentally and physically
         </Text>
       </View>
       <View style={{ width: "100%" }}>

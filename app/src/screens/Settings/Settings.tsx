@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   option: {
+    borderWidth: 1,
     padding: 20,
     borderRadius: 13,
     backgroundColor: "#E5E2E2",

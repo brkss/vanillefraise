@@ -23,6 +23,7 @@ export const Record: React.FC<Props> = ({ icon, calories, date, name }) => {
 
 const styles = StyleSheet.create({
   container: {
+    //borderWidth: 1,
     padding: 10,
     backgroundColor: colors.c3,
     marginRight: 10,

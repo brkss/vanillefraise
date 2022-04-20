@@ -13,7 +13,7 @@ import {
   Heading,
   Loading,
   MoodStats,
-  ActivityRecords
+  ActivityRecords,
 } from "../../components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 15,
     backgroundColor: "#E6E3E3",
+    borderWidth: 1,
   },
   createTxt: {
     justifyContent: "center",

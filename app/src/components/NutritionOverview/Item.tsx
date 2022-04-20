@@ -34,7 +34,7 @@ export const NutrientItem: React.FC<Props> = ({
   value,
   title,
   recomended,
-  clicked
+  clicked,
 }) => {
   return (
     <Pressable onPress={() => clicked()} style={styles.container}>
@@ -63,6 +63,7 @@ export const NutrientItem: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     justifyContent: "flex-end",
+    //borderWidth: 1,
     padding: 10,
     backgroundColor: "#ECE8E8",
     height: 110,
