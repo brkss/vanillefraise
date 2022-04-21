@@ -4,7 +4,7 @@ import { useRecipeByNutritionQuery } from "../../generated/graphql";
 import { Loading, RecipeThumbnail } from "../../components";
 import { CDN } from "../../utils/config/defaults";
 
-export const RecipesByNutritions: React.FC<any> = ({ route }) => {
+export const RecipesByNutritions: React.FC<any> = ({ route, navigation }) => {
   const { code, name } = route.params;
   const { loading, data, error } = useRecipeByNutritionQuery({
     variables: { code: code },
@@ -27,7 +27,9 @@ export const RecipesByNutritions: React.FC<any> = ({ route }) => {
               <RecipeThumbnail
                 key={key}
                 img={`${CDN}/${recipe.image}`}
-                pressed={() => {}}
+                pressed={() =>
+                  navigation.push("RecipeDetails", { id: recipe.id })
+                }
                 title={recipe.name}
                 time={recipe.total}
               />

@@ -1,0 +1,6 @@
+mutation RemoveRecipe($mealid: String!, $recipeid: String!) {
+  removeRecipe(data: {mealid: $mealid, recipeid: $recipeid }) {
+    status
+    message
+  }
+}

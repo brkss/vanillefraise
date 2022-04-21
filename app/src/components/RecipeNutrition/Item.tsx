@@ -26,7 +26,7 @@ export const RecipeNutritionItem: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    //borderWidth: 1,
     padding: 17,
     backgroundColor: colors.c3,
     //backgroundColor: "#D8D8D8",

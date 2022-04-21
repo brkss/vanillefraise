@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
   title: string;
@@ -13,6 +14,8 @@ interface Props {
   carbs?: string;
   img: string;
   pressed: () => void;
+  showDel?: boolean;
+  removeRecipe?: () => void;
 }
 
 export const RecipeThumbnail: React.FC<Props> = ({
@@ -21,6 +24,8 @@ export const RecipeThumbnail: React.FC<Props> = ({
   time,
   carbs,
   pressed,
+  showDel,
+  removeRecipe,
 }) => {
   console.log("Image : ", img);
   return (
@@ -33,6 +38,14 @@ export const RecipeThumbnail: React.FC<Props> = ({
         style={styles.container}
       >
         <View style={styles.shadow} />
+        {showDel && (
+          <Ionicons
+            size={25}
+            style={styles.removeIcon}
+            name={"remove-circle-outline"}
+            onPress={() => removeRecipe()}
+          />
+        )}
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.time}>about {time} to make.</Text>
         {carbs && <Text style={styles.carbs}>120g of carbs</Text>}
@@ -40,7 +53,6 @@ export const RecipeThumbnail: React.FC<Props> = ({
     </TouchableOpacity>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     height: 175,
@@ -78,5 +90,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     right: 10,
+  },
+  removeIcon: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    color: "white",
   },
 });

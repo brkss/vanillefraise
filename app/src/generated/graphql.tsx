@@ -269,6 +269,7 @@ export type Mutation = {
   login: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
+  removeRecipe: DefaultResponse;
   requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
@@ -347,6 +348,11 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   data: RegisterInput;
+};
+
+
+export type MutationRemoveRecipeArgs = {
+  data: RemoveMealRecipeInput;
 };
 
 
@@ -597,6 +603,11 @@ export type RegisterInput = {
   weight: Scalars['Float'];
 };
 
+export type RemoveMealRecipeInput = {
+  mealid: Scalars['String'];
+  recipeid: Scalars['String'];
+};
+
 export type ResetPasswordInput = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
@@ -776,6 +787,14 @@ export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'MealListResponse', id: string, name: string, index: number, count: number }> };
+
+export type RemoveRecipeMutationVariables = Exact<{
+  mealid: Scalars['String'];
+  recipeid: Scalars['String'];
+}>;
+
+
+export type RemoveRecipeMutation = { __typename?: 'Mutation', removeRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
 export type CreateMoodRecordMutationVariables = Exact<{
   moods: Array<Scalars['String']> | Scalars['String'];
@@ -1513,6 +1532,41 @@ export function useMealsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Meal
 export type MealsQueryHookResult = ReturnType<typeof useMealsQuery>;
 export type MealsLazyQueryHookResult = ReturnType<typeof useMealsLazyQuery>;
 export type MealsQueryResult = Apollo.QueryResult<MealsQuery, MealsQueryVariables>;
+export const RemoveRecipeDocument = gql`
+    mutation RemoveRecipe($mealid: String!, $recipeid: String!) {
+  removeRecipe(data: {mealid: $mealid, recipeid: $recipeid}) {
+    status
+    message
+  }
+}
+    `;
+export type RemoveRecipeMutationFn = Apollo.MutationFunction<RemoveRecipeMutation, RemoveRecipeMutationVariables>;
+
+/**
+ * __useRemoveRecipeMutation__
+ *
+ * To run a mutation, you first call `useRemoveRecipeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveRecipeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeRecipeMutation, { data, loading, error }] = useRemoveRecipeMutation({
+ *   variables: {
+ *      mealid: // value for 'mealid'
+ *      recipeid: // value for 'recipeid'
+ *   },
+ * });
+ */
+export function useRemoveRecipeMutation(baseOptions?: Apollo.MutationHookOptions<RemoveRecipeMutation, RemoveRecipeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveRecipeMutation, RemoveRecipeMutationVariables>(RemoveRecipeDocument, options);
+      }
+export type RemoveRecipeMutationHookResult = ReturnType<typeof useRemoveRecipeMutation>;
+export type RemoveRecipeMutationResult = Apollo.MutationResult<RemoveRecipeMutation>;
+export type RemoveRecipeMutationOptions = Apollo.BaseMutationOptions<RemoveRecipeMutation, RemoveRecipeMutationVariables>;
 export const CreateMoodRecordDocument = gql`
     mutation CreateMoodRecord($moods: [String!]!) {
   createMoodRecord(data: {moods: $moods}) {

@@ -46,16 +46,22 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+      <View style={{ height: 60, backgroundColor: "white" }}>
+        <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
+        <Close pressed={() => navigation.popToTop()} />
+        <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
+      </View>
+      <ScrollView
+        bounces={false}
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
         <ImageBackground
           style={styles.image}
           source={{
             uri: `${CDN}/${data.recipe.recipe!.image}`,
           }}
-        >
-          <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
-          <Close pressed={() => navigation.popToTop()} />
-        </ImageBackground>
+        ></ImageBackground>
         <View style={styles.content}>
           <RecipeMetaData
             title={data.recipe.recipe!.name}
@@ -75,7 +81,9 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             //color={"#2A2A2A"}
             bg={"#595959"}
             txt={"Add To Meal"}
-            clicked={() => navigation.push("MealsOptions", {recipe: data.recipe.recipe.id})}
+            clicked={() =>
+              navigation.push("MealsOptions", { recipe: data.recipe.recipe.id })
+            }
           />
 
           <Button

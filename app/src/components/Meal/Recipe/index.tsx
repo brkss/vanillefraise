@@ -1,34 +1,46 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RecipeThumbnail } from "../../RecipeThumbnail";
-import { CDN } from '../../../utils/config/defaults';
-import { NoMealFound } from './Nothing';
+import { CDN } from "../../../utils/config/defaults";
+import { NoMealFound } from "./Nothing";
+import {
+  useRemoveRecipeMutation,
+  GetMealRecipesQuery,
+  GetMealRecipesDocument,
+} from "../../../generated/graphql";
 
 interface Props {
-  recipes: any[]
-  navigation: any
+  recipes: any[];
+  navigation: any;
+  mealids: any[];
 }
 
-export const MealRecipes: React.FC<Props> = ({recipes, navigation}) => {
-  return (
+export const MealRecipes: React.FC<Props> = ({
+  recipes,
+  mealids,
+  navigation,
+}) => {
+  const [removeRecipe] = useRemoveRecipeMutation();
+   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recipes</Text>
       <View style={styles.recipes}>
-        
-        {
-          recipes.length > 0 ?
+        {recipes.length > 0 ? (
           recipes.map((recipe, key) => (
             <RecipeThumbnail
-                pressed={() =>  navigation.push("RecipeDetails", { id: recipe.id }) } 
-                title={recipe.name}
-                img={`${CDN}/${recipe.image}`}
-                time={recipe.total}
-                carbs={recipe.carbs}
-                key={key}
-              />
-              )) : <NoMealFound />
-        }
-        
+              pressed={() =>
+                navigation.push("RecipeDetails", { id: recipe.id })
+              }
+              title={recipe.name}
+              img={`${CDN}/${recipe.image}`}
+              time={recipe.total}
+              carbs={recipe.carbs}
+              key={key}
+            />
+          ))
+        ) : (
+          <NoMealFound />
+        )}
       </View>
     </View>
   );
