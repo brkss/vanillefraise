@@ -145,7 +145,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
             <MealRecipes
-              mealids={data.getMealRecipes.mealrecipes} 
+              mealids={data.getMealRecipes.mealrecipes}
               navigation={navigation}
               recipes={data.getMealRecipes.recipes}
             />

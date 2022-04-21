@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
-import { Heading, Loading } from "../../components";
+import { Heading, Loading, SocialMedia } from "../../components";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useMeQuery } from "../../generated/graphql";
-import  Update  from 'expo-updates';
+import Update from "expo-updates";
 
 export const Settings: React.FC<any> = ({ navigation }) => {
   const { data, loading, error } = useMeQuery();
@@ -48,6 +48,8 @@ export const Settings: React.FC<any> = ({ navigation }) => {
           <Pressable onPress={async () => await logout()} style={styles.option}>
             <Text style={styles.optionText}>Logout</Text>
           </Pressable>
+          <SocialMedia />
+          <Text style={{ textAlign: "center", marginTop: 10, fontWeight: 'bold' }}>V 1.0.7</Text>
         </View>
       </SafeAreaView>
     </View>
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   option: {
-    borderWidth: 1,
+    //borderWidth: 1,
     padding: 20,
     borderRadius: 13,
     backgroundColor: "#E5E2E2",
