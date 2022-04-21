@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Center } from "@chakra-ui/react";
-import { IChoice } from "../../utils/types";
+import { IChoice } from "../../../utils/types";
 
 const choices: IChoice[] = [
   {
