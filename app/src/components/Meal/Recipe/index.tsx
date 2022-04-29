@@ -21,7 +21,7 @@ export const MealRecipes: React.FC<Props> = ({
   navigation,
 }) => {
   const [removeRecipe] = useRemoveRecipeMutation();
-   return (
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Recipes</Text>
       <View style={styles.recipes}>
@@ -29,7 +29,10 @@ export const MealRecipes: React.FC<Props> = ({
           recipes.map((recipe, key) => (
             <RecipeThumbnail
               pressed={() =>
-                navigation.push("RecipeDetails", { id: recipe.id })
+                navigation.push("RecipeDetails", {
+                  id: recipe.id,
+                  frommeal: true,
+                })
               }
               title={recipe.name}
               img={`${CDN}/${recipe.image}`}

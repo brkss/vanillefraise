@@ -9,6 +9,7 @@ import {
   BMIResult,
   RegisterSpecialCondition,
   RegisterOutro,
+  Close,
 } from "../../../components";
 //import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -99,6 +100,9 @@ export const Register: React.FC<any> = ({ navigation }) => {
     console.log("DATA saved in register screen ! +++> ", data);
   };
 
+  const closeRegister = () => {
+    setStatus("INTRO");
+  };
   const handleRegister = () => {
     register({
       variables: {
@@ -151,7 +155,15 @@ export const Register: React.FC<any> = ({ navigation }) => {
     >
     */
     <View style={styles.container}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, paddingTop: 10 }}>
+        {status != "INTRO" && (
+          <Close
+            isRegister={true}
+            pressed={() => {
+              closeRegister();
+            }}
+          />
+        )}
         <View style={styles.content}>
           {
             {

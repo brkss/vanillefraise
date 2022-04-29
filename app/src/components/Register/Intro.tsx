@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Button } from "../General/Button";
 
 interface Props {
@@ -11,11 +11,17 @@ export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.heading}>Hello.</Text>
+        <Image
+          style={{ alignSelf: "center", width: 200, height: 200 }}
+          source={require("../../assets/icon.png")}
+        />
+        <Text style={styles.heading}>Hello</Text>
+        {/*
         <Text style={styles.info}>
           Brace yourself and let me take you on trip to find your balence,
           eating and staying healthy mentally and physically
         </Text>
+        */}
       </View>
       <View style={{ width: "100%" }}>
         <Button txt={"Register"} clicked={() => pass()} />
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
     color: "#434343",
-    textAlign: "left",
+    textAlign: "center",
   },
   info: {
     marginTop: 10,

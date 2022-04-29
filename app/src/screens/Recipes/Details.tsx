@@ -20,7 +20,7 @@ import { useRecipeQuery, useRecipeEnergyQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
-  const { id } = route.params;
+  const { id, frommeal } = route.params;
   const _energy = useRecipeEnergyQuery({
     variables: {
       recipe_id: id,
@@ -77,15 +77,19 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               ({ index: a }, { index: b }) => a - b
             )}
           />
-          <Button
-            //color={"#2A2A2A"}
-            bg={"#595959"}
-            txt={"Add To Meal"}
-            clicked={() =>
-              navigation.push("MealsOptions", { recipe: data.recipe.recipe.id })
-            }
-          />
-
+          {
+            !frommeal ?
+            <Button
+              //color={"#2A2A2A"}
+              bg={"#595959"}
+              txt={"Add To Meal"}
+              clicked={() =>
+                navigation.push("MealsOptions", { recipe: data.recipe.recipe.id })
+              }
+            /> : null
+          }  
+          
+          
           <Button
             //color={"#2A2A2A"}
             //bg={"#B6DA81"}

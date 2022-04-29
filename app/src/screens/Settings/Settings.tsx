@@ -4,7 +4,8 @@ import { Heading, Loading, SocialMedia } from "../../components";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useMeQuery } from "../../generated/graphql";
-import Update from "expo-updates";
+import  Constants  from "expo-constants";
+
 
 export const Settings: React.FC<any> = ({ navigation }) => {
   const { data, loading, error } = useMeQuery();
@@ -49,7 +50,7 @@ export const Settings: React.FC<any> = ({ navigation }) => {
             <Text style={styles.optionText}>Logout</Text>
           </Pressable>
           <SocialMedia />
-          <Text style={{ textAlign: "center", marginTop: 10, fontWeight: 'bold' }}>V 1.0.7</Text>
+          <Text style={{ textAlign: "center", marginTop: 10, fontWeight: 'bold' }}>V { Constants.manifest.version }</Text>
         </View>
       </SafeAreaView>
     </View>

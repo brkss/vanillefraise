@@ -1,16 +1,23 @@
 import React from "react";
-import { View, StyleSheet, Linking } from "react-native";
+import { View, StyleSheet, Linking, Alert } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { twitter, instagram } from '../../utils/config/defaults';
 
 export const SocialMedia = () => {
+  const handlePress = React.useCallback((url: string) => {
+    if(!Linking.canOpenURL(url))
+      Alert.alert('Cant open URl !');
+    else
+      Linking.openURL(url)
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={[styles.item, { alignItems: "flex-end" }]}>
-          <Ionicons name={"logo-twitter"} size={25} />
+          <Ionicons onPress={() => handlePress(twitter)} name={"logo-twitter"} size={25} />
         </View>
         <View style={[styles.item]}>
-          <Ionicons name={"logo-instagram"} size={25} />
+          <Ionicons onPress={() => handlePress(instagram)} name={"logo-instagram"} size={25} />
         </View>
       </View>
     </View>

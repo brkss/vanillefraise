@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  KeyboardAvoidingView,
+} from "react-native";
 import { Heading, InvisibleInput, Button, Loading } from "../../components";
 import { useFonts } from "expo-font";
 import { useMeQuery } from "../../generated/graphql";
@@ -28,9 +34,9 @@ export const PersonalInformation: React.FC = () => {
   const handleForm = (key: string, value: string) => {
     SetForm({
       ...form,
-      [key]: value
-    })
-  }
+      [key]: value,
+    });
+  };
 
   if (error || loading || !data) {
     return <Loading />;
@@ -40,12 +46,15 @@ export const PersonalInformation: React.FC = () => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Heading title={"Personal \nInformations"} />
-        <KeyboardAvoidingView behavior={'padding'} style={{ flex: 1, justifyContent: "space-evenly" }}>
+        <KeyboardAvoidingView
+          behavior={"padding"}
+          style={{ flex: 1, justifyContent: "space-evenly" }}
+        >
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Name</Text>
             <InvisibleInput
               value={form.name}
-              txtChange={(t) => handleForm('name', t)}
+              txtChange={(t) => handleForm("name", t)}
               label={"Name"}
             />
           </View>
@@ -53,7 +62,7 @@ export const PersonalInformation: React.FC = () => {
             <Text style={styles.label}>Username</Text>
             <InvisibleInput
               value={form.username}
-              txtChange={(t) => handleForm('username', t)}
+              txtChange={(t) => handleForm("username", t)}
               label={"Username"}
             />
           </View>
@@ -61,8 +70,16 @@ export const PersonalInformation: React.FC = () => {
             <Text style={styles.label}>Email</Text>
             <InvisibleInput
               value={form.email}
-              txtChange={(t) => handleForm('email', t) }
+              txtChange={(t) => handleForm("email", t)}
               label={"Email"}
+            />
+          </View>
+          <View style={[styles.inputGroup, { display: "none" }]}>
+            <Text style={styles.label}>Weight</Text>
+            <InvisibleInput
+              value={form.email}
+              txtChange={(t) => handleForm("weight", t)}
+              label={"Weight"}
             />
           </View>
           <Button txt={"SAVE"} clicked={() => {}} />
