@@ -213,7 +213,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F6EAE0",
+    backgroundColor: "#f8f8ff",
     padding: 15,
     //alignItems: "center",
     //justifyContent: "space-evenly",

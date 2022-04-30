@@ -27,7 +27,7 @@ export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
         <Button txt={"Register"} clicked={() => pass()} />
         <View style={{ marginTop: 10, width: "100%" }}>
           <Button
-            bg={"#D6CCC2"}
+            bg={"#E8E8E8"}
             color={"#434343"}
             txt={"Login"}
             clicked={() => login()}
