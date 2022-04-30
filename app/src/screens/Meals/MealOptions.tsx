@@ -20,7 +20,7 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
       variables: {
         meal: meal,
         recipe: recipe,
-        date: date
+        date: date,
       },
     })
       .then((res) => {
@@ -61,7 +61,7 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
               highlightDateNameStyle={{ color: "white" }}
               highlightDateNumberStyle={{ color: "yellow" }}
               highlightDateContainerStyle={{ backgroundColor: "black" }}
-              onDateSelected={(date) => setDate(date.toDate()) }
+              onDateSelected={(date) => setDate(date.toDate())}
               useIsoWeekday={false}
             />
             <MealOptionsSelect select={(id) => setMeal(id)} />
@@ -75,6 +75,7 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    //opacity: 0,
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-end",

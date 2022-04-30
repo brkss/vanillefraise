@@ -4,7 +4,7 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
+  //SafeAreaView,
   ScrollView,
 } from "react-native";
 import {
@@ -16,6 +16,7 @@ import {
   MealsOverview,
 } from "../../components";
 import { useFonts } from "expo-font";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const wait = (timeout: number) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));

@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
+  //SafeAreaView,
   RefreshControl,
 } from "react-native";
 import {
@@ -23,6 +23,7 @@ import {
 } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 import { wait } from "../../utils/modules/wait";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Recipes: React.FC<any> = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);

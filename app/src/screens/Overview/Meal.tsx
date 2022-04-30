@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, SafeAreaView, StyleSheet, Text } from "react-native";
+import { ScrollView, View, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import {
   MarkAsFinished,
@@ -13,6 +13,7 @@ import {
   useDaysWithRecipesQuery,
   useCookedRecipesMutation,
 } from "../../generated/graphql";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface MarkedDate {
   count: number;

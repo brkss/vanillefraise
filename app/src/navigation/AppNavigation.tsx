@@ -1,5 +1,7 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+} from "@react-navigation/stack";
 import { TabsNavigation } from "./TabsNavigation";
 import {
   Cooking,
@@ -35,6 +37,7 @@ export const AppNavigation: React.FC = () => {
       </Group>
       <Group
         screenOptions={{
+          cardOverlayEnabled: true,
           headerShown: false,
           presentation: "modal",
           cardStyle: {
