@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
+  //SafeAreaView,
   Pressable,
   ScrollView,
   RefreshControl,
@@ -21,6 +21,7 @@ import {
   useRecordCategoriesQuery,
   useRecordsQuery,
 } from "../../generated/graphql";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const wait = (timeout: number) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));

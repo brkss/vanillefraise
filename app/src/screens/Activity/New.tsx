@@ -1,7 +1,8 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { ActivityCategory } from "../../components";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const NewActivity: React.FC<any> = ({ navigation }) => {
   const [helviticaCondensed] = useFonts({

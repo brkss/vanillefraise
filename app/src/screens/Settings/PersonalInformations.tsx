@@ -3,13 +3,12 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   KeyboardAvoidingView,
 } from "react-native";
 import { Heading, InvisibleInput, Button, Loading } from "../../components";
 import { useFonts } from "expo-font";
 import { useMeQuery } from "../../generated/graphql";
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 export const PersonalInformation: React.FC = () => {
   const [form, SetForm] = React.useState({
     name: "",

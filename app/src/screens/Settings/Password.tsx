@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Button, InvisibleInput, Heading } from "../../components/General";
 import { Error } from "../../components";
 import { useChangePasswordMutation } from "../../generated/graphql";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const PasswordSettings: React.FC<any> = ({ navigation }) => {
   const [form, setForm] = React.useState<any>({});

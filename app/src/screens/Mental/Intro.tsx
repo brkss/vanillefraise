@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { MentalIntroCircle } from "../../components/MentalHealth";
 import { useFonts } from "expo-font";
 import { Button, Loading } from "../../components";
@@ -8,6 +8,8 @@ import {
   useIsRequestedQuery,
   useRequestEarlyAccessMutation,
 } from "../../generated/graphql";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 const { width: w, height: h } = Dimensions.get("window");
 
 export const MentalHealthIntro: React.FC = () => {

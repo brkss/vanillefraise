@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { Heading, Loading, SocialMedia } from "../../components";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useMeQuery } from "../../generated/graphql";
-import  Constants  from "expo-constants";
-
+import Constants from "expo-constants";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Settings: React.FC<any> = ({ navigation }) => {
   const { data, loading, error } = useMeQuery();
@@ -25,33 +25,43 @@ export const Settings: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView>
         <Heading title={"Settings"} />
-        <View style={styles.profile}>
-          <View style={styles.profilePic} />
-          <Text style={styles.name}> {data.me.name} </Text>
-          <Text style={styles.username}>@{data.me.username}</Text>
-        </View>
-        <View style={styles.options}>
-          <Pressable
-            style={styles.option}
-            onPress={() => navigation.push("PersonalInformation")}
-          >
-            <Text style={styles.optionText}>Personal Information </Text>
-          </Pressable>
-          <Pressable
-            style={styles.option}
-            onPress={() => navigation.push("PasswordSettings")}
-          >
-            <Text style={styles.optionText}>Change Password</Text>
-          </Pressable>
-          <Pressable style={styles.option}>
-            <Text style={styles.optionText}>About This Version</Text>
-          </Pressable>
-          <Pressable onPress={async () => await logout()} style={styles.option}>
-            <Text style={styles.optionText}>Logout</Text>
-          </Pressable>
-          <SocialMedia />
-          <Text style={{ textAlign: "center", marginTop: 10, fontWeight: 'bold' }}>V { Constants.manifest.version }</Text>
-        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.profile}>
+            <View style={styles.profilePic} />
+            <Text style={styles.name}> {data.me.name} </Text>
+            <Text style={styles.username}>@{data.me.username}</Text>
+          </View>
+          <View style={styles.options}>
+            <Pressable
+              style={styles.option}
+              onPress={() => navigation.push("PersonalInformation")}
+            >
+              <Text style={styles.optionText}>Personal Information </Text>
+            </Pressable>
+            <Pressable
+              style={styles.option}
+              onPress={() => navigation.push("PasswordSettings")}
+            >
+              <Text style={styles.optionText}>Change Password</Text>
+            </Pressable>
+            <Pressable style={styles.option}>
+              <Text style={styles.optionText}>About This Version</Text>
+            </Pressable>
+            <Pressable
+              onPress={async () => await logout()}
+              style={styles.option}
+            >
+              <Text style={styles.optionText}>Logout</Text>
+            </Pressable>
+            <SocialMedia />
+            <Text
+              style={{ textAlign: "center", marginTop: 10, fontWeight: "bold" }}
+            >
+              V {Constants.manifest.version}
+            </Text>
+          </View>
+          <View style={{ height: 100 }} />
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
