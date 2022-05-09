@@ -52,6 +52,7 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
+    marginBottom: 0,
   },
   heading: {
     fontSize: 20,

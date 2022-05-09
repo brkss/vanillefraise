@@ -42,23 +42,14 @@ export const Overview: React.FC<any> = ({ navigation }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <Heading title={"Overview"} />
         <ScrollView
+          style={{ flex: 1 }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
           showsVerticalScrollIndicator={false}
-          //bounces={false}
         >
           <CaloriesOverview refreshing={refreshing} />
           <MealsOverview refreshing={refreshing} navigation={navigation} />
-          {/*
-          <View>
-            <Text style={styles.subtitle}>About your mood</Text>
-            <Text> According to your records </Text>
-            <View style={{ marginBottom: 30 }}>
-              <MoodStats refreshing={refreshing} />
-            </View>
-          </View>
-          */}
           <NutritionOverview
             clicked={(code: string, name: string) =>
               navigation.push("RecipesByNutritions", { code: code, name: name })
