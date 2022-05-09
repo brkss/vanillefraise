@@ -1,5 +1,5 @@
-mutation CookedRecipe($recipeID: String!){
-  cookedRecipe(recipeID: $recipeID){
+mutation CookedRecipe($recipeID: String!, $mealId: String!){
+  cookedRecipe(data: {recipeId: $recipeID, mealId: $mealId}){
     status
     message
   }

@@ -15,7 +15,7 @@ import { useRecipeQuery, useCookedRecipeMutation } from "../../generated/graphql
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
   const [cooked] = useCookedRecipeMutation();
-  const { id } = route.params;
+  const { id, mealId } = route.params;
   const { data, loading, error } = useRecipeQuery({
     fetchPolicy: "cache-first",
     variables: {
@@ -33,7 +33,8 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
   const finish = () => {
     cooked({
       variables: {
-        recipeID: id
+        recipeID: id,
+        mealId: mealId 
       }
     }).then(res => {
       if(!res.errors || res.data.cookedRecipe.status === true){

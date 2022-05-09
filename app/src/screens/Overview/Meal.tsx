@@ -1,11 +1,18 @@
 import React from "react";
-import { ScrollView, View, StyleSheet, Text } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { useFonts } from "expo-font";
 import {
   MarkAsFinished,
   Loading,
   MealRecipes,
   MealGrocery,
+  SmoothLoading,
 } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
 import {
@@ -26,6 +33,8 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
   const { mealID, mealName } = route.params;
   const [markedDates, setMarkedDates] = React.useState<any[]>([]);
   const [date, setDate] = React.useState(new Date());
+  const [isLoading, SetIsLoading] = React.useState(false);
+  const [isCooked, setIsCooked] = React.useState<boolean>(false);
 
   const getMealRecipesIds = (): string[] => {
     let mr: string[] = [];
@@ -51,6 +60,10 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
       date: date.toString(),
       meal: mealID,
     },
+    onCompleted: (res) => {
+      console.log("res => ", res.getMealRecipes.mealrecipes);
+      if (res.getMealRecipes.cooked) setIsCooked(false);
+    },
   });
   const generateMarkedDates = (dates: MarkedDate[]) => {
     const markedDates: any[] = [];
@@ -70,11 +83,16 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
 
   const markAsCooked = () => {
     const mr = getMealRecipesIds();
+    SetIsLoading(true);
     cooked({
       variables: {
         mealrecipesid: mr,
       },
     }).then((res) => {
+      SetIsLoading(false);
+      if (res.data.cookedRecipes.status) {
+        setIsCooked(true);
+      }
       console.log("cooked recipes result : ", res);
     });
     refetch();
@@ -84,22 +102,19 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
   const [helviticaCondensed] = useFonts({
     condensed: require("../../assets/helvitica-condensed.otf"),
   });
-
   if (!helviticaCondensed) {
     return <Loading />;
   }
 
   return (
     <View style={styles.container}>
+      {isLoading && <SmoothLoading text={"Marking.."} />}
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.row}>
           <Text style={[styles.title, { width: "50%" }]}>{mealName}</Text>
           <View style={[{ width: "50%", alignItems: "flex-end" }]}>
             {loading || error ? null : (
-              <MarkAsFinished
-                marked={data.getMealRecipes.cooked}
-                mark={() => markAsCooked()}
-              />
+              <MarkAsFinished marked={isCooked} mark={() => markAsCooked()} />
             )}
           </View>
         </View>
@@ -146,7 +161,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
             <MealRecipes
-              mealids={data.getMealRecipes.mealrecipes}
+              mealids={data.getMealRecipes.mealrecipes || []}
               navigation={navigation}
               recipes={data.getMealRecipes.recipes}
             />

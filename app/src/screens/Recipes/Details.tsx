@@ -21,7 +21,7 @@ import { CDN } from "../../utils/config/defaults";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
-  const { id, frommeal } = route.params;
+  const { id, mealId } = route.params;
   const _energy = useRecipeEnergyQuery({
     variables: {
       recipe_id: id,
@@ -85,7 +85,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
                 ({ index: a }, { index: b }) => a - b
               )}
             />
-            {!frommeal ? (
+            {!mealId ? (
               <Button
                 //color={"#2A2A2A"}
                 bg={"#595959"}
@@ -96,18 +96,19 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
                   })
                 }
               />
-            ) : null}
-
-            <Button
-              //color={"#2A2A2A"}
-              //bg={"#B6DA81"}
-              txt={"Start Cooking"}
-              clicked={() =>
-                navigation.push("Cooking", {
-                  id: data.recipe.recipe!.id,
-                })
-              }
-            />
+            ) : (
+              <Button
+                //color={"#2A2A2A"}
+                //bg={"#B6DA81"}
+                txt={"Start Cooking"}
+                clicked={() =>
+                  navigation.push("Cooking", {
+                    id: data.recipe.recipe!.id,
+                    mealId: mealId,
+                  })
+                }
+              />
+            )}
             <View style={{ height: 50 }} />
           </View>
         </ScrollView>

@@ -3,12 +3,13 @@ import { View, Text, StyleSheet } from "react-native";
 import { RecipeThumbnail } from "../../RecipeThumbnail";
 import { CDN } from "../../../utils/config/defaults";
 import { NoMealFound } from "./Nothing";
+/*
 import {
   useRemoveRecipeMutation,
   GetMealRecipesQuery,
   GetMealRecipesDocument,
 } from "../../../generated/graphql";
-
+*/
 interface Props {
   recipes: any[];
   navigation: any;
@@ -20,7 +21,18 @@ export const MealRecipes: React.FC<Props> = ({
   mealids,
   navigation,
 }) => {
-  const [removeRecipe] = useRemoveRecipeMutation();
+  //const [removeRecipe] = useRemoveRecipeMutation();
+  console.log("Meals ids ?? : ", mealids);
+
+  const getRecipeMealId = (recipeID: string): string | null => {
+    for (let mr of mealids) {
+      if (mr.recipe.id == recipeID) {
+        return mr.id;
+      }
+    }
+    return null;
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recipes</Text>
@@ -31,7 +43,7 @@ export const MealRecipes: React.FC<Props> = ({
               pressed={() =>
                 navigation.push("RecipeDetails", {
                   id: recipe.id,
-                  frommeal: true,
+                  mealId: mealids.length > 0 && getRecipeMealId(recipe.id) || "",
                 })
               }
               title={recipe.name}

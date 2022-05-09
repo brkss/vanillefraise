@@ -6,6 +6,7 @@ import {
   StyleSheet,
   //SafeAreaView,
   ScrollView,
+  Platform,
 } from "react-native";
 import {
   Loading,
@@ -39,7 +40,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, marginBottom: Platform.OS === "ios" ? -40 : 0 }}>
         <Heading title={"Overview"} />
         <ScrollView
           style={{ flex: 1 }}

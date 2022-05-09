@@ -19,6 +19,9 @@ query GetMealRecipes($meal: String!, $date: DateTime!) {
     }
     mealrecipes{
       id
+      recipe {
+        id
+      }
     }
   }
 }

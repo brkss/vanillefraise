@@ -78,6 +78,11 @@ export type CookedRecipe = {
   user: User;
 };
 
+export type CookedRecipeInput = {
+  mealId: Scalars['String'];
+  recipeId: Scalars['String'];
+};
+
 export type CreateActivityInput = {
   calories?: InputMaybe<Scalars['Float']>;
   category: Scalars['String'];
@@ -307,7 +312,7 @@ export type MutationCheckInfoValidityArgs = {
 
 
 export type MutationCookedRecipeArgs = {
-  recipeID: Scalars['String'];
+  data: CookedRecipeInput;
 };
 
 
@@ -781,7 +786,7 @@ export type GetMealRecipesQueryVariables = Exact<{
 }>;
 
 
-export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, cooked?: boolean | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string }> | null | undefined } };
+export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, cooked?: boolean | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string, recipe: { __typename?: 'Recipe', id: string } }> | null | undefined } };
 
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -856,6 +861,7 @@ export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Ar
 
 export type CookedRecipeMutationVariables = Exact<{
   recipeID: Scalars['String'];
+  mealId: Scalars['String'];
 }>;
 
 
@@ -1462,6 +1468,9 @@ export const GetMealRecipesDocument = gql`
     }
     mealrecipes {
       id
+      recipe {
+        id
+      }
     }
   }
 }
@@ -1938,8 +1947,8 @@ export type RecipeCategoriesQueryHookResult = ReturnType<typeof useRecipeCategor
 export type RecipeCategoriesLazyQueryHookResult = ReturnType<typeof useRecipeCategoriesLazyQuery>;
 export type RecipeCategoriesQueryResult = Apollo.QueryResult<RecipeCategoriesQuery, RecipeCategoriesQueryVariables>;
 export const CookedRecipeDocument = gql`
-    mutation CookedRecipe($recipeID: String!) {
-  cookedRecipe(recipeID: $recipeID) {
+    mutation CookedRecipe($recipeID: String!, $mealId: String!) {
+  cookedRecipe(data: {recipeId: $recipeID, mealId: $mealId}) {
     status
     message
   }
@@ -1961,6 +1970,7 @@ export type CookedRecipeMutationFn = Apollo.MutationFunction<CookedRecipeMutatio
  * const [cookedRecipeMutation, { data, loading, error }] = useCookedRecipeMutation({
  *   variables: {
  *      recipeID: // value for 'recipeID'
+ *      mealId: // value for 'mealId'
  *   },
  * });
  */
