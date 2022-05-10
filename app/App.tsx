@@ -118,7 +118,7 @@ export default function App() {
 
   return (
     <>
-      {!isConnected  && false ? (
+      {!isConnected ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>

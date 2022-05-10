@@ -1,7 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { MealOptionsSelect, Button } from "../../components";
-import { useAddMealRecipeMutation } from "../../generated/graphql";
+import {
+  MealsDocument,
+  MealsQuery,
+  useAddMealRecipeMutation,
+} from "../../generated/graphql";
 import CalendarStrip from "react-native-calendar-strip";
 
 export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
@@ -9,7 +13,6 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
   const [date, setDate] = React.useState<Date>(new Date());
   const [meal, setMeal] = React.useState("");
   const { recipe } = route.params;
-  console.log("Recipe ID : ", recipe);
 
   const save = () => {
     if (!recipe || !meal) {
@@ -21,6 +24,29 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
         meal: meal,
         recipe: recipe,
         date: date,
+      },
+      update: (store, { data }) => {
+        if (!data || !data.addMealRecipe.status) {
+          return;
+        }
+        const oldMeals = store.readQuery<MealsQuery>({
+          query: MealsDocument,
+        })?.meals;
+        let mls = [];
+        let i = oldMeals.length - 1;
+        while (i >= 0) {
+          console.log("curr : ", oldMeals[i].id, " meal id : ", meal);
+          if (oldMeals[i].id == meal) oldMeals[i].count += 1;
+          mls.push(oldMeals[i]);
+          i--;
+        }
+        console.log("UPDATE THAT SHIT!");
+        store.writeQuery<MealsQuery>({
+          query: MealsDocument,
+          data: {
+            meals: [...mls],
+          },
+        });
       },
     })
       .then((res) => {

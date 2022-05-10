@@ -6,5 +6,6 @@ mutation AddMealRecipe($recipe: String!, $meal: String!, $date: DateTime){
   }){
     status
     message
+    mealId
   }
 }

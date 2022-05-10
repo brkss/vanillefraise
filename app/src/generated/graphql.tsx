@@ -96,6 +96,13 @@ export type CreateActivityResponse = {
   status: Scalars['Boolean'];
 };
 
+export type CreateMealRecipeResponse = {
+  __typename?: 'CreateMealRecipeResponse';
+  mealId: Scalars['String'];
+  message: Scalars['String'];
+  status: Scalars['Boolean'];
+};
+
 export type CreateMoodRecordInput = {
   moods: Array<Scalars['String']>;
 };
@@ -260,7 +267,7 @@ export type MoodRecord = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addMealRecipe: DefaultResponse;
+  addMealRecipe: CreateMealRecipeResponse;
   changePassword: ChangePasswordResponse;
   checkCookedMeal: DefaultResponse;
   checkInfoValidity: UserInfoValidityResponse;
@@ -771,7 +778,7 @@ export type AddMealRecipeMutationVariables = Exact<{
 }>;
 
 
-export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'CreateMealRecipeResponse', status: boolean, message: string, mealId: string } };
 
 export type DaysWithRecipesQueryVariables = Exact<{
   mealID: Scalars['String'];
@@ -1375,6 +1382,7 @@ export const AddMealRecipeDocument = gql`
   addMealRecipe(data: {recipeID: $recipe, mealID: $meal, date: $date}) {
     status
     message
+    mealId
   }
 }
     `;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Text, Center } from "@chakra-ui/react";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { CDN } from '../../utils/config/defaults';
 
 interface Props {
   title: string;
@@ -17,7 +18,7 @@ export const ListItem: React.FC<Props> = ({ title, description, image, supress }
       bgSize={"cover"}
       bgRepeat={"no-repeat"}
       bgPos={"center"}
-      backgroundImage={`http://localhost:4000/images/${image}`}
+      backgroundImage={`${CDN}/${image}`}
       borderRadius={"13px"}
       pos={"relative"}
       minH={"200px"}
