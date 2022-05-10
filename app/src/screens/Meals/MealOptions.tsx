@@ -26,7 +26,11 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
         date: date,
       },
       update: (store, { data }) => {
-        if (!data || !data.addMealRecipe.status) {
+        if (
+          !data ||
+          !data.addMealRecipe.status ||
+          date.toDateString() !== new Date().toDateString()
+        ) {
           return;
         }
         const oldMeals = store.readQuery<MealsQuery>({
