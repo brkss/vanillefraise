@@ -19,6 +19,8 @@ import {
   useGetMealRecipesQuery,
   useDaysWithRecipesQuery,
   useCookedRecipesMutation,
+  UserCaloriesQuery,
+  UserCaloriesDocument,
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -44,7 +46,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
 
     return mr;
   };
-
+;
   const _daysWithMeals = useDaysWithRecipesQuery({
     variables: {
       mealID: mealID,
@@ -87,6 +89,20 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
     cooked({
       variables: {
         mealrecipesid: mr,
+      },
+      update: (store, { data }) => {
+        if (!data.cookedRecipes.status) return;
+        const caloriesData = store.readQuery<UserCaloriesQuery>({
+          query: UserCaloriesDocument,
+        }).userCalories;
+        caloriesData.value += data.cookedRecipes.calories;
+        console.log("UPADTE THAT SHIT !");
+        store.writeQuery<UserCaloriesQuery>({
+          query: UserCaloriesDocument,
+          data: {
+            userCalories: caloriesData,
+          },
+        });
       },
     }).then((res) => {
       SetIsLoading(false);

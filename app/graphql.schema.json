@@ -630,6 +630,57 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "CookedRecipesResponse",
+        "description": null,
+        "fields": [
+          {
+            "name": "calories",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "status",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "CreateActivityInput",
         "description": null,
@@ -749,13 +800,9 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2437,7 +2484,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "DefaultResponse",
+                "name": "CookedRecipesResponse",
                 "ofType": null
               }
             },
@@ -2503,7 +2550,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "DefaultResponse",
+                "name": "CookedRecipesResponse",
                 "ofType": null
               }
             },
@@ -2544,7 +2591,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "DefaultResponse",
+                "name": "CookedRecipesResponse",
                 "ofType": null
               }
             },

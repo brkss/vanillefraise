@@ -11,7 +11,7 @@ import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils";
 import { LinearGradient } from "expo-linear-gradient";
-import { useRecipeQuery, useCookedRecipeMutation } from "../../generated/graphql";
+import { useRecipeQuery, useCookedRecipeMutation, UserCaloriesQuery, UserCaloriesDocument } from "../../generated/graphql";
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
   const [cooked] = useCookedRecipeMutation();
@@ -35,6 +35,21 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
       variables: {
         recipeID: id,
         mealId: mealId 
+      },
+      update: (store, {data}) => {
+        if(!data.cookedRecipe.status)
+          return;
+        const caloriesData = store.readQuery<UserCaloriesQuery>({
+          query: UserCaloriesDocument
+        }).userCalories;
+        caloriesData.value += data.cookedRecipe.calories;
+        console.log("UPDATE THAT SHIT");
+        store.writeQuery<UserCaloriesQuery>({
+          query: UserCaloriesDocument,
+          data: {
+             userCalories: caloriesData
+          }
+        });
       }
     }).then(res => {
       if(!res.errors || res.data.cookedRecipe.status === true){

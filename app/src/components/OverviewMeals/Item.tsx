@@ -17,7 +17,7 @@ export const MealItem: React.FC<Props> = ({
   return (
     <Pressable
       onPress={() => navigate()}
-      style={[styles.container, { backgroundColor: "#464646" }]}
+      style={[styles.container, { backgroundColor: "#ECE8E8" }]}
     >
       <Text style={styles.recipes}>{recipes} recipes</Text>
       <Text style={styles.title}>{title}</Text>
@@ -34,17 +34,17 @@ const styles = StyleSheet.create({
     borderRadius: 11,
   },
   recipe: {
-    color: "white",
+    color: "black",
     fontSize: 11,
     fontWeight: "400",
   },
   title: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
     fontSize: 19,
   },
   recipes: {
-    color: "white",
+    color: "black",
     fontSize: 13,
     //color: "#434343",
   },

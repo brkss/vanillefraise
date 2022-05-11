@@ -2,5 +2,6 @@ mutation CookedRecipe($recipeID: String!, $mealId: String!){
   cookedRecipe(data: {recipeId: $recipeID, mealId: $mealId}){
     status
     message
+    calories
   }
 }

@@ -83,6 +83,13 @@ export type CookedRecipeInput = {
   recipeId: Scalars['String'];
 };
 
+export type CookedRecipesResponse = {
+  __typename?: 'CookedRecipesResponse';
+  calories?: Maybe<Scalars['Float']>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type CreateActivityInput = {
   calories?: InputMaybe<Scalars['Float']>;
   category: Scalars['String'];
@@ -98,7 +105,7 @@ export type CreateActivityResponse = {
 
 export type CreateMealRecipeResponse = {
   __typename?: 'CreateMealRecipeResponse';
-  mealId: Scalars['String'];
+  mealId?: Maybe<Scalars['String']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
 };
@@ -269,10 +276,10 @@ export type Mutation = {
   __typename?: 'Mutation';
   addMealRecipe: CreateMealRecipeResponse;
   changePassword: ChangePasswordResponse;
-  checkCookedMeal: DefaultResponse;
+  checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
-  cookedRecipe: DefaultResponse;
-  cookedRecipes: DefaultResponse;
+  cookedRecipe: CookedRecipesResponse;
+  cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
@@ -762,14 +769,14 @@ export type CheckCookedMealMutationVariables = Exact<{
 }>;
 
 
-export type CheckCookedMealMutation = { __typename?: 'Mutation', checkCookedMeal: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+export type CheckCookedMealMutation = { __typename?: 'Mutation', checkCookedMeal: { __typename?: 'CookedRecipesResponse', status: boolean, message?: string | null | undefined } };
 
 export type CookedRecipesMutationVariables = Exact<{
   mealrecipesid: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
-export type CookedRecipesMutation = { __typename?: 'Mutation', cookedRecipes: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+export type CookedRecipesMutation = { __typename?: 'Mutation', cookedRecipes: { __typename?: 'CookedRecipesResponse', status: boolean, message?: string | null | undefined, calories?: number | null | undefined } };
 
 export type AddMealRecipeMutationVariables = Exact<{
   recipe: Scalars['String'];
@@ -778,7 +785,7 @@ export type AddMealRecipeMutationVariables = Exact<{
 }>;
 
 
-export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'CreateMealRecipeResponse', status: boolean, message: string, mealId: string } };
+export type AddMealRecipeMutation = { __typename?: 'Mutation', addMealRecipe: { __typename?: 'CreateMealRecipeResponse', status: boolean, message: string, mealId?: string | null | undefined } };
 
 export type DaysWithRecipesQueryVariables = Exact<{
   mealID: Scalars['String'];
@@ -872,7 +879,7 @@ export type CookedRecipeMutationVariables = Exact<{
 }>;
 
 
-export type CookedRecipeMutation = { __typename?: 'Mutation', cookedRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+export type CookedRecipeMutation = { __typename?: 'Mutation', cookedRecipe: { __typename?: 'CookedRecipesResponse', status: boolean, message?: string | null | undefined, calories?: number | null | undefined } };
 
 export type CookedRecipesCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1348,6 +1355,7 @@ export const CookedRecipesDocument = gql`
   cookedRecipes(mealRecipesID: $mealrecipesid) {
     status
     message
+    calories
   }
 }
     `;
@@ -1959,6 +1967,7 @@ export const CookedRecipeDocument = gql`
   cookedRecipe(data: {recipeId: $recipeID, mealId: $mealId}) {
     status
     message
+    calories
   }
 }
     `;
