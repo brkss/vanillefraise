@@ -13,13 +13,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMealsResolver = void 0;
-const responses_1 = require("../../utils/responses");
 const type_graphql_1 = require("type-graphql");
 const Meals_1 = require("../../entity/Meals");
 const meals_1 = require("../../utils/inputs/meals");
 const Recipe_1 = require("../../entity/Recipe");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
+const responses_1 = require("../../utils/responses");
 const meals_data = [
     {
         name: "Breakfast",
@@ -71,9 +71,15 @@ let CreateMealsResolver = class CreateMealsResolver {
             const mr = new Meals_1.MealRecipes();
             mr.recipe = recipe;
             mr.meal = meal;
-            mr.date = ((_a = data.date) === null || _a === void 0 ? void 0 : _a.toLocaleDateString()) || new Date().toLocaleDateString();
+            mr.date =
+                ((_a = data.date) === null || _a === void 0 ? void 0 : _a.toLocaleDateString()) || new Date().toLocaleDateString();
             mr.user = user;
             await mr.save();
+            return {
+                status: true,
+                message: `Recipe add successfuly to ${meal.name}`,
+                mealId: mr.id,
+            };
         }
         catch (e) {
             console.log("Something went wrong !", e);
@@ -82,10 +88,6 @@ let CreateMealsResolver = class CreateMealsResolver {
                 message: "Something went wrong !",
             };
         }
-        return {
-            status: true,
-            message: `Recipe add successfuly to ${meal.name}`,
-        };
     }
 };
 __decorate([
@@ -96,7 +98,7 @@ __decorate([
 ], CreateMealsResolver.prototype, "seedMeals", null);
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    (0, type_graphql_1.Mutation)(() => responses_1.CreateMealRecipeResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),

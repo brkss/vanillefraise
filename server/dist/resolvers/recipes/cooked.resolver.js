@@ -18,8 +18,9 @@ const UserInfo_1 = require("../../entity/UserInfo");
 const User_1 = require("../../entity/User");
 const Recipe_1 = require("../../entity/Recipe");
 const middlewares_1 = require("../../utils/middlewares");
-const default_response_1 = require("../../utils/responses/default.response");
 const MealRecipes_1 = require("../../entity/Meals/MealRecipes");
+const inputs_1 = require("../../utils/inputs");
+const responses_1 = require("../../utils/responses");
 let CookedRecipeResolver = class CookedRecipeResolver {
     async checkCookedMeal(mealRecipesID, ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -48,16 +49,20 @@ let CookedRecipeResolver = class CookedRecipeResolver {
             status: false,
         };
     }
-    async cookedRecipe(recipeID, ctx) {
-        if (!recipeID) {
+    async cookedRecipe(data, ctx) {
+        var _a;
+        if (!data.recipeId || !data.mealId) {
             return {
                 status: false,
-                message: "Invalid Arguments !",
+                message: "Invalid Recipe or Meal !",
             };
         }
         try {
             const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
-            const recipe = await Recipe_1.Recipe.findOne({ where: { id: recipeID } });
+            const recipe = await Recipe_1.Recipe.findOne({
+                where: { id: data.recipeId },
+                relations: ["recipe_total_nutrition"],
+            });
             if (!user || !recipe) {
                 return {
                     status: false,
@@ -68,9 +73,22 @@ let CookedRecipeResolver = class CookedRecipeResolver {
             cookedRecipe.recipe = recipe;
             cookedRecipe.user = user;
             await cookedRecipe.save();
+            const mealRecipe = await MealRecipes_1.MealRecipes.findOne({
+                where: { id: data.mealId },
+            });
+            if (!mealRecipe) {
+                return {
+                    status: false,
+                    message: "Invalid Meal !",
+                };
+            }
+            mealRecipe.cooked = true;
+            await mealRecipe.save();
             return {
                 status: true,
                 message: "Recipe flaged as cooked !",
+                calories: ((_a = recipe.totalnutrition.find((x) => x.code == "ENERC_KCAL")) === null || _a === void 0 ? void 0 : _a.quantity) ||
+                    0,
             };
         }
         catch (e) {
@@ -82,6 +100,7 @@ let CookedRecipeResolver = class CookedRecipeResolver {
         }
     }
     async cookedRecipes(mealRecipesID, ctx) {
+        var _a;
         if (!mealRecipesID || mealRecipesID.length == 0) {
             return {
                 status: false,
@@ -95,10 +114,11 @@ let CookedRecipeResolver = class CookedRecipeResolver {
                 message: "Invalid User !",
             };
         }
+        let cals = 0;
         for (let mealRecipeId of mealRecipesID) {
             const mr = await MealRecipes_1.MealRecipes.findOne({
                 where: { id: mealRecipeId },
-                relations: ["recipe"],
+                relations: ["recipe", "recipe.recipe_total_nutrition"],
             });
             if (mr && !mr.cooked) {
                 const cr = new UserInfo_1.CookedRecipe();
@@ -108,11 +128,14 @@ let CookedRecipeResolver = class CookedRecipeResolver {
                 mr.cooked = true;
                 await mr.save();
                 await cr.save();
+                cals +=
+                    ((_a = mr.recipe.totalnutrition.find((x) => x.label == "ENERC_KCAL")) === null || _a === void 0 ? void 0 : _a.quantity) || 0;
             }
         }
         return {
             status: true,
             message: "Recipes Marked successfuly !",
+            calories: cals,
         };
     }
     async cookedRecipesCount(ctx) {
@@ -123,7 +146,7 @@ let CookedRecipeResolver = class CookedRecipeResolver {
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Mutation)(() => default_response_1.DefaultResponse),
+    (0, type_graphql_1.Mutation)(() => responses_1.CookedRecipesResponse),
     __param(0, (0, type_graphql_1.Arg)("mealRecipesID", () => [String])),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
@@ -132,16 +155,16 @@ __decorate([
 ], CookedRecipeResolver.prototype, "checkCookedMeal", null);
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Mutation)(() => default_response_1.DefaultResponse),
-    __param(0, (0, type_graphql_1.Arg)("recipeID")),
+    (0, type_graphql_1.Mutation)(() => responses_1.CookedRecipesResponse),
+    __param(0, (0, type_graphql_1.Arg)("data")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [inputs_1.CookedRecipeInput, Object]),
     __metadata("design:returntype", Promise)
 ], CookedRecipeResolver.prototype, "cookedRecipe", null);
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Mutation)(() => default_response_1.DefaultResponse),
+    (0, type_graphql_1.Mutation)(() => responses_1.CookedRecipesResponse),
     __param(0, (0, type_graphql_1.Arg)("mealRecipesID", () => [String])),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),

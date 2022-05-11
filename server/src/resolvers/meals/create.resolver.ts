@@ -6,6 +6,7 @@ import { Recipe } from "../../entity/Recipe";
 import { isUserAuth } from "../../utils/middlewares";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
+import { CreateMealRecipeResponse } from "../../utils/responses";
 
 const meals_data = [
   {
@@ -36,16 +37,15 @@ export class CreateMealsResolver {
       }
       return true;
     }
-
     return false;
   }
 
   @UseMiddleware(isUserAuth)
-  @Mutation(() => DefaultResponse)
+  @Mutation(() => CreateMealRecipeResponse)
   async addMealRecipe(
     @Arg("data") data: AddMealRecipeInput,
     @Ctx() ctx: IContext
-  ): Promise<DefaultResponse> {
+  ): Promise<CreateMealRecipeResponse> {
     if (!data || !data.mealID || !data.recipeID) {
       return {
         status: false,
@@ -64,14 +64,20 @@ export class CreateMealsResolver {
         message: "Something went wrong : invalid Meal or Recipe",
       };
     }
-    
+
     try {
       const mr = new MealRecipes();
       mr.recipe = recipe;
       mr.meal = meal;
-      mr.date = data.date?.toLocaleDateString() || new Date().toLocaleDateString();
+      mr.date =
+        data.date?.toLocaleDateString() || new Date().toLocaleDateString();
       mr.user = user;
       await mr.save();
+      return {
+        status: true,
+        message: `Recipe add successfuly to ${meal.name}`,
+        mealId: mr.id,
+      };
     } catch (e) {
       console.log("Something went wrong !", e);
       return {
@@ -79,9 +85,5 @@ export class CreateMealsResolver {
         message: "Something went wrong !",
       };
     }
-    return {
-      status: true,
-      message: `Recipe add successfuly to ${meal.name}`,
-    };
   }
 }

@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import { refreshToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
+//import { optimize } from './utils/helpers';
 
 (async () => {
   await createConnection({
@@ -40,6 +41,15 @@ import path from "path";
   });
 
   app.post("/refresh_token", async (req, res) => await refreshToken(res, req));
+  /*
+   * IMAGE OPTIMIZATION !
+  app.get('/optimize', async (_, res) => {
+    await optimize(); 
+    res.send({
+      status: true
+    })
+  })
+  */
 
   // cdn
   const dir = path.join(__dirname, "cdn/images");

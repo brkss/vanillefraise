@@ -19,8 +19,6 @@ const responses_1 = require("../../utils/responses");
 const User_1 = require("../../entity/User");
 const Meals_1 = require("../../entity/Meals");
 const meals_1 = require("../../utils/inputs/meals");
-const Recipe_1 = require("../../entity/Recipe");
-const Meal_1 = require("../../entity/Meals/Meal");
 let MealRecipeResolver = class MealRecipeResolver {
     async removeRecipe(data, ctx) {
         if (!data.mealid || !data.recipeid)
@@ -34,15 +32,8 @@ let MealRecipeResolver = class MealRecipeResolver {
                 status: false,
                 message: "Invalid User !",
             };
-        const recipe = await Recipe_1.Recipe.findOne({ where: { id: data.recipeid } });
-        const meal = await Meal_1.Meal.findOne({ where: { id: data.mealid } });
-        if (!meal || !recipe)
-            return {
-                status: false,
-                message: "Invalid Recipe !",
-            };
         const mealRecipe = await Meals_1.MealRecipes.findOne({
-            where: { recipe: recipe, meal: meal, user: user },
+            where: { id: data.mealid, user: user },
         });
         if (!mealRecipe)
             return {

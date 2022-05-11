@@ -16,4 +16,5 @@ Object.defineProperty(exports, "AuthDefaultResponse", { enumerable: true, get: f
 __exportStar(require("./stripe"), exports);
 __exportStar(require("./recipes"), exports);
 __exportStar(require("./default.response"), exports);
+__exportStar(require("./meals"), exports);
 //# sourceMappingURL=index.js.map

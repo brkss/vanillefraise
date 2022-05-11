@@ -59,7 +59,6 @@ export class ListMealsResolver {
       .andWhere("meal_recipes.mealId = :mealID", { mealID: mealID })
       .groupBy("meal_recipes.date")
       .getRawMany();
-    console.log("USER ID : ", user.id);
 
     return {
       status: true,
