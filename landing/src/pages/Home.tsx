@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  Box,
-  Center,
-  GridItem,
-  Grid,
-  Heading,
-  background,
-} from "@chakra-ui/react";
-import { Intro, Subscribe } from "../components";
+import { Box, Center, GridItem, Grid, Heading } from "@chakra-ui/react";
+import { TopBar, Subscribe, Footer } from "../components";
 
 export const Home: React.FC = () => {
   return (
     <Box>
+      <TopBar />
       <Grid templateColumns="repeat(6, 1fr)">
         <GridItem colSpan={{ md: 3, base: 6 }}>
           <Center
@@ -23,10 +17,12 @@ export const Home: React.FC = () => {
             bg={"#fef4f9"}
           >
             <Heading
-              fontSize={"90px"}
+              fontSize={{ md: "90px", base: "70px" }}
+              lineHeight={{ md: "90px", base: "70px" }}
               fontWeight={"bold"}
               opacity={0.8}
               fontFamily={"'Bebas Neue', cursive"}
+              letterSpacing={"-1px"}
             >
               Refashion <br />
               Healthcare <br />
@@ -39,11 +35,11 @@ export const Home: React.FC = () => {
           <Subscribe />
         </GridItem>
       </Grid>
+      <Footer />
       {/*
       <TopBar />
       <Slide />
       <About />
-      <Footer />
       */}
     </Box>
   );
