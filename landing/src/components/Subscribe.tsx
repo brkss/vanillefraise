@@ -6,17 +6,17 @@ export const Subscribe: React.FC = () => {
   return (
     <Box h={"100vh"} borderTop={"1px solid #434343"}>
       <Center h={"100vh"}>
-        <Box>
+        <Box padding={"20px"}>
           <Image rounded={"20px"} m={"40px 0"} w={"100px"} src={logo} />
           <Text fontSize={"20px"} fontWeight={"bold"}>
-            GET EARLY ACCESS
+            RECIEVE YOUR INVITE
           </Text>
           <Input
             _focus={{ outline: 0, borderColor: "black" }}
             _hover={{ borderColor: "black" }}
             borderRadius={0}
-            border={"3px solid black"}
-            borderColor={"black"}
+            border={"5px solid #464646"}
+            borderColor={"#464646"}
             p={"30px 20px"}
             fontWeight={"bold"}
             fontSize={"30px"}
