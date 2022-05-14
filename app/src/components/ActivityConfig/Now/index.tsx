@@ -1,8 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import { colors } from "../../../utils/colors";
-import { GetActivityCaloriesQuery, useGetActivityCaloriesQuery } from '../../../generated/graphql';
-import { Loading } from '../../General/Loading';
+import {
+  GetActivityCaloriesQuery,
+  useGetActivityCaloriesQuery,
+} from "../../../generated/graphql";
+import { Loading } from "../../General/Loading";
 
 interface Props {
   start: () => void;
@@ -10,23 +13,30 @@ interface Props {
   category: string;
 }
 
-export const ActivityConfigNow: React.FC<Props> = ({ start, activity, category }) => {
-  
+export const ActivityConfigNow: React.FC<Props> = ({
+  start,
+  activity,
+  category,
+}) => {
+  const { data, loading, error } = useGetActivityCaloriesQuery({
+    variables: {
+      id: category,
+    },
+  });
 
-  const { data, loading, error} = useGetActivityCaloriesQuery({variables: {
-    id: category
-  }});
-
-  if(loading || error){
-    return <Loading />
+  if (loading || error) {
+    return <Loading />;
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.info}>You're playing {activity}</Text>
+      <Text style={styles.info}>You played {activity}</Text>
+      <Text style={styles.subinfo}>
+        Add record after finishing your exercise !
+      </Text>
       <Text style={styles.calories}>{data.getActivityCalories} Cal</Text>
       <Pressable style={styles.btn} onPress={() => start()}>
-        <Text style={styles.btnText}>Start</Text>
+        <Text style={styles.btnText}>Record</Text>
       </Pressable>
     </View>
   );
@@ -64,5 +74,11 @@ const styles = StyleSheet.create({
     fontFamily: "helvitica-condesed",
     fontSize: 32,
     marginBottom: 5,
+  },
+  subinfo: {
+    fontSize: 16,
+    color: "#434343",
+    opacity: 0.9,
+    marginTop: 8,
   },
 });

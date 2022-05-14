@@ -11,9 +11,9 @@ export const RegisterOutro: React.FC<Props> = ({ pass }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>Thank you,</Text>
       <Text style={styles.info}>
-        All set, now you're reay to start you adventure
+        Everything's is set, enjoy the taste of eating right.
       </Text>
-      <Button txt={"Enter"} clicked={() => pass()} />
+      <Button txt={"SAVE & ENTER"} clicked={() => pass()} />
     </View>
   );
 };

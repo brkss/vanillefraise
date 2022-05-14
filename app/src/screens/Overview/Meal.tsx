@@ -46,7 +46,6 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
 
     return mr;
   };
-;
   const _daysWithMeals = useDaysWithRecipesQuery({
     variables: {
       mealID: mealID,
@@ -90,6 +89,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
       variables: {
         mealrecipesid: mr,
       },
+      /*
       update: (store, { data }) => {
         if (!data.cookedRecipes.status) return;
         const caloriesData = store.readQuery<UserCaloriesQuery>({
@@ -103,7 +103,8 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
             userCalories: caloriesData,
           },
         });
-      },
+        },
+       */
     }).then((res) => {
       SetIsLoading(false);
       if (res.data.cookedRecipes.status) {

@@ -21,13 +21,20 @@ export const Settings: React.FC<any> = ({ navigation }) => {
     return <Loading />;
   }
 
+  const choosePp = () => {
+    const pp = ["🐝", "🐞", "🦄", "🍩", "🦋", "🍕", "🍭", "🍓", "🥑", "🍪"];
+    return pp[Math.floor(pp.length * Math.random())];
+  };
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <Heading title={"Settings"} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.profile}>
-            <View style={styles.profilePic} />
+            <View style={styles.profilePic}>
+              <Text style={styles.ppText}>{choosePp()}</Text>
+            </View>
             <Text style={styles.name}> {data.me.name} </Text>
             <Text style={styles.username}>@{data.me.username}</Text>
           </View>
@@ -57,7 +64,7 @@ export const Settings: React.FC<any> = ({ navigation }) => {
             <Text
               style={{ textAlign: "center", marginTop: 10, fontWeight: "bold" }}
             >
-              V {Constants.manifest.version}
+              V {Constants.manifest.version} (private edition)
             </Text>
           </View>
           <View style={{ height: 100 }} />
@@ -79,8 +86,14 @@ const styles = StyleSheet.create({
   profilePic: {
     height: 135,
     width: 135,
-    backgroundColor: "#B9C7FD",
+    //backgroundColor: "#B9C7FD",
+    backgroundColor: "#ffe4c4",
     borderRadius: 135,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  ppText: {
+    fontSize: 40,
   },
   name: {
     marginTop: 10,

@@ -17,6 +17,7 @@ export const ActivityRecords: React.FC = () => {
         showsHorizontalScrollIndicator={false}
         horizontal
       >
+        {data.activities.length == 0 && <Text>No Record Yet! :(</Text>}
         {data.activities.map((actv, key) => (
           <Record
             name={actv.category.name}

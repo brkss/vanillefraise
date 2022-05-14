@@ -15,7 +15,7 @@ export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
           style={{ alignSelf: "center", width: 200, height: 200 }}
           source={require("../../assets/icon.png")}
         />
-        <Text style={styles.heading}>Hello</Text>
+        <Text style={styles.heading}>Vanille Fraise</Text>
         {/*
         <Text style={styles.info}>
           Brace yourself and let me take you on trip to find your balence,
@@ -40,7 +40,7 @@ export const RegisterIntro: React.FC<Props> = ({ pass, login }) => {
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 54,
+    fontSize: 30,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
     color: "#434343",

@@ -68,7 +68,7 @@ export const MentalHealthIntro: React.FC = () => {
           txt={
             data.isRequested
               ? "You're in the waiting list"
-              : "Request Early Access"
+              : "Signup For Early Access"
           }
         />
       </SafeAreaView>

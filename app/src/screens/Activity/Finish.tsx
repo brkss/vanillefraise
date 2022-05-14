@@ -100,7 +100,7 @@ export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
             />
           </View>
         </View>
-        <Button txt={"SAVE IT"} clicked={() => saveActivity()} />
+        <Button txt={"SAVE IT!"} clicked={() => saveActivity()} />
       </SafeAreaView>
     </View>
   );
