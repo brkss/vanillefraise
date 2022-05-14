@@ -43,21 +43,23 @@ export const MealsOverview: React.FC<Props> = ({ navigation, refreshing }) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        {data.meals.map((meal, key) => (
-          <View key={key} style={styles.item}>
-            <MealItem
-              color={meals[key].color}
-              recipes={meal.count}
-              navigate={() =>
-                navigation.push("Meal", {
-                  mealID: meal.id,
-                  mealName: meal.name,
-                })
-              }
-              title={meal.name}
-            />
-          </View>
-        ))}
+        {data.meals
+          .sort((a, b) => a.index - b.index)
+          .map((meal, key) => (
+            <View key={key} style={styles.item}>
+              <MealItem
+                color={meals[key].color}
+                recipes={meal.count}
+                navigate={() =>
+                  navigation.push("Meal", {
+                    mealID: meal.id,
+                    mealName: meal.name,
+                  })
+                }
+                title={meal.name}
+              />
+            </View>
+          ))}
       </View>
     </View>
   );
