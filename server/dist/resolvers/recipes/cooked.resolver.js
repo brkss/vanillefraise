@@ -118,7 +118,7 @@ let CookedRecipeResolver = class CookedRecipeResolver {
         for (let mealRecipeId of mealRecipesID) {
             const mr = await MealRecipes_1.MealRecipes.findOne({
                 where: { id: mealRecipeId },
-                relations: ["recipe", "recipe.recipe_total_nutrition"],
+                relations: ["recipe", "recipe.totalnutrition"],
             });
             if (mr && !mr.cooked) {
                 const cr = new UserInfo_1.CookedRecipe();
