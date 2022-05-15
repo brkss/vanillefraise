@@ -89,22 +89,29 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
       variables: {
         mealrecipesid: mr,
       },
-      /*
       update: (store, { data }) => {
         if (!data.cookedRecipes.status) return;
         const caloriesData = store.readQuery<UserCaloriesQuery>({
           query: UserCaloriesDocument,
         }).userCalories;
-        caloriesData.value += data.cookedRecipes.calories;
-        console.log("UPADTE THAT SHIT !");
+        console.log(
+          "UPADTE THAT SHIT !, calories => ",
+          data.cookedRecipes.calories
+        );
         store.writeQuery<UserCaloriesQuery>({
           query: UserCaloriesDocument,
           data: {
-            userCalories: caloriesData,
+            userCalories: {
+              value: caloriesData.value + data.cookedRecipes.calories,
+              status: caloriesData.status,
+              burnt: caloriesData.burnt,
+              message: caloriesData.message,
+              target: caloriesData.target,
+              __typename: caloriesData.__typename,
+            },
           },
         });
-        },
-       */
+      },
     }).then((res) => {
       SetIsLoading(false);
       if (res.data.cookedRecipes.status) {

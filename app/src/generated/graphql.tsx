@@ -301,6 +301,7 @@ export type Mutation = {
   seedRecomendation: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
+  updateInfo: DefaultResponse;
   verifyResetToken: Scalars['Boolean'];
 };
 
@@ -387,6 +388,11 @@ export type MutationRequestResetPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput;
+};
+
+
+export type MutationUpdateInfoArgs = {
+  data: UpdateUserInfoInput;
 };
 
 
@@ -644,6 +650,12 @@ export type SpecialCondition = {
   id: Scalars['String'];
   name: Scalars['String'];
   users: Array<User>;
+};
+
+export type UpdateUserInfoInput = {
+  height: Scalars['Float'];
+  name: Scalars['String'];
+  weight: Scalars['Float'];
 };
 
 export type User = {
@@ -940,7 +952,7 @@ export type CheckInfoValidtyMutation = { __typename?: 'Mutation', checkInfoValid
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, name: string, username: string, email: string } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, name: string, username: string, email: string, weight: number, height: number } | null | undefined };
 
 export type ChangePasswordMutationVariables = Exact<{
   oldpass: Scalars['String'];
@@ -954,6 +966,15 @@ export type SpecialConditionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SpecialConditionsQuery = { __typename?: 'Query', specialconditions: Array<{ __typename?: 'SpecialCondition', id: string, name: string }> };
+
+export type UpdateUserInfoMutationVariables = Exact<{
+  name: Scalars['String'];
+  weight: Scalars['Float'];
+  height: Scalars['Float'];
+}>;
+
+
+export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateInfo: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
 
 export const GetActivityCaloriesDocument = gql`
@@ -2352,6 +2373,8 @@ export const MeDocument = gql`
     name
     username
     email
+    weight
+    height
   }
 }
     `;
@@ -2452,3 +2475,39 @@ export function useSpecialConditionsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type SpecialConditionsQueryHookResult = ReturnType<typeof useSpecialConditionsQuery>;
 export type SpecialConditionsLazyQueryHookResult = ReturnType<typeof useSpecialConditionsLazyQuery>;
 export type SpecialConditionsQueryResult = Apollo.QueryResult<SpecialConditionsQuery, SpecialConditionsQueryVariables>;
+export const UpdateUserInfoDocument = gql`
+    mutation UpdateUserInfo($name: String!, $weight: Float!, $height: Float!) {
+  updateInfo(data: {name: $name, weight: $weight, height: $height}) {
+    status
+    message
+  }
+}
+    `;
+export type UpdateUserInfoMutationFn = Apollo.MutationFunction<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>;
+
+/**
+ * __useUpdateUserInfoMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserInfoMutation, { data, loading, error }] = useUpdateUserInfoMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      weight: // value for 'weight'
+ *      height: // value for 'height'
+ *   },
+ * });
+ */
+export function useUpdateUserInfoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>(UpdateUserInfoDocument, options);
+      }
+export type UpdateUserInfoMutationHookResult = ReturnType<typeof useUpdateUserInfoMutation>;
+export type UpdateUserInfoMutationResult = Apollo.MutationResult<UpdateUserInfoMutation>;
+export type UpdateUserInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserInfoMutation, UpdateUserInfoMutationVariables>;

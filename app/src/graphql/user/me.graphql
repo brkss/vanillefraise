@@ -1,8 +1,10 @@
-query Me{
-  me{
+query Me {
+  me {
     id
     name
     username
     email
+    weight
+    height
   }
 }

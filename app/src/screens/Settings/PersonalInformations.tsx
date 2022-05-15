@@ -1,27 +1,28 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { Heading, InvisibleInput, Button, Loading } from "../../components";
 import { useFonts } from "expo-font";
-import { useMeQuery } from "../../generated/graphql";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  MeDocument,
+  MeQuery,
+  useMeQuery,
+  useUpdateUserInfoMutation,
+} from "../../generated/graphql";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 export const PersonalInformation: React.FC = () => {
   const [form, SetForm] = React.useState({
     name: "",
-    username: "",
-    email: "",
+    weight: -1,
+    height: -1,
   });
   const { loading, data, error } = useMeQuery({
     onCompleted: (d) => {
       if (d.me) {
         SetForm({
-          email: d.me.email,
           name: d.me.name,
-          username: d.me.username,
+          weight: d.me.weight,
+          height: d.me.height,
         });
       }
     },
@@ -29,15 +30,43 @@ export const PersonalInformation: React.FC = () => {
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
+  const [update] = useUpdateUserInfoMutation();
 
-  const handleForm = (key: string, value: string) => {
+  const handleForm = (key: string, value: string | number) => {
     SetForm({
       ...form,
       [key]: value,
     });
   };
 
-  if (error || loading || !data) {
+  const updateInfo = () => {
+    if (!form.name || form.height <= 0 || form.weight <= 0) return; // trigger error !
+    update({
+      variables: {
+        weight: form.weight,
+        height: form.height,
+        name: form.name,
+      },
+      update: (store, { data }) => {
+        if (!data || !data.updateInfo.status) return;
+        const me = store.readQuery<MeQuery>({
+          query: MeDocument,
+        }).me;
+        me.name = form.name;
+        me.height = form.height;
+        me.weight = form.weight;
+        console.log("UPDATE THAT SHIT");
+        store.writeQuery<MeQuery>({
+          query: MeDocument,
+          data: {
+            me: me,
+          },
+        });
+      },
+    });
+  };
+
+  if (error || loading || !data || !helviticaCondensed) {
     return <Loading />;
   }
 
@@ -57,27 +86,19 @@ export const PersonalInformation: React.FC = () => {
               label={"Name"}
             />
           </View>
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Username</Text>
+          <View style={[styles.inputGroup]}>
+            <Text style={styles.label}>Weight (kg)</Text>
             <InvisibleInput
-              value={form.username}
-              txtChange={(t) => handleForm("username", t)}
-              label={"Username"}
+              value={form.weight.toString()}
+              txtChange={(t) => handleForm("weight", parseInt(t))}
+              label={"Weight"}
             />
           </View>
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Email</Text>
+          <View style={[styles.inputGroup]}>
+            <Text style={styles.label}>Height (cm)</Text>
             <InvisibleInput
-              value={form.email}
-              txtChange={(t) => handleForm("email", t)}
-              label={"Email"}
-            />
-          </View>
-          <View style={[styles.inputGroup, { display: "none" }]}>
-            <Text style={styles.label}>Weight</Text>
-            <InvisibleInput
-              value={form.email}
-              txtChange={(t) => handleForm("weight", t)}
+              value={form.height.toString()}
+              txtChange={(t) => handleForm("height", parseInt(t))}
               label={"Weight"}
             />
           </View>

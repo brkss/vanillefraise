@@ -1,0 +1,6 @@
+mutation UpdateUserInfo($name: String!, $weight: Float!, $height: Float!) {
+  updateInfo(data: {name: $name, weight: $weight, height: $height}){
+    status
+    message
+  }
+}
