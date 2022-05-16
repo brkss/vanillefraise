@@ -48,6 +48,7 @@ let CreateActivityResolver = class CreateActivityResolver {
             return {
                 status: true,
                 message: "Activity Created suuccessfuly ! ",
+                burnedCalories: activity.calories,
             };
         }
         catch (e) {
@@ -59,7 +60,7 @@ let CreateActivityResolver = class CreateActivityResolver {
         }
     }
     async getUserBurnedCalories(time, user, category) {
-        console.log('time => ', time);
+        console.log("time => ", time);
         const weight = user.weight;
         const caloriesHandBook = await Activity_1.ActivityCalories.find({
             where: { category: category },

@@ -24,8 +24,9 @@ let ActivityListResolver = class ActivityListResolver {
             return [];
         const activities = await Activity_1.Activity.find({
             where: { user: user },
-            order: { created_at: 'DESC' },
-            relations: ['category']
+            order: { created_at: "DESC" },
+            take: 20,
+            relations: ["category"],
         });
         return activities;
     }

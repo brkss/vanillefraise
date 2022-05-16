@@ -21,6 +21,10 @@ __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], CreateActivityResponse.prototype, "message", void 0);
+__decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", Number)
+], CreateActivityResponse.prototype, "burnedCalories", void 0);
 CreateActivityResponse = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], CreateActivityResponse);

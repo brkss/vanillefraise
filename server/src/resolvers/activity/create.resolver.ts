@@ -35,7 +35,6 @@ export class CreateActivityResolver {
         message: "Invalid User !",
       };
     }
-
     try {
       const activity = new Activity();
       activity.category = category;
@@ -51,6 +50,7 @@ export class CreateActivityResolver {
       return {
         status: true,
         message: "Activity Created suuccessfuly ! ",
+        burnedCalories: activity.calories,
       };
     } catch (e) {
       console.log("Somnething went wrong while creating activity !");
@@ -66,7 +66,7 @@ export class CreateActivityResolver {
     user: User,
     category: ActivityCategory
   ): Promise<number> {
-    console.log('time => ', time);
+    console.log("time => ", time);
     //const parsedTime = parseTime(time);
     /*
     if (parsedTime.hours < 1 || parsedTime.minutes < 55) {

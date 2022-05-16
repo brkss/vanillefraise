@@ -9,5 +9,7 @@ export class CreateActivityResponse {
   @Field()
   message: string;
 
+  @Field({nullable: true})
+  burnedCalories?: number;
 
 }
