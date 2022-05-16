@@ -32,7 +32,7 @@ let ActivityOverviewResolver = class ActivityOverviewResolver {
             .createQueryBuilder("activities")
             .select("SUM(calories)", "sum")
             .where("userID = :userid")
-            .andWhere("DATE(created_at) = CURDATE()")
+            .andWhere("created_at >= CURRENT_DATE")
             .setParameters({ userid: user.id })
             .getRawOne();
         console.log("SUM -> ", sum);
