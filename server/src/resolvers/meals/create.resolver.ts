@@ -1,4 +1,3 @@
-import { DefaultResponse } from "../../utils/responses";
 import { Resolver, Mutation, Arg, UseMiddleware, Ctx } from "type-graphql";
 import { Meal, MealRecipes } from "../../entity/Meals";
 import { AddMealRecipeInput } from "../../utils/inputs/meals";

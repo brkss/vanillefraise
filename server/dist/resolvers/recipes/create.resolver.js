@@ -68,7 +68,11 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                 };
             }
             const recipe_data = await recipeScraper(uri);
-            const img = `${recipe_data.name.split(" ").join("_")}.jpg`;
+            const img = `${recipe_data.name
+                .split(" ")
+                .join("_")}_${new Date().getTime()}.jpg`;
+            const dir = path.join(__dirname, `../../cdn/images/${img}`);
+            console.log("OPTIMIZE IMAGE !");
             await (0, donwloadImage_1.downloadImage)(recipe_data.image, `../../cdn/images/${img}`);
             const recipe = new Recipe_1.Recipe();
             recipe.name = recipe_data.name;

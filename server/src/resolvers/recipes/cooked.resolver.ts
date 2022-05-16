@@ -11,7 +11,6 @@ import { User } from "../../entity/User";
 import { Recipe } from "../../entity/Recipe";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
-import { DefaultResponse } from "../../utils/responses/default.response";
 import { MealRecipes } from "../../entity/Meals/MealRecipes";
 import { CookedRecipeInput } from "../../utils/inputs";
 import { CookedRecipesResponse } from "../../utils/responses";
@@ -66,7 +65,7 @@ export class CookedRecipeResolver {
       const user = await User.findOne({ where: { id: ctx.payload.userID } });
       const recipe = await Recipe.findOne({
         where: { id: data.recipeId },
-        relations: ["recipe_total_nutrition"],
+        relations: ["totalnutrition"],
       });
       if (!user || !recipe) {
         return {
@@ -144,7 +143,7 @@ export class CookedRecipeResolver {
         await mr.save();
         await cr.save();
         cals +=
-          mr.recipe.totalnutrition.find((x) => x.label == "ENERC_KCAL")
+          mr.recipe.totalnutrition.find((x) => x.code == "ENERC_KCAL")
             ?.quantity || 0;
       }
     }

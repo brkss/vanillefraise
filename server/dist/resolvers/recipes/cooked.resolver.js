@@ -61,7 +61,7 @@ let CookedRecipeResolver = class CookedRecipeResolver {
             const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
             const recipe = await Recipe_1.Recipe.findOne({
                 where: { id: data.recipeId },
-                relations: ["recipe_total_nutrition"],
+                relations: ["totalnutrition"],
             });
             if (!user || !recipe) {
                 return {
@@ -129,7 +129,7 @@ let CookedRecipeResolver = class CookedRecipeResolver {
                 await mr.save();
                 await cr.save();
                 cals +=
-                    ((_a = mr.recipe.totalnutrition.find((x) => x.label == "ENERC_KCAL")) === null || _a === void 0 ? void 0 : _a.quantity) || 0;
+                    ((_a = mr.recipe.totalnutrition.find((x) => x.code == "ENERC_KCAL")) === null || _a === void 0 ? void 0 : _a.quantity) || 0;
             }
         }
         return {

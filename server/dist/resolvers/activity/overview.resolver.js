@@ -31,9 +31,11 @@ let ActivityOverviewResolver = class ActivityOverviewResolver {
         const { sum } = await (0, typeorm_1.getRepository)(Activity_1.Activity)
             .createQueryBuilder("activities")
             .select("SUM(calories)", "sum")
-            .where("userID = :userid and DATE(created_at) = CURDATE()")
+            .where("userID = :userid")
+            .andWhere("DATE(created_at) = CURDATE()")
             .setParameters({ userid: user.id })
             .getRawOne();
+        console.log("SUM -> ", sum);
         return sum == null ? 0 : sum;
     }
 };

@@ -20,6 +20,9 @@ import {
   RecipeTotalNutrition,
   RecipeTotalNutritionKcal,
 } from "../../entity/Nutrition";
+/******* optimize ************/
+//import Jimp from "jimp";
+import sharp from "sharp";
 
 /******* config ! ************/
 import units from "recipes-parser/lib/nlp/en/units.json";
@@ -55,8 +58,27 @@ export class CreateRecipeResolver {
         };
       }
       const recipe_data = await recipeScraper(uri);
-      const img = `${recipe_data.name.split(" ").join("_")}.jpg`;
+      const img = `${recipe_data.name
+        .split(" ")
+        .join("_")}_${new Date().getTime()}.jpg`;
+      const dir = path.join(__dirname, `../../cdn/images/${img}`);
+      console.log("OPTIMIZE IMAGE !");
       await downloadImage(recipe_data.image, `../../cdn/images/${img}`);
+      /*
+      await Jimp.read(dir, (err, img) => {
+        if (err) return;
+        img.quality(60).write("optimized.jpg");
+        console.log("IMAGE OPTIMIZED SUCCESSFULY !");
+      });
+      const sharp_image = sharp(dir);
+      const meta = await sharp_image.metadata();
+      const { format } = meta;
+      const config = {
+        jpeg: { quality: 60 },
+        png: { quality: 60 },
+      };
+      sharp_image["jpeg"](config["jpeg"]).resize(1000);
+      */
       const recipe = new Recipe();
       recipe.name = recipe_data.name;
       recipe.image = img;

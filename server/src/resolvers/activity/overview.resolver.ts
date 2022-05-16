@@ -18,14 +18,14 @@ export class ActivityOverviewResolver {
     if (!user) {
       return 0;
     }
-
     const { sum } = await getRepository(Activity)
       .createQueryBuilder("activities")
       .select("SUM(calories)", "sum")
-      .where("userID = :userid and DATE(created_at) = CURDATE()")
+      .where("userID = :userid")
+      .andWhere("DATE(created_at) = CURDATE()")
       .setParameters({ userid: user.id })
       .getRawOne();
-
+    console.log("SUM -> ", sum);
     return sum == null ? 0 : sum;
   }
 }
