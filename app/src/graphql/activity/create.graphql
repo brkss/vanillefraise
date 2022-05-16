@@ -2,5 +2,6 @@ mutation CreateActivity($category: String!, $duration: String!, $feedback: Strin
   createActivity(data: {category: $category, duration: $duration, feedback: $feedback, calories: $calories}){
     status
     message
+    burnedCalories
   }
 }

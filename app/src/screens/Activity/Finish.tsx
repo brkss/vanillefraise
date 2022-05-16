@@ -7,7 +7,13 @@ import {
   Loading,
   ActivityTime,
 } from "../../components";
-import { useCreateActivityMutation } from "../../generated/graphql";
+import {
+  GetUserBurnedCaloriesDocument,
+  GetUserBurnedCaloriesQuery,
+  useCreateActivityMutation,
+  UserCaloriesDocument,
+  UserCaloriesQuery,
+} from "../../generated/graphql";
 
 interface IFeedBack {
   id: string;
@@ -63,6 +69,29 @@ export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
         category: data.category,
         calories: 0,
         duration: `${data.hours}:${data.minutes}:${data.seconds}`,
+      },
+      update: (store, { data }) => {
+        if (!data || !data.createActivity.status) return;
+        const caloriesData = store.readQuery<GetUserBurnedCaloriesQuery>({
+          query: GetUserBurnedCaloriesDocument,
+        }).getUserBurnedCalories;
+        console.log("UPDATE THAT SHIT !");
+        store.writeQuery<GetUserBurnedCaloriesQuery>({
+          query: GetUserBurnedCaloriesDocument,
+          data: {
+            getUserBurnedCalories: caloriesData + data.createActivity.burnedCalories 
+            /*
+            userCalories: {
+              value: caloriesData.value,
+              status: caloriesData.status,
+              burnt: caloriesData.burnt + data.createActivity.burnedCalories,
+              message: caloriesData.message,
+              target: caloriesData.target,
+              __typename: caloriesData.__typename,
+              },
+             */
+          },
+        });
       },
     }).then((res) => {
       if (res.data.createActivity.status) {

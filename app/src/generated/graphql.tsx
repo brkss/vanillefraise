@@ -99,6 +99,7 @@ export type CreateActivityInput = {
 
 export type CreateActivityResponse = {
   __typename?: 'CreateActivityResponse';
+  burnedCalories?: Maybe<Scalars['Float']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
 };
@@ -721,7 +722,7 @@ export type CreateActivityMutationVariables = Exact<{
 }>;
 
 
-export type CreateActivityMutation = { __typename?: 'Mutation', createActivity: { __typename?: 'CreateActivityResponse', status: boolean, message: string } };
+export type CreateActivityMutation = { __typename?: 'Mutation', createActivity: { __typename?: 'CreateActivityResponse', status: boolean, message: string, burnedCalories?: number | null | undefined } };
 
 export type ActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1053,6 +1054,7 @@ export const CreateActivityDocument = gql`
   ) {
     status
     message
+    burnedCalories
   }
 }
     `;
