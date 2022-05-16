@@ -11,7 +11,12 @@ import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { colors } from "../../utils";
 import { LinearGradient } from "expo-linear-gradient";
-import { useRecipeQuery, useCookedRecipeMutation, UserCaloriesQuery, UserCaloriesDocument } from "../../generated/graphql";
+import {
+  useRecipeQuery,
+  useCookedRecipeMutation,
+  UserCaloriesQuery,
+  UserCaloriesDocument,
+} from "../../generated/graphql";
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
   const [cooked] = useCookedRecipeMutation();
@@ -34,31 +39,38 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
     cooked({
       variables: {
         recipeID: id,
-        mealId: mealId 
+        mealId: mealId,
       },
-      update: (store, {data}) => {
-        if(!data.cookedRecipe.status)
-          return;
+      update: (store, { data }) => {
+        if (!data.cookedRecipe.status) return;
         const caloriesData = store.readQuery<UserCaloriesQuery>({
-          query: UserCaloriesDocument
+          query: UserCaloriesDocument,
         }).userCalories;
-        caloriesData.value += data.cookedRecipe.calories;
         console.log("UPDATE THAT SHIT");
         store.writeQuery<UserCaloriesQuery>({
           query: UserCaloriesDocument,
           data: {
-             userCalories: caloriesData
-          }
+            userCalories: {
+              value: caloriesData.value + data.cookedRecipe.calories,
+              status: caloriesData.status,
+              burnt: caloriesData.burnt,
+              message: caloriesData.message,
+              target: caloriesData.target,
+              __typename: caloriesData.__typename,
+            },
+          },
         });
-      }
-    }).then(res => {
-      if(!res.errors || res.data.cookedRecipe.status === true){
-        navigation.goBack();
-      }
-    }).catch((e) => {
-      console.log("Sonething went wrong => ", e)
+      },
     })
-  }
+      .then((res) => {
+        if (!res.errors || res.data.cookedRecipe.status === true) {
+          navigation.goBack();
+        }
+      })
+      .catch((e) => {
+        console.log("Sonething went wrong => ", e);
+      });
+  };
 
   if (!helviticaCondensed || loading || error || !data) return <Loading />;
 
@@ -92,7 +104,9 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
               ),
               instructions: (
                 <InstructionsStep
-                instructions={data!.recipe.recipe!.instructions.sort(({index: a}, {index: b}) => a - b)}
+                  instructions={data!.recipe.recipe!.instructions.sort(
+                    ({ index: a }, { index: b }) => a - b
+                  )}
                   finish={() => changeStep("finish")}
                 />
               ),

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  View,
-  StyleSheet,
-  Text,
-} from "react-native";
+import { ScrollView, View, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import {
   MarkAsFinished,
@@ -30,7 +24,7 @@ interface MarkedDate {
 }
 
 export const Meal: React.FC<any> = ({ route, navigation }) => {
-  const [iscooked, setIscooked] = React.useState(false);
+  //const [iscooked, setIscooked] = React.useState(false);
   const [cooked] = useCookedRecipesMutation();
   const { mealID, mealName } = route.params;
   const [markedDates, setMarkedDates] = React.useState<any[]>([]);
@@ -43,7 +37,6 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
     data.getMealRecipes.mealrecipes.forEach((r) => {
       mr.push(r.id);
     });
-
     return mr;
   };
   const _daysWithMeals = useDaysWithRecipesQuery({
@@ -62,7 +55,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
       meal: mealID,
     },
     onCompleted: (res) => {
-      console.log("res => ", res.getMealRecipes.mealrecipes);
+      //console.log("res => ", res.getMealRecipes.mealrecipes);
       if (res.getMealRecipes.cooked) setIsCooked(false);
     },
   });
