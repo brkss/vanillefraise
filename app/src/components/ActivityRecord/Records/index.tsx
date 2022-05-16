@@ -5,10 +5,18 @@ import { useActivitiesQuery } from "../../../generated/graphql";
 import { Loading } from "../../General/Loading";
 
 export const ActivityRecords: React.FC = () => {
-  const { loading, data, error } = useActivitiesQuery();
+  const { loading, data, error } = useActivitiesQuery({
+    fetchPolicy: "cache-and-network",
+    onCompleted: (data) => {
+      console.log("------------------------------");
+      console.log("ACTIVITIES : ", data.activities);
+      console.log("------------------------------");
+    },
+  });
   if (loading || error) {
     return <Loading />;
   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Latest Physical Activities</Text>
