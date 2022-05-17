@@ -21,7 +21,7 @@ import {
   useRecordCategoriesQuery,
   useRecordsQuery,
 } from "../../generated/graphql";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const wait = (timeout: number) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 15,
     backgroundColor: "#E6E3E3",
-    borderWidth: 1,
+    //borderWidth: 1,
   },
   createTxt: {
     justifyContent: "center",

@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 import { IInformationData } from "../../utils/types/Register";
@@ -33,6 +39,10 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       setError("Invalid Data");
       return;
     }
+    if (form.password !== form.repassword) {
+      setError("passwords doesn't match !");
+      return;
+    }
     if (!validateUsername(form.username)) {
       setError("Invalid Username");
       return;
@@ -48,6 +58,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       },
     });
     if (
+      res.errors ||
       !res.data.checkInfoValidity.email ||
       !res.data.checkInfoValidity.username
     ) {
@@ -73,7 +84,10 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : null} style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : null}
+      style={styles.container}
+    >
       <Text style={styles.heading}>Basic {"\n"}Informations</Text>
       {error ? <Error txt={error} close={() => setError("")} /> : null}
       <View style={styles.form}>
@@ -95,7 +109,11 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
           label={"PASSWORD"}
           txtChange={(v) => handleForm("password", v)}
         />
-        <InvisibleInput secure label={"RE-PASSWORD"} txtChange={(v) => {}} />
+        <InvisibleInput
+          secure
+          label={"RE-PASSWORD"}
+          txtChange={(v) => handleForm("repassword", v)}
+        />
         <Button txt={"NEXT"} clicked={() => handleSendingData()} />
       </View>
     </KeyboardAvoidingView>

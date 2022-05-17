@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
-import { MealOptionsSelect, Button } from "../../components";
+import { Close, MealOptionsSelect, Button } from "../../components";
 import {
   MealsDocument,
   MealsQuery,
@@ -72,6 +72,7 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
       <View style={styles.incube}>
         <SafeAreaView>
           <Text style={styles.heading}>Meals</Text>
+          <Close isMealOption={true} pressed={() => navigation.goBack()} />
           <View>
             <CalendarStrip
               selectedDate={date}

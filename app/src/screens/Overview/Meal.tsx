@@ -131,7 +131,11 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
           <Text style={[styles.title, { width: "50%" }]}>{mealName}</Text>
           <View style={[{ width: "50%", alignItems: "flex-end" }]}>
             {loading || error ? null : (
-              <MarkAsFinished marked={isCooked} mark={() => markAsCooked()} />
+              <MarkAsFinished
+                //marked={isCooked}
+                marked={data.getMealRecipes.cooked || isCooked}
+                mark={() => markAsCooked()}
+              />
             )}
           </View>
         </View>

@@ -17,7 +17,7 @@ export const Error: React.FC<Props> = ({ txt, close }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
     padding: 17,
     paddingTop: 17,
     borderRadius: 12,
