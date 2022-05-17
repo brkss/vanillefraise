@@ -79,6 +79,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
             recipe.description = recipe_data.description;
             recipe.prep = recipe_data.time.prep;
             recipe.cook = recipe_data.time.cook;
+            recipe.serving = recipe_data.serving;
             recipe.total = recipe_data.time.total;
             recipe.url = uri;
             const categories = await this.getRecipeCategories(data.categories);
