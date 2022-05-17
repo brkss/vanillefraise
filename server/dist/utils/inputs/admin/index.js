@@ -10,13 +10,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginInput = exports.RegisterInput = void 0;
-var register_input_1 = require("./auth/register.input");
-Object.defineProperty(exports, "RegisterInput", { enumerable: true, get: function () { return register_input_1.RegisterInput; } });
-var login_input_1 = require("./auth/login.input");
-Object.defineProperty(exports, "LoginInput", { enumerable: true, get: function () { return login_input_1.LoginInput; } });
-__exportStar(require("./stripe"), exports);
-__exportStar(require("./recipes"), exports);
-__exportStar(require("./user"), exports);
-__exportStar(require("./admin"), exports);
+__exportStar(require("./register.input"), exports);
 //# sourceMappingURL=index.js.map

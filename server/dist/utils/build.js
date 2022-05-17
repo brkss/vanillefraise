@@ -36,6 +36,7 @@ const build = async () => {
             resolvers_1.SearchRecipeResolver,
             resolvers_1.ActivityListResolver,
             resolvers_1.MealRecipeResolver,
+            resolvers_1.AdminAuthResolver
         ],
         validate: false,
         dateScalarMode: "isoDate",
