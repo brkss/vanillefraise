@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateActivityResponse = void 0;
+const Activity_1 = require("../../../entity/Activity");
 const type_graphql_1 = require("type-graphql");
 let CreateActivityResponse = class CreateActivityResponse {
 };
@@ -25,6 +26,10 @@ __decorate([
     (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", Number)
 ], CreateActivityResponse.prototype, "burnedCalories", void 0);
+__decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", Activity_1.Activity)
+], CreateActivityResponse.prototype, "activity", void 0);
 CreateActivityResponse = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], CreateActivityResponse);

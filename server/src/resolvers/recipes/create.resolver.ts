@@ -20,9 +20,6 @@ import {
   RecipeTotalNutrition,
   RecipeTotalNutritionKcal,
 } from "../../entity/Nutrition";
-/******* optimize ************/
-//import Jimp from "jimp";
-import sharp from "sharp";
 
 /******* config ! ************/
 import units from "recipes-parser/lib/nlp/en/units.json";
@@ -61,7 +58,6 @@ export class CreateRecipeResolver {
       const img = `${recipe_data.name
         .split(" ")
         .join("_")}_${new Date().getTime()}.jpg`;
-      const dir = path.join(__dirname, `../../cdn/images/${img}`);
       console.log("OPTIMIZE IMAGE !");
       await downloadImage(recipe_data.image, `../../cdn/images/${img}`);
       /*

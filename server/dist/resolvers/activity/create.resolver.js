@@ -45,10 +45,15 @@ let CreateActivityResolver = class CreateActivityResolver {
             activity.duration = data.duration;
             activity.calories = await this.getUserBurnedCalories(data.duration, user, category);
             await activity.save();
+            const a = await Activity_1.Activity.findOne({
+                where: { id: activity.id },
+                relations: ['category']
+            });
             return {
                 status: true,
                 message: "Activity Created suuccessfuly ! ",
                 burnedCalories: activity.calories,
+                activity: a
             };
         }
         catch (e) {

@@ -1,3 +1,4 @@
+import { Activity } from '../../../entity/Activity';
 import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
@@ -11,5 +12,8 @@ export class CreateActivityResponse {
 
   @Field({nullable: true})
   burnedCalories?: number;
+
+  @Field({nullable: true})
+  activity?: Activity
 
 }

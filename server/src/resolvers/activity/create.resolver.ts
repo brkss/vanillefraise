@@ -47,10 +47,15 @@ export class CreateActivityResolver {
         category
       );
       await activity.save();
+      const a = await Activity.findOne({
+        where: {id: activity.id},
+        relations: ['category']
+      });
       return {
         status: true,
         message: "Activity Created suuccessfuly ! ",
         burnedCalories: activity.calories,
+        activity: a
       };
     } catch (e) {
       console.log("Somnething went wrong while creating activity !");
