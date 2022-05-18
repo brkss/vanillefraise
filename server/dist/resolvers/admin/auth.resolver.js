@@ -18,11 +18,46 @@ const type_graphql_1 = require("type-graphql");
 const inputs_1 = require("../../utils/inputs");
 const bcrypt_1 = require("bcrypt");
 const admin_1 = require("../../entity/admin");
+const inputs_2 = require("../../utils/inputs");
 let AdminAuthResolver = class AdminAuthResolver {
     helloAdmin() {
         return "Hello Yourself !";
     }
-    async RegisterAdmin(data) {
+    async loginAdmin(data) {
+        if (!data.username || !data.password) {
+            return {
+                status: false,
+                message: "Invalid Data!",
+            };
+        }
+        try {
+            const admin = await admin_1.Admin.findOne({ where: { username: data.username } });
+            if (!admin) {
+                return {
+                    status: false,
+                    message: "Invalid username !",
+                };
+            }
+            const valid = await (0, bcrypt_1.compare)(data.password, admin.password);
+            if (!valid)
+                return {
+                    status: false,
+                    message: "Invalid Passoword !",
+                };
+            return {
+                status: true,
+                message: "Login successfuly",
+            };
+        }
+        catch (e) {
+            console.log("Something went wrong : ", e);
+            return {
+                status: false,
+                message: "Something went wrong !",
+            };
+        }
+    }
+    async registerAdmin(data) {
         if (!data.username || !data.password)
             return {
                 status: true,
@@ -59,9 +94,16 @@ __decorate([
     (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
     __metadata("design:type", Function),
+    __metadata("design:paramtypes", [inputs_2.LoginAdminInput]),
+    __metadata("design:returntype", Promise)
+], AdminAuthResolver.prototype, "loginAdmin", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    __param(0, (0, type_graphql_1.Arg)("data")),
+    __metadata("design:type", Function),
     __metadata("design:paramtypes", [inputs_1.RegisterAdminInput]),
     __metadata("design:returntype", Promise)
-], AdminAuthResolver.prototype, "RegisterAdmin", null);
+], AdminAuthResolver.prototype, "registerAdmin", null);
 AdminAuthResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], AdminAuthResolver);
