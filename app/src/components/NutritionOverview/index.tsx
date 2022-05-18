@@ -26,10 +26,7 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>About your nutrition</Text>
       <Text>{dayjs().format("DD/MM/YYYY")}</Text>
-      <Text style={styles.info}>
-        nutrition counted here is sum of nutrition related to recipes you cooked
-        in recipes section.
-      </Text>
+      <Text style={styles.info}>Based on recipes you cooked !</Text>
       <View style={styles.row}>
         {data.userNutrition.data
           .sort(({ quantity: a }, { quantity: b }) => b - a)
@@ -63,6 +60,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#434343",
     marginVertical: 10,
+    marginTop: 0,
   },
   row: {
     flexDirection: "row",

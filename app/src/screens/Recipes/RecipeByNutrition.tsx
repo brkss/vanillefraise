@@ -1,7 +1,7 @@
 import React from "react";
 import { View, SafeAreaView, Text, StyleSheet, ScrollView } from "react-native";
 import { useRecipeByNutritionQuery } from "../../generated/graphql";
-import { Loading, RecipeThumbnail } from "../../components";
+import { Loading, RecipeThumbnail, Close } from "../../components";
 import { CDN } from "../../utils/config/defaults";
 
 export const RecipesByNutritions: React.FC<any> = ({ route, navigation }) => {
@@ -17,6 +17,7 @@ export const RecipesByNutritions: React.FC<any> = ({ route, navigation }) => {
       <SafeAreaView>
         <View style={styles.headingContainer}>
           <Text style={styles.heading}>{name}</Text>
+          <Close pressed={() => navigation.goBack()} />
           <Text style={styles.count}>
             {data.recipeByNutrition.length} recipes.
           </Text>

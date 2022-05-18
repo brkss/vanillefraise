@@ -46,73 +46,75 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView style={{ flex: 1, paddingTop: 0 }}>
-        <View
-          style={{
-            height: 60,
-            backgroundColor: "white",
-            marginTop: Platform.OS === "ios" ? -47 : 0,
+    <View style={[styles.container, { paddingTop: 30 }]}>
+      <View
+        style={{
+          //flex: 0.01,
+          //position: "absolute",
+          top: 0,
+          height: 60,
+          backgroundColor: "white",
+          //marginTop: -60,
+          //marginTop: Platform.OS === "ios" ? "-7%" : 0,
+        }}
+      >
+        <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
+        <Close pressed={() => navigation.popToTop()} />
+        <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
+      </View>
+      <ScrollView
+        bounces={false}
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <ImageBackground
+          style={styles.image}
+          source={{
+            uri: `${CDN}/${data.recipe.recipe!.image}`,
           }}
-        >
-          <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
-          <Close pressed={() => navigation.popToTop()} />
-          <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
-        </View>
-        <ScrollView
-          bounces={false}
-          style={{ flex: 1 }}
-          showsVerticalScrollIndicator={false}
-        >
-          <ImageBackground
-            style={styles.image}
-            source={{
-              uri: `${CDN}/${data.recipe.recipe!.image}`,
-            }}
-          ></ImageBackground>
-          <View style={styles.content}>
-            <RecipeMetaData
-              title={data.recipe.recipe!.name}
-              description={data.recipe.recipe!.description || undefined}
-              prep={data.recipe.recipe?.prep || undefined}
-              cook={data.recipe.recipe?.cook || undefined}
-              total={data.recipe.recipe?.total || undefined}
-            />
-            <RecipeNutrition recipeId={id} />
-            <Ingredients ingredients={data.recipe.recipe!.ingredients} />
-            <Instructions
-              instructions={data.recipe.recipe!.instructions.sort(
-                ({ index: a }, { index: b }) => a - b
-              )}
-            />
-            {!mealId ? (
-              <Button
-                //color={"#2A2A2A"}
-                bg={"#595959"}
-                txt={"Add To Meal"}
-                clicked={() =>
-                  navigation.push("MealsOptions", {
-                    recipe: data.recipe.recipe.id,
-                  })
-                }
-              />
-            ) : (
-              <Button
-                //color={"#2A2A2A"}
-                //bg={"#B6DA81"}
-                txt={"Start Cooking"}
-                clicked={() =>
-                  navigation.push("Cooking", {
-                    id: data.recipe.recipe!.id,
-                    mealId: mealId,
-                  })
-                }
-              />
+        ></ImageBackground>
+        <View style={styles.content}>
+          <RecipeMetaData
+            title={data.recipe.recipe!.name}
+            description={data.recipe.recipe!.description || undefined}
+            prep={data.recipe.recipe?.prep || undefined}
+            cook={data.recipe.recipe?.cook || undefined}
+            total={data.recipe.recipe?.total || undefined}
+          />
+          <RecipeNutrition recipeId={id} />
+          <Ingredients ingredients={data.recipe.recipe!.ingredients} />
+          <Instructions
+            instructions={data.recipe.recipe!.instructions.sort(
+              ({ index: a }, { index: b }) => a - b
             )}
-            <View style={{ height: 50 }} />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+          />
+          {!mealId ? (
+            <Button
+              //color={"#2A2A2A"}
+              bg={"#595959"}
+              txt={"Add To Meal"}
+              clicked={() =>
+                navigation.push("MealsOptions", {
+                  recipe: data.recipe.recipe.id,
+                })
+              }
+            />
+          ) : (
+            <Button
+              //color={"#2A2A2A"}
+              //bg={"#B6DA81"}
+              txt={"Start Cooking"}
+              clicked={() =>
+                navigation.push("Cooking", {
+                  id: data.recipe.recipe!.id,
+                  mealId: mealId,
+                })
+              }
+            />
+          )}
+          <View style={{ height: 50 }} />
+        </View>
+      </ScrollView>
     </View>
   );
 };
