@@ -1,9 +1,14 @@
-import { DefaultResponse } from "../../utils/responses";
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver, Ctx } from "type-graphql";
 import { RegisterAdminInput } from "../../utils/inputs";
 import { hash, compare } from "bcrypt";
 import { Admin } from "../../entity/admin";
 import { LoginAdminInput } from "../../utils/inputs";
+import {
+  generateAdminAccessToken,
+  sendAdminRefreshToken,
+} from "../../utils/token";
+import { IContext } from "../../utils/types/Context";
+import { AuthDefaultResponse } from "../../utils/responses";
 
 @Resolver()
 export class AdminAuthResolver {
@@ -12,10 +17,11 @@ export class AdminAuthResolver {
     return "Hello Yourself !";
   }
 
-  @Mutation(() => DefaultResponse)
+  @Mutation(() => AuthDefaultResponse)
   async loginAdmin(
-    @Arg("data") data: LoginAdminInput
-  ): Promise<DefaultResponse> {
+    @Arg("data") data: LoginAdminInput,
+    @Ctx() { res }: IContext
+  ): Promise<AuthDefaultResponse> {
     if (!data.username || !data.password) {
       return {
         status: false,
@@ -38,9 +44,12 @@ export class AdminAuthResolver {
           status: false,
           message: "Invalid Passoword !",
         };
+      const _token = generateAdminAccessToken(admin);
+      sendAdminRefreshToken(res, generateAdminAccessToken(admin));
       return {
         status: true,
         message: "Login successfuly",
+        token: _token,
       };
     } catch (e) {
       console.log("Something went wrong : ", e);
@@ -51,10 +60,11 @@ export class AdminAuthResolver {
     }
   }
 
-  @Mutation(() => DefaultResponse)
+  @Mutation(() => AuthDefaultResponse)
   async registerAdmin(
-    @Arg("data") data: RegisterAdminInput
-  ): Promise<DefaultResponse> {
+    @Arg("data") data: RegisterAdminInput,
+    @Ctx() { res }: IContext
+  ): Promise<AuthDefaultResponse> {
     if (!data.username || !data.password)
       return {
         status: true,
@@ -68,9 +78,12 @@ export class AdminAuthResolver {
       admin.password = await hash(data.password, 5);
       admin.name = data.name || undefined;
       await admin.save();
+      const _token = generateAdminAccessToken(admin);
+      sendAdminRefreshToken(res, generateAdminAccessToken(admin));
       return {
         status: true,
         message: "Admin Created successfuly ! ",
+        token: _token,
       };
     } catch (e) {
       console.log("Something went wrong : ", e);

@@ -13,17 +13,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminAuthResolver = void 0;
-const responses_1 = require("../../utils/responses");
 const type_graphql_1 = require("type-graphql");
 const inputs_1 = require("../../utils/inputs");
 const bcrypt_1 = require("bcrypt");
 const admin_1 = require("../../entity/admin");
 const inputs_2 = require("../../utils/inputs");
+const token_1 = require("../../utils/token");
+const responses_1 = require("../../utils/responses");
 let AdminAuthResolver = class AdminAuthResolver {
     helloAdmin() {
         return "Hello Yourself !";
     }
-    async loginAdmin(data) {
+    async loginAdmin(data, { res }) {
         if (!data.username || !data.password) {
             return {
                 status: false,
@@ -44,9 +45,12 @@ let AdminAuthResolver = class AdminAuthResolver {
                     status: false,
                     message: "Invalid Passoword !",
                 };
+            const _token = (0, token_1.generateAdminAccessToken)(admin);
+            (0, token_1.sendAdminRefreshToken)(res, (0, token_1.generateAdminAccessToken)(admin));
             return {
                 status: true,
                 message: "Login successfuly",
+                token: _token,
             };
         }
         catch (e) {
@@ -57,7 +61,7 @@ let AdminAuthResolver = class AdminAuthResolver {
             };
         }
     }
-    async registerAdmin(data) {
+    async registerAdmin(data, { res }) {
         if (!data.username || !data.password)
             return {
                 status: true,
@@ -70,9 +74,12 @@ let AdminAuthResolver = class AdminAuthResolver {
             admin.password = await (0, bcrypt_1.hash)(data.password, 5);
             admin.name = data.name || undefined;
             await admin.save();
+            const _token = (0, token_1.generateAdminAccessToken)(admin);
+            (0, token_1.sendAdminRefreshToken)(res, (0, token_1.generateAdminAccessToken)(admin));
             return {
                 status: true,
                 message: "Admin Created successfuly ! ",
+                token: _token,
             };
         }
         catch (e) {
@@ -91,17 +98,19 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AdminAuthResolver.prototype, "helloAdmin", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    (0, type_graphql_1.Mutation)(() => responses_1.AuthDefaultResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
+    __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [inputs_2.LoginAdminInput]),
+    __metadata("design:paramtypes", [inputs_2.LoginAdminInput, Object]),
     __metadata("design:returntype", Promise)
 ], AdminAuthResolver.prototype, "loginAdmin", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    (0, type_graphql_1.Mutation)(() => responses_1.AuthDefaultResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
+    __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [inputs_1.RegisterAdminInput]),
+    __metadata("design:paramtypes", [inputs_1.RegisterAdminInput, Object]),
     __metadata("design:returntype", Promise)
 ], AdminAuthResolver.prototype, "registerAdmin", null);
 AdminAuthResolver = __decorate([
