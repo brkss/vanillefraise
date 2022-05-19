@@ -18,7 +18,7 @@ import {
 } from "../../components";
 import { useRecipeQuery, useRecipeEnergyQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
-import { SafeAreaView } from "react-native-safe-area-context";
+//import { SafeAreaView } from "react-native-safe-area-context";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   const { id, mealId } = route.params;
@@ -46,7 +46,9 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: 30 }]}>
+    <View
+      style={[styles.container, { paddingTop: Platform.OS === "ios" ? 0 : 30 }]}
+    >
       <View
         style={{
           //flex: 0.01,

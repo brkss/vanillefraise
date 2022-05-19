@@ -40,8 +40,10 @@ export const Overview: React.FC<any> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{ flex: 1, marginBottom: Platform.OS === "ios" ? -40 : 0 }}>
-        <Heading title={"Overview"} />
+      <SafeAreaView
+        style={{ flex: 1, marginBottom: Platform.OS === "ios" ? -40 : 0 }}
+      >
+          <View style={{height: 100}} />  
         <ScrollView
           style={{ flex: 1 }}
           refreshControl={
@@ -57,6 +59,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             }
             refreshing={refreshing}
           />
+          <View style={{ height: 100 }} />
         </ScrollView>
       </SafeAreaView>
     </View>

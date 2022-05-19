@@ -122,10 +122,10 @@ export default function App() {
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>
+          <StatusBar style={"auto"} />
           <AuthProvider>
             <NativeBaseProvider>
-                <StatusBar style={"auto"} />
-                <MainNavigation />
+              <MainNavigation />
             </NativeBaseProvider>
           </AuthProvider>
         </ApolloProvider>
