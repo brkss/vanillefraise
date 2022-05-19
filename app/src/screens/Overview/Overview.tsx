@@ -2,16 +2,12 @@ import React from "react";
 import {
   RefreshControl,
   View,
-  Text,
   StyleSheet,
-  //SafeAreaView,
   ScrollView,
   Platform,
 } from "react-native";
 import {
   Loading,
-  Heading,
-  MoodStats,
   CaloriesOverview,
   NutritionOverview,
   MealsOverview,
@@ -43,7 +39,6 @@ export const Overview: React.FC<any> = ({ navigation }) => {
       <SafeAreaView
         style={{ flex: 1, marginBottom: Platform.OS === "ios" ? -40 : 0 }}
       >
-          <View style={{height: 100}} />  
         <ScrollView
           style={{ flex: 1 }}
           refreshControl={
