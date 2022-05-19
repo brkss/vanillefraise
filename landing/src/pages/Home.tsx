@@ -24,10 +24,14 @@ export const Home: React.FC = () => {
               fontFamily={"'Bebas Neue', cursive"}
               letterSpacing={"-1px"}
             >
-              Refashion <br />
-              Healthcare <br />
-              and <br />
-              Nutrition.
+              Because
+              <br />
+              Nutrition
+              <br />
+              Is
+              <br />
+              Influential.
+              <br />
             </Heading>
           </Center>
         </GridItem>

@@ -26,13 +26,13 @@ export const Footer: React.FC = () => {
               colSpan={{ base: 6, md: 6 }}
               textAlign={{ base: "right", md: "right" }}
             >
-              <Link href="https://twitter.com/openccapp" isExternal>
+              <Link href="https://twitter.com/owvanillefraise" isExternal>
                 <FiTwitter
                   style={{ display: "inline-block", marginRight: "20px" }}
                   size={20}
                 />
               </Link>
-              <Link href={"https://instagram.com/openccapp"} isExternal>
+              <Link href={"https://instagram.com/vanilleetfraise"} isExternal>
                 <FiInstagram style={{ display: "inline-block" }} size={20} />
               </Link>
             </GridItem>
