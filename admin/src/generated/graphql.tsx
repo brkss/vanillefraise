@@ -21,6 +21,7 @@ export type Activity = {
   __typename?: 'Activity';
   calories?: Maybe<Scalars['Float']>;
   category: ActivityCategory;
+  created_at: Scalars['DateTime'];
   duration: Scalars['String'];
   feedback?: Maybe<Scalars['String']>;
   id: Scalars['String'];
@@ -77,6 +78,18 @@ export type CookedRecipe = {
   user: User;
 };
 
+export type CookedRecipeInput = {
+  mealId: Scalars['String'];
+  recipeId: Scalars['String'];
+};
+
+export type CookedRecipesResponse = {
+  __typename?: 'CookedRecipesResponse';
+  calories?: Maybe<Scalars['Float']>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type CreateActivityInput = {
   calories?: InputMaybe<Scalars['Float']>;
   category: Scalars['String'];
@@ -86,6 +99,15 @@ export type CreateActivityInput = {
 
 export type CreateActivityResponse = {
   __typename?: 'CreateActivityResponse';
+  activity?: Maybe<Activity>;
+  burnedCalories?: Maybe<Scalars['Float']>;
+  message: Scalars['String'];
+  status: Scalars['Boolean'];
+};
+
+export type CreateMealRecipeResponse = {
+  __typename?: 'CreateMealRecipeResponse';
+  mealId?: Maybe<Scalars['String']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
 };
@@ -159,6 +181,11 @@ export type ListRecordsResponse = {
   status: Scalars['Boolean'];
 };
 
+export type LoginAdminInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -182,6 +209,14 @@ export type Meal = {
   id: Scalars['String'];
   index: Scalars['Float'];
   mealrecipes: Array<MealRecipes>;
+  name: Scalars['String'];
+};
+
+export type MealListResponse = {
+  __typename?: 'MealListResponse';
+  count: Scalars['Float'];
+  id: Scalars['String'];
+  index: Scalars['Float'];
   name: Scalars['String'];
 };
 
@@ -246,20 +281,23 @@ export type MoodRecord = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addMealRecipe: DefaultResponse;
+  addMealRecipe: CreateMealRecipeResponse;
   changePassword: ChangePasswordResponse;
-  checkCookedMeal: DefaultResponse;
+  checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
-  cookedRecipe: DefaultResponse;
-  cookedRecipes: DefaultResponse;
+  cookedRecipe: CookedRecipesResponse;
+  cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecord: CreateRecordResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
+  loginAdmin: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
+  registerAdmin: AuthDefaultResponse;
+  removeRecipe: DefaultResponse;
   requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
@@ -272,6 +310,7 @@ export type Mutation = {
   seedRecomendation: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
+  updateInfo: DefaultResponse;
   verifyResetToken: Scalars['Boolean'];
 };
 
@@ -297,7 +336,7 @@ export type MutationCheckInfoValidityArgs = {
 
 
 export type MutationCookedRecipeArgs = {
-  recipeID: Scalars['String'];
+  data: CookedRecipeInput;
 };
 
 
@@ -336,8 +375,23 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationLoginAdminArgs = {
+  data: LoginAdminInput;
+};
+
+
 export type MutationRegisterArgs = {
   data: RegisterInput;
+};
+
+
+export type MutationRegisterAdminArgs = {
+  data: RegisterAdminInput;
+};
+
+
+export type MutationRemoveRecipeArgs = {
+  data: RemoveMealRecipeInput;
 };
 
 
@@ -353,6 +407,11 @@ export type MutationRequestResetPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput;
+};
+
+
+export type MutationUpdateInfoArgs = {
+  data: UpdateUserInfoInput;
 };
 
 
@@ -378,6 +437,7 @@ export type NutritionOverviewResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  activities: Array<Activity>;
   activityCategories: Array<ActivityCategory>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
@@ -385,14 +445,16 @@ export type Query = {
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
+  helloAdmin: Scalars['String'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
-  meals: Array<Meal>;
+  meals: Array<MealListResponse>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
+  recipeByNutrition: Array<Recipe>;
   recipeCategories: Array<RecipeCategory>;
   recipeEnergy: Scalars['Float'];
   recipes: Array<Recipe>;
@@ -438,6 +500,11 @@ export type QueryRecipeArgs = {
 
 export type QueryRecipeByCategoryArgs = {
   cat_id: Scalars['String'];
+};
+
+
+export type QueryRecipeByNutritionArgs = {
+  code: Scalars['String'];
 };
 
 
@@ -568,6 +635,12 @@ export type RecordCategory = {
   unit: Scalars['String'];
 };
 
+export type RegisterAdminInput = {
+  name?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type RegisterInput = {
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
@@ -579,6 +652,11 @@ export type RegisterInput = {
   sc: Array<Scalars['String']>;
   username: Scalars['String'];
   weight: Scalars['Float'];
+};
+
+export type RemoveMealRecipeInput = {
+  mealid: Scalars['String'];
+  recipeid: Scalars['String'];
 };
 
 export type ResetPasswordInput = {
@@ -598,6 +676,12 @@ export type SpecialCondition = {
   id: Scalars['String'];
   name: Scalars['String'];
   users: Array<User>;
+};
+
+export type UpdateUserInfoInput = {
+  height: Scalars['Float'];
+  name: Scalars['String'];
+  weight: Scalars['Float'];
 };
 
 export type User = {
@@ -643,6 +727,14 @@ export type UserInfoValidtyInput = {
   username: Scalars['String'];
 };
 
+export type LoginMutationVariables = Exact<{
+  username: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', loginAdmin: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null, token?: string | null } };
+
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -669,6 +761,42 @@ export type RecipesQueryVariables = Exact<{ [key: string]: never; }>;
 export type RecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', id: string, name: string, description?: string | null, serving?: number | null, image: string, cook?: string | null, prep?: string | null, total?: string | null }> };
 
 
+export const LoginDocument = gql`
+    mutation Login($username: String!, $password: String!) {
+  loginAdmin(data: {username: $username, password: $password}) {
+    status
+    message
+    token
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const RecipeCategoriesDocument = gql`
     query RecipeCategories {
   recipeCategories {
