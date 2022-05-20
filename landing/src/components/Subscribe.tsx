@@ -19,7 +19,9 @@ export const Subscribe: React.FC = () => {
               <Form
                 message={message as string}
                 status={status || ""}
-                onValidate={(email) => subscribe({ EMAIL: email })}
+                onValidate={(email, name, os) =>
+                  subscribe({ EMAIL: email, FNAME: name, LNAME: os } as any)
+                }
               />
             )}
           />

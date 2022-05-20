@@ -1,21 +1,22 @@
 import React from "react";
 import { Box, Text, Input, Button, Alert, AlertIcon } from "@chakra-ui/react";
 import { Error } from "./Error";
-
+import { OS } from "./OS";
+<OS onSelect={() => {}} />;
 interface Props {
   status: string;
   message: string;
-  onValidate: (email: string) => void;
+  onValidate: (email: string, name: string, os: string) => void;
 }
 
-//https://gmail.us17.list-manage.com/subscribe/post?u=e83680395db24bdc252a7e981&amp;id=902529c4f6
 export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
   const [name, setName] = React.useState("");
+  const [os, setOs] = React.useState("IOS");
 
   React.useEffect(() => {
-    if(status === "success"){
+    if (status === "success") {
       setEmail("");
       setName("");
     }
@@ -24,7 +25,9 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
   const validate = () => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if (!name) {
+    if (!os || (os !== "Android" && os !== "IOS")) {
+      setError("Invalid Device Type !");
+    } else if (!name) {
       setError("Name cannot be blank");
       return false;
     } else if (name.length < 4 || name.length > 10) {
@@ -38,7 +41,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
       return false;
     }
     setError("");
-    onValidate(email);
+    onValidate(email, name, os);
   };
 
   return (
@@ -86,6 +89,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
         disabled={status === "sending"}
         onChange={(e) => setEmail(e.currentTarget.value)}
       />
+      <OS onSelect={(val: string) => setOs(val)} />
       <Button
         onClick={() => validate()}
         _hover={{ background: "black", opacity: 0.7, transition: ".3s" }}
