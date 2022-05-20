@@ -5,7 +5,7 @@ import { ApolloServer } from "apollo-server-express";
 import { build } from "./utils/build";
 import { createConnection } from "typeorm";
 import cookieParser from "cookie-parser";
-import { refreshToken } from "./utils/token";
+import { refreshToken, refreshAdminToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
 //import { optimize } from './utils/helpers';
@@ -41,6 +41,10 @@ import path from "path";
   });
 
   app.post("/refresh_token", async (req, res) => await refreshToken(res, req));
+  app.post(
+    "/refresh_admin_token",
+    async (req, res) => await refreshAdminToken(req, res)
+  );
   /*
    * IMAGE OPTIMIZATION !
   app.get('/optimize', async (_, res) => {

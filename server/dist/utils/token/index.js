@@ -22,4 +22,5 @@ var password_1 = require("./password");
 Object.defineProperty(exports, "createResetPasswordToken", { enumerable: true, get: function () { return password_1.createResetPasswordToken; } });
 Object.defineProperty(exports, "verifyPasswordToken", { enumerable: true, get: function () { return password_1.verifyPasswordToken; } });
 __exportStar(require("./adminToken"), exports);
+__exportStar(require("./refreshAdminToken"), exports);
 //# sourceMappingURL=index.js.map

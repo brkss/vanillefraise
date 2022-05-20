@@ -22,7 +22,7 @@ export const generateAdminRefreshToken = (admin: Admin): string => {
   const payload = {
     adminID: admin.id,
   };
-  const _token = sign(payload, process.env.ADMIN_REFRESH_TOKEN!, {
+  const _token = sign(payload, process.env.ADMIN_REFRESH_SECRET!, {
     expiresIn: "7d",
   });
 

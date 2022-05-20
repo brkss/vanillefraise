@@ -21,7 +21,7 @@ const generateAdminRefreshToken = (admin) => {
     const payload = {
         adminID: admin.id,
     };
-    const _token = (0, jsonwebtoken_1.sign)(payload, process.env.ADMIN_REFRESH_TOKEN, {
+    const _token = (0, jsonwebtoken_1.sign)(payload, process.env.ADMIN_REFRESH_SECRET, {
         expiresIn: "7d",
     });
     return _token;

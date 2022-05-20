@@ -47,7 +47,7 @@ let AdminAuthResolver = class AdminAuthResolver {
                     message: "Invalid Passoword !",
                 };
             const _token = (0, token_1.generateAdminAccessToken)(admin);
-            (0, token_1.sendAdminRefreshToken)(res, (0, token_1.generateAdminAccessToken)(admin));
+            (0, token_1.sendAdminRefreshToken)(res, (0, token_1.generateAdminRefreshToken)(admin));
             return {
                 status: true,
                 message: "Login successfuly",
@@ -76,7 +76,7 @@ let AdminAuthResolver = class AdminAuthResolver {
             admin.name = data.name || undefined;
             await admin.save();
             const _token = (0, token_1.generateAdminAccessToken)(admin);
-            (0, token_1.sendAdminRefreshToken)(res, (0, token_1.generateAdminAccessToken)(admin));
+            (0, token_1.sendAdminRefreshToken)(res, (0, token_1.generateAdminRefreshToken)(admin));
             return {
                 status: true,
                 message: "Admin Created successfuly ! ",

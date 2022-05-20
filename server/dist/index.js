@@ -38,6 +38,7 @@ const path_1 = __importDefault(require("path"));
         res.redirect("https://opencc.tech");
     });
     app.post("/refresh_token", async (req, res) => await (0, token_1.refreshToken)(res, req));
+    app.post("/refresh_admin_token", async (req, res) => await (0, token_1.refreshAdminToken)(req, res));
     const dir = path_1.default.join(__dirname, "cdn/images");
     app.use("/images", express_1.default.static(dir));
     const apolloServer = new apollo_server_express_1.ApolloServer({

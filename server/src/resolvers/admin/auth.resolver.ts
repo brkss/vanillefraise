@@ -12,6 +12,7 @@ import { Admin } from "../../entity/admin";
 import { LoginAdminInput } from "../../utils/inputs";
 import {
   generateAdminAccessToken,
+  generateAdminRefreshToken,
   sendAdminRefreshToken,
 } from "../../utils/token";
 import { IContext } from "../../utils/types/Context";
@@ -54,7 +55,7 @@ export class AdminAuthResolver {
           message: "Invalid Passoword !",
         };
       const _token = generateAdminAccessToken(admin);
-      sendAdminRefreshToken(res, generateAdminAccessToken(admin));
+      sendAdminRefreshToken(res, generateAdminRefreshToken(admin));
       return {
         status: true,
         message: "Login successfuly",
@@ -88,7 +89,7 @@ export class AdminAuthResolver {
       admin.name = data.name || undefined;
       await admin.save();
       const _token = generateAdminAccessToken(admin);
-      sendAdminRefreshToken(res, generateAdminAccessToken(admin));
+      sendAdminRefreshToken(res, generateAdminRefreshToken(admin));
       return {
         status: true,
         message: "Admin Created successfuly ! ",
