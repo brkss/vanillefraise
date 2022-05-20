@@ -1,4 +1,11 @@
-import { Arg, Mutation, Query, Resolver, Ctx } from "type-graphql";
+import {
+  Arg,
+  Mutation,
+  Query,
+  Resolver,
+  Ctx,
+  UseMiddleware,
+} from "type-graphql";
 import { RegisterAdminInput } from "../../utils/inputs";
 import { hash, compare } from "bcrypt";
 import { Admin } from "../../entity/admin";
@@ -9,12 +16,14 @@ import {
 } from "../../utils/token";
 import { IContext } from "../../utils/types/Context";
 import { AuthDefaultResponse } from "../../utils/responses";
+import { isAdminAuth } from "../../utils/middlewares";
 
 @Resolver()
 export class AdminAuthResolver {
+  @UseMiddleware(isAdminAuth)
   @Query(() => String)
-  helloAdmin() {
-    return "Hello Yourself !";
+  helloAdmin(@Ctx() ctx: IContext) {
+    return "Hello Yourself ! your id is : " + ctx.payload.adminID;
   }
 
   @Mutation(() => AuthDefaultResponse)

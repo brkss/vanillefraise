@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isUserAuth = void 0;
+exports.isAdminAuth = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
-const isUserAuth = ({ context }, next) => {
+const isAdminAuth = ({ context }, next) => {
     const authorization = context.req.headers["authorization"];
     if (!authorization) {
         throw new Error("Not authenticated !");
@@ -21,5 +21,5 @@ const isUserAuth = ({ context }, next) => {
     }
     return next();
 };
-exports.isUserAuth = isUserAuth;
+exports.isAdminAuth = isAdminAuth;
 //# sourceMappingURL=admin.mw.js.map

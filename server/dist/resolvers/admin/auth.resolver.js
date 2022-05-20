@@ -20,9 +20,10 @@ const admin_1 = require("../../entity/admin");
 const inputs_2 = require("../../utils/inputs");
 const token_1 = require("../../utils/token");
 const responses_1 = require("../../utils/responses");
+const middlewares_1 = require("../../utils/middlewares");
 let AdminAuthResolver = class AdminAuthResolver {
-    helloAdmin() {
-        return "Hello Yourself !";
+    helloAdmin(ctx) {
+        return "Hello Yourself ! your id is : " + ctx.payload.adminID;
     }
     async loginAdmin(data, { res }) {
         if (!data.username || !data.password) {
@@ -92,9 +93,11 @@ let AdminAuthResolver = class AdminAuthResolver {
     }
 };
 __decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isAdminAuth),
     (0, type_graphql_1.Query)(() => String),
+    __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AdminAuthResolver.prototype, "helloAdmin", null);
 __decorate([

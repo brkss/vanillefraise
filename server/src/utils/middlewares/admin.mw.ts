@@ -2,7 +2,7 @@ import { MiddlewareFn } from "type-graphql";
 import { IContext } from "../types/Context";
 import { verify } from "jsonwebtoken";
 
-export const isUserAuth: MiddlewareFn<IContext> = ({ context }, next) => {
+export const isAdminAuth: MiddlewareFn<IContext> = ({ context }, next) => {
   const authorization = context.req.headers["authorization"];
   if (!authorization) {
     throw new Error("Not authenticated !");
