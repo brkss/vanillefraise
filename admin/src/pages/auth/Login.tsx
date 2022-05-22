@@ -30,6 +30,7 @@ export const Login: React.FC = () => {
       },
     })
       .then((res) => {
+        console.log("res =>> ", res);
         if (!res || !res.data?.loginAdmin.token || res.errors) {
           // trigger error !
           return;
