@@ -7,8 +7,31 @@ import {
 } from "react-router-dom";
 import { routes } from "./utils/config/routes";
 import { GuardRoute } from "./components/GuardRoute";
+import { Loading } from "./components";
+import { URI } from "./utils/config/defaults";
+import { setToken } from "./utils/token/token";
 
 export const Application: React.FC = () => {
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch(`${URI}/refresh_admin_token`, {
+      credentials: "include",
+      method: "POST",
+    }).then(async (res) => {
+      const data = await res.json();
+      if (data.status === true && data.token) {
+        //setToken(data.token);
+      }
+      console.log("refresh token result ? ", data);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <BrowserRouter>

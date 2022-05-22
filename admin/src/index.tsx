@@ -8,6 +8,7 @@ import { URI } from "./utils/config/defaults";
 
 const client = new ApolloClient({
   uri: `${URI}/graphql`,
+  credentials: "include",
   cache: new InMemoryCache(),
 });
 
