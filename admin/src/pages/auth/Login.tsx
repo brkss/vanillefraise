@@ -49,7 +49,7 @@ export const Login: React.FC = () => {
   return (
     <Box h={"100vh"}>
       <Center h={"100vh"}>
-        <Box>
+        <Box w={"300px"}>
           <Heading mb={"20px"}>Login</Heading>
           <Input
             type={"text"}
