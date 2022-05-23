@@ -2,8 +2,8 @@ import { Resolver, Query, UseMiddleware, Arg, Mutation,  } from "type-graphql";
 import { isAdminAuth } from "../../utils/middlewares/admin.mw";
 import { RecipeCategory } from "../../entity/Recipe/Category";
 import { AdminCategoryResponse } from "../../utils/responses";
-import { UpdateCategoryInput } from "../../utils/inputs";
-import { UpdateCategoryResponse } from '../../utils/responses';
+import {UpdateCategoryInput} from "src/utils/inputs";
+
 
 @Resolver()
 export class AdminRecipeCategoryResolver {
@@ -36,10 +36,10 @@ export class AdminRecipeCategoryResolver {
 
   // update catergory !
   @UseMiddleware(isAdminAuth)
-  @Mutation(() => UpdateCategoryResponse)
+  @Mutation(() => DefaultResponse)
   async updateCategory(
     @Arg("data") data: UpdateCategoryInput
-  ): Promise<UpdateCategoryResponse> {
+  ): Promise<DefaultResponse> {
     if (!data || !data.id)
       return {
         status: false,
@@ -60,7 +60,6 @@ export class AdminRecipeCategoryResolver {
     return {
       status: true,
       message: "Category updated successfuly !",
-      category: category
     };
   }
 
