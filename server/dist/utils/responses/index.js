@@ -17,4 +17,5 @@ __exportStar(require("./stripe"), exports);
 __exportStar(require("./recipes"), exports);
 __exportStar(require("./default.response"), exports);
 __exportStar(require("./meals"), exports);
+__exportStar(require("./admin"), exports);
 //# sourceMappingURL=index.js.map
