@@ -58,6 +58,11 @@ export type AdminCategoryResponse = {
   count: Scalars['Float'];
 };
 
+export type AdminRecipesResponse = {
+  __typename?: 'AdminRecipesResponse';
+  recipe: Recipe;
+};
+
 export type AdminUserResponse = {
   __typename?: 'AdminUserResponse';
   user: User;
@@ -294,6 +299,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addMealRecipe: CreateMealRecipeResponse;
   changePassword: ChangePasswordResponse;
+  changeRecipeVisibility: DefaultResponse;
   checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
   cookedRecipe: CookedRecipesResponse;
@@ -335,6 +341,11 @@ export type MutationAddMealRecipeArgs = {
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+
+export type MutationChangeRecipeVisibilityArgs = {
+  rid: Scalars['String'];
 };
 
 
@@ -464,6 +475,7 @@ export type Query = {
   activityCategories: Array<ActivityCategory>;
   adminCategories: Array<AdminCategoryResponse>;
   adminGetUsers: Array<AdminUserResponse>;
+  adminRecipes: Array<AdminRecipesResponse>;
   categoryDetails?: Maybe<RecipeCategory>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
@@ -780,6 +792,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', loginAdmin: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null, token?: string | null } };
 
+export type AdminRecipesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminRecipesQuery = { __typename?: 'Query', adminRecipes: Array<{ __typename?: 'AdminRecipesResponse', recipe: { __typename?: 'Recipe', id: string, name: string, description?: string | null, serving?: number | null, image: string, cook?: string | null, prep?: string | null, total?: string | null, public: boolean } }> };
+
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -826,6 +843,13 @@ export type UpdateCategoryMutationVariables = Exact<{
 
 
 export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'UpdateCategoryResponse', status: boolean, message?: string | null, category?: { __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null, active: boolean } | null } };
+
+export type ChangeRecipeVisibilityMutationVariables = Exact<{
+  rid: Scalars['String'];
+}>;
+
+
+export type ChangeRecipeVisibilityMutation = { __typename?: 'Mutation', changeRecipeVisibility: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
 
 export type DeleteUserMutationVariables = Exact<{
   uid: Scalars['String'];
@@ -876,6 +900,50 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const AdminRecipesDocument = gql`
+    query AdminRecipes {
+  adminRecipes {
+    recipe {
+      id
+      name
+      description
+      serving
+      image
+      cook
+      prep
+      total
+      public
+    }
+  }
+}
+    `;
+
+/**
+ * __useAdminRecipesQuery__
+ *
+ * To run a query within a React component, call `useAdminRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdminRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdminRecipesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdminRecipesQuery(baseOptions?: Apollo.QueryHookOptions<AdminRecipesQuery, AdminRecipesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AdminRecipesQuery, AdminRecipesQueryVariables>(AdminRecipesDocument, options);
+      }
+export function useAdminRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AdminRecipesQuery, AdminRecipesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AdminRecipesQuery, AdminRecipesQueryVariables>(AdminRecipesDocument, options);
+        }
+export type AdminRecipesQueryHookResult = ReturnType<typeof useAdminRecipesQuery>;
+export type AdminRecipesLazyQueryHookResult = ReturnType<typeof useAdminRecipesLazyQuery>;
+export type AdminRecipesQueryResult = Apollo.QueryResult<AdminRecipesQuery, AdminRecipesQueryVariables>;
 export const RecipeCategoriesDocument = gql`
     query RecipeCategories {
   recipeCategories {
@@ -1149,6 +1217,40 @@ export function useUpdateCategoryMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>;
 export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>;
 export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+export const ChangeRecipeVisibilityDocument = gql`
+    mutation ChangeRecipeVisibility($rid: String!) {
+  changeRecipeVisibility(rid: $rid) {
+    status
+    message
+  }
+}
+    `;
+export type ChangeRecipeVisibilityMutationFn = Apollo.MutationFunction<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>;
+
+/**
+ * __useChangeRecipeVisibilityMutation__
+ *
+ * To run a mutation, you first call `useChangeRecipeVisibilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeRecipeVisibilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeRecipeVisibilityMutation, { data, loading, error }] = useChangeRecipeVisibilityMutation({
+ *   variables: {
+ *      rid: // value for 'rid'
+ *   },
+ * });
+ */
+export function useChangeRecipeVisibilityMutation(baseOptions?: Apollo.MutationHookOptions<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>(ChangeRecipeVisibilityDocument, options);
+      }
+export type ChangeRecipeVisibilityMutationHookResult = ReturnType<typeof useChangeRecipeVisibilityMutation>;
+export type ChangeRecipeVisibilityMutationResult = Apollo.MutationResult<ChangeRecipeVisibilityMutation>;
+export type ChangeRecipeVisibilityMutationOptions = Apollo.BaseMutationOptions<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>;
 export const DeleteUserDocument = gql`
     mutation DeleteUser($uid: String!) {
   deleteUser(uid: $uid) {

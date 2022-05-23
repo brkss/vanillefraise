@@ -22,6 +22,7 @@ import {
   RecipesDocument,
 } from "../../generated/graphql";
 import { Link } from "react-router-dom";
+export * from './List';
 
 export const CreateRecipe: React.FC = () => {
   const { data, loading, error } = useRecipeCategoriesQuery();
