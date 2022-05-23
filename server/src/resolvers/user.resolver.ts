@@ -88,6 +88,12 @@ export class UserResolver {
         message: "User not found !",
       };
     }
+    if (user.banned) {
+      return {
+        status: false,
+        message: "This account is banned !",
+      };
+    }
     const valid = await compare(data.password, user.password);
     if (!valid) {
       return {
