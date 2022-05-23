@@ -13,11 +13,42 @@ import {
   Switch,
   Button,
 } from "@chakra-ui/react";
-import { useAdminRecipesQuery } from "../../generated/graphql";
+import {
+  AdminRecipesDocument,
+  AdminRecipesQuery,
+  useAdminRecipesQuery,
+  useChangeRecipeVisibilityMutation,
+} from "../../generated/graphql";
 import { Loading } from "../../components";
 
 export const RecipeList: React.FC = () => {
   const { loading, error, data } = useAdminRecipesQuery();
+  const [vis] = useChangeRecipeVisibilityMutation();
+
+  const handleRecipeVisibility = (rid: string) => {
+    if (!rid) return; // trigger error !
+    vis({
+      variables: {
+        rid: rid,
+      },
+      update: (store, { data }) => {
+        if (!data || !data.changeRecipeVisibility.status) return;
+        const recipes = store.readQuery<AdminRecipesQuery>({
+          query: AdminRecipesDocument,
+        })!.adminRecipes;
+        const index = recipes.findIndex((x) => x.recipe.id === rid);
+        if (index >= 0) {
+          recipes[index].recipe.public = !recipes[index].recipe.public;
+        }
+        store.writeQuery<AdminRecipesQuery>({
+          query: AdminRecipesDocument,
+          data: {
+            adminRecipes: [...recipes],
+          },
+        });
+      },
+    });
+  };
 
   if (loading || error || !data) return <Loading />;
 
@@ -48,7 +79,11 @@ export const RecipeList: React.FC = () => {
                   {d.recipe.serving || "?"}
                 </Td>
                 <Td isNumeric>
-                  <Switch isChecked={d.recipe.public} id="status" />
+                  <Switch
+                    onChange={() => handleRecipeVisibility(d.recipe.id)}
+                    isChecked={d.recipe.public}
+                    id="status"
+                  />
                 </Td>
                 <Td isNumeric>
                   <Button onClick={() => {}}>EDIT</Button>
