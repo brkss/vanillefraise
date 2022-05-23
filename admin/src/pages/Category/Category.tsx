@@ -12,44 +12,41 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import { useAdminCategoriesQuery } from "../../generated/graphql";
+import { Loading } from "../../components";
 
 export const RecipeCategory: React.FC = () => {
+  const { loading, data, error } = useAdminCategoriesQuery();
+
+  if (loading || error) {
+    return <Loading />;
+  }
+
   return (
     <Box p={"30px"} minH={"100vh"}>
-      <Heading>Categories</Heading>
+      <Heading mb={10}>Categories</Heading>
       <TableContainer>
         <Table variant="simple">
           <Thead>
             <Tr>
               <Th>Name</Th>
               <Th>Icon</Th>
+              <Th>Status</Th>
               <Th isNumeric>Recipes Related</Th>
+              <Th isNumeric>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
+            {data?.adminCategories.map((cat, key) => (
+              <Tr key={key}>
+                <Td fontWeight={"bold"}>{cat.category.name}</Td>
+                <Td>{cat.category.icon}</Td>
+                <Td>{cat.category.active === true ? "Active" : "Disabled"}</Td>
+                <Td isNumeric>{cat.count}</Td>
+                <Td isNumeric>EDIT</Td>
+              </Tr>
+            ))}
           </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot>
         </Table>
       </TableContainer>
     </Box>
