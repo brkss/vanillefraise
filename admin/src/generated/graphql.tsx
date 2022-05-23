@@ -298,6 +298,7 @@ export type MoodRecord = {
 export type Mutation = {
   __typename?: 'Mutation';
   addMealRecipe: CreateMealRecipeResponse;
+  banUser: DefaultResponse;
   changePassword: ChangePasswordResponse;
   changeRecipeVisibility: DefaultResponse;
   checkCookedMeal: CookedRecipesResponse;
@@ -308,7 +309,6 @@ export type Mutation = {
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecord: CreateRecordResponse;
-  deleteUser: DefaultResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
   loginAdmin: AuthDefaultResponse;
@@ -336,6 +336,11 @@ export type Mutation = {
 
 export type MutationAddMealRecipeArgs = {
   data: AddMealRecipeInput;
+};
+
+
+export type MutationBanUserArgs = {
+  uid: Scalars['String'];
 };
 
 
@@ -386,11 +391,6 @@ export type MutationCreateRecipeArgs = {
 
 export type MutationCreateRecordArgs = {
   data: CreateRecordInput;
-};
-
-
-export type MutationDeleteUserArgs = {
-  uid: Scalars['String'];
 };
 
 
@@ -744,6 +744,7 @@ export type UpdateUserInfoInput = {
 export type User = {
   __typename?: 'User';
   activities: Array<Activity>;
+  banned: Scalars['Boolean'];
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
   cookedrecipes: Array<CookedRecipe>;
@@ -851,17 +852,17 @@ export type ChangeRecipeVisibilityMutationVariables = Exact<{
 
 export type ChangeRecipeVisibilityMutation = { __typename?: 'Mutation', changeRecipeVisibility: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
 
-export type DeleteUserMutationVariables = Exact<{
+export type BanUserMutationVariables = Exact<{
   uid: Scalars['String'];
 }>;
 
 
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
+export type BanUserMutation = { __typename?: 'Mutation', banUser: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
 
 export type AdminGetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AdminGetUsersQuery = { __typename?: 'Query', adminGetUsers: Array<{ __typename?: 'AdminUserResponse', user: { __typename?: 'User', id: string, name: string, email: string, username: string, created_at: any, weight: number, height: number, gender: string, bmi: number, birth: any } }> };
+export type AdminGetUsersQuery = { __typename?: 'Query', adminGetUsers: Array<{ __typename?: 'AdminUserResponse', user: { __typename?: 'User', id: string, name: string, email: string, username: string, created_at: any, weight: number, height: number, gender: string, bmi: number, birth: any, banned: boolean } }> };
 
 
 export const LoginDocument = gql`
@@ -1251,40 +1252,40 @@ export function useChangeRecipeVisibilityMutation(baseOptions?: Apollo.MutationH
 export type ChangeRecipeVisibilityMutationHookResult = ReturnType<typeof useChangeRecipeVisibilityMutation>;
 export type ChangeRecipeVisibilityMutationResult = Apollo.MutationResult<ChangeRecipeVisibilityMutation>;
 export type ChangeRecipeVisibilityMutationOptions = Apollo.BaseMutationOptions<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>;
-export const DeleteUserDocument = gql`
-    mutation DeleteUser($uid: String!) {
-  deleteUser(uid: $uid) {
+export const BanUserDocument = gql`
+    mutation BanUser($uid: String!) {
+  banUser(uid: $uid) {
     status
     message
   }
 }
     `;
-export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, DeleteUserMutationVariables>;
+export type BanUserMutationFn = Apollo.MutationFunction<BanUserMutation, BanUserMutationVariables>;
 
 /**
- * __useDeleteUserMutation__
+ * __useBanUserMutation__
  *
- * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useBanUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBanUserMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
+ * const [banUserMutation, { data, loading, error }] = useBanUserMutation({
  *   variables: {
  *      uid: // value for 'uid'
  *   },
  * });
  */
-export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserMutation, DeleteUserMutationVariables>) {
+export function useBanUserMutation(baseOptions?: Apollo.MutationHookOptions<BanUserMutation, BanUserMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
+        return Apollo.useMutation<BanUserMutation, BanUserMutationVariables>(BanUserDocument, options);
       }
-export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
-export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
-export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export type BanUserMutationHookResult = ReturnType<typeof useBanUserMutation>;
+export type BanUserMutationResult = Apollo.MutationResult<BanUserMutation>;
+export type BanUserMutationOptions = Apollo.BaseMutationOptions<BanUserMutation, BanUserMutationVariables>;
 export const AdminGetUsersDocument = gql`
     query AdminGetUsers {
   adminGetUsers {
@@ -1299,6 +1300,7 @@ export const AdminGetUsersDocument = gql`
       gender
       bmi
       birth
+      banned
     }
   }
 }

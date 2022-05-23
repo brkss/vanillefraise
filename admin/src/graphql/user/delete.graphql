@@ -1,5 +1,5 @@
-mutation DeleteUser($uid: String!) {
-  deleteUser(uid: $uid) {
+mutation BanUser($uid: String!) {
+  banUser(uid: $uid) {
     status
     message
   }

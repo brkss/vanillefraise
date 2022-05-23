@@ -18,14 +18,14 @@ import {
   AdminGetUsersDocument,
   AdminGetUsersQuery,
   useAdminGetUsersQuery,
-  useDeleteUserMutation,
+  useBanUserMutation,
 } from "../../generated/graphql";
 import Moment from "moment";
 import { AiOutlineUserDelete } from "react-icons/ai";
 
 export const UsersList: React.FC = () => {
   const { loading, data, error } = useAdminGetUsersQuery();
-  const [del] = useDeleteUserMutation();
+  const [ban] = useBanUserMutation();
   if (loading || error) {
     return <Loading />;
   }
@@ -34,22 +34,26 @@ export const UsersList: React.FC = () => {
     if (!uid) {
       return;
     }
-    del({
+    ban({
       variables: {
         uid: uid,
       },
       update: (store, { data }) => {
-        if (!data || !data.deleteUser.status) {
+        if (!data || !data.banUser.status) {
           return;
         }
         const users = store.readQuery<AdminGetUsersQuery>({
           query: AdminGetUsersDocument,
         })!.adminGetUsers;
         // find target user ;
-        const index = users?.findIndex((x) => x.user.id === uid) || -1;
+        console.log("users => ", users);
+        console.log("uid => ", uid);
+        const index = users.findIndex((x) => x.user.id === uid);
         if (index > -1) {
-          users?.splice(index, 1);
+          users[index].user.banned = !users[index].user.banned;
         }
+        console.log("index : ", index);
+        console.log("UPDATE THAT SHT !", index, users[index].user.banned);
         store.writeQuery<AdminGetUsersQuery>({
           query: AdminGetUsersDocument,
           data: {
@@ -76,7 +80,7 @@ export const UsersList: React.FC = () => {
           </Thead>
           <Tbody>
             {data?.adminGetUsers.map((d, key) => (
-              <Tr key={key}>
+              <Tr bg={d.user.banned ? "#fff8f0" : "transparent"} key={key}>
                 <Td fontWeight={"bold"}>{d.user.name}</Td>
                 <Td>{d.user.username}</Td>
                 <Td>{d.user.email}</Td>
