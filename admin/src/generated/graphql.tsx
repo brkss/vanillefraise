@@ -58,6 +58,11 @@ export type AdminCategoryResponse = {
   count: Scalars['Float'];
 };
 
+export type AdminUserResponse = {
+  __typename?: 'AdminUserResponse';
+  user: User;
+};
+
 export type AuthDefaultResponse = {
   __typename?: 'AuthDefaultResponse';
   message?: Maybe<Scalars['String']>;
@@ -452,6 +457,7 @@ export type Query = {
   activities: Array<Activity>;
   activityCategories: Array<ActivityCategory>;
   adminCategories: Array<AdminCategoryResponse>;
+  adminGetUsers: Array<AdminUserResponse>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
   getActivityCalories: Scalars['Float'];
@@ -785,6 +791,11 @@ export type RecipesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type RecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', id: string, name: string, description?: string | null, serving?: number | null, image: string, cook?: string | null, prep?: string | null, total?: string | null }> };
 
+export type AdminGetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminGetUsersQuery = { __typename?: 'Query', adminGetUsers: Array<{ __typename?: 'AdminUserResponse', user: { __typename?: 'User', id: string, name: string, email: string, username: string, created_at: any, weight: number, height: number, gender: string, bmi: number, birth: any } }> };
+
 
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
@@ -1015,3 +1026,48 @@ export function useRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Re
 export type RecipesQueryHookResult = ReturnType<typeof useRecipesQuery>;
 export type RecipesLazyQueryHookResult = ReturnType<typeof useRecipesLazyQuery>;
 export type RecipesQueryResult = Apollo.QueryResult<RecipesQuery, RecipesQueryVariables>;
+export const AdminGetUsersDocument = gql`
+    query AdminGetUsers {
+  adminGetUsers {
+    user {
+      id
+      name
+      email
+      username
+      created_at
+      weight
+      height
+      gender
+      bmi
+      birth
+    }
+  }
+}
+    `;
+
+/**
+ * __useAdminGetUsersQuery__
+ *
+ * To run a query within a React component, call `useAdminGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdminGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdminGetUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdminGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<AdminGetUsersQuery, AdminGetUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AdminGetUsersQuery, AdminGetUsersQueryVariables>(AdminGetUsersDocument, options);
+      }
+export function useAdminGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AdminGetUsersQuery, AdminGetUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AdminGetUsersQuery, AdminGetUsersQueryVariables>(AdminGetUsersDocument, options);
+        }
+export type AdminGetUsersQueryHookResult = ReturnType<typeof useAdminGetUsersQuery>;
+export type AdminGetUsersLazyQueryHookResult = ReturnType<typeof useAdminGetUsersLazyQuery>;
+export type AdminGetUsersQueryResult = Apollo.QueryResult<AdminGetUsersQuery, AdminGetUsersQueryVariables>;

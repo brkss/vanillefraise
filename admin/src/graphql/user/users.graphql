@@ -1,0 +1,16 @@
+query AdminGetUsers{
+  adminGetUsers{
+    user{
+      id
+      name
+      email
+      username
+      created_at
+      weight
+      height
+      gender
+      bmi
+      birth
+    }
+  }
+}

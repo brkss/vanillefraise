@@ -5,6 +5,7 @@ import {
   Resourses,
   Login,
   RecipeCategory,
+  UsersList
 } from "../../pages";
 
 export const routes: IRoute[] = [
@@ -43,4 +44,11 @@ export const routes: IRoute[] = [
     path: "/recipe-category",
     protected: true,
   },
+  {
+    name: "Users",
+    exact: true,
+    path: "/users",
+    component: UsersList,
+    protected: true
+  }
 ];
