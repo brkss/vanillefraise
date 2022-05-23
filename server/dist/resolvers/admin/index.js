@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./auth.resolver"), exports);
 __exportStar(require("./category.resolver"), exports);
 __exportStar(require("./users.resolver"), exports);
+__exportStar(require("./recipes.resolver"), exports);
 //# sourceMappingURL=index.js.map
