@@ -52,6 +52,12 @@ export type AddMealRecipeInput = {
   recipeID: Scalars['String'];
 };
 
+export type AdminCategoryResponse = {
+  __typename?: 'AdminCategoryResponse';
+  category: RecipeCategory;
+  count: Scalars['Float'];
+};
+
 export type AuthDefaultResponse = {
   __typename?: 'AuthDefaultResponse';
   message?: Maybe<Scalars['String']>;
@@ -310,6 +316,7 @@ export type Mutation = {
   seedRecomendation: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
+  updateCategory: DefaultResponse;
   updateInfo: DefaultResponse;
   verifyResetToken: Scalars['Boolean'];
 };
@@ -410,6 +417,11 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationUpdateCategoryArgs = {
+  data: UpdateCategoryInput;
+};
+
+
 export type MutationUpdateInfoArgs = {
   data: UpdateUserInfoInput;
 };
@@ -439,6 +451,7 @@ export type Query = {
   __typename?: 'Query';
   activities: Array<Activity>;
   activityCategories: Array<ActivityCategory>;
+  adminCategories: Array<AdminCategoryResponse>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
   getActivityCalories: Scalars['Float'];
@@ -678,6 +691,13 @@ export type SpecialCondition = {
   users: Array<User>;
 };
 
+export type UpdateCategoryInput = {
+  active: Scalars['Boolean'];
+  icon?: InputMaybe<Scalars['String']>;
+  id: Scalars['String'];
+  name?: InputMaybe<Scalars['String']>;
+};
+
 export type UpdateUserInfoInput = {
   height: Scalars['Float'];
   name: Scalars['String'];
@@ -739,6 +759,11 @@ export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null }> };
+
+export type AdminCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminCategoriesQuery = { __typename?: 'Query', adminCategories: Array<{ __typename?: 'AdminCategoryResponse', count: number, category: { __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null, active: boolean } }> };
 
 export type CreateRecipeMutationVariables = Exact<{
   url: Scalars['String'];
@@ -833,6 +858,46 @@ export function useRecipeCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type RecipeCategoriesQueryHookResult = ReturnType<typeof useRecipeCategoriesQuery>;
 export type RecipeCategoriesLazyQueryHookResult = ReturnType<typeof useRecipeCategoriesLazyQuery>;
 export type RecipeCategoriesQueryResult = Apollo.QueryResult<RecipeCategoriesQuery, RecipeCategoriesQueryVariables>;
+export const AdminCategoriesDocument = gql`
+    query AdminCategories {
+  adminCategories {
+    category {
+      id
+      name
+      icon
+      active
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useAdminCategoriesQuery__
+ *
+ * To run a query within a React component, call `useAdminCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdminCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdminCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdminCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<AdminCategoriesQuery, AdminCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AdminCategoriesQuery, AdminCategoriesQueryVariables>(AdminCategoriesDocument, options);
+      }
+export function useAdminCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AdminCategoriesQuery, AdminCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AdminCategoriesQuery, AdminCategoriesQueryVariables>(AdminCategoriesDocument, options);
+        }
+export type AdminCategoriesQueryHookResult = ReturnType<typeof useAdminCategoriesQuery>;
+export type AdminCategoriesLazyQueryHookResult = ReturnType<typeof useAdminCategoriesLazyQuery>;
+export type AdminCategoriesQueryResult = Apollo.QueryResult<AdminCategoriesQuery, AdminCategoriesQueryVariables>;
 export const CreateRecipeDocument = gql`
     mutation CreateRecipe($url: String!, $categories: [String!]!) {
   createRecipe(data: {url: $url, categories: $categories}) {

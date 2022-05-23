@@ -1,6 +1,8 @@
 import React from "react";
 import {
   BrowserRouter,
+  Redirect,
+  //Redirect,
   Route,
   RouteComponentProps,
   Switch,
@@ -9,7 +11,7 @@ import { routes } from "./utils/config/routes";
 import { GuardRoute } from "./components/GuardRoute";
 import { Loading } from "./components";
 import { URI } from "./utils/config/defaults";
-import { setToken } from "./utils/token/token";
+import { getToken, setToken } from "./utils/token/token";
 
 export const Application: React.FC = () => {
   const [loading, setLoading] = React.useState(true);
@@ -21,9 +23,8 @@ export const Application: React.FC = () => {
     }).then(async (res) => {
       const data = await res.json();
       if (data.status === true && data.token) {
-        //setToken(data.token);
+        setToken(data.token);
       }
-      console.log("refresh token result ? ", data);
       setLoading(false);
     });
   }, []);
@@ -37,19 +38,22 @@ export const Application: React.FC = () => {
       <BrowserRouter>
         <Switch>
           {routes.map((route, key) =>
-            route.protected ? (
+            false && route.protected ? (
               <GuardRoute route={route} key={key} />
             ) : (
               <Route
                 key={key}
-                exact={route.exact}
                 path={route.path}
+                exact={route.exact}
                 render={(props: RouteComponentProps) => {
+                  console.log("rendered from Application => ", route.name);
+                  if (getToken() === "" && route.protected)
+                    return <Redirect to={"/login"} />;
                   return (
                     <route.component
-                      {...route.name}
-                      {...route.props}
                       {...props}
+                      {...route.props}
+                      name={route.name}
                     />
                   );
                 }}

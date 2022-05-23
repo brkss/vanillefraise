@@ -1,5 +1,11 @@
 import { IRoute } from "../types/Route";
-import { Home, CreateRecipe, Resourses, Login } from "../../pages";
+import {
+  Home,
+  CreateRecipe,
+  Resourses,
+  Login,
+  RecipeCategory,
+} from "../../pages";
 
 export const routes: IRoute[] = [
   {
@@ -28,6 +34,13 @@ export const routes: IRoute[] = [
     exact: true,
     component: Resourses,
     path: "/resourses",
+    protected: true,
+  },
+  {
+    name: "Recipe Category",
+    exact: true,
+    component: RecipeCategory,
+    path: "/recipe-category",
     protected: true,
   },
 ];
