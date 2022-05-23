@@ -4,8 +4,12 @@ import { NavigationItem } from "./Item";
 
 const links = [
   {
-    txt: "Recipes",
-    link: "#",
+    txt: "Create Recipes",
+    link: "/create-recipe",
+  },
+  {
+    txt: "Recipe's Categories",
+    link: "recipe-category"
   },
   {
     txt: "Users",

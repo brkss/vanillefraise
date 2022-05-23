@@ -12,7 +12,7 @@ export const NavigationItem: React.FC<Props> = ({ link, text }) => {
     <Link
       d={"block"}
       as={ReachLink}
-      to="/create-recipe"
+      to={link}
       _hover={{ transition: "0.3s", translateY: -7 }}
       transition={".3s"}
       cursor={"pointer"}
