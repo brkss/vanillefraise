@@ -8,6 +8,10 @@ const links = [
     link: "/create-recipe",
   },
   {
+    txt: "Users",
+    link: "/users"
+  },
+  {
     txt: "Recipe's Categories",
     link: "recipe-category"
   },
