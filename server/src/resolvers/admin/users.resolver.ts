@@ -1,4 +1,4 @@
-import {DefaultResponse} from 'src/utils/responses';
+import {DefaultResponse} from '../../utils/responses';
 import { Resolver, Query, UseMiddleware, Mutation, Arg} from 'type-graphql';
 import { User } from '../../entity/User';
 import { isAdminAuth } from '../../utils/middlewares/admin.mw';

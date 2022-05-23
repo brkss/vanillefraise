@@ -1,4 +1,4 @@
-import { Resolver, Arg, Query, UseMiddleware } from "type-graphql";
+import { Resolver, Query, UseMiddleware } from "type-graphql";
 import { isAdminAuth } from "../../utils/middlewares/admin.mw";
 import { RecipeCategory } from "../../entity/Recipe/Category";
 import { AdminCategoryResponse } from "../../utils/responses";

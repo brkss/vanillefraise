@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminUserResolver = void 0;
-const responses_1 = require("src/utils/responses");
+const responses_1 = require("../../utils/responses");
 const type_graphql_1 = require("type-graphql");
 const User_1 = require("../../entity/User");
 const admin_mw_1 = require("../../utils/middlewares/admin.mw");
