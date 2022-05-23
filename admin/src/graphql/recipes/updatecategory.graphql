@@ -1,0 +1,17 @@
+mutation UpdateCategory($id: String!, $name: String!, $icon: String!, $active: Boolean!){
+  updateCategory(data: {
+    id: $id,
+    name: $name, 
+    icon: $icon,
+    active: $active
+  }){
+    status
+    message
+    category{
+      id
+      name
+      icon
+      active
+    }
+  }
+}

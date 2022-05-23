@@ -1,0 +1,7 @@
+query CategoryDetails ($cid: String!){
+  categoryDetails(cid: $cid){
+    id
+    name
+    icon
+  }
+}

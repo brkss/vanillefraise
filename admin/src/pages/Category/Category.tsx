@@ -5,21 +5,29 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
+  useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import { useAdminCategoriesQuery } from "../../generated/graphql";
 import { Loading } from "../../components";
+import { EditRecipeCategory } from "./Edit";
 
 export const RecipeCategory: React.FC = () => {
   const { loading, data, error } = useAdminCategoriesQuery();
+  const [cid, setCid] = React.useState("");
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   if (loading || error) {
     return <Loading />;
+  }
+
+  const handleEditCategory = (id: string) => {
+    setCid(id);
+    onOpen();
   }
 
   return (
@@ -43,12 +51,15 @@ export const RecipeCategory: React.FC = () => {
                 <Td>{cat.category.icon}</Td>
                 <Td>{cat.category.active === true ? "Active" : "Disabled"}</Td>
                 <Td isNumeric>{cat.count}</Td>
-                <Td isNumeric>EDIT</Td>
+                <Td isNumeric>
+                  <Button onClick={() => handleEditCategory(cat.category.id)}>EDIT</Button>
+                </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </TableContainer>
+      <EditRecipeCategory cid={cid} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };
