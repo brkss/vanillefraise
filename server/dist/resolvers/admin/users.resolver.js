@@ -30,34 +30,35 @@ let AdminUserResolver = class AdminUserResolver {
         }
         return data;
     }
-    async deleteUser(uid) {
+    async banUser(uid) {
         if (!uid) {
             return {
                 status: false,
-                message: "Invalid User ID !"
+                message: "Invalid User ID !",
             };
         }
         const user = await User_1.User.findOne({
-            where: { id: uid }
+            where: { id: uid },
         });
         if (!user) {
             return {
                 status: false,
-                message: "Invalid User !"
+                message: "Invalid User !",
             };
         }
         try {
-            await user.remove();
+            user.banned = !user.banned;
+            await user.save();
             return {
                 status: true,
-                message: "User deleted successfuly !"
+                message: "User's Ban status changed successfuly !",
             };
         }
         catch (e) {
             console.log("Something went wrong deleting user : ", e);
             return {
                 status: false,
-                message: "Something went wrong deleting user !"
+                message: "Something went wrong deleting user !",
             };
         }
     }
@@ -72,11 +73,11 @@ __decorate([
 __decorate([
     (0, type_graphql_1.UseMiddleware)(admin_mw_1.isAdminAuth),
     (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
-    __param(0, (0, type_graphql_1.Arg)('uid')),
+    __param(0, (0, type_graphql_1.Arg)("uid")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], AdminUserResolver.prototype, "deleteUser", null);
+], AdminUserResolver.prototype, "banUser", null);
 AdminUserResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], AdminUserResolver);
