@@ -20,4 +20,5 @@ __exportStar(require("./mental"), exports);
 __exportStar(require("./nutrition"), exports);
 __exportStar(require("./recomendation"), exports);
 __exportStar(require("./meals"), exports);
+__exportStar(require("./admin"), exports);
 //# sourceMappingURL=index.js.map

@@ -90,6 +90,11 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "records", void 0);
 __decorate([
+    (0, type_graphql_1.Field)(() => Boolean),
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "banned", void 0);
+__decorate([
     (0, type_graphql_1.Field)(() => [Mental_1.MoodRecord]),
     (0, typeorm_1.OneToMany)(() => Mental_1.MoodRecord, (moodrecords) => moodrecords.user),
     __metadata("design:type", Array)

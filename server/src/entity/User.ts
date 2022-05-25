@@ -79,6 +79,10 @@ export class User extends BaseEntity {
   @OneToMany(() => Record, (records) => records.user)
   records: Record[];
 
+  @Field(() => Boolean)
+  @Column({default: false})
+  banned: boolean;
+
   @Field(() => [MoodRecord])
   @OneToMany(() => MoodRecord, (moodrecords) => moodrecords.user)
   moodrecords: MoodRecord[];

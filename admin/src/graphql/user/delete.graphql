@@ -1,0 +1,6 @@
+mutation BanUser($uid: String!) {
+  banUser(uid: $uid) {
+    status
+    message
+  }
+}

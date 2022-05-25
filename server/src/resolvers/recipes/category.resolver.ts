@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Query } from "type-graphql";
+import { Resolver, Mutation, Query, } from "type-graphql";
 import { RecipeCategory } from "../../entity/Recipe";
 import { recipe_categories } from "../../utils/data/recipe_categories";
 
@@ -6,7 +6,10 @@ import { recipe_categories } from "../../utils/data/recipe_categories";
 export class RecipeCategoryResolver {
   @Query(() => [RecipeCategory])
   async recipeCategories(): Promise<RecipeCategory[]> {
-    return await RecipeCategory.find({where: {active: true}, relations: ['recipes']});
+    return await RecipeCategory.find({
+      where: { active: true },
+      relations: ["recipes"],
+    });
   }
 
   @Mutation(() => Boolean)

@@ -1,6 +1,5 @@
-
-query Recipes{
-	recipes{
+query Recipes {
+  recipes {
     id
     name
     description

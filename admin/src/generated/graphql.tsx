@@ -21,6 +21,7 @@ export type Activity = {
   __typename?: 'Activity';
   calories?: Maybe<Scalars['Float']>;
   category: ActivityCategory;
+  created_at: Scalars['DateTime'];
   duration: Scalars['String'];
   feedback?: Maybe<Scalars['String']>;
   id: Scalars['String'];
@@ -51,6 +52,22 @@ export type AddMealRecipeInput = {
   recipeID: Scalars['String'];
 };
 
+export type AdminCategoryResponse = {
+  __typename?: 'AdminCategoryResponse';
+  category: RecipeCategory;
+  count: Scalars['Float'];
+};
+
+export type AdminRecipesResponse = {
+  __typename?: 'AdminRecipesResponse';
+  recipe: Recipe;
+};
+
+export type AdminUserResponse = {
+  __typename?: 'AdminUserResponse';
+  user: User;
+};
+
 export type AuthDefaultResponse = {
   __typename?: 'AuthDefaultResponse';
   message?: Maybe<Scalars['String']>;
@@ -77,6 +94,18 @@ export type CookedRecipe = {
   user: User;
 };
 
+export type CookedRecipeInput = {
+  mealId: Scalars['String'];
+  recipeId: Scalars['String'];
+};
+
+export type CookedRecipesResponse = {
+  __typename?: 'CookedRecipesResponse';
+  calories?: Maybe<Scalars['Float']>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type CreateActivityInput = {
   calories?: InputMaybe<Scalars['Float']>;
   category: Scalars['String'];
@@ -86,6 +115,15 @@ export type CreateActivityInput = {
 
 export type CreateActivityResponse = {
   __typename?: 'CreateActivityResponse';
+  activity?: Maybe<Activity>;
+  burnedCalories?: Maybe<Scalars['Float']>;
+  message: Scalars['String'];
+  status: Scalars['Boolean'];
+};
+
+export type CreateMealRecipeResponse = {
+  __typename?: 'CreateMealRecipeResponse';
+  mealId?: Maybe<Scalars['String']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
 };
@@ -159,6 +197,11 @@ export type ListRecordsResponse = {
   status: Scalars['Boolean'];
 };
 
+export type LoginAdminInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -182,6 +225,14 @@ export type Meal = {
   id: Scalars['String'];
   index: Scalars['Float'];
   mealrecipes: Array<MealRecipes>;
+  name: Scalars['String'];
+};
+
+export type MealListResponse = {
+  __typename?: 'MealListResponse';
+  count: Scalars['Float'];
+  id: Scalars['String'];
+  index: Scalars['Float'];
   name: Scalars['String'];
 };
 
@@ -246,20 +297,25 @@ export type MoodRecord = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addMealRecipe: DefaultResponse;
+  addMealRecipe: CreateMealRecipeResponse;
+  banUser: DefaultResponse;
   changePassword: ChangePasswordResponse;
-  checkCookedMeal: DefaultResponse;
+  changeRecipeVisibility: DefaultResponse;
+  checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
-  cookedRecipe: DefaultResponse;
-  cookedRecipes: DefaultResponse;
+  cookedRecipe: CookedRecipesResponse;
+  cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecord: CreateRecordResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
+  loginAdmin: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
+  registerAdmin: AuthDefaultResponse;
+  removeRecipe: DefaultResponse;
   requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
   resetPassword: AuthDefaultResponse;
@@ -272,6 +328,8 @@ export type Mutation = {
   seedRecomendation: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
+  updateCategory: UpdateCategoryResponse;
+  updateInfo: DefaultResponse;
   verifyResetToken: Scalars['Boolean'];
 };
 
@@ -281,8 +339,18 @@ export type MutationAddMealRecipeArgs = {
 };
 
 
+export type MutationBanUserArgs = {
+  uid: Scalars['String'];
+};
+
+
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+
+export type MutationChangeRecipeVisibilityArgs = {
+  rid: Scalars['String'];
 };
 
 
@@ -297,7 +365,7 @@ export type MutationCheckInfoValidityArgs = {
 
 
 export type MutationCookedRecipeArgs = {
-  recipeID: Scalars['String'];
+  data: CookedRecipeInput;
 };
 
 
@@ -336,8 +404,23 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationLoginAdminArgs = {
+  data: LoginAdminInput;
+};
+
+
 export type MutationRegisterArgs = {
   data: RegisterInput;
+};
+
+
+export type MutationRegisterAdminArgs = {
+  data: RegisterAdminInput;
+};
+
+
+export type MutationRemoveRecipeArgs = {
+  data: RemoveMealRecipeInput;
 };
 
 
@@ -353,6 +436,16 @@ export type MutationRequestResetPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput;
+};
+
+
+export type MutationUpdateCategoryArgs = {
+  data: UpdateCategoryInput;
+};
+
+
+export type MutationUpdateInfoArgs = {
+  data: UpdateUserInfoInput;
 };
 
 
@@ -378,21 +471,28 @@ export type NutritionOverviewResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  activities: Array<Activity>;
   activityCategories: Array<ActivityCategory>;
+  adminCategories: Array<AdminCategoryResponse>;
+  adminGetUsers: Array<AdminUserResponse>;
+  adminRecipes: Array<AdminRecipesResponse>;
+  categoryDetails?: Maybe<RecipeCategory>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
   getActivityCalories: Scalars['Float'];
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
+  helloAdmin: Scalars['String'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
-  meals: Array<Meal>;
+  meals: Array<MealListResponse>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
+  recipeByNutrition: Array<Recipe>;
   recipeCategories: Array<RecipeCategory>;
   recipeEnergy: Scalars['Float'];
   recipes: Array<Recipe>;
@@ -403,6 +503,11 @@ export type Query = {
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   work: Scalars['String'];
+};
+
+
+export type QueryCategoryDetailsArgs = {
+  cid: Scalars['String'];
 };
 
 
@@ -438,6 +543,11 @@ export type QueryRecipeArgs = {
 
 export type QueryRecipeByCategoryArgs = {
   cat_id: Scalars['String'];
+};
+
+
+export type QueryRecipeByNutritionArgs = {
+  code: Scalars['String'];
 };
 
 
@@ -568,6 +678,12 @@ export type RecordCategory = {
   unit: Scalars['String'];
 };
 
+export type RegisterAdminInput = {
+  name?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type RegisterInput = {
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
@@ -579,6 +695,11 @@ export type RegisterInput = {
   sc: Array<Scalars['String']>;
   username: Scalars['String'];
   weight: Scalars['Float'];
+};
+
+export type RemoveMealRecipeInput = {
+  mealid: Scalars['String'];
+  recipeid: Scalars['String'];
 };
 
 export type ResetPasswordInput = {
@@ -600,9 +721,30 @@ export type SpecialCondition = {
   users: Array<User>;
 };
 
+export type UpdateCategoryInput = {
+  active: Scalars['Boolean'];
+  icon?: InputMaybe<Scalars['String']>;
+  id: Scalars['String'];
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateCategoryResponse = {
+  __typename?: 'UpdateCategoryResponse';
+  category?: Maybe<RecipeCategory>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
+export type UpdateUserInfoInput = {
+  height: Scalars['Float'];
+  name: Scalars['String'];
+  weight: Scalars['Float'];
+};
+
 export type User = {
   __typename?: 'User';
   activities: Array<Activity>;
+  banned: Scalars['Boolean'];
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
   cookedrecipes: Array<CookedRecipe>;
@@ -643,10 +785,35 @@ export type UserInfoValidtyInput = {
   username: Scalars['String'];
 };
 
+export type LoginMutationVariables = Exact<{
+  username: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', loginAdmin: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null, token?: string | null } };
+
+export type AdminRecipesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminRecipesQuery = { __typename?: 'Query', adminRecipes: Array<{ __typename?: 'AdminRecipesResponse', recipe: { __typename?: 'Recipe', id: string, name: string, description?: string | null, serving?: number | null, image: string, cook?: string | null, prep?: string | null, total?: string | null, public: boolean } }> };
+
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecipeCategoriesQuery = { __typename?: 'Query', recipeCategories: Array<{ __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null }> };
+
+export type AdminCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminCategoriesQuery = { __typename?: 'Query', adminCategories: Array<{ __typename?: 'AdminCategoryResponse', count: number, category: { __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null, active: boolean } }> };
+
+export type CategoryDetailsQueryVariables = Exact<{
+  cid: Scalars['String'];
+}>;
+
+
+export type CategoryDetailsQuery = { __typename?: 'Query', categoryDetails?: { __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null } | null };
 
 export type CreateRecipeMutationVariables = Exact<{
   url: Scalars['String'];
@@ -668,7 +835,116 @@ export type RecipesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type RecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', id: string, name: string, description?: string | null, serving?: number | null, image: string, cook?: string | null, prep?: string | null, total?: string | null }> };
 
+export type UpdateCategoryMutationVariables = Exact<{
+  id: Scalars['String'];
+  name: Scalars['String'];
+  icon: Scalars['String'];
+  active: Scalars['Boolean'];
+}>;
 
+
+export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'UpdateCategoryResponse', status: boolean, message?: string | null, category?: { __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null, active: boolean } | null } };
+
+export type ChangeRecipeVisibilityMutationVariables = Exact<{
+  rid: Scalars['String'];
+}>;
+
+
+export type ChangeRecipeVisibilityMutation = { __typename?: 'Mutation', changeRecipeVisibility: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
+
+export type BanUserMutationVariables = Exact<{
+  uid: Scalars['String'];
+}>;
+
+
+export type BanUserMutation = { __typename?: 'Mutation', banUser: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
+
+export type AdminGetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminGetUsersQuery = { __typename?: 'Query', adminGetUsers: Array<{ __typename?: 'AdminUserResponse', user: { __typename?: 'User', id: string, name: string, email: string, username: string, created_at: any, weight: number, height: number, gender: string, bmi: number, birth: any, banned: boolean } }> };
+
+
+export const LoginDocument = gql`
+    mutation Login($username: String!, $password: String!) {
+  loginAdmin(data: {username: $username, password: $password}) {
+    status
+    message
+    token
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const AdminRecipesDocument = gql`
+    query AdminRecipes {
+  adminRecipes {
+    recipe {
+      id
+      name
+      description
+      serving
+      image
+      cook
+      prep
+      total
+      public
+    }
+  }
+}
+    `;
+
+/**
+ * __useAdminRecipesQuery__
+ *
+ * To run a query within a React component, call `useAdminRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdminRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdminRecipesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdminRecipesQuery(baseOptions?: Apollo.QueryHookOptions<AdminRecipesQuery, AdminRecipesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AdminRecipesQuery, AdminRecipesQueryVariables>(AdminRecipesDocument, options);
+      }
+export function useAdminRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AdminRecipesQuery, AdminRecipesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AdminRecipesQuery, AdminRecipesQueryVariables>(AdminRecipesDocument, options);
+        }
+export type AdminRecipesQueryHookResult = ReturnType<typeof useAdminRecipesQuery>;
+export type AdminRecipesLazyQueryHookResult = ReturnType<typeof useAdminRecipesLazyQuery>;
+export type AdminRecipesQueryResult = Apollo.QueryResult<AdminRecipesQuery, AdminRecipesQueryVariables>;
 export const RecipeCategoriesDocument = gql`
     query RecipeCategories {
   recipeCategories {
@@ -705,6 +981,83 @@ export function useRecipeCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type RecipeCategoriesQueryHookResult = ReturnType<typeof useRecipeCategoriesQuery>;
 export type RecipeCategoriesLazyQueryHookResult = ReturnType<typeof useRecipeCategoriesLazyQuery>;
 export type RecipeCategoriesQueryResult = Apollo.QueryResult<RecipeCategoriesQuery, RecipeCategoriesQueryVariables>;
+export const AdminCategoriesDocument = gql`
+    query AdminCategories {
+  adminCategories {
+    category {
+      id
+      name
+      icon
+      active
+    }
+    count
+  }
+}
+    `;
+
+/**
+ * __useAdminCategoriesQuery__
+ *
+ * To run a query within a React component, call `useAdminCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdminCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdminCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdminCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<AdminCategoriesQuery, AdminCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AdminCategoriesQuery, AdminCategoriesQueryVariables>(AdminCategoriesDocument, options);
+      }
+export function useAdminCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AdminCategoriesQuery, AdminCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AdminCategoriesQuery, AdminCategoriesQueryVariables>(AdminCategoriesDocument, options);
+        }
+export type AdminCategoriesQueryHookResult = ReturnType<typeof useAdminCategoriesQuery>;
+export type AdminCategoriesLazyQueryHookResult = ReturnType<typeof useAdminCategoriesLazyQuery>;
+export type AdminCategoriesQueryResult = Apollo.QueryResult<AdminCategoriesQuery, AdminCategoriesQueryVariables>;
+export const CategoryDetailsDocument = gql`
+    query CategoryDetails($cid: String!) {
+  categoryDetails(cid: $cid) {
+    id
+    name
+    icon
+  }
+}
+    `;
+
+/**
+ * __useCategoryDetailsQuery__
+ *
+ * To run a query within a React component, call `useCategoryDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoryDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoryDetailsQuery({
+ *   variables: {
+ *      cid: // value for 'cid'
+ *   },
+ * });
+ */
+export function useCategoryDetailsQuery(baseOptions: Apollo.QueryHookOptions<CategoryDetailsQuery, CategoryDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoryDetailsQuery, CategoryDetailsQueryVariables>(CategoryDetailsDocument, options);
+      }
+export function useCategoryDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoryDetailsQuery, CategoryDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoryDetailsQuery, CategoryDetailsQueryVariables>(CategoryDetailsDocument, options);
+        }
+export type CategoryDetailsQueryHookResult = ReturnType<typeof useCategoryDetailsQuery>;
+export type CategoryDetailsLazyQueryHookResult = ReturnType<typeof useCategoryDetailsLazyQuery>;
+export type CategoryDetailsQueryResult = Apollo.QueryResult<CategoryDetailsQuery, CategoryDetailsQueryVariables>;
 export const CreateRecipeDocument = gql`
     mutation CreateRecipe($url: String!, $categories: [String!]!) {
   createRecipe(data: {url: $url, categories: $categories}) {
@@ -822,3 +1175,160 @@ export function useRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Re
 export type RecipesQueryHookResult = ReturnType<typeof useRecipesQuery>;
 export type RecipesLazyQueryHookResult = ReturnType<typeof useRecipesLazyQuery>;
 export type RecipesQueryResult = Apollo.QueryResult<RecipesQuery, RecipesQueryVariables>;
+export const UpdateCategoryDocument = gql`
+    mutation UpdateCategory($id: String!, $name: String!, $icon: String!, $active: Boolean!) {
+  updateCategory(data: {id: $id, name: $name, icon: $icon, active: $active}) {
+    status
+    message
+    category {
+      id
+      name
+      icon
+      active
+    }
+  }
+}
+    `;
+export type UpdateCategoryMutationFn = Apollo.MutationFunction<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+
+/**
+ * __useUpdateCategoryMutation__
+ *
+ * To run a mutation, you first call `useUpdateCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCategoryMutation, { data, loading, error }] = useUpdateCategoryMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *      icon: // value for 'icon'
+ *      active: // value for 'active'
+ *   },
+ * });
+ */
+export function useUpdateCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument, options);
+      }
+export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>;
+export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>;
+export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+export const ChangeRecipeVisibilityDocument = gql`
+    mutation ChangeRecipeVisibility($rid: String!) {
+  changeRecipeVisibility(rid: $rid) {
+    status
+    message
+  }
+}
+    `;
+export type ChangeRecipeVisibilityMutationFn = Apollo.MutationFunction<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>;
+
+/**
+ * __useChangeRecipeVisibilityMutation__
+ *
+ * To run a mutation, you first call `useChangeRecipeVisibilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeRecipeVisibilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeRecipeVisibilityMutation, { data, loading, error }] = useChangeRecipeVisibilityMutation({
+ *   variables: {
+ *      rid: // value for 'rid'
+ *   },
+ * });
+ */
+export function useChangeRecipeVisibilityMutation(baseOptions?: Apollo.MutationHookOptions<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>(ChangeRecipeVisibilityDocument, options);
+      }
+export type ChangeRecipeVisibilityMutationHookResult = ReturnType<typeof useChangeRecipeVisibilityMutation>;
+export type ChangeRecipeVisibilityMutationResult = Apollo.MutationResult<ChangeRecipeVisibilityMutation>;
+export type ChangeRecipeVisibilityMutationOptions = Apollo.BaseMutationOptions<ChangeRecipeVisibilityMutation, ChangeRecipeVisibilityMutationVariables>;
+export const BanUserDocument = gql`
+    mutation BanUser($uid: String!) {
+  banUser(uid: $uid) {
+    status
+    message
+  }
+}
+    `;
+export type BanUserMutationFn = Apollo.MutationFunction<BanUserMutation, BanUserMutationVariables>;
+
+/**
+ * __useBanUserMutation__
+ *
+ * To run a mutation, you first call `useBanUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBanUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [banUserMutation, { data, loading, error }] = useBanUserMutation({
+ *   variables: {
+ *      uid: // value for 'uid'
+ *   },
+ * });
+ */
+export function useBanUserMutation(baseOptions?: Apollo.MutationHookOptions<BanUserMutation, BanUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<BanUserMutation, BanUserMutationVariables>(BanUserDocument, options);
+      }
+export type BanUserMutationHookResult = ReturnType<typeof useBanUserMutation>;
+export type BanUserMutationResult = Apollo.MutationResult<BanUserMutation>;
+export type BanUserMutationOptions = Apollo.BaseMutationOptions<BanUserMutation, BanUserMutationVariables>;
+export const AdminGetUsersDocument = gql`
+    query AdminGetUsers {
+  adminGetUsers {
+    user {
+      id
+      name
+      email
+      username
+      created_at
+      weight
+      height
+      gender
+      bmi
+      birth
+      banned
+    }
+  }
+}
+    `;
+
+/**
+ * __useAdminGetUsersQuery__
+ *
+ * To run a query within a React component, call `useAdminGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAdminGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAdminGetUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAdminGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<AdminGetUsersQuery, AdminGetUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AdminGetUsersQuery, AdminGetUsersQueryVariables>(AdminGetUsersDocument, options);
+      }
+export function useAdminGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AdminGetUsersQuery, AdminGetUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AdminGetUsersQuery, AdminGetUsersQueryVariables>(AdminGetUsersDocument, options);
+        }
+export type AdminGetUsersQueryHookResult = ReturnType<typeof useAdminGetUsersQuery>;
+export type AdminGetUsersLazyQueryHookResult = ReturnType<typeof useAdminGetUsersLazyQuery>;
+export type AdminGetUsersQueryResult = Apollo.QueryResult<AdminGetUsersQuery, AdminGetUsersQueryVariables>;

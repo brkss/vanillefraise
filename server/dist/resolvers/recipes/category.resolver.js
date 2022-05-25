@@ -15,7 +15,10 @@ const Recipe_1 = require("../../entity/Recipe");
 const recipe_categories_1 = require("../../utils/data/recipe_categories");
 let RecipeCategoryResolver = class RecipeCategoryResolver {
     async recipeCategories() {
-        return await Recipe_1.RecipeCategory.find({ where: { active: true }, relations: ['recipes'] });
+        return await Recipe_1.RecipeCategory.find({
+            where: { active: true },
+            relations: ["recipes"],
+        });
     }
     async seedRecipeCategories() {
         const categories = await Recipe_1.RecipeCategory.find();

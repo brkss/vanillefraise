@@ -1,0 +1,11 @@
+query AdminCategories {
+  adminCategories {
+    category {
+    id
+    name
+    icon
+    active
+  }
+  count
+  }
+}

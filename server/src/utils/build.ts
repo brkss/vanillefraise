@@ -30,6 +30,11 @@ import {
   SearchRecipeResolver,
   ActivityListResolver,
   MealRecipeResolver,
+  // ***** admin resolvers ****** 
+  AdminAuthResolver,
+  AdminRecipeCategoryResolver,
+  AdminUserResolver,
+  AdminRecipeResolver
 } from "../resolvers";
 
 export const build = async () => {
@@ -65,6 +70,10 @@ export const build = async () => {
       SearchRecipeResolver,
       ActivityListResolver,
       MealRecipeResolver,
+      AdminAuthResolver,
+      AdminRecipeCategoryResolver,
+      AdminUserResolver,
+      AdminRecipeResolver
     ],
     validate: false,
     dateScalarMode: "isoDate",

@@ -18,4 +18,5 @@ Object.defineProperty(exports, "LoginInput", { enumerable: true, get: function (
 __exportStar(require("./stripe"), exports);
 __exportStar(require("./recipes"), exports);
 __exportStar(require("./user"), exports);
+__exportStar(require("./admin"), exports);
 //# sourceMappingURL=index.js.map

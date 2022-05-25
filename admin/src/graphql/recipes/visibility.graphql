@@ -1,0 +1,6 @@
+mutation ChangeRecipeVisibility($rid: String!){
+  changeRecipeVisibility(rid: $rid){
+    status
+    message
+  }
+}

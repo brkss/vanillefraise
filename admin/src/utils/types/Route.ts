@@ -6,4 +6,6 @@ export interface IRoute {
   path: string;
   exact: boolean;
   props?: any;
+  protected?: boolean;
 }
+
