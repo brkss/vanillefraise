@@ -2,13 +2,11 @@ import React from "react";
 import {
   BrowserRouter,
   Redirect,
-  //Redirect,
   Route,
   RouteComponentProps,
   Switch,
 } from "react-router-dom";
 import { routes } from "./utils/config/routes";
-import { GuardRoute } from "./components/GuardRoute";
 import { Loading } from "./components";
 import { URI } from "./utils/config/defaults";
 import { getToken, setToken } from "./utils/token/token";
@@ -38,8 +36,25 @@ export const Application: React.FC = () => {
       <BrowserRouter>
         <Switch>
           {routes.map((route, key) =>
-            false && route.protected ? (
-              <GuardRoute route={route} key={key} />
+            route.protected ? (
+              getToken() ? (
+                <Route
+                  key={key}
+                  path={route.path}
+                  exact={route.exact}
+                  render={(props: RouteComponentProps) => {
+                    return (
+                      <route.component
+                        {...props}
+                        {...route.props}
+                        name={route.name}
+                      />
+                    );
+                  }}
+                />
+              ) : (
+                <Redirect to={"login"} />
+              )
             ) : (
               <Route
                 key={key}

@@ -8,18 +8,15 @@ interface Props {
 }
 
 export const GuardRoute: React.FC<Props> = ({ route }) => {
-  /*
-  if (getToken() === "") {
+  if (!getToken()) {
     return <Redirect to={"/login"} />;
   }
-  */
 
   return (
     <Route
       path={route.path}
       exact={route.exact}
       render={(props: RouteComponentProps) => {
-        console.log("rendred from GUARD : ", route.name);
         return (
           <route.component {...props} {...route.props} name={route.name} />
         );
