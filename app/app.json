@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Vanille Fraise",
+    "name": "Fraise",
     "slug": "VF",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,6 +23,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "versionCode": 2,
+      "permissions": [],
       "package": "com.berkasse.opencc"
     },
     "web": {
