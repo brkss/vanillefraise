@@ -19,7 +19,7 @@ import {
   useAdminRecipesQuery,
   useChangeRecipeVisibilityMutation,
 } from "../../generated/graphql";
-import { Loading } from "../../components";
+import { Loading  } from '../../components';
 
 export const RecipeList: React.FC = () => {
   const { loading, error, data } = useAdminRecipesQuery();

@@ -7,9 +7,10 @@ import {
   Switch,
 } from "react-router-dom";
 import { routes } from "./utils/config/routes";
-import { Loading } from "./components";
 import { URI } from "./utils/config/defaults";
 import { getToken, setToken } from "./utils/token/token";
+import { Loading } from './components'
+
 
 export const Application: React.FC = () => {
   const [loading, setLoading] = React.useState(true);

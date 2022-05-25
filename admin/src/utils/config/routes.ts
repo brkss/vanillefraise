@@ -1,14 +1,13 @@
 import { IRoute } from "../types/Route";
 import {
-  Home,
-  CreateRecipe,
-  Resourses,
   Login,
   RecipeCategory,
   UsersList,
+  Home,
+  CreateRecipe,
+  Resourses,
   RecipeList,
 } from "../../pages";
-
 export const routes: IRoute[] = [
   {
     name: "Login",

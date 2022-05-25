@@ -18,7 +18,7 @@ import {
   useCategoryDetailsQuery,
   useUpdateCategoryMutation,
 } from "../../generated/graphql";
-import { Loading } from "../../components";
+import { Loading } from '../../components'
 
 interface Props {
   onClose: () => void;

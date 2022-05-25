@@ -13,7 +13,6 @@ import {
   TableContainer,
   Button,
 } from "@chakra-ui/react";
-import { Loading } from "../../components";
 import {
   AdminGetUsersDocument,
   AdminGetUsersQuery,
@@ -22,6 +21,7 @@ import {
 } from "../../generated/graphql";
 import Moment from "moment";
 import { AiOutlineUserDelete } from "react-icons/ai";
+import { Loading } from '../../components';
 
 export const UsersList: React.FC = () => {
   const { loading, data, error } = useAdminGetUsersQuery();

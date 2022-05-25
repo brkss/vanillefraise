@@ -13,8 +13,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useAdminCategoriesQuery } from "../../generated/graphql";
-import { Loading } from "../../components";
 import { EditRecipeCategory } from "./Edit";
+import { Loading } from '../../components';
 
 export const RecipeCategory: React.FC = () => {
   const { loading, data, error } = useAdminCategoriesQuery();
