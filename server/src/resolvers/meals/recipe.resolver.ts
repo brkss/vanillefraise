@@ -5,8 +5,6 @@ import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
 import { MealRecipes } from "../../entity/Meals";
 import { RemoveMealRecipeInput } from "../../utils/inputs/meals";
-//import { Recipe } from "../../entity/Recipe";
-//import { Meal } from "../../entity/Meals/Meal";
 
 @Resolver()
 export class MealRecipeResolver {
