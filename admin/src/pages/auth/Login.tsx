@@ -37,7 +37,7 @@ export const Login: React.FC = () => {
         }
         const _token = res.data.loginAdmin.token;
         setToken(_token);
-        history.push("/create-recipe");
+        history.push("/");
       })
       .catch((e) => {
         console.log("Something went wrong login admin : ", e);
