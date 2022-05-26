@@ -15,4 +15,5 @@ __exportStar(require("./markedDays.response"), exports);
 __exportStar(require("./list.response"), exports);
 __exportStar(require("./create.response"), exports);
 __exportStar(require("./cooked.response"), exports);
+__exportStar(require("./mealnutrition.response"), exports);
 //# sourceMappingURL=index.js.map

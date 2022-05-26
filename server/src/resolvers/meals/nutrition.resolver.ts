@@ -1,21 +1,21 @@
 import { Resolver, Query, Arg, UseMiddleware, Ctx } from "type-graphql";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { MealRecipesInput } from "../../utils/inputs/meals/mealrecipes.input";
-import { DefaultResponse } from "../../utils/responses";
 import { MealRecipes, Meal } from "../../entity/Meals";
 import { RecipeTotalNutrition } from "../../entity/Nutrition/TotalNutrition";
 import { Like } from "typeorm";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
+import { MealNutritionResponse } from "../../utils/responses/meals/mealnutrition.response";
 
 @Resolver()
 export class MealNutritionResolver {
   @UseMiddleware(isUserAuth)
-  @Query(() => DefaultResponse)
+  @Query(() => MealNutritionResponse)
   async mealNutrition(
     @Arg("data") data: MealRecipesInput,
     @Ctx() ctx: IContext
-  ): Promise<DefaultResponse> {
+  ): Promise<MealNutritionResponse> {
     if (!data || !data.date || !data.meal) {
       return {
         status: false,
@@ -52,21 +52,9 @@ export class MealNutritionResolver {
         res[index].quantity += n.quantity;
       }
     }
-
-    // test
-    for (let n of nutritions) {
-      if (n.code === "SUGAR.added") {
-        console.log("n ====>>> ", n);
-      }
-    }
-    //console.log("nutritions ->>>> ", nutritions);
-    console.log(
-      "res ->>>> ",
-      res.find((x) => x.code === "SUGAR.added")
-    );
-
     return {
-      status: false,
+      status: true,
+      nutrition: res.sort((a, b) => b.quantity - a.quantity).slice(0, 10),
     };
   }
 }

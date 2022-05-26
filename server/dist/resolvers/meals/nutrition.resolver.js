@@ -16,11 +16,11 @@ exports.MealNutritionResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const mealrecipes_input_1 = require("../../utils/inputs/meals/mealrecipes.input");
-const responses_1 = require("../../utils/responses");
 const Meals_1 = require("../../entity/Meals");
 const TotalNutrition_1 = require("../../entity/Nutrition/TotalNutrition");
 const typeorm_1 = require("typeorm");
 const User_1 = require("../../entity/User");
+const mealnutrition_response_1 = require("../../utils/responses/meals/mealnutrition.response");
 let MealNutritionResolver = class MealNutritionResolver {
     async mealNutrition(data, ctx) {
         if (!data || !data.date || !data.meal) {
@@ -58,20 +58,15 @@ let MealNutritionResolver = class MealNutritionResolver {
                 res[index].quantity += n.quantity;
             }
         }
-        for (let n of nutritions) {
-            if (n.code === "SUGAR.added") {
-                console.log("n ====>>> ", n);
-            }
-        }
-        console.log("res ->>>> ", res.find((x) => x.code === "SUGAR.added"));
         return {
-            status: false,
+            status: true,
+            nutrition: res.sort((a, b) => b.quantity - a.quantity).slice(0, 10),
         };
     }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
-    (0, type_graphql_1.Query)(() => responses_1.DefaultResponse),
+    (0, type_graphql_1.Query)(() => mealnutrition_response_1.MealNutritionResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),

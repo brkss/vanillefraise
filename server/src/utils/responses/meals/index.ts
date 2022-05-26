@@ -3,3 +3,4 @@ export * from './markedDays.response';
 export * from './list.response';
 export * from './create.response';
 export * from './cooked.response';
+export * from './mealnutrition.response';
