@@ -30,7 +30,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
     } else if (!name) {
       setError("Name cannot be blank");
       return false;
-    } else if (name.length < 4 || name.length > 10) {
+    } else if (name.length < 4 ) {
       setError("Invalid Name !");
       return false;
     } else if (!email) {
@@ -52,7 +52,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
       {status === "success" && (
         <Alert mb={"10px"} status="success">
           <AlertIcon />
-          Thank you ! You'll recieve an invite soon.
+          Thank you ! You'll recieve an invitation soon.
         </Alert>
       )}
       <Text fontSize={"20px"} fontWeight={"bold"}>
