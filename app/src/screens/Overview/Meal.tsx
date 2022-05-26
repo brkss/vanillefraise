@@ -19,6 +19,7 @@ import {
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+
 interface MarkedDate {
   count: number;
   date: string;
@@ -182,7 +183,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
           <Loading />
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
-            <MealNutritionOverview />
+            <MealNutritionOverview meal={mealID} date={date} />
             <MealRecipes
               mealids={data.getMealRecipes.mealrecipes || []}
               navigation={navigation}
