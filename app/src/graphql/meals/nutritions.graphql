@@ -1,0 +1,11 @@
+query MealNutrition($date: DateTime!, $meal: String!){
+ mealNutrition(data:{date: $date, meal: $meal}){
+  status
+  message
+  nutrition{
+    quantity
+    label
+    unit
+  }
+	}
+}

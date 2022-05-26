@@ -7,6 +7,7 @@ import {
   MealRecipes,
   MealGrocery,
   SmoothLoading,
+  MealNutritionOverview,
 } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
 import {
@@ -181,6 +182,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
           <Loading />
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
+            <MealNutritionOverview />
             <MealRecipes
               mealids={data.getMealRecipes.mealrecipes || []}
               navigation={navigation}

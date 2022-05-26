@@ -52,6 +52,22 @@ export type AddMealRecipeInput = {
   recipeID: Scalars['String'];
 };
 
+export type AdminCategoryResponse = {
+  __typename?: 'AdminCategoryResponse';
+  category: RecipeCategory;
+  count: Scalars['Float'];
+};
+
+export type AdminRecipesResponse = {
+  __typename?: 'AdminRecipesResponse';
+  recipe: Recipe;
+};
+
+export type AdminUserResponse = {
+  __typename?: 'AdminUserResponse';
+  user: User;
+};
+
 export type AuthDefaultResponse = {
   __typename?: 'AuthDefaultResponse';
   message?: Maybe<Scalars['String']>;
@@ -99,6 +115,7 @@ export type CreateActivityInput = {
 
 export type CreateActivityResponse = {
   __typename?: 'CreateActivityResponse';
+  activity?: Maybe<Activity>;
   burnedCalories?: Maybe<Scalars['Float']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
@@ -180,6 +197,11 @@ export type ListRecordsResponse = {
   status: Scalars['Boolean'];
 };
 
+export type LoginAdminInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -212,6 +234,13 @@ export type MealListResponse = {
   id: Scalars['String'];
   index: Scalars['Float'];
   name: Scalars['String'];
+};
+
+export type MealNutritionResponse = {
+  __typename?: 'MealNutritionResponse';
+  message?: Maybe<Scalars['String']>;
+  nutrition?: Maybe<Array<RecipeTotalNutrition>>;
+  status: Scalars['Boolean'];
 };
 
 export type MealRecipeResponse = {
@@ -276,7 +305,9 @@ export type MoodRecord = {
 export type Mutation = {
   __typename?: 'Mutation';
   addMealRecipe: CreateMealRecipeResponse;
+  banUser: DefaultResponse;
   changePassword: ChangePasswordResponse;
+  changeRecipeVisibility: DefaultResponse;
   checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
   cookedRecipe: CookedRecipesResponse;
@@ -287,8 +318,10 @@ export type Mutation = {
   createRecord: CreateRecordResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
+  loginAdmin: AuthDefaultResponse;
   logout: AuthDefaultResponse;
   register: AuthDefaultResponse;
+  registerAdmin: AuthDefaultResponse;
   removeRecipe: DefaultResponse;
   requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
@@ -302,6 +335,7 @@ export type Mutation = {
   seedRecomendation: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
+  updateCategory: UpdateCategoryResponse;
   updateInfo: DefaultResponse;
   verifyResetToken: Scalars['Boolean'];
 };
@@ -312,8 +346,18 @@ export type MutationAddMealRecipeArgs = {
 };
 
 
+export type MutationBanUserArgs = {
+  uid: Scalars['String'];
+};
+
+
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+
+export type MutationChangeRecipeVisibilityArgs = {
+  rid: Scalars['String'];
 };
 
 
@@ -367,8 +411,18 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationLoginAdminArgs = {
+  data: LoginAdminInput;
+};
+
+
 export type MutationRegisterArgs = {
   data: RegisterInput;
+};
+
+
+export type MutationRegisterAdminArgs = {
+  data: RegisterAdminInput;
 };
 
 
@@ -389,6 +443,11 @@ export type MutationRequestResetPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput;
+};
+
+
+export type MutationUpdateCategoryArgs = {
+  data: UpdateCategoryInput;
 };
 
 
@@ -421,14 +480,20 @@ export type Query = {
   __typename?: 'Query';
   activities: Array<Activity>;
   activityCategories: Array<ActivityCategory>;
+  adminCategories: Array<AdminCategoryResponse>;
+  adminGetUsers: Array<AdminUserResponse>;
+  adminRecipes: Array<AdminRecipesResponse>;
+  categoryDetails?: Maybe<RecipeCategory>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
   getActivityCalories: Scalars['Float'];
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
+  helloAdmin: Scalars['String'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
+  mealNutrition: MealNutritionResponse;
   meals: Array<MealListResponse>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
@@ -446,6 +511,11 @@ export type Query = {
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   work: Scalars['String'];
+};
+
+
+export type QueryCategoryDetailsArgs = {
+  cid: Scalars['String'];
 };
 
 
@@ -471,6 +541,11 @@ export type QueryGetRecipeNutritionArgs = {
 
 export type QueryIsRequestedArgs = {
   service: Scalars['String'];
+};
+
+
+export type QueryMealNutritionArgs = {
+  data: MealRecipesInput;
 };
 
 
@@ -616,6 +691,12 @@ export type RecordCategory = {
   unit: Scalars['String'];
 };
 
+export type RegisterAdminInput = {
+  name?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type RegisterInput = {
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
@@ -653,6 +734,20 @@ export type SpecialCondition = {
   users: Array<User>;
 };
 
+export type UpdateCategoryInput = {
+  active: Scalars['Boolean'];
+  icon?: InputMaybe<Scalars['String']>;
+  id: Scalars['String'];
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateCategoryResponse = {
+  __typename?: 'UpdateCategoryResponse';
+  category?: Maybe<RecipeCategory>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type UpdateUserInfoInput = {
   height: Scalars['Float'];
   name: Scalars['String'];
@@ -662,6 +757,7 @@ export type UpdateUserInfoInput = {
 export type User = {
   __typename?: 'User';
   activities: Array<Activity>;
+  banned: Scalars['Boolean'];
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
   cookedrecipes: Array<CookedRecipe>;
@@ -819,6 +915,14 @@ export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'MealListResponse', id: string, name: string, index: number, count: number }> };
+
+export type MealNutritionQueryVariables = Exact<{
+  date: Scalars['DateTime'];
+  meal: Scalars['String'];
+}>;
+
+
+export type MealNutritionQuery = { __typename?: 'Query', mealNutrition: { __typename?: 'MealNutritionResponse', status: boolean, message?: string | null | undefined, nutrition?: Array<{ __typename?: 'RecipeTotalNutrition', quantity: number, label: string, unit: string }> | null | undefined } };
 
 export type RemoveRecipeMutationVariables = Exact<{
   mealid: Scalars['String'];
@@ -1580,6 +1684,48 @@ export function useMealsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Meal
 export type MealsQueryHookResult = ReturnType<typeof useMealsQuery>;
 export type MealsLazyQueryHookResult = ReturnType<typeof useMealsLazyQuery>;
 export type MealsQueryResult = Apollo.QueryResult<MealsQuery, MealsQueryVariables>;
+export const MealNutritionDocument = gql`
+    query MealNutrition($date: DateTime!, $meal: String!) {
+  mealNutrition(data: {date: $date, meal: $meal}) {
+    status
+    message
+    nutrition {
+      quantity
+      label
+      unit
+    }
+  }
+}
+    `;
+
+/**
+ * __useMealNutritionQuery__
+ *
+ * To run a query within a React component, call `useMealNutritionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMealNutritionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMealNutritionQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      meal: // value for 'meal'
+ *   },
+ * });
+ */
+export function useMealNutritionQuery(baseOptions: Apollo.QueryHookOptions<MealNutritionQuery, MealNutritionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MealNutritionQuery, MealNutritionQueryVariables>(MealNutritionDocument, options);
+      }
+export function useMealNutritionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MealNutritionQuery, MealNutritionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MealNutritionQuery, MealNutritionQueryVariables>(MealNutritionDocument, options);
+        }
+export type MealNutritionQueryHookResult = ReturnType<typeof useMealNutritionQuery>;
+export type MealNutritionLazyQueryHookResult = ReturnType<typeof useMealNutritionLazyQuery>;
+export type MealNutritionQueryResult = Apollo.QueryResult<MealNutritionQuery, MealNutritionQueryVariables>;
 export const RemoveRecipeDocument = gql`
     mutation RemoveRecipe($mealid: String!, $recipeid: String!) {
   removeRecipe(data: {mealid: $mealid, recipeid: $recipeid}) {

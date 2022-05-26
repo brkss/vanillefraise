@@ -26,3 +26,4 @@ export * from './MealOptions';
 export * from './RecipeSearchResult';
 export * from './ActivityRecord';
 export * from './SocialMedia'
+export * from './MealNutritionOverview';

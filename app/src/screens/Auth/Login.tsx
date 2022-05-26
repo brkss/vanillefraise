@@ -39,7 +39,7 @@ export const Login: React.FC<any> = ({ navigation }) => {
     SetLoading(true);
     login({
       variables: {
-        email: form.email,
+        email: form.email.toLowerCase(),
         password: form.password,
       },
     }).then(async (res) => {

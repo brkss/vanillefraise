@@ -43,18 +43,18 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       setError("passwords doesn't match !");
       return;
     }
-    if (!validateUsername(form.username)) {
+    if (!validateUsername(form.username.toLowerCase())) {
       setError("Invalid Username");
       return;
     }
-    if (!validateEmail(form.email)) {
+    if (!validateEmail(form.email.toLowerCase())) {
       setError("Invalid Email");
       return;
     }
     const res = await check({
       variables: {
-        username: form.username,
-        email: form.email,
+        username: form.username.toLowerCase(),
+        email: form.email.toLowerCase(),
       },
     });
     if (
@@ -75,9 +75,9 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
     // trigger error !
     const data: IInformationData = {
       name: form.name,
-      email: form.email,
+      email: form.email.toLowerCase(),
       password: form.password,
-      username: form.username,
+      username: form.username.toLowerCase(),
     };
     console.log("INFORMATION DATA => ", data);
     pass(data);
