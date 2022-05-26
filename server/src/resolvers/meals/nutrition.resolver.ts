@@ -7,6 +7,7 @@ import { Like } from "typeorm";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
 import { MealNutritionResponse } from "../../utils/responses/meals/mealnutrition.response";
+import { calculateNutrients } from '../../utils/helpers';
 
 @Resolver()
 export class MealNutritionResolver {
@@ -52,6 +53,7 @@ export class MealNutritionResolver {
         res[index].quantity += n.quantity;
       }
     }
+    res = calculateNutrients(res);
     return {
       status: true,
       nutrition: res.sort((a, b) => b.quantity - a.quantity).slice(0, 10),

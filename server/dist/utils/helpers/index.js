@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./time"), exports);
 __exportStar(require("./email"), exports);
 __exportStar(require("./username"), exports);
+__exportStar(require("./mealNutritionsCalc"), exports);
 //# sourceMappingURL=index.js.map

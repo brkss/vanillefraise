@@ -21,6 +21,7 @@ const TotalNutrition_1 = require("../../entity/Nutrition/TotalNutrition");
 const typeorm_1 = require("typeorm");
 const User_1 = require("../../entity/User");
 const mealnutrition_response_1 = require("../../utils/responses/meals/mealnutrition.response");
+const helpers_1 = require("../../utils/helpers");
 let MealNutritionResolver = class MealNutritionResolver {
     async mealNutrition(data, ctx) {
         if (!data || !data.date || !data.meal) {
@@ -58,6 +59,7 @@ let MealNutritionResolver = class MealNutritionResolver {
                 res[index].quantity += n.quantity;
             }
         }
+        res = (0, helpers_1.calculateNutrients)(res);
         return {
             status: true,
             nutrition: res.sort((a, b) => b.quantity - a.quantity).slice(0, 10),

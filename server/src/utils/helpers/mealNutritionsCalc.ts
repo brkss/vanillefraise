@@ -1,0 +1,24 @@
+import convert from "convert-units";
+import { RecipeTotalNutrition } from "../../entity/Nutrition/TotalNutrition";
+
+export const calculateNutrients = (
+  nutritients: RecipeTotalNutrition[]
+): RecipeTotalNutrition[] => {
+  const data = nutritients.map((n) => {
+    let val = 0;
+    if (n.unit === "kcal") {
+      val = n.quantity * 0.129598;
+    } else {
+      val = convert(n.quantity)
+        .from(n.unit === "µg" ? "mcg" : (n.unit as any))
+        .to("g");
+    }
+    return {
+      ...n,
+      quantity: val as number,
+      unit: "g",
+    } as RecipeTotalNutrition;
+  });
+  console.log("rs : ", data);
+  return data;
+};
