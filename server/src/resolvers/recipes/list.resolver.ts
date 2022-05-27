@@ -5,7 +5,7 @@ import { Recipe, RecipeCategory } from "../../entity/Recipe";
 export class RecipesListResolver {
   @Query(() => [Recipe])
   async recipes() {
-    return await Recipe.find();
+    return await Recipe.find({ where: { public: true } });
   }
 
   @Query(() => [Recipe])
@@ -14,16 +14,20 @@ export class RecipesListResolver {
       return [];
     }
 
-    if (cat_id == "NO") {
-      const categories = await RecipeCategory.find({ relations: ["recipes"] });
-      console.log("found categories : ", categories);
-      return categories[0].recipes || [];
+    try {
+      let category: RecipeCategory | undefined;
+      if (cat_id == "NO") category = (await RecipeCategory.find())[0];
+      else category = await RecipeCategory.findOne({ where: { id: cat_id } });
+      if (!category) {
+        return [];
+      }
+      const recipes = await Recipe.find({
+        where: { category: category, public: true },
+      });
+      return recipes;
+    } catch (e) {
+      console.log("Sonething went wrong : ", e);
+      return [];
     }
-
-    const category = await RecipeCategory.findOne({
-      relations: ["recipes"],
-      where: { id: cat_id },
-    });
-    return category?.recipes || [];
   }
 }

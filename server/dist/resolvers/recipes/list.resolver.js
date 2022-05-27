@@ -17,22 +17,30 @@ const type_graphql_1 = require("type-graphql");
 const Recipe_1 = require("../../entity/Recipe");
 let RecipesListResolver = class RecipesListResolver {
     async recipes() {
-        return await Recipe_1.Recipe.find();
+        return await Recipe_1.Recipe.find({ where: { public: true } });
     }
     async recipeByCategory(cat_id) {
         if (!cat_id) {
             return [];
         }
-        if (cat_id == "NO") {
-            const categories = await Recipe_1.RecipeCategory.find({ relations: ["recipes"] });
-            console.log("found categories : ", categories);
-            return categories[0].recipes || [];
+        try {
+            let category;
+            if (cat_id == "NO")
+                category = (await Recipe_1.RecipeCategory.find())[0];
+            else
+                category = await Recipe_1.RecipeCategory.findOne({ where: { id: cat_id } });
+            if (!category) {
+                return [];
+            }
+            const recipes = await Recipe_1.Recipe.find({
+                where: { category: category, public: true },
+            });
+            return recipes;
         }
-        const category = await Recipe_1.RecipeCategory.findOne({
-            relations: ["recipes"],
-            where: { id: cat_id },
-        });
-        return (category === null || category === void 0 ? void 0 : category.recipes) || [];
+        catch (e) {
+            console.log("Sonething went wrong : ", e);
+            return [];
+        }
     }
 };
 __decorate([
