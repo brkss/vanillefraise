@@ -16,14 +16,21 @@ export class RecipesListResolver {
 
     try {
       let category: RecipeCategory | undefined;
-      if (cat_id == "NO") category = (await RecipeCategory.find())[0];
-      else category = await RecipeCategory.findOne({ where: { id: cat_id } });
+      if (cat_id == "NO")
+        category = (await RecipeCategory.find({ relations: ["recipes"] }))[0];
+      else
+        category = await RecipeCategory.findOne({
+          where: { id: cat_id },
+          relations: ["recipes"],
+        });
       if (!category) {
         return [];
       }
+      /*
       const recipes = await Recipe.find({
-        where: { category: category, public: true },
-      });
+        where: { categories: category, public: true },
+      });*/
+      const recipes = category.recipes.filter((r) => r.public === true);
       return recipes;
     } catch (e) {
       console.log("Sonething went wrong : ", e);

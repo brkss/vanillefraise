@@ -26,15 +26,16 @@ let RecipesListResolver = class RecipesListResolver {
         try {
             let category;
             if (cat_id == "NO")
-                category = (await Recipe_1.RecipeCategory.find())[0];
+                category = (await Recipe_1.RecipeCategory.find({ relations: ["recipes"] }))[0];
             else
-                category = await Recipe_1.RecipeCategory.findOne({ where: { id: cat_id } });
+                category = await Recipe_1.RecipeCategory.findOne({
+                    where: { id: cat_id },
+                    relations: ["recipes"],
+                });
             if (!category) {
                 return [];
             }
-            const recipes = await Recipe_1.Recipe.find({
-                where: { category: category, public: true },
-            });
+            const recipes = category.recipes.filter((r) => r.public === true);
             return recipes;
         }
         catch (e) {
