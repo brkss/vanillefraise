@@ -1143,7 +1143,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.9.1.tgz#0611b37db4246c937feef529ddcc018cf8e35708"
   integrity sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==
 
-"@types/node@^10.1.0":
+"@types/node@^10.1.0", "@types/node@^10.5.1":
   version "10.17.60"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
   integrity sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==
@@ -6697,6 +6697,13 @@ realpath-native@^1.1.0:
   integrity sha512-wlgPA6cCIIg9gKz0fgAPjnzh4yR/LnXovwuo9hvyGvx3h8nX4+/iLZplfUWasXpqD8BdnGnP5njOFjkUwPzvjA==
   dependencies:
     util.promisify "^1.0.0"
+
+recipe-ingredient-parser-v3@^1.2.16:
+  version "1.2.16"
+  resolved "https://registry.yarnpkg.com/recipe-ingredient-parser-v3/-/recipe-ingredient-parser-v3-1.2.16.tgz#7b0156b5634583105ba33cbdca1b273a7af35ec1"
+  integrity sha512-/vHNK9nUuVixrwZoEw3RC5mptR+mPda1TUZ/23k+jWnslz/kT1z/PoCrWO58xAvTzY5CI4Vdc0k1qg2ODuZREw==
+  dependencies:
+    "@types/node" "^10.5.1"
 
 recipe-scraper@^2.1.1:
   version "2.1.1"

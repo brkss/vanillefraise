@@ -20,6 +20,7 @@ import {
   RecipeTotalNutrition,
   RecipeTotalNutritionKcal,
 } from "../../entity/Nutrition";
+import { parse } from "recipe-ingredient-parser-v3";
 
 /******* config ! ************/
 import units from "recipes-parser/lib/nlp/en/units.json";
@@ -139,13 +140,20 @@ export class CreateRecipeResolver {
     const parser = new RecipesParser(rules, units, globalUnit);
     for (let ing of ings) {
       if (ing.length > 0) {
-        const ingredient_parsed = parser.getIngredientsFromText([ing], false);
+        const ingredient_parsed = parse(ing, "eng");
+        //const ingredient_parsed = parser.getIngredientsFromText([ing], false);
         const ingredient = new Ingredient();
+        ingredient.raw = ing;
+        ingredient.unit = ingredient_parsed.unit || undefined;
+        ingredient.amount = ingredient_parsed.quantity.toString();
+        ingredient.ingredients = ingredient_parsed.ingredient;
+        /*
         ingredient.raw = ing;
         ingredient.unit =
           String(ingredient_parsed[0].result?.unit) || undefined;
         ingredient.amount = ingredient_parsed[0].result?.amount;
         ingredient.ingredients = ingredient_parsed[0].result?.ingredient;
+        */
         ingredient.recipe = recipe;
         await ingredient.save();
       }

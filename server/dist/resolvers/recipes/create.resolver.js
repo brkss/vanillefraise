@@ -46,6 +46,7 @@ const responses_1 = require("../../utils/responses");
 const createrecipe_input_1 = require("../../utils/inputs/recipes/createrecipe.input");
 const nutrition_1 = require("../../utils/nutrition");
 const Nutrition_1 = require("../../entity/Nutrition");
+const recipe_ingredient_parser_v3_1 = require("recipe-ingredient-parser-v3");
 const units_json_1 = __importDefault(require("recipes-parser/lib/nlp/en/units.json"));
 const global_unit_json_1 = __importDefault(require("recipes-parser/lib/nlp/en/global_unit.json"));
 const rules = fs_1.default.readFileSync(path.join(__dirname, `../../../node_modules/recipes-parser/lib/nlp/en/en/rules.pegjs`), {
@@ -128,17 +129,15 @@ let CreateRecipeResolver = class CreateRecipeResolver {
         return categories;
     }
     async createRecipeIngredients(recipe, ings) {
-        var _a, _b, _c;
         const parser = new recipes_parser_1.default(rules, units_json_1.default, global_unit_json_1.default);
         for (let ing of ings) {
             if (ing.length > 0) {
-                const ingredient_parsed = parser.getIngredientsFromText([ing], false);
+                const ingredient_parsed = (0, recipe_ingredient_parser_v3_1.parse)(ing, "eng");
                 const ingredient = new Recipe_1.Ingredient();
                 ingredient.raw = ing;
-                ingredient.unit =
-                    String((_a = ingredient_parsed[0].result) === null || _a === void 0 ? void 0 : _a.unit) || undefined;
-                ingredient.amount = (_b = ingredient_parsed[0].result) === null || _b === void 0 ? void 0 : _b.amount;
-                ingredient.ingredients = (_c = ingredient_parsed[0].result) === null || _c === void 0 ? void 0 : _c.ingredient;
+                ingredient.unit = ingredient_parsed.unit || undefined;
+                ingredient.amount = ingredient_parsed.quantity.toString();
+                ingredient.ingredients = ingredient_parsed.ingredient;
                 ingredient.recipe = recipe;
                 await ingredient.save();
             }
