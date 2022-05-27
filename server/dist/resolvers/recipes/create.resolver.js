@@ -68,18 +68,25 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                 };
             }
             const recipe_data = await recipeScraper(uri);
+            console.log("recipe data +++>> ", recipe_data);
             const img = `${recipe_data.name
                 .split(" ")
                 .join("_")}_${new Date().getTime()}.jpg`;
             console.log("OPTIMIZE IMAGE !");
             await (0, donwloadImage_1.downloadImage)(recipe_data.image, `../../cdn/images/${img}`);
+            if (!recipe_data.servings) {
+                return {
+                    status: false,
+                    message: "Invalid Recipe Servings ! ",
+                };
+            }
             const recipe = new Recipe_1.Recipe();
             recipe.name = recipe_data.name;
             recipe.image = img;
             recipe.description = recipe_data.description;
             recipe.prep = recipe_data.time.prep;
             recipe.cook = recipe_data.time.cook;
-            recipe.serving = recipe_data.serving;
+            recipe.serving = parseInt(recipe_data.servings);
             recipe.total = recipe_data.time.total;
             recipe.url = uri;
             const categories = await this.getRecipeCategories(data.categories);
