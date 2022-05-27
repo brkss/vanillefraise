@@ -4,9 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 export const Info: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        No Nutrients Overview ! {"\n"}Please Select Recipes For This Meal.
-      </Text>
+      <Text style={styles.title}>0 selected recipes !</Text>
     </View>
   );
 };
@@ -21,5 +19,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: "bold",
+    textAlign: "center",
   },
 });

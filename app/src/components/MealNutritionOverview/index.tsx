@@ -27,7 +27,7 @@ export const MealNutritionOverview: React.FC<Props> = ({ date, meal }) => {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nutrition Overview</Text>
+      <Text style={styles.title}>Nutritients Overview</Text>
       {data.mealNutrition.nutrition.length == 0 ? <Info /> : null}
       <View style={styles.row}>
         {data.mealNutrition.nutrition.map((n, key) => (
@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
   },
   item: {
     width: "50%",
+    marginBottom: 5,
   },
 });

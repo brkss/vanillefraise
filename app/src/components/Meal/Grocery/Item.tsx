@@ -11,7 +11,7 @@ export const GroceryItem: React.FC<Props> = ({ txt, qtt, unit }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.qtt}>
-        {qtt} {unit === "undefined" ? "" : unit}
+        {qtt == 0 ? "" : qtt} {unit === "undefined" ? "" : unit}
       </Text>
       <Text style={styles.txt}>{txt}</Text>
     </View>
