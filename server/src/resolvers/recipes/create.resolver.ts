@@ -144,8 +144,7 @@ export class CreateRecipeResolver {
         ingredient.raw = ing;
         ingredient.unit =
           String(ingredient_parsed[0].result?.unit) || undefined;
-        ingredient.amount =
-          Number(ingredient_parsed[0].result?.amount) || undefined;
+        ingredient.amount = ingredient_parsed[0].result?.amount;
         ingredient.ingredients = ingredient_parsed[0].result?.ingredient;
         ingredient.recipe = recipe;
         await ingredient.save();

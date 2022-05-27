@@ -27,7 +27,7 @@ export class Ingredient extends BaseEntity {
 
   @Field({nullable: true})
   @Column({ nullable: true })
-  amount?: number;
+  amount?: string;
 
   @Field({nullable: true})
   @Column({ nullable: true })

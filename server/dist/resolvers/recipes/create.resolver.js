@@ -137,8 +137,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                 ingredient.raw = ing;
                 ingredient.unit =
                     String((_a = ingredient_parsed[0].result) === null || _a === void 0 ? void 0 : _a.unit) || undefined;
-                ingredient.amount =
-                    Number((_b = ingredient_parsed[0].result) === null || _b === void 0 ? void 0 : _b.amount) || undefined;
+                ingredient.amount = (_b = ingredient_parsed[0].result) === null || _b === void 0 ? void 0 : _b.amount;
                 ingredient.ingredients = (_c = ingredient_parsed[0].result) === null || _c === void 0 ? void 0 : _c.ingredient;
                 ingredient.recipe = recipe;
                 await ingredient.save();
