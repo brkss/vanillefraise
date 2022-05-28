@@ -1,0 +1,12 @@
+mutation CreateRecipeCategory($name: String!, $icon: String!) {
+  createRecipeCategory(data: {name: $name, icon: $icon}){
+    status
+    message
+    category{
+      id
+      name
+      icon
+      active
+    }
+  }
+}

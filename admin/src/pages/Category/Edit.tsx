@@ -18,7 +18,7 @@ import {
   useCategoryDetailsQuery,
   useUpdateCategoryMutation,
 } from "../../generated/graphql";
-import { Loading } from '../../components'
+import { Loading } from "../../components";
 
 interface Props {
   onClose: () => void;
@@ -91,7 +91,7 @@ export const EditRecipeCategory: React.FC<Props> = ({
     });
   };
 
-  if (loading || error || !data?.categoryDetails) {
+  if (isOpen && (loading || error || !data?.categoryDetails)) {
     return <Loading />;
   }
 

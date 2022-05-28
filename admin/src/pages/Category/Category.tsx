@@ -11,14 +11,19 @@ import {
   TableContainer,
   useDisclosure,
   Button,
+  GridItem,
+  Grid,
 } from "@chakra-ui/react";
 import { useAdminCategoriesQuery } from "../../generated/graphql";
 import { EditRecipeCategory } from "./Edit";
-import { Loading } from '../../components';
+import { Loading } from "../../components";
+import { CreateRecipeCategory } from "./Create";
 
 export const RecipeCategory: React.FC = () => {
   const { loading, data, error } = useAdminCategoriesQuery();
   const [cid, setCid] = React.useState("");
+  const _create = useDisclosure();
+
   const { onOpen, onClose, isOpen } = useDisclosure();
 
   if (loading || error) {
@@ -28,11 +33,18 @@ export const RecipeCategory: React.FC = () => {
   const handleEditCategory = (id: string) => {
     setCid(id);
     onOpen();
-  }
+  };
 
   return (
     <Box p={"30px"} minH={"100vh"}>
-      <Heading mb={10}>Categories</Heading>
+      <Grid templateColumns="repeat(6, 1fr)">
+        <GridItem colSpan={3}>
+          <Heading mb={10}>Categories</Heading>
+        </GridItem>
+        <GridItem textAlign={"right"} colSpan={3}>
+          <Button onClick={() => _create.onOpen()}>Create</Button>
+        </GridItem>
+      </Grid>
       <TableContainer>
         <Table variant="simple">
           <Thead>
@@ -52,13 +64,16 @@ export const RecipeCategory: React.FC = () => {
                 <Td>{cat.category.active === true ? "Active" : "Disabled"}</Td>
                 <Td isNumeric>{cat.count}</Td>
                 <Td isNumeric>
-                  <Button onClick={() => handleEditCategory(cat.category.id)}>EDIT</Button>
+                  <Button onClick={() => handleEditCategory(cat.category.id)}>
+                    EDIT
+                  </Button>
                 </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </TableContainer>
+      <CreateRecipeCategory isOpen={_create.isOpen} onClose={_create.onClose} />
       <EditRecipeCategory cid={cid} isOpen={isOpen} onClose={onClose} />
     </Box>
   );

@@ -132,6 +132,18 @@ export type CreateMoodRecordInput = {
   moods: Array<Scalars['String']>;
 };
 
+export type CreateRecipeCategoryInput = {
+  icon: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type CreateRecipeCategoryResponse = {
+  __typename?: 'CreateRecipeCategoryResponse';
+  category?: Maybe<RecipeCategory>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type CreateRecipeInput = {
   categories: Array<Scalars['String']>;
   url: Scalars['String'];
@@ -172,7 +184,7 @@ export type EarlyAccessRequest = {
 
 export type Ingredient = {
   __typename?: 'Ingredient';
-  amount?: Maybe<Scalars['Float']>;
+  amount?: Maybe<Scalars['String']>;
   created_at: Scalars['String'];
   id: Scalars['String'];
   ingredients?: Maybe<Scalars['String']>;
@@ -234,6 +246,13 @@ export type MealListResponse = {
   id: Scalars['String'];
   index: Scalars['Float'];
   name: Scalars['String'];
+};
+
+export type MealNutritionResponse = {
+  __typename?: 'MealNutritionResponse';
+  message?: Maybe<Scalars['String']>;
+  nutrition?: Maybe<Array<RecipeTotalNutrition>>;
+  status: Scalars['Boolean'];
 };
 
 export type MealRecipeResponse = {
@@ -308,6 +327,7 @@ export type Mutation = {
   createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
+  createRecipeCategory: CreateRecipeCategoryResponse;
   createRecord: CreateRecordResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
@@ -386,6 +406,11 @@ export type MutationCreateMoodRecordArgs = {
 
 export type MutationCreateRecipeArgs = {
   data: CreateRecipeInput;
+};
+
+
+export type MutationCreateRecipeCategoryArgs = {
+  data: CreateRecipeCategoryInput;
 };
 
 
@@ -486,6 +511,7 @@ export type Query = {
   helloAdmin: Scalars['String'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
+  mealNutrition: MealNutritionResponse;
   meals: Array<MealListResponse>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
@@ -533,6 +559,11 @@ export type QueryGetRecipeNutritionArgs = {
 
 export type QueryIsRequestedArgs = {
   service: Scalars['String'];
+};
+
+
+export type QueryMealNutritionArgs = {
+  data: MealRecipesInput;
 };
 
 
@@ -823,6 +854,14 @@ export type CreateRecipeMutationVariables = Exact<{
 
 export type CreateRecipeMutation = { __typename?: 'Mutation', createRecipe: { __typename?: 'CreateRecipeResponse', status: boolean, message: string, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null, serving?: number | null, image: string, cook?: string | null, prep?: string | null, total?: string | null } | null } };
 
+export type CreateRecipeCategoryMutationVariables = Exact<{
+  name: Scalars['String'];
+  icon: Scalars['String'];
+}>;
+
+
+export type CreateRecipeCategoryMutation = { __typename?: 'Mutation', createRecipeCategory: { __typename?: 'CreateRecipeCategoryResponse', status: boolean, message?: string | null, category?: { __typename?: 'RecipeCategory', id: string, name: string, icon?: string | null, active: boolean } | null } };
+
 export type DeleteRecipeMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -1103,6 +1142,47 @@ export function useCreateRecipeMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateRecipeMutationHookResult = ReturnType<typeof useCreateRecipeMutation>;
 export type CreateRecipeMutationResult = Apollo.MutationResult<CreateRecipeMutation>;
 export type CreateRecipeMutationOptions = Apollo.BaseMutationOptions<CreateRecipeMutation, CreateRecipeMutationVariables>;
+export const CreateRecipeCategoryDocument = gql`
+    mutation CreateRecipeCategory($name: String!, $icon: String!) {
+  createRecipeCategory(data: {name: $name, icon: $icon}) {
+    status
+    message
+    category {
+      id
+      name
+      icon
+      active
+    }
+  }
+}
+    `;
+export type CreateRecipeCategoryMutationFn = Apollo.MutationFunction<CreateRecipeCategoryMutation, CreateRecipeCategoryMutationVariables>;
+
+/**
+ * __useCreateRecipeCategoryMutation__
+ *
+ * To run a mutation, you first call `useCreateRecipeCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRecipeCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createRecipeCategoryMutation, { data, loading, error }] = useCreateRecipeCategoryMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      icon: // value for 'icon'
+ *   },
+ * });
+ */
+export function useCreateRecipeCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateRecipeCategoryMutation, CreateRecipeCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateRecipeCategoryMutation, CreateRecipeCategoryMutationVariables>(CreateRecipeCategoryDocument, options);
+      }
+export type CreateRecipeCategoryMutationHookResult = ReturnType<typeof useCreateRecipeCategoryMutation>;
+export type CreateRecipeCategoryMutationResult = Apollo.MutationResult<CreateRecipeCategoryMutation>;
+export type CreateRecipeCategoryMutationOptions = Apollo.BaseMutationOptions<CreateRecipeCategoryMutation, CreateRecipeCategoryMutationVariables>;
 export const DeleteRecipeDocument = gql`
     mutation DeleteRecipe($id: String!) {
   deleterecipe(id: $id)
