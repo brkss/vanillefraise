@@ -20,8 +20,9 @@ const responses_1 = require("../../utils/responses");
 const createrecipe_input_1 = require("../../utils/inputs/recipes/createrecipe.input");
 const nutrition_1 = require("../../utils/nutrition");
 const Nutrition_1 = require("../../entity/Nutrition");
-const recipe_ingredient_parser_v3_1 = require("recipe-ingredient-parser-v3");
+const recipe_ingredient_parser_v2_1 = require("recipe-ingredient-parser-v2");
 const recipeScraper = require("recipe-scraper");
+const helpers_1 = require("../../utils/helpers");
 let CreateRecipeResolver = class CreateRecipeResolver {
     async createRecipe(data) {
         if (!data.url || data.categories.length == 0)
@@ -29,6 +30,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                 message: "Invalid URl",
                 status: false,
             };
+        let recipe = null;
         try {
             const uri = data.url;
             const recipeCheck = await Recipe_1.Recipe.findOne({ where: { url: uri } });
@@ -51,7 +53,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                     message: "Invalid Recipe Servings ! ",
                 };
             }
-            const recipe = new Recipe_1.Recipe();
+            recipe = new Recipe_1.Recipe();
             recipe.name = recipe_data.name;
             recipe.image = img;
             recipe.description = recipe_data.description;
@@ -69,12 +71,16 @@ let CreateRecipeResolver = class CreateRecipeResolver {
             }
             recipe.categories = categories;
             await recipe.save();
-            await this.createRecipeNutritionData(recipe, {
+            await this.createRecipeIngredients(recipe, recipe_data.ingredients);
+            await this.createRecipeInstructions(recipe, recipe_data.instructions);
+            const r = await Recipe_1.Recipe.findOne({
+                where: { id: recipe.id },
+                relations: ["ingredients"],
+            });
+            await this.createRecipeNutritionData(r, {
                 name: recipe_data.name,
                 ingr: recipe_data.ingredients,
             });
-            await this.createRecipeIngredients(recipe, recipe_data.ingredients);
-            await this.createRecipeInstructions(recipe, recipe_data.instructions);
             return {
                 status: true,
                 message: "Recipe created successfuly ! ",
@@ -82,6 +88,9 @@ let CreateRecipeResolver = class CreateRecipeResolver {
             };
         }
         catch (e) {
+            if (recipe) {
+                await recipe.remove();
+            }
             console.log("something went wrong : ", e);
             return {
                 message: "Something went wrong ",
@@ -99,13 +108,14 @@ let CreateRecipeResolver = class CreateRecipeResolver {
         return categories;
     }
     async createRecipeIngredients(recipe, ings) {
+        var _a;
         for (let ing of ings) {
             if (ing.length > 0) {
-                const ingredient_parsed = (0, recipe_ingredient_parser_v3_1.parse)(ing, "eng");
+                const ingredient_parsed = (0, recipe_ingredient_parser_v2_1.parse)(ing);
                 const ingredient = new Recipe_1.Ingredient();
                 ingredient.raw = ing;
                 ingredient.unit = ingredient_parsed.unit || undefined;
-                ingredient.amount = ingredient_parsed.quantity.toString();
+                ingredient.amount = (_a = ingredient_parsed.quantity) === null || _a === void 0 ? void 0 : _a.toString();
                 ingredient.ingredients = ingredient_parsed.ingredient;
                 ingredient.recipe = recipe;
                 await ingredient.save();
@@ -126,7 +136,16 @@ let CreateRecipeResolver = class CreateRecipeResolver {
         }
     }
     async createRecipeNutritionData(recipe, data) {
-        const nutrition = await (0, nutrition_1.recipeNutrition)(data);
+        const nutrition = await (0, nutrition_1.recipeNutrition)({
+            name: data.name,
+            ingr: (0, helpers_1.scaleRecipe)(recipe.serving, 1, recipe.ingredients).map((i) => {
+                return `${parseFloat(i.amount || "0") <= 0
+                    ? ""
+                    : Math.floor(parseFloat(i.amount)) == 0
+                        ? (0, helpers_1.fractionConverter)(parseFloat(i.amount)) + " "
+                        : i.amount + " "}${i.unit && !i.unit.includes(".") ? i.unit + " " : ""}${i.ingredients}`;
+            }),
+        });
         if (!data)
             return;
         for (let dlabel of nutrition.data.dietLabels) {

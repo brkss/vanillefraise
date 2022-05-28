@@ -16,8 +16,9 @@ import {
   RecipeTotalNutrition,
   RecipeTotalNutritionKcal,
 } from "../../entity/Nutrition";
-import { parse } from "recipe-ingredient-parser-v3";
+import { parse } from "recipe-ingredient-parser-v2";
 const recipeScraper = require("recipe-scraper");
+import { scaleRecipe, fractionConverter } from "../../utils/helpers";
 
 @Resolver()
 export class CreateRecipeResolver {
@@ -30,6 +31,7 @@ export class CreateRecipeResolver {
         message: "Invalid URl",
         status: false,
       };
+    let recipe: Recipe | null = null;
     try {
       const uri = data.url;
       const recipeCheck = await Recipe.findOne({ where: { url: uri } });
@@ -50,28 +52,13 @@ export class CreateRecipeResolver {
         .join("_")}_${new Date().getTime()}.jpg`;
       console.log("OPTIMIZE IMAGE !");
       await downloadImage(recipe_data.image, `../../cdn/images/${img}`);
-      /*
-      await Jimp.read(dir, (err, img) => {
-        if (err) return;
-        img.quality(60).write("optimized.jpg");
-        console.log("IMAGE OPTIMIZED SUCCESSFULY !");
-      });
-      const sharp_image = sharp(dir);
-      const meta = await sharp_image.metadata();
-      const { format } = meta;
-      const config = {
-        jpeg: { quality: 60 },
-        png: { quality: 60 },
-      };
-      sharp_image["jpeg"](config["jpeg"]).resize(1000);
-      */
       if (!recipe_data.servings) {
         return {
           status: false,
           message: "Invalid Recipe Servings ! ",
         };
       }
-      const recipe = new Recipe();
+      recipe = new Recipe();
       recipe.name = recipe_data.name;
       recipe.image = img;
       recipe.description = recipe_data.description;
@@ -89,20 +76,26 @@ export class CreateRecipeResolver {
       }
       recipe.categories = categories;
       await recipe.save();
-
-      await this.createRecipeNutritionData(recipe, {
-        name: recipe_data.name,
-        ingr: recipe_data.ingredients,
-      });
       await this.createRecipeIngredients(recipe, recipe_data.ingredients);
       await this.createRecipeInstructions(recipe, recipe_data.instructions);
 
+      const r = await Recipe.findOne({
+        where: { id: recipe.id },
+        relations: ["ingredients"],
+      });
+      await this.createRecipeNutritionData(r!, {
+        name: recipe_data.name,
+        ingr: recipe_data.ingredients,
+      });
       return {
         status: true,
         message: "Recipe created successfuly ! ",
         recipe: recipe,
       };
     } catch (e) {
+      if (recipe) {
+        await recipe.remove();
+      }
       console.log("something went wrong : ", e);
       return {
         message: "Something went wrong ",
@@ -123,12 +116,12 @@ export class CreateRecipeResolver {
   async createRecipeIngredients(recipe: Recipe, ings: string[]) {
     for (let ing of ings) {
       if (ing.length > 0) {
-        const ingredient_parsed = parse(ing, "eng");
+        const ingredient_parsed = parse(ing);
         //const ingredient_parsed = parser.getIngredientsFromText([ing], false);
         const ingredient = new Ingredient();
         ingredient.raw = ing;
         ingredient.unit = ingredient_parsed.unit || undefined;
-        ingredient.amount = ingredient_parsed.quantity.toString();
+        ingredient.amount = ingredient_parsed.quantity?.toString();
         ingredient.ingredients = ingredient_parsed.ingredient;
         ingredient.recipe = recipe;
         await ingredient.save();
@@ -154,7 +147,20 @@ export class CreateRecipeResolver {
     recipe: Recipe,
     data: { name: string; ingr: string[] }
   ) {
-    const nutrition = await recipeNutrition(data);
+    const nutrition = await recipeNutrition({
+      name: data.name,
+      ingr: scaleRecipe(recipe.serving!, 1, recipe.ingredients).map((i) => {
+        return `${
+          parseFloat(i.amount || "0") <= 0
+            ? ""
+            : Math.floor(parseFloat(i.amount!)) == 0
+            ? fractionConverter(parseFloat(i.amount!)) + " "
+            : i.amount + " "
+        }${i.unit && !i.unit.includes(".") ? i.unit + " " : ""}${
+          i.ingredients
+        }`;
+      }),
+    });
 
     if (!data) return;
 

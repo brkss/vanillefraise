@@ -30,33 +30,7 @@ const requestLink = new ApolloLink(
       });
     return forward(operation);
   }
-  /*
-    new Observable((observer) => {
-      let handle: any;
-      Promise.resolve(operation)
-        .then((operation) => {
-          const token = getAccessToken();
-          if (token) {
-            operation.setContext({
-              headers: {
-                authorization: `bearer ${token}`,
-              },
-            });
-          }
-        })
-        .then(() => {
-          handle = forward(operation).subscribe({
-            next: observer.next.bind(observer),
-            error: observer.error.bind(observer),
-            complete: observer.complete.bind(observer),
-          });
-        })
-        .catch(observer.error.bind(observer));
-
-      return () => {
-        if (handle) handle.unsubscribe();
-      };
-      })*/
+  
 );
 
 const link: any = new TokenRefreshLink({
