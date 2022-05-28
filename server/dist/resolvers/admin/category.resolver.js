@@ -19,6 +19,8 @@ const Category_1 = require("../../entity/Recipe/Category");
 const responses_1 = require("../../utils/responses");
 const inputs_1 = require("../../utils/inputs");
 const responses_2 = require("../../utils/responses");
+const recipes_1 = require("../../utils/responses/recipes");
+const recipes_2 = require("../../utils/inputs/recipes");
 let AdminRecipeCategoryResolver = class AdminRecipeCategoryResolver {
     async adminCategories() {
         const categories = await Category_1.RecipeCategory.find({
@@ -62,8 +64,63 @@ let AdminRecipeCategoryResolver = class AdminRecipeCategoryResolver {
         return {
             status: true,
             message: "Category updated successfuly !",
-            category: category
+            category: category,
         };
+    }
+    async createRecipeCategory(data) {
+        if (!data.name || !data.icon) {
+            return {
+                status: false,
+                message: "Invalid Data !",
+            };
+        }
+        try {
+            const category = new Category_1.RecipeCategory();
+            category.name = data.name;
+            category.icon = data.icon;
+            await category.save();
+            return {
+                status: true,
+                message: "Category Created Successfuly !",
+                category: category,
+            };
+        }
+        catch (e) {
+            console.log("Something went wrong : ", e);
+            return {
+                status: false,
+                message: "Something went wrong !",
+            };
+        }
+    }
+    async deleteCategory(cat_id) {
+        if (!cat_id) {
+            return {
+                status: false,
+                message: "Invalid Data !",
+            };
+        }
+        try {
+            const category = await Category_1.RecipeCategory.findOne({ where: { id: cat_id } });
+            if (!category) {
+                return {
+                    status: false,
+                    message: "Invalid Category !",
+                };
+            }
+            await category.remove();
+            return {
+                status: true,
+                message: "Category Deleted Successufly !",
+            };
+        }
+        catch (e) {
+            console.log("Something went wrong : ", e);
+            return {
+                status: false,
+                message: "Something went wrong",
+            };
+        }
     }
 };
 __decorate([
@@ -76,7 +133,7 @@ __decorate([
 __decorate([
     (0, type_graphql_1.UseMiddleware)(admin_mw_1.isAdminAuth),
     (0, type_graphql_1.Query)(() => Category_1.RecipeCategory, { nullable: true }),
-    __param(0, (0, type_graphql_1.Arg)('cid')),
+    __param(0, (0, type_graphql_1.Arg)("cid")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
@@ -89,6 +146,22 @@ __decorate([
     __metadata("design:paramtypes", [inputs_1.UpdateCategoryInput]),
     __metadata("design:returntype", Promise)
 ], AdminRecipeCategoryResolver.prototype, "updateCategory", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(admin_mw_1.isAdminAuth),
+    (0, type_graphql_1.Mutation)(() => recipes_1.CreateRecipeCategoryResponse),
+    __param(0, (0, type_graphql_1.Arg)("data")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [recipes_2.CreateRecipeCategoryInput]),
+    __metadata("design:returntype", Promise)
+], AdminRecipeCategoryResolver.prototype, "createRecipeCategory", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(admin_mw_1.isAdminAuth),
+    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    __param(0, (0, type_graphql_1.Arg)("cat_id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AdminRecipeCategoryResolver.prototype, "deleteCategory", null);
 AdminRecipeCategoryResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], AdminRecipeCategoryResolver);

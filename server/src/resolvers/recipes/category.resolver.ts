@@ -1,9 +1,9 @@
-import { Resolver, Mutation, Query, UseMiddleware, Arg } from "type-graphql";
+import { Resolver, Mutation, Query } from "type-graphql";
 import { RecipeCategory } from "../../entity/Recipe";
 import { recipe_categories } from "../../utils/data/recipe_categories";
-import { isAdminAuth } from "../../utils/middlewares";
-import { CreateRecipeCategoryInput } from "../../utils/inputs/recipes";
-import { CreateRecipeCategoryResponse } from "../../utils/responses/recipes";
+//import { isAdminAuth } from "../../utils/middlewares";
+//import { CreateRecipeCategoryInput } from "../../utils/inputs/recipes";
+//import { CreateRecipeCategoryResponse } from "../../utils/responses/recipes";
 
 @Resolver()
 export class RecipeCategoryResolver {
@@ -30,6 +30,7 @@ export class RecipeCategoryResolver {
     return false;
   }
 
+  /*
   @UseMiddleware(isAdminAuth)
   @Mutation(() => CreateRecipeCategoryResponse)
   async createRecipeCategory(
@@ -58,6 +59,6 @@ export class RecipeCategoryResolver {
         message: "Something went wrong !",
       };
     }
-
   }
+  */
 }
