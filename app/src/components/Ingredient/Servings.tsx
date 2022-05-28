@@ -1,18 +1,27 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export const RecipeServing = () => {
-  const [serv, SetServ] = React.useState(91);
+interface Props {
+  onChange: (n: number) => void;
+  servings: number;
+}
+
+export const RecipeServing: React.FC<Props> = ({ onChange, servings }) => {
+  const [serv, SetServ] = React.useState(servings);
 
   const more = () => {
     if (serv < 99) {
+      const tmp = serv;
       SetServ((curr) => curr + 1);
+      onChange(tmp + 1);
     }
   };
 
   const less = () => {
     if (serv > 1) {
+      const tmp = serv;
       SetServ((curr) => curr - 1);
+      onChange(tmp - 1);
     }
   };
   return (

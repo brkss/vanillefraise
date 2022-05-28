@@ -16,7 +16,7 @@ import {
   Info,
   RecipeNutrition,
 } from "../../components";
-import { useRecipeQuery, useRecipeEnergyQuery } from "../../generated/graphql";
+import { useRecipeQuery, useRecipeEnergyQuery, Ingredient } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 //import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -84,7 +84,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             total={data.recipe.recipe?.total || undefined}
           />
           <RecipeNutrition recipeId={id} />
-          <Ingredients ingredients={data.recipe.recipe!.ingredients} />
+          <Ingredients servings={data.recipe.recipe.serving || 1} ingredients={data.recipe.recipe!.ingredients as Ingredient[]} />
           <Instructions
             instructions={data.recipe.recipe!.instructions.sort(
               ({ index: a }, { index: b }) => a - b

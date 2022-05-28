@@ -34,7 +34,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
   const _categories = useRecipeCategoriesQuery({
     fetchPolicy: "cache-first",
     onCompleted: (res) => {
-      if (res.recipeCategories) {
+      if (res.recipeCategories.length > 0) {
         SetCategory(res.recipeCategories[0].id);
       }
     },

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Item } from "./Item";
 import { useMealNutritionQuery } from "../../generated/graphql";
-import { Loading } from "../../components";
+import { Loading } from "../../components/General/Loading";
 import { Info } from "./Info";
 
 interface Props {
@@ -25,6 +25,7 @@ export const MealNutritionOverview: React.FC<Props> = ({ date, meal }) => {
   if (loading || error) {
     return <Loading />;
   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nutritients Overview</Text>

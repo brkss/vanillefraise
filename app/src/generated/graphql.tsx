@@ -132,6 +132,18 @@ export type CreateMoodRecordInput = {
   moods: Array<Scalars['String']>;
 };
 
+export type CreateRecipeCategoryInput = {
+  icon: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type CreateRecipeCategoryResponse = {
+  __typename?: 'CreateRecipeCategoryResponse';
+  category?: Maybe<RecipeCategory>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type CreateRecipeInput = {
   categories: Array<Scalars['String']>;
   url: Scalars['String'];
@@ -172,7 +184,7 @@ export type EarlyAccessRequest = {
 
 export type Ingredient = {
   __typename?: 'Ingredient';
-  amount?: Maybe<Scalars['Float']>;
+  amount?: Maybe<Scalars['String']>;
   created_at: Scalars['String'];
   id: Scalars['String'];
   ingredients?: Maybe<Scalars['String']>;
@@ -315,6 +327,7 @@ export type Mutation = {
   createActivity: CreateActivityResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
+  createRecipeCategory: CreateRecipeCategoryResponse;
   createRecord: CreateRecordResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
@@ -393,6 +406,11 @@ export type MutationCreateMoodRecordArgs = {
 
 export type MutationCreateRecipeArgs = {
   data: CreateRecipeInput;
+};
+
+
+export type MutationCreateRecipeCategoryArgs = {
+  data: CreateRecipeCategoryInput;
 };
 
 
@@ -909,7 +927,7 @@ export type GetMealRecipesQueryVariables = Exact<{
 }>;
 
 
-export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, cooked?: boolean | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string, recipe: { __typename?: 'Recipe', id: string } }> | null | undefined } };
+export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, cooked?: boolean | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: string | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string, recipe: { __typename?: 'Recipe', id: string } }> | null | undefined } };
 
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1015,7 +1033,7 @@ export type RecipeQueryVariables = Exact<{
 }>;
 
 
-export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, ingredients: Array<{ __typename?: 'Ingredient', unit?: string | null | undefined, raw: string, amount?: number | null | undefined, ingredients?: string | null | undefined }>, instructions: Array<{ __typename?: 'Instruction', id: string, raw: string, index: number }> } | null | undefined } };
+export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, ingredients: Array<{ __typename?: 'Ingredient', unit?: string | null | undefined, raw: string, amount?: string | null | undefined, ingredients?: string | null | undefined }>, instructions: Array<{ __typename?: 'Instruction', id: string, raw: string, index: number }> } | null | undefined } };
 
 export type SearchRecipesQueryVariables = Exact<{
   query: Scalars['String'];

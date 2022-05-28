@@ -39,9 +39,7 @@ export const RecipesByNutritions: React.FC<any> = ({ route, navigation }) => {
           </ScrollView>
         ) : (
           <View style={styles.notFound}>
-            <Text style={styles.notfoundText}>
-              😅 Sorry, no recipes with {name} found for now.
-            </Text>
+            <Text style={styles.notfoundText}> 0 Recipe With "{name}"</Text>
           </View>
         )}
       </SafeAreaView>
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
   heading: {
     fontWeight: "bold",
     color: "#434343",
-    fontSize: 22,
+    fontSize: 18,
   },
   headingContainer: {
     marginBottom: 30,
