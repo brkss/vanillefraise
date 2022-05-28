@@ -1,0 +1,6 @@
+mutation DeleteCategory($cat_id: String!){
+  deleteCategory(cat_id: $cat_id){
+    status
+    message
+  }
+}

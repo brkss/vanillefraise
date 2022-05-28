@@ -329,6 +329,7 @@ export type Mutation = {
   createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
   createRecord: CreateRecordResponse;
+  deleteCategory: DefaultResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
   loginAdmin: AuthDefaultResponse;
@@ -416,6 +417,11 @@ export type MutationCreateRecipeCategoryArgs = {
 
 export type MutationCreateRecordArgs = {
   data: CreateRecordInput;
+};
+
+
+export type MutationDeleteCategoryArgs = {
+  cat_id: Scalars['String'];
 };
 
 
@@ -869,6 +875,13 @@ export type DeleteRecipeMutationVariables = Exact<{
 
 export type DeleteRecipeMutation = { __typename?: 'Mutation', deleterecipe: boolean };
 
+export type DeleteCategoryMutationVariables = Exact<{
+  cat_id: Scalars['String'];
+}>;
+
+
+export type DeleteCategoryMutation = { __typename?: 'Mutation', deleteCategory: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
+
 export type RecipesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1214,6 +1227,40 @@ export function useDeleteRecipeMutation(baseOptions?: Apollo.MutationHookOptions
 export type DeleteRecipeMutationHookResult = ReturnType<typeof useDeleteRecipeMutation>;
 export type DeleteRecipeMutationResult = Apollo.MutationResult<DeleteRecipeMutation>;
 export type DeleteRecipeMutationOptions = Apollo.BaseMutationOptions<DeleteRecipeMutation, DeleteRecipeMutationVariables>;
+export const DeleteCategoryDocument = gql`
+    mutation DeleteCategory($cat_id: String!) {
+  deleteCategory(cat_id: $cat_id) {
+    status
+    message
+  }
+}
+    `;
+export type DeleteCategoryMutationFn = Apollo.MutationFunction<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
+
+/**
+ * __useDeleteCategoryMutation__
+ *
+ * To run a mutation, you first call `useDeleteCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCategoryMutation, { data, loading, error }] = useDeleteCategoryMutation({
+ *   variables: {
+ *      cat_id: // value for 'cat_id'
+ *   },
+ * });
+ */
+export function useDeleteCategoryMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCategoryMutation, DeleteCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCategoryMutation, DeleteCategoryMutationVariables>(DeleteCategoryDocument, options);
+      }
+export type DeleteCategoryMutationHookResult = ReturnType<typeof useDeleteCategoryMutation>;
+export type DeleteCategoryMutationResult = Apollo.MutationResult<DeleteCategoryMutation>;
+export type DeleteCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
 export const RecipesDocument = gql`
     query Recipes {
   recipes {
