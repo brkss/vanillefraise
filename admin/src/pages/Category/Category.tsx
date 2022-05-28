@@ -14,7 +14,12 @@ import {
   GridItem,
   Grid,
 } from "@chakra-ui/react";
-import { useAdminCategoriesQuery } from "../../generated/graphql";
+import {
+  AdminCategoriesDocument,
+  AdminCategoriesQuery,
+  useAdminCategoriesQuery,
+  useDeleteCategoryMutation,
+} from "../../generated/graphql";
 import { EditRecipeCategory } from "./Edit";
 import { Loading } from "../../components";
 import { CreateRecipeCategory } from "./Create";
@@ -23,12 +28,38 @@ export const RecipeCategory: React.FC = () => {
   const { loading, data, error } = useAdminCategoriesQuery();
   const [cid, setCid] = React.useState("");
   const _create = useDisclosure();
+  const [remove] = useDeleteCategoryMutation();
 
   const { onOpen, onClose, isOpen } = useDisclosure();
 
   if (loading || error) {
     return <Loading />;
   }
+
+  const handleDeleteCategory = (id: string) => {
+    if (!id) return;
+    remove({
+      variables: {
+        cat_id: id,
+      },
+      update: (store, { data }) => {
+        if (!data || !data.deleteCategory.status) return;
+        const categories = store.readQuery<AdminCategoriesQuery>({
+          query: AdminCategoriesDocument,
+        })!.adminCategories;
+        const index = categories.findIndex((x) => x.category.id === id);
+        if (index > -1) {
+          categories.splice(index, 1);
+        }
+        store.writeQuery<AdminCategoriesQuery>({
+          query: AdminCategoriesDocument,
+          data: {
+            adminCategories: [...categories],
+          },
+        });
+      },
+    });
+  };
 
   const handleEditCategory = (id: string) => {
     setCid(id);
@@ -66,6 +97,12 @@ export const RecipeCategory: React.FC = () => {
                 <Td isNumeric>
                   <Button onClick={() => handleEditCategory(cat.category.id)}>
                     EDIT
+                  </Button>
+                  <Button
+                    ml={"10px"}
+                    onClick={() => handleDeleteCategory(cat.category.id)}
+                  >
+                    DELETE
                   </Button>
                 </Td>
               </Tr>
