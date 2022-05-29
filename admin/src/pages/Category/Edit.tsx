@@ -35,6 +35,7 @@ export const EditRecipeCategory: React.FC<Props> = ({
     icon: "",
     name: "",
     id: cid,
+    index: 0,
   });
   const { loading, data, error } = useCategoryDetailsQuery({
     variables: {
@@ -45,6 +46,7 @@ export const EditRecipeCategory: React.FC<Props> = ({
         icon: res.categoryDetails?.icon || "?",
         id: res.categoryDetails?.id || cid,
         name: res.categoryDetails?.name || "?",
+        index: res.categoryDetails?.index || 0,
       });
     },
   });
@@ -58,6 +60,7 @@ export const EditRecipeCategory: React.FC<Props> = ({
         name: categoryData.name,
         icon: categoryData.icon,
         active: true,
+        index: Number(categoryData.index),
       },
       update: (store, { data }) => {
         if (!data || !data.updateCategory.status) return;
@@ -128,6 +131,19 @@ export const EditRecipeCategory: React.FC<Props> = ({
                   //variant={"filled"}
                   fontSize={"30px"}
                   id={"name"}
+                  onChange={(e) => handleChange(e)}
+                />
+                <Input
+                  _focus={{ outline: "none" }}
+                  textAlign={"center"}
+                  p={"30px"}
+                  value={categoryData.index}
+                  placeholder={"INDEX"}
+                  fontWeight={"bold"}
+                  border={"none"}
+                  //variant={"filled"}
+                  fontSize={"30px"}
+                  id={"index"}
                   onChange={(e) => handleChange(e)}
                 />
               </Box>

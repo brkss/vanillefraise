@@ -13,6 +13,7 @@ import {
   Button,
   GridItem,
   Grid,
+  Input
 } from "@chakra-ui/react";
 import {
   AdminCategoriesDocument,
@@ -84,6 +85,7 @@ export const RecipeCategory: React.FC = () => {
               <Th>Icon</Th>
               <Th>Status</Th>
               <Th isNumeric>Recipes Related</Th>
+              <Th isNumeric>Index</Th>
               <Th isNumeric>Actions</Th>
             </Tr>
           </Thead>
@@ -94,6 +96,9 @@ export const RecipeCategory: React.FC = () => {
                 <Td>{cat.category.icon}</Td>
                 <Td>{cat.category.active === true ? "Active" : "Disabled"}</Td>
                 <Td isNumeric>{cat.count}</Td>
+                <Td isNumeric>
+                  {cat.category.index}
+                  </Td>
                 <Td isNumeric>
                   <Button onClick={() => handleEditCategory(cat.category.id)}>
                     EDIT

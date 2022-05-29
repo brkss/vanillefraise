@@ -1,9 +1,10 @@
-mutation UpdateCategory($id: String!, $name: String!, $icon: String!, $active: Boolean!){
+mutation UpdateCategory($id: String!, $name: String!, $icon: String!, $active: Boolean!, $index: Float!){
   updateCategory(data: {
     id: $id,
     name: $name, 
     icon: $icon,
-    active: $active
+    active: $active,
+    index: $index
   }){
     status
     message
@@ -12,6 +13,7 @@ mutation UpdateCategory($id: String!, $name: String!, $icon: String!, $active: B
       name
       icon
       active
+      index
     }
   }
 }

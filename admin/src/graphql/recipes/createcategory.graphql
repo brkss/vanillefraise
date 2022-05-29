@@ -7,6 +7,7 @@ mutation CreateRecipeCategory($name: String!, $icon: String!) {
       name
       icon
       active
+      index
     }
   }
 }
