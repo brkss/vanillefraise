@@ -40,6 +40,11 @@ __decorate([
     (0, typeorm_1.ManyToMany)(() => Recipe_1.Recipe, recipes => recipes.categories),
     __metadata("design:type", Array)
 ], RecipeCategory.prototype, "recipes", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)({ default: 0 }),
+    __metadata("design:type", Number)
+], RecipeCategory.prototype, "index", void 0);
 RecipeCategory = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("recipes_categories")

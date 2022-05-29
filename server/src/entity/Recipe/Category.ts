@@ -30,4 +30,8 @@ export class RecipeCategory extends BaseEntity {
   @Field(() => [Recipe])
   @ManyToMany(() => Recipe, recipes => recipes.categories)
   recipes: Recipe[];
+  
+  @Field()
+  @Column({default: 0})
+  index: number;
 }
