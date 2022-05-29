@@ -4,9 +4,10 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 interface Props {
   onChange: (n: number) => void;
   servings: number;
+  center?: boolean;
 }
 
-export const RecipeServing: React.FC<Props> = ({ onChange, servings }) => {
+export const RecipeServing: React.FC<Props> = ({ onChange, servings, center }) => {
   const [serv, SetServ] = React.useState(servings);
 
   const more = () => {
@@ -26,7 +27,7 @@ export const RecipeServing: React.FC<Props> = ({ onChange, servings }) => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Servings</Text>
+      <Text style={[styles.label, {textAlign: center ? 'center' : 'left'}]}>Servings</Text>
       <View style={styles.row}>
         <Pressable onPress={() => more()} style={styles.btn}>
           <Text style={styles.btnText}>+</Text>

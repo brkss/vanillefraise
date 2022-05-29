@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import { colors } from "../../utils";
+import { RecipeServing } from "../Ingredient/Servings";
 
 interface Props {
   finish: () => void;
@@ -50,7 +51,12 @@ export const Start: React.FC<Props> = ({ finish, name, total }) => {
   return (
     <View style={styles.container}>
       <View style={{ height: 100 }} />
-      <Text style={styles.time}>About {total} in total</Text>
+      {total !== "unknown" ? (
+        <Text style={styles.time}>About {total} in total</Text>
+      ) : null}
+      <View>
+        <RecipeServing onChange={(n) => {}} servings={4} center />
+      </View>
       <View style={styles.metadata}>
         <Text style={styles.info}>You’re cooking</Text>
         <Text style={styles.title}>{name}</Text>
