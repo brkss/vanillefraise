@@ -1,17 +1,25 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { fractionConverter } from "../../../utils/modules/fraction";
 
 interface Props {
   txt: string;
+  amount: string;
+  unit: string;
 }
 
-export const Item: React.FC<Props> = ({ txt }) => {
+const PRESENT_MEASURES = (unit: string, amount: string) => {
+  const a = parseFloat(amount);
+  const aa = a % 1 != 0 && Math.floor(a) == 0 ? fractionConverter(a) : a;
+  return `${a > 0 ? aa + " " : ""}${
+    unit?.includes(".") ? "" : unit ? unit : ""
+  }`;
+};
+
+export const Item: React.FC<Props> = ({ txt, unit, amount }) => {
   const [checked, SetChecked] = React.useState(false);
   return (
-    <Pressable
-      style={styles.container}
-      onPress={() => SetChecked(!checked)}
-    >
+    <Pressable style={styles.container} onPress={() => SetChecked(!checked)}>
       <View
         style={[
           styles.check,
@@ -24,6 +32,7 @@ export const Item: React.FC<Props> = ({ txt }) => {
           { textDecorationLine: checked ? "line-through" : "none" },
         ]}
       >
+        {PRESENT_MEASURES(unit, amount)}
         {txt}
       </Text>
     </Pressable>

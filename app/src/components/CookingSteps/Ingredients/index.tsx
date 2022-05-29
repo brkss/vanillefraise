@@ -3,13 +3,22 @@ import { View, StyleSheet, Text, ScrollView, Animated } from "react-native";
 import { useFonts } from "expo-font";
 import { Item } from "./Item";
 import { Button } from "../../General/Button";
+import { Ingredient } from "../../../generated/graphql";
+import { scaleRecipe } from "../../../utils/modules/scale_recipe";
 
 interface Props {
   finish: () => void;
-  ingredients: any[];
+  ingredients: Ingredient[];
+  servings: number;
+  originalServings: number;
 }
 
-export const IngredientStep: React.FC<Props> = ({ finish, ingredients }) => {
+export const IngredientStep: React.FC<Props> = ({
+  finish,
+  ingredients,
+  servings,
+  originalServings,
+}) => {
   const opcAnim = React.useRef(new Animated.Value(0)).current;
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
@@ -37,14 +46,24 @@ export const IngredientStep: React.FC<Props> = ({ finish, ingredients }) => {
         You'll need the following ingredients for your recipe
       </Text>
       <Text style={styles.hint}>press any ingredient you’ve prepared !</Text>
+      <Text style={styles.hint}>
+        Managed To Serve {servings} person{servings > 1 ? "s" : ""}
+      </Text>
       <ScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
         style={styles.ings}
       >
-        {ingredients.map((ing, key) => (
-          <Item key={key} txt={ing.raw} />
-        ))}
+        {scaleRecipe(originalServings, servings, ingredients).map(
+          (ing, key) => (
+            <Item
+              amount={ing.amount}
+              unit={ing.unit}
+              key={key}
+              txt={ing.ingredients}
+            />
+          )
+        )}
       </ScrollView>
       <Button txt={"Done !"} clicked={() => finish()} />
     </Animated.View>

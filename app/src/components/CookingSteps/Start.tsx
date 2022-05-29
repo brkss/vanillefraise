@@ -14,9 +14,11 @@ interface Props {
   finish: () => void;
   name: string;
   total: string;
+  servings: number;
+  onServingChange: (n: number) => void;
 }
 
-export const Start: React.FC<Props> = ({ finish, name, total }) => {
+export const Start: React.FC<Props> = ({ finish, name, total, servings, onServingChange }) => {
   const AnimatedTouchableOpacity =
     Animated.createAnimatedComponent(TouchableOpacity);
   const alphaAnim = React.useRef(new Animated.Value(130)).current;
@@ -55,7 +57,7 @@ export const Start: React.FC<Props> = ({ finish, name, total }) => {
         <Text style={styles.time}>About {total} in total</Text>
       ) : null}
       <View>
-        <RecipeServing onChange={(n) => {}} servings={4} center />
+        <RecipeServing onChange={(n) => onServingChange(n) } servings={servings} center />
       </View>
       <View style={styles.metadata}>
         <Text style={styles.info}>You’re cooking</Text>

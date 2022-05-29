@@ -16,16 +16,23 @@ import {
   useCookedRecipeMutation,
   UserCaloriesQuery,
   UserCaloriesDocument,
+  Ingredient,
 } from "../../generated/graphql";
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
   const [cooked] = useCookedRecipeMutation();
+  const [targetServing, SetTargetServing] = React.useState(1);
   const { id, mealId } = route.params;
   const { data, loading, error } = useRecipeQuery({
     fetchPolicy: "cache-first",
     variables: {
       id: id,
     },
+    onCompleted: (res) => {
+      if(res.recipe.status){
+        SetTargetServing(res.recipe.recipe.serving);
+      }
+    }
   });
   const [step, SetStep] = React.useState("start");
   const [helviticaCondensed] = useFonts({
@@ -91,14 +98,18 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
             {
               start: (
                 <Start
+                  servings={data!.recipe.recipe.serving}
                   total={data!.recipe.recipe!.total || "unknown"}
                   name={data!.recipe.recipe!.name}
+                  onServingChange={(n) => SetTargetServing(n)}
                   finish={() => changeStep("ingredients")}
                 />
               ),
               ingredients: (
                 <IngredientStep
-                  ingredients={data!.recipe.recipe!.ingredients}
+                  originalServings={data!.recipe.recipe.serving}  
+                  servings={targetServing}
+                  ingredients={data!.recipe.recipe!.ingredients as  Ingredient[]}
                   finish={() => changeStep("instructions")}
                 />
               ),
