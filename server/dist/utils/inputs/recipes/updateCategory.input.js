@@ -29,6 +29,10 @@ __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", Boolean)
 ], UpdateCategoryInput.prototype, "active", void 0);
+__decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", Number)
+], UpdateCategoryInput.prototype, "index", void 0);
 UpdateCategoryInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], UpdateCategoryInput);

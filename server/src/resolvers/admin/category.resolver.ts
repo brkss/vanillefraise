@@ -57,6 +57,7 @@ export class AdminRecipeCategoryResolver {
     }
     category.name = data.name || category.name;
     category.icon = data.icon || category.icon;
+    category.index = data.index || category.index;
     category.active = data.active;
     await category.save();
 

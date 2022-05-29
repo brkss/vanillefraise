@@ -16,5 +16,8 @@ export class UpdateCategoryInput {
   @Field()
   active: boolean;
 
+  @Field({nullable: true})
+  index?: number;
+
 
 } 
