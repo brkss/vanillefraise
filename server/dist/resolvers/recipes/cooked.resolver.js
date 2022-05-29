@@ -69,10 +69,6 @@ let CookedRecipeResolver = class CookedRecipeResolver {
                     message: "Invalid Recipe !",
                 };
             }
-            const cookedRecipe = new UserInfo_1.CookedRecipe();
-            cookedRecipe.recipe = recipe;
-            cookedRecipe.user = user;
-            await cookedRecipe.save();
             const mealRecipe = await MealRecipes_1.MealRecipes.findOne({
                 where: { id: data.mealId },
             });
@@ -82,6 +78,16 @@ let CookedRecipeResolver = class CookedRecipeResolver {
                     message: "Invalid Meal !",
                 };
             }
+            if (mealRecipe.cooked) {
+                return {
+                    status: false,
+                    message: "Meal Already Cooked !",
+                };
+            }
+            const cookedRecipe = new UserInfo_1.CookedRecipe();
+            cookedRecipe.recipe = recipe;
+            cookedRecipe.user = user;
+            await cookedRecipe.save();
             mealRecipe.cooked = true;
             await mealRecipe.save();
             return {
