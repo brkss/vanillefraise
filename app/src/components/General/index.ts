@@ -10,3 +10,4 @@ export * from './Error'
 export * from './SearchInput'
 export * from './Mark';
 export * from './SmoothLoading'
+export * from './SaveRecipe';

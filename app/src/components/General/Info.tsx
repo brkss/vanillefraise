@@ -23,12 +23,12 @@ export const Info: React.FC<Props> = ({ clicked, txt }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    position: "absolute",
-    padding: 5,
-    paddingHorizontal: 10,
+    //position: "absolute",
+    //padding: 5,
+    //paddingHorizontal: 10,
     borderRadius: 100,
-    top: 14,
-    left: 10,
+    //top: 14,
+    //left: 10,
     opacity: 0.9,
   },
   row: {

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   ScrollView,
+  Text,
 } from "react-native";
 import {
   Close,
@@ -15,10 +16,15 @@ import {
   Loading,
   Info,
   RecipeNutrition,
+  SaveRecipe
 } from "../../components";
-import { useRecipeQuery, useRecipeEnergyQuery, Ingredient } from "../../generated/graphql";
+import {
+  useRecipeQuery,
+  useRecipeEnergyQuery,
+  Ingredient,
+} from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
-//import { SafeAreaView } from "react-native-safe-area-context";
+
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   const { id, mealId } = route.params;
@@ -51,18 +57,18 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
     >
       <View
         style={{
-          //flex: 0.01,
-          //position: "absolute",
+          padding: 5,
           top: 0,
           height: 60,
           backgroundColor: "white",
-          //marginTop: -60,
-          //marginTop: Platform.OS === "ios" ? "-7%" : 0,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
+        <SaveRecipe />
         <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
         <Close pressed={() => navigation.popToTop()} />
-        <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
       </View>
       <ScrollView
         bounces={false}
@@ -84,7 +90,10 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             total={data.recipe.recipe?.total || undefined}
           />
           <RecipeNutrition recipeId={id} />
-          <Ingredients servings={data.recipe.recipe.serving || 1} ingredients={data.recipe.recipe!.ingredients as Ingredient[]} />
+          <Ingredients
+            servings={data.recipe.recipe.serving || 1}
+            ingredients={data.recipe.recipe!.ingredients as Ingredient[]}
+          />
           <Instructions
             instructions={data.recipe.recipe!.instructions.sort(
               ({ index: a }, { index: b }) => a - b

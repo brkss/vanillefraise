@@ -5,10 +5,14 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 interface Props {
   pressed: () => void;
   isRegister?: boolean;
-  isMealOption?: boolean; 
+  isMealOption?: boolean;
 }
 
-export const Close: React.FC<Props> = ({ pressed, isRegister, isMealOption }) => {
+export const Close: React.FC<Props> = ({
+  pressed,
+  isRegister,
+  isMealOption,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -19,7 +23,7 @@ export const Close: React.FC<Props> = ({ pressed, isRegister, isMealOption }) =>
         {
           height: isRegister ? 35 : 45,
           width: isRegister ? 35 : 45,
-          top: isRegister ? 25 : 10,
+          top: isRegister ? 25 : 0,
           marginTop: isMealOption ? -12 : 0,
           backgroundColor: isRegister ? "black" : "#f0f0f0",
         },
@@ -36,9 +40,9 @@ export const Close: React.FC<Props> = ({ pressed, isRegister, isMealOption }) =>
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: 25,
-    right: 10,
+    //position: "absolute",
+    //top: 25,
+    //right: 10,
     height: 45,
     width: 45,
     justifyContent: "center",
