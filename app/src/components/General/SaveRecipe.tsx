@@ -4,12 +4,13 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
   saved?: boolean;
+  save: () => void;
 }
 
-export const SaveRecipe: React.FC<Props> = ({ saved }) => {
+export const SaveRecipe: React.FC<Props> = ({ saved, save }) => {
   return (
     <View style={styles.container}>
-      <Ionicons size={25} name={saved ? "bookmark" : "bookmark-outline"} />
+      <Ionicons onPress={() => save()} size={25} name={saved ? "bookmark" : "bookmark-outline"} />
     </View>
   );
 };

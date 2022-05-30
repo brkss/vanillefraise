@@ -16,7 +16,7 @@ import {
   Loading,
   Info,
   RecipeNutrition,
-  SaveRecipe
+  SaveRecipe,
 } from "../../components";
 import {
   useRecipeQuery,
@@ -24,7 +24,7 @@ import {
   Ingredient,
 } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
-
+import { saveRecipe, IRecipe } from "../../utils/modules/save";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   const { id, mealId } = route.params;
@@ -51,22 +51,24 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
     return <Loading />;
   }
 
+  const handleSavingRecipe = async () => {
+    const recipe = data.recipe.recipe;
+    const res : IRecipe = {
+      name: recipe.name,
+      id: recipe.id,
+      carbs: "00",
+      img: recipe.image,
+      time: recipe.total
+    }
+    await saveRecipe(res);
+  }
+
   return (
     <View
       style={[styles.container, { paddingTop: Platform.OS === "ios" ? 0 : 30 }]}
     >
-      <View
-        style={{
-          padding: 5,
-          top: 0,
-          height: 60,
-          backgroundColor: "white",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <SaveRecipe />
+      <View style={styles.topBar}>
+        <SaveRecipe save={async () => await handleSavingRecipe()} />
         <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
         <Close pressed={() => navigation.popToTop()} />
       </View>
@@ -140,5 +142,14 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 10,
+  },
+  topBar: {
+    padding: 5,
+    top: 0,
+    height: 60,
+    backgroundColor: "white",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
