@@ -7,7 +7,7 @@ import {
   MealRecipes,
   MealGrocery,
   SmoothLoading,
-  MealNutritionOverview,
+  //MealNutritionOverview,
 } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
 import {
@@ -18,7 +18,6 @@ import {
   UserCaloriesDocument,
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 
 interface MarkedDate {
   count: number;
@@ -183,7 +182,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
           <Loading />
         ) : (
           <ScrollView showsVerticalScrollIndicator={false}>
-            <MealNutritionOverview meal={mealID} date={date} />
+            {/*<MealNutritionOverview meal={mealID} date={date} />*/}
             <MealRecipes
               mealids={data.getMealRecipes.mealrecipes || []}
               navigation={navigation}
