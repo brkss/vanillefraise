@@ -71,8 +71,8 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       <SafeAreaView>
         <View style={styles.headingContainer}>
           <View style={styles.headingSperator}>
-            <Heading title={"Recipes"} />
             <SavedRecipesButton onClick={() => {}} />
+            <Heading title={"Recipes"} />
           </View>
           <SearchInput change={(v) => setSearchQuery(v)} />
         </View>
@@ -133,6 +133,6 @@ const styles = StyleSheet.create({
   },
   headingSperator: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: 'space-between'
   },
 });

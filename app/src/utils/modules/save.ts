@@ -16,9 +16,14 @@ export const isRecipeSaved = async (id: string): Promise<boolean> => {
 };
 
 export const saveRecipe = async (recipe: IRecipe) => {
-  if (!recipe || await isRecipeSaved(recipe.id)) return; //trigger error;
-  const recipes = JSON.parse((await AsyncStorage.getItem("RECIPES")) || "[]");
-  recipes.push(recipe);
+  if (!recipe) return; //trigger error;
+  const recipes: IRecipe[] = JSON.parse(
+    (await AsyncStorage.getItem("RECIPES")) || "[]"
+  );
+  if (await isRecipeSaved(recipe.id)) {
+    const index = recipes.findIndex((x) => x.id === recipe.id);
+    if (index > -1) recipes.splice(index, 1);
+  } else recipes.push(recipe);
   await AsyncStorage.setItem("RECIPES", JSON.stringify(recipes));
 };
 

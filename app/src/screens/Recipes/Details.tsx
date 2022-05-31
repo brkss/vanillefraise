@@ -24,9 +24,10 @@ import {
   Ingredient,
 } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
-import { saveRecipe, IRecipe } from "../../utils/modules/save";
+import { saveRecipe, IRecipe, isRecipeSaved } from "../../utils/modules/save";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
+  const [saved, SetSaved] = React.useState(false);
   const { id, mealId } = route.params;
   const _energy = useRecipeEnergyQuery({
     variables: {
@@ -37,6 +38,12 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
     fetchPolicy: "cache-first",
     variables: {
       id: id,
+    },
+    onCompleted: async (res) => {
+      if (res.recipe.status) {
+        const isit = await isRecipeSaved(res.recipe.recipe.id);
+        SetSaved(isit);
+      }
     },
   });
 
@@ -53,22 +60,26 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
 
   const handleSavingRecipe = async () => {
     const recipe = data.recipe.recipe;
-    const res : IRecipe = {
+    const res: IRecipe = {
       name: recipe.name,
       id: recipe.id,
       carbs: "00",
       img: recipe.image,
-      time: recipe.total
-    }
+      time: recipe.total,
+    };
     await saveRecipe(res);
-  }
+    SetSaved(curr => !curr);
+  };
 
   return (
     <View
       style={[styles.container, { paddingTop: Platform.OS === "ios" ? 0 : 30 }]}
     >
       <View style={styles.topBar}>
-        <SaveRecipe save={async () => await handleSavingRecipe()} />
+        <SaveRecipe
+          saved={saved}
+          save={async () => await handleSavingRecipe()}
+        />
         <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
         <Close pressed={() => navigation.popToTop()} />
       </View>
