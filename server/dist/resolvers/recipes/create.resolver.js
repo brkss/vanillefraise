@@ -143,7 +143,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                     ? ""
                     : Math.floor(parseFloat(i.amount)) == 0
                         ? (0, helpers_1.fractionConverter)(parseFloat(i.amount)) + " "
-                        : i.amount + " "}${i.unit && !i.unit.includes(".") ? i.unit + " " : ""}${i.ingredients}`;
+                        : i.amount + " "}${i.unit ? i.unit + " " : ""}${i.ingredients}`;
             }),
         });
         if (!data)

@@ -156,9 +156,7 @@ export class CreateRecipeResolver {
             : Math.floor(parseFloat(i.amount!)) == 0
             ? fractionConverter(parseFloat(i.amount!)) + " "
             : i.amount + " "
-        }${i.unit && !i.unit.includes(".") ? i.unit + " " : ""}${
-          i.ingredients
-        }`;
+        }${i.unit ? i.unit + " " : ""}${i.ingredients}`;
       }),
     });
 
