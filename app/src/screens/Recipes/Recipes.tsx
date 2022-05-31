@@ -72,7 +72,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
         <View style={styles.headingContainer}>
           <View style={styles.headingSperator}>
             <Heading title={"Recipes"} />
-            <SavedRecipesButton onClick={() => {}} />
+            <SavedRecipesButton onClick={() => navigation.push('SavedRecipes')} />
           </View>
           <SearchInput change={(v) => setSearchQuery(v)} />
         </View>
