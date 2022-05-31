@@ -12,3 +12,4 @@ export * from './Mark';
 export * from './SmoothLoading'
 export * from './SaveRecipe';
 export * from './SavedRecipeButton';
+export * from './NothingFound';

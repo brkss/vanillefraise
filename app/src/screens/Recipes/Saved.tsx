@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Heading, RecipeThumbnail } from "../../components";
+import { Heading, RecipeThumbnail, NothingFound } from "../../components";
 import { getSavedRecipes, IRecipe } from "../../utils/modules/save";
 import { CDN } from "../../utils/config/defaults";
 
@@ -19,7 +19,8 @@ export const SavedRecipes: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Heading title={"Saved Recipes"} />
-        <View style={styles.recipes}>
+        <ScrollView style={styles.recipes}>
+          {recipes.length == 0 ? <NothingFound /> : null}
           {recipes.map((r, key) => (
             <RecipeThumbnail
               key={key}
@@ -29,7 +30,7 @@ export const SavedRecipes: React.FC<any> = ({ navigation }) => {
               pressed={() => navigation.push("RecipeDetails", { id: r.id })}
             />
           ))}
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
@@ -42,6 +43,6 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   recipes: {
-    //
+    paddingTop: 20,
   },
 });
