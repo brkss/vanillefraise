@@ -66,7 +66,7 @@ export class SecurityResolver {
       console.log("Something went wrong ! => ", e);
       return {
         status: false,
-        message: "Something went wrong !",
+        message: `Something went wrong ! ${e}`,
       };
     }
   }

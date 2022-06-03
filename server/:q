@@ -1,0 +1,11 @@
+import { Resolver, Mutation } from 'type-graphql';
+import { AuthDefaultResponse } from '../../utils/responses'
+
+@Resolver()
+export class ResetPasswordResolver {
+
+  @Mutation(() => AuthDefaultResponse)
+  async reuqestPasswordReset() : Promise<AuthDefaultResponse> {
+    
+  }
+}
