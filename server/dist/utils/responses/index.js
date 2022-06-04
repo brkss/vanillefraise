@@ -18,4 +18,5 @@ __exportStar(require("./recipes"), exports);
 __exportStar(require("./default.response"), exports);
 __exportStar(require("./meals"), exports);
 __exportStar(require("./admin"), exports);
+__exportStar(require("./auth"), exports);
 //# sourceMappingURL=index.js.map

@@ -4,3 +4,4 @@ export * from './recipes';
 export * from './default.response';
 export * from './meals';
 export * from './admin';
+export * from './auth'
