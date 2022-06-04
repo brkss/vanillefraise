@@ -1,8 +1,11 @@
 import React from "react";
 import { Box, Center, Input, Button, Text } from "@chakra-ui/react";
-import { TopBar, Error } from "../components";
+import { TopBar, Error, Loading } from "../components";
 import { useParams } from "react-router-dom";
-import { useResetPasswordMutation } from "../generated/graphql";
+import {
+  useResetPasswordMutation,
+  useVerifyResetTokenQuery,
+} from "../generated/graphql";
 
 export const ResetPassword: React.FC = () => {
   const { token } = useParams() as any;
@@ -11,6 +14,7 @@ export const ResetPassword: React.FC = () => {
   const [form, setForm] = React.useState<any>({});
   const [error, setError] = React.useState("");
   const [reset] = useResetPasswordMutation();
+  const _verify = useVerifyResetTokenQuery({ variables: { token: token } });
 
   const handleForm = (e: React.FormEvent<HTMLInputElement>) => {
     setForm({
@@ -49,16 +53,17 @@ export const ResetPassword: React.FC = () => {
       });
   };
 
+  if (loading || error) return <Loading />;
+
   return (
     <>
       <TopBar />
       <Center h={"100vh"}>
         <Box p={"30px"} minW={"400px"}>
-          {
-            error ? <Error err={error} /> : null
-          }
+          {error ? <Error err={error} /> : null}
           <Text fontWeight={"bold"} mb={"6px"}>
-            CHANGE PASSWORD
+            Hello {_verify.data?.verifyResetToken.user?.name} you can change
+            your password here :
           </Text>
           <Input
             _focus={{ outline: "none" }}

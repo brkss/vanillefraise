@@ -1,4 +1,4 @@
-mutation VerifyResetToken($token: String!){
+query VerifyResetToken($token: String!){
   verifyResetToken(token: $token){
     status
     message
