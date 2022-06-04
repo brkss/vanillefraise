@@ -1,0 +1,7 @@
+mutation RequestResetPassword($email: String!) {
+  requestResetPassword(email: $email) {
+    status
+    message
+    token
+  }
+}

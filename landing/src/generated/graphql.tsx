@@ -824,12 +824,54 @@ export type UserInfoValidtyInput = {
   username: Scalars['String'];
 };
 
+export type RequestResetPasswordMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type RequestResetPasswordMutation = { __typename?: 'Mutation', requestResetPassword: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null, token?: string | null } };
+
 export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PingQuery = { __typename?: 'Query', ping: string };
 
 
+export const RequestResetPasswordDocument = gql`
+    mutation RequestResetPassword($email: String!) {
+  requestResetPassword(email: $email) {
+    status
+    message
+    token
+  }
+}
+    `;
+export type RequestResetPasswordMutationFn = Apollo.MutationFunction<RequestResetPasswordMutation, RequestResetPasswordMutationVariables>;
+
+/**
+ * __useRequestResetPasswordMutation__
+ *
+ * To run a mutation, you first call `useRequestResetPasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRequestResetPasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [requestResetPasswordMutation, { data, loading, error }] = useRequestResetPasswordMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useRequestResetPasswordMutation(baseOptions?: Apollo.MutationHookOptions<RequestResetPasswordMutation, RequestResetPasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RequestResetPasswordMutation, RequestResetPasswordMutationVariables>(RequestResetPasswordDocument, options);
+      }
+export type RequestResetPasswordMutationHookResult = ReturnType<typeof useRequestResetPasswordMutation>;
+export type RequestResetPasswordMutationResult = Apollo.MutationResult<RequestResetPasswordMutation>;
+export type RequestResetPasswordMutationOptions = Apollo.BaseMutationOptions<RequestResetPasswordMutation, RequestResetPasswordMutationVariables>;
 export const PingDocument = gql`
     query Ping {
   ping
