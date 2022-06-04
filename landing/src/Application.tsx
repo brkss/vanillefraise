@@ -9,7 +9,7 @@ import {
   RouteComponentProps,
 } from "react-router-dom";
 
-export const Application: React.FC<any> = (props) => {
+export const Application: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>

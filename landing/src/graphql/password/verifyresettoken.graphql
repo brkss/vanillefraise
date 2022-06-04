@@ -1,0 +1,10 @@
+mutation VerifyResetToken($token: String!){
+  verifyResetToken(token: $token){
+    status
+    message
+    user{
+      name
+      username
+    }
+  }
+}
