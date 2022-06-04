@@ -9,23 +9,22 @@ import {
   RouteComponentProps,
 } from "react-router-dom";
 
-export const Application: React.FC = () => {
+export const Application: React.FC<any> = (props) => {
   return (
     <BrowserRouter>
       <Switch>
         {routes.map((route, key) => (
           <Route
+            key={key}
             path={route.path}
-            exact={true}
-            //render={(props: RouteComponentProps) => <Home {...props} />}
-          >
-            <Home />
-          </Route>
+            exact
+            render={() => <route.component name={route.name} />}
+          />
         ))}
-        {/*<Route path={"/"} render={() => <Home />} />*/}
+        <Route />
       </Switch>
     </BrowserRouter>
   );
-
+  //return <Home />;
   //return <Home />;
 };
