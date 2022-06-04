@@ -1,5 +1,12 @@
 import React from "react";
-import { ActivityIndicator, Pressable, Text, StyleSheet } from "react-native";
+import {
+  Alert,
+  Linking,
+  ActivityIndicator,
+  Pressable,
+  Text,
+  StyleSheet,
+} from "react-native";
 import { Center, Heading, Container } from "native-base";
 import { useLoginMutation } from "../../generated/graphql";
 import { getAccessToken, setAccessToken } from "../../utils";
@@ -7,7 +14,7 @@ import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useFonts } from "expo-font";
 import { Button, Input, Error } from "../../components";
-import { _log } from '../../utils/debug';
+import { _log } from "../../utils/debug";
 
 export const Login: React.FC<any> = ({ navigation }) => {
   const [helviticaCondensed] = useFonts({
@@ -65,6 +72,10 @@ export const Login: React.FC<any> = ({ navigation }) => {
       }
     });
   };
+  const handleForgotPassword = React.useCallback((url: string) => {
+    if (!Linking.canOpenURL(url)) Alert.alert("Cant open URl !");
+    else Linking.openURL(url);
+  }, []);
 
   if (!helviticaCondensed) {
     return <ActivityIndicator />;
@@ -100,6 +111,16 @@ export const Login: React.FC<any> = ({ navigation }) => {
           onPress={() => navigation.push("register")}
         >
           <Text style={{ color: "white" }}>You don't have an account ?</Text>
+        </Pressable>
+        <Pressable
+          style={{ marginTop: 20 }}
+          onPress={() =>
+            handleForgotPassword(
+              "https://vanillefraise.me/request-reset-password"
+            )
+          }
+        >
+          <Text style={{ color: "white" }}>Forgot your password ?</Text>
         </Pressable>
       </Container>
     </Center>

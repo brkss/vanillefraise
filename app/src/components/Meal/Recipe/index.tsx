@@ -3,13 +3,12 @@ import { View, Text, StyleSheet } from "react-native";
 import { RecipeThumbnail } from "../../RecipeThumbnail";
 import { CDN } from "../../../utils/config/defaults";
 import { NoMealFound } from "./Nothing";
-/*
 import {
   useRemoveRecipeMutation,
   GetMealRecipesQuery,
   GetMealRecipesDocument,
 } from "../../../generated/graphql";
-*/
+
 interface Props {
   recipes: any[];
   navigation: any;
@@ -21,7 +20,7 @@ export const MealRecipes: React.FC<Props> = ({
   mealids,
   navigation,
 }) => {
-  //const [removeRecipe] = useRemoveRecipeMutation();
+  const [removeRecipe] = useRemoveRecipeMutation();
   console.log("Meals ids ?? : ", mealids);
 
   const getRecipeMealId = (recipeID: string): string | null => {
@@ -31,6 +30,23 @@ export const MealRecipes: React.FC<Props> = ({
       }
     }
     return null;
+  };
+
+  const handleRemoveRecipe = (mealId: string, recipeId: string) => {
+    if (!recipeId || !mealId) return; // trigger error ;
+    console.log(`recipe id : ${recipeId} meal id : ${mealId}`);
+    removeRecipe({
+      variables: {
+        mealid: mealId,
+        recipeid: recipeId,
+      },
+    })
+      .then((res) => {
+        console.log("remove recipe results : ", res);
+      })
+      .catch((e) => {
+        console.log("something went wrong : ", e);
+      });
   };
 
   return (
@@ -43,14 +59,19 @@ export const MealRecipes: React.FC<Props> = ({
               pressed={() =>
                 navigation.push("RecipeDetails", {
                   id: recipe.id,
-                  mealId: mealids.length > 0 && getRecipeMealId(recipe.id) || "",
+                  mealId:
+                    (mealids.length > 0 && getRecipeMealId(recipe.id)) || "",
                 })
               }
+              showDel={true}
               title={recipe.name}
               img={`${CDN}/${recipe.image}`}
               time={recipe.total}
               carbs={recipe.carbs}
               key={key}
+              removeRecipe={() =>
+                handleRemoveRecipe(getRecipeMealId(recipe.id), recipe.id)
+              }
             />
           ))
         ) : (

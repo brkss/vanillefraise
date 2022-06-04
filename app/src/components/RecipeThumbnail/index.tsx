@@ -55,6 +55,7 @@ export const RecipeThumbnail: React.FC<Props> = ({
     </TouchableOpacity>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     height: 175,

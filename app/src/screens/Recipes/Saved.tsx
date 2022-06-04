@@ -19,8 +19,8 @@ export const SavedRecipes: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Heading title={"Saved Recipes"} />
+        {recipes.length == 0 ? <NothingFound /> : null}
         <ScrollView style={styles.recipes}>
-          {recipes.length == 0 ? <NothingFound /> : null}
           {recipes.map((r, key) => (
             <RecipeThumbnail
               key={key}
