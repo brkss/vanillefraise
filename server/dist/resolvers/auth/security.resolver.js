@@ -29,18 +29,18 @@ let SecurityResolver = class SecurityResolver {
         if (!token) {
             return {
                 status: false,
-                message: "TOKEN not found"
+                message: "TOKEN not found",
             };
         }
         const vrf = await (0, token_1.verifyPasswordToken)(token);
         if (!vrf.status)
             return {
                 status: false,
-                message: "Invalid Token"
+                message: "Invalid Token",
             };
         return {
             status: true,
-            user: vrf.user
+            user: vrf.user,
         };
     }
     async requestResetPassword(email) {
@@ -126,7 +126,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SecurityResolver.prototype, "work", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => responses_1.VerifyResetPasswordTokenResponse),
+    (0, type_graphql_1.Query)(() => responses_1.VerifyResetPasswordTokenResponse),
     __param(0, (0, type_graphql_1.Arg)("token")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

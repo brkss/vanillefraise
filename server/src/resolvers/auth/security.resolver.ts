@@ -1,5 +1,8 @@
 import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
-import { AuthDefaultResponse, VerifyResetPasswordTokenResponse } from "../../utils/responses";
+import {
+  AuthDefaultResponse,
+  VerifyResetPasswordTokenResponse,
+} from "../../utils/responses";
 import { User } from "../../entity/User";
 import {
   createResetPasswordToken,
@@ -22,23 +25,26 @@ export class SecurityResolver {
     return "yes !";
   }
 
-  @Mutation(() => VerifyResetPasswordTokenResponse)
-  async verifyResetToken(@Arg("token") token: string) : Promise<VerifyResetPasswordTokenResponse> {
+  @Query(() => VerifyResetPasswordTokenResponse)
+  async verifyResetToken(
+    @Arg("token") token: string
+  ): Promise<VerifyResetPasswordTokenResponse> {
     if (!token) {
       return {
         status: false,
-        message: "TOKEN not found"
+        message: "TOKEN not found",
       };
     }
     const vrf = await verifyPasswordToken(token);
-    if (!vrf.status) return {
-      status: false,
-      message: "Invalid Token"
-    };
-    
+    if (!vrf.status)
+      return {
+        status: false,
+        message: "Invalid Token",
+      };
+
     return {
       status: true,
-      user: vrf.user
+      user: vrf.user,
     };
   }
 
