@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Application } from "./Application";
 import { ChakraProvider } from "@chakra-ui/react";
-//import { ApolloClient } from "@apollo/client";
-import { ApolloClient } from "apollo-client";
+import { ApolloClient, InMemoryCache, ApolloLink} from "@apollo/client";
+//import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-boost";
 //import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { InMemoryCache } from "apollo-cache-inmemory";
+//import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { onError } from "apollo-link-error";
-import { ApolloLink } from "apollo-link";
+//import { ApolloLink } from "apollo-link";
 
 const client: any = new ApolloClient({
   link: ApolloLink.from([
