@@ -53,45 +53,51 @@ export const ResetPassword: React.FC = () => {
       });
   };
 
-  if (loading || error) return <Loading />;
+  if (_verify.loading || _verify.error) return <Loading />;
 
   return (
     <>
       <TopBar />
       <Center h={"100vh"}>
         <Box p={"30px"} minW={"400px"}>
-          {error ? <Error err={error} /> : null}
-          <Text fontWeight={"bold"} mb={"6px"}>
-            Hello {_verify.data?.verifyResetToken.user?.name} you can change
-            your password here :
-          </Text>
-          <Input
-            _focus={{ outline: "none" }}
-            fontWeight={"bold"}
-            id={"pass"}
-            onChange={(e) => handleForm(e)}
-            size={"lg"}
-            type={"password"}
-            variant={"filled"}
-            placeholder={"new password"}
-            mb={"10px"}
-            //disabled={loading}
-          />
-          <Input
-            _focus={{ outline: "none" }}
-            fontWeight={"bold"}
-            id={"rePass"}
-            onChange={(e) => handleForm(e)}
-            size={"lg"}
-            type={"password"}
-            variant={"filled"}
-            placeholder={"repeat new password"}
-            mb={"10px"}
-            //disabled={loading}
-          />
-          <Button onClick={() => handlePasswordReset()} fontWeight={"bold"}>
-            Set Password
-          </Button>
+          {!_verify.data?.verifyResetToken.status ? (
+            <Error err={_verify.data?.verifyResetToken.message!} />
+            ) : done ? <Error err={'Password Changed Successfuly !'} success /> : (
+            <>
+              {error ? <Error err={error} /> : null}
+              <Text fontWeight={"bold"} mb={"6px"}>
+                Hello {_verify.data?.verifyResetToken.user?.name} you can change
+                your password here :
+              </Text>
+              <Input
+                _focus={{ outline: "none" }}
+                fontWeight={"bold"}
+                id={"pass"}
+                onChange={(e) => handleForm(e)}
+                size={"lg"}
+                type={"password"}
+                variant={"filled"}
+                placeholder={"new password"}
+                mb={"10px"}
+                //disabled={loading}
+              />
+              <Input
+                _focus={{ outline: "none" }}
+                fontWeight={"bold"}
+                id={"rePass"}
+                onChange={(e) => handleForm(e)}
+                size={"lg"}
+                type={"password"}
+                variant={"filled"}
+                placeholder={"repeat new password"}
+                mb={"10px"}
+                //disabled={loading}
+              />
+              <Button onClick={() => handlePasswordReset()} fontWeight={"bold"}>
+                Set Password
+              </Button>
+            </>
+          )}
         </Box>
       </Center>
     </>
