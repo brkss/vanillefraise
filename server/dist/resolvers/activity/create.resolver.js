@@ -19,6 +19,7 @@ const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
 const activity_1 = require("../../utils/responses/activity");
 const activity_2 = require("../../utils/inputs/activity");
+const activity_3 = require("../../utils/helpers/activity");
 let CreateActivityResolver = class CreateActivityResolver {
     async createActivity(data, ctx) {
         if (!data.category || !data.duration || !data.feedback) {
@@ -47,13 +48,13 @@ let CreateActivityResolver = class CreateActivityResolver {
             await activity.save();
             const a = await Activity_1.Activity.findOne({
                 where: { id: activity.id },
-                relations: ['category']
+                relations: ["category"],
             });
             return {
                 status: true,
                 message: "Activity Created suuccessfuly ! ",
                 burnedCalories: activity.calories,
-                activity: a
+                activity: a,
             };
         }
         catch (e) {
@@ -66,6 +67,7 @@ let CreateActivityResolver = class CreateActivityResolver {
     }
     async getUserBurnedCalories(time, user, category) {
         console.log("time => ", time);
+        const scale = (0, activity_3.activityDurationScale)(time);
         const weight = user.weight;
         const caloriesHandBook = await Activity_1.ActivityCalories.find({
             where: { category: category },
@@ -77,7 +79,7 @@ let CreateActivityResolver = class CreateActivityResolver {
             if (d.zone <= weight)
                 min = d;
         }
-        return min.val;
+        return Math.floor(min.val * scale);
     }
 };
 __decorate([

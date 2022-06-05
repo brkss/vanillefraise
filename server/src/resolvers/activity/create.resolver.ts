@@ -10,6 +10,7 @@ import { IContext } from "../../utils/types/Context";
 import { CreateActivityResponse } from "../../utils/responses/activity";
 import { CreateActivityInput } from "../../utils/inputs/activity";
 //import { parseTime } from "../../utils/helpers";
+import { activityDurationScale } from "../../utils/helpers/activity";
 
 @Resolver()
 export class CreateActivityResolver {
@@ -48,14 +49,14 @@ export class CreateActivityResolver {
       );
       await activity.save();
       const a = await Activity.findOne({
-        where: {id: activity.id},
-        relations: ['category']
+        where: { id: activity.id },
+        relations: ["category"],
       });
       return {
         status: true,
         message: "Activity Created suuccessfuly ! ",
         burnedCalories: activity.calories,
-        activity: a
+        activity: a,
       };
     } catch (e) {
       console.log("Somnething went wrong while creating activity !");
@@ -78,6 +79,7 @@ export class CreateActivityResolver {
       return 0;
     }
     */
+    const scale = activityDurationScale(time);
     const weight = user.weight;
     const caloriesHandBook = await ActivityCalories.find({
       where: { category: category },
@@ -89,6 +91,6 @@ export class CreateActivityResolver {
       if (d.zone <= weight) min = d;
     }
 
-    return min.val;
+    return Math.floor(min.val * scale);
   }
 }
