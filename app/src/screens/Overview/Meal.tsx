@@ -187,6 +187,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
               mealids={data.getMealRecipes.mealrecipes || []}
               navigation={navigation}
               recipes={data.getMealRecipes.recipes}
+              removedRecipe={() => refetch()}
             />
             <MealGrocery ingredients={data.getMealRecipes.ingredients} />
           </ScrollView>

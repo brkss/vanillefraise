@@ -13,12 +13,14 @@ interface Props {
   recipes: any[];
   navigation: any;
   mealids: any[];
+  removedRecipe: () => void;
 }
 
 export const MealRecipes: React.FC<Props> = ({
   recipes,
   mealids,
   navigation,
+  removedRecipe,
 }) => {
   const [removeRecipe] = useRemoveRecipeMutation();
   console.log("Meals ids ?? : ", mealids);
@@ -42,7 +44,8 @@ export const MealRecipes: React.FC<Props> = ({
       },
     })
       .then((res) => {
-        console.log("remove recipe results : ", res);
+        if (res.data.removeRecipe.status === true) removedRecipe();
+        //console.log("remove recipe results : ", res);
       })
       .catch((e) => {
         console.log("something went wrong : ", e);
