@@ -5,37 +5,45 @@ const formatTime = (time: number) => {
   return time < 10 ? `0${time}` : `${time}`;
 };
 
-interface Props{
+interface Props {
   changeHours: (val: number) => void;
   changeMinutes: (val: number) => void;
 }
 
-export const ActivityTime: React.FC<Props> = ({changeMinutes, changeHours}) => {
+export const ActivityTime: React.FC<Props> = ({
+  changeMinutes,
+  changeHours,
+}) => {
   const [hours, setHours] = React.useState(1);
   const [minutes, setMinutes] = React.useState(0);
 
   const handleTime = (action: string, time_cat: string) => {
     if (action == "longp") {
       // decrement
-      if (time_cat == "hours")
-      {
-        changeHours(hours - 1 < 0 ? 0 : hours - 1 );
-        setHours((curr) => (curr - 1 < 0 ? 0 : curr - 1));
+      if (time_cat == "hours") {
+        if ((hours - 1 == 0 && minutes > 0) || hours - 1 > 0) {
+          changeHours(hours - 1 < 0 ? 0 : hours - 1);
+          setHours((curr) => (curr - 1 < 0 ? 0 : curr - 1));
+        }
+      } else {
+        if ((minutes - 15 == 0 && hours > 0) || minutes - 15 > 0) {
+          changeMinutes(minutes - 1 < 0 ? 0 : minutes - 1);
+          setMinutes((curr) => (curr - 15 < 0 ? 0 : curr - 15));
+        }
       }
-      else {
-        changeMinutes(minutes - 1 < 0 ? 0 : minutes - 1 );
-        setMinutes((curr) => (curr - 15 < 0 ? 0 : curr - 15));
-      }
-      } else if (action == "singlep") {
+    } else if (action == "singlep") {
       // increment
-      if (time_cat == "hours"){
-        changeHours(hours + 1 > 4 ? 0 : hours + 1 );
-        setHours((curr) => (curr + 1 > 4 ? 0 : curr + 1));
-      }  
-      else {
-        changeMinutes(minutes + 15 > 59 ? 0 : minutes + 15 );
-        setMinutes((curr) => (curr + 15 > 59 ? 0 : curr + 15));
-      }  
+      if (time_cat == "hours") {
+        if ((hours + 1 > 4 && minutes > 0) || hours + 1 <= 4) {
+          changeHours(hours + 1 > 4 ? 0 : hours + 1);
+          setHours((curr) => (curr + 1 > 4 ? 0 : curr + 1));
+        }
+      } else {
+        if ((minutes + 15 > 59 && hours > 0) || minutes + 15 < 59) {
+          changeMinutes(minutes + 15 > 59 ? 0 : minutes + 15);
+          setMinutes((curr) => (curr + 15 > 59 ? 0 : curr + 15));
+        }
+      }
     }
   };
 

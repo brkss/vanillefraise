@@ -109,7 +109,6 @@ export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        {/*<Text style={styles.heading}>How Was It ?</Text>*/}
         <View style={styles.info}>
           <Text style={styles.infoText}>How was {name} ?</Text>
           <Text style={styles.hint}>
