@@ -36,7 +36,7 @@ let SecurityResolver = class SecurityResolver {
         if (!vrf.status)
             return {
                 status: false,
-                message: "Invalid Token",
+                message: "invalid token",
             };
         return {
             status: true,

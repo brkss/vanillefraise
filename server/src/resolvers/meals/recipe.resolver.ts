@@ -14,6 +14,7 @@ export class MealRecipeResolver {
     @Arg("data") data: RemoveMealRecipeInput,
     @Ctx() ctx: IContext
   ): Promise<DefaultResponse> {
+    console.log("trying to delete recipe ! ");
     if (!data.mealid || !data.recipeid)
       return {
         status: false,
@@ -28,13 +29,12 @@ export class MealRecipeResolver {
     const mealRecipe = await MealRecipes.findOne({
       where: { id: data.mealid, user: user },
     });
-    if (!mealRecipe)
+    if (!mealRecipe || mealRecipe.cooked)
       return {
         status: false,
         message: "Invalid Recipe !",
       };
     await mealRecipe.remove();
-
     return {
       status: true,
       message: "Recipe Removed Successfuly !",

@@ -21,6 +21,7 @@ const Meals_1 = require("../../entity/Meals");
 const meals_1 = require("../../utils/inputs/meals");
 let MealRecipeResolver = class MealRecipeResolver {
     async removeRecipe(data, ctx) {
+        console.log("trying to delete recipe ! ");
         if (!data.mealid || !data.recipeid)
             return {
                 status: false,
@@ -35,7 +36,7 @@ let MealRecipeResolver = class MealRecipeResolver {
         const mealRecipe = await Meals_1.MealRecipes.findOne({
             where: { id: data.mealid, user: user },
         });
-        if (!mealRecipe)
+        if (!mealRecipe || mealRecipe.cooked)
             return {
                 status: false,
                 message: "Invalid Recipe !",

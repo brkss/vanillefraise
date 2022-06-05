@@ -39,7 +39,7 @@ export class SecurityResolver {
     if (!vrf.status)
       return {
         status: false,
-        message: "Invalid Token",
+        message: "invalid token",
       };
 
     return {
@@ -58,7 +58,6 @@ export class SecurityResolver {
         message: "Invalid Data !",
       };
     }
-
     try {
       const user = await User.findOne({ where: { email: email } });
       if (!user) {

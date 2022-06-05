@@ -78,7 +78,7 @@ let UserResolver = class UserResolver {
         if (!valid) {
             return {
                 status: false,
-                message: "Wrong password !",
+                message: "wrong password !",
             };
         }
         const refreshToken = (0, token_1.generateRefreshToken)(user);

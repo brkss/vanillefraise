@@ -98,7 +98,7 @@ export class UserResolver {
     if (!valid) {
       return {
         status: false,
-        message: "Wrong password !",
+        message: "wrong password !",
       };
     }
 
