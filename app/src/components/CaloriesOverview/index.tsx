@@ -46,10 +46,14 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
   return (
     <View style={styles.container}>
       <View style={styles.caloriesContainer}>
-        <Text style={styles.takenCalories}>{data.userCalories.value}</Text>
-        <Text style={styles.needCalories}> / {data.userCalories.target}</Text>
+        <Text style={styles.takenCalories}>{data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}</Text>
+        <Text style={styles.needCalories}>
+          {" "}
+          / {data.userCalories.target} <Text style={styles.unit}>calories</Text>
+        </Text>
       </View>
-      <Text style={styles.unit}>calories</Text>
+      {/*<Text style={styles.unit}>calories</Text>*/}
+      <Text style={styles.burned}>{data.userCalories.value} Cal Taken</Text>
       <Text style={styles.burned}>
         {_burnedCalories.data.getUserBurnedCalories} Cal Burned
       </Text>
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
   },
   burned: {
     fontFamily: "helvitica-condesed",
-    fontSize: 22,
+    fontSize: 18,
     marginTop: -3,
     //lineHeight: 26,
     color: "#434343",
