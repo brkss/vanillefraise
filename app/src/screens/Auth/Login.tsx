@@ -113,7 +113,7 @@ export const Login: React.FC<any> = ({ navigation }) => {
           <Text style={{ color: "white" }}>You don't have an account ?</Text>
         </Pressable>
         <Pressable
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 10 }}
           onPress={() =>
             handleForgotPassword(
               "https://vanillefraise.me/request-reset-password"
