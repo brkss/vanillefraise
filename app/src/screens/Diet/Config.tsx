@@ -1,8 +1,13 @@
 import React from "react";
 import { SafeAreaView, View, Text, StyleSheet, Button } from "react-native";
-import { StartDietConfiguration, ConfigureDietMacros, ConfigureDietFood } from "../../components";
-
-const steps = ["START", "MACROS", "FOOD"];
+import {
+  StartDietConfiguration,
+  ConfigureDietMacros,
+  ConfigureDietFood,
+  ConfigureMealSchedule,
+} from "../../components";
+            SCHEDULE: <ConfigureMealSchedule next={forward} />  
+const steps = ["START", "MACROS", "FOOD", "SCHEDULE"];
 
 export const DietConfiguration: React.FC = () => {
   const [step, setStep] = React.useState("START");
@@ -21,7 +26,8 @@ export const DietConfiguration: React.FC = () => {
           {
             START: <StartDietConfiguration next={forward} />,
             MACROS: <ConfigureDietMacros next={forward} />,
-            FOOD: <ConfigureDietFood next={forward} />
+            FOOD: <ConfigureDietFood next={forward} />,
+            SCHEDULE: <ConfigureMealSchedule next={forward} />,
           }[step]
         }
       </SafeAreaView>

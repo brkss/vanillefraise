@@ -1,6 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { FoodItem } from "./Item";
+import { NextButton } from "../NextButton";
+
+interface Props {
+  next: () => void;
+}
 
 const labels = [
   {
@@ -25,7 +30,7 @@ const labels = [
   },
 ];
 
-export const ConfigureDietFood: React.FC = () => {
+export const ConfigureDietFood: React.FC<Props> = ({ next }) => {
   const [selected, setSelected] = React.useState<string[]>([]);
   const handleSelect = (id: string) => {
     const index = selected.findIndex((x) => x === id);
@@ -47,7 +52,7 @@ export const ConfigureDietFood: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.title}>FOOD THAT FIT ?</Text>
       <Text style={styles.subtitle}>enjoy what you’re eating</Text>
-      <View style={styles.items}>
+      <ScrollView style={styles.items}>
         {labels.map((label, key) => (
           <FoodItem
             key={key}
@@ -56,10 +61,8 @@ export const ConfigureDietFood: React.FC = () => {
             txt={label.name}
           />
         ))}
-        <FoodItem pressed={() => {}} txt={"KIDNEY FRIENDLY"} />
-        <FoodItem pressed={() => {}} txt={"KIDNEY FRIENDLY"} />
-        <FoodItem selected pressed={() => {}} txt={"KIDNEY FRIENDLY"} />
-      </View>
+      </ScrollView>
+      <NextButton pressed={next} />
     </View>
   );
 };
@@ -67,6 +70,7 @@ export const ConfigureDietFood: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 15,
+    flex: 1,
   },
   title: {
     fontSize: 22,
@@ -80,6 +84,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   items: {
-    //
+    flex: 1,
   },
 });

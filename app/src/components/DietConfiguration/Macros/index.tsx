@@ -19,8 +19,8 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
         <BodyMeasurements />
         <MacrosValues />
         <Macronutrients />
-        <NextButton pressed={next} />
       </View>
+        <NextButton pressed={next} />
     </View>
   );
 };
