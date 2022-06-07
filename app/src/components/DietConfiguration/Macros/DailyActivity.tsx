@@ -25,15 +25,27 @@ const options = [
 ];
 
 export const DailyActivity: React.FC = () => {
+  const [active, setActive] = React.useState(0);
+
+  const select = (index: number) => {
+    setActive(index);
+  };
+
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>DAILY ACTIVITY</Text>
       <View style={styles.options}>
         {options.map((option, key) => (
-          <Pressable key={key} style={styles.option}>
+          <Pressable
+            key={key}
+            onPress={() => select(key)}
+            style={styles.option}
+          >
             <View style={styles.circle}>
               <Text style={styles.circleText}>{option.icon}</Text>
             </View>
             <Text style={styles.optionText}>{option.name}</Text>
+            {key === active && <View style={styles.active} />}
           </Pressable>
         ))}
       </View>
@@ -45,11 +57,16 @@ const styles = StyleSheet.create({
   container: {
     //
   },
-
   options: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 10,
+  },
+  title: {
     marginTop: 20,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#434343",
   },
   option: {
     alignItems: "center",
@@ -71,5 +88,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     marginTop: 5,
+  },
+  active: {
+    height: 10,
+    width: 10,
+    backgroundColor: "black",
+    borderRadius: 10,
+    marginTop: 5,
+    position: "absolute",
+    bottom: -15,
   },
 });
