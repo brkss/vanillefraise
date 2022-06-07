@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { DailyActivity } from "./DailyActivity";
+import { BodyMeasurements } from "./BodyMeasurements";
 
 interface Props {
   next: () => void;
@@ -12,6 +13,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
       <Text style={styles.title}> MACROS </Text>
       <View style={styles.contentContainer}>
         <DailyActivity />
+        <BodyMeasurements />
       </View>
     </View>
   );
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 10
+    marginTop: 10,
   },
   contentContainer: {
     //
