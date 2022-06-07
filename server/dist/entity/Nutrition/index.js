@@ -16,4 +16,5 @@ __exportStar(require("./HealthLabel"), exports);
 __exportStar(require("./TotalDaily"), exports);
 __exportStar(require("./TotalNutrition"), exports);
 __exportStar(require("./TotalNutritionKcal"), exports);
+__exportStar(require("./HealthLabelReference"), exports);
 //# sourceMappingURL=index.js.map

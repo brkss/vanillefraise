@@ -146,6 +146,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                         : i.amount + " "}${i.unit ? i.unit + " " : ""}${i.ingredients}`;
             }),
         });
+        console.log("nutrition : ", nutrition);
         if (!data)
             return;
         for (let dlabel of nutrition.data.dietLabels) {

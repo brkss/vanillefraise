@@ -4,3 +4,4 @@ export * from './HealthLabel';
 export * from './TotalDaily';
 export * from './TotalNutrition';
 export * from './TotalNutritionKcal';
+export * from './HealthLabelReference';

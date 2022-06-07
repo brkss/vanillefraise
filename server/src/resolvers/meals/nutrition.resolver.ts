@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, UseMiddleware, Ctx } from "type-graphql";
+import { Resolver, Query, Arg, UseMiddleware, Ctx, Mutation } from "type-graphql";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { MealRecipesInput } from "../../utils/inputs/meals/mealrecipes.input";
 import { MealRecipes, Meal } from "../../entity/Meals";

@@ -31,6 +31,7 @@ import {
   ActivityListResolver,
   MealRecipeResolver,
   MealNutritionResolver,
+  HealthLabelsResolver,
   // ***** admin resolvers ******
   AdminAuthResolver,
   AdminRecipeCategoryResolver,
@@ -76,6 +77,7 @@ export const build = async () => {
       AdminUserResolver,
       AdminRecipeResolver,
       MealNutritionResolver,
+      HealthLabelsResolver,
     ],
     validate: false,
     dateScalarMode: "isoDate",

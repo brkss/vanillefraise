@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./guide.resolver"), exports);
 __exportStar(require("./recipe.resolver"), exports);
 __exportStar(require("./overview.resolver"), exports);
+__exportStar(require("./healthlabels.resolver"), exports);
 //# sourceMappingURL=index.js.map

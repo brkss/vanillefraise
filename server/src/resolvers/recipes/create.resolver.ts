@@ -160,6 +160,8 @@ export class CreateRecipeResolver {
       }),
     });
 
+    console.log("nutrition : ", nutrition);
+
     if (!data) return;
 
     // recipe diet label
