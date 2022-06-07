@@ -10,7 +10,10 @@ interface Props {
 export const FoodItem: React.FC<Props> = ({ txt, pressed, selected }) => {
   return (
     <Pressable
-      style={[styles.container, { borderWidth: selected ? 2 : 0 }]}
+      style={[
+        styles.container,
+        { borderColor: selected ? "black" : "transparent" },
+      ]}
       onPress={pressed}
     >
       <View style={styles.circle} />
@@ -28,6 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignItems: "center",
     borderColor: "#434343",
+    borderWidth: 2,
   },
   txt: {
     fontSize: 16,
