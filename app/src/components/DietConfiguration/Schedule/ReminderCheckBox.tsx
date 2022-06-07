@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 
-export const ReminderCheckBox : React.FC = () => {
-
+export const ReminderCheckBox: React.FC = () => {
   return (
     <Pressable style={styles.container}>
       <View style={styles.row}>
@@ -11,20 +10,32 @@ export const ReminderCheckBox : React.FC = () => {
         <Text style={styles.status}>OFF</Text>
       </View>
     </Pressable>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  container:{
-    padding: 10,
-    backgroundColor: '#DCD9D9',
-    borderRadius: 7
+  container: {
+    padding: 20,
+    backgroundColor: "#DCD9D9",
+    borderRadius: 7,
   },
   row: {
-    flexDirection: 'row'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   circle: {
-    height: 10,
-    width: 10
-  }
-})
+    height: 20,
+    width: 20,
+    borderRadius: 30,
+    backgroundColor: "#434343",
+    marginRight: 10,
+  },
+  txt: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  status: {
+    fontSize: 15,
+    alignSelf: "flex-end",
+  },
+});

@@ -42,7 +42,7 @@ export const MealTime: React.FC<Props> = ({ name }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
+    //padding: 15,
   },
   name: {
     fontSize: 35,

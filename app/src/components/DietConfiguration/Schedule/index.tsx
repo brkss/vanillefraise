@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { NextButton } from "../NextButton";
 import { MealTime } from "./MealTime";
-
+import { ReminderCheckBox } from "./ReminderCheckBox";
 interface Props {
   next: () => void;
 }
@@ -19,6 +19,7 @@ export const ConfigureMealSchedule: React.FC<Props> = ({ next }) => {
         <MealTime name={"LUNCH"} />
         <MealTime name={"DINNER"} />
         <MealTime name={"SNACK"} />
+        <ReminderCheckBox />
       </View>
       <NextButton pressed={next} />
     </View>
