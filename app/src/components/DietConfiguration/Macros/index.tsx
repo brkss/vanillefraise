@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { DailyActivity } from "./DailyActivity";
 import { BodyMeasurements } from "./BodyMeasurements";
+import { MacrosValues } from './MacrosValues';
 
 interface Props {
   next: () => void;
@@ -14,6 +15,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
       <View style={styles.contentContainer}>
         <DailyActivity />
         <BodyMeasurements />
+        <MacrosValues />
       </View>
     </View>
   );
