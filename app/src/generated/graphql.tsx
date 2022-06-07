@@ -182,6 +182,14 @@ export type EarlyAccessRequest = {
   user: User;
 };
 
+export type HealthLabelRefrence = {
+  __typename?: 'HealthLabelRefrence';
+  description: Scalars['String'];
+  id: Scalars['String'];
+  label: Scalars['String'];
+  param: Scalars['String'];
+};
+
 export type Ingredient = {
   __typename?: 'Ingredient';
   amount?: Maybe<Scalars['String']>;
@@ -329,6 +337,7 @@ export type Mutation = {
   createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
   createRecord: CreateRecordResponse;
+  deleteCategory: DefaultResponse;
   deleterecipe: Scalars['Boolean'];
   login: AuthDefaultResponse;
   loginAdmin: AuthDefaultResponse;
@@ -341,6 +350,7 @@ export type Mutation = {
   resetPassword: AuthDefaultResponse;
   seedActivityCalories: Scalars['Boolean'];
   seedActivityCategories: Scalars['Boolean'];
+  seedHealthLabelRefrence: Scalars['Boolean'];
   seedMeals: Scalars['Boolean'];
   seedMoodCategories: Scalars['Boolean'];
   seedNutritionGuide: Scalars['Boolean'];
@@ -350,7 +360,6 @@ export type Mutation = {
   seedSpecialConditions: Scalars['Boolean'];
   updateCategory: UpdateCategoryResponse;
   updateInfo: DefaultResponse;
-  verifyResetToken: Scalars['Boolean'];
 };
 
 
@@ -419,6 +428,11 @@ export type MutationCreateRecordArgs = {
 };
 
 
+export type MutationDeleteCategoryArgs = {
+  cat_id: Scalars['String'];
+};
+
+
 export type MutationDeleterecipeArgs = {
   id: Scalars['String'];
 };
@@ -473,11 +487,6 @@ export type MutationUpdateInfoArgs = {
   data: UpdateUserInfoInput;
 };
 
-
-export type MutationVerifyResetTokenArgs = {
-  token: Scalars['String'];
-};
-
 export type NutritionOverviewData = {
   __typename?: 'NutritionOverviewData';
   code: Scalars['String'];
@@ -508,7 +517,9 @@ export type Query = {
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
+  healthLabels: Array<HealthLabelRefrence>;
   helloAdmin: Scalars['String'];
+  helloDietData: Scalars['String'];
   isRequested: Scalars['Boolean'];
   me?: Maybe<User>;
   mealNutrition: MealNutritionResponse;
@@ -528,6 +539,7 @@ export type Query = {
   specialconditions: Array<SpecialCondition>;
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
+  verifyResetToken: VerifyResetPasswordTokenResponse;
   work: Scalars['String'];
 };
 
@@ -596,6 +608,11 @@ export type QuerySearchRecipesArgs = {
   query: Scalars['String'];
 };
 
+
+export type QueryVerifyResetTokenArgs = {
+  token: Scalars['String'];
+};
+
 export type Recipe = {
   __typename?: 'Recipe';
   categories: Array<RecipeCategory>;
@@ -626,6 +643,7 @@ export type RecipeCategory = {
   active: Scalars['Boolean'];
   icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  index: Scalars['Float'];
   name: Scalars['String'];
   recipes: Array<Recipe>;
 };
@@ -756,6 +774,7 @@ export type UpdateCategoryInput = {
   active: Scalars['Boolean'];
   icon?: InputMaybe<Scalars['String']>;
   id: Scalars['String'];
+  index?: InputMaybe<Scalars['Float']>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -814,6 +833,13 @@ export type UserInfoValidityResponse = {
 export type UserInfoValidtyInput = {
   email: Scalars['String'];
   username: Scalars['String'];
+};
+
+export type VerifyResetPasswordTokenResponse = {
+  __typename?: 'VerifyResetPasswordTokenResponse';
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+  user?: Maybe<User>;
 };
 
 export type GetActivityCaloriesQueryVariables = Exact<{
@@ -876,6 +902,11 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
+
+export type HealthLabelsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HealthLabelsQuery = { __typename?: 'Query', healthLabels: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string, description: string }> };
 
 export type IsRequestedQueryVariables = Exact<{
   service: Scalars['String'];
@@ -1397,6 +1428,42 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const HealthLabelsDocument = gql`
+    query HealthLabels {
+  healthLabels {
+    id
+    label
+    description
+  }
+}
+    `;
+
+/**
+ * __useHealthLabelsQuery__
+ *
+ * To run a query within a React component, call `useHealthLabelsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHealthLabelsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHealthLabelsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useHealthLabelsQuery(baseOptions?: Apollo.QueryHookOptions<HealthLabelsQuery, HealthLabelsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<HealthLabelsQuery, HealthLabelsQueryVariables>(HealthLabelsDocument, options);
+      }
+export function useHealthLabelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HealthLabelsQuery, HealthLabelsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<HealthLabelsQuery, HealthLabelsQueryVariables>(HealthLabelsDocument, options);
+        }
+export type HealthLabelsQueryHookResult = ReturnType<typeof useHealthLabelsQuery>;
+export type HealthLabelsLazyQueryHookResult = ReturnType<typeof useHealthLabelsLazyQuery>;
+export type HealthLabelsQueryResult = Apollo.QueryResult<HealthLabelsQuery, HealthLabelsQueryVariables>;
 export const IsRequestedDocument = gql`
     query IsRequested($service: String!) {
   isRequested(service: $service)

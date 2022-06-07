@@ -5,9 +5,10 @@ import {
   ConfigureDietMacros,
   ConfigureDietFood,
   ConfigureMealSchedule,
+  DietAnalyse,
 } from "../../components";
-            SCHEDULE: <ConfigureMealSchedule next={forward} />  
-const steps = ["START", "MACROS", "FOOD", "SCHEDULE"];
+
+const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "ANALYSE"];
 
 export const DietConfiguration: React.FC = () => {
   const [step, setStep] = React.useState("START");
@@ -28,6 +29,7 @@ export const DietConfiguration: React.FC = () => {
             MACROS: <ConfigureDietMacros next={forward} />,
             FOOD: <ConfigureDietFood next={forward} />,
             SCHEDULE: <ConfigureMealSchedule next={forward} />,
+            ANALYSE: <DietAnalyse />,
           }[step]
         }
       </SafeAreaView>
