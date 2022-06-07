@@ -2,7 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { DailyActivity } from "./DailyActivity";
 import { BodyMeasurements } from "./BodyMeasurements";
-import { MacrosValues } from './MacrosValues';
+import { MacrosValues } from "./MacrosValues";
+import { Macronutrients } from "./Macronutrients";
+import { NextButton } from "../NextButton";
 
 interface Props {
   next: () => void;
@@ -16,6 +18,8 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
         <DailyActivity />
         <BodyMeasurements />
         <MacrosValues />
+        <Macronutrients />
+        <NextButton />
       </View>
     </View>
   );
@@ -24,6 +28,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
 const styles = StyleSheet.create({
   container: {
     //
+    flex: 1,
   },
   title: {
     fontSize: 20,
@@ -32,6 +37,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   contentContainer: {
-    //
+    flex: 1,
+    //backgroundColor: "red",
+    //alignItems: "stretch",
+    justifyContent: "space-between",
   },
 });
