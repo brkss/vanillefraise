@@ -1,8 +1,8 @@
 import React from "react";
 import { SafeAreaView, View, Text, StyleSheet, Button } from "react-native";
-import { StartDietConfiguration, ConfigureDietMacros } from "../../components";
+import { StartDietConfiguration, ConfigureDietMacros, ConfigureDietFood } from "../../components";
 
-const steps = ["START", "MACROS"];
+const steps = ["START", "MACROS", "FOOD"];
 
 export const DietConfiguration: React.FC = () => {
   const [step, setStep] = React.useState("START");
@@ -20,7 +20,8 @@ export const DietConfiguration: React.FC = () => {
         {
           {
             START: <StartDietConfiguration next={forward} />,
-            MACROS: <ConfigureDietMacros next={forward} />
+            MACROS: <ConfigureDietMacros next={forward} />,
+            FOOD: <ConfigureDietFood next={forward} />
           }[step]
         }
       </SafeAreaView>

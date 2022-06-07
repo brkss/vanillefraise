@@ -1,9 +1,13 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
-export const NextButton: React.FC = () => {
+interface Props {
+  pressed: () => void;
+}
+
+export const NextButton: React.FC<Props> = ({ pressed }) => {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={pressed}>
       <Text style={styles.txt}>NEXT</Text>
     </Pressable>
   );
