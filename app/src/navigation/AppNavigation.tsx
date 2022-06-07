@@ -9,7 +9,9 @@ import {
   RecipeDetails,
   MealsOptions,
   RecipesByNutritions,
+  DietConfiguration,
 } from "../screens";
+import { DietNavigation } from "./DietNavigation";
 
 export const AppNavigation: React.FC = () => {
   const { Group, Navigator, Screen } = createStackNavigator();
@@ -28,6 +30,8 @@ export const AppNavigation: React.FC = () => {
         <Screen name={"ConfigActivity"} component={ActivityConfig} />
         <Screen name={"Active"} component={Active} />
         <Screen name={"FinishExercise"} component={FinishExercise} />
+        {/* -- Diet Navigation -- */}
+        <Screen name={"DietConfiguration"} component={DietConfiguration} />
       </Group>
       <Group screenOptions={{ presentation: "modal", headerShown: false }}>
         <Screen name={"RecipeDetails"} component={RecipeDetails} />
