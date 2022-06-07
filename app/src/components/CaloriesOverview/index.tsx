@@ -5,6 +5,7 @@ import {
   useCookedRecipesCountQuery,
   useGetUserBurnedCaloriesQuery,
 } from "../../generated/graphql";
+import { EnterDietButton } from "../General/EnterDietButton";
 import { Loading } from "../General/Loading";
 import { useUserCaloriesQuery } from "../../generated/graphql";
 
@@ -15,9 +16,13 @@ const calcProgress = (target: number, value: number): number => {
 
 interface Props {
   refreshing: boolean;
+  dietPressed: () => void;
 }
 
-export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
+export const CaloriesOverview: React.FC<Props> = ({
+  refreshing,
+  dietPressed,
+}) => {
   const { data, loading, error, refetch } = useUserCaloriesQuery();
   const _burnedCalories = useGetUserBurnedCaloriesQuery();
 
@@ -45,12 +50,19 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.caloriesContainer}>
-        <Text style={styles.takenCalories}>{data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}</Text>
-        <Text style={styles.needCalories}>
-          {" "}
-          / {data.userCalories.target} <Text style={styles.unit}>calories</Text>
-        </Text>
+      <View style={styles.row}>
+        <View style={styles.caloriesContainer}>
+          <Text style={styles.takenCalories}>
+            {data.userCalories.value -
+              _burnedCalories.data.getUserBurnedCalories}
+          </Text>
+          <Text style={styles.needCalories}>
+            {" "}
+            / {data.userCalories.target}{" "}
+            <Text style={styles.unit}>calories</Text>
+          </Text>
+        </View>
+        <EnterDietButton pressed={() => dietPressed()} />
       </View>
       {/*<Text style={styles.unit}>calories</Text>*/}
       <Text style={styles.burned}>{data.userCalories.value} Cal Taken</Text>
@@ -107,5 +119,9 @@ const styles = StyleSheet.create({
     marginTop: -3,
     //lineHeight: 26,
     color: "#434343",
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
