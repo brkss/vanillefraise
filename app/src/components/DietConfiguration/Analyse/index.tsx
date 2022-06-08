@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { NextButton } from "../NextButton";
 import { CaloriesIntake } from "./CaloriesIntake";
 import { WeightTrack } from "./WeightTrack";
-
+import { TrackMacronutrients } from "./TrackMacronutrients";
+<View style={{ height: 100 }} />;
 interface Props {
   previous: () => void;
 }
@@ -12,10 +13,12 @@ export const DietAnalyse: React.FC<Props> = ({ previous }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Track, Analyze and Adjust</Text>
-      <View style={styles.content}>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <CaloriesIntake />
         <WeightTrack />
-      </View>
+        <TrackMacronutrients />
+        <View style={{ height: 100 }} />
+      </ScrollView>
       <NextButton
         next={() => {}}
         previous={previous}
