@@ -5,7 +5,7 @@ import { NextButton } from "../NextButton";
 import { useHealthLabelsQuery } from "../../../generated/graphql";
 import { Loading } from "../../../components";
 //import Modal from "react-native-modal";
-import { ItemInfoModal } from './ItemInfoModal';
+import { ItemInfoModal } from "./ItemInfoModal";
 
 interface Props {
   next: () => void;
@@ -14,6 +14,10 @@ interface Props {
 export const ConfigureDietFood: React.FC<Props> = ({ next }) => {
   const [visibleModal, setVisibleModal] = React.useState(false);
   const { data, error, loading } = useHealthLabelsQuery();
+  const [itemInfo, setItemInfo] = React.useState({
+    title: "",
+    desc: "",
+  });
   const [selected, setSelected] = React.useState<string[]>([]);
   const handleSelect = (id: string) => {
     const index = selected.findIndex((x) => x === id);
@@ -31,6 +35,14 @@ export const ConfigureDietFood: React.FC<Props> = ({ next }) => {
     return false;
   };
 
+  const showItemInfo = (title: string, desc: string) => {
+    setItemInfo({
+      title: title,
+      desc: desc,
+    });
+    setVisibleModal(true);
+  };
+
   if (loading || error) return <Loading />;
   return (
     <View style={styles.container}>
@@ -45,16 +57,21 @@ export const ConfigureDietFood: React.FC<Props> = ({ next }) => {
             key={key}
             pressed={() => {
               handleSelect(label.id);
-              setVisibleModal(true);
             }}
             selected={isSelected(label.id)}
             txt={label.label}
+            info={() => showItemInfo(label.label, label.description)}
           />
         ))}
       </ScrollView>
-      
+
       <NextButton pressed={next} />
-      <ItemInfoModal isVisible={visibleModal} />
+      <ItemInfoModal
+        closed={() => setVisibleModal(false)}
+        isVisible={visibleModal}
+        title={itemInfo.title}
+        description={itemInfo.desc}
+      />
     </View>
   );
 };

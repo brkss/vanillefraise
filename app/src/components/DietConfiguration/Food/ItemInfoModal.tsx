@@ -26,7 +26,8 @@ export const ItemInfoModal: React.FC<Props> = ({
     >
       <View>
         <View style={styles.container}>
-          <Text>I am the modal content!</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
         </View>
       </View>
     </Modal>
@@ -43,5 +44,15 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0, 0, 0, 0.1)",
     bottom: 0,
     minHeight: 300,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "black",
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 15,
+    textAlign: "center",
   },
 });
