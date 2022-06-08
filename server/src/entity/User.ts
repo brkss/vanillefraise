@@ -16,6 +16,7 @@ import { SpecialCondition, CookedRecipe } from "./UserInfo";
 import { Activity } from "./Activity";
 import { EarlyAccessRequest } from "./UserInfo/EarlyAccess";
 import { MealRecipes } from "./Meals/MealRecipes";
+import { DietFoodFilter } from './Diet/FoodFilter';
 
 @ObjectType()
 @Entity("users")
@@ -110,4 +111,9 @@ export class User extends BaseEntity {
   @Field(() => [Activity])
   @OneToMany(() => Activity, (activities) => activities.user)
   activities: Activity[];
+  
+  @Field(() => [DietFoodFilter])
+  @OneToMany(() => DietFoodFilter, filter => filter.user)
+  filters: DietFoodFilter[];
+
 }

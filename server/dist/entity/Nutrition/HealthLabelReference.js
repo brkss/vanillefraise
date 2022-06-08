@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HealthLabelRefrence = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
+const FoodFilter_1 = require("../Diet/FoodFilter");
 let HealthLabelRefrence = class HealthLabelRefrence extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -34,6 +35,11 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], HealthLabelRefrence.prototype, "description", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [FoodFilter_1.DietFoodFilter]),
+    (0, typeorm_1.OneToMany)(() => FoodFilter_1.DietFoodFilter, filters => filters.healthlabel),
+    __metadata("design:type", Array)
+], HealthLabelRefrence.prototype, "filters", void 0);
 HealthLabelRefrence = __decorate([
     (0, typeorm_1.Entity)(),
     (0, type_graphql_1.ObjectType)()

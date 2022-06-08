@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
+import { DietFoodFilter } from '../Diet/FoodFilter';
 
 @Entity()
 @ObjectType()
@@ -19,4 +20,9 @@ export class HealthLabelRefrence extends BaseEntity {
   @Field()
   @Column()
   description: string;
+
+  @Field(() => [DietFoodFilter])
+  @OneToMany(() => DietFoodFilter, filters => filters.healthlabel)
+  filters: DietFoodFilter[];
+
 }
