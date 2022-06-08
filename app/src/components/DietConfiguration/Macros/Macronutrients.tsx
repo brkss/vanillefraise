@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { PieChart } from "react-native-svg-charts";
 
-const COLORS = ["#EEB868", "#E5C3D1", "#8FD5A6"];
+const COLORS = ["#3C3B3B", "#878585", "#D8D8D8"];
 
 export const Macronutrients: React.FC = () => {
   const data = [
@@ -37,7 +37,7 @@ export const Macronutrients: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <View style={styles.item}>
+        <View style={[styles.item, { justifyContent: "center" }]}>
           {data.map((i, key) => (
             <View style={styles.keyContainer}>
               <View style={[styles.color, { backgroundColor: i.color }]} />
@@ -45,8 +45,13 @@ export const Macronutrients: React.FC = () => {
             </View>
           ))}
         </View>
-        <View style={styles.item}>
-          <PieChart data={pieData} style={{ height: 150 }} />
+        <View
+          style={[
+            styles.item,
+            { justifyContent: "center", alignItems: "center" },
+          ]}
+        >
+          <PieChart data={pieData} style={{ height: 120 }} />
         </View>
       </View>
     </View>

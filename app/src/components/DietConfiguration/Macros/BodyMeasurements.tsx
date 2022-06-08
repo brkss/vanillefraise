@@ -1,12 +1,28 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { InvisibleInput } from "../../General";
+import { InvisibleInput, Loading } from "../../General";
+import { useMeQuery } from "../../../generated/graphql";
 
 export const BodyMeasurements: React.FC = () => {
   const [data, setData] = React.useState({
     weight: 0,
     height: 0,
   });
+  const _me = useMeQuery({
+    onCompleted: (res) => {
+      if (res.me) {
+        const { weight, height } = res.me;
+        setData({
+          height: height,
+          weight: weight,
+        });
+      }
+    },
+  });
+
+  if (_me.loading || _me.error) {
+    return <Loading />;
+  }
 
   const handleData = (id: string, v: string) => {
     const parsed = parseInt(v);

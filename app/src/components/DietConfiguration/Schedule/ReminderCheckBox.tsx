@@ -2,12 +2,23 @@ import React from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 
 export const ReminderCheckBox: React.FC = () => {
+  const [check, setChecked] = React.useState(true);
+
+  const handleCheck = () => {
+    setChecked((curr) => !curr);
+  };
+
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={handleCheck}>
       <View style={styles.row}>
-        <View style={styles.circle} />
+        <View
+          style={[
+            styles.circle,
+            { backgroundColor: check ? "#434343" : "#888888" },
+          ]}
+        />
         <Text style={styles.txt}>Remind Me</Text>
-        <Text style={styles.status}>OFF</Text>
+        <Text style={styles.status}>{check ? "ON " : "OFF"}</Text>
       </View>
     </Pressable>
   );
