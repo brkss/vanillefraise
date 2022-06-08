@@ -9,3 +9,5 @@ export * from './nutrition';
 export * from './recomendation';
 export * from './meals';
 export * from './admin';
+export * from './diet';
+
