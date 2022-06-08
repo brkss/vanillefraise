@@ -18,7 +18,12 @@ export const FoodItem: React.FC<Props> = ({ txt, pressed, selected, info }) => {
       onPress={pressed}
     >
       <View style={{ flexDirection: "row" }}>
-        <View style={styles.circle} />
+        <View
+          style={[
+            styles.circle,
+            { backgroundColor: selected ? "#434343" : "#888888" },
+          ]}
+        />
         <Text style={styles.txt}>{txt}</Text>
       </View>
       <Pressable style={styles.info} onPress={info}>

@@ -49,7 +49,7 @@ export const ConfigureDietFood: React.FC<Props> = ({ next }) => {
       <Text style={styles.title}>FOOD THAT FIT ?</Text>
       <Text style={styles.subtitle}>enjoy what you’re eating</Text>
       <Text style={styles.hint}>
-        ℹ select what type of food you feel like you want
+        select what type of food you feel like you want
       </Text>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.items}>
         {data.healthLabels.map((label, key) => (
@@ -94,8 +94,10 @@ const styles = StyleSheet.create({
   },
   items: {
     flex: 1,
+    marginBottom: 10,
   },
   hint: {
+    textAlign: "center",
     marginTop: 20,
     marginBottom: 10,
     fontSize: 13,
