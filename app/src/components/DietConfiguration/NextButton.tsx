@@ -2,14 +2,38 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
 interface Props {
-  pressed: () => void;
+  next: () => void;
+  previous: () => void;
+  showNext: boolean;
+  showPrevious: boolean;
 }
 
-export const NextButton: React.FC<Props> = ({ pressed }) => {
+export const NextButton: React.FC<Props> = ({
+  next,
+  previous,
+  showNext,
+  showPrevious,
+}) => {
   return (
-    <Pressable style={styles.container} onPress={pressed}>
-      <Text style={styles.txt}>NEXT</Text>
-    </Pressable>
+    <View style={styles.row}>
+      <View style={[styles.item]}>
+        {showPrevious && (
+          <Pressable
+            style={[styles.container, { alignSelf: "flex-start", width: 140 }]}
+            onPress={previous}
+          >
+            <Text style={[styles.txt, { textAlign: "left" }]}>PREVIOUS</Text>
+          </Pressable>
+        )}
+      </View>
+      <View style={styles.item}>
+        {showNext && (
+          <Pressable style={styles.container} onPress={next}>
+            <Text style={styles.txt}>NEXT</Text>
+          </Pressable>
+        )}
+      </View>
+    </View>
   );
 };
 
@@ -27,5 +51,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     textAlign: "right",
+  },
+  row: {
+    flexDirection: "row",
+  },
+  item: {
+    width: "50%",
   },
 });

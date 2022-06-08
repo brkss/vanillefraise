@@ -12,10 +12,11 @@ import { getAge } from "../../../utils/modules/bmr";
 import { activity_factors } from "../../../utils/data/activityFactors";
 
 interface Props {
+  previous: () => void;
   next: () => void;
 }
 
-export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
+export const ConfigureDietMacros: React.FC<Props> = ({ next, previous }) => {
   const { data, loading, error } = useMeQuery({
     onCompleted: (res) => {
       if (res.me) {
@@ -50,10 +51,10 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
       <View style={styles.contentContainer}>
         <DailyActivity onSelect={(f) => handleFactor(f)} />
         <BodyMeasurements weight={data.me.weight} height={data.me.height} />
-        <MacrosValues ree={ree} tdee={tdee} />
+        <MacrosValues key={tdee} ree={ree} tdee={calculateTDEE(factor, ree)} />
         <Macronutrients />
       </View>
-      <NextButton pressed={next} />
+      <NextButton next={next} previous={previous} showNext showPrevious />
     </View>
   );
 };
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //backgroundColor: "red",
     //alignItems: "stretch",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     marginBottom: 15,
   },
 });

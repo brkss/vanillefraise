@@ -9,9 +9,10 @@ import { ItemInfoModal } from "./ItemInfoModal";
 
 interface Props {
   next: () => void;
+  previous: () => void;
 }
 
-export const ConfigureDietFood: React.FC<Props> = ({ next }) => {
+export const ConfigureDietFood: React.FC<Props> = ({ next, previous }) => {
   const [visibleModal, setVisibleModal] = React.useState(false);
   const { data, error, loading } = useHealthLabelsQuery();
   const [itemInfo, setItemInfo] = React.useState({
@@ -65,7 +66,7 @@ export const ConfigureDietFood: React.FC<Props> = ({ next }) => {
         ))}
       </ScrollView>
 
-      <NextButton pressed={next} />
+      <NextButton previous={previous} next={next} showNext showPrevious />
       <ItemInfoModal
         closed={() => setVisibleModal(false)}
         isVisible={visibleModal}

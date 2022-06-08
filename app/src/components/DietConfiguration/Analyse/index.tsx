@@ -1,10 +1,22 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { NextButton } from "../NextButton";
 
-export const DietAnalyse: React.FC = () => {
+interface Props {
+  previous: () => void;
+}
+
+export const DietAnalyse: React.FC<Props> = ({ previous }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Track, Analyze and Adjust</Text>
+      <View style={styles.content}></View>
+      <NextButton
+        next={() => {}}
+        previous={previous}
+        showNext={false}
+        showPrevious
+      />
     </View>
   );
 };
@@ -18,5 +30,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  content: {
+    flex: 1,
   },
 });

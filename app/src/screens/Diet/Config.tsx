@@ -20,16 +20,25 @@ export const DietConfiguration: React.FC = () => {
     }
   };
 
+  const backward = () => {
+    const index = steps.findIndex((x) => x === step);
+    if (index > -1 && index - 1 >= 0) {
+      setStep(steps[index - 1]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         {
           {
             START: <StartDietConfiguration next={forward} />,
-            MACROS: <ConfigureDietMacros next={forward} />,
-            FOOD: <ConfigureDietFood next={forward} />,
-            SCHEDULE: <ConfigureMealSchedule next={forward} />,
-            ANALYSE: <DietAnalyse />,
+            MACROS: <ConfigureDietMacros previous={backward} next={forward} />,
+            FOOD: <ConfigureDietFood previous={backward} next={forward} />,
+            SCHEDULE: (
+              <ConfigureMealSchedule previous={backward} next={forward} />
+            ),
+            ANALYSE: <DietAnalyse previous={backward} />,
           }[step]
         }
       </SafeAreaView>

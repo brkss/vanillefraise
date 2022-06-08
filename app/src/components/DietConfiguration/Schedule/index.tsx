@@ -5,9 +5,10 @@ import { MealTime } from "./MealTime";
 import { ReminderCheckBox } from "./ReminderCheckBox";
 interface Props {
   next: () => void;
+  previous: () => void;
 }
 
-export const ConfigureMealSchedule: React.FC<Props> = ({ next }) => {
+export const ConfigureMealSchedule: React.FC<Props> = ({ next, previous }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>EATING SCHEDULE</Text>
@@ -21,7 +22,7 @@ export const ConfigureMealSchedule: React.FC<Props> = ({ next }) => {
         <MealTime name={"SNACK"} />
         <ReminderCheckBox />
       </View>
-      <NextButton pressed={next} />
+      <NextButton previous={previous} next={next} showNext showPrevious />
     </View>
   );
 };

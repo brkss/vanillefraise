@@ -34,24 +34,27 @@ export const Macronutrients: React.FC = () => {
       key: `pie-${index}`,
     }));
 
+  console.log("pie data : ", pieData);
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={[styles.item, { justifyContent: "center" }]}>
           {data.map((i, key) => (
-            <View style={styles.keyContainer}>
+            <View key={key} style={styles.keyContainer}>
               <View style={[styles.color, { backgroundColor: i.color }]} />
-              <Text style={styles.key}>{i.name}</Text>
+              <Text style={styles.key}>
+                {i.name} ({i.value}%){" "}
+              </Text>
             </View>
           ))}
         </View>
         <View
           style={[
             styles.item,
-            { justifyContent: "center", alignItems: "center" },
+            //{ justifyContent: "center", alignItems: "center" },
           ]}
         >
-          <PieChart data={pieData} style={{ height: 120 }} />
+          <PieChart data={pieData} style={{ height: 130 }} />
         </View>
       </View>
     </View>

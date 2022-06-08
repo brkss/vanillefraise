@@ -7,6 +7,9 @@ interface Props {
 }
 
 export const MacrosValues: React.FC<Props> = ({ ree, tdee }) => {
+  //const [reeVal, setReeVal] = React.useState(ree);
+  //const [tdeeVal, setTdeeVal] = React.useState(tdee);
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -20,7 +23,7 @@ export const MacrosValues: React.FC<Props> = ({ ree, tdee }) => {
         </View>
         <View style={styles.item}>
           <Text style={styles.label}>TDEE</Text>
-          <Text style={styles.sublabel}>resting energy expenditure </Text>
+          <Text style={styles.sublabel}>total daily energy expenditure</Text>
           <View style={styles.valueContainer}>
             <Text style={styles.value}>{tdee}</Text>
             <Text style={styles.unit}>Cal</Text>
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   sublabel: {
-    fontSize: 13,
+    fontSize: 11,
     opacity: 0.8,
   },
   valueContainer: {
