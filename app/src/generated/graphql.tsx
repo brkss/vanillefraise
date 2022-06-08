@@ -1106,7 +1106,7 @@ export type CheckInfoValidtyMutation = { __typename?: 'Mutation', checkInfoValid
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, name: string, username: string, email: string, weight: number, height: number } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, name: string, username: string, email: string, weight: number, height: number, gender: string, birth: any } | null | undefined };
 
 export type ChangePasswordMutationVariables = Exact<{
   oldpass: Scalars['String'];
@@ -2608,6 +2608,8 @@ export const MeDocument = gql`
     email
     weight
     height
+    gender
+    birth
   }
 }
     `;

@@ -1,41 +1,25 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { activity_factors } from "../../../utils/data/activityFactors";
 
-const options = [
-  {
-    icon: "1",
-    name: "Sedentary\nActive",
-  },
-  {
-    icon: "2",
-    name: "Lightly\nActive",
-  },
-  {
-    icon: "3",
-    name: "Moderately\nActive",
-  },
-  {
-    icon: "4",
-    name: "Very\nActive",
-  },
-  {
-    icon: "5",
-    name: "Extra\nActive",
-  },
-];
+interface Props {
+  onSelect: (factor: number) => void;
+}
 
-export const DailyActivity: React.FC = () => {
+export const DailyActivity: React.FC<Props> = ({onSelect}) => {
   const [active, setActive] = React.useState(0);
+
 
   const select = (index: number) => {
     setActive(index);
+    onSelect(activity_factors[index].factor)
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>DAILY ACTIVITY</Text>
       <View style={styles.options}>
-        {options.map((option, key) => (
+        {activity_factors.map((option, key) => (
           <Pressable
             key={key}
             onPress={() => select(key)}
