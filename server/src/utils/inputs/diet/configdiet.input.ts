@@ -16,4 +16,8 @@ export class ConfigDietInput {
   @Field()
   protein: number;
 
+  @Field(() => [String])
+  filters: string[]
+
+
 }
