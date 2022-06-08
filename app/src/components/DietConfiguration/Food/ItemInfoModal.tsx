@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
-
+import Ionicons from "react-native-vector-icons/Ionicons";
+<Ionicons size={30} name={"ios-information-circle-sharp"} />;
 interface Props {
   isVisible: boolean;
   title?: string;
@@ -26,6 +27,11 @@ export const ItemInfoModal: React.FC<Props> = ({
     >
       <View>
         <View style={styles.container}>
+          <Ionicons
+            size={40}
+            style={{ marginBottom: 10 }}
+            name={"ios-information-circle-sharp"}
+          />
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
         </View>

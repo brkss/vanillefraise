@@ -45,7 +45,7 @@ export const BodyMeasurements: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    //marginTop: 40,
   },
   row: {
     flexDirection: "row",

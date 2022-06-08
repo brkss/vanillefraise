@@ -20,7 +20,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next }) => {
         <MacrosValues />
         <Macronutrients />
       </View>
-        <NextButton pressed={next} />
+      <NextButton pressed={next} />
     </View>
   );
 };
@@ -41,5 +41,6 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
     //alignItems: "stretch",
     justifyContent: "space-between",
+    marginBottom: 15,
   },
 });
