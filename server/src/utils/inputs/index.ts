@@ -4,3 +4,4 @@ export * from "./stripe";
 export * from './recipes';
 export * from './user';
 export * from './admin';
+export * from './diet';
