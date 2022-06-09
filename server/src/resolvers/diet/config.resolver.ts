@@ -37,6 +37,8 @@ export class DietConfigResolver {
       };
     }
     try {
+      const exist = await MacrosConfig.findOne({ where: { user: user } });
+      if (exist) await exist.remove();
       const mc = new MacrosConfig();
       mc.activityFactor = data.activity_factor;
       mc.carbs = data.carbs;
@@ -92,11 +94,14 @@ export class DietConfigResolver {
         status: false,
       };
     }
-    const filter = await DietFoodFilter.find({ where: { user: user } });
+    const filter = await DietFoodFilter.find({
+      where: { user: user },
+      relations: ["healthlabel"],
+    });
     return {
       status: true,
       config: user.config,
-      filters: filter.map((filter) => filter.id),
+      filters: filter.map((filter) => filter.healthlabel.id),
     };
   }
 }
