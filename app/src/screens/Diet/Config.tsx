@@ -59,7 +59,13 @@ export const DietConfiguration: React.FC = () => {
                 next={forward}
               />
             ),
-            FOOD: <ConfigureDietFood previous={backward} next={forward} />,
+            FOOD: (
+              <ConfigureDietFood
+                changed={(key, val) => changed(key, val)}
+                previous={backward}
+                next={forward}
+              />
+            ),
             SCHEDULE: (
               <ConfigureMealSchedule previous={backward} next={forward} />
             ),

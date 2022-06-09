@@ -10,9 +10,10 @@ import { ItemInfoModal } from "./ItemInfoModal";
 interface Props {
   next: () => void;
   previous: () => void;
+  changed: (key: string, val: any | any[]) => void;
 }
 
-export const ConfigureDietFood: React.FC<Props> = ({ next, previous }) => {
+export const ConfigureDietFood: React.FC<Props> = ({ next, previous, changed }) => {
   const [visibleModal, setVisibleModal] = React.useState(false);
   const { data, error, loading } = useHealthLabelsQuery();
   const [itemInfo, setItemInfo] = React.useState({
@@ -22,12 +23,16 @@ export const ConfigureDietFood: React.FC<Props> = ({ next, previous }) => {
   const [selected, setSelected] = React.useState<string[]>([]);
   const handleSelect = (id: string) => {
     const index = selected.findIndex((x) => x === id);
+    let res = selected;
     if (index === -1) {
+      res = [...selected, id];
       setSelected([...selected, id]);
     } else {
+      res = selected.splice(index, 1);
       selected.splice(index, 1);
       setSelected([...selected]);
     }
+    changed('filters', res);
   };
 
   const isSelected = (id: string) => {
