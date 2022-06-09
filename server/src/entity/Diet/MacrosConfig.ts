@@ -4,15 +4,14 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
   OneToOne,
-  JoinTable,
+  JoinColumn,
 } from "typeorm";
 import { User } from "../User";
-import {  Field, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Entity("macros_configs")
 export class MacrosConfig extends BaseEntity {
-  
   @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -35,6 +34,6 @@ export class MacrosConfig extends BaseEntity {
 
   @Field(() => User)
   @OneToOne(() => User, { onDelete: "CASCADE", onUpdate: "CASCADE" })
-  @JoinTable()
+  @JoinColumn()
   user: User;
 }

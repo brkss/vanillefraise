@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
 import { ResetPassword } from "./ResetPassword";
@@ -16,7 +17,7 @@ import { SpecialCondition, CookedRecipe } from "./UserInfo";
 import { Activity } from "./Activity";
 import { EarlyAccessRequest } from "./UserInfo/EarlyAccess";
 import { MealRecipes } from "./Meals/MealRecipes";
-import { DietFoodFilter } from './Diet/FoodFilter';
+import { DietFoodFilter, MacrosConfig } from "./Diet";
 
 @ObjectType()
 @Entity("users")
@@ -81,7 +82,7 @@ export class User extends BaseEntity {
   records: Record[];
 
   @Field(() => Boolean)
-  @Column({default: false})
+  @Column({ default: false })
   banned: boolean;
 
   @Field(() => [MoodRecord])
@@ -111,9 +112,12 @@ export class User extends BaseEntity {
   @Field(() => [Activity])
   @OneToMany(() => Activity, (activities) => activities.user)
   activities: Activity[];
-  
+
   @Field(() => [DietFoodFilter])
-  @OneToMany(() => DietFoodFilter, filter => filter.user)
+  @OneToMany(() => DietFoodFilter, (filter) => filter.user)
   filters: DietFoodFilter[];
 
+  @Field(() => MacrosConfig)
+  @OneToOne(() => MacrosConfig, (config) => config.user)
+  config: MacrosConfig;
 }

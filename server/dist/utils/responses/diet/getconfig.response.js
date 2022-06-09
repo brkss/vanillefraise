@@ -15,11 +15,15 @@ const Diet_1 = require("../../../entity/Diet");
 let DietConfigResponse = class DietConfigResponse {
 };
 __decorate([
-    (0, type_graphql_1.Field)(() => Diet_1.MacrosConfig),
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Boolean)
+], DietConfigResponse.prototype, "status", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Diet_1.MacrosConfig, { nullable: true }),
     __metadata("design:type", Diet_1.MacrosConfig)
 ], DietConfigResponse.prototype, "config", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => [String]),
+    (0, type_graphql_1.Field)(() => [String], { nullable: true }),
     __metadata("design:type", Array)
 ], DietConfigResponse.prototype, "filters", void 0);
 DietConfigResponse = __decorate([

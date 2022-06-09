@@ -43,7 +43,7 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Field)(() => User_1.User),
     (0, typeorm_1.OneToOne)(() => User_1.User, { onDelete: "CASCADE", onUpdate: "CASCADE" }),
-    (0, typeorm_1.JoinTable)(),
+    (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", User_1.User)
 ], MacrosConfig.prototype, "user", void 0);
 MacrosConfig = __decorate([

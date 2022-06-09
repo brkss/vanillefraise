@@ -1,4 +1,11 @@
-import { Resolver, Mutation, UseMiddleware, Arg, Ctx, Query } from "type-graphql";
+import {
+  Resolver,
+  Mutation,
+  UseMiddleware,
+  Arg,
+  Ctx,
+  Query,
+} from "type-graphql";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { DefaultResponse } from "../../utils/responses/default.response";
 import { ConfigDietInput } from "../../utils/inputs";
@@ -6,6 +13,7 @@ import { MacrosConfig, DietFoodFilter } from "../../entity/Diet";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
 import { HealthLabelRefrence } from "../../entity/Nutrition/HealthLabelReference";
+import { DietConfigResponse } from "../../utils/responses/diet";
 
 @Resolver()
 export class DietConfigResolver {
@@ -34,6 +42,7 @@ export class DietConfigResolver {
       mc.carbs = data.carbs;
       mc.fat = data.fat;
       mc.protein = data.protein;
+      mc.user = user;
       await mc.save();
       await DietFoodFilter.delete({ user: user }); // delete all old filters if exist !
       // create filters
@@ -63,6 +72,31 @@ export class DietConfigResolver {
   }
 
   @UseMiddleware(isUserAuth)
-  async getDietConfig() : Promise<Diet>
-  @Query()
+  @Query(() => DietConfigResponse)
+  async getDietConfig(@Ctx() ctx: IContext): Promise<DietConfigResponse> {
+    const user = await User.findOne({
+      where: { id: ctx.payload.userID },
+      relations: ["config"],
+    });
+    if (!user)
+      return {
+        status: false,
+      };
+    //const config = await MacrosConfig.findOne({ where: { user: user } });
+    //if (!config)
+    //return {
+    //status: false,
+    //};
+    if (!user.config) {
+      return {
+        status: false,
+      };
+    }
+    const filter = await DietFoodFilter.find({ where: { user: user } });
+    return {
+      status: true,
+      config: user.config,
+      filters: filter.map((filter) => filter.id),
+    };
+  }
 }

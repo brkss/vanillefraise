@@ -19,7 +19,7 @@ const UserInfo_1 = require("./UserInfo");
 const Activity_1 = require("./Activity");
 const EarlyAccess_1 = require("./UserInfo/EarlyAccess");
 const MealRecipes_1 = require("./Meals/MealRecipes");
-const FoodFilter_1 = require("./Diet/FoodFilter");
+const Diet_1 = require("./Diet");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -127,10 +127,15 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "activities", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => [FoodFilter_1.DietFoodFilter]),
-    (0, typeorm_1.OneToMany)(() => FoodFilter_1.DietFoodFilter, filter => filter.user),
+    (0, type_graphql_1.Field)(() => [Diet_1.DietFoodFilter]),
+    (0, typeorm_1.OneToMany)(() => Diet_1.DietFoodFilter, (filter) => filter.user),
     __metadata("design:type", Array)
 ], User.prototype, "filters", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Diet_1.MacrosConfig),
+    (0, typeorm_1.OneToOne)(() => Diet_1.MacrosConfig, (config) => config.user),
+    __metadata("design:type", Diet_1.MacrosConfig)
+], User.prototype, "config", void 0);
 User = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("users")

@@ -3,9 +3,13 @@ import { MacrosConfig } from "../../../entity/Diet";
 
 @ObjectType()
 export class DietConfigResponse {
-  @Field(() => MacrosConfig)
-  config: MacrosConfig;
+  
+  @Field()
+  status: boolean;
 
-  @Field(() => [String])
-  filters: string[];
+  @Field(() => MacrosConfig, {nullable: true})
+  config?: MacrosConfig;
+
+  @Field(() => [String], {nullable: true})
+  filters?: string[];
 }

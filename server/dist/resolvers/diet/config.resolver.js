@@ -20,6 +20,7 @@ const inputs_1 = require("../../utils/inputs");
 const Diet_1 = require("../../entity/Diet");
 const User_1 = require("../../entity/User");
 const HealthLabelReference_1 = require("../../entity/Nutrition/HealthLabelReference");
+const diet_1 = require("../../utils/responses/diet");
 let DietConfigResolver = class DietConfigResolver {
     async configDiet(data, ctx) {
         if (!data || !data.activity_factor) {
@@ -41,6 +42,7 @@ let DietConfigResolver = class DietConfigResolver {
             mc.carbs = data.carbs;
             mc.fat = data.fat;
             mc.protein = data.protein;
+            mc.user = user;
             await mc.save();
             await Diet_1.DietFoodFilter.delete({ user: user });
             if (data.filters.length > 0) {
@@ -69,6 +71,27 @@ let DietConfigResolver = class DietConfigResolver {
             };
         }
     }
+    async getDietConfig(ctx) {
+        const user = await User_1.User.findOne({
+            where: { id: ctx.payload.userID },
+            relations: ["config"],
+        });
+        if (!user)
+            return {
+                status: false,
+            };
+        if (!user.config) {
+            return {
+                status: false,
+            };
+        }
+        const filter = await Diet_1.DietFoodFilter.find({ where: { user: user } });
+        return {
+            status: true,
+            config: user.config,
+            filters: filter.map((filter) => filter.id),
+        };
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
@@ -80,9 +103,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], DietConfigResolver.prototype, "configDiet", null);
 __decorate([
-    (0, type_graphql_1.Query)(),
-    __metadata("design:type", Object)
-], DietConfigResolver.prototype, "", void 0);
+    (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => diet_1.DietConfigResponse),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], DietConfigResolver.prototype, "getDietConfig", null);
 DietConfigResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], DietConfigResolver);
