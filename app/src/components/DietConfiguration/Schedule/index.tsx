@@ -3,12 +3,46 @@ import { View, Text, StyleSheet } from "react-native";
 import { NextButton } from "../NextButton";
 import { MealTime } from "./MealTime";
 import { ReminderCheckBox } from "./ReminderCheckBox";
+
 interface Props {
   next: () => void;
   previous: () => void;
+  changed: (key: string, val: any | any[]) => void;
 }
 
-export const ConfigureMealSchedule: React.FC<Props> = ({ next, previous }) => {
+interface IMeal {
+  name: string;
+  time: Date;
+}
+
+export const ConfigureMealSchedule: React.FC<Props> = ({
+  next,
+  previous,
+  changed,
+}) => {
+  const [meals, setMeals] = React.useState<IMeal[]>([]);
+
+  const handleTime = (name: string, time: Date) => {
+    const index = meals.findIndex((x) => x.name === name);
+    let tmp: IMeal[] = meals;
+    if (index == -1) {
+      const o: IMeal = {
+        name: name,
+        time: time,
+      };
+      tmp = [...meals, o];
+      setMeals([...meals, o]);
+    } else {
+      meals[index] = {
+        name: name,
+        time: time,
+      };
+      tmp[index] = meals[index];
+      setMeals([...meals]);
+    }
+    changed("meals", tmp);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>EATING SCHEDULE</Text>
@@ -16,10 +50,13 @@ export const ConfigureMealSchedule: React.FC<Props> = ({ next, previous }) => {
         when you eat is just as important as what you eat
       </Text>
       <View style={styles.contentContainer}>
-        <MealTime name={"BREAKFAST"} />
-        <MealTime name={"LUNCH"} />
-        <MealTime name={"DINNER"} />
-        <MealTime name={"SNACK"} />
+        <MealTime
+          onTimeChange={(n, t) => handleTime(n, t)}
+          name={"BREAKFAST"}
+        />
+        <MealTime onTimeChange={(n, t) => handleTime(n, t)} name={"LUNCH"} />
+        <MealTime onTimeChange={(n, t) => handleTime(n, t)} name={"DINNER"} />
+        <MealTime onTimeChange={(n, t) => handleTime(n, t)} name={"SNACK"} />
         <ReminderCheckBox />
       </View>
       <NextButton previous={previous} next={next} showNext showPrevious />

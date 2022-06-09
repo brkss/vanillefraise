@@ -5,9 +5,10 @@ import Moment from "moment";
 
 interface Props {
   name: string;
+  onTimeChange: (name: string, val: Date) => void;
 }
 
-export const MealTime: React.FC<Props> = ({ name }) => {
+export const MealTime: React.FC<Props> = ({ name, onTimeChange }) => {
   const [time, setTime] = React.useState(new Date());
   const [visible, setVisible] = React.useState(false);
 
@@ -20,6 +21,7 @@ export const MealTime: React.FC<Props> = ({ name }) => {
   };
 
   const handleConfirm = (time: Date) => {
+    onTimeChange(name, time);
     setTime(time);
     handleHideModal();
   };

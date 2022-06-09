@@ -67,7 +67,11 @@ export const DietConfiguration: React.FC = () => {
               />
             ),
             SCHEDULE: (
-              <ConfigureMealSchedule previous={backward} next={forward} />
+              <ConfigureMealSchedule
+                changed={(k, v) => changed(k, v)}
+                previous={backward}
+                next={forward}
+              />
             ),
             ANALYSE: <DietAnalyse previous={backward} />,
           }[step]
