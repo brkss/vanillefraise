@@ -18,17 +18,24 @@ let DietFoodFilter = class DietFoodFilter extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
 ], DietFoodFilter.prototype, "id", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.ManyToOne)(() => HealthLabelReference_1.HealthLabelRefrence, hlr => hlr.filters, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
+    (0, type_graphql_1.Field)(() => HealthLabelReference_1.HealthLabelRefrence),
+    (0, type_graphql_1.Field)(() => HealthLabelReference_1.HealthLabelRefrence),
+    (0, typeorm_1.ManyToOne)(() => HealthLabelReference_1.HealthLabelRefrence, (hlr) => hlr.filters, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    }),
     __metadata("design:type", HealthLabelReference_1.HealthLabelRefrence)
 ], DietFoodFilter.prototype, "healthlabel", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.ManyToOne)(() => User_1.User, user => user.filters, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
+    (0, type_graphql_1.Field)(() => User_1.User),
+    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.filters, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    }),
     __metadata("design:type", User_1.User)
 ], DietFoodFilter.prototype, "user", void 0);
 DietFoodFilter = __decorate([
