@@ -14,9 +14,14 @@ import { activity_factors } from "../../../utils/data/activityFactors";
 interface Props {
   previous: () => void;
   next: () => void;
+  changed: (key: string, val: any | any[]) => void;
 }
 
-export const ConfigureDietMacros: React.FC<Props> = ({ next, previous }) => {
+export const ConfigureDietMacros: React.FC<Props> = ({
+  next,
+  previous,
+  changed,
+}) => {
   const { data, loading, error } = useMeQuery({
     onCompleted: (res) => {
       if (res.me) {
@@ -50,7 +55,11 @@ export const ConfigureDietMacros: React.FC<Props> = ({ next, previous }) => {
       <Text style={styles.title}> MACROS </Text>
       <View style={styles.contentContainer}>
         <DailyActivity onSelect={(f) => handleFactor(f)} />
-        <BodyMeasurements weight={data.me.weight} height={data.me.height} />
+        <BodyMeasurements
+          onchange={(key, val) => changed(key, val)}
+          weight={data.me.weight}
+          height={data.me.height}
+        />
         <MacrosValues key={tdee} ree={ree} tdee={calculateTDEE(factor, ree)} />
         <Macronutrients />
       </View>

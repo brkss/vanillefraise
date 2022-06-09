@@ -4,7 +4,6 @@ import { NextButton } from "../NextButton";
 import { CaloriesIntake } from "./CaloriesIntake";
 import { WeightTrack } from "./WeightTrack";
 import { TrackMacronutrients } from "./TrackMacronutrients";
-<View style={{ height: 100 }} />;
 interface Props {
   previous: () => void;
 }
@@ -41,5 +40,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    marginBottom: 10,
   },
 });

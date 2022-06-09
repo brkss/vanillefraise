@@ -12,8 +12,27 @@ const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "ANALYSE"];
 
 export const DietConfiguration: React.FC = () => {
   const [step, setStep] = React.useState("START");
+  const [data, setData] = React.useState({
+    weight: 0,
+    height: 0,
+    factor: 0,
+    fat: 0,
+    carbs: 0,
+    protein: 0,
+    filters: [],
+    meals: [],
+    reminder: true,
+  });
+
+  const changed = (key: string, val: any | any[]) => {
+    setData({
+      ...data,
+      [key]: val,
+    });
+  };
 
   const forward = () => {
+    console.log("data ++++>>>> ", data);
     const index = steps.findIndex((x) => x === step);
     if (index > -1 && index + 1 < steps.length) {
       setStep(steps[index + 1]);
@@ -33,7 +52,13 @@ export const DietConfiguration: React.FC = () => {
         {
           {
             START: <StartDietConfiguration next={forward} />,
-            MACROS: <ConfigureDietMacros previous={backward} next={forward} />,
+            MACROS: (
+              <ConfigureDietMacros
+                changed={(key: string, val: any | any[]) => changed(key, val)}
+                previous={backward}
+                next={forward}
+              />
+            ),
             FOOD: <ConfigureDietFood previous={backward} next={forward} />,
             SCHEDULE: (
               <ConfigureMealSchedule previous={backward} next={forward} />

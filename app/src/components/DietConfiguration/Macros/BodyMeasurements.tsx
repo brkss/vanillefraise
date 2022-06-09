@@ -5,9 +5,14 @@ import { InvisibleInput, Loading } from "../../General";
 interface Props {
   weight: number;
   height: number;
+  onchange: (key: string, val: any | any[]) => void;
 }
 
-export const BodyMeasurements: React.FC<Props> = ({ weight, height }) => {
+export const BodyMeasurements: React.FC<Props> = ({
+  weight,
+  height,
+  onchange,
+}) => {
   const [data, setData] = React.useState({
     weight: weight,
     height: height,
@@ -16,6 +21,7 @@ export const BodyMeasurements: React.FC<Props> = ({ weight, height }) => {
   const handleData = (id: string, v: string) => {
     const parsed = parseInt(v);
 
+    onchange(id, v);
     if (!parsed) return;
     setData({
       ...data,

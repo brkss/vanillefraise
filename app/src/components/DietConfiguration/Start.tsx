@@ -41,7 +41,7 @@ export const StartDietConfiguration: React.FC<Props> = ({ next }) => {
           </Text>
         </View>
         {steps.map((step, key) => (
-          <View style={styles.step}>
+          <View key={key} style={styles.step}>
             <Text style={styles.stepTitle}>{step.title}</Text>
             <Text style={styles.stepDescription}>{step.description}</Text>
           </View>

@@ -5,7 +5,7 @@ import * as shape from "d3-shape";
 
 export const CaloriesIntake: React.FC = () => {
   const data = [
-    -50, -20, -40, -95, -24, -24, -85, -91, -35, -23, -13, 24, 50, 20, 80,
+    0, -5, -10, -35, -54, -64, -85, -91, -35, -23, -13, 24, 50, 20, 80,
   ];
 
   return (
@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 12,
     fontWeight: "bold",
-    opacity: .7
+    opacity: 0.7,
   },
 });
