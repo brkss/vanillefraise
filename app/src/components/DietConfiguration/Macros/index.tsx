@@ -44,6 +44,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({
   };
 
   const handleFactor = (f: number) => {
+    changed("factor", f);
     setFactor(f);
     changeMacros(f);
   };
