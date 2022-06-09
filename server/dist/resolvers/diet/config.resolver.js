@@ -79,6 +79,10 @@ __decorate([
     __metadata("design:paramtypes", [inputs_1.ConfigDietInput, Object]),
     __metadata("design:returntype", Promise)
 ], DietConfigResolver.prototype, "configDiet", null);
+__decorate([
+    (0, type_graphql_1.Query)(),
+    __metadata("design:type", Object)
+], DietConfigResolver.prototype, "", void 0);
 DietConfigResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], DietConfigResolver);

@@ -1,4 +1,4 @@
-import { Resolver, Mutation, UseMiddleware, Arg, Ctx } from "type-graphql";
+import { Resolver, Mutation, UseMiddleware, Arg, Ctx, Query } from "type-graphql";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { DefaultResponse } from "../../utils/responses/default.response";
 import { ConfigDietInput } from "../../utils/inputs";
@@ -35,7 +35,7 @@ export class DietConfigResolver {
       mc.fat = data.fat;
       mc.protein = data.protein;
       await mc.save();
-      await DietFoodFilter.delete({user: user}); // delete all old filters if exist !
+      await DietFoodFilter.delete({ user: user }); // delete all old filters if exist !
       // create filters
       if (data.filters.length > 0) {
         for (let filter of data.filters) {
@@ -61,4 +61,8 @@ export class DietConfigResolver {
       };
     }
   }
+
+  @UseMiddleware(isUserAuth)
+  async getDietConfig() : Promise<Diet>
+  @Query()
 }
