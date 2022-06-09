@@ -15,13 +15,24 @@ interface Props {
   previous: () => void;
   next: () => void;
   changed: (key: string, val: any | any[]) => void;
+  weight: number;
+  height: number;
+  factorval: number;
+  birth: any;
+  gender: string;
 }
 
 export const ConfigureDietMacros: React.FC<Props> = ({
   next,
   previous,
   changed,
+  factorval,
+  weight,
+  height,
+  gender,
+  birth,
 }) => {
+  /*
   const { data, loading, error } = useMeQuery({
     onCompleted: (res) => {
       if (res.me) {
@@ -31,13 +42,19 @@ export const ConfigureDietMacros: React.FC<Props> = ({
         setTdee(calculateTDEE(factor, ree));
       }
     },
-  });
+    });
+   */
   const [ree, setRee] = React.useState(0);
   const [tdee, setTdee] = React.useState(0);
-  const [factor, setFactor] = React.useState(activity_factors[0].factor);
+  const [factor, setFactor] = React.useState(factorval);
+
+  React.useEffect(() => {
+    const _ree = calculateREE(gender, weight, height, getAge(birth));
+    setRee(_ree);
+    setTdee(calculateTDEE(factor, ree));
+  }, []);
 
   const changeMacros = (f: number) => {
-    const { gender, weight, height, birth } = data.me;
     const _ree = calculateREE(gender, weight, height, getAge(birth));
     setRee(_ree);
     setTdee(calculateTDEE(factor, ree));
@@ -49,7 +66,6 @@ export const ConfigureDietMacros: React.FC<Props> = ({
     changeMacros(f);
   };
 
-  if (loading || error) return <Loading />;
 
   return (
     <View style={styles.container}>
@@ -58,8 +74,8 @@ export const ConfigureDietMacros: React.FC<Props> = ({
         <DailyActivity onSelect={(f) => handleFactor(f)} />
         <BodyMeasurements
           onchange={(key, val) => changed(key, val)}
-          weight={data.me.weight}
-          height={data.me.height}
+          weight={weight}
+          height={height}
         />
         <MacrosValues key={tdee} ree={ree} tdee={calculateTDEE(factor, ree)} />
         <Macronutrients />

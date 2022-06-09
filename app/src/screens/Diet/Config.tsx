@@ -6,16 +6,28 @@ import {
   ConfigureDietFood,
   ConfigureMealSchedule,
   DietAnalyse,
-} from "../../components";
+  Loading,
+} from '../../components';
+import { activity_factors } from "../../utils/data/activityFactors";
+import { useMeQuery } from "../../generated/graphql";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "ANALYSE"];
 
 export const DietConfiguration: React.FC = () => {
+  const _me = useMeQuery({
+    onCompleted: (res) => {
+      setData({
+        ...data,
+        weight: _me.data.me.weight,
+        height: _me.data.me.height,
+      });
+    },
+  });
   const [step, setStep] = React.useState("START");
   const [data, setData] = React.useState({
     weight: 0,
     height: 0,
-    factor: 0,
+    factor: activity_factors[0].factor,
     fat: 0,
     carbs: 0,
     protein: 0,
@@ -46,6 +58,8 @@ export const DietConfiguration: React.FC = () => {
     }
   };
 
+  if (_me.loading || _me.error) return <Loading />;
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -54,6 +68,11 @@ export const DietConfiguration: React.FC = () => {
             START: <StartDietConfiguration next={forward} />,
             MACROS: (
               <ConfigureDietMacros
+                height={_me.data.me.height}
+                weight={_me.data.me.weight}
+                birth={_me.data.me.birth}
+                gender={_me.data.me.gender}
+                factorval={data.factor}
                 changed={(key: string, val: any | any[]) => changed(key, val)}
                 previous={backward}
                 next={forward}

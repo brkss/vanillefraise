@@ -67,7 +67,7 @@ export const TrackMacronutrients: React.FC = () => {
       />
       <View style={styles.keys}>
         {keys.map((key, index) => (
-          <View style={styles.key}>
+          <View key={index} style={styles.key}>
             <View style={[styles.circle, { backgroundColor: colors[index] }]} />
             <Text style={styles.keyname}>{key}</Text>
           </View>
