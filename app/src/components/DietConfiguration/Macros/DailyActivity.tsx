@@ -4,11 +4,16 @@ import { activity_factors } from "../../../utils/data/activityFactors";
 
 interface Props {
   onSelect: (factor: number) => void;
+  factor: number;
 }
 
-export const DailyActivity: React.FC<Props> = ({onSelect}) => {
+export const DailyActivity: React.FC<Props> = ({onSelect, factor}) => {
   const [active, setActive] = React.useState(0);
 
+  React.useEffect(() => {
+    const index = activity_factors.findIndex(x => x.factor === factor);
+    if(index != -1) setActive(index);
+  }, []);
 
   const select = (index: number) => {
     setActive(index);

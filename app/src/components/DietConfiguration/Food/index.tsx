@@ -11,16 +11,23 @@ interface Props {
   next: () => void;
   previous: () => void;
   changed: (key: string, val: any | any[]) => void;
+  preselected: string[];
 }
 
-export const ConfigureDietFood: React.FC<Props> = ({ next, previous, changed }) => {
+export const ConfigureDietFood: React.FC<Props> = ({
+  next,
+  previous,
+  changed,
+  preselected,
+}) => {
   const [visibleModal, setVisibleModal] = React.useState(false);
   const { data, error, loading } = useHealthLabelsQuery();
   const [itemInfo, setItemInfo] = React.useState({
     title: "",
     desc: "",
   });
-  const [selected, setSelected] = React.useState<string[]>([]);
+  const [selected, setSelected] = React.useState<string[]>(preselected);
+
   const handleSelect = (id: string) => {
     const index = selected.findIndex((x) => x === id);
     let res = selected;
@@ -28,11 +35,15 @@ export const ConfigureDietFood: React.FC<Props> = ({ next, previous, changed }) 
       res = [...selected, id];
       setSelected([...selected, id]);
     } else {
-      res = selected.splice(index, 1);
       selected.splice(index, 1);
+      res = selected;
       setSelected([...selected]);
     }
-    changed('filters', res);
+
+    changed("filters", res);
+    console.log("unselect this : \t", id);
+    console.log("index : \t", index);
+    console.log("selected : \t", selected);
   };
 
   const isSelected = (id: string) => {
@@ -50,6 +61,7 @@ export const ConfigureDietFood: React.FC<Props> = ({ next, previous, changed }) 
   };
 
   if (loading || error) return <Loading />;
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>FOOD THAT FIT ?</Text>

@@ -7,13 +7,28 @@ import {
   ConfigureMealSchedule,
   DietAnalyse,
   Loading,
-} from '../../components';
+} from "../../components";
 import { activity_factors } from "../../utils/data/activityFactors";
-import { useMeQuery } from "../../generated/graphql";
+import { useMeQuery, useGetDietConfigQuery } from "../../generated/graphql";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "ANALYSE"];
 
 export const DietConfiguration: React.FC = () => {
+  const _config = useGetDietConfigQuery({
+    onCompleted: (res) => {
+      if (res.getDietConfig.status === true) {
+        console.log("avocado selected filters : ", res.getDietConfig.filters);
+        setData({
+          ...data,
+          factor: res.getDietConfig.config.activityFactor,
+          fat: res.getDietConfig.config.fat,
+          carbs: res.getDietConfig.config.carbs,
+          protein: res.getDietConfig.config.protein,
+          filters: res.getDietConfig.filters,
+        });
+      }
+    },
+  });
   const _me = useMeQuery({
     onCompleted: (res) => {
       setData({
@@ -58,7 +73,8 @@ export const DietConfiguration: React.FC = () => {
     }
   };
 
-  if (_me.loading || _me.error) return <Loading />;
+  if (_me.loading || _me.error || _config.loading || _config.error)
+    return <Loading />;
 
   return (
     <View style={styles.container}>
@@ -80,6 +96,7 @@ export const DietConfiguration: React.FC = () => {
             ),
             FOOD: (
               <ConfigureDietFood
+                preselected={data.filters}
                 changed={(key, val) => changed(key, val)}
                 previous={backward}
                 next={forward}

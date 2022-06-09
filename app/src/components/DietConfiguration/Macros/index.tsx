@@ -71,7 +71,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({
     <View style={styles.container}>
       <Text style={styles.title}> MACROS </Text>
       <View style={styles.contentContainer}>
-        <DailyActivity onSelect={(f) => handleFactor(f)} />
+        <DailyActivity factor={factorval} onSelect={(f) => handleFactor(f)} />
         <BodyMeasurements
           onchange={(key, val) => changed(key, val)}
           weight={weight}

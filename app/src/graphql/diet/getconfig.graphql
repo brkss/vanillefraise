@@ -1,0 +1,13 @@
+query GetDietConfig{
+  getDietConfig{
+    config{
+      id
+      activityFactor
+      fat
+      carbs
+      protein
+    }
+    status
+    filters
+  }
+}

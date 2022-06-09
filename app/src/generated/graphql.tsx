@@ -87,6 +87,14 @@ export type ChangePasswordResponse = {
   status: Scalars['Boolean'];
 };
 
+export type ConfigDietInput = {
+  activity_factor: Scalars['Float'];
+  carbs: Scalars['Float'];
+  fat: Scalars['Float'];
+  filters: Array<Scalars['String']>;
+  protein: Scalars['Float'];
+};
+
 export type CookedRecipe = {
   __typename?: 'CookedRecipe';
   id: Scalars['String'];
@@ -176,6 +184,20 @@ export type DefaultResponse = {
   status: Scalars['Boolean'];
 };
 
+export type DietConfigResponse = {
+  __typename?: 'DietConfigResponse';
+  config?: Maybe<MacrosConfig>;
+  filters?: Maybe<Array<Scalars['String']>>;
+  status: Scalars['Boolean'];
+};
+
+export type DietFoodFilter = {
+  __typename?: 'DietFoodFilter';
+  healthlabel: HealthLabelRefrence;
+  id: Scalars['String'];
+  user: User;
+};
+
 export type EarlyAccessRequest = {
   __typename?: 'EarlyAccessRequest';
   id: Scalars['String'];
@@ -185,6 +207,7 @@ export type EarlyAccessRequest = {
 export type HealthLabelRefrence = {
   __typename?: 'HealthLabelRefrence';
   description: Scalars['String'];
+  filters: Array<DietFoodFilter>;
   id: Scalars['String'];
   label: Scalars['String'];
   param: Scalars['String'];
@@ -225,6 +248,16 @@ export type LoginAdminInput = {
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+export type MacrosConfig = {
+  __typename?: 'MacrosConfig';
+  activityFactor: Scalars['Float'];
+  carbs: Scalars['Float'];
+  fat: Scalars['Float'];
+  id: Scalars['String'];
+  protein: Scalars['Float'];
+  user: User;
 };
 
 export type MarkedDates = {
@@ -330,6 +363,7 @@ export type Mutation = {
   changeRecipeVisibility: DefaultResponse;
   checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
+  configDiet: DefaultResponse;
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
@@ -390,6 +424,11 @@ export type MutationCheckCookedMealArgs = {
 
 export type MutationCheckInfoValidityArgs = {
   data: UserInfoValidtyInput;
+};
+
+
+export type MutationConfigDietArgs = {
+  data: ConfigDietInput;
 };
 
 
@@ -514,6 +553,7 @@ export type Query = {
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
   getActivityCalories: Scalars['Float'];
+  getDietConfig: DietConfigResponse;
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
@@ -797,10 +837,12 @@ export type User = {
   banned: Scalars['Boolean'];
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
+  config: MacrosConfig;
   cookedrecipes: Array<CookedRecipe>;
   created_at: Scalars['DateTime'];
   earequest: Array<EarlyAccessRequest>;
   email: Scalars['String'];
+  filters: Array<DietFoodFilter>;
   gender: Scalars['String'];
   height: Scalars['Float'];
   id: Scalars['String'];
@@ -902,6 +944,11 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
+
+export type GetDietConfigQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetDietConfigQuery = { __typename?: 'Query', getDietConfig: { __typename?: 'DietConfigResponse', status: boolean, filters?: Array<string> | null | undefined, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined } };
 
 export type HealthLabelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1428,6 +1475,48 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const GetDietConfigDocument = gql`
+    query GetDietConfig {
+  getDietConfig {
+    config {
+      id
+      activityFactor
+      fat
+      carbs
+      protein
+    }
+    status
+    filters
+  }
+}
+    `;
+
+/**
+ * __useGetDietConfigQuery__
+ *
+ * To run a query within a React component, call `useGetDietConfigQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDietConfigQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDietConfigQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetDietConfigQuery(baseOptions?: Apollo.QueryHookOptions<GetDietConfigQuery, GetDietConfigQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDietConfigQuery, GetDietConfigQueryVariables>(GetDietConfigDocument, options);
+      }
+export function useGetDietConfigLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDietConfigQuery, GetDietConfigQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDietConfigQuery, GetDietConfigQueryVariables>(GetDietConfigDocument, options);
+        }
+export type GetDietConfigQueryHookResult = ReturnType<typeof useGetDietConfigQuery>;
+export type GetDietConfigLazyQueryHookResult = ReturnType<typeof useGetDietConfigLazyQuery>;
+export type GetDietConfigQueryResult = Apollo.QueryResult<GetDietConfigQuery, GetDietConfigQueryVariables>;
 export const HealthLabelsDocument = gql`
     query HealthLabels {
   healthLabels {
