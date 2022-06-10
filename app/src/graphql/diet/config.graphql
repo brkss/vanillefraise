@@ -1,0 +1,24 @@
+mutation ConfigDiet(
+  $factor: Float!
+  $fat: Float!
+  $carbs: Float!
+  $protein: Float!
+  $filters: [String!]!
+  $weight: Float!
+  $height: Float!
+) {
+  configDiet(
+    data: {
+      activity_factor: $factor
+      fat: $fat
+      carbs: $carbs
+      protein: $protein
+      filters: $filters
+      weight: $weight
+      height: $height
+    }
+  ) {
+    status
+    message
+  }
+}

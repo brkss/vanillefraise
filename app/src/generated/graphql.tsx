@@ -92,7 +92,9 @@ export type ConfigDietInput = {
   carbs: Scalars['Float'];
   fat: Scalars['Float'];
   filters: Array<Scalars['String']>;
+  height: Scalars['Float'];
   protein: Scalars['Float'];
+  weight: Scalars['Float'];
 };
 
 export type CookedRecipe = {
@@ -945,6 +947,19 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
 
+export type ConfigDietMutationVariables = Exact<{
+  factor: Scalars['Float'];
+  fat: Scalars['Float'];
+  carbs: Scalars['Float'];
+  protein: Scalars['Float'];
+  filters: Array<Scalars['String']> | Scalars['String'];
+  weight: Scalars['Float'];
+  height: Scalars['Float'];
+}>;
+
+
+export type ConfigDietMutation = { __typename?: 'Mutation', configDiet: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
 export type GetDietConfigQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1475,6 +1490,48 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const ConfigDietDocument = gql`
+    mutation ConfigDiet($factor: Float!, $fat: Float!, $carbs: Float!, $protein: Float!, $filters: [String!]!, $weight: Float!, $height: Float!) {
+  configDiet(
+    data: {activity_factor: $factor, fat: $fat, carbs: $carbs, protein: $protein, filters: $filters, weight: $weight, height: $height}
+  ) {
+    status
+    message
+  }
+}
+    `;
+export type ConfigDietMutationFn = Apollo.MutationFunction<ConfigDietMutation, ConfigDietMutationVariables>;
+
+/**
+ * __useConfigDietMutation__
+ *
+ * To run a mutation, you first call `useConfigDietMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConfigDietMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [configDietMutation, { data, loading, error }] = useConfigDietMutation({
+ *   variables: {
+ *      factor: // value for 'factor'
+ *      fat: // value for 'fat'
+ *      carbs: // value for 'carbs'
+ *      protein: // value for 'protein'
+ *      filters: // value for 'filters'
+ *      weight: // value for 'weight'
+ *      height: // value for 'height'
+ *   },
+ * });
+ */
+export function useConfigDietMutation(baseOptions?: Apollo.MutationHookOptions<ConfigDietMutation, ConfigDietMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ConfigDietMutation, ConfigDietMutationVariables>(ConfigDietDocument, options);
+      }
+export type ConfigDietMutationHookResult = ReturnType<typeof useConfigDietMutation>;
+export type ConfigDietMutationResult = Apollo.MutationResult<ConfigDietMutation>;
+export type ConfigDietMutationOptions = Apollo.BaseMutationOptions<ConfigDietMutation, ConfigDietMutationVariables>;
 export const GetDietConfigDocument = gql`
     query GetDietConfig {
   getDietConfig {

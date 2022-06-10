@@ -6,14 +6,22 @@ import {
   ConfigureDietFood,
   ConfigureMealSchedule,
   DietAnalyse,
+  FinishDietConfig,
   Loading,
 } from "../../components";
 import { activity_factors } from "../../utils/data/activityFactors";
-import { useMeQuery, useGetDietConfigQuery } from "../../generated/graphql";
+import {
+  useMeQuery,
+  useGetDietConfigQuery,
+  useConfigDietMutation,
+} from "../../generated/graphql";
 
-const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "ANALYSE"];
+const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
 
 export const DietConfiguration: React.FC = () => {
+  const [config] = useConfigDietMutation();
+  const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const _config = useGetDietConfigQuery({
     onCompleted: (res) => {
       if (res.getDietConfig.status === true) {
@@ -86,7 +94,34 @@ export const DietConfiguration: React.FC = () => {
     }
   };
 
-  if (_me.loading || _me.error || _config.loading || _config.error)
+  const save = () => {
+    setLoading(true);
+    config({
+      variables: {
+        height: data.height,
+        weight: data.weight,
+        factor: data.factor,
+        filters: data.filters,
+        protein: data.protein,
+        carbs: data.carbs,
+        fat: data.fat,
+      },
+    }).then((res) => {
+      setLoading(false);
+      if (res.errors) {
+        setError("Something went wrong coonfiguring diet !");
+        return;
+      }
+      if (res.data.configDiet.status === false) {
+        setError(
+          res.data.configDiet.message ||
+            "Something went wrong configuring diet !"
+        );
+      }
+    });
+  };
+
+  if (_me.loading || _me.error || _config.loading || _config.error || loading)
     return <Loading />;
 
   return (
@@ -123,7 +158,8 @@ export const DietConfiguration: React.FC = () => {
                 next={forward}
               />
             ),
-            ANALYSE: <DietAnalyse previous={backward} />,
+            //ANALYSE: <DietAnalyse previous={backward} />,
+            FINISH: <FinishDietConfig finish={() => {}} back={backward} />,
           }[step]
         }
       </SafeAreaView>
