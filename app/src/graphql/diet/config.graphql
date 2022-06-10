@@ -20,5 +20,16 @@ mutation ConfigDiet(
   ) {
     status
     message
+    data {
+        config {
+          id
+          activityFactor
+          fat
+          carbs
+          protein
+        }
+        status
+        filters
+      }
+    }
   }
-}

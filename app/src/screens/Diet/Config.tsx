@@ -5,7 +5,7 @@ import {
   ConfigureDietMacros,
   ConfigureDietFood,
   ConfigureMealSchedule,
-  DietAnalyse,
+  //DietAnalyse,
   FinishDietConfig,
   Loading,
 } from "../../components";
@@ -14,15 +14,22 @@ import {
   useMeQuery,
   useGetDietConfigQuery,
   useConfigDietMutation,
+  GetDietConfigQuery,
+  GetDietConfigDocument,
 } from "../../generated/graphql";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
+
+// TODO : make fetchPolicy depend on cache first by updating get config query  ! 
+// TODO : handle errors ! 
+
 
 export const DietConfiguration: React.FC<any> = ({ navigation }) => {
   const [config] = useConfigDietMutation();
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const _config = useGetDietConfigQuery({
+    fetchPolicy: "network-only",
     onCompleted: (res) => {
       if (res.getDietConfig.status === true) {
         console.log("avocado selected filters : ", res.getDietConfig.filters);
@@ -106,6 +113,17 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
         carbs: data.carbs,
         fat: data.fat,
       },
+      update: (store, { data }) => {
+        if (!data || data.configDiet.status === false) return;
+        if (data.configDiet.data.status === false) return;
+        console.log("UPDATE THAT SHIT !", data.configDiet.data);
+        store.writeQuery<GetDietConfigQuery>({
+          query: GetDietConfigDocument,
+          data: {
+            getDietConfig: Object.assign({}, data.configDiet).data,
+          },
+        });
+      },
     }).then((res) => {
       setLoading(false);
       if (res.errors) {
@@ -118,7 +136,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
             "Something went wrong configuring diet !"
         );
       } else if (res.data.configDiet.status === true) {
-        navigation.goBack(); 
+        navigation.goBack();
       }
     });
   };

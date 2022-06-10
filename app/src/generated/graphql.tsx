@@ -131,6 +131,13 @@ export type CreateActivityResponse = {
   status: Scalars['Boolean'];
 };
 
+export type CreateDietConfigResponse = {
+  __typename?: 'CreateDietConfigResponse';
+  data?: Maybe<DietConfigResponse>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type CreateMealRecipeResponse = {
   __typename?: 'CreateMealRecipeResponse';
   mealId?: Maybe<Scalars['String']>;
@@ -365,7 +372,7 @@ export type Mutation = {
   changeRecipeVisibility: DefaultResponse;
   checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
-  configDiet: DefaultResponse;
+  configDiet: CreateDietConfigResponse;
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
@@ -958,7 +965,7 @@ export type ConfigDietMutationVariables = Exact<{
 }>;
 
 
-export type ConfigDietMutation = { __typename?: 'Mutation', configDiet: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+export type ConfigDietMutation = { __typename?: 'Mutation', configDiet: { __typename?: 'CreateDietConfigResponse', status: boolean, message?: string | null | undefined, data?: { __typename?: 'DietConfigResponse', status: boolean, filters?: Array<string> | null | undefined, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined } | null | undefined } };
 
 export type GetDietConfigQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1497,6 +1504,17 @@ export const ConfigDietDocument = gql`
   ) {
     status
     message
+    data {
+      config {
+        id
+        activityFactor
+        fat
+        carbs
+        protein
+      }
+      status
+      filters
+    }
   }
 }
     `;
