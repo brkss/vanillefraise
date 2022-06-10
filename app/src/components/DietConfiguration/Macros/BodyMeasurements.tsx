@@ -20,7 +20,6 @@ export const BodyMeasurements: React.FC<Props> = ({
 
   const handleData = (id: string, v: string) => {
     const parsed = parseInt(v);
-
     onchange(id, v);
     if (!parsed) return;
     setData({
@@ -28,6 +27,7 @@ export const BodyMeasurements: React.FC<Props> = ({
       [id]: parseInt(v),
     });
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>

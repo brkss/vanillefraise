@@ -47,7 +47,20 @@ export const DietConfiguration: React.FC = () => {
     carbs: 0,
     protein: 0,
     filters: [],
-    meals: [],
+    meals: [
+      {
+        name: "BREAKFAST",
+        time: new Date("Fri Jun 10 2022 08:30:00 GMT+0100 (GMT+01:00)"),
+      },
+      {
+        name: "LUNCH",
+        time: new Date("Fri Jun 10 2022 12:30:00 GMT+0100 (GMT+01:00)"),
+      },
+      {
+        name: "DINNER",
+        time: new Date("Fri Jun 10 2022 21:30:00 GMT+0100 (GMT+01:00)"),
+      },
+    ],
     reminder: true,
   });
 
@@ -84,8 +97,8 @@ export const DietConfiguration: React.FC = () => {
             START: <StartDietConfiguration next={forward} />,
             MACROS: (
               <ConfigureDietMacros
-                height={_me.data.me.height}
-                weight={_me.data.me.weight}
+                height={data.height}
+                weight={data.weight}
                 birth={_me.data.me.birth}
                 gender={_me.data.me.gender}
                 factorval={data.factor}
@@ -104,6 +117,7 @@ export const DietConfiguration: React.FC = () => {
             ),
             SCHEDULE: (
               <ConfigureMealSchedule
+                meals={data.meals}
                 changed={(k, v) => changed(k, v)}
                 previous={backward}
                 next={forward}

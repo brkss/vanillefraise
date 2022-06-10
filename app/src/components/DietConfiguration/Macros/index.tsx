@@ -6,10 +6,7 @@ import { MacrosValues } from "./MacrosValues";
 import { Macronutrients } from "./Macronutrients";
 import { NextButton } from "../NextButton";
 import { calculateREE, calculateTDEE } from "../../../utils/modules/macros";
-import { useMeQuery } from "../../../generated/graphql";
-import { Loading } from "../../../components";
 import { getAge } from "../../../utils/modules/bmr";
-import { activity_factors } from "../../../utils/data/activityFactors";
 
 interface Props {
   previous: () => void;
@@ -32,18 +29,6 @@ export const ConfigureDietMacros: React.FC<Props> = ({
   gender,
   birth,
 }) => {
-  /*
-  const { data, loading, error } = useMeQuery({
-    onCompleted: (res) => {
-      if (res.me) {
-        const { gender, weight, height, birth } = res.me;
-        const _ree = calculateREE(gender, weight, height, getAge(birth));
-        setRee(_ree);
-        setTdee(calculateTDEE(factor, ree));
-      }
-    },
-    });
-   */
   const [ree, setRee] = React.useState(0);
   const [tdee, setTdee] = React.useState(0);
   const [factor, setFactor] = React.useState(factorval);
@@ -60,12 +45,16 @@ export const ConfigureDietMacros: React.FC<Props> = ({
     setTdee(calculateTDEE(factor, ree));
   };
 
+  const handleBodyMeasurementsChange = (key: string, val: any | any[]) => {
+    changeMacros(factor);
+    changed(key, val);
+  };
+
   const handleFactor = (f: number) => {
     changed("factor", f);
     setFactor(f);
     changeMacros(f);
   };
-
 
   return (
     <View style={styles.container}>
@@ -73,11 +62,11 @@ export const ConfigureDietMacros: React.FC<Props> = ({
       <View style={styles.contentContainer}>
         <DailyActivity factor={factorval} onSelect={(f) => handleFactor(f)} />
         <BodyMeasurements
-          onchange={(key, val) => changed(key, val)}
+          onchange={(key, val) => handleBodyMeasurementsChange(key, val)}
           weight={weight}
           height={height}
         />
-        <MacrosValues key={tdee} ree={ree} tdee={calculateTDEE(factor, ree)} />
+        <MacrosValues key={tdee} ree={calculateREE(gender, weight, height, getAge(birth))} tdee={calculateTDEE(factor, ree)} />
         <Macronutrients />
       </View>
       <NextButton next={next} previous={previous} showNext showPrevious />

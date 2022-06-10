@@ -6,10 +6,11 @@ import Moment from "moment";
 interface Props {
   name: string;
   onTimeChange: (name: string, val: Date) => void;
+  time: Date;
 }
 
-export const MealTime: React.FC<Props> = ({ name, onTimeChange }) => {
-  const [time, setTime] = React.useState(new Date());
+export const MealTime: React.FC<Props> = ({ name, onTimeChange, time: t }) => {
+  const [time, setTime] = React.useState(t);
   const [visible, setVisible] = React.useState(false);
 
   const handleShowModal = () => {
@@ -33,6 +34,7 @@ export const MealTime: React.FC<Props> = ({ name, onTimeChange }) => {
         <Text style={styles.time}>{Moment(time).format("hh:mm a")}</Text>
       </Pressable>
       <DateTimePickerModal
+        date={time}
         mode={"time"}
         onCancel={handleHideModal}
         isVisible={visible}

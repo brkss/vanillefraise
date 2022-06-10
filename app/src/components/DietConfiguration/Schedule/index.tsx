@@ -8,6 +8,7 @@ interface Props {
   next: () => void;
   previous: () => void;
   changed: (key: string, val: any | any[]) => void;
+  meals: IMeal[];
 }
 
 interface IMeal {
@@ -19,8 +20,9 @@ export const ConfigureMealSchedule: React.FC<Props> = ({
   next,
   previous,
   changed,
+  meals: ms,
 }) => {
-  const [meals, setMeals] = React.useState<IMeal[]>([]);
+  const [meals, setMeals] = React.useState<IMeal[]>(ms);
 
   const handleTime = (name: string, time: Date) => {
     const index = meals.findIndex((x) => x.name === name);
@@ -50,13 +52,14 @@ export const ConfigureMealSchedule: React.FC<Props> = ({
         when you eat is just as important as what you eat
       </Text>
       <View style={styles.contentContainer}>
-        <MealTime
-          onTimeChange={(n, t) => handleTime(n, t)}
-          name={"BREAKFAST"}
-        />
-        <MealTime onTimeChange={(n, t) => handleTime(n, t)} name={"LUNCH"} />
-        <MealTime onTimeChange={(n, t) => handleTime(n, t)} name={"DINNER"} />
-        <MealTime onTimeChange={(n, t) => handleTime(n, t)} name={"SNACK"} />
+        {meals.map((meal, key) => (
+          <MealTime
+            key={key}
+            onTimeChange={(n, t) => handleTime(n, t)}
+            time={meal.time}
+            name={meal.name}
+          />
+        ))}
         <ReminderCheckBox />
       </View>
       <NextButton previous={previous} next={next} showNext showPrevious />
