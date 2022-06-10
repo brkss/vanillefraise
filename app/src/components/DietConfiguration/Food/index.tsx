@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { FoodItem } from "./Item";
 import { NextButton } from "../NextButton";
 import { useHealthLabelsQuery } from "../../../generated/graphql";
-import { Loading } from "../../../components";
+import { Loading } from "../../../components/General";
 //import Modal from "react-native-modal";
 import { ItemInfoModal } from "./ItemInfoModal";
 

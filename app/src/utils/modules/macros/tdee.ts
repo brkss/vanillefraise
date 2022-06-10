@@ -1,3 +1,3 @@
 export const calculateTDEE = (activity: number, ree: number) => {
-  return ree * activity;
+  return Math.floor(ree * activity);
 };

@@ -24,14 +24,16 @@ export const ConfigureDietMacros: React.FC<Props> = ({
   previous,
   changed,
   factorval,
-  weight,
-  height,
+  weight: w,
+  height: h,
   gender,
   birth,
 }) => {
   const [ree, setRee] = React.useState(0);
   const [tdee, setTdee] = React.useState(0);
   const [factor, setFactor] = React.useState(factorval);
+  const [weight, setWeight] = React.useState(w);
+  const [height, setHeight] = React.useState(h);
 
   React.useEffect(() => {
     const _ree = calculateREE(gender, weight, height, getAge(birth));
@@ -48,6 +50,8 @@ export const ConfigureDietMacros: React.FC<Props> = ({
   const handleBodyMeasurementsChange = (key: string, val: any | any[]) => {
     changeMacros(factor);
     changed(key, val);
+    if (key === "weight") setWeight(val);
+    else if (key === "height") setHeight(val);
   };
 
   const handleFactor = (f: number) => {
@@ -66,7 +70,14 @@ export const ConfigureDietMacros: React.FC<Props> = ({
           weight={weight}
           height={height}
         />
-        <MacrosValues key={tdee} ree={calculateREE(gender, weight, height, getAge(birth))} tdee={calculateTDEE(factor, ree)} />
+        <MacrosValues
+          key={tdee}
+          ree={calculateREE(gender, weight, height, getAge(birth))}
+          tdee={calculateTDEE(
+            factor,
+            calculateREE(gender, weight, height, getAge(birth))
+          )}
+        />
         <Macronutrients />
       </View>
       <NextButton next={next} previous={previous} showNext showPrevious />

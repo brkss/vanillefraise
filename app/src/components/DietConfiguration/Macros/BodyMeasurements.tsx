@@ -20,8 +20,9 @@ export const BodyMeasurements: React.FC<Props> = ({
 
   const handleData = (id: string, v: string) => {
     const parsed = parseInt(v);
-    onchange(id, v);
     if (!parsed) return;
+    console.log("changed : ", v);
+    onchange(id, parsed);
     setData({
       ...data,
       [id]: parseInt(v),
