@@ -18,7 +18,7 @@ import {
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
 
-export const DietConfiguration: React.FC = () => {
+export const DietConfiguration: React.FC<any> = ({ navigation }) => {
   const [config] = useConfigDietMutation();
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -117,6 +117,8 @@ export const DietConfiguration: React.FC = () => {
           res.data.configDiet.message ||
             "Something went wrong configuring diet !"
         );
+      } else if (res.data.configDiet.status === true) {
+        navigation.goBack(); 
       }
     });
   };
@@ -159,7 +161,7 @@ export const DietConfiguration: React.FC = () => {
               />
             ),
             //ANALYSE: <DietAnalyse previous={backward} />,
-            FINISH: <FinishDietConfig finish={() => {}} back={backward} />,
+            FINISH: <FinishDietConfig finish={() => save()} back={backward} />,
           }[step]
         }
       </SafeAreaView>
