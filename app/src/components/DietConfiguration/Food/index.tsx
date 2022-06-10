@@ -69,6 +69,9 @@ export const ConfigureDietFood: React.FC<Props> = ({
       <Text style={styles.hint}>
         select what type of food you feel like you want
       </Text>
+      <Text style={[styles.hint, { fontWeight: "bold", marginTop: -5 }]}>
+        {selected.length} selected
+      </Text>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.items}>
         {data.healthLabels.map((label, key) => (
           <FoodItem
