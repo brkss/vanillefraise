@@ -11,6 +11,7 @@ import {
   CaloriesOverview,
   NutritionOverview,
   MealsOverview,
+  TopBar,
 } from "../../components";
 import { useFonts } from "expo-font";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -46,7 +47,11 @@ export const Overview: React.FC<any> = ({ navigation }) => {
           }
           showsVerticalScrollIndicator={false}
         >
-              <CaloriesOverview dietPressed={() => navigation.push('DietConfiguration')} refreshing={refreshing} />
+          <TopBar navigation={navigation} />
+          <CaloriesOverview
+            dietPressed={() => navigation.push("DietConfiguration")}
+            refreshing={refreshing}
+          />
           <MealsOverview refreshing={refreshing} navigation={navigation} />
           <NutritionOverview
             clicked={(code: string, name: string) =>

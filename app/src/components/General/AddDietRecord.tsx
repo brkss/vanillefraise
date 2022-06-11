@@ -5,14 +5,14 @@ interface Props {
   pressed: () => void;
 }
 
-export const EnterDietButton: React.FC<Props> = ({ pressed }) => {
+export const AddDietRecordButton: React.FC<Props> = ({ pressed }) => {
   return (
     <Pressable style={styles.container} onPress={() => pressed()}>
       <View style={styles.behindCircle} />
       <View style={styles.circle}>
-        <Text style={styles.icon}>🍦</Text>
+        <Text style={styles.icon}>+</Text>
       </View>
-      <Text style={styles.txt}>Diet</Text>
+      <Text style={styles.txt}>ADD</Text>
     </Pressable>
   );
 };
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 30,
+    color: "#434343",
   },
   txt: {
     marginTop: 5,

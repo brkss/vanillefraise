@@ -10,6 +10,7 @@ import {
   MealsOptions,
   RecipesByNutritions,
   DietConfiguration,
+  DietOverview,
 } from "../screens";
 import { DietNavigation } from "./DietNavigation";
 
@@ -31,11 +32,12 @@ export const AppNavigation: React.FC = () => {
         <Screen name={"Active"} component={Active} />
         <Screen name={"FinishExercise"} component={FinishExercise} />
         {/* -- Diet Navigation -- */}
-        <Screen name={"DietConfiguration"} component={DietConfiguration} />
+        <Screen name={"DietOverview"} component={DietOverview} />
       </Group>
       <Group screenOptions={{ presentation: "modal", headerShown: false }}>
         <Screen name={"RecipeDetails"} component={RecipeDetails} />
         <Screen name={"RecipesByNutritions"} component={RecipesByNutritions} />
+        <Screen name={"DietConfiguration"} component={DietConfiguration} />
       </Group>
       <Group
         screenOptions={{

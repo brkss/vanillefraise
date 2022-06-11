@@ -5,7 +5,7 @@ import {
   useCookedRecipesCountQuery,
   useGetUserBurnedCaloriesQuery,
 } from "../../generated/graphql";
-import { EnterDietButton } from "../General/EnterDietButton";
+import { EnterDietButton, AddDietRecordButton } from "../General";
 import { Loading } from "../General/Loading";
 import { useUserCaloriesQuery } from "../../generated/graphql";
 
@@ -62,7 +62,8 @@ export const CaloriesOverview: React.FC<Props> = ({
             <Text style={styles.unit}>calories</Text>
           </Text>
         </View>
-        <EnterDietButton pressed={() => dietPressed()} />
+        {/*<EnterDietButton pressed={() => dietPressed()} />
+        <AddDietRecordButton pressed={() => dietPressed()} />*/}
       </View>
       {/*<Text style={styles.unit}>calories</Text>*/}
       <Text style={styles.burned}>{data.userCalories.value} Cal Taken</Text>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
   caloriesContainer: {
     flexDirection: "row",
     alignItems: "baseline",
+    
   },
   takenCalories: {
     fontSize: 55,

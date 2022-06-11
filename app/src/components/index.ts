@@ -28,3 +28,4 @@ export * from './ActivityRecord';
 export * from './SocialMedia'
 export * from './MealNutritionOverview';
 export * from './DietConfiguration';
+export * from './DietOverview';
