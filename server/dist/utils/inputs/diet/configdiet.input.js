@@ -33,6 +33,14 @@ __decorate([
     (0, type_graphql_1.Field)(() => [String]),
     __metadata("design:type", Array)
 ], ConfigDietInput.prototype, "filters", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ConfigDietInput.prototype, "weight", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ConfigDietInput.prototype, "height", void 0);
 ConfigDietInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], ConfigDietInput);

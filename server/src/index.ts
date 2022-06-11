@@ -47,7 +47,8 @@ import path from "path";
   );
   /*
    * IMAGE OPTIMIZATION !
-  app.get('/optimize', async (_, res) => {
+  /
+   app.get('/optimize', async (_, res) => {
     await optimize(); 
     res.send({
       status: true

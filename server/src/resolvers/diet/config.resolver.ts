@@ -13,16 +13,19 @@ import { MacrosConfig, DietFoodFilter } from "../../entity/Diet";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
 import { HealthLabelRefrence } from "../../entity/Nutrition/HealthLabelReference";
-import { DietConfigResponse } from "../../utils/responses/diet";
+import {
+  DietConfigResponse,
+  CreateDietConfigResponse,
+} from "../../utils/responses/diet";
 
 @Resolver()
 export class DietConfigResolver {
   @UseMiddleware(isUserAuth)
-  @Mutation(() => DefaultResponse)
+  @Mutation(() => CreateDietConfigResponse)
   async configDiet(
     @Arg("data") data: ConfigDietInput,
     @Ctx() ctx: IContext
-  ): Promise<DefaultResponse> {
+  ): Promise<CreateDietConfigResponse> {
     if (!data || !data.activity_factor) {
       return {
         status: false,
@@ -60,9 +63,22 @@ export class DietConfigResolver {
           await ff.save();
         }
       }
+      const filters = await DietFoodFilter.find({
+        where: { user: user },
+        relations: ["healthlabel"],
+      });
+      // update user's data !
+      if (user.weight !== data.weight) user.weight = data.weight;
+      if (user.height !== data.height) user.height = data.height;
+      await user.save();
       return {
         status: true,
         message: "Diet Configed Successfuly !",
+        data: {
+          status: true,
+          config: mc,
+          filters: filters.map((filter) => filter.healthlabel.id),
+        },
       };
     } catch (e) {
       console.log("Sonething went wrong ! ", e);

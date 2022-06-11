@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DietConfigResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
-const default_response_1 = require("../../utils/responses/default.response");
 const inputs_1 = require("../../utils/inputs");
 const Diet_1 = require("../../entity/Diet");
 const User_1 = require("../../entity/User");
@@ -61,9 +60,23 @@ let DietConfigResolver = class DietConfigResolver {
                     await ff.save();
                 }
             }
+            const filters = await Diet_1.DietFoodFilter.find({
+                where: { user: user },
+                relations: ["healthlabel"],
+            });
+            if (user.weight !== data.weight)
+                user.weight = data.weight;
+            if (user.height !== data.height)
+                user.height = data.height;
+            await user.save();
             return {
                 status: true,
                 message: "Diet Configed Successfuly !",
+                data: {
+                    status: true,
+                    config: mc,
+                    filters: filters.map((filter) => filter.healthlabel.id),
+                },
             };
         }
         catch (e) {
@@ -101,7 +114,7 @@ let DietConfigResolver = class DietConfigResolver {
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
-    (0, type_graphql_1.Mutation)(() => default_response_1.DefaultResponse),
+    (0, type_graphql_1.Mutation)(() => diet_1.CreateDietConfigResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),

@@ -3,7 +3,6 @@ import { InputType, Field } from 'type-graphql';
 @InputType()
 export class ConfigDietInput {
 
-
   @Field()
   activity_factor: number;
 
@@ -18,6 +17,12 @@ export class ConfigDietInput {
 
   @Field(() => [String])
   filters: string[]
+
+  @Field()
+  weight: number;
+
+  @Field()
+  height: number;
 
 
 }
