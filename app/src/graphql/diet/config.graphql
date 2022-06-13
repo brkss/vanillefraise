@@ -29,7 +29,10 @@ mutation ConfigDiet(
           protein
         }
         status
-        filters
-      }
+       filters{
+      id
+      label
+    }  
+    }
     }
   }

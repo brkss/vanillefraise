@@ -196,7 +196,7 @@ export type DefaultResponse = {
 export type DietConfigResponse = {
   __typename?: 'DietConfigResponse';
   config?: Maybe<MacrosConfig>;
-  filters?: Maybe<Array<Scalars['String']>>;
+  filters?: Maybe<Array<HealthLabelRefrence>>;
   status: Scalars['Boolean'];
 };
 
@@ -971,12 +971,12 @@ export type ConfigDietMutationVariables = Exact<{
 }>;
 
 
-export type ConfigDietMutation = { __typename?: 'Mutation', configDiet: { __typename?: 'CreateDietConfigResponse', status: boolean, message?: string | null | undefined, data?: { __typename?: 'DietConfigResponse', status: boolean, filters?: Array<string> | null | undefined, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined } | null | undefined } };
+export type ConfigDietMutation = { __typename?: 'Mutation', configDiet: { __typename?: 'CreateDietConfigResponse', status: boolean, message?: string | null | undefined, data?: { __typename?: 'DietConfigResponse', status: boolean, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined, filters?: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string }> | null | undefined } | null | undefined } };
 
 export type GetDietConfigQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetDietConfigQuery = { __typename?: 'Query', getDietConfig: { __typename?: 'DietConfigResponse', status: boolean, filters?: Array<string> | null | undefined, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined } };
+export type GetDietConfigQuery = { __typename?: 'Query', getDietConfig: { __typename?: 'DietConfigResponse', status: boolean, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined, filters?: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string }> | null | undefined } };
 
 export type HealthLabelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1555,7 +1555,10 @@ export const ConfigDietDocument = gql`
         protein
       }
       status
-      filters
+      filters {
+        id
+        label
+      }
     }
   }
 }
@@ -1603,7 +1606,10 @@ export const GetDietConfigDocument = gql`
       protein
     }
     status
-    filters
+    filters {
+      id
+      label
+    }
   }
 }
     `;

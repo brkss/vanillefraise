@@ -1594,8 +1594,8 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "OBJECT",
+                  "name": "HealthLabelRefrence",
                   "ofType": null
                 }
               }

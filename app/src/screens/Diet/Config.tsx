@@ -16,13 +16,14 @@ import {
   useConfigDietMutation,
   GetDietConfigQuery,
   GetDietConfigDocument,
+  ActiveFoodFiltersQuery,
+  ActiveFoodFiltersDocument,
 } from "../../generated/graphql";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
 
-// TODO : make fetchPolicy depend on cache first by updating get config query  ! 
-// TODO : handle errors ! 
-
+// TODO : make fetchPolicy depend on cache first by updating get config query  !
+// TODO : handle errors !
 
 export const DietConfiguration: React.FC<any> = ({ navigation }) => {
   const [config] = useConfigDietMutation();
@@ -117,6 +118,9 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
         if (!data || data.configDiet.status === false) return;
         if (data.configDiet.data.status === false) return;
         console.log("UPDATE THAT SHIT !", data.configDiet.data);
+        store.readQuery<ActiveFoodFiltersQuery>({
+          query: ActiveFoodFiltersDocument,
+        }).activeFoodFilters;
         store.writeQuery<GetDietConfigQuery>({
           query: GetDietConfigDocument,
           data: {
@@ -164,7 +168,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
             ),
             FOOD: (
               <ConfigureDietFood
-                preselected={data.filters}
+                preselected={data.filters.map((filter) => filter.id)}
                 changed={(key, val) => changed(key, val)}
                 previous={backward}
                 next={forward}

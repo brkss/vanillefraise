@@ -8,6 +8,9 @@ query GetDietConfig{
       protein
     }
     status
-    filters
+     filters{
+      id
+      label
+    }
   }
 }
