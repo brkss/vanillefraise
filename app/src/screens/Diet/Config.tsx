@@ -121,6 +121,12 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
         store.readQuery<ActiveFoodFiltersQuery>({
           query: ActiveFoodFiltersDocument,
         }).activeFoodFilters;
+        store.writeQuery<ActiveFoodFiltersQuery>({
+          query: ActiveFoodFiltersDocument,
+          data: {
+            activeFoodFilters: [...data.configDiet.data.filters],
+          },
+        });
         store.writeQuery<GetDietConfigQuery>({
           query: GetDietConfigDocument,
           data: {

@@ -958,7 +958,7 @@ export type RegisterMutation = { __typename?: 'Mutation', register: { __typename
 export type ActiveFoodFiltersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ActiveFoodFiltersQuery = { __typename?: 'Query', activeFoodFilters: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string, description: string }> };
+export type ActiveFoodFiltersQuery = { __typename?: 'Query', activeFoodFilters: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string }> };
 
 export type ConfigDietMutationVariables = Exact<{
   factor: Scalars['Float'];
@@ -1508,7 +1508,6 @@ export const ActiveFoodFiltersDocument = gql`
   activeFoodFilters {
     id
     label
-    description
   }
 }
     `;
