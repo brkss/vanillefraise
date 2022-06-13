@@ -1,0 +1,7 @@
+query ActiveFoodFilters {
+  activeFoodFilters{
+    id
+    label
+    description
+  }
+}

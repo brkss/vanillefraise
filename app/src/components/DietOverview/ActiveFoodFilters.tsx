@@ -1,26 +1,24 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-
-const tmp = [
-  {
-    name: "RED MEAT FREE",
-  },
-  {
-    name: "PORK FREE",
-  },
-  {
-    name: "VEGAN",
-  },
-];
+import { useActiveFoodFiltersQuery } from "../../generated/graphql";
+import { Loading } from "../General/Loading";
 
 export const ActiveFoodFilters: React.FC = () => {
+  const { data, loading, error } = useActiveFoodFiltersQuery();
+
+  if (loading || error) return <Loading />;
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Active Food Filters</Text>
-      <ScrollView style={{ marginTop: 10 }} horizontal>
-        {tmp.map((item, key) => (
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        style={{ marginTop: 10 }}
+        horizontal
+      >
+        {data.activeFoodFilters.map((item, key) => (
           <View key={key} style={styles.item}>
-            <Text style={styles.itemText}>{item.name}</Text>
+            <Text style={styles.itemText}>{item.label}</Text>
           </View>
         ))}
       </ScrollView>

@@ -553,6 +553,7 @@ export type NutritionOverviewResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  activeFoodFilters: Array<HealthLabelRefrence>;
   activities: Array<Activity>;
   activityCategories: Array<ActivityCategory>;
   adminCategories: Array<AdminCategoryResponse>;
@@ -953,6 +954,11 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthDefaultResponse', status: boolean, message?: string | null | undefined, token?: string | null | undefined, rToken?: string | null | undefined } };
+
+export type ActiveFoodFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ActiveFoodFiltersQuery = { __typename?: 'Query', activeFoodFilters: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string, description: string }> };
 
 export type ConfigDietMutationVariables = Exact<{
   factor: Scalars['Float'];
@@ -1497,6 +1503,42 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const ActiveFoodFiltersDocument = gql`
+    query ActiveFoodFilters {
+  activeFoodFilters {
+    id
+    label
+    description
+  }
+}
+    `;
+
+/**
+ * __useActiveFoodFiltersQuery__
+ *
+ * To run a query within a React component, call `useActiveFoodFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActiveFoodFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActiveFoodFiltersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useActiveFoodFiltersQuery(baseOptions?: Apollo.QueryHookOptions<ActiveFoodFiltersQuery, ActiveFoodFiltersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActiveFoodFiltersQuery, ActiveFoodFiltersQueryVariables>(ActiveFoodFiltersDocument, options);
+      }
+export function useActiveFoodFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActiveFoodFiltersQuery, ActiveFoodFiltersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActiveFoodFiltersQuery, ActiveFoodFiltersQueryVariables>(ActiveFoodFiltersDocument, options);
+        }
+export type ActiveFoodFiltersQueryHookResult = ReturnType<typeof useActiveFoodFiltersQuery>;
+export type ActiveFoodFiltersLazyQueryHookResult = ReturnType<typeof useActiveFoodFiltersLazyQuery>;
+export type ActiveFoodFiltersQueryResult = Apollo.QueryResult<ActiveFoodFiltersQuery, ActiveFoodFiltersQueryVariables>;
 export const ConfigDietDocument = gql`
     mutation ConfigDiet($factor: Float!, $fat: Float!, $carbs: Float!, $protein: Float!, $filters: [String!]!, $weight: Float!, $height: Float!) {
   configDiet(
