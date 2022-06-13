@@ -75,7 +75,7 @@ let DietConfigResolver = class DietConfigResolver {
                 data: {
                     status: true,
                     config: mc,
-                    filters: filters.map((filter) => filter.healthlabel.id),
+                    filters: filters.map((filter) => filter.healthlabel),
                 },
             };
         }
@@ -108,7 +108,7 @@ let DietConfigResolver = class DietConfigResolver {
         return {
             status: true,
             config: user.config,
-            filters: filter.map((filter) => filter.healthlabel.id),
+            filters: filter.map((filter) => filter.healthlabel),
         };
     }
 };

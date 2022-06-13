@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DietConfigResponse = void 0;
 const type_graphql_1 = require("type-graphql");
 const Diet_1 = require("../../../entity/Diet");
+const HealthLabelReference_1 = require("../../../entity/Nutrition/HealthLabelReference");
 let DietConfigResponse = class DietConfigResponse {
 };
 __decorate([
@@ -23,7 +24,7 @@ __decorate([
     __metadata("design:type", Diet_1.MacrosConfig)
 ], DietConfigResponse.prototype, "config", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => [String], { nullable: true }),
+    (0, type_graphql_1.Field)(() => [HealthLabelReference_1.HealthLabelRefrence], { nullable: true }),
     __metadata("design:type", Array)
 ], DietConfigResponse.prototype, "filters", void 0);
 DietConfigResponse = __decorate([

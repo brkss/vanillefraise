@@ -1,5 +1,6 @@
 import { ObjectType, Field } from "type-graphql";
 import { MacrosConfig } from "../../../entity/Diet";
+import { HealthLabelRefrence } from '../../../entity/Nutrition/HealthLabelReference';
 
 @ObjectType()
 export class DietConfigResponse {
@@ -10,6 +11,6 @@ export class DietConfigResponse {
   @Field(() => MacrosConfig, {nullable: true})
   config?: MacrosConfig;
 
-  @Field(() => [String], {nullable: true})
-  filters?: string[];
+  @Field(() => [HealthLabelRefrence], {nullable: true})
+  filters?: HealthLabelRefrence[];
 }
