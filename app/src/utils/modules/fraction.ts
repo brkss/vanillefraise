@@ -27,6 +27,6 @@ export const fractionConverter = (number: number) => {
     }
   }
   reduce(numerator, denominator);
-  if (numerator > 3 || denominator > 8) return number.toFixed(2);
+  if (numerator > 3 || denominator > 8) return Math.round(number*100)/100;
   return numerator + "/" + denominator;
 };
