@@ -7,6 +7,7 @@ import {
   TrackMacronutrients,
   DietOverviewTopBar,
   ActiveFoodFilters,
+  DietMacrosOverview
 } from "../../components";
 import { useGetDietConfigQuery } from "../../generated/graphql";
 
@@ -27,6 +28,7 @@ export const DietOverview: React.FC<any> = ({ navigation }) => {
         <DietOverviewTopBar navigation={navigation} />
 
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+          <DietMacrosOverview />
           <ActiveFoodFilters />
           <CaloriesIntake />
           <WeightTrack />
