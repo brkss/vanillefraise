@@ -15,6 +15,7 @@ import {
   DietOverviewTopBar,
   ActiveFoodFilters,
   DietMacrosOverview,
+  Close,
 } from "../../components";
 import { useGetDietConfigQuery } from "../../generated/graphql";
 
@@ -28,13 +29,18 @@ export const DietOverview: React.FC<any> = ({ navigation }) => {
   if (data.getDietConfig.status === false) {
     //navigation.push("DietConfiguration");
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Pressable
-          onPress={() => navigation.push("DietConfiguration")}
-          style={styles.config}
+      <View style={{ flex: 1, marginTop: 25, paddingRight: 5 }}>
+        <Close isRegister pressed={() => navigation.goBack()} />
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <Text style={styles.configText}>CONFIGURE YOUR DIET </Text>
-        </Pressable>
+          <Pressable
+            onPress={() => navigation.push("DietConfiguration")}
+            style={styles.config}
+          >
+            <Text style={styles.configText}>CONFIGURE YOUR DIET </Text>
+          </Pressable>
+        </View>
       </View>
     );
   }
@@ -70,13 +76,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   config: {
-    backgroundColor: "#434343",
+    backgroundColor: "#FFD9D9",
     padding: 15,
-    borderRadius: 7,
+    borderRadius: 14,
   },
   configText: {
     fontWeight: "bold",
     fontSize: 15,
-    color: "white",
+    color: "#434343",
   },
 });
