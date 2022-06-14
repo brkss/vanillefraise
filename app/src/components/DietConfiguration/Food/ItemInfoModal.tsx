@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
-<Ionicons size={30} name={"ios-information-circle-sharp"} />;
+
 interface Props {
   isVisible: boolean;
   title?: string;
@@ -18,7 +18,6 @@ export const ItemInfoModal: React.FC<Props> = ({
 }) => {
   return (
     <Modal
-      testID={"modal"}
       isVisible={isVisible}
       onSwipeComplete={closed}
       useNativeDriverForBackdrop

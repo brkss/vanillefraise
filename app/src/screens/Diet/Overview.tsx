@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   config: {
     backgroundColor: "#FFD9D9",
     padding: 15,
+    paddingHorizontal: 25,
     borderRadius: 14,
   },
   configText: {
