@@ -21,18 +21,22 @@ mutation ConfigDiet(
     status
     message
     data {
-        config {
-          id
-          activityFactor
-          fat
-          carbs
-          protein
-        }
-        status
-       filters{
-      id
-      label
-    }  
+      config {
+        id
+        activityFactor
+        fat
+        carbs
+        protein
+      }
+      status
+      filters {
+        id
+        label
+      }
     }
+    macros{
+      ree
+      tdee
     }
   }
+}

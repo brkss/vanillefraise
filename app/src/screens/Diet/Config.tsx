@@ -18,6 +18,8 @@ import {
   GetDietConfigDocument,
   ActiveFoodFiltersQuery,
   ActiveFoodFiltersDocument,
+  MacrosQuery,
+  MacrosDocument,
 } from "../../generated/graphql";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
@@ -118,9 +120,19 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
         if (!data || data.configDiet.status === false) return;
         if (data.configDiet.data.status === false) return;
         console.log("UPDATE THAT SHIT !", data.configDiet.data);
-        store.readQuery<ActiveFoodFiltersQuery>({
-          query: ActiveFoodFiltersDocument,
-        }).activeFoodFilters;
+        const macros = store.readQuery<MacrosQuery>({
+          query: MacrosDocument,
+        }).macros;
+        store.writeQuery<MacrosQuery>({
+          query: MacrosDocument,
+          data: {
+            macros: {
+              ...macros,
+              ree: data.configDiet.macros.ree,
+              tdee: data.configDiet.macros.tdee,
+            },
+          },
+        });
         store.writeQuery<ActiveFoodFiltersQuery>({
           query: ActiveFoodFiltersDocument,
           data: {

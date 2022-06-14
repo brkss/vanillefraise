@@ -134,6 +134,7 @@ export type CreateActivityResponse = {
 export type CreateDietConfigResponse = {
   __typename?: 'CreateDietConfigResponse';
   data?: Maybe<DietConfigResponse>;
+  macros?: Maybe<UserMacrosResponse>;
   message?: Maybe<Scalars['String']>;
   status: Scalars['Boolean'];
 };
@@ -980,7 +981,7 @@ export type ConfigDietMutationVariables = Exact<{
 }>;
 
 
-export type ConfigDietMutation = { __typename?: 'Mutation', configDiet: { __typename?: 'CreateDietConfigResponse', status: boolean, message?: string | null | undefined, data?: { __typename?: 'DietConfigResponse', status: boolean, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined, filters?: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string }> | null | undefined } | null | undefined } };
+export type ConfigDietMutation = { __typename?: 'Mutation', configDiet: { __typename?: 'CreateDietConfigResponse', status: boolean, message?: string | null | undefined, data?: { __typename?: 'DietConfigResponse', status: boolean, config?: { __typename?: 'MacrosConfig', id: string, activityFactor: number, fat: number, carbs: number, protein: number } | null | undefined, filters?: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string }> | null | undefined } | null | undefined, macros?: { __typename?: 'UserMacrosResponse', ree?: number | null | undefined, tdee?: number | null | undefined } | null | undefined } };
 
 export type GetDietConfigQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1572,6 +1573,10 @@ export const ConfigDietDocument = gql`
         id
         label
       }
+    }
+    macros {
+      ree
+      tdee
     }
   }
 }
