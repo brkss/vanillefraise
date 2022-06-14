@@ -2,11 +2,18 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MacronutrientBar } from "./MacronutrientBar";
 import { MacrosValuesOverview } from "./Values";
-marginVertical: 5;
+import { useMacrosQuery } from '../../../generated/graphql'
+import { Loading } from '../../General/Loading';
+
 export const DietMacrosOverview: React.FC = () => {
+
+  const { data, loading, error } = useMacrosQuery();
+
+  if(loading || error) return <Loading />
+
   return (
     <View style={styles.container}>
-      <MacrosValuesOverview />
+      <MacrosValuesOverview tdee={data.macros.tdee} />
       <View style={styles.macronutrients}>
         <View style={styles.line} />
         <MacronutrientBar />

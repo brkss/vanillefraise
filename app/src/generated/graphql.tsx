@@ -571,6 +571,7 @@ export type Query = {
   helloAdmin: Scalars['String'];
   helloDietData: Scalars['String'];
   isRequested: Scalars['Boolean'];
+  macros: UserMacrosResponse;
   me?: Maybe<User>;
   mealNutrition: MealNutritionResponse;
   meals: Array<MealListResponse>;
@@ -887,6 +888,14 @@ export type UserInfoValidtyInput = {
   username: Scalars['String'];
 };
 
+export type UserMacrosResponse = {
+  __typename?: 'UserMacrosResponse';
+  message?: Maybe<Scalars['String']>;
+  ree?: Maybe<Scalars['Float']>;
+  status: Scalars['Boolean'];
+  tdee?: Maybe<Scalars['Float']>;
+};
+
 export type VerifyResetPasswordTokenResponse = {
   __typename?: 'VerifyResetPasswordTokenResponse';
   message?: Maybe<Scalars['String']>;
@@ -982,6 +991,11 @@ export type HealthLabelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HealthLabelsQuery = { __typename?: 'Query', healthLabels: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string, description: string }> };
+
+export type MacrosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MacrosQuery = { __typename?: 'Query', macros: { __typename?: 'UserMacrosResponse', status: boolean, ree?: number | null | undefined, tdee?: number | null | undefined } };
 
 export type IsRequestedQueryVariables = Exact<{
   service: Scalars['String'];
@@ -1675,6 +1689,42 @@ export function useHealthLabelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type HealthLabelsQueryHookResult = ReturnType<typeof useHealthLabelsQuery>;
 export type HealthLabelsLazyQueryHookResult = ReturnType<typeof useHealthLabelsLazyQuery>;
 export type HealthLabelsQueryResult = Apollo.QueryResult<HealthLabelsQuery, HealthLabelsQueryVariables>;
+export const MacrosDocument = gql`
+    query Macros {
+  macros {
+    status
+    ree
+    tdee
+  }
+}
+    `;
+
+/**
+ * __useMacrosQuery__
+ *
+ * To run a query within a React component, call `useMacrosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMacrosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMacrosQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMacrosQuery(baseOptions?: Apollo.QueryHookOptions<MacrosQuery, MacrosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MacrosQuery, MacrosQueryVariables>(MacrosDocument, options);
+      }
+export function useMacrosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MacrosQuery, MacrosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MacrosQuery, MacrosQueryVariables>(MacrosDocument, options);
+        }
+export type MacrosQueryHookResult = ReturnType<typeof useMacrosQuery>;
+export type MacrosLazyQueryHookResult = ReturnType<typeof useMacrosLazyQuery>;
+export type MacrosQueryResult = Apollo.QueryResult<MacrosQuery, MacrosQueryVariables>;
 export const IsRequestedDocument = gql`
     query IsRequested($service: String!) {
   isRequested(service: $service)

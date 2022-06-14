@@ -4,10 +4,13 @@ import { LoadingBar } from "./LoadingBar";
 import {
   useCookedRecipesCountQuery,
   useGetUserBurnedCaloriesQuery,
+  useMeQuery,
 } from "../../generated/graphql";
 import { EnterDietButton, AddDietRecordButton } from "../General";
 import { Loading } from "../General/Loading";
 import { useUserCaloriesQuery } from "../../generated/graphql";
+import { calculateREE } from "../../utils/modules/macros/ree";
+import { getAge } from "../../utils/modules/bmr";
 
 const calcProgress = (target: number, value: number): number => {
   if (value >= target) return 100;
@@ -23,6 +26,21 @@ export const CaloriesOverview: React.FC<Props> = ({
   refreshing,
   dietPressed,
 }) => {
+  const [ree, setRee] = React.useState(0);
+  const _me = useMeQuery({
+    onCompleted: (res) => {
+      if (res.me) {
+        const me = res.me;
+        const val = calculateREE(
+          me.gender,
+          me.weight,
+          me.height,
+          getAge(me.birth)
+        );
+        setRee(val);
+      }
+    },
+  });
   const { data, loading, error, refetch } = useUserCaloriesQuery();
   const _burnedCalories = useGetUserBurnedCaloriesQuery();
 
@@ -37,6 +55,8 @@ export const CaloriesOverview: React.FC<Props> = ({
   }, [refreshing]);
 
   if (
+    _me.loading ||
+    _me.error ||
     _count.loading ||
     _count.error ||
     _burnedCalories.loading ||
@@ -58,8 +78,7 @@ export const CaloriesOverview: React.FC<Props> = ({
           </Text>
           <Text style={styles.needCalories}>
             {" "}
-            / {data.userCalories.target}{" "}
-            <Text style={styles.unit}>calories</Text>
+            / {ree} <Text style={styles.unit}>calories</Text>
           </Text>
         </View>
         {/*<EnterDietButton pressed={() => dietPressed()} />
@@ -68,7 +87,7 @@ export const CaloriesOverview: React.FC<Props> = ({
       {/*<Text style={styles.unit}>calories</Text>*/}
       <Text style={styles.burned}>{data.userCalories.value} Cal Taken</Text>
       <Text style={styles.burned}>
-        {_burnedCalories.data.getUserBurnedCalories} Cal Burned
+        -{_burnedCalories.data.getUserBurnedCalories} Cal Burned
       </Text>
       <LoadingBar
         progress={calcProgress(
@@ -90,7 +109,6 @@ const styles = StyleSheet.create({
   caloriesContainer: {
     flexDirection: "row",
     alignItems: "baseline",
-    
   },
   takenCalories: {
     fontSize: 55,

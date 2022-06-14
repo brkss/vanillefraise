@@ -5,17 +5,17 @@ const tmp = [
   {
     name: "Fat",
     value: 45,
-    color: '#3C3B3B'
+    color: "#FF9C9C",
   },
   {
     name: "Protein",
     value: 20,
-    color: "#878585",
+    color: "#F6B1B1",
   },
   {
     name: "Carbs",
     value: 35,
-    color: "#D8D8D8"
+    color: "#FFD9D9",
   },
 ];
 
@@ -25,7 +25,7 @@ export const MacronutrientBar: React.FC = () => {
       {tmp.map((mn, key) => (
         <View style={[styles.barContainer, { width: `${mn.value}%` }]}>
           <Text style={styles.label}>{mn.name}</Text>
-          <View style={[styles.bar, {backgroundColor: `${mn.color}`}]} />
+          <View style={[styles.bar, { backgroundColor: `${mn.color}` }]} />
         </View>
       ))}
     </View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   label: {
-   fontWeight: 'bold' 
+    fontWeight: "bold",
   },
   bar: {
     width: "100%",

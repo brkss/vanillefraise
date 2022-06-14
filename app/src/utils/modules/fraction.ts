@@ -27,5 +27,6 @@ export const fractionConverter = (number: number) => {
     }
   }
   reduce(numerator, denominator);
+  if (numerator > 3 || denominator > 8) return number.toFixed(2);
   return numerator + "/" + denominator;
 };

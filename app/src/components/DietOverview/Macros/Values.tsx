@@ -1,13 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const MacrosValuesOverview: React.FC = () => {
+interface Props {
+  tdee: number;
+}
+
+export const MacrosValuesOverview: React.FC<Props> = ({tdee}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>TDEE</Text>
       <Text style={styles.subtitle}>total daily energy expenditure</Text>
       <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-        <Text style={styles.value}>2093</Text>
+        <Text style={styles.value}>{tdee}</Text>
         <Text style={styles.unit}>cal</Text>
       </View>
     </View>

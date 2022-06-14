@@ -10,7 +10,8 @@ interface Props {
 
 const PRESENT_MEASURES = (unit: string, amount: string) => {
   const a = parseFloat(amount);
-  const aa = a % 1 != 0 && Math.floor(a) == 0 ? fractionConverter(a) : a;
+  const aa =
+    a % 1 != 0 && Math.floor(a) == 0 ? fractionConverter(a) : a.toFixed(2);
   return `${a > 0 ? aa + " " : ""}${
     unit?.includes(".") ? "" : unit ? unit : ""
   }`;
