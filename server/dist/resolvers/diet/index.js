@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./data.resolver"), exports);
 __exportStar(require("./config.resolver"), exports);
 __exportStar(require("./filters.resolver"), exports);
+__exportStar(require("./macros.resolver"), exports);
 //# sourceMappingURL=index.js.map
