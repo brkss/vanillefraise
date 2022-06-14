@@ -1,5 +1,12 @@
 import React from "react";
-import { ScrollView, View, Text, StyleSheet, SafeAreaView } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Pressable,
+} from "react-native";
 import {
   Loading,
   CaloriesIntake,
@@ -7,7 +14,7 @@ import {
   TrackMacronutrients,
   DietOverviewTopBar,
   ActiveFoodFilters,
-  DietMacrosOverview
+  DietMacrosOverview,
 } from "../../components";
 import { useGetDietConfigQuery } from "../../generated/graphql";
 
@@ -19,14 +26,23 @@ export const DietOverview: React.FC<any> = ({ navigation }) => {
   }
 
   if (data.getDietConfig.status === false) {
-    navigation.push("DietConfiguration");
+    //navigation.push("DietConfiguration");
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Pressable
+          onPress={() => navigation.push("DietConfiguration")}
+          style={styles.config}
+        >
+          <Text style={styles.configText}>CONFIGURE YOUR DIET </Text>
+        </Pressable>
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <DietOverviewTopBar navigation={navigation} />
-
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
           <DietMacrosOverview />
           <ActiveFoodFilters />
@@ -52,5 +68,15 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     marginBottom: 10,
+  },
+  config: {
+    backgroundColor: "#434343",
+    padding: 15,
+    borderRadius: 7,
+  },
+  configText: {
+    fontWeight: "bold",
+    fontSize: 15,
+    color: "white",
   },
 });

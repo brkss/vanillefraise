@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { fractionConverter } from "../../utils/modules/fraction";
+import convert, { Convert } from "convert-units";
 
 interface Props {
   unit: string;
@@ -8,12 +9,22 @@ interface Props {
   txt: string;
 }
 
+const CHECK_UNIT = (unit: string) => {
+  if (unit && (unit.toLowerCase() === "pound" || unit.toLowerCase() === "lb"))
+    return "kg";
+  return unit;
+};
+
 const PRESENT_MEASURES = (unit: string, amount: string) => {
-  const a = parseFloat(amount);
+  let a = parseFloat(amount);
+  if (unit && (unit.toLowerCase() === "pound" || unit.toLowerCase() === "lb"))
+    a = convert(a).from("lb").to("kg");
   const aa =
-    a % 1 != 0 && Math.floor(a) == 0 ? fractionConverter(a) : Math.round(a*100)/100 ;
+    a % 1 != 0 && Math.floor(a) == 0
+      ? fractionConverter(a)
+      : Math.round(a * 100) / 100;
   return `${a > 0 ? aa + " " : ""}${
-    unit?.includes(".") ? "" : unit ? unit : ""
+    unit?.includes(".") ? "" : CHECK_UNIT(unit) ? CHECK_UNIT(unit) : ""
   }`;
 };
 

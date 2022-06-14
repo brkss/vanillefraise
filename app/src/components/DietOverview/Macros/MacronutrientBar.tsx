@@ -23,7 +23,7 @@ export const MacronutrientBar: React.FC = () => {
   return (
     <View style={styles.container}>
       {tmp.map((mn, key) => (
-        <View style={[styles.barContainer, { width: `${mn.value}%` }]}>
+        <View key={key} style={[styles.barContainer, { width: `${mn.value}%` }]}>
           <Text style={styles.label}>{mn.name}</Text>
           <View style={[styles.bar, { backgroundColor: `${mn.color}` }]} />
         </View>

@@ -5,6 +5,7 @@ import {
   useCookedRecipesCountQuery,
   useGetUserBurnedCaloriesQuery,
   useMeQuery,
+  useMacrosQuery,
 } from "../../generated/graphql";
 import { EnterDietButton, AddDietRecordButton } from "../General";
 import { Loading } from "../General/Loading";
@@ -26,21 +27,7 @@ export const CaloriesOverview: React.FC<Props> = ({
   refreshing,
   dietPressed,
 }) => {
-  const [ree, setRee] = React.useState(0);
-  const _me = useMeQuery({
-    onCompleted: (res) => {
-      if (res.me) {
-        const me = res.me;
-        const val = calculateREE(
-          me.gender,
-          me.weight,
-          me.height,
-          getAge(me.birth)
-        );
-        setRee(val);
-      }
-    },
-  });
+  const _macros = useMacrosQuery();
   const { data, loading, error, refetch } = useUserCaloriesQuery();
   const _burnedCalories = useGetUserBurnedCaloriesQuery();
 
@@ -55,8 +42,8 @@ export const CaloriesOverview: React.FC<Props> = ({
   }, [refreshing]);
 
   if (
-    _me.loading ||
-    _me.error ||
+    _macros.loading ||
+    _macros.error ||
     _count.loading ||
     _count.error ||
     _burnedCalories.loading ||
@@ -78,7 +65,8 @@ export const CaloriesOverview: React.FC<Props> = ({
           </Text>
           <Text style={styles.needCalories}>
             {" "}
-            / {ree} <Text style={styles.unit}>calories</Text>
+            / {_macros.data.macros.tdee || _macros.data.macros.ree}{" "}
+            <Text style={styles.unit}>calories</Text>
           </Text>
         </View>
         {/*<EnterDietButton pressed={() => dietPressed()} />
@@ -91,7 +79,7 @@ export const CaloriesOverview: React.FC<Props> = ({
       </Text>
       <LoadingBar
         progress={calcProgress(
-          data.userCalories.target,
+          (_macros.data.macros.tdee || _macros.data.macros.ree),
           data.userCalories.value
         )}
       />
