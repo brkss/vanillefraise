@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateDietConfigResponse = void 0;
 const type_graphql_1 = require("type-graphql");
 const getconfig_response_1 = require("./getconfig.response");
+const macros_response_1 = require("./macros.response");
 let CreateDietConfigResponse = class CreateDietConfigResponse {
 };
 __decorate([
@@ -26,6 +27,10 @@ __decorate([
     (0, type_graphql_1.Field)(() => getconfig_response_1.DietConfigResponse, { nullable: true }),
     __metadata("design:type", getconfig_response_1.DietConfigResponse)
 ], CreateDietConfigResponse.prototype, "data", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => macros_response_1.UserMacrosResponse, { nullable: true }),
+    __metadata("design:type", macros_response_1.UserMacrosResponse)
+], CreateDietConfigResponse.prototype, "macros", void 0);
 CreateDietConfigResponse = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], CreateDietConfigResponse);

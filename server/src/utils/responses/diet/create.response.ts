@@ -1,5 +1,6 @@
 import { ObjectType, Field } from "type-graphql";
 import { DietConfigResponse } from "./getconfig.response";
+import { UserMacrosResponse } from './macros.response';
 
 @ObjectType()
 export class CreateDietConfigResponse {
@@ -11,4 +12,8 @@ export class CreateDietConfigResponse {
 
   @Field(() => DietConfigResponse, { nullable: true })
   data?: DietConfigResponse;
+  
+  @Field(() => UserMacrosResponse, {nullable: true})
+  macros?: UserMacrosResponse;
+
 }

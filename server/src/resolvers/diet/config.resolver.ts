@@ -17,6 +17,7 @@ import {
   DietConfigResponse,
   CreateDietConfigResponse,
 } from "../../utils/responses/diet";
+import { calculateREE, calculateTDEE } from '../../utils/helpers/macros';
 
 @Resolver()
 export class DietConfigResolver {
@@ -71,6 +72,8 @@ export class DietConfigResolver {
       if (user.weight !== data.weight) user.weight = data.weight;
       if (user.height !== data.height) user.height = data.height;
       await user.save();
+      const ree = calculateREE(user.gender, user.weight, user.height, user.birth);
+      const tdee = calculateTDEE(data.activity_factor, ree);
       return {
         status: true,
         message: "Diet Configed Successfuly !",
@@ -79,6 +82,11 @@ export class DietConfigResolver {
           config: mc,
           filters: filters.map((filter) => filter.healthlabel),
         },
+        macros: {
+          status: true,
+          ree: ree,
+          tdee: tdee
+        }
       };
     } catch (e) {
       console.log("Sonething went wrong ! ", e);

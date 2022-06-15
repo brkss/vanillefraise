@@ -14,4 +14,5 @@ __exportStar(require("./data.resolver"), exports);
 __exportStar(require("./config.resolver"), exports);
 __exportStar(require("./filters.resolver"), exports);
 __exportStar(require("./macros.resolver"), exports);
+__exportStar(require("./record.resolver"), exports);
 //# sourceMappingURL=index.js.map

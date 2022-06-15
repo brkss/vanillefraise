@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DietRecord = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
+const User_1 = require("../User");
 let DietRecord = class DietRecord extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -27,13 +28,26 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], DietRecord.prototype, "value", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], DietRecord.prototype, "unit", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], DietRecord.prototype, "created_at", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => User_1.User),
+    (0, typeorm_1.ManyToOne)(() => User_1.User, user => user.dietRecords, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    }),
+    __metadata("design:type", User_1.User)
+], DietRecord.prototype, "user", void 0);
 DietRecord = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

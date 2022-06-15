@@ -20,6 +20,7 @@ const Diet_1 = require("../../entity/Diet");
 const User_1 = require("../../entity/User");
 const HealthLabelReference_1 = require("../../entity/Nutrition/HealthLabelReference");
 const diet_1 = require("../../utils/responses/diet");
+const macros_1 = require("../../utils/helpers/macros");
 let DietConfigResolver = class DietConfigResolver {
     async configDiet(data, ctx) {
         if (!data || !data.activity_factor) {
@@ -69,6 +70,8 @@ let DietConfigResolver = class DietConfigResolver {
             if (user.height !== data.height)
                 user.height = data.height;
             await user.save();
+            const ree = (0, macros_1.calculateREE)(user.gender, user.weight, user.height, user.birth);
+            const tdee = (0, macros_1.calculateTDEE)(data.activity_factor, ree);
             return {
                 status: true,
                 message: "Diet Configed Successfuly !",
@@ -77,6 +80,11 @@ let DietConfigResolver = class DietConfigResolver {
                     config: mc,
                     filters: filters.map((filter) => filter.healthlabel),
                 },
+                macros: {
+                    status: true,
+                    ree: ree,
+                    tdee: tdee
+                }
             };
         }
         catch (e) {

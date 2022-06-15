@@ -17,7 +17,7 @@ import { SpecialCondition, CookedRecipe } from "./UserInfo";
 import { Activity } from "./Activity";
 import { EarlyAccessRequest } from "./UserInfo/EarlyAccess";
 import { MealRecipes } from "./Meals/MealRecipes";
-import { DietFoodFilter, MacrosConfig } from "./Diet";
+import { DietFoodFilter, MacrosConfig,  } from "./Diet";
 
 @ObjectType()
 @Entity("users")
