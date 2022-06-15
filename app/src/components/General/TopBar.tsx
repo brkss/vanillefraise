@@ -2,14 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { AddDietRecordButton } from "./AddDietRecord";
 import { EnterDietButton } from "./EnterDietButton";
-import { DietRecord } from "../DietRecords";
 
 interface Props {
   navigation: any;
 }
 
 export const TopBar: React.FC<Props> = ({ navigation }) => {
-  const [addRecordVisible, setAddRecordVisible] = React.useState(false);
 
   return (
     <>
@@ -24,14 +22,12 @@ export const TopBar: React.FC<Props> = ({ navigation }) => {
             alignSelf: "flex-end",
           }}
         >
-          <AddDietRecordButton pressed={() => setAddRecordVisible(true)} />
+          <AddDietRecordButton
+            pressed={() => navigation.push("CreateDietRecord")}
+          />
           <EnterDietButton pressed={() => navigation.push("DietOverview")} />
         </View>
       </View>
-      <DietRecord
-        isVisible={addRecordVisible}
-        closed={() => setAddRecordVisible(false)}
-      />
     </>
   );
 };

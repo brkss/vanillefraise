@@ -20,6 +20,7 @@ export const ItemInfoModal: React.FC<Props> = ({
     <Modal
       isVisible={isVisible}
       onSwipeComplete={closed}
+      scrollHorizontal
       useNativeDriverForBackdrop
       swipeDirection={["down"]}
       style={{ margin: 0, justifyContent: "flex-end" }}

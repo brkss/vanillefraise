@@ -11,6 +11,7 @@ import {
   RecipesByNutritions,
   DietConfiguration,
   DietOverview,
+  CreateDietRecord
 } from "../screens";
 import { DietNavigation } from "./DietNavigation";
 
@@ -50,6 +51,7 @@ export const AppNavigation: React.FC = () => {
           },
         }}
       >
+        <Screen name={"CreateDietRecord"} component={CreateDietRecord} />
         <Screen name={"MealsOptions"} component={MealsOptions} />
       </Group>
     </Navigator>

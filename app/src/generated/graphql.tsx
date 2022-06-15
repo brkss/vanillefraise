@@ -139,6 +139,12 @@ export type CreateDietConfigResponse = {
   status: Scalars['Boolean'];
 };
 
+export type CreateDietRecordInput = {
+  type: Scalars['String'];
+  unit: Scalars['String'];
+  value: Scalars['Float'];
+};
+
 export type CreateMealRecipeResponse = {
   __typename?: 'CreateMealRecipeResponse';
   mealId?: Maybe<Scalars['String']>;
@@ -377,6 +383,7 @@ export type Mutation = {
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
+  createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
@@ -454,6 +461,11 @@ export type MutationCookedRecipesArgs = {
 
 export type MutationCreateActivityArgs = {
   data: CreateActivityInput;
+};
+
+
+export type MutationCreateDietRecordArgs = {
+  data: CreateDietRecordInput;
 };
 
 
@@ -997,6 +1009,15 @@ export type MacrosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MacrosQuery = { __typename?: 'Query', macros: { __typename?: 'UserMacrosResponse', status: boolean, ree?: number | null | undefined, tdee?: number | null | undefined } };
+
+export type CreateDietRecordMutationVariables = Exact<{
+  value: Scalars['Float'];
+  unit: Scalars['String'];
+  type: Scalars['String'];
+}>;
+
+
+export type CreateDietRecordMutation = { __typename?: 'Mutation', createDietRecord: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
 export type IsRequestedQueryVariables = Exact<{
   service: Scalars['String'];
@@ -1730,6 +1751,42 @@ export function useMacrosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Mac
 export type MacrosQueryHookResult = ReturnType<typeof useMacrosQuery>;
 export type MacrosLazyQueryHookResult = ReturnType<typeof useMacrosLazyQuery>;
 export type MacrosQueryResult = Apollo.QueryResult<MacrosQuery, MacrosQueryVariables>;
+export const CreateDietRecordDocument = gql`
+    mutation CreateDietRecord($value: Float!, $unit: String!, $type: String!) {
+  createDietRecord(data: {value: $value, unit: $unit, type: $type}) {
+    status
+    message
+  }
+}
+    `;
+export type CreateDietRecordMutationFn = Apollo.MutationFunction<CreateDietRecordMutation, CreateDietRecordMutationVariables>;
+
+/**
+ * __useCreateDietRecordMutation__
+ *
+ * To run a mutation, you first call `useCreateDietRecordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDietRecordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDietRecordMutation, { data, loading, error }] = useCreateDietRecordMutation({
+ *   variables: {
+ *      value: // value for 'value'
+ *      unit: // value for 'unit'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useCreateDietRecordMutation(baseOptions?: Apollo.MutationHookOptions<CreateDietRecordMutation, CreateDietRecordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateDietRecordMutation, CreateDietRecordMutationVariables>(CreateDietRecordDocument, options);
+      }
+export type CreateDietRecordMutationHookResult = ReturnType<typeof useCreateDietRecordMutation>;
+export type CreateDietRecordMutationResult = Apollo.MutationResult<CreateDietRecordMutation>;
+export type CreateDietRecordMutationOptions = Apollo.BaseMutationOptions<CreateDietRecordMutation, CreateDietRecordMutationVariables>;
 export const IsRequestedDocument = gql`
     query IsRequested($service: String!) {
   isRequested(service: $service)
