@@ -8,6 +8,7 @@ import { IContext } from "src/utils/types/Context";
 import { User } from "../../entity/User";
 import { CaloriesTrackResponse } from "../../utils/responses/diet";
 import { DietRecord } from "../../entity/Diet/Record";
+import dayjs from "dayjs";
 
 const getRecipeCal = (nutritients: RecipeTotalNutrition[]): number => {
   for (let n of nutritients) {
@@ -53,12 +54,25 @@ export class DietDataResolver {
         date: cr.created_at,
       });
     }
-    for(let r of records){
+    for (let r of records) {
       data.push({
         date: r.created_at,
-        value: r.value
-      })
-    } 
+        value: r.value,
+      });
+    }
+    let res: CaloriesTrackResponse[] = [];
+    let l = data.length;
+
+    for (let i = 0; i < l; i++) {
+      const index = res.findIndex(
+        (x) => dayjs(x.date).diff(data[i].date, "d") === 0
+      );
+      if (index === -1) {
+        res.push(Object.assign({}, data[i]));
+      } else if (index > -1) {
+        res[index].value += data[i].value;
+      }
+    }
 
     // return { date, value (number of calories !) }
     return data;

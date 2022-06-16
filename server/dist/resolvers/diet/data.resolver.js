@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DietDataResolver = void 0;
 const type_graphql_1 = require("type-graphql");
@@ -20,6 +23,7 @@ const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
 const diet_1 = require("../../utils/responses/diet");
 const Record_1 = require("../../entity/Diet/Record");
+const dayjs_1 = __importDefault(require("dayjs"));
 const getRecipeCal = (nutritients) => {
     for (let n of nutritients) {
         if (n.code === "ENERC_KCAL")
@@ -58,8 +62,19 @@ let DietDataResolver = class DietDataResolver {
         for (let r of records) {
             data.push({
                 date: r.created_at,
-                value: r.value
+                value: r.value,
             });
+        }
+        let res = [];
+        let l = data.length;
+        for (let i = 0; i < l; i++) {
+            const index = res.findIndex((x) => (0, dayjs_1.default)(x.date).diff(data[i].date, "d") === 0);
+            if (index === -1) {
+                res.push(Object.assign({}, data[i]));
+            }
+            else if (index > -1) {
+                res[index].value += data[i].value;
+            }
         }
         return data;
     }
