@@ -19,6 +19,7 @@ const UserInfo_1 = require("../../entity/UserInfo");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
 const diet_1 = require("../../utils/responses/diet");
+const Record_1 = require("../../entity/Diet/Record");
 const getRecipeCal = (nutritients) => {
     for (let n of nutritients) {
         if (n.code === "ENERC_KCAL")
@@ -35,6 +36,7 @@ let DietDataResolver = class DietDataResolver {
         return hl;
     }
     async trackCalories(ctx) {
+        var _a;
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return [];
@@ -43,14 +45,22 @@ let DietDataResolver = class DietDataResolver {
             relations: ["recipe", "recipe.totalnutrition"],
             order: { created_at: "ASC" },
         });
-        let data = [];
-        data = cooked_recipes.map((cr) => {
-            var _a;
-            return {
-                date: cr.created_at,
-                value: ((_a = cr.recipe.totalnutrition.find((x) => x.code === "ENERC_KCAL")) === null || _a === void 0 ? void 0 : _a.quantity) || 0,
-            };
+        const records = await Record_1.DietRecord.find({
+            where: { user: user, type: "IN_CALORIES" },
         });
+        let data = [];
+        for (let cr of cooked_recipes) {
+            data.push({
+                value: ((_a = cr.recipe.totalnutrition.find((x) => x.code === "ENERC_KCAL")) === null || _a === void 0 ? void 0 : _a.quantity) || 0,
+                date: cr.created_at,
+            });
+        }
+        for (let r of records) {
+            data.push({
+                date: r.created_at,
+                value: r.value
+            });
+        }
         return data;
     }
 };

@@ -7,6 +7,7 @@ import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "src/utils/types/Context";
 import { User } from "../../entity/User";
 import { CaloriesTrackResponse } from "../../utils/responses/diet";
+import { DietRecord } from "../../entity/Diet/Record";
 
 const getRecipeCal = (nutritients: RecipeTotalNutrition[]): number => {
   for (let n of nutritients) {
@@ -39,16 +40,26 @@ export class DietDataResolver {
       relations: ["recipe", "recipe.totalnutrition"],
       order: { created_at: "ASC" },
     });
+    const records = await DietRecord.find({
+      where: { user: user, type: "IN_CALORIES" },
+    });
 
     let data: CaloriesTrackResponse[] = [];
-    data = cooked_recipes.map((cr) => {
-      return {
-        date: cr.created_at,
+    for (let cr of cooked_recipes) {
+      data.push({
         value:
           cr.recipe.totalnutrition.find((x) => x.code === "ENERC_KCAL")
             ?.quantity || 0,
-      };
-    });
+        date: cr.created_at,
+      });
+    }
+    for(let r of records){
+      data.push({
+        date: r.created_at,
+        value: r.value
+      })
+    } 
+
     // return { date, value (number of calories !) }
     return data;
   }
