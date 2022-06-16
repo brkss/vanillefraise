@@ -22,6 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], CookedRecipe.prototype, "id", void 0);
 __decorate([
+    (0, type_graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], CookedRecipe.prototype, "created_at", void 0);

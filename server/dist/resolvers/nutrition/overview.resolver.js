@@ -106,7 +106,6 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
             });
             let taken = 0;
             for (let cr of cookedRecipes) {
-                console.log("RECIPE ID : ", cr.recipe.id);
                 const recipe = await Recipe_1.Recipe.findOne({ where: { id: cr.recipe.id } });
                 const energy = await Nutrition_1.RecipeTotalNutrition.findOne({
                     where: { recipe: recipe, code: "ENERC_KCAL" },

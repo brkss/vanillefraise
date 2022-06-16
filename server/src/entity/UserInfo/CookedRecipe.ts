@@ -16,6 +16,7 @@ export class CookedRecipe extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Field()
   @CreateDateColumn()
   created_at: Date;
 
