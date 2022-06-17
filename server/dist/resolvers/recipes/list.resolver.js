@@ -15,18 +15,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecipesListResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const Recipe_1 = require("../../entity/Recipe");
+const FoodFilter_1 = require("../../entity/Diet/FoodFilter");
+const middlewares_1 = require("../../utils/middlewares");
+const User_1 = require("../../entity/User");
+const checkFilter = (recipe, filters) => {
+    for (let filter of filters) {
+        for (let hl of recipe.healthlabel) {
+            if (filter.healthlabel.id === hl.id)
+                return true;
+        }
+    }
+    return false;
+};
 let RecipesListResolver = class RecipesListResolver {
     async recipes() {
         return await Recipe_1.Recipe.find({ where: { public: true } });
     }
-    async recipeByCategory(cat_id) {
+    async recipeByCategory(cat_id, ctx) {
         if (!cat_id) {
             return [];
         }
         try {
+            const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
             let category;
             if (cat_id == "NO")
-                category = (await Recipe_1.RecipeCategory.find({ relations: ["recipes"] }))[0];
+                category = (await Recipe_1.RecipeCategory.find({
+                    relations: ["recipes", "recipes.healthlabel"],
+                }))[0];
             else
                 category = await Recipe_1.RecipeCategory.findOne({
                     where: { id: cat_id },
@@ -36,7 +51,21 @@ let RecipesListResolver = class RecipesListResolver {
                 return [];
             }
             const recipes = category.recipes.filter((r) => r.public === true);
-            return recipes;
+            const filters = await FoodFilter_1.DietFoodFilter.find({
+                where: { user: user },
+                relations: ["healthlabel"],
+            });
+            let data = [];
+            if (filters.length === 0) {
+                data = recipes;
+            }
+            else {
+                for (let r of recipes) {
+                    if (checkFilter(r, filters))
+                        data.push(r);
+                }
+            }
+            return data;
         }
         catch (e) {
             console.log("Sonething went wrong : ", e);
@@ -51,10 +80,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RecipesListResolver.prototype, "recipes", null);
 __decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
     (0, type_graphql_1.Query)(() => [Recipe_1.Recipe]),
     __param(0, (0, type_graphql_1.Arg)("cat_id")),
+    __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], RecipesListResolver.prototype, "recipeByCategory", null);
 RecipesListResolver = __decorate([
