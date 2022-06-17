@@ -7,7 +7,11 @@ import {
   InvisibleInput,
 } from "../../components";
 import { diet_record_types } from "../../utils/data/dietrecordstypes.data";
-import { useCreateDietRecordMutation } from "../../generated/graphql";
+import {
+  TrackWeightDocument,
+  TrackWeightQuery,
+  useCreateDietRecordMutation,
+} from "../../generated/graphql";
 
 export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
   const [type, setType] = React.useState<number>(0);
@@ -28,6 +32,20 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
         type: diet_record_types[type].id,
         value: value,
         unit: diet_record_types[type].unit,
+      },
+      update: (store, { data }) => {
+        if (data.createDietRecord.status === false) return;
+        if (diet_record_types[type].id === "WEIGHT") {
+          const weights = store.readQuery<TrackWeightQuery>({
+            query: TrackWeightDocument,
+          }).trackWeight;
+          store.writeQuery<TrackWeightQuery>({
+            query: TrackWeightDocument,
+            data: {
+              trackWeight: [...weights, value],
+            },
+          });
+        }
       },
     }).then((res) => {
       if (res.data.createDietRecord.status === true) {
