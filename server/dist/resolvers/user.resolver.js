@@ -60,7 +60,7 @@ let UserResolver = class UserResolver {
                 message: "Invalid Data !",
             };
         const user = await User_1.User.findOne({
-            where: [{ email: data.email }, { username: data.email }],
+            where: [{ email: data.email.toLowerCase() }, { username: data.email.toLowerCase() }],
         });
         if (!user) {
             return {
@@ -110,8 +110,8 @@ let UserResolver = class UserResolver {
         try {
             const user = new User_1.User();
             user.name = data.name;
-            user.email = data.email;
-            user.username = (0, helpers_1.formatUsername)(data.username);
+            user.email = data.email.toLowerCase();
+            user.username = (0, helpers_1.formatUsername)(data.username.toLowerCase());
             user.password = await (0, bcrypt_1.hash)(data.password, 5);
             user.weight = data.weight;
             user.height = data.height;

@@ -80,7 +80,7 @@ export class UserResolver {
 
     // treated email field as username in request input just till i change it in client side !
     const user = await User.findOne({
-      where: [{ email: data.email }, { username: data.email }],
+      where: [{ email: data.email.toLowerCase() }, { username: data.email.toLowerCase()}],
     });
     if (!user) {
       return {
@@ -142,8 +142,8 @@ export class UserResolver {
     try {
       const user = new User();
       user.name = data.name;
-      user.email = data.email;
-      user.username = formatUsername(data.username);
+      user.email = data.email.toLowerCase();
+      user.username = formatUsername(data.username.toLowerCase());
       user.password = await hash(data.password, 5);
       user.weight = data.weight;
       user.height = data.height;
