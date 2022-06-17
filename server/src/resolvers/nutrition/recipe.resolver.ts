@@ -64,14 +64,15 @@ export class RecipeNutritionResolver {
     @Ctx() ctx: IContext
   ): Promise<Recipe[]> {
     if (!code) return [];
-    const user = await User.findOne({ where: { id: ctx.payload.userId } });
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return [];
     const nutritions = await RecipeTotalNutrition.find({
       where: { code: code, quantity: MoreThan(0) },
-      relations: ["recipe"],
+      relations: ["recipe", "recipe.healthlabel"],
       order: { quantity: "DESC" },
     });
     const recipes = nutritions.map((nut) => nut.recipe);
+    //return recipes;
     const data = await filterRecipes(recipes, user);
     return data;
   }

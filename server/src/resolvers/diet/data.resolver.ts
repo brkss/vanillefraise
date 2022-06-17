@@ -4,11 +4,14 @@ import { CookedRecipe } from "../../entity/UserInfo";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "src/utils/types/Context";
 import { User } from "../../entity/User";
-import { CaloriesTrackResponse } from "../../utils/responses/diet";
+import {
+  CaloriesTrackResponse,
+  DietHealthLabelResponse,
+} from "../../utils/responses/diet";
 import { DietRecord } from "../../entity/Diet/Record";
 import dayjs from "dayjs";
 import { calculateREE, calculateTDEE } from "../../utils/helpers/macros";
-//import {  } from '';
+import { RecipeHealthLabel } from "../../entity/Nutrition/HealthLabel";
 
 @Resolver()
 export class DietDataResolver {
@@ -17,10 +20,22 @@ export class DietDataResolver {
     return "hello from diet data !";
   }
 
-  @Query(() => [HealthLabelRefrence])
-  async healthLabels(): Promise<HealthLabelRefrence[]> {
+  @Query(() => [DietHealthLabelResponse])
+  async healthLabels(): Promise<DietHealthLabelResponse[]> {
     const hl = await HealthLabelRefrence.find();
-    return hl;
+    const data: DietHealthLabelResponse[] = [];
+    for (let label of hl) {
+      const recipehealthlabel = await RecipeHealthLabel.find({
+        where: { label: label.label.split(" ").join("_") },
+      });
+      data.push({
+        id: label.id,
+        label: label.label,
+        count: recipehealthlabel.length,
+        description: label.description,
+      });
+    }
+    return data;
   }
 
   @UseMiddleware(isUserAuth)

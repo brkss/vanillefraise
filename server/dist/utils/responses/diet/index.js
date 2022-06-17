@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./getconfig.response"), exports);
 __exportStar(require("./create.response"), exports);
 __exportStar(require("./caloriestrack.response"), exports);
+__exportStar(require("./healthlabels.response"), exports);
 //# sourceMappingURL=index.js.map

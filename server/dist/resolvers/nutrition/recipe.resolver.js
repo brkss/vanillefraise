@@ -62,12 +62,12 @@ let RecipeNutritionResolver = class RecipeNutritionResolver {
     async recipeByNutrition(code, ctx) {
         if (!code)
             return [];
-        const user = await User_1.User.findOne({ where: { id: ctx.payload.userId } });
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return [];
         const nutritions = await Nutrition_1.RecipeTotalNutrition.find({
             where: { code: code, quantity: (0, typeorm_1.MoreThan)(0) },
-            relations: ["recipe"],
+            relations: ["recipe", "recipe.healthlabel"],
             order: { quantity: "DESC" },
         });
         const recipes = nutritions.map((nut) => nut.recipe);

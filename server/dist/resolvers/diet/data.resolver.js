@@ -25,13 +25,26 @@ const diet_1 = require("../../utils/responses/diet");
 const Record_1 = require("../../entity/Diet/Record");
 const dayjs_1 = __importDefault(require("dayjs"));
 const macros_1 = require("../../utils/helpers/macros");
+const HealthLabel_1 = require("../../entity/Nutrition/HealthLabel");
 let DietDataResolver = class DietDataResolver {
     helloDietData() {
         return "hello from diet data !";
     }
     async healthLabels() {
         const hl = await HealthLabelReference_1.HealthLabelRefrence.find();
-        return hl;
+        const data = [];
+        for (let label of hl) {
+            const recipehealthlabel = await HealthLabel_1.RecipeHealthLabel.find({
+                where: { label: label.label.split(" ").join("_") },
+            });
+            data.push({
+                id: label.id,
+                label: label.label,
+                count: recipehealthlabel.length,
+                description: label.description,
+            });
+        }
+        return data;
     }
     async trackCalories(ctx) {
         var _a;
@@ -102,7 +115,7 @@ __decorate([
     __metadata("design:returntype", String)
 ], DietDataResolver.prototype, "helloDietData", null);
 __decorate([
-    (0, type_graphql_1.Query)(() => [HealthLabelReference_1.HealthLabelRefrence]),
+    (0, type_graphql_1.Query)(() => [diet_1.DietHealthLabelResponse]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
