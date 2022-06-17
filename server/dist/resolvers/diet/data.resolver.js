@@ -24,13 +24,7 @@ const User_1 = require("../../entity/User");
 const diet_1 = require("../../utils/responses/diet");
 const Record_1 = require("../../entity/Diet/Record");
 const dayjs_1 = __importDefault(require("dayjs"));
-const getRecipeCal = (nutritients) => {
-    for (let n of nutritients) {
-        if (n.code === "ENERC_KCAL")
-            return n.quantity;
-    }
-    return 0;
-};
+const macros_1 = require("../../utils/helpers/macros");
 let DietDataResolver = class DietDataResolver {
     helloDietData() {
         return "hello from diet data !";
@@ -41,7 +35,10 @@ let DietDataResolver = class DietDataResolver {
     }
     async trackCalories(ctx) {
         var _a;
-        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        const user = await User_1.User.findOne({
+            where: { id: ctx.payload.userID },
+            relations: ["config"],
+        });
         if (!user)
             return [];
         const cooked_recipes = await UserInfo_1.CookedRecipe.find({
@@ -76,6 +73,25 @@ let DietDataResolver = class DietDataResolver {
                 res[index].value += data[i].value;
             }
         }
+        const ree = (0, macros_1.calculateREE)(user.gender, user.weight, user.height, user.birth);
+        const tdee = (0, macros_1.calculateTDEE)(user.config.activityFactor, ree);
+        res = res.map((r) => ({
+            date: r.date,
+            value: r.value - tdee,
+        }));
+        res.unshift({ date: new Date(), value: 0 });
+        return res;
+    }
+    async trackWeight(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return [];
+        const records = await Record_1.DietRecord.find({ where: { user: user } });
+        const data = [];
+        for (let r of records) {
+            if (r.type === "WEIGHT")
+                data.push(r.value);
+        }
         return data;
     }
 };
@@ -99,6 +115,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], DietDataResolver.prototype, "trackCalories", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => [Number]),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], DietDataResolver.prototype, "trackWeight", null);
 DietDataResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], DietDataResolver);

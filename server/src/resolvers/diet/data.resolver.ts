@@ -1,21 +1,14 @@
 import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
 import { HealthLabelRefrence } from "../../entity/Nutrition/HealthLabelReference";
 import { CookedRecipe } from "../../entity/UserInfo";
-import { Recipe } from "../../entity/Recipe/";
-import { RecipeTotalNutrition } from "../../entity/Nutrition/TotalNutrition";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "src/utils/types/Context";
 import { User } from "../../entity/User";
 import { CaloriesTrackResponse } from "../../utils/responses/diet";
 import { DietRecord } from "../../entity/Diet/Record";
 import dayjs from "dayjs";
-
-const getRecipeCal = (nutritients: RecipeTotalNutrition[]): number => {
-  for (let n of nutritients) {
-    if (n.code === "ENERC_KCAL") return n.quantity;
-  }
-  return 0;
-};
+import { calculateREE, calculateTDEE } from "../../utils/helpers/macros";
+//import {  } from '';
 
 @Resolver()
 export class DietDataResolver {
@@ -33,7 +26,10 @@ export class DietDataResolver {
   @UseMiddleware(isUserAuth)
   @Query(() => [CaloriesTrackResponse])
   async trackCalories(@Ctx() ctx: IContext): Promise<CaloriesTrackResponse[]> {
-    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    const user = await User.findOne({
+      where: { id: ctx.payload.userID },
+      relations: ["config"],
+    });
     if (!user) return [];
     // find cooked recipes
     const cooked_recipes = await CookedRecipe.find({
@@ -73,8 +69,27 @@ export class DietDataResolver {
         res[index].value += data[i].value;
       }
     }
-
+    const ree = calculateREE(user.gender, user.weight, user.height, user.birth);
+    const tdee = calculateTDEE(user.config.activityFactor, ree);
+    res = res.map((r) => ({
+      date: r.date,
+      value: r.value - tdee,
+    }));
+    res.unshift({ date: new Date(), value: 0 });
     // return { date, value (number of calories !) }
+    return res;
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Query(() => [Number])
+  async trackWeight(@Ctx() ctx: IContext): Promise<number[]> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return [];
+    const records = await DietRecord.find({ where: { user: user } });
+    const data: number[] = [];
+    for (let r of records) {
+      if (r.type === "WEIGHT") data.push(r.value);
+    }
     return data;
   }
 }
