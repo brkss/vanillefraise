@@ -2,18 +2,20 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { AreaChart, Grid, YAxis } from "react-native-svg-charts";
 import * as shape from "d3-shape";
+import { useTrackCaloriesQuery } from "../../generated/graphql";
+import { Loading } from "../General/Loading";
 
 export const CaloriesIntake: React.FC = () => {
-  const data = [
-    0, -5, -10, -35, -54, -64, -85, -91, -35, -23, -13, 24, 50, 20, 80,
-  ];
+  const { data, loading, error } = useTrackCaloriesQuery();
+
+  if (loading || error) return <Loading />;
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>daily calories intake</Text>
       <AreaChart
         style={{ height: 200 }}
-        data={data}
+        data={[...data.trackCalories.map((d) => d.value)]}
         contentInset={{ top: 30, bottom: 30 }}
         curve={shape.curveNatural}
         svg={{ fill: "rgba(0, 0, 0, 0.8)" }}

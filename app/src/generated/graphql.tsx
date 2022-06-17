@@ -76,6 +76,12 @@ export type AuthDefaultResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
+export type CaloriesTrackResponse = {
+  __typename?: 'CaloriesTrackResponse';
+  date: Scalars['DateTime'];
+  value: Scalars['Float'];
+};
+
 export type ChangePasswordInput = {
   newpass: Scalars['String'];
   oldpass: Scalars['String'];
@@ -99,6 +105,7 @@ export type ConfigDietInput = {
 
 export type CookedRecipe = {
   __typename?: 'CookedRecipe';
+  created_at: Scalars['DateTime'];
   id: Scalars['String'];
   recipe: Recipe;
   user: User;
@@ -601,6 +608,8 @@ export type Query = {
   records: ListRecordsResponse;
   searchRecipes: SearchResultResponse;
   specialconditions: Array<SpecialCondition>;
+  trackCalories: Array<CaloriesTrackResponse>;
+  trackWeight: Array<Scalars['Float']>;
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   verifyResetToken: VerifyResetPasswordTokenResponse;
@@ -1018,6 +1027,16 @@ export type CreateDietRecordMutationVariables = Exact<{
 
 
 export type CreateDietRecordMutation = { __typename?: 'Mutation', createDietRecord: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
+export type TrackCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TrackCaloriesQuery = { __typename?: 'Query', trackCalories: Array<{ __typename?: 'CaloriesTrackResponse', value: number, date: any }> };
+
+export type TrackWeightQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TrackWeightQuery = { __typename?: 'Query', trackWeight: Array<number> };
 
 export type IsRequestedQueryVariables = Exact<{
   service: Scalars['String'];
@@ -1787,6 +1806,73 @@ export function useCreateDietRecordMutation(baseOptions?: Apollo.MutationHookOpt
 export type CreateDietRecordMutationHookResult = ReturnType<typeof useCreateDietRecordMutation>;
 export type CreateDietRecordMutationResult = Apollo.MutationResult<CreateDietRecordMutation>;
 export type CreateDietRecordMutationOptions = Apollo.BaseMutationOptions<CreateDietRecordMutation, CreateDietRecordMutationVariables>;
+export const TrackCaloriesDocument = gql`
+    query TrackCalories {
+  trackCalories {
+    value
+    date
+  }
+}
+    `;
+
+/**
+ * __useTrackCaloriesQuery__
+ *
+ * To run a query within a React component, call `useTrackCaloriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTrackCaloriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTrackCaloriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTrackCaloriesQuery(baseOptions?: Apollo.QueryHookOptions<TrackCaloriesQuery, TrackCaloriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TrackCaloriesQuery, TrackCaloriesQueryVariables>(TrackCaloriesDocument, options);
+      }
+export function useTrackCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrackCaloriesQuery, TrackCaloriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TrackCaloriesQuery, TrackCaloriesQueryVariables>(TrackCaloriesDocument, options);
+        }
+export type TrackCaloriesQueryHookResult = ReturnType<typeof useTrackCaloriesQuery>;
+export type TrackCaloriesLazyQueryHookResult = ReturnType<typeof useTrackCaloriesLazyQuery>;
+export type TrackCaloriesQueryResult = Apollo.QueryResult<TrackCaloriesQuery, TrackCaloriesQueryVariables>;
+export const TrackWeightDocument = gql`
+    query TrackWeight {
+  trackWeight
+}
+    `;
+
+/**
+ * __useTrackWeightQuery__
+ *
+ * To run a query within a React component, call `useTrackWeightQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTrackWeightQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTrackWeightQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTrackWeightQuery(baseOptions?: Apollo.QueryHookOptions<TrackWeightQuery, TrackWeightQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TrackWeightQuery, TrackWeightQueryVariables>(TrackWeightDocument, options);
+      }
+export function useTrackWeightLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrackWeightQuery, TrackWeightQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TrackWeightQuery, TrackWeightQueryVariables>(TrackWeightDocument, options);
+        }
+export type TrackWeightQueryHookResult = ReturnType<typeof useTrackWeightQuery>;
+export type TrackWeightLazyQueryHookResult = ReturnType<typeof useTrackWeightLazyQuery>;
+export type TrackWeightQueryResult = Apollo.QueryResult<TrackWeightQuery, TrackWeightQueryVariables>;
 export const IsRequestedDocument = gql`
     query IsRequested($service: String!) {
   isRequested(service: $service)

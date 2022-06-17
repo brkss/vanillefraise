@@ -1,0 +1,6 @@
+query TrackCalories{
+  trackCalories {
+    value
+    date
+  }
+}
