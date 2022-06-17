@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg } from "type-graphql";
+import { Resolver, Query, Arg, UseMiddleware, Ctx } from "type-graphql";
 import { RecipeNutritionResponse } from "../../utils/responses/nutrition";
 import {
   RecipeDietLabel,
@@ -9,6 +9,10 @@ import {
 } from "../../entity/Nutrition";
 import { Recipe } from "../../entity/Recipe";
 import { MoreThan } from "typeorm";
+import { filterRecipes } from "../../utils/helpers/FilterRecipes";
+import { isUserAuth } from "../../utils/middlewares";
+import { IContext } from "../../utils/types/Context";
+import { User } from "../../entity/User";
 
 @Resolver()
 export class RecipeNutritionResolver {
@@ -53,15 +57,22 @@ export class RecipeNutritionResolver {
     return res;
   }
 
+  @UseMiddleware(isUserAuth)
   @Query(() => [Recipe])
-  async recipeByNutrition(@Arg("code") code: string): Promise<Recipe[]> {
+  async recipeByNutrition(
+    @Arg("code") code: string,
+    @Ctx() ctx: IContext
+  ): Promise<Recipe[]> {
     if (!code) return [];
+    const user = await User.findOne({ where: { id: ctx.payload.userId } });
+    if (!user) return [];
     const nutritions = await RecipeTotalNutrition.find({
       where: { code: code, quantity: MoreThan(0) },
       relations: ["recipe"],
-      order: { quantity: 'DESC' }
+      order: { quantity: "DESC" },
     });
     const recipes = nutritions.map((nut) => nut.recipe);
-    return recipes;
+    const data = await filterRecipes(recipes, user);
+    return data;
   }
 }

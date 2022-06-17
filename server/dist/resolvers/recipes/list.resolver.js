@@ -18,7 +18,7 @@ const Recipe_1 = require("../../entity/Recipe");
 const FoodFilter_1 = require("../../entity/Diet/FoodFilter");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
-const checkRecipeFilter_1 = require("../../utils/helpers/checkRecipeFilter");
+const FilterRecipes_1 = require("../../utils/helpers/FilterRecipes");
 let RecipesListResolver = class RecipesListResolver {
     async recipes() {
         return await Recipe_1.Recipe.find({ where: { public: true } });
@@ -29,6 +29,8 @@ let RecipesListResolver = class RecipesListResolver {
         }
         try {
             const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+            if (!user)
+                return [];
             let category;
             if (cat_id == "NO")
                 category = (await Recipe_1.RecipeCategory.find({
@@ -37,7 +39,7 @@ let RecipesListResolver = class RecipesListResolver {
             else
                 category = await Recipe_1.RecipeCategory.findOne({
                     where: { id: cat_id },
-                    relations: ["recipes"],
+                    relations: ["recipes", "recipes.healthlabel"],
                 });
             if (!category) {
                 return [];
@@ -47,16 +49,7 @@ let RecipesListResolver = class RecipesListResolver {
                 where: { user: user },
                 relations: ["healthlabel"],
             });
-            let data = [];
-            if (filters.length === 0) {
-                data = recipes;
-            }
-            else {
-                for (let r of recipes) {
-                    if ((0, checkRecipeFilter_1.checkFilter)(r, filters))
-                        data.push(r);
-                }
-            }
+            const data = await (0, FilterRecipes_1.filterRecipes)(recipes, user);
             return data;
         }
         catch (e) {

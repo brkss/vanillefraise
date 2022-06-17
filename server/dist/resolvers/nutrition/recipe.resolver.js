@@ -18,6 +18,9 @@ const nutrition_1 = require("../../utils/responses/nutrition");
 const Nutrition_1 = require("../../entity/Nutrition");
 const Recipe_1 = require("../../entity/Recipe");
 const typeorm_1 = require("typeorm");
+const FilterRecipes_1 = require("../../utils/helpers/FilterRecipes");
+const middlewares_1 = require("../../utils/middlewares");
+const User_1 = require("../../entity/User");
 let RecipeNutritionResolver = class RecipeNutritionResolver {
     async recipeEnergy(recipe_id) {
         if (!recipe_id)
@@ -56,16 +59,20 @@ let RecipeNutritionResolver = class RecipeNutritionResolver {
         });
         return res;
     }
-    async recipeByNutrition(code) {
+    async recipeByNutrition(code, ctx) {
         if (!code)
+            return [];
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userId } });
+        if (!user)
             return [];
         const nutritions = await Nutrition_1.RecipeTotalNutrition.find({
             where: { code: code, quantity: (0, typeorm_1.MoreThan)(0) },
             relations: ["recipe"],
-            order: { quantity: 'DESC' }
+            order: { quantity: "DESC" },
         });
         const recipes = nutritions.map((nut) => nut.recipe);
-        return recipes;
+        const data = await (0, FilterRecipes_1.filterRecipes)(recipes, user);
+        return data;
     }
 };
 __decorate([
@@ -83,10 +90,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RecipeNutritionResolver.prototype, "getRecipeNutrition", null);
 __decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
     (0, type_graphql_1.Query)(() => [Recipe_1.Recipe]),
     __param(0, (0, type_graphql_1.Arg)("code")),
+    __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], RecipeNutritionResolver.prototype, "recipeByNutrition", null);
 RecipeNutritionResolver = __decorate([

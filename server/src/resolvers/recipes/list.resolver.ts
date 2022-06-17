@@ -4,7 +4,8 @@ import { DietFoodFilter } from "../../entity/Diet/FoodFilter";
 import { isUserAuth } from "../../utils/middlewares";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
-import { checkFilter } from '../../utils/helpers/checkRecipeFilter';
+import { filterRecipes, checkFilter } from "../../utils/helpers/FilterRecipes";
+//import { checkFilter } from '../../utils/helpers/checkRecipeFilter';
 
 @Resolver()
 export class RecipesListResolver {
@@ -24,6 +25,7 @@ export class RecipesListResolver {
     }
     try {
       const user = await User.findOne({ where: { id: ctx.payload.userID } });
+      if (!user) return [];
       let category: RecipeCategory | undefined;
       if (cat_id == "NO")
         category = (
@@ -34,17 +36,18 @@ export class RecipesListResolver {
       else
         category = await RecipeCategory.findOne({
           where: { id: cat_id },
-          relations: ["recipes"],
+          relations: ["recipes", "recipes.healthlabel"],
         });
       if (!category) {
         return [];
       }
       const recipes = category.recipes.filter((r) => r.public === true);
+
       const filters = await DietFoodFilter.find({
         where: { user: user },
         relations: ["healthlabel"],
       });
-
+      /*
       let data: Recipe[] = [];
       if (filters.length === 0) {
         data = recipes;
@@ -52,8 +55,8 @@ export class RecipesListResolver {
         for (let r of recipes) {
           if (checkFilter(r, filters)) data.push(r);
         }
-      }
-
+      }*/
+      const data = await filterRecipes(recipes, user);
       return data;
     } catch (e) {
       console.log("Sonething went wrong : ", e);
