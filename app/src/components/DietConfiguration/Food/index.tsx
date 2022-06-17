@@ -67,7 +67,8 @@ export const ConfigureDietFood: React.FC<Props> = ({
       <Text style={styles.title}>FOOD THAT FIT ?</Text>
       <Text style={styles.subtitle}>enjoy what you’re eating</Text>
       <Text style={styles.hint}>
-        select what type of food you feel like you want
+        setup filters for recipes, note that filters may affect your recipes
+        choises !
       </Text>
       <Text style={[styles.hint, { fontWeight: "bold", marginTop: -5 }]}>
         {selected.length} selected
@@ -79,6 +80,7 @@ export const ConfigureDietFood: React.FC<Props> = ({
             pressed={() => {
               handleSelect(label.id);
             }}
+            count={label.count}
             selected={isSelected(label.id)}
             txt={label.label}
             info={() => showItemInfo(label.label, label.description)}

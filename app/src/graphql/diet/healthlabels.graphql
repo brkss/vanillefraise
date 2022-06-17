@@ -3,5 +3,6 @@ query HealthLabels{
     id
     label
     description
+    count
   }
 }

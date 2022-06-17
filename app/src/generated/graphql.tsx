@@ -221,6 +221,14 @@ export type DietFoodFilter = {
   user: User;
 };
 
+export type DietHealthLabelResponse = {
+  __typename?: 'DietHealthLabelResponse';
+  count: Scalars['Float'];
+  description: Scalars['String'];
+  id: Scalars['String'];
+  label: Scalars['String'];
+};
+
 export type EarlyAccessRequest = {
   __typename?: 'EarlyAccessRequest';
   id: Scalars['String'];
@@ -587,7 +595,7 @@ export type Query = {
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
-  healthLabels: Array<HealthLabelRefrence>;
+  healthLabels: Array<DietHealthLabelResponse>;
   helloAdmin: Scalars['String'];
   helloDietData: Scalars['String'];
   isRequested: Scalars['Boolean'];
@@ -1012,7 +1020,7 @@ export type GetDietConfigQuery = { __typename?: 'Query', getDietConfig: { __type
 export type HealthLabelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HealthLabelsQuery = { __typename?: 'Query', healthLabels: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string, description: string }> };
+export type HealthLabelsQuery = { __typename?: 'Query', healthLabels: Array<{ __typename?: 'DietHealthLabelResponse', id: string, label: string, description: string, count: number }> };
 
 export type MacrosQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1704,6 +1712,7 @@ export const HealthLabelsDocument = gql`
     id
     label
     description
+    count
   }
 }
     `;

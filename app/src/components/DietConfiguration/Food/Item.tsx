@@ -6,9 +6,16 @@ interface Props {
   txt: string;
   selected?: boolean;
   info: () => void;
+  count: number;
 }
 
-export const FoodItem: React.FC<Props> = ({ txt, pressed, selected, info }) => {
+export const FoodItem: React.FC<Props> = ({
+  txt,
+  pressed,
+  selected,
+  info,
+  count,
+}) => {
   return (
     <Pressable
       style={[
@@ -17,14 +24,17 @@ export const FoodItem: React.FC<Props> = ({ txt, pressed, selected, info }) => {
       ]}
       onPress={pressed}
     >
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View
           style={[
             styles.circle,
             { backgroundColor: selected ? "#434343" : "#888888" },
           ]}
         />
-        <Text style={styles.txt}>{txt}</Text>
+        <View>
+          <Text style={styles.txt}>{txt}</Text>
+          <Text style={styles.count}>{count} recipe available</Text>
+        </View>
       </View>
       <Pressable style={styles.info} onPress={info}>
         <Text style={styles.infoText}>i</Text>
@@ -67,5 +77,10 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: "white",
+  },
+  count: {
+    fontSize: 12,
+    fontWeight: "300",
+    opacity: 0.7,
   },
 });
