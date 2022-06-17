@@ -18,15 +18,7 @@ const Recipe_1 = require("../../entity/Recipe");
 const FoodFilter_1 = require("../../entity/Diet/FoodFilter");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
-const checkFilter = (recipe, filters) => {
-    for (let filter of filters) {
-        for (let hl of recipe.healthlabel) {
-            if (filter.healthlabel.id === hl.id)
-                return true;
-        }
-    }
-    return false;
-};
+const checkRecipeFilter_1 = require("../../utils/helpers/checkRecipeFilter");
 let RecipesListResolver = class RecipesListResolver {
     async recipes() {
         return await Recipe_1.Recipe.find({ where: { public: true } });
@@ -61,7 +53,7 @@ let RecipesListResolver = class RecipesListResolver {
             }
             else {
                 for (let r of recipes) {
-                    if (checkFilter(r, filters))
+                    if ((0, checkRecipeFilter_1.checkFilter)(r, filters))
                         data.push(r);
                 }
             }

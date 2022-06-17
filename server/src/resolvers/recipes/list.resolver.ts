@@ -4,15 +4,7 @@ import { DietFoodFilter } from "../../entity/Diet/FoodFilter";
 import { isUserAuth } from "../../utils/middlewares";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
-
-const checkFilter = (recipe: Recipe, filters: DietFoodFilter[]) => {
-  for (let filter of filters) {
-    for (let hl of recipe.healthlabel) {
-      if (filter.healthlabel.id === hl.id) return true;
-    }
-  }
-  return false;
-};
+import { checkFilter } from '../../utils/helpers/checkRecipeFilter';
 
 @Resolver()
 export class RecipesListResolver {
