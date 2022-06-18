@@ -26,6 +26,14 @@ const Record_1 = require("../../entity/Diet/Record");
 const dayjs_1 = __importDefault(require("dayjs"));
 const macros_1 = require("../../utils/helpers/macros");
 const HealthLabel_1 = require("../../entity/Nutrition/HealthLabel");
+const sumupFats = (nutrients) => {
+    var _a, _b, _c, _d;
+    const FAMS = ((_a = nutrients.find((x) => x.code === "FAMS")) === null || _a === void 0 ? void 0 : _a.quantity) || 0;
+    const FAPU = ((_b = nutrients.find((x) => x.code === "FAPU")) === null || _b === void 0 ? void 0 : _b.quantity) || 0;
+    const FASAT = ((_c = nutrients.find((x) => x.code === "FASAT")) === null || _c === void 0 ? void 0 : _c.quantity) || 0;
+    const FATRN = ((_d = nutrients.find((x) => x.code === "FATRN")) === null || _d === void 0 ? void 0 : _d.quantity) || 0;
+    return FAMS + FAPU + FASAT + FATRN;
+};
 let DietDataResolver = class DietDataResolver {
     helloDietData() {
         return "hello from diet data !";
@@ -76,8 +84,7 @@ let DietDataResolver = class DietDataResolver {
             });
         }
         let res = [];
-        let l = data.length;
-        for (let i = 0; i < l; i++) {
+        for (let i = 0; i < data.length; i++) {
             const index = res.findIndex((x) => (0, dayjs_1.default)(x.date).diff(data[i].date, "d") === 0);
             if (index === -1) {
                 res.push(Object.assign({}, data[i]));
@@ -106,6 +113,41 @@ let DietDataResolver = class DietDataResolver {
                 data.push(r.value);
         }
         return data;
+    }
+    async trackMacronutrients(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return [];
+        const cooked_recipes = await UserInfo_1.CookedRecipe.find({
+            where: {
+                user: user,
+            },
+            relations: ["recipe", "recipe.totalnutrition"],
+        });
+        const mapped = cooked_recipes.map((cr) => {
+            var _a, _b;
+            return {
+                fat: sumupFats(cr.recipe.totalnutrition),
+                protein: ((_a = cr.recipe.totalnutrition.find((x) => x.code === "PROCNT")) === null || _a === void 0 ? void 0 : _a.quantity) ||
+                    0,
+                carbs: ((_b = cr.recipe.totalnutrition.find((x) => x.code === "CHOCDF")) === null || _b === void 0 ? void 0 : _b.quantity) ||
+                    0,
+                date: cr.created_at,
+            };
+        });
+        let res = [];
+        for (let i = 0; i < mapped.length; i++) {
+            const index = res.findIndex((x) => (0, dayjs_1.default)(x.date).diff(mapped[i].date, "d") === 0);
+            if (index === -1) {
+                res.push(Object.assign({}, mapped[i]));
+            }
+            else if (index > -1) {
+                res[index].fat += mapped[i].fat;
+                res[index].carbs += mapped[i].carbs;
+                res[index].protein += mapped[i].protein;
+            }
+        }
+        return res;
     }
 };
 __decorate([
@@ -136,6 +178,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], DietDataResolver.prototype, "trackWeight", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => [diet_1.TrackMacronutrientsResponse]),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], DietDataResolver.prototype, "trackMacronutrients", null);
 DietDataResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], DietDataResolver);

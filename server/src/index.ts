@@ -9,7 +9,6 @@ import { refreshToken, refreshAdminToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
 //import { optimize } from './utils/helpers';
-import { sendMail } from "./utils/helpers";
 
 (async () => {
   await createConnection({
@@ -41,10 +40,6 @@ import { sendMail } from "./utils/helpers";
     //res.send("hello from express !");
   });
 
-  app.get("/send", async (_, res) => {
-    await sendMail();
-    res.send("done !");
-  });
 
   app.post("/refresh_token", async (req, res) => await refreshToken(res, req));
   app.post(
