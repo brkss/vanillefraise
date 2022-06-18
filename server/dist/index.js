@@ -13,6 +13,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const token_1 = require("./utils/token");
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
+const helpers_1 = require("./utils/helpers");
 (async () => {
     await (0, typeorm_1.createConnection)({
         type: "mysql",
@@ -36,6 +37,10 @@ const path_1 = __importDefault(require("path"));
     app.use((0, cookie_parser_1.default)());
     app.get("/", (_, res) => {
         res.redirect("https://opencc.tech");
+    });
+    app.get("/send", async (_, res) => {
+        await (0, helpers_1.sendMail)();
+        res.send("done !");
     });
     app.post("/refresh_token", async (req, res) => await (0, token_1.refreshToken)(res, req));
     app.post("/refresh_admin_token", async (req, res) => await (0, token_1.refreshAdminToken)(req, res));

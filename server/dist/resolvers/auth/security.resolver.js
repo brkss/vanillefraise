@@ -15,12 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SecurityResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const responses_1 = require("../../utils/responses");
-const User_1 = require("../../entity/User");
 const token_1 = require("../../utils/token");
-const resetpassword_input_1 = require("../../utils/inputs/auth/resetpassword.input");
 const token_2 = require("../../utils/token");
+const User_1 = require("../../entity/User");
+const resetpassword_input_1 = require("../../utils/inputs/auth/resetpassword.input");
 const bcrypt_1 = require("bcrypt");
 const ResetPassword_1 = require("../../entity/ResetPassword");
+const mail_1 = require("../../utils/helpers/mail");
 let SecurityResolver = class SecurityResolver {
     work() {
         return "yes !";
@@ -62,10 +63,10 @@ let SecurityResolver = class SecurityResolver {
             resetRecord.user = user;
             await resetRecord.save();
             const _token = (0, token_1.createResetPasswordToken)(user, resetRecord);
+            await (0, mail_1.sendMail)(user.email, user.name, _token);
             return {
                 status: true,
                 message: "Token created successfuly",
-                token: _token,
             };
         }
         catch (e) {
