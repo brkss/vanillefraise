@@ -94,13 +94,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 10,
+    //marginTop: 10,
   },
   contentContainer: {
     flex: 1,
     //backgroundColor: "red",
     //alignItems: "stretch",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     marginBottom: 15,
   },
 });

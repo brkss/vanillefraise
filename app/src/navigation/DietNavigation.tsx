@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack'
-import { DietConfiguration } from '../screens/Diet';
+import { DietConfiguration, DietSettings } from '../screens/Diet';
 
 export const DietNavigation : React.FC = () => {
 
@@ -10,6 +10,7 @@ export const DietNavigation : React.FC = () => {
     <Navigator>
       <Group screenOptions={{headerShown: false}}>
         <Screen name={'Configuration'} component={DietConfiguration} />
+        <Screen name={'DietSettings'} component={DietSettings} />
       </Group>
     </Navigator>
   )

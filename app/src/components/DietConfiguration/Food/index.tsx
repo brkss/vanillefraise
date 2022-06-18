@@ -66,11 +66,11 @@ export const ConfigureDietFood: React.FC<Props> = ({
     <View style={styles.container}>
       <Text style={styles.title}>FOOD THAT FIT ?</Text>
       <Text style={styles.subtitle}>enjoy what you’re eating</Text>
-      <Text style={styles.hint}>
+      <Text style={[styles.hint, { display: "none" }]}>
         setup filters for recipes, note that filters may affect your recipes
         choises !
       </Text>
-      <Text style={[styles.hint, { fontWeight: "bold", marginTop: -5 }]}>
+      <Text style={[styles.hint, { fontWeight: "bold", marginTop: 10 }]}>
         {selected.length} selected
       </Text>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.items}>
@@ -125,5 +125,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 13,
     opacity: 0.7,
+    //display: "none",
   },
 });

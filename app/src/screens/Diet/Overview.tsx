@@ -29,18 +29,20 @@ export const DietOverview: React.FC<any> = ({ navigation }) => {
   if (data.getDietConfig.status === false) {
     //navigation.push("DietConfiguration");
     return (
-      <View style={{ flex: 1, marginTop: 25, paddingRight: 5 }}>
-        <Close isRegister pressed={() => navigation.goBack()} />
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Pressable
-            onPress={() => navigation.push("DietConfiguration")}
-            style={styles.config}
+      <View style={{ flex: 1, padding: 10 }}>
+        <SafeAreaView style={{ flex: 1  }}>
+          <Close isRegister pressed={() => navigation.goBack()} />
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
-            <Text style={styles.configText}>CONFIGURE YOUR DIET </Text>
-          </Pressable>
-        </View>
+            <Pressable
+              onPress={() => navigation.push("DietConfiguration")}
+              style={styles.config}
+            >
+              <Text style={styles.configText}>CONFIGURE YOUR DIET </Text>
+            </Pressable>
+          </View>
+        </SafeAreaView>
       </View>
     );
   }

@@ -30,3 +30,4 @@ export * from './MealNutritionOverview';
 export * from './DietConfiguration';
 export * from './DietOverview';
 export * from './DietRecords';
+export * from './DietSettings';

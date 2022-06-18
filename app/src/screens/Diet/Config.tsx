@@ -8,6 +8,7 @@ import {
   //DietAnalyse,
   FinishDietConfig,
   Loading,
+  DietSettingsTopBar,
 } from "../../components";
 import { activity_factors } from "../../utils/data/activityFactors";
 import {
@@ -169,6 +170,9 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
+        {_config.data.getDietConfig.status ? (
+          <DietSettingsTopBar selected={step} onSelect={(s) => setStep(s)} />
+        ) : null}
         {
           {
             START: <StartDietConfiguration next={forward} />,
