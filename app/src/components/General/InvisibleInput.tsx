@@ -23,6 +23,7 @@ export const InvisibleInput: React.FC<Props> = ({
       style={[styles.container, { flexDirection: unit ? "row" : "column" }]}
     >
       <TextInput
+        autoCapitalize={'none'}
         secureTextEntry={secure}
         textContentType={(type as any) || "none"}
         placeholder={label}

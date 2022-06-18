@@ -11,6 +11,7 @@ export const Input: React.FC<Props> = ({ label, password, onChange }) => {
   return (
     <View style={styles.container}>
       <TextInput
+        autoCapitalize={'none'}
         style={styles.input}
         secureTextEntry={password}
         placeholder={label}
