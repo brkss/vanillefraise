@@ -7,6 +7,7 @@ import { User } from "../../entity/User";
 import {
   CaloriesTrackResponse,
   DietHealthLabelResponse,
+  TrackMacronutrientsResponse
 } from "../../utils/responses/diet";
 import { DietRecord } from "../../entity/Diet/Record";
 import dayjs from "dayjs";
