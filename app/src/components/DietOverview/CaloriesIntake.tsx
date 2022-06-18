@@ -4,6 +4,8 @@ import { AreaChart, Grid, YAxis } from "react-native-svg-charts";
 import * as shape from "d3-shape";
 import { useTrackCaloriesQuery } from "../../generated/graphql";
 import { Loading } from "../General/Loading";
+import moment from 'moment';
+import { NoDietRecord } from './NoDietRecord';
 
 export const CaloriesIntake: React.FC = () => {
   const { data, loading, error } = useTrackCaloriesQuery();
@@ -13,6 +15,10 @@ export const CaloriesIntake: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>daily calories intake</Text>
+      {
+        data.trackCalories.length === 0 ? 
+          <NoDietRecord /> : 
+      <>
       <AreaChart
         style={{ height: 200 }}
         data={[...data.trackCalories.map((d) => d.value)]}
@@ -20,8 +26,9 @@ export const CaloriesIntake: React.FC = () => {
         curve={shape.curveNatural}
         svg={{ fill: "rgba(0, 0, 0, 0.8)" }}
       ></AreaChart>
-      <Text style={styles.info}>last record 23/05/2022</Text>
-    </View>
+      <Text style={styles.info}>last record {moment(data.trackCalories[data.trackCalories.length - 1].date).format('DD/MM/YYYY')}</Text>
+      </>}
+      </View>
   );
 };
 

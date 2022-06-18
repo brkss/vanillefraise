@@ -99,7 +99,8 @@ export class DietDataResolver {
       date: r.date,
       value: r.value - tdee,
     }));
-    res.unshift({ date: new Date(), value: 0 });
+    if(res.length > 0)
+      res.unshift({ date: new Date(), value: 0 });
     // return { date, value (number of calories !) }
     return res;
   }
