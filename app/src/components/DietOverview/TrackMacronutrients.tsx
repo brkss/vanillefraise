@@ -2,9 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { StackedAreaChart } from "react-native-svg-charts";
 import * as shape from "d3-shape";
+import { useTrackMacronutrientsQuery } from "../../generated/graphql";
+import { Loading } from "../General/Loading";
 
 export const TrackMacronutrients: React.FC = () => {
-  const data = [
+  /*const data = [
     {
       month: new Date(2015, 0, 1),
       carbs: 3840,
@@ -41,7 +43,9 @@ export const TrackMacronutrients: React.FC = () => {
       fat: 1480,
       protein: 640,
     },
-  ];
+  ];*/
+
+  const { data, loading, error } = useTrackMacronutrientsQuery();
 
   //const colors = ["#878585", "#D8D8D8", "#3C3B3B"];
   const colors = ["#878585", "pink", "#3C3B3B"];
@@ -53,12 +57,14 @@ export const TrackMacronutrients: React.FC = () => {
     { onPress: () => console.log("dates") },
   ];
 
+  if (loading || error) return <Loading />;
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>macronutrients tracking </Text>
       <StackedAreaChart
         style={{ height: 200, paddingVertical: 16 }}
-        data={data}
+        data={data.trackMacronutrients}
         colors={colors}
         curve={shape.curveNatural}
         showGrid={false}

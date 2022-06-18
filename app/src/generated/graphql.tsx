@@ -617,6 +617,7 @@ export type Query = {
   searchRecipes: SearchResultResponse;
   specialconditions: Array<SpecialCondition>;
   trackCalories: Array<CaloriesTrackResponse>;
+  trackMacronutrients: Array<TrackMacronutrientsResponse>;
   trackWeight: Array<Scalars['Float']>;
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
@@ -851,6 +852,14 @@ export type SpecialCondition = {
   users: Array<User>;
 };
 
+export type TrackMacronutrientsResponse = {
+  __typename?: 'TrackMacronutrientsResponse';
+  carbs: Scalars['Float'];
+  date: Scalars['DateTime'];
+  fat: Scalars['Float'];
+  protein: Scalars['Float'];
+};
+
 export type UpdateCategoryInput = {
   active: Scalars['Boolean'];
   icon?: InputMaybe<Scalars['String']>;
@@ -1040,6 +1049,11 @@ export type TrackCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type TrackCaloriesQuery = { __typename?: 'Query', trackCalories: Array<{ __typename?: 'CaloriesTrackResponse', value: number, date: any }> };
+
+export type TrackMacronutrientsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TrackMacronutrientsQuery = { __typename?: 'Query', trackMacronutrients: Array<{ __typename?: 'TrackMacronutrientsResponse', fat: number, carbs: number, protein: number, date: any }> };
 
 export type TrackWeightQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1850,6 +1864,43 @@ export function useTrackCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type TrackCaloriesQueryHookResult = ReturnType<typeof useTrackCaloriesQuery>;
 export type TrackCaloriesLazyQueryHookResult = ReturnType<typeof useTrackCaloriesLazyQuery>;
 export type TrackCaloriesQueryResult = Apollo.QueryResult<TrackCaloriesQuery, TrackCaloriesQueryVariables>;
+export const TrackMacronutrientsDocument = gql`
+    query TrackMacronutrients {
+  trackMacronutrients {
+    fat
+    carbs
+    protein
+    date
+  }
+}
+    `;
+
+/**
+ * __useTrackMacronutrientsQuery__
+ *
+ * To run a query within a React component, call `useTrackMacronutrientsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTrackMacronutrientsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTrackMacronutrientsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTrackMacronutrientsQuery(baseOptions?: Apollo.QueryHookOptions<TrackMacronutrientsQuery, TrackMacronutrientsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TrackMacronutrientsQuery, TrackMacronutrientsQueryVariables>(TrackMacronutrientsDocument, options);
+      }
+export function useTrackMacronutrientsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrackMacronutrientsQuery, TrackMacronutrientsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TrackMacronutrientsQuery, TrackMacronutrientsQueryVariables>(TrackMacronutrientsDocument, options);
+        }
+export type TrackMacronutrientsQueryHookResult = ReturnType<typeof useTrackMacronutrientsQuery>;
+export type TrackMacronutrientsLazyQueryHookResult = ReturnType<typeof useTrackMacronutrientsLazyQuery>;
+export type TrackMacronutrientsQueryResult = Apollo.QueryResult<TrackMacronutrientsQuery, TrackMacronutrientsQueryVariables>;
 export const TrackWeightDocument = gql`
     query TrackWeight {
   trackWeight

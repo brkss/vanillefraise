@@ -1,0 +1,8 @@
+query TrackMacronutrients{
+  trackMacronutrients{
+    fat
+    carbs
+    protein
+    date
+  }
+}
