@@ -3,20 +3,21 @@ import {
   AuthDefaultResponse,
   VerifyResetPasswordTokenResponse,
 } from "../../utils/responses";
-import { User } from "../../entity/User";
 import {
   createResetPasswordToken,
   verifyPasswordToken,
 } from "../../utils/token";
-import { ResetPasswordInput } from "../../utils/inputs/auth/resetpassword.input";
 import {
   generateAccessToken,
   generateRefreshToken,
   sendRefreshToken,
 } from "../../utils/token";
+import { User } from "../../entity/User";
+import { ResetPasswordInput } from "../../utils/inputs/auth/resetpassword.input";
 import { IContext } from "../../utils/types/Context";
 import { hash } from "bcrypt";
 import { ResetPassword } from "../../entity/ResetPassword";
+import { sendMail } from "../../utils/helpers/mail";
 
 @Resolver()
 export class SecurityResolver {
@@ -70,12 +71,12 @@ export class SecurityResolver {
       resetRecord.user = user;
       await resetRecord.save();
       const _token = createResetPasswordToken(user, resetRecord);
+      await sendMail(user.email, user.name, _token);
       // you must not send token as response the token should be sent in email !
       // this is only for test reasons
       return {
         status: true,
         message: "Token created successfuly",
-        token: _token,
       };
     } catch (e) {
       console.log("Something went wrong ! => ", e);
