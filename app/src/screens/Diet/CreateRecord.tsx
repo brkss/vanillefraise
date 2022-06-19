@@ -8,9 +8,13 @@ import {
 } from "../../components";
 import { diet_record_types } from "../../utils/data/dietrecordstypes.data";
 import {
+  GetUserBurnedCaloriesDocument,
+  GetUserBurnedCaloriesQuery,
   TrackWeightDocument,
   TrackWeightQuery,
   useCreateDietRecordMutation,
+  UserCaloriesDocument,
+  UserCaloriesQuery,
 } from "../../generated/graphql";
 
 export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
@@ -45,6 +49,31 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
               trackWeight: [...weights, value],
             },
           });
+        }
+        if(diet_record_types[type].id === "IN_CALORIES"){
+          const userCalories = store.readQuery<UserCaloriesQuery>({
+            query: UserCaloriesDocument
+          }).userCalories;
+          store.writeQuery<UserCaloriesQuery>({
+            query: UserCaloriesDocument,
+            data: {
+              userCalories: {
+                ...userCalories,
+                value: userCalories.value + value
+              }
+            }
+          })
+        }
+        if(diet_record_types[type].id === "BURNED_CALORIES"){
+          const userBurnedCalories = store.readQuery<GetUserBurnedCaloriesQuery>({
+            query: GetUserBurnedCaloriesDocument 
+          }).getUserBurnedCalories;
+          store.writeQuery<GetUserBurnedCaloriesQuery>({
+            query: GetUserBurnedCaloriesDocument,
+            data: {
+              getUserBurnedCalories: userBurnedCalories + value
+            }
+          })
         }
       },
     }).then((res) => {
