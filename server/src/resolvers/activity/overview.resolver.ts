@@ -38,7 +38,7 @@ export class ActivityOverviewResolver {
       },
     });
     const res =
-      (sum === null ? 0 : sum) + records.reduce((s, e) => s + e.value, 0);
+      (sum === null ? 0 : Number(sum)) + records.reduce((s, e) => s + e.value, 0) ;
     return res;
   }
 }

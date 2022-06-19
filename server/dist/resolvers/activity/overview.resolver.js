@@ -49,7 +49,7 @@ let ActivityOverviewResolver = class ActivityOverviewResolver {
                 created_at: (0, typeorm_2.Like)(`${(0, dayjs_1.default)().format("YYYY-MM-DD")}%`),
             },
         });
-        const res = (sum === null ? 0 : sum) + records.reduce((s, e) => s + e.value, 0);
+        const res = (sum === null ? 0 : Number(sum)) + records.reduce((s, e) => s + e.value, 0);
         return res;
     }
 };

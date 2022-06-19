@@ -14,7 +14,7 @@ import { getAge } from "../../utils/helpers/getAge";
 import { Like, LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
 import { UserCaloriesResponse } from "../../utils/responses/nutrition/calories.response";
 import dayjs from "dayjs";
-import { DietRecord } from "src/entity/Diet/Record";
+import { DietRecord } from "../../entity/Diet/Record";
 
 @Resolver()
 export class NutritionOverviewResolver {
