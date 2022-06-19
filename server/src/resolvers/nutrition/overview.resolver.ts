@@ -14,6 +14,7 @@ import { getAge } from "../../utils/helpers/getAge";
 import { Like, LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
 import { UserCaloriesResponse } from "../../utils/responses/nutrition/calories.response";
 import dayjs from "dayjs";
+import { DietRecord } from "src/entity/Diet/Record";
 
 @Resolver()
 export class NutritionOverviewResolver {
@@ -52,7 +53,7 @@ export class NutritionOverviewResolver {
     const results = nutrients.map((n) => {
       let quantity = 0;
       for (let rn of recipesNutrition) {
-        if (rn.code == n.code){
+        if (rn.code == n.code) {
           quantity += rn.quantity;
         }
       }
@@ -117,12 +118,18 @@ export class NutritionOverviewResolver {
         });
         if (energy) taken += energy.quantity;
       }
-
+      const records = await DietRecord.find({
+        where: {
+          user: user,
+          type: "IN_CALORIES",
+          created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`),
+        },
+      });
       return {
         status: true,
         burnt: 0,
         target: target,
-        value: taken,
+        value: taken + records.reduce((s, e) => s + e.value, 0),
         unit: "KCal",
       };
     } catch (e) {

@@ -4,6 +4,9 @@ import { IContext } from "../../utils/types/Context";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { User } from "../../entity/User";
 import { getRepository } from "typeorm";
+import { DietRecord } from "../../entity/Diet/Record";
+import dayjs from "dayjs";
+import { Like } from "typeorm";
 
 @Resolver()
 export class ActivityOverviewResolver {
@@ -27,6 +30,15 @@ export class ActivityOverviewResolver {
       .setParameters({ userid: user.id })
       .getRawOne();
     console.log("SUM -> ", sum);
-    return sum == null ? 0 : sum;
+    const records = await DietRecord.find({
+      where: {
+        type: "BURNED_CALORIES",
+        user: user,
+        created_at: Like(`${dayjs().format("YYYY-MM-DD")}%`),
+      },
+    });
+    const res =
+      (sum === null ? 0 : sum) + records.reduce((s, e) => s + e.value, 0);
+    return res;
   }
 }

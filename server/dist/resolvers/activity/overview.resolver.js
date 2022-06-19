@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActivityOverviewResolver = void 0;
 const type_graphql_1 = require("type-graphql");
@@ -18,6 +21,9 @@ const Activity_1 = require("../../entity/Activity");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const User_1 = require("../../entity/User");
 const typeorm_1 = require("typeorm");
+const Record_1 = require("../../entity/Diet/Record");
+const dayjs_1 = __importDefault(require("dayjs"));
+const typeorm_2 = require("typeorm");
 let ActivityOverviewResolver = class ActivityOverviewResolver {
     async getUserBurnedCalories(ctx) {
         const user = await User_1.User.findOne({
@@ -36,7 +42,15 @@ let ActivityOverviewResolver = class ActivityOverviewResolver {
             .setParameters({ userid: user.id })
             .getRawOne();
         console.log("SUM -> ", sum);
-        return sum == null ? 0 : sum;
+        const records = await Record_1.DietRecord.find({
+            where: {
+                type: "BURNED_CALORIES",
+                user: user,
+                created_at: (0, typeorm_2.Like)(`${(0, dayjs_1.default)().format("YYYY-MM-DD")}%`),
+            },
+        });
+        const res = (sum === null ? 0 : sum) + records.reduce((s, e) => s + e.value, 0);
+        return res;
     }
 };
 __decorate([

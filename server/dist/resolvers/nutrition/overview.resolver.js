@@ -28,6 +28,7 @@ const getAge_1 = require("../../utils/helpers/getAge");
 const typeorm_1 = require("typeorm");
 const calories_response_1 = require("../../utils/responses/nutrition/calories.response");
 const dayjs_1 = __importDefault(require("dayjs"));
+const Record_1 = require("src/entity/Diet/Record");
 let NutritionOverviewResolver = class NutritionOverviewResolver {
     async userNutrition(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -113,11 +114,18 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
                 if (energy)
                     taken += energy.quantity;
             }
+            const records = await Record_1.DietRecord.find({
+                where: {
+                    user: user,
+                    type: "IN_CALORIES",
+                    created_at: (0, typeorm_1.Like)(`%${(0, dayjs_1.default)().format("YYYY-MM-DD")}%`),
+                },
+            });
             return {
                 status: true,
                 burnt: 0,
                 target: target,
-                value: taken,
+                value: taken + records.reduce((s, e) => s + e.value, 0),
                 unit: "KCal",
             };
         }
