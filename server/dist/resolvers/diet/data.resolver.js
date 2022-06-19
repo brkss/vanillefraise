@@ -107,13 +107,19 @@ let DietDataResolver = class DietDataResolver {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return [];
-        const records = await Record_1.DietRecord.find({ where: { user: user } });
-        const data = [];
-        for (let r of records) {
-            if (r.type === "WEIGHT")
-                data.push(r.value);
+        const records = await Record_1.DietRecord.find({ where: { user: user, type: "WEIGHT" } });
+        const data = records.map((rec) => ({ value: rec.value, date: rec.created_at }));
+        let res = [];
+        for (let i = 0; i < data.length; i++) {
+            const index = res.findIndex((x) => (0, dayjs_1.default)(x.date).diff(data[i].date, "d") === 0);
+            if (index === -1) {
+                res.push(Object.assign({}, data[i]));
+            }
+            else if (index > -1) {
+                res[index].value += data[i].value;
+            }
         }
-        return data;
+        return res;
     }
     async trackMacronutrients(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -173,7 +179,7 @@ __decorate([
 ], DietDataResolver.prototype, "trackCalories", null);
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Query)(() => [Number]),
+    (0, type_graphql_1.Query)(() => [diet_1.TrackWeightResponse]),
     __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

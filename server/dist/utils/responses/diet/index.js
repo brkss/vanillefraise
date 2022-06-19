@@ -15,4 +15,5 @@ __exportStar(require("./create.response"), exports);
 __exportStar(require("./caloriestrack.response"), exports);
 __exportStar(require("./healthlabels.response"), exports);
 __exportStar(require("./trackmacronutrients.response"), exports);
+__exportStar(require("./trackweight.response"), exports);
 //# sourceMappingURL=index.js.map

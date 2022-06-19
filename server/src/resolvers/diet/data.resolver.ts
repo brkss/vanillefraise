@@ -8,6 +8,7 @@ import {
   CaloriesTrackResponse,
   DietHealthLabelResponse,
   TrackMacronutrientsResponse,
+  TrackWeightResponse
 } from "../../utils/responses/diet";
 import { DietRecord } from "../../entity/Diet/Record";
 import dayjs from "dayjs";
@@ -106,16 +107,28 @@ export class DietDataResolver {
   }
 
   @UseMiddleware(isUserAuth)
-  @Query(() => [Number])
-  async trackWeight(@Ctx() ctx: IContext): Promise<number[]> {
+  @Query(() => [TrackWeightResponse])
+  async trackWeight(@Ctx() ctx: IContext): Promise<TrackWeightResponse[]> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return [];
-    const records = await DietRecord.find({ where: { user: user } });
-    const data: number[] = [];
-    for (let r of records) {
-      if (r.type === "WEIGHT") data.push(r.value);
+    const records = await DietRecord.find({ where: { user: user, type: "WEIGHT" } });
+    
+    const data : TrackWeightResponse[] = records.map((rec) => ({ value: rec.value, date: rec.created_at }));
+
+    let res: TrackWeightResponse[] = [];
+
+    for (let i = 0; i < data.length; i++) {
+      const index = res.findIndex(
+        (x) => dayjs(x.date).diff(data[i].date, "d") === 0
+      );
+      if (index === -1) {
+        res.push(Object.assign({}, data[i]));
+      } else if (index > -1) {
+        res[index].value += data[i].value;
+      }
     }
-    return data;
+    
+    return res;
   }
 
   @UseMiddleware(isUserAuth)
