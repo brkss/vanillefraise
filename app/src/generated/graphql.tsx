@@ -618,7 +618,7 @@ export type Query = {
   specialconditions: Array<SpecialCondition>;
   trackCalories: Array<CaloriesTrackResponse>;
   trackMacronutrients: Array<TrackMacronutrientsResponse>;
-  trackWeight: Array<Scalars['Float']>;
+  trackWeight: Array<TrackWeightResponse>;
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   verifyResetToken: VerifyResetPasswordTokenResponse;
@@ -860,6 +860,12 @@ export type TrackMacronutrientsResponse = {
   protein: Scalars['Float'];
 };
 
+export type TrackWeightResponse = {
+  __typename?: 'TrackWeightResponse';
+  date: Scalars['DateTime'];
+  value: Scalars['Float'];
+};
+
 export type UpdateCategoryInput = {
   active: Scalars['Boolean'];
   icon?: InputMaybe<Scalars['String']>;
@@ -1058,7 +1064,7 @@ export type TrackMacronutrientsQuery = { __typename?: 'Query', trackMacronutrien
 export type TrackWeightQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TrackWeightQuery = { __typename?: 'Query', trackWeight: Array<number> };
+export type TrackWeightQuery = { __typename?: 'Query', trackWeight: Array<{ __typename?: 'TrackWeightResponse', value: number, date: any }> };
 
 export type IsRequestedQueryVariables = Exact<{
   service: Scalars['String'];
@@ -1903,7 +1909,10 @@ export type TrackMacronutrientsLazyQueryHookResult = ReturnType<typeof useTrackM
 export type TrackMacronutrientsQueryResult = Apollo.QueryResult<TrackMacronutrientsQuery, TrackMacronutrientsQueryVariables>;
 export const TrackWeightDocument = gql`
     query TrackWeight {
-  trackWeight
+  trackWeight {
+    value
+    date
+  }
 }
     `;
 

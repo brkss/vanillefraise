@@ -3,7 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 import { LineChart, Grid, YAxis } from "react-native-svg-charts";
 import { useTrackWeightQuery } from "../../generated/graphql";
 import { Loading } from "../General/Loading";
-import { NoDietRecord } from './NoDietRecord';
+import { NoDietRecord } from "./NoDietRecord";
+import moment from "moment";
 
 export const WeightTrack: React.FC = () => {
   const { data, loading, error } = useTrackWeightQuery();
@@ -18,7 +19,7 @@ export const WeightTrack: React.FC = () => {
         <>
           <View style={{ height: 200, flexDirection: "row" }}>
             <YAxis
-              data={[...data.trackWeight]}
+              data={[...data.trackWeight.map((d) => d.value)]}
               contentInset={{ top: 20, bottom: 20 }}
               svg={{
                 fill: "grey",
@@ -31,12 +32,17 @@ export const WeightTrack: React.FC = () => {
 
             <LineChart
               style={{ flex: 1 }}
-              data={[...data.trackWeight]}
+              data={[...data.trackWeight.map((d) => d.value)]}
               svg={{ stroke: "rgb(0, 0, 0, .8)", strokeWidth: 3 }}
               contentInset={{ top: 20, bottom: 20 }}
             ></LineChart>
           </View>
-          <Text style={styles.info}>last record 23/05/2022</Text>
+          <Text style={styles.info}>
+            last record{" "}
+            {moment(data.trackWeight[data.trackWeight.length - 1].date).format(
+              "DD/MM/YYYY"
+            )}
+          </Text>
         </>
       )}
     </View>
