@@ -6,8 +6,18 @@ import { Loading } from "../General/Loading";
 import { NoDietRecord } from "./NoDietRecord";
 import moment from "moment";
 
-export const WeightTrack: React.FC = () => {
-  const { data, loading, error } = useTrackWeightQuery();
+interface Props {
+  refreshing: boolean;
+}
+
+export const WeightTrack: React.FC<Props> = ({ refreshing }) => {
+  const { data, loading, error, refetch } = useTrackWeightQuery();
+
+  React.useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+  }, [refreshing]);
   if (loading || error) return <Loading />;
 
   return (

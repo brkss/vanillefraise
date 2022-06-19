@@ -7,9 +7,19 @@ import { Loading } from "../General/Loading";
 import moment from "moment";
 import { NoDietRecord } from './NoDietRecord';
 
-export const TrackMacronutrients: React.FC = () => {
-  const { data, loading, error } = useTrackMacronutrientsQuery();
+interface Props {
+  refreshing: boolean;
+}
 
+export const TrackMacronutrients: React.FC<Props> = ({refreshing}) => {
+  const { data, loading, error, refetch } = useTrackMacronutrientsQuery();
+
+  React.useEffect(() => {
+    if(refreshing){
+      refetch()
+    }
+  }, [refreshing]);
+  
   //const colors = ["#878585", "#D8D8D8", "#3C3B3B"];
   const colors = ["#878585", "pink", "#3C3B3B"];
   const keys = ["carbs", "protein", "fat"];

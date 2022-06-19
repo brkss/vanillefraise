@@ -3,8 +3,18 @@ import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { useActiveFoodFiltersQuery } from "../../generated/graphql";
 import { Loading } from "../General/Loading";
 
-export const ActiveFoodFilters: React.FC = () => {
-  const { data, loading, error } = useActiveFoodFiltersQuery();
+interface Props {
+  refreshing: boolean;
+}
+
+export const ActiveFoodFilters: React.FC<Props> = ({ refreshing }) => {
+  const { data, loading, error, refetch } = useActiveFoodFiltersQuery();
+
+  React.useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+  }, [refreshing]);
 
   if (loading || error) return <Loading />;
 

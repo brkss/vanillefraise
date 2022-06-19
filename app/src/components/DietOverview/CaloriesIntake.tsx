@@ -7,8 +7,18 @@ import { Loading } from "../General/Loading";
 import moment from 'moment';
 import { NoDietRecord } from './NoDietRecord';
 
-export const CaloriesIntake: React.FC = () => {
-  const { data, loading, error } = useTrackCaloriesQuery();
+interface Props {
+  refreshing: boolean;
+}
+
+export const CaloriesIntake: React.FC<Props> = ({refreshing}) => {
+  const { data, loading, error, refetch } = useTrackCaloriesQuery();
+
+  React.useEffect(() => {
+    if(refreshing){
+      refetch();
+    }
+  }, [refreshing]);
 
   if (loading || error) return <Loading />;
 

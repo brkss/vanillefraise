@@ -6,6 +6,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Pressable,
+  RefreshControl,
 } from "react-native";
 import {
   Loading,
@@ -19,8 +20,19 @@ import {
 } from "../../components";
 import { useGetDietConfigQuery } from "../../generated/graphql";
 
+const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 export const DietOverview: React.FC<any> = ({ navigation }) => {
-  const { loading, error, data } = useGetDietConfigQuery();
+  const { loading, error, data, refetch} = useGetDietConfigQuery();
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   if (loading || error) {
     return <Loading />;
@@ -30,7 +42,7 @@ export const DietOverview: React.FC<any> = ({ navigation }) => {
     //navigation.push("DietConfiguration");
     return (
       <View style={{ flex: 1, padding: 10 }}>
-        <SafeAreaView style={{ flex: 1  }}>
+        <SafeAreaView style={{ flex: 1 }}>
           <Close isRegister pressed={() => navigation.goBack()} />
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
@@ -51,12 +63,18 @@ export const DietOverview: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <DietOverviewTopBar navigation={navigation} />
-        <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-          <DietMacrosOverview />
-          <ActiveFoodFilters />
-          <CaloriesIntake />
-          <WeightTrack />
-          <TrackMacronutrients />
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          style={styles.content}
+          showsVerticalScrollIndicator={false}
+        >
+          <DietMacrosOverview refreshing={refreshing} />
+          <ActiveFoodFilters refreshing={refreshing} />
+          <CaloriesIntake refreshing={refreshing} />
+          <WeightTrack refreshing={refreshing} />
+          <TrackMacronutrients refreshing={refreshing} />
           <View style={{ height: 100 }} />
         </ScrollView>
       </SafeAreaView>

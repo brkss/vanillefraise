@@ -2,18 +2,32 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MacronutrientBar } from "./MacronutrientBar";
 import { MacrosValuesOverview } from "./Values";
-import { useMacrosQuery } from '../../../generated/graphql'
-import { Loading } from '../../General/Loading';
+import { useMacrosQuery, useMeQuery } from "../../../generated/graphql";
+import { Loading } from "../../General/Loading";
 
-export const DietMacrosOverview: React.FC = () => {
+interface Props {
+  refreshing: boolean;
+}
 
-  const { data, loading, error } = useMacrosQuery();
+export const DietMacrosOverview: React.FC<Props> = ({ refreshing }) => {
+  const { data, loading, error, refetch } = useMacrosQuery();
+  const _me = useMeQuery();
 
-  if(loading || error) return <Loading />
+  React.useEffect(() => {
+    if (refreshing) {
+      refetch();
+      _me.refetch();
+    }
+  }, [refreshing]);
+
+  if (loading || error || _me.loading || _me.error) return <Loading />;
 
   return (
     <View style={styles.container}>
-      <MacrosValuesOverview tdee={data.macros.tdee} />
+      <MacrosValuesOverview
+        tdee={data.macros.tdee}
+        weight={_me.data.me.weight}
+      />
       <View style={styles.macronutrients}>
         <View style={styles.line} />
         <MacronutrientBar />
