@@ -9,10 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RecipeItemResponse = exports.TranslatedIngredient = void 0;
+exports.RecipeItemResponse = exports.TranslatedInstruction = exports.TranslatedIngredient = void 0;
 const type_graphql_1 = require("type-graphql");
 const Recipe_1 = require("../../../entity/Recipe");
 const Ingredient_1 = require("../../../entity/Recipe/Ingredient");
+const Instuction_1 = require("../../../entity/Recipe/Instuction");
 let IngredientLang = class IngredientLang {
 };
 __decorate([
@@ -44,6 +45,24 @@ TranslatedIngredient = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], TranslatedIngredient);
 exports.TranslatedIngredient = TranslatedIngredient;
+let TranslatedInstruction = class TranslatedInstruction extends Instuction_1.Instruction {
+};
+__decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], TranslatedInstruction.prototype, "es", void 0);
+__decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], TranslatedInstruction.prototype, "fr", void 0);
+__decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", String)
+], TranslatedInstruction.prototype, "ar", void 0);
+TranslatedInstruction = __decorate([
+    (0, type_graphql_1.ObjectType)()
+], TranslatedInstruction);
+exports.TranslatedInstruction = TranslatedInstruction;
 let RecipeItemResponse = class RecipeItemResponse {
 };
 __decorate([
@@ -62,6 +81,10 @@ __decorate([
     (0, type_graphql_1.Field)(() => [TranslatedIngredient], { nullable: true }),
     __metadata("design:type", Array)
 ], RecipeItemResponse.prototype, "ingredients", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [TranslatedInstruction], { nullable: true }),
+    __metadata("design:type", Array)
+], RecipeItemResponse.prototype, "instructions", void 0);
 RecipeItemResponse = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], RecipeItemResponse);

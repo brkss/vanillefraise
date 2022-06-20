@@ -1,6 +1,7 @@
 import { ObjectType, Field } from "type-graphql";
 import { Recipe } from "../../../entity/Recipe";
 import { Ingredient } from "../../../entity/Recipe/Ingredient";
+import { Instruction } from "../../../entity/Recipe/Instuction";
 
 @ObjectType()
 class IngredientLang {
@@ -24,6 +25,18 @@ export class TranslatedIngredient extends Ingredient {
 }
 
 @ObjectType()
+export class TranslatedInstruction extends Instruction {
+  @Field({nullable: true})
+  es?: string;
+
+  @Field({nullable: true})
+  fr?: string;
+
+  @Field({nullable: true})
+  ar?: string; 
+}
+
+@ObjectType()
 export class RecipeItemResponse {
   @Field()
   status: boolean;
@@ -36,4 +49,8 @@ export class RecipeItemResponse {
 
   @Field(() => [TranslatedIngredient], { nullable: true })
   ingredients?: TranslatedIngredient[];
+
+  @Field(() => [TranslatedInstruction], {nullable: true})
+  instructions?: TranslatedInstruction[]; 
+
 }
