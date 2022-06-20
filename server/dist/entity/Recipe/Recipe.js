@@ -89,7 +89,7 @@ __decorate([
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     }),
-    __metadata("design:type", Instuction_1.Instruction)
+    __metadata("design:type", Array)
 ], Recipe.prototype, "instructions", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [Nutrition_1.RecipeDietLabel]),
@@ -118,12 +118,12 @@ __decorate([
 ], Recipe.prototype, "totalnutritionkcal", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [UserInfo_1.CookedRecipe]),
-    (0, typeorm_1.OneToMany)(() => UserInfo_1.CookedRecipe, cookedrecipe => cookedrecipe),
+    (0, typeorm_1.OneToMany)(() => UserInfo_1.CookedRecipe, (cookedrecipe) => cookedrecipe),
     __metadata("design:type", Array)
 ], Recipe.prototype, "cookedrecipes", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [MealRecipes_1.MealRecipes]),
-    (0, typeorm_1.OneToMany)(() => MealRecipes_1.MealRecipes, mealrecipes => mealrecipes.recipe),
+    (0, typeorm_1.OneToMany)(() => MealRecipes_1.MealRecipes, (mealrecipes) => mealrecipes.recipe),
     __metadata("design:type", Array)
 ], Recipe.prototype, "mealrecipes", void 0);
 __decorate([

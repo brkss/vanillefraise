@@ -39,10 +39,12 @@ import {
   AdminRecipeResolver,
   // *****  diet resolvers  ******
   DietDataResolver,
-  DietConfigResolver, 
+  DietConfigResolver,
   FoodFilterResolver,
   MacrosResolver,
-  DietRecordResolver
+  DietRecordResolver,
+  // ****** translation ******
+  TranlatingResolver,
 } from "../resolvers";
 
 export const build = async () => {
@@ -88,7 +90,8 @@ export const build = async () => {
       DietConfigResolver,
       FoodFilterResolver,
       MacrosResolver,
-      DietRecordResolver
+      DietRecordResolver,
+      TranlatingResolver,
     ],
     validate: false,
     dateScalarMode: "isoDate",

@@ -46,7 +46,8 @@ const build = async () => {
             resolvers_1.DietConfigResolver,
             resolvers_1.FoodFilterResolver,
             resolvers_1.MacrosResolver,
-            resolvers_1.DietRecordResolver
+            resolvers_1.DietRecordResolver,
+            resolvers_1.TranlatingResolver,
         ],
         validate: false,
         dateScalarMode: "isoDate",

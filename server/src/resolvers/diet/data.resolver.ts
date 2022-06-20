@@ -8,7 +8,7 @@ import {
   CaloriesTrackResponse,
   DietHealthLabelResponse,
   TrackMacronutrientsResponse,
-  TrackWeightResponse
+  TrackWeightResponse,
 } from "../../utils/responses/diet";
 import { DietRecord } from "../../entity/Diet/Record";
 import dayjs from "dayjs";
@@ -65,6 +65,7 @@ export class DietDataResolver {
     });
     const records = await DietRecord.find({
       where: { user: user, type: "IN_CALORIES" },
+      order: { created_at: "ASC" },
     });
 
     let data: CaloriesTrackResponse[] = [];
@@ -100,8 +101,7 @@ export class DietDataResolver {
       date: r.date,
       value: r.value - tdee,
     }));
-    if(res.length > 0)
-      res.unshift({ date: new Date(), value: 0 });
+    if (res.length > 0) res.unshift({ date: new Date(), value: 0 });
     // return { date, value (number of calories !) }
     return res;
   }
@@ -111,9 +111,15 @@ export class DietDataResolver {
   async trackWeight(@Ctx() ctx: IContext): Promise<TrackWeightResponse[]> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return [];
-    const records = await DietRecord.find({ where: { user: user, type: "WEIGHT" } });
-    
-    const data : TrackWeightResponse[] = records.map((rec) => ({ value: rec.value, date: rec.created_at }));
+    const records = await DietRecord.find({
+      where: { user: user, type: "WEIGHT" },
+      order: { created_at: "ASC" },
+    });
+
+    const data: TrackWeightResponse[] = records.map((rec) => ({
+      value: rec.value,
+      date: rec.created_at,
+    }));
 
     let res: TrackWeightResponse[] = [];
 
@@ -127,7 +133,7 @@ export class DietDataResolver {
         res[index].value += data[i].value;
       }
     }
-    
+
     return res;
   }
 
@@ -144,6 +150,7 @@ export class DietDataResolver {
         user: user,
       },
       relations: ["recipe", "recipe.totalnutrition"],
+      order: { created_at: "ASC" },
     });
 
     const mapped: TrackMacronutrientsResponse[] = cooked_recipes.map((cr) => {

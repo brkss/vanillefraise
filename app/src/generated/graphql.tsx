@@ -255,6 +255,12 @@ export type Ingredient = {
   unit?: Maybe<Scalars['String']>;
 };
 
+export type IngredientLang = {
+  __typename?: 'IngredientLang';
+  ingredient?: Maybe<Scalars['String']>;
+  unit?: Maybe<Scalars['String']>;
+};
+
 export type Instruction = {
   __typename?: 'Instruction';
   created_at: Scalars['DateTime'];
@@ -746,6 +752,8 @@ export type RecipeHealthLabel = {
 
 export type RecipeItemResponse = {
   __typename?: 'RecipeItemResponse';
+  ingredients?: Maybe<Array<TranslatedIngredient>>;
+  instructions?: Maybe<Array<TranslatedInstruction>>;
   message?: Maybe<Scalars['String']>;
   recipe?: Maybe<Recipe>;
   status: Scalars['Boolean'];
@@ -864,6 +872,32 @@ export type TrackWeightResponse = {
   __typename?: 'TrackWeightResponse';
   date: Scalars['DateTime'];
   value: Scalars['Float'];
+};
+
+export type TranslatedIngredient = {
+  __typename?: 'TranslatedIngredient';
+  amount?: Maybe<Scalars['String']>;
+  ar: IngredientLang;
+  created_at: Scalars['String'];
+  es: IngredientLang;
+  fr: IngredientLang;
+  id: Scalars['String'];
+  ingredients?: Maybe<Scalars['String']>;
+  raw: Scalars['String'];
+  recipe: Recipe;
+  unit?: Maybe<Scalars['String']>;
+};
+
+export type TranslatedInstruction = {
+  __typename?: 'TranslatedInstruction';
+  ar?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime'];
+  es?: Maybe<Scalars['String']>;
+  fr?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  index: Scalars['Float'];
+  raw: Scalars['String'];
+  recipe: Recipe;
 };
 
 export type UpdateCategoryInput = {
@@ -1222,7 +1256,7 @@ export type RecipeQueryVariables = Exact<{
 }>;
 
 
-export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, ingredients: Array<{ __typename?: 'Ingredient', unit?: string | null | undefined, raw: string, amount?: string | null | undefined, ingredients?: string | null | undefined }>, instructions: Array<{ __typename?: 'Instruction', id: string, raw: string, index: number }> } | null | undefined } };
+export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined } | null | undefined, ingredients?: Array<{ __typename?: 'TranslatedIngredient', unit?: string | null | undefined, raw: string, amount?: string | null | undefined, ingredients?: string | null | undefined, es: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, fr: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, ar: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined } }> | null | undefined, instructions?: Array<{ __typename?: 'TranslatedInstruction', id: string, raw: string, index: number, es?: string | null | undefined, ar?: string | null | undefined, fr?: string | null | undefined }> | null | undefined } };
 
 export type SearchRecipesQueryVariables = Exact<{
   query: Scalars['String'];
@@ -2814,17 +2848,32 @@ export const RecipeDocument = gql`
       cook
       prep
       total
-      ingredients {
+    }
+    ingredients {
+      unit
+      raw
+      amount
+      ingredients
+      es {
         unit
-        raw
-        amount
-        ingredients
+        ingredient
       }
-      instructions {
-        id
-        raw
-        index
+      fr {
+        unit
+        ingredient
       }
+      ar {
+        unit
+        ingredient
+      }
+    }
+    instructions {
+      id
+      raw
+      index
+      es
+      ar
+      fr
     }
   }
 }

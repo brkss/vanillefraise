@@ -23,6 +23,9 @@ const Nutrition_1 = require("../../entity/Nutrition");
 const recipe_ingredient_parser_v2_1 = require("recipe-ingredient-parser-v2");
 const recipeScraper = require("recipe-scraper");
 const helpers_1 = require("../../utils/helpers");
+const translating_1 = require("../translating");
+const refrence_1 = require("../../utils/data/translate/refrence");
+const translate = new translating_1.TranlatingResolver();
 let CreateRecipeResolver = class CreateRecipeResolver {
     async createRecipe(data) {
         if (!data.url || data.categories.length == 0)
@@ -119,6 +122,9 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                 ingredient.ingredients = ingredient_parsed.ingredient;
                 ingredient.recipe = recipe;
                 await ingredient.save();
+                if (ingredient.unit)
+                    await translate.translateAll(ingredient.unit, refrence_1.translated_text_refrence.ingredient_unit, ingredient.id);
+                await translate.translateAll(ingredient.ingredients, refrence_1.translated_text_refrence.ingredient_txt, ingredient.id);
             }
         }
     }
@@ -132,6 +138,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
                 instruction.raw = inst;
                 index++;
                 await instruction.save();
+                await translate.translateAll(inst, refrence_1.translated_text_refrence.instruction, instruction.id);
             }
         }
     }

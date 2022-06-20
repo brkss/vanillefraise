@@ -10,18 +10,33 @@ query Recipe($id: String!){
       image
       cook
       prep
-      total
-      ingredients{
+      total 
+    }
+    ingredients{
+      unit
+      raw
+      amount
+      ingredients
+      es {
         unit
-        raw
-        amount
-        ingredients
+        ingredient
       }
-      instructions{
-        id
-        raw
-        index
+      fr {
+        unit
+        ingredient
       }
+      ar {
+        unit
+        ingredient
+      }
+    }
+    instructions{
+      id
+      raw
+      index
+      es
+      ar
+      fr
     }
   }
 }

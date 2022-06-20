@@ -10,4 +10,4 @@ export * from './recomendation';
 export * from './meals';
 export * from './admin';
 export * from './diet';
-
+export * from './translating';
