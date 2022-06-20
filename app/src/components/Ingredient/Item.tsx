@@ -7,15 +7,16 @@ interface Props {
   unit: string;
   amount: string;
   txt: string;
+  originUnit: string;
 }
 
-const CHECK_UNIT = (unit: string) => {
+const CHECK_UNIT = (unit: string, translatedUnit: string) => {
   if (unit && (unit.toLowerCase() === "pound" || unit.toLowerCase() === "lb"))
     return "kg";
-  return unit;
+  return translatedUnit;
 };
 
-const PRESENT_MEASURES = (unit: string, amount: string) => {
+const PRESENT_MEASURES = (unit: string, amount: string, originUnit: string) => {
   let a = parseFloat(amount);
   if (unit && (unit.toLowerCase() === "pound" || unit.toLowerCase() === "lb"))
     a = convert(a).from("lb").to("kg");
@@ -24,21 +25,30 @@ const PRESENT_MEASURES = (unit: string, amount: string) => {
       ? fractionConverter(a)
       : Math.round(a * 100) / 100;
   return `${a > 0 ? aa + " " : ""}${
-    unit?.includes(".") ? "" : CHECK_UNIT(unit) ? CHECK_UNIT(unit) : ""
+    unit?.includes(".")
+      ? ""
+      : CHECK_UNIT(originUnit, unit)
+      ? CHECK_UNIT(originUnit, unit)
+      : ""
   }`;
 };
 
-export const IngredientItem: React.FC<Props> = ({ txt, unit, amount }) => {
+export const IngredientItem: React.FC<Props> = ({
+  txt,
+  unit,
+  amount,
+  originUnit,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.circle}></View>
       <View style={styles.item}>
         <Text style={styles.measures}>
-          {PRESENT_MEASURES(unit, amount)
-            ? PRESENT_MEASURES(unit, amount)
+          {PRESENT_MEASURES(unit, amount, originUnit)
+            ? PRESENT_MEASURES(unit, amount, originUnit)
             : txt}
         </Text>
-        {PRESENT_MEASURES(unit, amount) ? (
+        {PRESENT_MEASURES(unit, amount, originUnit) ? (
           <Text style={styles.txt}>{txt}</Text>
         ) : null}
       </View>

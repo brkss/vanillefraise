@@ -10,9 +10,9 @@ interface Props {
 
 export const Instructions: React.FC<Props> = ({ instructions, lang }) => {
   const handleLang = (instruction: TranslatedInstruction) => {
-    if (lang === "es") return instruction.es;
-    else if (lang === "fr") return instruction.fr;
-    else if (lang === "ar") return instruction.ar;
+    if (lang === "es" && instruction.es) return instruction.es;
+    else if (lang === "fr" && instruction.fr ) return instruction.fr;
+    else if (lang === "ar" && instruction.ar ) return instruction.ar;
     else return instruction.raw;
   };
   return (
