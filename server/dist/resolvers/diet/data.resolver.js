@@ -69,6 +69,7 @@ let DietDataResolver = class DietDataResolver {
         });
         const records = await Record_1.DietRecord.find({
             where: { user: user, type: "IN_CALORIES" },
+            order: { created_at: "ASC" },
         });
         let data = [];
         for (let cr of cooked_recipes) {
@@ -107,8 +108,14 @@ let DietDataResolver = class DietDataResolver {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return [];
-        const records = await Record_1.DietRecord.find({ where: { user: user, type: "WEIGHT" } });
-        const data = records.map((rec) => ({ value: rec.value, date: rec.created_at }));
+        const records = await Record_1.DietRecord.find({
+            where: { user: user, type: "WEIGHT" },
+            order: { created_at: "ASC" },
+        });
+        const data = records.map((rec) => ({
+            value: rec.value,
+            date: rec.created_at,
+        }));
         let res = [];
         for (let i = 0; i < data.length; i++) {
             const index = res.findIndex((x) => (0, dayjs_1.default)(x.date).diff(data[i].date, "d") === 0);
@@ -130,6 +137,7 @@ let DietDataResolver = class DietDataResolver {
                 user: user,
             },
             relations: ["recipe", "recipe.totalnutrition"],
+            order: { created_at: "ASC" },
         });
         const mapped = cooked_recipes.map((cr) => {
             var _a, _b;
