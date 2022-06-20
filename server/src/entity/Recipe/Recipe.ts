@@ -20,7 +20,7 @@ import {
   RecipeTotalNutritionKcal,
 } from "../Nutrition";
 import { CookedRecipe } from "../UserInfo";
-import { MealRecipes } from '../Meals/MealRecipes';
+import { MealRecipes } from "../Meals/MealRecipes";
 
 @ObjectType()
 @Entity("recipes")
@@ -81,7 +81,7 @@ export class Recipe extends BaseEntity {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  instructions: Instruction;
+  instructions: Instruction[];
 
   @Field(() => [RecipeDietLabel])
   @OneToMany(() => RecipeDietLabel, (dietl) => dietl.recipe)
@@ -110,11 +110,11 @@ export class Recipe extends BaseEntity {
   totalnutritionkcal: RecipeTotalNutritionKcal[];
 
   @Field(() => [CookedRecipe])
-  @OneToMany(() => CookedRecipe, cookedrecipe => cookedrecipe)
+  @OneToMany(() => CookedRecipe, (cookedrecipe) => cookedrecipe)
   cookedrecipes: CookedRecipe[];
 
   @Field(() => [MealRecipes])
-  @OneToMany(() => MealRecipes, mealrecipes => mealrecipes.recipe)
+  @OneToMany(() => MealRecipes, (mealrecipes) => mealrecipes.recipe)
   mealrecipes: MealRecipes[];
 
   @Field(() => [RecipeCategory])

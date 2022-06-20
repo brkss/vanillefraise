@@ -1,8 +1,9 @@
 import { Resolver, Query, Arg } from "type-graphql";
-import { Recipe } from "../../entity/Recipe";
+import { Ingredient, Instruction, Recipe } from "../../entity/Recipe";
 import {
   RecipeItemResponse,
   TranslatedIngredient,
+  TranslatedInstruction,
 } from "../../utils/responses/recipes";
 import {} from "../../utils/data/translate/refrence";
 import { Translated } from "../../entity/Translate/Translated";
@@ -11,25 +12,11 @@ import { BaseEntity } from "typeorm";
 
 @Resolver()
 export class RecipeItemResolver {
-  @Query(() => RecipeItemResponse)
-  async recipe(@Arg("id") id: string): Promise<RecipeItemResponse> {
-    if (!id) {
-      return {
-        status: false,
-        message: "Invalid data !",
-      };
-    }
-    const recipe = await Recipe.findOne({
-      where: { id: id },
-      relations: ["instructions", "ingredients"],
-    });
-    if (!recipe)
-      return {
-        status: false,
-        message: "Recipe Not Found !",
-      };
+  async setTranslatedIngredients(
+    ings: Ingredient[]
+  ): Promise<TranslatedIngredient[]> {
     const ingredients: TranslatedIngredient[] = [];
-    for (let ing of recipe?.ingredients) {
+    for (let ing of ings) {
       const ti = await Translated.find({ where: { pointer: ing.id } });
       ingredients.push({
         ...ing,
@@ -60,6 +47,49 @@ export class RecipeItemResolver {
         },
       } as any);
     }
+    return ingredients;
+  }
+
+  async setTranslatedInstructions(
+    insts: Instruction[]
+  ): Promise<TranslatedInstruction[]> {
+    const instructions: TranslatedInstruction[] = [];
+
+    for (let inst of insts) {
+      const ti = await Translated.find({
+        where: { pointer: inst.id, type: ref.instruction },
+      });
+      instructions.push({
+        ...inst,
+        ar: ti.find((x) => x.lang === "ar")?.txt,
+        es: ti.find((x) => x.lang === "es")?.txt,
+        fr: ti.find((x) => x.lang === "fr")?.txt,
+      } as any);
+    }
+    return instructions;
+  }
+
+  @Query(() => RecipeItemResponse)
+  async recipe(@Arg("id") id: string): Promise<RecipeItemResponse> {
+    if (!id) {
+      return {
+        status: false,
+        message: "Invalid data !",
+      };
+    }
+    const recipe = await Recipe.findOne({
+      where: { id: id },
+      relations: ["instructions", "ingredients"],
+    });
+    if (!recipe)
+      return {
+        status: false,
+        message: "Recipe Not Found !",
+      };
+    const ingredients = await this.setTranslatedIngredients(recipe.ingredients);
+    const instructions = await this.setTranslatedInstructions(
+      recipe.instructions
+    );
     if (!recipe) {
       return {
         status: false,
@@ -70,6 +100,7 @@ export class RecipeItemResolver {
       status: true,
       recipe: recipe,
       ingredients: ingredients,
+      instructions: instructions,
     };
   }
 }
