@@ -17,6 +17,7 @@ import {
   UserCaloriesQuery,
   UserCaloriesDocument,
   Ingredient,
+  TranslatedIngredient,
 } from "../../generated/graphql";
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
@@ -29,10 +30,10 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
       id: id,
     },
     onCompleted: (res) => {
-      if(res.recipe.status){
+      if (res.recipe.status) {
         SetTargetServing(res.recipe.recipe.serving);
       }
-    }
+    },
   });
   const [step, SetStep] = React.useState("start");
   const [helviticaCondensed] = useFonts({
@@ -82,7 +83,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
   if (!helviticaCondensed || loading || error || !data) return <Loading />;
 
   return (
-    <LinearGradient colors={["#D5BDAF", "#F5EBE0"]} style={styles.container}>
+    <LinearGradient colors={["#FBECEC", "#FFDDDD"]} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.top}>
           <AntDesign
@@ -107,15 +108,17 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
               ),
               ingredients: (
                 <IngredientStep
-                  originalServings={data!.recipe.recipe.serving}  
+                  originalServings={data!.recipe.recipe.serving}
                   servings={targetServing}
-                  ingredients={data!.recipe.recipe!.ingredients as  Ingredient[]}
+                  ingredients={
+                    data!.recipe.ingredients as TranslatedIngredient[]
+                  }
                   finish={() => changeStep("instructions")}
                 />
               ),
               instructions: (
                 <InstructionsStep
-                  instructions={data!.recipe.recipe!.instructions.sort(
+                  instructions={data!.recipe.instructions.sort(
                     ({ index: a }, { index: b }) => a - b
                   )}
                   finish={() => changeStep("finish")}

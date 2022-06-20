@@ -8,6 +8,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { Button } from "../../General/Button";
+import { Languages } from "../../Translation/Languages";
 
 interface Props {
   finish: () => void;
@@ -37,6 +38,7 @@ export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
       <Text style={styles.hint}>
         You got it chef ! just follow these instructions
       </Text>
+      <Languages isCooking onSelect={(i) => {}} selected={0} />
       <View style={styles.items}>
         {instructions.reverse().map((inst, key) => {
           return (

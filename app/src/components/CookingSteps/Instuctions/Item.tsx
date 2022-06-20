@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 12,
-    borderColor: colors.c1,
+
+    borderColor: "#BC9595",
     borderWidth: 1,
 
     //shadowColor: "#000",
@@ -129,7 +130,8 @@ const styles = StyleSheet.create({
     //shadowRadius: 7,
     //elevation: 5,
 
-    backgroundColor: colors.c3,
+    //backgroundColor: colors.c3,
+    backgroundColor: "#FBECEC",
     borderRadius: 27,
   },
   number: {

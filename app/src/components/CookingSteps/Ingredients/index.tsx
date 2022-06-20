@@ -3,12 +3,13 @@ import { View, StyleSheet, Text, ScrollView, Animated } from "react-native";
 import { useFonts } from "expo-font";
 import { Item } from "./Item";
 import { Button } from "../../General/Button";
-import { Ingredient } from "../../../generated/graphql";
+import { TranslatedIngredient } from "../../../generated/graphql";
 import { scaleRecipe } from "../../../utils/modules/scale_recipe";
+import { Languages } from "../../../components/Translation/Languages";
 
 interface Props {
   finish: () => void;
-  ingredients: Ingredient[];
+  ingredients: TranslatedIngredient[];
   servings: number;
   originalServings: number;
 }
@@ -45,6 +46,8 @@ export const IngredientStep: React.FC<Props> = ({
       <Text style={styles.title}>
         You'll need the following ingredients for your recipe
       </Text>
+      <Languages isCooking={true} onSelect={(i) => {}} selected={0} />
+      <View style={{marginTop: 10}} />
       <Text style={styles.hint}>press any ingredient you’ve prepared !</Text>
       <Text style={styles.hint}>
         Managed To Serve {servings} person{servings > 1 ? "s" : ""}
@@ -78,12 +81,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: "helvitica-condesed",
     marginVertical: 15,
+    marginBottom: 0,
   },
   hint: {
-    marginTop: 15,
+    //marginTop: 7,
     //marginBottom: 5,
     opacity: 0.7,
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: "helvitica-condesed",
   },
   ings: {

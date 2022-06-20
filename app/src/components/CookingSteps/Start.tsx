@@ -18,7 +18,13 @@ interface Props {
   onServingChange: (n: number) => void;
 }
 
-export const Start: React.FC<Props> = ({ finish, name, total, servings, onServingChange }) => {
+export const Start: React.FC<Props> = ({
+  finish,
+  name,
+  total,
+  servings,
+  onServingChange,
+}) => {
   const AnimatedTouchableOpacity =
     Animated.createAnimatedComponent(TouchableOpacity);
   const alphaAnim = React.useRef(new Animated.Value(130)).current;
@@ -57,7 +63,11 @@ export const Start: React.FC<Props> = ({ finish, name, total, servings, onServin
         <Text style={styles.time}>About {total} in total</Text>
       ) : null}
       <View>
-        <RecipeServing onChange={(n) => onServingChange(n) } servings={servings} center />
+        <RecipeServing
+          onChange={(n) => onServingChange(n)}
+          servings={servings}
+          center
+        />
       </View>
       <View style={styles.metadata}>
         <Text style={styles.info}>You’re cooking</Text>
@@ -112,7 +122,7 @@ const styles = StyleSheet.create({
   btn: {
     height: 130,
     width: 130,
-    backgroundColor: colors.c1,
+    backgroundColor: "#FFC9C9",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 130,
@@ -133,7 +143,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     flex: 1,
     alignSelf: "center",
-    backgroundColor: colors.c2,
+    backgroundColor: "#FBECEC",
     zIndex: 999,
   },
 });

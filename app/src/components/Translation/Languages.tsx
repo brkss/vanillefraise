@@ -5,12 +5,19 @@ import { languages } from "../../utils/data/languages.data";
 interface Props {
   onSelect: (index: number) => void;
   selected: number;
+  isCooking?: boolean;
 }
 
-export const Languages: React.FC<Props> = ({ onSelect, selected }) => {
+export const Languages: React.FC<Props> = ({
+  onSelect,
+  selected,
+  isCooking,
+}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>in more familiar langues ? (beta)</Text>
+      {!isCooking && (
+        <Text style={styles.title}>in more familiar langues ? (beta)</Text>
+      )}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
