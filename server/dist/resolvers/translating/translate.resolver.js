@@ -16,6 +16,7 @@ exports.TranlatingResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const axios_1 = __importDefault(require("axios"));
 const Translated_1 = require("../../entity/Translate/Translated");
+const refrence_1 = require("../../utils/data/translate/refrence");
 let TranslateInput = class TranslateInput {
 };
 __decorate([
@@ -38,6 +39,11 @@ TranslateInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], TranslateInput);
 let TranlatingResolver = class TranlatingResolver {
+    async translateAll(txt, type, pointer) {
+        for (let lang of refrence_1.target_languages) {
+            await this.translate(txt, type, lang, pointer);
+        }
+    }
     async translate(txt, type, target, pointer) {
         try {
             const res = await (0, axios_1.default)({

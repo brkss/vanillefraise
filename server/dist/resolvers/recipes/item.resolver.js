@@ -16,8 +16,11 @@ exports.RecipeItemResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const Recipe_1 = require("../../entity/Recipe");
 const recipes_1 = require("../../utils/responses/recipes");
+const Translated_1 = require("../../entity/Translate/Translated");
+const refrence_1 = require("../../utils/data/translate/refrence");
 let RecipeItemResolver = class RecipeItemResolver {
     async recipe(id) {
+        var _a, _b, _c, _d, _e, _f;
         if (!id) {
             return {
                 status: false,
@@ -28,6 +31,25 @@ let RecipeItemResolver = class RecipeItemResolver {
             where: { id: id },
             relations: ["instructions", "ingredients"],
         });
+        if (!recipe)
+            return {
+                status: false,
+                message: "Recipe Not Found !",
+            };
+        const ingredients = [];
+        for (let ing of recipe === null || recipe === void 0 ? void 0 : recipe.ingredients) {
+            const ti = await Translated_1.Translated.find({ where: { pointer: ing.id } });
+            ingredients.push(Object.assign(Object.assign({}, ing), { es: {
+                    unit: (_a = ti.find((x) => x.type === refrence_1.translated_text_refrence.ingredient_unit && x.lang === "es")) === null || _a === void 0 ? void 0 : _a.txt,
+                    ingredient: (_b = ti.find((x) => x.type === refrence_1.translated_text_refrence.ingredient_txt && x.lang === "es")) === null || _b === void 0 ? void 0 : _b.txt,
+                }, fr: {
+                    unit: (_c = ti.find((x) => x.type === refrence_1.translated_text_refrence.ingredient_unit && x.lang === "fr")) === null || _c === void 0 ? void 0 : _c.txt,
+                    ingredient: (_d = ti.find((x) => x.type === refrence_1.translated_text_refrence.ingredient_txt && x.lang === "fr")) === null || _d === void 0 ? void 0 : _d.txt,
+                }, ar: {
+                    unit: (_e = ti.find((x) => x.type === refrence_1.translated_text_refrence.ingredient_unit && x.lang === "ar")) === null || _e === void 0 ? void 0 : _e.txt,
+                    ingredient: (_f = ti.find((x) => x.type === refrence_1.translated_text_refrence.ingredient_txt && x.lang === "ar")) === null || _f === void 0 ? void 0 : _f.txt,
+                } }));
+        }
         if (!recipe) {
             return {
                 status: false,
@@ -37,6 +59,7 @@ let RecipeItemResolver = class RecipeItemResolver {
         return {
             status: true,
             recipe: recipe,
+            ingredients: ingredients,
         };
     }
 };

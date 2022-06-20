@@ -19,6 +19,10 @@ import {
 import { parse } from "recipe-ingredient-parser-v2";
 const recipeScraper = require("recipe-scraper");
 import { scaleRecipe, fractionConverter } from "../../utils/helpers";
+import { TranlatingResolver } from "../translating";
+import { translated_text_refrence } from "../../utils/data/translate/refrence";
+
+const translate = new TranlatingResolver();
 
 @Resolver()
 export class CreateRecipeResolver {
@@ -125,6 +129,17 @@ export class CreateRecipeResolver {
         ingredient.ingredients = ingredient_parsed.ingredient;
         ingredient.recipe = recipe;
         await ingredient.save();
+        if (ingredient.unit)
+          await translate.translateAll(
+            ingredient.unit,
+            translated_text_refrence.ingredient_unit,
+            ingredient.id
+          );
+        await translate.translateAll(
+          ingredient.ingredients,
+          translated_text_refrence.ingredient_txt,
+          ingredient.id
+        );
       }
     }
   }
@@ -139,6 +154,11 @@ export class CreateRecipeResolver {
         instruction.raw = inst;
         index++;
         await instruction.save();
+        await translate.translateAll(
+          inst,
+          translated_text_refrence.instruction,
+          instruction.id,
+        );
       }
     }
   }

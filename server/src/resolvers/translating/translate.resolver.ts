@@ -2,8 +2,9 @@ import { Mutation, Query, Resolver, InputType, Field, Arg } from "type-graphql";
 import axios, { Axios } from "axios";
 import { Translated } from "../../entity/Translate/Translated";
 import FormData from "form-data";
-import { Ingredient } from '../../entity/Recipe/Ingredient';
-import { Instruction } from '../../entity/Recipe/Instuction';
+import { Ingredient } from "../../entity/Recipe/Ingredient";
+import { Instruction } from "../../entity/Recipe/Instuction";
+import { target_languages } from "../../utils/data/translate/refrence";
 
 @InputType()
 class TranslateInput {
@@ -23,7 +24,11 @@ class TranslateInput {
 @Resolver()
 export class TranlatingResolver {
   
-
+  async translateAll(txt: string, type: string, pointer: string) {
+    for (let lang of target_languages) {
+      await this.translate(txt, type, lang, pointer);
+    }
+  }
 
   //@Mutation(() => Boolean)
   async translate(
@@ -32,8 +37,7 @@ export class TranlatingResolver {
     type: string,
     target: string,
     pointer: string
-  ):
-  Promise<boolean> {
+  ): Promise<boolean> {
     try {
       const res = await axios({
         method: "POST",
