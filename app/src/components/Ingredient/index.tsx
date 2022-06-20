@@ -2,27 +2,48 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { IngredientItem } from "./Item";
 import { RecipeServing } from "./Servings";
-import { Ingredient } from "../../generated/graphql";
+import { TranslatedIngredient } from "../../generated/graphql";
 import { scaleRecipe } from "../../utils/modules/scale_recipe";
 
 interface Props {
-  ingredients: Ingredient[];
+  ingredients: TranslatedIngredient[];
   servings: number;
+  lang: string;
 }
 
-export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
+export const Ingredients: React.FC<Props> = ({
+  ingredients,
+  servings,
+  lang,
+}) => {
   const [scale, setScale] = React.useState<number>(servings);
+
+  const handleLang = (ingredient: TranslatedIngredient) => {
+    if (lang === "es")
+      return { unit: ingredient.es.unit, ingredient: ingredient.es.ingredient };
+    else if (lang === "ar")
+      return { unit: ingredient.ar.unit, ingredient: ingredient.ar.ingredient };
+    else if (lang === "fr")
+      return { unit: ingredient.fr.unit, ingredient: ingredient.fr.ingredient };
+    else lang === "en";
+    return { unit: ingredient.unit, ingredient: ingredient.ingredients };
+  };
 
   return (
     <View style={styles.container}>
-      <RecipeServing servings={servings} onChange={(n: number) => {setScale(n)} } />
+      <RecipeServing
+        servings={servings}
+        onChange={(n: number) => {
+          setScale(n);
+        }}
+      />
       <Text style={styles.title}>Ingredients</Text>
       {scaleRecipe(servings, scale, ingredients).map((ing, key) => (
         <IngredientItem
           key={key}
-          txt={ing.ingredients}
+          txt={handleLang(ing).ingredient}
           amount={ing.amount}
-          unit={ing.unit}
+          unit={handleLang(ing).unit}
         />
       ))}
     </View>

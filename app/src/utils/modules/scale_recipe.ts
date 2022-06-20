@@ -1,4 +1,4 @@
-import { Ingredient } from "../../generated/graphql";
+import { TranslatedIngredient } from "../../generated/graphql";
 
 const scale = (amount: number, target: number, serving: number): number => {
   console.log("scale to this =>> ", (amount * target) / serving);
@@ -8,15 +8,15 @@ const scale = (amount: number, target: number, serving: number): number => {
 export const scaleRecipe = (
   servings: number,
   target: number,
-  ingredients: Ingredient[]
-): Ingredient[] => {
+  ingredients: TranslatedIngredient[]
+): TranslatedIngredient[] => {
   if (servings === target) return ingredients;
   console.log("scale recipe sevings :::: ", servings);
-  const results: Ingredient[] = ingredients.map((ing) => {
+  const results: TranslatedIngredient[] = ingredients.map((ing) => {
     return {
       ...ing,
       amount: scale(parseFloat(ing.amount), target, servings).toString(),
-    } as Ingredient;
+    } as TranslatedIngredient;
   });
 
   return results;

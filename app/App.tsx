@@ -19,19 +19,16 @@ import { StatusBar } from "expo-status-bar";
 
 const cache = new InMemoryCache({});
 
-const requestLink = new ApolloLink(
-  (operation, forward) => {
-    const token = getAccessToken();
-    if (token)
-      operation.setContext({
-        headers: {
-          authorization: `bearer ${token}`,
-        },
-      });
-    return forward(operation);
-  }
-  
-);
+const requestLink = new ApolloLink((operation, forward) => {
+  const token = getAccessToken();
+  if (token)
+    operation.setContext({
+      headers: {
+        authorization: `bearer ${token}`,
+      },
+    });
+  return forward(operation);
+});
 
 const link: any = new TokenRefreshLink({
   accessTokenField: "token",
@@ -92,7 +89,7 @@ export default function App() {
 
   return (
     <>
-      {!isConnected ? (
+      {!isConnected && false ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>

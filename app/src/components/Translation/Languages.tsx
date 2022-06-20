@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
-
-const tmp = ["English", "French", "Arabic", "Spanish"];
+import { languages } from "../../utils/data/languages.data";
 
 interface Props {
   onSelect: (index: number) => void;
@@ -17,14 +16,9 @@ export const Languages: React.FC<Props> = ({ onSelect, selected }) => {
         showsHorizontalScrollIndicator={false}
         style={styles.scroller}
       >
-        {tmp.map((lang, key) => (
+        {languages.map((lang, key) => (
           <View>
-            <View
-              style={[
-                styles.tag,
-                { opacity: lang.toLowerCase() === "english" ? 1 : 0 },
-              ]}
-            >
+            <View style={[styles.tag, { opacity: lang.id === "en" ? 1 : 0 }]}>
               <Text style={styles.tagText}>original</Text>
             </View>
 
@@ -42,7 +36,7 @@ export const Languages: React.FC<Props> = ({ onSelect, selected }) => {
                   { fontWeight: selected === key ? "bold" : "700" },
                 ]}
               >
-                {lang}
+                {lang.name}
               </Text>
             </Pressable>
           </View>

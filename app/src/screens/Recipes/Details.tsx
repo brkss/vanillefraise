@@ -23,9 +23,11 @@ import {
   useRecipeQuery,
   useRecipeEnergyQuery,
   Ingredient,
+  TranslatedIngredient,
 } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 import { saveRecipe, IRecipe, isRecipeSaved } from "../../utils/modules/save";
+import { languages } from "../../utils/data";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   const [lang, setLang] = React.useState<number>(0);
@@ -110,11 +112,13 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           />
           <Languages onSelect={(index) => setLang(index)} selected={lang} />
           <Ingredients
+            lang={languages[lang].id}
             servings={data.recipe.recipe.serving || 1}
-            ingredients={data.recipe.recipe!.ingredients as Ingredient[]}
+            ingredients={data.recipe.ingredients as TranslatedIngredient[]}
           />
           <Instructions
-            instructions={data.recipe.recipe!.instructions.sort(
+            lang={languages[lang].id}
+            instructions={data.recipe.instructions.sort(
               ({ index: a }, { index: b }) => a - b
             )}
           />
