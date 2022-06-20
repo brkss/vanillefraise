@@ -10,6 +10,7 @@ import Animated, {
 import { Button } from "../../General/Button";
 import { Languages } from "../../Translation/Languages";
 
+
 interface Props {
   finish: () => void;
   instructions: any[];
