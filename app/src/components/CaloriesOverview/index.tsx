@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 55,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
+    //backgroundColor: "pink",
   },
   needCalories: {
     //backgroundColor: "pink",

@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 14,
     marginRight: 10,
-    minWidth: 180,
+    minWidth: 150,
   },
   title: {
     fontSize: 13,

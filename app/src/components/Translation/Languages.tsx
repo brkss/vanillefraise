@@ -30,7 +30,7 @@ export const Languages: React.FC<Props> = ({
         style={styles.scroller}
       >
         {data.languages.map((lang, key) => (
-          <View>
+          <View key={key}>
             <View style={[styles.tag, { opacity: lang.id === "en" ? 1 : 0 }]}>
               <Text style={styles.tagText}>original</Text>
             </View>
