@@ -30,7 +30,7 @@ import { saveRecipe, IRecipe, isRecipeSaved } from "../../utils/modules/save";
 import { languages } from "../../utils/data";
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
-  const [lang, setLang] = React.useState<number>(0);
+  const [lang, setLang] = React.useState<string>("en");
   const [saved, SetSaved] = React.useState(false);
   const { id, mealId } = route.params;
   const _energy = useRecipeEnergyQuery({
@@ -110,14 +110,14 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           <View
             style={{ borderTopWidth: 1, opacity: 0.3, marginVertical: 20 }}
           />
-          <Languages onSelect={(index) => setLang(index)} selected={lang} />
+          <Languages onSelect={(lang) => setLang(lang)} selected={lang} />
           <Ingredients
-            lang={languages[lang].id}
+            lang={lang}
             servings={data.recipe.recipe.serving || 1}
             ingredients={data.recipe.ingredients as TranslatedIngredient[]}
           />
           <Instructions
-            lang={languages[lang].id}
+            lang={lang}
             instructions={data.recipe.instructions.sort(
               ({ index: a }, { index: b }) => a - b
             )}

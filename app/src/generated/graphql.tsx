@@ -270,6 +270,12 @@ export type Instruction = {
   recipe: Recipe;
 };
 
+export type LanguagesResponse = {
+  __typename?: 'LanguagesResponse';
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type ListRecordsResponse = {
   __typename?: 'ListRecordsResponse';
   message?: Maybe<Scalars['String']>;
@@ -605,6 +611,7 @@ export type Query = {
   helloAdmin: Scalars['String'];
   helloDietData: Scalars['String'];
   isRequested: Scalars['Boolean'];
+  languages: Array<LanguagesResponse>;
   macros: UserMacrosResponse;
   me?: Maybe<User>;
   mealNutrition: MealNutritionResponse;
@@ -1286,6 +1293,11 @@ export type RecordsQueryVariables = Exact<{
 
 
 export type RecordsQuery = { __typename?: 'Query', records: { __typename?: 'ListRecordsResponse', status: boolean, message?: string | null | undefined, records?: Array<{ __typename?: 'Record', id: string, time: any, value: number, date: any, category: { __typename?: 'RecordCategory', id: string, name: string, unit: string } }> | null | undefined } };
+
+export type LanguagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LanguagesQuery = { __typename?: 'Query', languages: Array<{ __typename?: 'LanguagesResponse', name: string, id: string }> };
 
 export type CheckInfoValidtyMutationVariables = Exact<{
   username: Scalars['String'];
@@ -3091,6 +3103,41 @@ export function useRecordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Re
 export type RecordsQueryHookResult = ReturnType<typeof useRecordsQuery>;
 export type RecordsLazyQueryHookResult = ReturnType<typeof useRecordsLazyQuery>;
 export type RecordsQueryResult = Apollo.QueryResult<RecordsQuery, RecordsQueryVariables>;
+export const LanguagesDocument = gql`
+    query Languages {
+  languages {
+    name
+    id
+  }
+}
+    `;
+
+/**
+ * __useLanguagesQuery__
+ *
+ * To run a query within a React component, call `useLanguagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLanguagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLanguagesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLanguagesQuery(baseOptions?: Apollo.QueryHookOptions<LanguagesQuery, LanguagesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LanguagesQuery, LanguagesQueryVariables>(LanguagesDocument, options);
+      }
+export function useLanguagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LanguagesQuery, LanguagesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LanguagesQuery, LanguagesQueryVariables>(LanguagesDocument, options);
+        }
+export type LanguagesQueryHookResult = ReturnType<typeof useLanguagesQuery>;
+export type LanguagesLazyQueryHookResult = ReturnType<typeof useLanguagesLazyQuery>;
+export type LanguagesQueryResult = Apollo.QueryResult<LanguagesQuery, LanguagesQueryVariables>;
 export const CheckInfoValidtyDocument = gql`
     mutation CheckInfoValidty($username: String!, $email: String!) {
   checkInfoValidity(data: {username: $username, email: $email}) {

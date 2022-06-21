@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { languages } from "../../utils/data/languages.data";
+import { useLanguagesQuery } from "../../generated/graphql";
+import { Loading } from "../General/Loading";
 
 interface Props {
-  onSelect: (index: number) => void;
-  selected: number;
+  onSelect: (lang: string) => void;
+  selected: string;
   isCooking?: boolean;
 }
 
@@ -13,6 +15,10 @@ export const Languages: React.FC<Props> = ({
   selected,
   isCooking,
 }) => {
+  const { data, error, loading } = useLanguagesQuery();
+
+  if (loading || error) return <Loading />;
+
   return (
     <View style={styles.container}>
       {!isCooking && (
@@ -23,24 +29,26 @@ export const Languages: React.FC<Props> = ({
         showsHorizontalScrollIndicator={false}
         style={styles.scroller}
       >
-        {languages.map((lang, key) => (
+        {data.languages.map((lang, key) => (
           <View>
             <View style={[styles.tag, { opacity: lang.id === "en" ? 1 : 0 }]}>
               <Text style={styles.tagText}>original</Text>
             </View>
 
             <Pressable
-              onPress={() => onSelect(key)}
+              onPress={() => onSelect(lang.id)}
               style={[
                 styles.item,
-                { backgroundColor: selected === key ? "#FFBABA" : "#FCDCDC" },
+                {
+                  backgroundColor: selected === lang.id ? "#FFBABA" : "#FCDCDC",
+                },
               ]}
               key={key}
             >
               <Text
                 style={[
                   styles.txt,
-                  { fontWeight: selected === key ? "bold" : "700" },
+                  { fontWeight: selected === lang.id ? "bold" : "700" },
                 ]}
               >
                 {lang.name}

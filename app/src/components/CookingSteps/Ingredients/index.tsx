@@ -20,10 +20,22 @@ export const IngredientStep: React.FC<Props> = ({
   servings,
   originalServings,
 }) => {
+  const [lang, setLang] = React.useState<string>("en");
   const opcAnim = React.useRef(new Animated.Value(0)).current;
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
+
+  const handleLang = (ingredient: TranslatedIngredient) => {
+    if (lang === "es" && ingredient.es.unit && ingredient.es.ingredient)
+      return { unit: ingredient.es.unit, ingredient: ingredient.es.ingredient };
+    else if (lang === "ar" && ingredient.ar.unit && ingredient.ar.ingredient)
+      return { unit: ingredient.ar.unit, ingredient: ingredient.ar.ingredient };
+    else if (lang === "fr" && ingredient.fr.unit && ingredient.fr.ingredient)
+      return { unit: ingredient.fr.unit, ingredient: ingredient.fr.ingredient };
+    else lang === "en";
+    return { unit: ingredient.unit, ingredient: ingredient.ingredients };
+  };
 
   React.useEffect(() => {
     Animated.timing(opcAnim, {
@@ -46,8 +58,12 @@ export const IngredientStep: React.FC<Props> = ({
       <Text style={styles.title}>
         You'll need the following ingredients for your recipe
       </Text>
-      <Languages isCooking={true} onSelect={(i) => {}} selected={0} />
-      <View style={{marginTop: 10}} />
+      <Languages
+        isCooking={true}
+        onSelect={(l) => setLang(l)}
+        selected={lang}
+      />
+      <View style={{ marginTop: 10 }} />
       <Text style={styles.hint}>press any ingredient you’ve prepared !</Text>
       <Text style={styles.hint}>
         Managed To Serve {servings} person{servings > 1 ? "s" : ""}
@@ -61,9 +77,9 @@ export const IngredientStep: React.FC<Props> = ({
           (ing, key) => (
             <Item
               amount={ing.amount}
-              unit={ing.unit}
+              unit={handleLang(ing).unit}
               key={key}
-              txt={ing.ingredients}
+              txt={handleLang(ing).ingredient}
             />
           )
         )}

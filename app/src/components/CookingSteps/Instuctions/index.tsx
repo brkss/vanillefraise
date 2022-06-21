@@ -9,7 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Button } from "../../General/Button";
 import { Languages } from "../../Translation/Languages";
-
+import {TranslatedInstruction} from "../../../generated/graphql";
 
 interface Props {
   finish: () => void;
@@ -17,9 +17,17 @@ interface Props {
 }
 
 export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
+  const [lang, setLang] = React.useState<string>("en");
   const shuffleBack = useSharedValue(false);
   const swipedAll = useSharedValue(false);
   const btnOpacity = useSharedValue(0);
+
+  const handleLang = (instruction: TranslatedInstruction) => {
+    if (lang === "es" && instruction.es) return instruction.es;
+    else if (lang === "fr" && instruction.fr ) return instruction.fr;
+    else if (lang === "ar" && instruction.ar ) return instruction.ar;
+    else return instruction.raw;
+  };
 
   useAnimatedReaction(
     () => swipedAll.value,
@@ -39,14 +47,14 @@ export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
       <Text style={styles.hint}>
         You got it chef ! just follow these instructions
       </Text>
-      <Languages isCooking onSelect={(i) => {}} selected={0} />
+      <Languages isCooking onSelect={(l) => setLang(l)} selected={lang} />
       <View style={styles.items}>
         {instructions.reverse().map((inst, key) => {
           return (
             <Item
               swipedAll={swipedAll}
               shuffleBack={shuffleBack}
-              txt={inst.raw}
+              txt={handleLang(inst)}
               index={key}
               num={instructions.length - key - 1}
               key={key}
