@@ -9,40 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Nutrition = void 0;
+exports.NutritienCategory = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
-const NutrientCategory_1 = require("./NutrientCategory");
-let Nutrition = class Nutrition extends typeorm_1.BaseEntity {
+const Nutrition_1 = require("./Nutrition");
+let NutritienCategory = class NutritienCategory extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
-], Nutrition.prototype, "id", void 0);
+], NutritienCategory.prototype, "id", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Nutrition.prototype, "code", void 0);
+], NutritienCategory.prototype, "name", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Nutrition.prototype, "name", void 0);
+    (0, typeorm_1.Column)({ default: true }),
+    __metadata("design:type", Boolean)
+], NutritienCategory.prototype, "active", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Nutrition.prototype, "unit", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(() => NutrientCategory_1.NutritienCategory),
-    (0, typeorm_1.ManyToOne)(() => NutrientCategory_1.NutritienCategory, (category) => category.nutrients),
-    __metadata("design:type", NutrientCategory_1.NutritienCategory)
-], Nutrition.prototype, "category", void 0);
-Nutrition = __decorate([
+    (0, type_graphql_1.Field)(() => [Nutrition_1.Nutrition]),
+    (0, typeorm_1.OneToMany)(() => Nutrition_1.Nutrition, nutrition => nutrition.category),
+    __metadata("design:type", Array)
+], NutritienCategory.prototype, "nutrients", void 0);
+NutritienCategory = __decorate([
     (0, type_graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
-], Nutrition);
-exports.Nutrition = Nutrition;
-//# sourceMappingURL=Nutrition.js.map
+    (0, typeorm_1.Entity)("nutritien_categories")
+], NutritienCategory);
+exports.NutritienCategory = NutritienCategory;
+//# sourceMappingURL=NutrientCategory.js.map

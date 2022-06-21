@@ -1,12 +1,18 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { ObjectType, Field } from 'type-graphql';
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+} from "typeorm";
+import { ObjectType, Field } from "type-graphql";
+import { NutritienCategory } from "./NutrientCategory";
 
 @ObjectType()
 @Entity()
 export class Nutrition extends BaseEntity {
-
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Field()
@@ -21,4 +27,7 @@ export class Nutrition extends BaseEntity {
   @Column()
   unit: string;
 
+  @Field(() => NutritienCategory)
+  @ManyToOne(() => NutritienCategory, (category) => category.nutrients)
+  category: NutritienCategory;
 }
