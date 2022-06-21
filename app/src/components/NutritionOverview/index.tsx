@@ -19,8 +19,7 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
   }, [refreshing]);
 
   if (loading || error) {
-    if(error)
-      console.log("Error accured on getting nutrients : ", error)
+    if (error) console.log("Error accured on getting nutrients : ", error);
     return <Loading />;
   }
 
@@ -29,27 +28,27 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
       <Text style={styles.heading}>About your nutrition</Text>
       <Text>{dayjs().format("DD/MM/YYYY")}</Text>
       <Text style={styles.info}>Based on recipes you cooked !</Text>
-      {
-        data.userNutrition.data.map((nutCat, key) => (
-            <View key={key}>
-              <Text style={styles.title}>{nutCat.name}</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {nutCat.nutritiens
-                  .sort(({ quantity: a }, { quantity: b }) => b - a)
-                  .map((n, key) => (
-                    <NutrientItem
-                      key={key}
-                      clicked={() => clicked(n.code, n.name)}
-                      value={n.quantity}
-                      unit={n.unit}
-                      title={n.name}
-                      recomended={n.recomendation}
-                    />
-                  ))}
-              </ScrollView>
-            </View>
-        ))
-      }
+      {data.userNutrition.data
+        .sort((a, b) => b.nutritiens.length - a.nutritiens.length)
+        .map((nutCat, key) => (
+          <View key={key}>
+            <Text style={styles.title}>{nutCat.name}</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {nutCat.nutritiens
+                .sort(({ quantity: a }, { quantity: b }) => b - a)
+                .map((n, key) => (
+                  <NutrientItem
+                    key={key}
+                    clicked={() => clicked(n.code, n.name)}
+                    value={n.quantity}
+                    unit={n.unit}
+                    title={n.name}
+                    recomended={n.recomendation}
+                  />
+                ))}
+            </ScrollView>
+          </View>
+        ))}
     </View>
   );
 };
