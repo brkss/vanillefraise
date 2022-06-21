@@ -3,11 +3,15 @@ query UserNutrition{
     status
     message
     data{
+      id
       name
-      code
-      quantity
-      unit
-      recomendation
+      nutritiens{
+        name
+        code
+        quantity
+        recomendation
+        unit
+      }
     }
   }
 }

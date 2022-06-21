@@ -229,6 +229,16 @@ export type DietHealthLabelResponse = {
   label: Scalars['String'];
 };
 
+export type DietRecord = {
+  __typename?: 'DietRecord';
+  created_at: Scalars['DateTime'];
+  id: Scalars['String'];
+  type: Scalars['String'];
+  unit: Scalars['String'];
+  user: User;
+  value: Scalars['Float'];
+};
+
 export type EarlyAccessRequest = {
   __typename?: 'EarlyAccessRequest';
   id: Scalars['String'];
@@ -431,6 +441,7 @@ export type Mutation = {
   seedHealthLabelRefrence: Scalars['Boolean'];
   seedMeals: Scalars['Boolean'];
   seedMoodCategories: Scalars['Boolean'];
+  seedNutrientCategories: Scalars['Boolean'];
   seedNutritionGuide: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
   seedRecomendation: Scalars['Boolean'];
@@ -575,6 +586,13 @@ export type MutationUpdateInfoArgs = {
   data: UpdateUserInfoInput;
 };
 
+export type NutritionCategoryOverview = {
+  __typename?: 'NutritionCategoryOverview';
+  id: Scalars['String'];
+  name: Scalars['String'];
+  nutritiens: Array<NutritionOverviewData>;
+};
+
 export type NutritionOverviewData = {
   __typename?: 'NutritionOverviewData';
   code: Scalars['String'];
@@ -586,7 +604,7 @@ export type NutritionOverviewData = {
 
 export type NutritionOverviewResponse = {
   __typename?: 'NutritionOverviewResponse';
-  data?: Maybe<Array<NutritionOverviewData>>;
+  data?: Maybe<Array<NutritionCategoryOverview>>;
   message?: Maybe<Scalars['String']>;
   status: Scalars['Boolean'];
 };
@@ -937,6 +955,7 @@ export type User = {
   config: MacrosConfig;
   cookedrecipes: Array<CookedRecipe>;
   created_at: Scalars['DateTime'];
+  dietRecords: Array<DietRecord>;
   earequest: Array<EarlyAccessRequest>;
   email: Scalars['String'];
   filters: Array<DietFoodFilter>;
@@ -1212,7 +1231,7 @@ export type RecipeEnergyQuery = { __typename?: 'Query', recipeEnergy: number };
 export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionOverviewData', name: string, code: string, quantity: number, unit: string, recomendation: number }> | null | undefined } };
+export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionCategoryOverview', id: string, name: string, nutritiens: Array<{ __typename?: 'NutritionOverviewData', name: string, code: string, quantity: number, recomendation: number, unit: string }> }> | null | undefined } };
 
 export type RecipeByNutritionQueryVariables = Exact<{
   code: Scalars['String'];
@@ -2558,11 +2577,15 @@ export const UserNutritionDocument = gql`
     status
     message
     data {
+      id
       name
-      code
-      quantity
-      unit
-      recomendation
+      nutritiens {
+        name
+        code
+        quantity
+        recomendation
+        unit
+      }
     }
   }
 }

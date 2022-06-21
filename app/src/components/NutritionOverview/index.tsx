@@ -27,38 +27,27 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
       <Text style={styles.heading}>About your nutrition</Text>
       <Text>{dayjs().format("DD/MM/YYYY")}</Text>
       <Text style={styles.info}>Based on recipes you cooked !</Text>
-      <View>
-        <Text style={styles.title}>Miniral</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {data.userNutrition.data
-            .sort(({ quantity: a }, { quantity: b }) => b - a)
-            .map((n, key) => (
-              <NutrientItem
-                key={key}
-                clicked={() => clicked(n.code, n.name)}
-                value={n.quantity}
-                unit={n.unit}
-                title={n.name}
-                recomended={n.recomendation}
-              />
-            ))}
-        </ScrollView>
-      </View>
-      <View style={styles.row}>
-        {data.userNutrition.data
-          .sort(({ quantity: a }, { quantity: b }) => b - a)
-          .map((n, key) => (
-            <View style={styles.item} key={key}>
-              <NutrientItem
-                clicked={() => clicked(n.code, n.name)}
-                value={n.quantity}
-                unit={n.unit}
-                title={n.name}
-                recomended={n.recomendation}
-              />
+      {
+        data.userNutrition.data.map((nutCat, key) => (
+            <View key={key}>
+              <Text style={styles.title}>{nutCat.name}</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {nutCat.nutritiens
+                  .sort(({ quantity: a }, { quantity: b }) => b - a)
+                  .map((n, key) => (
+                    <NutrientItem
+                      key={key}
+                      clicked={() => clicked(n.code, n.name)}
+                      value={n.quantity}
+                      unit={n.unit}
+                      title={n.name}
+                      recomended={n.recomendation}
+                    />
+                  ))}
+              </ScrollView>
             </View>
-          ))}
-      </View>
+        ))
+      }
     </View>
   );
 };
