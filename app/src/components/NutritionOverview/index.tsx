@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { NutrientItem } from "./Item";
 import { useUserNutritionQuery } from "../../generated/graphql";
 import { Loading } from "../General/Loading";
@@ -27,21 +27,27 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
       <Text style={styles.heading}>About your nutrition</Text>
       <Text>{dayjs().format("DD/MM/YYYY")}</Text>
       <Text style={styles.info}>Based on recipes you cooked !</Text>
-      <View style={styles.row}>
-        {data.userNutrition.data
-          .sort(({ quantity: a }, { quantity: b }) => b - a)
-          .map((n, key) => (
-            <View style={styles.item} key={key}>
-              <NutrientItem
-                clicked={() => clicked(n.code, n.name)}
-                value={n.quantity}
-                unit={n.unit}
-                title={n.name}
-                recomended={n.recomendation}
-              />
+      {
+        data.userNutrition.data.map((nutCat, key) => (
+            <View key={key}>
+              <Text style={styles.title}>{nutCat.name}</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {nutCat.nutritiens
+                  .sort(({ quantity: a }, { quantity: b }) => b - a)
+                  .map((n, key) => (
+                    <NutrientItem
+                      key={key}
+                      clicked={() => clicked(n.code, n.name)}
+                      value={n.quantity}
+                      unit={n.unit}
+                      title={n.name}
+                      recomended={n.recomendation}
+                    />
+                  ))}
+              </ScrollView>
             </View>
-          ))}
-      </View>
+        ))
+      }
     </View>
   );
 };
@@ -71,5 +77,10 @@ const styles = StyleSheet.create({
     width: "50%",
     padding: 5,
     height: 120,
+  },
+  title: {
+    fontSize: 19,
+    fontWeight: "bold",
+    marginBottom: 5,
   },
 });

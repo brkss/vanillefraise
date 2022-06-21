@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NutritionOverviewData = exports.NutritionOverviewResponse = void 0;
+exports.NutritionOverviewData = exports.NutritionCategoryOverview = exports.NutritionOverviewResponse = void 0;
 const type_graphql_1 = require("type-graphql");
 let NutritionOverviewResponse = class NutritionOverviewResponse {
 };
@@ -22,13 +22,31 @@ __decorate([
     __metadata("design:type", String)
 ], NutritionOverviewResponse.prototype, "message", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => [NutritionOverviewData], { nullable: true }),
+    (0, type_graphql_1.Field)(() => [NutritionCategoryOverview], { nullable: true }),
     __metadata("design:type", Array)
 ], NutritionOverviewResponse.prototype, "data", void 0);
 NutritionOverviewResponse = __decorate([
     (0, type_graphql_1.ObjectType)()
 ], NutritionOverviewResponse);
 exports.NutritionOverviewResponse = NutritionOverviewResponse;
+let NutritionCategoryOverview = class NutritionCategoryOverview {
+};
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], NutritionCategoryOverview.prototype, "id", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], NutritionCategoryOverview.prototype, "name", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [NutritionOverviewData]),
+    __metadata("design:type", Array)
+], NutritionCategoryOverview.prototype, "nutritiens", void 0);
+NutritionCategoryOverview = __decorate([
+    (0, type_graphql_1.ObjectType)()
+], NutritionCategoryOverview);
+exports.NutritionCategoryOverview = NutritionCategoryOverview;
 let NutritionOverviewData = class NutritionOverviewData {
 };
 __decorate([

@@ -45,6 +45,8 @@ import {
   DietRecordResolver,
   // ****** translation ******
   TranlatingResolver,
+  // nutrients 
+  NutrientCategoryResolver
 } from "../resolvers";
 
 export const build = async () => {
@@ -92,6 +94,7 @@ export const build = async () => {
       MacrosResolver,
       DietRecordResolver,
       TranlatingResolver,
+      NutrientCategoryResolver
     ],
     validate: false,
     dateScalarMode: "isoDate",

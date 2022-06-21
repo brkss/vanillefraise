@@ -2,12 +2,17 @@ import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
 import { User } from "../../entity/User";
 import { CookedRecipe } from "../../entity/UserInfo/CookedRecipe";
 import { Recipe } from "../../entity/Recipe";
-import { Nutrition, RecipeTotalNutrition } from "../../entity/Nutrition";
+import {
+  Nutrition,
+  RecipeTotalNutrition,
+  NutritienCategory,
+} from "../../entity/Nutrition";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
 import {
   NutritionOverviewResponse,
   NutritionOverviewData,
+  NutritionCategoryOverview,
 } from "../../utils/responses/nutrition";
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
 import { getAge } from "../../utils/helpers/getAge";
@@ -34,7 +39,7 @@ export class NutritionOverviewResolver {
       gender: user.gender,
       age: getAge(user.birth),
     };
-    const nutrients = await Nutrition.find();
+    const nutrients = await Nutrition.find({ relations: ["category"] });
     const recipesNutrition: RecipeTotalNutrition[] = [];
     const cookedRecipes = await CookedRecipe.find({
       where: {
@@ -50,43 +55,58 @@ export class NutritionOverviewResolver {
       recipesNutrition.push(...nutrition);
     }
 
-    const results = nutrients.map((n) => {
+    // map nutrients by categories
+    const categories = await NutritienCategory.find();
+    const data: NutritionCategoryOverview[] = categories.map((cat) => ({
+      id: cat.id,
+      name: cat.name,
+      nutritiens: [],
+    }));
+
+    for (let nutrient of nutrients) {
+      let quantity = 0;
+      for (let rn of recipesNutrition) {
+        if (rn.code == nutrient.code) {
+          quantity += rn.quantity;
+        }
+      }
+      let obj = {
+        name: nutrient.name,
+        code: nutrient.code,
+        quantity: quantity,
+        unit: nutrient.unit,
+      };
+    }
+
+    for (let n of nutrients) {
       let quantity = 0;
       for (let rn of recipesNutrition) {
         if (rn.code == n.code) {
           quantity += rn.quantity;
         }
       }
-      return {
-        name: n.name,
-        code: n.code,
-        quantity: quantity,
-        unit: n.unit,
-      };
-    });
-
-    console.log("Nutritients results : ", results);
-
-    const rec: NutritionOverviewData[] = [];
-
-    for (let res of results) {
       const nr = await getRepository(NutritionRecomendation).findOne({
         ageStart: LessThanOrEqual(meta.age),
         ageEnd: MoreThanOrEqual(meta.age),
         population: meta.gender,
-        code: res.code,
+        code: n.code,
       });
-      rec.push({
-        ...res,
+      let obj: NutritionOverviewData = {
+        name: n.name,
+        code: n.code,
+        quantity: quantity,
+        unit: n.unit,
         recomendation: nr?.quantity || -1,
-      });
+      };
+      const index = data.findIndex((x) => x.id === n.category.id);
+      if (index > -1) {
+        data[index].nutritiens.push(obj);
+      }
     }
-
-    console.log("RES : ", rec);
 
     return {
       status: true,
-      data: rec,
+      data: data,
     };
   }
 
