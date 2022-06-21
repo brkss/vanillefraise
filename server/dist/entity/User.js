@@ -136,6 +136,11 @@ __decorate([
     (0, typeorm_1.OneToOne)(() => Diet_1.MacrosConfig, (config) => config.user),
     __metadata("design:type", Diet_1.MacrosConfig)
 ], User.prototype, "config", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [Diet_1.DietRecord]),
+    (0, typeorm_1.OneToMany)(() => Diet_1.DietRecord, (record) => record.user),
+    __metadata("design:type", Array)
+], User.prototype, "dietRecords", void 0);
 User = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("users")

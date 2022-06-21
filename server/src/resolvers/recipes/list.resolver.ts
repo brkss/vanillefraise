@@ -1,10 +1,9 @@
 import { Resolver, Query, Arg, UseMiddleware, Ctx } from "type-graphql";
 import { Recipe, RecipeCategory } from "../../entity/Recipe";
-import { DietFoodFilter } from "../../entity/Diet/FoodFilter";
 import { isUserAuth } from "../../utils/middlewares";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
-import { filterRecipes, checkFilter } from "../../utils/helpers/FilterRecipes";
+import { filterRecipes } from "../../utils/helpers/FilterRecipes";
 //import { checkFilter } from '../../utils/helpers/checkRecipeFilter';
 
 @Resolver()
@@ -42,20 +41,6 @@ export class RecipesListResolver {
         return [];
       }
       const recipes = category.recipes.filter((r) => r.public === true);
-
-      const filters = await DietFoodFilter.find({
-        where: { user: user },
-        relations: ["healthlabel"],
-      });
-      /*
-      let data: Recipe[] = [];
-      if (filters.length === 0) {
-        data = recipes;
-      } else {
-        for (let r of recipes) {
-          if (checkFilter(r, filters)) data.push(r);
-        }
-      }*/
       const data = await filterRecipes(recipes, user);
       return data;
     } catch (e) {

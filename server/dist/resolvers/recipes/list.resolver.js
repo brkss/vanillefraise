@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecipesListResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const Recipe_1 = require("../../entity/Recipe");
-const FoodFilter_1 = require("../../entity/Diet/FoodFilter");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
 const FilterRecipes_1 = require("../../utils/helpers/FilterRecipes");
@@ -45,10 +44,6 @@ let RecipesListResolver = class RecipesListResolver {
                 return [];
             }
             const recipes = category.recipes.filter((r) => r.public === true);
-            const filters = await FoodFilter_1.DietFoodFilter.find({
-                where: { user: user },
-                relations: ["healthlabel"],
-            });
             const data = await (0, FilterRecipes_1.filterRecipes)(recipes, user);
             return data;
         }

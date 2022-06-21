@@ -7,7 +7,6 @@ import {
   Query,
 } from "type-graphql";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
-import { DefaultResponse } from "../../utils/responses/default.response";
 import { ConfigDietInput } from "../../utils/inputs";
 import { MacrosConfig, DietFoodFilter } from "../../entity/Diet";
 import { User } from "../../entity/User";

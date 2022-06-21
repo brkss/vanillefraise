@@ -4,7 +4,6 @@ import { IContext } from "../../utils/types/Context";
 import { UserMacrosResponse } from "../../utils/responses/diet/macros.response";
 import { User } from "../../entity/User";
 import { calculateREE, calculateTDEE } from "../../utils/helpers/macros";
-import { MacrosConfig } from "../../entity/Diet";
 
 @Resolver()
 export class MacrosResolver {

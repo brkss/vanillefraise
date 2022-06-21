@@ -13,7 +13,6 @@ import {
   UseMiddleware,
   Ctx,
   Arg,
-  Query,
 } from "type-graphql";
 import { CreateDietRecordInput } from "../../utils/inputs/diet/createrecord.input";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";

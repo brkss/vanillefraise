@@ -42,9 +42,9 @@ __decorate([
 ], DietRecord.prototype, "created_at", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => User_1.User),
-    (0, typeorm_1.ManyToOne)(() => User_1.User, user => user.dietRecords, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.dietRecords, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
     }),
     __metadata("design:type", User_1.User)
 ], DietRecord.prototype, "user", void 0);

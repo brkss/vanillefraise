@@ -8,7 +8,6 @@ import {
 import {} from "../../utils/data/translate/refrence";
 import { Translated } from "../../entity/Translate/Translated";
 import { translated_text_refrence as ref } from "../../utils/data/translate/refrence";
-import { BaseEntity } from "typeorm";
 
 @Resolver()
 export class RecipeItemResolver {

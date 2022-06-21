@@ -31,12 +31,12 @@ let TranlatingResolver = class TranlatingResolver {
             },
             {
                 name: "Arabic",
-                id: "ar"
+                id: "ar",
             },
             {
                 name: "Spanish",
-                id: "es"
-            }
+                id: "es",
+            },
         ];
     }
     async translateAll(txt, type, pointer) {

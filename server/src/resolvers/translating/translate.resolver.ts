@@ -1,16 +1,13 @@
-import { ObjectType, Query, Resolver } from "type-graphql";
+import { Query, Resolver } from "type-graphql";
 import axios from "axios";
 import { Translated } from "../../entity/Translate/Translated";
 import { target_languages } from "../../utils/data/translate/refrence";
-import { LanguagesResponse } from '../../utils/responses'
+import { LanguagesResponse } from "../../utils/responses";
 
 @Resolver()
 export class TranlatingResolver {
-
   @Query(() => [LanguagesResponse])
-  async languages() : Promise<LanguagesResponse[]> {
-
-
+  async languages(): Promise<LanguagesResponse[]> {
     return [
       {
         name: "English",
@@ -22,16 +19,14 @@ export class TranlatingResolver {
       },
       {
         name: "Arabic",
-        id: "ar"
+        id: "ar",
       },
       {
         name: "Spanish",
-        id: "es"
-      }
-    ]
-
+        id: "es",
+      },
+    ];
   }
-
 
   async translateAll(txt: string, type: string, pointer: string) {
     for (let lang of target_languages) {
