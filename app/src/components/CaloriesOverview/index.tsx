@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     fontFamily: "helvitica-condesed",
   },
   needCalories: {
-    backgroundColor: "pink",
+    //backgroundColor: "pink",
     alignSelf: "flex-end",
     fontSize: 30,
     fontWeight: "bold",
