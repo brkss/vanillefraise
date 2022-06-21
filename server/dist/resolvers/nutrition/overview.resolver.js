@@ -42,7 +42,7 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
             gender: user.gender,
             age: (0, getAge_1.getAge)(user.birth),
         };
-        const nutrients = await Nutrition_1.Nutrition.find();
+        const nutrients = await Nutrition_1.Nutrition.find({ relations: ["category"] });
         const recipesNutrition = [];
         const cookedRecipes = await CookedRecipe_1.CookedRecipe.find({
             where: {
@@ -57,35 +57,54 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
             });
             recipesNutrition.push(...nutrition);
         }
-        const results = nutrients.map((n) => {
+        const categories = await Nutrition_1.NutritienCategory.find();
+        const data = categories.map((cat) => ({
+            id: cat.id,
+            name: cat.name,
+            nutritiens: [],
+        }));
+        for (let nutrient of nutrients) {
+            let quantity = 0;
+            for (let rn of recipesNutrition) {
+                if (rn.code == nutrient.code) {
+                    quantity += rn.quantity;
+                }
+            }
+            let obj = {
+                name: nutrient.name,
+                code: nutrient.code,
+                quantity: quantity,
+                unit: nutrient.unit,
+            };
+        }
+        for (let n of nutrients) {
             let quantity = 0;
             for (let rn of recipesNutrition) {
                 if (rn.code == n.code) {
                     quantity += rn.quantity;
                 }
             }
-            return {
-                name: n.name,
-                code: n.code,
-                quantity: quantity,
-                unit: n.unit,
-            };
-        });
-        console.log("Nutritients results : ", results);
-        const rec = [];
-        for (let res of results) {
             const nr = await (0, typeorm_1.getRepository)(Recomendation_1.NutritionRecomendation).findOne({
                 ageStart: (0, typeorm_1.LessThanOrEqual)(meta.age),
                 ageEnd: (0, typeorm_1.MoreThanOrEqual)(meta.age),
                 population: meta.gender,
-                code: res.code,
+                code: n.code,
             });
-            rec.push(Object.assign(Object.assign({}, res), { recomendation: (nr === null || nr === void 0 ? void 0 : nr.quantity) || -1 }));
+            let obj = {
+                name: n.name,
+                code: n.code,
+                quantity: quantity,
+                unit: n.unit,
+                recomendation: (nr === null || nr === void 0 ? void 0 : nr.quantity) || -1,
+            };
+            const index = data.findIndex((x) => x.id === n.category.id);
+            if (index > -1) {
+                data[index].nutritiens.push(obj);
+            }
         }
-        console.log("RES : ", rec);
         return {
             status: true,
-            data: rec,
+            data: data,
         };
     }
     async userCalories(ctx) {
