@@ -4,14 +4,14 @@ import { LoadingBar } from "./LoadingBar";
 import {
   useCookedRecipesCountQuery,
   useGetUserBurnedCaloriesQuery,
-  useMeQuery,
+  //useMeQuery,
   useMacrosQuery,
 } from "../../generated/graphql";
-import { EnterDietButton, AddDietRecordButton } from "../General";
+//import { EnterDietButton, AddDietRecordButton } from "../General";
 import { Loading } from "../General/Loading";
 import { useUserCaloriesQuery } from "../../generated/graphql";
-import { calculateREE } from "../../utils/modules/macros/ree";
-import { getAge } from "../../utils/modules/bmr";
+//import { calculateREE } from "../../utils/modules/macros/ree";
+//import { getAge } from "../../utils/modules/bmr";
 
 const calcProgress = (target: number, value: number): number => {
   if (value >= target) return 100;
@@ -64,7 +64,6 @@ export const CaloriesOverview: React.FC<Props> = ({
               _burnedCalories.data.getUserBurnedCalories}
           </Text>
           <Text style={styles.needCalories}>
-            {" "}
             / {_macros.data.macros.tdee || _macros.data.macros.ree}{" "}
             <Text style={styles.unit}>calories</Text>
           </Text>
@@ -79,7 +78,7 @@ export const CaloriesOverview: React.FC<Props> = ({
       </Text>
       <LoadingBar
         progress={calcProgress(
-          (_macros.data.macros.tdee || _macros.data.macros.ree),
+          _macros.data.macros.tdee || _macros.data.macros.ree,
           data.userCalories.value
         )}
       />
@@ -97,6 +96,7 @@ const styles = StyleSheet.create({
   caloriesContainer: {
     flexDirection: "row",
     alignItems: "baseline",
+    width: "100%",
   },
   takenCalories: {
     fontSize: 55,
@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
     fontFamily: "helvitica-condesed",
   },
   needCalories: {
+    backgroundColor: "pink",
+    alignSelf: "flex-end",
     fontSize: 30,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
