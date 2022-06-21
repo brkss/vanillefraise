@@ -17,28 +17,28 @@ const type_graphql_1 = require("type-graphql");
 const axios_1 = __importDefault(require("axios"));
 const Translated_1 = require("../../entity/Translate/Translated");
 const refrence_1 = require("../../utils/data/translate/refrence");
-let TranslateInput = class TranslateInput {
-};
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", String)
-], TranslateInput.prototype, "txt", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", String)
-], TranslateInput.prototype, "type", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", String)
-], TranslateInput.prototype, "target", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", String)
-], TranslateInput.prototype, "pointer", void 0);
-TranslateInput = __decorate([
-    (0, type_graphql_1.InputType)()
-], TranslateInput);
+const responses_1 = require("../../utils/responses");
 let TranlatingResolver = class TranlatingResolver {
+    async languages() {
+        return [
+            {
+                name: "English",
+                id: "en",
+            },
+            {
+                name: "French",
+                id: "fr",
+            },
+            {
+                name: "Arabic",
+                id: "ar"
+            },
+            {
+                name: "Spanish",
+                id: "es"
+            }
+        ];
+    }
     async translateAll(txt, type, pointer) {
         for (let lang of refrence_1.target_languages) {
             await this.translate(txt, type, lang, pointer);
@@ -72,6 +72,12 @@ let TranlatingResolver = class TranlatingResolver {
         return true;
     }
 };
+__decorate([
+    (0, type_graphql_1.Query)(() => [responses_1.LanguagesResponse]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], TranlatingResolver.prototype, "languages", null);
 TranlatingResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], TranlatingResolver);

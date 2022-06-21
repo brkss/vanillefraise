@@ -1,29 +1,38 @@
-import { Mutation, Query, Resolver, InputType, Field, Arg } from "type-graphql";
-import axios, { Axios } from "axios";
+import { ObjectType, Query, Resolver } from "type-graphql";
+import axios from "axios";
 import { Translated } from "../../entity/Translate/Translated";
-import FormData from "form-data";
-import { Ingredient } from "../../entity/Recipe/Ingredient";
-import { Instruction } from "../../entity/Recipe/Instuction";
 import { target_languages } from "../../utils/data/translate/refrence";
-
-@InputType()
-class TranslateInput {
-  @Field()
-  txt: string;
-
-  @Field()
-  type: string;
-
-  @Field()
-  target: string;
-
-  @Field()
-  pointer: string;
-}
+import { LanguagesResponse } from '../../utils/responses'
 
 @Resolver()
 export class TranlatingResolver {
-  
+
+  @Query(() => [LanguagesResponse])
+  async languages() : Promise<LanguagesResponse[]> {
+
+
+    return [
+      {
+        name: "English",
+        id: "en",
+      },
+      {
+        name: "French",
+        id: "fr",
+      },
+      {
+        name: "Arabic",
+        id: "ar"
+      },
+      {
+        name: "Spanish",
+        id: "es"
+      }
+    ]
+
+  }
+
+
   async translateAll(txt: string, type: string, pointer: string) {
     for (let lang of target_languages) {
       await this.translate(txt, type, lang, pointer);
