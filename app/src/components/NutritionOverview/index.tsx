@@ -19,6 +19,8 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
   }, [refreshing]);
 
   if (loading || error) {
+    if(error)
+      console.log("Error accured on getting nutrients : ", error)
     return <Loading />;
   }
 

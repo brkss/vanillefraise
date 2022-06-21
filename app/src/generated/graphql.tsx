@@ -1231,7 +1231,7 @@ export type RecipeEnergyQuery = { __typename?: 'Query', recipeEnergy: number };
 export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionCategoryOverview', id: string, name: string, nutritiens: Array<{ __typename?: 'NutritionOverviewData', name: string, code: string, quantity: number, recomendation: number, unit: string }> }> | null | undefined } };
+export type UserNutritionQuery = { __typename?: 'Query', userNutrition: { __typename?: 'NutritionOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'NutritionCategoryOverview', name: string, nutritiens: Array<{ __typename?: 'NutritionOverviewData', name: string, code: string, quantity: number, recomendation: number, unit: string }> }> | null | undefined } };
 
 export type RecipeByNutritionQueryVariables = Exact<{
   code: Scalars['String'];
@@ -2577,7 +2577,6 @@ export const UserNutritionDocument = gql`
     status
     message
     data {
-      id
       name
       nutritiens {
         name
