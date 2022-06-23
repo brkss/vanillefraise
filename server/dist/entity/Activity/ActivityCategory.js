@@ -38,12 +38,12 @@ __decorate([
 ], ActivityCategory.prototype, "calories", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)("float"),
     __metadata("design:type", Number)
 ], ActivityCategory.prototype, "highmet", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)("float"),
     __metadata("design:type", Number)
 ], ActivityCategory.prototype, "lowmet", void 0);
 __decorate([

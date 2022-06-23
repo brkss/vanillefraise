@@ -29,11 +29,11 @@ export class ActivityCategory extends BaseEntity {
   calories: ActivityCalories[];
 
   @Field()
-  @Column()
+  @Column("float")
   highmet: number;
 
   @Field()
-  @Column()
+  @Column("float")
   lowmet: number;
 
   @Field(() => [Activity])
