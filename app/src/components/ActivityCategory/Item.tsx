@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    fontSize: 60,
+    fontSize: 50,
   },
   title: {
-    fontSize: 19,
+    fontSize: 14,
     fontWeight: "bold",
     marginTop: 5,
     fontFamily: "helvitica-condesed",

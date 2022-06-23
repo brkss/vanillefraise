@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { colors } from '../../utils/colors';
+import { colors } from "../../utils/colors";
+import Convert from "convert-units";
 
 interface Props {
   label: string;
@@ -8,17 +9,34 @@ interface Props {
   unit: string;
 }
 
+const HANDLE_CONVERTION = (quantity: number, unit: string, label: string) => {
+  let converted = { unit: unit, val: quantity };
+
+  if (unit === "mg" || unit === "µg") {
+    converted = Convert(quantity)
+      .from(unit === "mg" ? "mg" : "mcg")
+      .toBest();
+    return {
+      unit: converted.unit === "mcg" ? "µg" : converted.unit,
+      val: converted.val.toFixed(2),
+    };
+  }
+  return converted;
+};
+
 export const RecipeNutritionItem: React.FC<Props> = ({
   label,
   quantity,
   unit,
 }) => {
+  const converted = HANDLE_CONVERTION(quantity, unit, label);
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.row}>
-        <Text style={styles.quantity}>{quantity.toFixed(2)}</Text>
-        <Text style={styles.unit}>{unit}</Text>
+        <Text style={styles.quantity}> {converted.val}</Text>
+        <Text style={styles.unit}>{converted.unit}</Text>
       </View>
     </View>
   );
@@ -33,7 +51,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
     borderRadius: 14,
     minHeight: 100,
-    minWidth: 130,
+    minWidth: 150,
     alignItems: "baseline",
     justifyContent: "flex-end",
   },
@@ -42,6 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   quantity: {
+    marginLeft: -5,
     fontSize: 27,
     fontWeight: "bold",
   },
@@ -50,7 +69,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   unit: {
-    fontSize: 12,
+    marginLeft: 5,
+    fontSize: 14,
     fontWeight: "bold",
   },
 });

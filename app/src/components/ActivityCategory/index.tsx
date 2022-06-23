@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { View, StyleSheet, ActivityIndicator, ScrollView } from "react-native";
 import { Item } from "./Item";
 import { useActivityCategoriesQuery } from "../../generated/graphql";
 
@@ -23,17 +19,20 @@ export const ActivityCategory: React.FC<Props> = ({ choosed }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        {data?.activityCategories.map((type, key) => (
-          <View key={key} style={styles.item}>
-            <Item
-              choosed={() => choosed(type.id, type.name)}
-              title={type.name}
-              icon={type.icon || "?"}
-            />
-          </View>
-        ))}
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.row}>
+          {data?.activityCategories.map((type, key) => (
+            <View key={key} style={styles.item}>
+              <Item
+                choosed={() => choosed(type.id, type.name)}
+                title={type.name}
+                icon={type.icon || "?"}
+              />
+            </View>
+          ))}
+        </View>
+        <View style={{ height: 200 }} />
+      </ScrollView>
     </View>
   );
 };
