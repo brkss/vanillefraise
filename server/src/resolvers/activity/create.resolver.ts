@@ -10,7 +10,10 @@ import { IContext } from "../../utils/types/Context";
 import { CreateActivityResponse } from "../../utils/responses/activity";
 import { CreateActivityInput } from "../../utils/inputs/activity";
 //import { parseTime } from "../../utils/helpers";
-import { activityDurationScale } from "../../utils/helpers/activity";
+import {
+  activityDurationScale,
+  calculateActivityBurnedCalories,
+} from "../../utils/helpers/activity";
 
 @Resolver()
 export class CreateActivityResolver {
@@ -42,10 +45,10 @@ export class CreateActivityResolver {
       activity.user = user;
       activity.feedback = data.feedback;
       activity.duration = data.duration;
-      activity.calories = await this.getUserBurnedCalories(
+      activity.calories = calculateActivityBurnedCalories(
+        category,
         data.duration,
-        user,
-        category
+        user.weight
       );
       await activity.save();
       const a = await Activity.findOne({

@@ -44,7 +44,7 @@ let CreateActivityResolver = class CreateActivityResolver {
             activity.user = user;
             activity.feedback = data.feedback;
             activity.duration = data.duration;
-            activity.calories = await this.getUserBurnedCalories(data.duration, user, category);
+            activity.calories = (0, activity_3.calculateActivityBurnedCalories)(category, data.duration, user.weight);
             await activity.save();
             const a = await Activity_1.Activity.findOne({
                 where: { id: activity.id },
