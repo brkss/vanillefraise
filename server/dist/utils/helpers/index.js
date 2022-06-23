@@ -17,4 +17,5 @@ __exportStar(require("./mealNutritionsCalc"), exports);
 __exportStar(require("./scale_recipe"), exports);
 __exportStar(require("./fraction"), exports);
 __exportStar(require("./mail"), exports);
+__exportStar(require("./activity"), exports);
 //# sourceMappingURL=index.js.map

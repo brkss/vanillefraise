@@ -6,3 +6,4 @@ export * from './mealNutritionsCalc';
 export * from './scale_recipe';
 export * from './fraction';
 export * from './mail';
+export * from './activity';
