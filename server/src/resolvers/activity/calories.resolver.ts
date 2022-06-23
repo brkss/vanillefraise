@@ -11,32 +11,23 @@ import { ActivityCalories, ActivityCategory } from "../../entity/Activity";
 import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
 import { User } from "../../entity/User";
+import { calculateActivityBurnedCalories } from "../../utils/helpers/activity/calculateBurnedCalories";
 
 @Resolver()
 export class ActivityCaloriesResolver {
   @UseMiddleware(isUserAuth)
   @Query(() => Number)
   async getActivityCalories(@Arg("cat") cat: string, @Ctx() ctx: IContext) {
-    if (!cat) return 0;
-    const user = await User.findOne({
-      id: ctx.payload.userID,
-    });
-    const category = await ActivityCategory.findOne({
-      where: { id: cat },
-    });
-    if (!user || !category) return 0;
-    if (!cat) return 0;
-    const weight = user.weight;
-    const caloriesHandBook = await ActivityCalories.find({
-      where: { category: category },
-    });
-
-    if (caloriesHandBook.length == 0) return 0;
-    let min: ActivityCalories = caloriesHandBook[0];
-    for (let d of caloriesHandBook) {
-      if (d.zone <= weight) min = d;
-    }
-    return min.val;
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return -1;
+    const category = await ActivityCategory.findOne({ where: { id: cat } });
+    if (!category) return -1;
+    const burned_calories = calculateActivityBurnedCalories(
+      category,
+      "1:00",
+      user.weight
+    );
+    return burned_calories;
   }
 
   @Mutation(() => Boolean)

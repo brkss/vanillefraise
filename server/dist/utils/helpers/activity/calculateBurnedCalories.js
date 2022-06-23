@@ -5,7 +5,7 @@ const durationScale = (duration) => {
     const parsed = duration.split(":");
     const d = {
         hours: parseInt(parsed[0]),
-        minutes: parseInt(parsed[1])
+        minutes: parseInt(parsed[1]),
     };
     return d.hours * 60 + d.minutes;
 };
@@ -13,7 +13,7 @@ const calculateActivityBurnedCalories = (category, duration, weight) => {
     const scale = durationScale(duration);
     const met = category.lowmet;
     const bc = (met * weight * 3.5) / 200;
-    return bc * scale;
+    return Math.floor(bc * scale);
 };
 exports.calculateActivityBurnedCalories = calculateActivityBurnedCalories;
 //# sourceMappingURL=calculateBurnedCalories.js.map

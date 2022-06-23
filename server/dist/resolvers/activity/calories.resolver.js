@@ -18,32 +18,17 @@ const calories_data_1 = require("../../utils/data/activity/calories.data");
 const Activity_1 = require("../../entity/Activity");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
+const calculateBurnedCalories_1 = require("../../utils/helpers/activity/calculateBurnedCalories");
 let ActivityCaloriesResolver = class ActivityCaloriesResolver {
     async getActivityCalories(cat, ctx) {
-        if (!cat)
-            return 0;
-        const user = await User_1.User.findOne({
-            id: ctx.payload.userID,
-        });
-        const category = await Activity_1.ActivityCategory.findOne({
-            where: { id: cat },
-        });
-        if (!user || !category)
-            return 0;
-        if (!cat)
-            return 0;
-        const weight = user.weight;
-        const caloriesHandBook = await Activity_1.ActivityCalories.find({
-            where: { category: category },
-        });
-        if (caloriesHandBook.length == 0)
-            return 0;
-        let min = caloriesHandBook[0];
-        for (let d of caloriesHandBook) {
-            if (d.zone <= weight)
-                min = d;
-        }
-        return min.val;
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return -1;
+        const category = await Activity_1.ActivityCategory.findOne({ where: { id: cat } });
+        if (!category)
+            return -1;
+        const burned_calories = (0, calculateBurnedCalories_1.calculateActivityBurnedCalories)(category, "1:00", user.weight);
+        return burned_calories;
     }
     async seedActivityCalories() {
         const acalories = await Activity_1.ActivityCalories.find();
