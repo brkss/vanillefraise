@@ -35,4 +35,8 @@ export const data = [
     name: "Cardio",
     icon: "🏋️‍♀️",
   },
+  {
+    name: "Skateboarding",
+    icon: "🛹"
+  }
 ];

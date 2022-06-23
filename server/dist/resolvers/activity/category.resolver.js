@@ -12,18 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActivityCategoryResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const Activity_1 = require("../../entity/Activity");
-const data_1 = require("../../utils/data");
+const categories_data_1 = require("../../utils/data/activity/categories.data");
 let ActivityCategoryResolver = class ActivityCategoryResolver {
     async seedActivityCategories() {
         const categories = await Activity_1.ActivityCategory.find();
-        if (categories.length == 0) {
-            for (let cat of data_1.data) {
-                const category = new Activity_1.ActivityCategory();
-                category.name = cat.name;
-                category.icon = cat.icon.toString();
-                await category.save();
+        if (categories_data_1.activity_categories.length > categories.length) {
+            for (let cat of categories_data_1.activity_categories) {
+                if (!this.categoryExist(cat.name, categories)) {
+                    const category = new Activity_1.ActivityCategory();
+                    category.name = cat.name;
+                    category.highmet = cat.highmet;
+                    category.lowmet = cat.lowmet;
+                    category.icon = cat.icon;
+                    await category.save();
+                }
             }
             return true;
+        }
+        return false;
+    }
+    categoryExist(name, categories) {
+        for (let c of categories) {
+            if (c.name === name)
+                return true;
         }
         return false;
     }

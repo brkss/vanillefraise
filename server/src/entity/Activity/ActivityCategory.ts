@@ -1,7 +1,13 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+} from "typeorm";
 import { ObjectType, Field } from "type-graphql";
-import { Activity } from './Activity';
-import { ActivityCalories } from './ActivityCalories';
+import { Activity } from "./Activity";
+import { ActivityCalories } from "./ActivityCalories";
 
 @ObjectType()
 @Entity("activity_categories")
@@ -19,10 +25,18 @@ export class ActivityCategory extends BaseEntity {
   icon?: string;
 
   @Field(() => [ActivityCalories])
-  @OneToMany(() => ActivityCalories, calories => calories.category)
+  @OneToMany(() => ActivityCalories, (calories) => calories.category)
   calories: ActivityCalories[];
 
+  @Field()
+  @Column()
+  highmet: number;
+
+  @Field()
+  @Column()
+  lowmet: number;
+
   @Field(() => [Activity])
-  @OneToMany(() => Activity, activities => activities.category)
-  activities: Activity[]
+  @OneToMany(() => Activity, (activities) => activities.category)
+  activities: Activity[];
 }

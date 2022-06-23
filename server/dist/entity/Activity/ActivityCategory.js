@@ -33,12 +33,22 @@ __decorate([
 ], ActivityCategory.prototype, "icon", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [ActivityCalories_1.ActivityCalories]),
-    (0, typeorm_1.OneToMany)(() => ActivityCalories_1.ActivityCalories, calories => calories.category),
+    (0, typeorm_1.OneToMany)(() => ActivityCalories_1.ActivityCalories, (calories) => calories.category),
     __metadata("design:type", Array)
 ], ActivityCategory.prototype, "calories", void 0);
 __decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], ActivityCategory.prototype, "highmet", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], ActivityCategory.prototype, "lowmet", void 0);
+__decorate([
     (0, type_graphql_1.Field)(() => [Activity_1.Activity]),
-    (0, typeorm_1.OneToMany)(() => Activity_1.Activity, activities => activities.category),
+    (0, typeorm_1.OneToMany)(() => Activity_1.Activity, (activities) => activities.category),
     __metadata("design:type", Array)
 ], ActivityCategory.prototype, "activities", void 0);
 ActivityCategory = __decorate([

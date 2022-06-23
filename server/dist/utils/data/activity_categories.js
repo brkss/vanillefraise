@@ -38,5 +38,9 @@ exports.data = [
         name: "Cardio",
         icon: "🏋️‍♀️",
     },
+    {
+        name: "Skateboarding",
+        icon: "🛹"
+    }
 ];
 //# sourceMappingURL=activity_categories.js.map

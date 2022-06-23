@@ -120,7 +120,6 @@ export class NutritionOverviewResolver {
         message: "User Not Found !",
       };
     }
-
     try {
       const target = user.bmi;
       const cookedRecipes = await CookedRecipe.find({

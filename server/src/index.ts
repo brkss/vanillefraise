@@ -46,17 +46,6 @@ import path from "path";
     "/refresh_admin_token",
     async (req, res) => await refreshAdminToken(req, res)
   );
-  /*
-   * IMAGE OPTIMIZATION !
-  /
-   app.get('/optimize', async (_, res) => {
-    await optimize(); 
-    res.send({
-      status: true
-    })
-  })
-  */
-
   // cdn
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));

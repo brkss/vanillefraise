@@ -34,10 +34,7 @@ export class Activity extends BaseEntity {
   created_at: Date;
 
   @Field(() => ActivityCategory)
-  @ManyToOne(() => ActivityCategory, (category) => category.activities, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  })
+  @ManyToOne(() => ActivityCategory, (category) => category.activities)
   category: ActivityCategory;
 
   @Field(() => User)
