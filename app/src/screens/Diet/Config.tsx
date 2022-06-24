@@ -106,7 +106,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
   };
 
   const save = () => {
-    setLoading(true);
+   setLoading(true);
     config({
       variables: {
         height: data.height,
