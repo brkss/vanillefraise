@@ -58,21 +58,15 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <View style={styles.caloriesContainer}>
-          <Text style={styles.takenCalories}>
-            {data.userCalories.value -
-              _burnedCalories.data.getUserBurnedCalories}
-          </Text>
-          <Text style={styles.needCalories}>
-            / {_macros.data.macros.tdee || _macros.data.macros.ree}{" "}
-            <Text style={styles.unit}>calories</Text>
-          </Text>
-        </View>
-        {/*<EnterDietButton pressed={() => dietPressed()} />
-        <AddDietRecordButton pressed={() => dietPressed()} />*/}
+      <View style={styles.caloriesContainer}>
+        <Text style={styles.takenCalories}>
+          {data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}
+        </Text>
+        <Text style={styles.needCalories}>
+          / {_macros.data.macros.tdee || _macros.data.macros.ree}{" "}
+          <Text style={styles.unit}>calories</Text>
+        </Text>
       </View>
-      {/*<Text style={styles.unit}>calories</Text>*/}
       <Text style={styles.burned}>{data.userCalories.value} Cal Taken</Text>
       <Text style={styles.burned}>
         -{_burnedCalories.data.getUserBurnedCalories} Cal Burned
@@ -104,12 +98,13 @@ const styles = StyleSheet.create({
     fontSize: 55,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
+    marginBottom: -10,
     //backgroundColor: "pink",
   },
   needCalories: {
     //backgroundColor: "pink",
     alignSelf: "flex-end",
-    fontSize: 30,
+    fontSize: 24,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
   },
