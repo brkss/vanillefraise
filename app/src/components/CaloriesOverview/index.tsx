@@ -13,9 +13,13 @@ import { useUserCaloriesQuery } from "../../generated/graphql";
 //import { calculateREE } from "../../utils/modules/macros/ree";
 //import { getAge } from "../../utils/modules/bmr";
 
-const calcProgress = (target: number, value: number): number => {
-  if (value >= target) return 100;
-  return (value * 100) / target;
+const calcProgress = (
+  target: number,
+  value: number,
+  burned: number
+): number => {
+  if (value - burned >= target) return 100;
+  return ((value - burned) * 100) / target;
 };
 
 interface Props {
@@ -23,10 +27,7 @@ interface Props {
   dietPressed: () => void;
 }
 
-export const CaloriesOverview: React.FC<Props> = ({
-  refreshing,
-  dietPressed,
-}) => {
+export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
   const _macros = useMacrosQuery();
   const { data, loading, error, refetch } = useUserCaloriesQuery();
   const _burnedCalories = useGetUserBurnedCaloriesQuery();
@@ -79,7 +80,8 @@ export const CaloriesOverview: React.FC<Props> = ({
       <LoadingBar
         progress={calcProgress(
           _macros.data.macros.tdee || _macros.data.macros.ree,
-          data.userCalories.value
+          data.userCalories.value,
+          _burnedCalories.data.getUserBurnedCalories
         )}
       />
       <Text style={styles.recipeCooked}>
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
   },
   caloriesContainer: {
     flexDirection: "row",
-    alignItems: "baseline",
+    //alignItems: "baseline",
     width: "100%",
   },
   takenCalories: {

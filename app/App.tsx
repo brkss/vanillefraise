@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import { MainNavigation } from "./src/navigation";
 import { NativeBaseProvider } from "native-base";
 import { ApolloClient } from "apollo-client";
@@ -7,7 +6,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import { ApolloLink, Observable } from "apollo-link";
+import { ApolloLink, } from "apollo-link";
 import { getAccessToken, setAccessToken, URI } from "./src/utils";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode from "jwt-decode";
