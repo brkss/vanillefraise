@@ -45,7 +45,7 @@ let RecipesListResolver = class RecipesListResolver {
             }
             const recipes = category.recipes.filter((r) => r.public === true);
             const data = await (0, FilterRecipes_1.filterRecipes)(recipes, user);
-            return data;
+            return data.sort((_) => Math.random() - 0.5);
         }
         catch (e) {
             console.log("Sonething went wrong : ", e);
