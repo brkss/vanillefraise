@@ -6,7 +6,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import { ApolloLink, } from "apollo-link";
+import { ApolloLink } from "apollo-link";
 import { getAccessToken, setAccessToken, URI } from "./src/utils";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode from "jwt-decode";
@@ -15,6 +15,7 @@ import * as SecureStore from "expo-secure-store";
 import * as Network from "expo-network";
 import { NotConnected } from "./src/screens";
 import { StatusBar } from "expo-status-bar";
+import { MealScheduleNotification } from "./src/utils/modules/notifications";
 
 const cache = new InMemoryCache({});
 
@@ -88,13 +89,14 @@ export default function App() {
 
   return (
     <>
-      {!isConnected && false ? (
+      {!isConnected ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>
           <StatusBar style={"auto"} />
           <AuthProvider>
             <NativeBaseProvider>
+              <MealScheduleNotification />
               <MainNavigation />
             </NativeBaseProvider>
           </AuthProvider>
