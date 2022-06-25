@@ -4,7 +4,6 @@ import {
   registerForPushNotificationsAsync,
 } from "./schedule";
 import * as Notifications from "expo-notifications";
-import { Text, Pressable, View } from "react-native";
 
 /// init notification hander !
 Notifications.setNotificationHandler({
@@ -52,13 +51,6 @@ export const MealScheduleNotification: React.FC = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Pressable
-        onPress={async () => await scheduleNotification("testing", "testing")}
-        style={{ backgroundColor: "black" }}
-      >
-        <Text style={{ color: "white" }}>Schedule !</Text>
-      </Pressable>
-    </View>
+   null 
   );
 };
