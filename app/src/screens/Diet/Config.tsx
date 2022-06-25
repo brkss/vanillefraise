@@ -22,7 +22,7 @@ import {
   MacrosQuery,
   MacrosDocument,
 } from "../../generated/graphql";
-import { getMealsSchedule } from "../../utils/modules/meals";
+import { getMealsSchedule, saveMealsSchedule } from "../../utils/modules/meals";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
 
@@ -103,8 +103,9 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
     }
   };
 
-  const save = () => {
+  const save = async () => {
     setLoading(true);
+    await saveMealsSchedule(data.meals);
     config({
       variables: {
         height: data.height,

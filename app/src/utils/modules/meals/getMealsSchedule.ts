@@ -22,7 +22,7 @@ export const getMealsSchedule = async () => {
         time: new Date("Fri Jun 10 2022 07:30:00 GMT+0100 (GMT+01:00)"),
       },
     ];
-    //await Storage.setItemAsync("MEALS_SCHEDULE", JSON.stringify(meals));
+    await Storage.setItemAsync("MEALS_SCHEDULE", JSON.stringify(meals));
   }
   return meals;
 };
