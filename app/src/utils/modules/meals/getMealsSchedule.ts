@@ -1,7 +1,7 @@
 import * as Storage from "expo-secure-store";
 import { IMealSchedule } from "./save";
 
-export const getMealsSchedule = async () => {
+export const getMealsSchedule = async (): Promise<IMealSchedule[]> => {
   let meals: IMealSchedule[] = JSON.parse(
     (await Storage.getItemAsync("MEALS_SCHEDULE")) || "[]"
   );

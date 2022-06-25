@@ -50,11 +50,13 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
     },
   });
   const _me = useMeQuery({
-    onCompleted: (res) => {
+    onCompleted: async (res) => {
+      const meals = await getMealsSchedule();
       setData({
         ...data,
         weight: _me.data.me.weight,
         height: _me.data.me.height,
+        meals: meals
       });
     },
   });
@@ -78,15 +80,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
     });
   };
 
-  React.useEffect(() => {
-    (async () => {
-      const meals = await getMealsSchedule();
-      setData({
-        ...data,
-        meals: meals,
-      });
-    })();
-  }, []);
+  React.useEffect(() => {}, []);
 
   const forward = () => {
     console.log("data ++++>>>> ", data);
