@@ -15,6 +15,7 @@ import * as SecureStore from "expo-secure-store";
 import * as Network from "expo-network";
 import { NotConnected } from "./src/screens";
 import { StatusBar } from "expo-status-bar";
+import { MealScheduleNotification } from "./src/utils/modules/notifications";
 
 const cache = new InMemoryCache({});
 
@@ -88,13 +89,14 @@ export default function App() {
 
   return (
     <>
-      {!isConnected && false ? (
+      {!isConnected ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>
           <StatusBar style={"auto"} />
           <AuthProvider>
             <NativeBaseProvider>
+              <MealScheduleNotification />
               <MainNavigation />
             </NativeBaseProvider>
           </AuthProvider>

@@ -3,14 +3,16 @@ import * as Notification from "expo-notifications";
 import { Platform } from "react-native";
 
 export const scheduleNotification = async (title: string, body: string) => {
+  console.log("start scheduling !");
   await Notification.scheduleNotificationAsync({
     content: {
       title: title,
       body: body,
+      data: { data: "something" },
     },
     trigger: {
       seconds: 2,
-      repeats: true,
+      //repeats: true,
     },
   });
 };
@@ -22,10 +24,12 @@ export const registerForPushNotificationsAsync = async () => {
   if (Device.isDevice) {
     const { status: exisitingStatus } =
       await Notification.getPermissionsAsync();
+    status = exisitingStatus;
     if (exisitingStatus !== "granted") {
       const { status: finalStatus } =
         await Notification.requestPermissionsAsync();
       status = finalStatus;
+      console.log("notification status : ", status);
     }
     if (status !== "granted") {
       alert("Notification permission denied !");
