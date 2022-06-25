@@ -33,7 +33,7 @@
     },
     "plugins": [
       [
-        "expo-notification",
+        "expo-notifications",
         {
           "icon": "./local/assets/notification-icon.png",
           "color": "#ffffff",

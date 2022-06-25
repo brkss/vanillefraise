@@ -11,18 +11,18 @@ export const getMealsSchedule = async () => {
     meals = [
       {
         name: "BREAKFAST",
-        time: new Date("Fri Jun 10 2022 08:30:00 GMT+0100 (GMT+01:00)"),
+        time: new Date("Fri Jun 10 2022 07:30:00 GMT+0100 (GMT+01:00)"),
       },
       {
         name: "LUNCH",
-        time: new Date("Fri Jun 10 2022 12:30:00 GMT+0100 (GMT+01:00)"),
+        time: new Date("Fri Jun 10 2022 07:30:00 GMT+0100 (GMT+01:00)"),
       },
       {
         name: "DINNER",
-        time: new Date("Fri Jun 10 2022 21:30:00 GMT+0100 (GMT+01:00)"),
+        time: new Date("Fri Jun 10 2022 07:30:00 GMT+0100 (GMT+01:00)"),
       },
     ];
-    await Storage.setItemAsync("MEALS_SCHEDULE", JSON.stringify(meals));
+    //await Storage.setItemAsync("MEALS_SCHEDULE", JSON.stringify(meals));
   }
   return meals;
 };

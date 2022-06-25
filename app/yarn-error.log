@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/macplus/.nvm/versions/node/v16.13.0/bin/node /Users/macplus/.nvm/versions/node/v16.13.0/bin/yarnpkg add expod-device
+  /Users/macplus/.nvm/versions/node/v16.13.0/bin/node /Users/macplus/.nvm/versions/node/v16.13.0/bin/yarnpkg add expo-notification
 
 PATH: 
   /Users/macplus/Library/Android/sdk/emulator:/Users/macplus/Library/Android/sdk/tools:/Users/macplus/.nvm/versions/node/v16.13.0/bin:/Users/macplus/Developer/homebrew/bin/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Applications/Little Snitch.app/Contents/Components:/Library/Apple/usr/bin:/Users/macplus/.yarn/bin/:/usr/local/mysql/bin/
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/expod-device: Not found
+  Error: https://registry.yarnpkg.com/expo-notification: Not found
       at Request.params.callback [as _callback] (/Users/macplus/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:67029:18)
       at Request.self.callback (/Users/macplus/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:390:28)
@@ -54,6 +54,7 @@ npm manifest:
       "dayjs": "^1.10.8",
       "expo": "~44.0.0",
       "expo-constants": "~13.0.1",
+      "expo-device": "~4.1.0",
       "expo-font": "~10.0.4",
       "expo-linear-gradient": "~11.0.0",
       "expo-network": "~4.1.0",
@@ -4854,6 +4855,13 @@ Lockfile:
       "@expo/config" "^6.0.6"
       uuid "^3.3.2"
   
+  expo-device@~4.1.0:
+    version "4.1.1"
+    resolved "https://registry.yarnpkg.com/expo-device/-/expo-device-4.1.1.tgz#5de94144113ffb7fa0f37fa3d70e452113954c10"
+    integrity sha512-It0SGtKcvzQSf+Co6zdPdB63zZvG2/rDolB1lqswMNKj03Y7KVU41s5tcQCqNczj7tmeN3CJy7A8YhYGKdb7gA==
+    dependencies:
+      ua-parser-js "^0.7.19"
+  
   expo-error-recovery@~3.0.4:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/expo-error-recovery/-/expo-error-recovery-3.0.4.tgz#de85c8c6b387d9b1e532256600882f2c2704383a"
@@ -9487,7 +9495,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
     integrity sha512-DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==
   
-  ua-parser-js@^0.7.30:
+  ua-parser-js@^0.7.19, ua-parser-js@^0.7.30:
     version "0.7.31"
     resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.31.tgz#649a656b191dffab4f21d5e053e27ca17cbff5c6"
     integrity sha512-qLK/Xe9E2uzmYI3qLeOmI0tEOt+TBBQyUIAh4aAgU05FVYzeZrKUdkAZfBNVGRaHVgV0TDkdEngJSw/SyQchkQ==
