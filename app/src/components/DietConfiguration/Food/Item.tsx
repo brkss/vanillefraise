@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "flex-end",
+    top: -5,
   },
   infoText: {
     color: "white",
