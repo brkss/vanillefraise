@@ -11,7 +11,10 @@ interface Props {
 export const BMIResult: React.FC<Props> = ({ pass, bmr }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>BASAL METABOLIC INDEX </Text>
+      <Text style={styles.heading}>
+        the amount of calories needed to maintain basic body systems and body
+        temperature at rest
+      </Text>
       <View style={styles.result}>
         <View style={[styles.item, { width: "50%", alignItems: "flex-end" }]}>
           <Text style={styles.number}>{bmr}</Text>
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     color: "#434343",
-    fontSize: 30,
+    fontSize: 15,
     fontFamily: "helvitica-condesed",
     fontWeight: "bold",
     textAlign: "center",
@@ -60,20 +63,20 @@ const styles = StyleSheet.create({
     color: "#434343",
   },
   unit: {
-    fontSize: 31,
+    fontSize: 25,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
     color: "#434343",
   },
   timing: {
     lineHeight: 23,
-    fontSize: 23,
+    fontSize: 20,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
     color: "#434343",
   },
   numberInfo: {
-    top: 30,
+    top: 37,
     left: 5,
   },
   info: {
@@ -82,7 +85,8 @@ const styles = StyleSheet.create({
   infoTxt: {
     textAlign: "center",
     //fontWeight: "bold",
-    fontSize: 23,
+    marginTop: 7,
+    fontSize: 18,
     //fontFamily: "helvitica-condesed",
     color: "#434343",
   },

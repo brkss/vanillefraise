@@ -18,11 +18,12 @@ import {
   IMeasurementData,
   ISCData,
 } from "../../../utils/types/Register";
-import { calcBMR } from "../../../utils/modules/bmr";
+import { calcBMR, getAge } from "../../../utils/modules/bmr";
 import { useRegisterMutation } from "../../../generated/graphql";
 import { AuthContext } from "../../../utils/auth/AuthProvider";
 import { setAccessToken } from "../../../utils/token/token";
 import * as SecureStore from "expo-secure-store";
+import { calculateREE, calculateTDEE } from '../../../utils/modules/macros';
 
 interface IUserData {
   username: string | "";
@@ -86,7 +87,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
       setData({
         ...data,
         gender: d.gender.gender,
-        bmi: calcBMR(data.birth, data.weight, data.height, d.gender.gender),
+        bmi: calculateREE(d.gender.gender, data.weight, data.height, getAge(data.birth))
       });
       setStatus("RESULT");
     } else if (d.sc) {

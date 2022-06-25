@@ -9,7 +9,7 @@ interface Props {
 export const RegisterOutro: React.FC<Props> = ({ pass }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Thank you,</Text>
+      <Text style={styles.heading}>That's It 😅</Text>
       <Text style={styles.info}>
         Everything's is set, enjoy the taste of eating right.
       </Text>
@@ -20,7 +20,7 @@ export const RegisterOutro: React.FC<Props> = ({ pass }) => {
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 54,
+    fontSize: 40,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
     color: "#434343",

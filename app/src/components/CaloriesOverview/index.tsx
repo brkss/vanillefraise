@@ -4,14 +4,10 @@ import { LoadingBar } from "./LoadingBar";
 import {
   useCookedRecipesCountQuery,
   useGetUserBurnedCaloriesQuery,
-  //useMeQuery,
   useMacrosQuery,
 } from "../../generated/graphql";
-//import { EnterDietButton, AddDietRecordButton } from "../General";
 import { Loading } from "../General/Loading";
 import { useUserCaloriesQuery } from "../../generated/graphql";
-//import { calculateREE } from "../../utils/modules/macros/ree";
-//import { getAge } from "../../utils/modules/bmr";
 
 const calcProgress = (
   target: number,

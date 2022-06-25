@@ -20,7 +20,7 @@ export const RegisterGender: React.FC<Props> = ({ pass }) => {
         onPress={() => setSelected("MALE")}
         style={[
           styles.choise,
-          { backgroundColor: selected == "MALE" ? "#DCB097" : "#F2D5C3" },
+          { backgroundColor: selected == "MALE" ? "#FFC9C9" : "#FBECEC" },
         ]}
       >
         <Text style={styles.choisetxt}>MALE</Text>
@@ -29,7 +29,7 @@ export const RegisterGender: React.FC<Props> = ({ pass }) => {
         onPress={() => setSelected("FEMALE")}
         style={[
           styles.choise,
-          { backgroundColor: selected == "FEMALE" ? "#DCB097" : "#F2D5C3" },
+          { backgroundColor: selected == "FEMALE" ? "#FFC9C9" : "#FBECEC" },
         ]}
       >
         <Text style={styles.choisetxt}>FEMALE</Text>

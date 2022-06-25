@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const MealTime: React.FC<Props> = ({ name, onTimeChange, time: t }) => {
-  const [time, setTime] = React.useState(t);
+  const [time, setTime] = React.useState(new Date(t));
   const [visible, setVisible] = React.useState(false);
 
   const handleShowModal = () => {

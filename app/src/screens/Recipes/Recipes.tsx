@@ -110,7 +110,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
                   />
                 ))
               )}
-              <View style={{ height: 200 }} />
+              <View style={{ height: 300 }} />
             </ScrollView>
           )}
         </View>
