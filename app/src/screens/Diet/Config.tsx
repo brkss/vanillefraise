@@ -22,6 +22,7 @@ import {
   MacrosQuery,
   MacrosDocument,
 } from "../../generated/graphql";
+import { getMealsSchedule, saveMealsSchedule } from "../../utils/modules/meals";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
 
@@ -66,20 +67,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
     carbs: 0,
     protein: 0,
     filters: [],
-    meals: [
-      {
-        name: "BREAKFAST",
-        time: new Date("Fri Jun 10 2022 08:30:00 GMT+0100 (GMT+01:00)"),
-      },
-      {
-        name: "LUNCH",
-        time: new Date("Fri Jun 10 2022 12:30:00 GMT+0100 (GMT+01:00)"),
-      },
-      {
-        name: "DINNER",
-        time: new Date("Fri Jun 10 2022 21:30:00 GMT+0100 (GMT+01:00)"),
-      },
-    ],
+    meals: [],
     reminder: true,
   });
 
@@ -89,6 +77,16 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
       [key]: val,
     });
   };
+
+  React.useEffect(() => {
+    (async () => {
+      const meals = await getMealsSchedule();
+      setData({
+        ...data,
+        meals: meals,
+      });
+    })();
+  }, []);
 
   const forward = () => {
     console.log("data ++++>>>> ", data);
@@ -105,8 +103,9 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
     }
   };
 
-  const save = () => {
+  const save = async () => {
     setLoading(true);
+    await saveMealsSchedule(data.meals);
     config({
       variables: {
         height: data.height,
