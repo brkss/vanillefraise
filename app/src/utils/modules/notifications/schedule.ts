@@ -1,20 +1,35 @@
 import * as Device from "expo-device";
 import * as Notification from "expo-notifications";
 import { Platform } from "react-native";
+import { getMealsSchedule } from "../meals/getMealsSchedule";
 
-export const scheduleNotification = async (title: string, body: string) => {
-  console.log("start scheduling !");
-  await Notification.scheduleNotificationAsync({
+export const setupMealScheduleNotification = async () => {
+  console.log("setting up meal notification ");
+  const meals = await getMealsSchedule();
+  for (let meal of meals) {
+    await scheduleNotification(meal.name, new Date(meal.time));
+  }
+};
+
+export const scheduleNotification = async (meal: string, time: Date) => {
+  console.log("scheduling single meal notification !", time);
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+  console.log("hours : ", hours);
+  console.log("minutes: ", minutes);
+  const id = await Notification.scheduleNotificationAsync({
     content: {
-      title: title,
-      body: body,
-      data: { data: "something" },
+      title: "Vanille Fraise",
+      body: `It's Time for ${meal} ! 😋`,
     },
     trigger: {
-      seconds: 2,
-      //repeats: true,
+      minute: minutes,
+      hour: hours,
+      //seconds: 0,
+      repeats: true,
     },
   });
+  console.log("notification id ! : ", id);
 };
 
 export const registerForPushNotificationsAsync = async () => {

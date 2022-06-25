@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  scheduleNotification,
+  setupMealScheduleNotification,
   registerForPushNotificationsAsync,
 } from "./schedule";
 import * as Notifications from "expo-notifications";
@@ -37,11 +37,8 @@ export const MealScheduleNotification: React.FC = () => {
         Notifications.addNotificationResponseReceivedListener((res) => {
           console.log("notification response recied lister response : ", res);
         });
-
-      await scheduleNotification(
-        "test notification on start !",
-        "testtttiiiiiinnnnng !!!"
-      );
+      //scheduleNotification("BREAKFAST", new Date());
+      await setupMealScheduleNotification();
       console.log("just scheduled notification for like 2 sec !");
     })();
     return () => {
@@ -50,7 +47,5 @@ export const MealScheduleNotification: React.FC = () => {
     };
   }, []);
 
-  return (
-   null 
-  );
+  return null;
 };
