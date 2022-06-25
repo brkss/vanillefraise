@@ -31,7 +31,7 @@ export const ActivityCategory: React.FC<Props> = ({ choosed }) => {
             </View>
           ))}
         </View>
-        <View style={{ height: 200 }} />
+        <View style={{ height: 300 }} />
       </ScrollView>
     </View>
   );
