@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import {
   StartDietConfiguration,
   ConfigureDietMacros,
@@ -23,6 +23,7 @@ import {
   MacrosDocument,
 } from "../../generated/graphql";
 import { getMealsSchedule, saveMealsSchedule } from "../../utils/modules/meals";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
 
@@ -56,7 +57,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
         ...data,
         weight: _me.data.me.weight,
         height: _me.data.me.height,
-        meals: meals
+        meals: meals,
       });
     },
   });

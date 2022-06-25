@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   Pressable,
   RefreshControl,
 } from "react-native";
@@ -19,13 +18,14 @@ import {
   Close,
 } from "../../components";
 import { useGetDietConfigQuery } from "../../generated/graphql";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const wait = (timeout: number) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
 export const DietOverview: React.FC<any> = ({ navigation }) => {
-  const { loading, error, data, refetch} = useGetDietConfigQuery();
+  const { loading, error, data, refetch } = useGetDietConfigQuery();
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {

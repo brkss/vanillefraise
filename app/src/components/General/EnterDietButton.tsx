@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, View, Text, StyleSheet } from "react-native";
+import { Platform, Pressable, View, Text, StyleSheet } from "react-native";
 
 interface Props {
   pressed: () => void;
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 50,
+    bottom: Platform.OS === "android" ? -1 : 0
   },
   icon: {
     fontSize: 30,

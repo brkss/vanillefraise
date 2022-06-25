@@ -67,8 +67,8 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
           <Text style={styles.unit}>calories</Text>
         </Text>
       </View>
-      <Text style={styles.burned}>{data.userCalories.value} Cal Taken</Text>
-      <Text style={styles.burned}>
+      <Text style={styles.metadata}> {data.userCalories.value} Cal Taken</Text>
+      <Text style={styles.metadata}>
         -{_burnedCalories.data.getUserBurnedCalories} Cal Burned
       </Text>
       <LoadingBar
@@ -79,7 +79,7 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
         )}
       />
       <Text style={styles.recipeCooked}>
-        You cooked {_count.data.cookedRecipesCount} recipes.
+        You've cooked {_count.data.cookedRecipesCount} recipes.
       </Text>
     </View>
   );
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     fontFamily: "helvitica-condesed",
     marginBottom: -10,
     //backgroundColor: "pink",
+    color: "#434343",
   },
   needCalories: {
     //backgroundColor: "pink",
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
+    color: "#434343",
   },
   unit: {
     marginTop: -10,
@@ -121,9 +123,9 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#434343",
   },
-  burned: {
+  metadata: {
     fontFamily: "helvitica-condesed",
-    fontSize: 18,
+    fontSize: 16,
     marginTop: -3,
     //lineHeight: 26,
     color: "#434343",
