@@ -1,4 +1,5 @@
 import * as Storage from "expo-secure-store";
+import { setupMealScheduleNotification } from "../notifications/schedule";
 
 export interface IMealSchedule {
   name: string;
@@ -15,4 +16,5 @@ export const saveMealsSchedule = async (data: IMealSchedule[]) => {
     });
   }
   await Storage.setItemAsync("MEALS_SCHEDULE", JSON.stringify(meals));
+  await setupMealScheduleNotification();
 };

@@ -35,9 +35,9 @@
       [
         "expo-notifications",
         {
-          "icon": "./local/assets/notification-icon.png",
+          "icon": "./assets/icon.png",
           "color": "#ffffff",
-          "sounds": ["./assets/meal-notification.mp3"]
+          "sounds": ["./assets/meal-notification.wav"]
         }
       ]
     ]
