@@ -57,13 +57,13 @@ const getVerifyAccountMail = (name, token) => {
         margin-top: 20px;
         margin-bottom: 10px;
         font-size: 20px;
-        text-align: center;
+        /*text-align: center;*/
         font-weight: bold;
       }
       .subtitle {
         font-size: 13px;
         font-weight: 500;
-        text-align: center;
+        /*text-align: center;*/
         opacity: 0.8;
       }
       .btn {
@@ -75,7 +75,7 @@ const getVerifyAccountMail = (name, token) => {
         color: #434343;
         font-weight: bold;
         padding: 10px 20px;
-        margin: auto;
+        /*margin: auto;*/
         margin-top: 30px;
         text-align: center;
       }
