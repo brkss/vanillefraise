@@ -6,6 +6,7 @@ import * as Storage from "expo-secure-store";
 
 export const saveScheduledNotification = async (notifications: string[]) => {
   // cancled previous notifications
+  await Notification.cancelAllScheduledNotificationsAsync();
   await cancelScheduledNotifications();
   await Storage.setItemAsync(
     "SCHEDULED_MEALS_NOTIFICATIONS",
