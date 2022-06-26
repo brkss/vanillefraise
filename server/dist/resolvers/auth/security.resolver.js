@@ -22,9 +22,16 @@ const resetpassword_input_1 = require("../../utils/inputs/auth/resetpassword.inp
 const bcrypt_1 = require("bcrypt");
 const ResetPassword_1 = require("../../entity/ResetPassword");
 const mail_1 = require("../../utils/helpers/mail");
+const middlewares_1 = require("../../utils/middlewares");
 let SecurityResolver = class SecurityResolver {
     work() {
         return "yes !";
+    }
+    async isAccountVerified(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return false;
+        return user.verified;
     }
     async verifyAccount(token) {
         if (!token) {
@@ -37,7 +44,7 @@ let SecurityResolver = class SecurityResolver {
         if (!userId) {
             return {
                 status: false,
-                message: "Invalid Verification Token",
+                message: "Invalid Token :<",
             };
         }
         const user = await User_1.User.findOne({ where: { id: userId } });
@@ -45,6 +52,12 @@ let SecurityResolver = class SecurityResolver {
             return {
                 status: false,
                 message: "Invalid User !",
+            };
+        }
+        if (user.verified) {
+            return {
+                status: true,
+                message: "Your Account is Already Verified !",
             };
         }
         user.verified = true;
@@ -154,6 +167,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], SecurityResolver.prototype, "work", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => Boolean),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SecurityResolver.prototype, "isAccountVerified", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
     __param(0, (0, type_graphql_1.Arg)("token")),

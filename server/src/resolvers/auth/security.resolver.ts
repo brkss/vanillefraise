@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+} from "type-graphql";
 import {
   AuthDefaultResponse,
   DefaultResponse,
@@ -20,6 +27,7 @@ import { IContext } from "../../utils/types/Context";
 import { hash } from "bcrypt";
 import { ResetPassword } from "../../entity/ResetPassword";
 import { sendResetPasswordMail } from "../../utils/helpers/mail";
+import { isUserAuth } from "../../utils/middlewares";
 
 @Resolver()
 export class SecurityResolver {
@@ -28,10 +36,16 @@ export class SecurityResolver {
     return "yes !";
   }
 
+  @UseMiddleware(isUserAuth)
+  @Query(() => Boolean)
+  async isAccountVerified(@Ctx() ctx: IContext): Promise<boolean> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return false;
+    return user.verified;
+  }
+
   @Mutation(() => DefaultResponse)
-  async verifyAccount(
-    @Arg("token") token: string
-  ): Promise<DefaultResponse> {
+  async verifyAccount(@Arg("token") token: string): Promise<DefaultResponse> {
     if (!token) {
       return {
         status: false,
@@ -43,7 +57,7 @@ export class SecurityResolver {
     if (!userId) {
       return {
         status: false,
-        message: "Invalid Verification Token",
+        message: "Invalid Token :<",
       };
     }
 
@@ -52,6 +66,12 @@ export class SecurityResolver {
       return {
         status: false,
         message: "Invalid User !",
+      };
+    }
+    if (user.verified) {
+      return {
+        status: true,
+        message: "Your Account is Already Verified !",
       };
     }
     user.verified = true;
