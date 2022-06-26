@@ -41,8 +41,10 @@ export type ActivityCategory = {
   __typename?: 'ActivityCategory';
   activities: Array<Activity>;
   calories: Array<ActivityCalories>;
+  highmet: Scalars['Float'];
   icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  lowmet: Scalars['Float'];
   name: Scalars['String'];
 };
 
@@ -449,6 +451,7 @@ export type Mutation = {
   seedSpecialConditions: Scalars['Boolean'];
   updateCategory: UpdateCategoryResponse;
   updateInfo: DefaultResponse;
+  verifyAccount: DefaultResponse;
 };
 
 
@@ -586,6 +589,11 @@ export type MutationUpdateInfoArgs = {
   data: UpdateUserInfoInput;
 };
 
+
+export type MutationVerifyAccountArgs = {
+  token: Scalars['String'];
+};
+
 export type NutritionCategoryOverview = {
   __typename?: 'NutritionCategoryOverview';
   id: Scalars['String'];
@@ -628,6 +636,7 @@ export type Query = {
   healthLabels: Array<DietHealthLabelResponse>;
   helloAdmin: Scalars['String'];
   helloDietData: Scalars['String'];
+  isAccountVerified: Scalars['Boolean'];
   isRequested: Scalars['Boolean'];
   languages: Array<LanguagesResponse>;
   macros: UserMacrosResponse;
@@ -968,6 +977,7 @@ export type User = {
   records: Array<Record>;
   specialconditions: Array<SpecialCondition>;
   username: Scalars['String'];
+  verified: Scalars['Boolean'];
   version: Scalars['Float'];
   weight: Scalars['Float'];
 };
@@ -1044,6 +1054,11 @@ export type SeedActivityCategoriesMutationVariables = Exact<{ [key: string]: nev
 
 
 export type SeedActivityCategoriesMutation = { __typename?: 'Mutation', seedActivityCategories: boolean };
+
+export type IsAccountVerifiedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IsAccountVerifiedQuery = { __typename?: 'Query', isAccountVerified: boolean };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -1567,6 +1582,38 @@ export function useSeedActivityCategoriesMutation(baseOptions?: Apollo.MutationH
 export type SeedActivityCategoriesMutationHookResult = ReturnType<typeof useSeedActivityCategoriesMutation>;
 export type SeedActivityCategoriesMutationResult = Apollo.MutationResult<SeedActivityCategoriesMutation>;
 export type SeedActivityCategoriesMutationOptions = Apollo.BaseMutationOptions<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>;
+export const IsAccountVerifiedDocument = gql`
+    query IsAccountVerified {
+  isAccountVerified
+}
+    `;
+
+/**
+ * __useIsAccountVerifiedQuery__
+ *
+ * To run a query within a React component, call `useIsAccountVerifiedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsAccountVerifiedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIsAccountVerifiedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useIsAccountVerifiedQuery(baseOptions?: Apollo.QueryHookOptions<IsAccountVerifiedQuery, IsAccountVerifiedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<IsAccountVerifiedQuery, IsAccountVerifiedQueryVariables>(IsAccountVerifiedDocument, options);
+      }
+export function useIsAccountVerifiedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IsAccountVerifiedQuery, IsAccountVerifiedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<IsAccountVerifiedQuery, IsAccountVerifiedQueryVariables>(IsAccountVerifiedDocument, options);
+        }
+export type IsAccountVerifiedQueryHookResult = ReturnType<typeof useIsAccountVerifiedQuery>;
+export type IsAccountVerifiedLazyQueryHookResult = ReturnType<typeof useIsAccountVerifiedLazyQuery>;
+export type IsAccountVerifiedQueryResult = Apollo.QueryResult<IsAccountVerifiedQuery, IsAccountVerifiedQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(data: {email: $email, password: $password}) {

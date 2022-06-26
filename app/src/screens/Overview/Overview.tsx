@@ -16,6 +16,10 @@ import {
 } from "../../components";
 import { useFonts } from "expo-font";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  IsAccountVerifiedDocument,
+  useIsAccountVerifiedQuery,
+} from "../../generated/graphql";
 
 const wait = (timeout: number) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -26,23 +30,21 @@ export const Overview: React.FC<any> = ({ navigation }) => {
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
-
+  const { data, error, loading } = useIsAccountVerifiedQuery();
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  if (!helviticaCondensed) {
+  if (!helviticaCondensed || loading || error) {
     return <Loading />;
   }
 
   return (
     <>
-      <EmailVerification />
+      {!data.isAccountVerified ? <EmailVerification /> : null}
       <View style={styles.container}>
         <SafeAreaView
-          importantForAccessibility={'no'}
-          //accessible={false}
           style={{
             flex: 1,
             marginBottom: Platform.OS === "ios" ? -40 : 0,
