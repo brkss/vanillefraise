@@ -22,9 +22,50 @@ const resetpassword_input_1 = require("../../utils/inputs/auth/resetpassword.inp
 const bcrypt_1 = require("bcrypt");
 const ResetPassword_1 = require("../../entity/ResetPassword");
 const mail_1 = require("../../utils/helpers/mail");
+const middlewares_1 = require("../../utils/middlewares");
 let SecurityResolver = class SecurityResolver {
     work() {
         return "yes !";
+    }
+    async isAccountVerified(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return false;
+        return user.verified;
+    }
+    async verifyAccount(token) {
+        if (!token) {
+            return {
+                status: false,
+                message: "Invalid Token",
+            };
+        }
+        const userId = (0, token_2.verifyAccountVerificationToken)(token);
+        if (!userId) {
+            return {
+                status: false,
+                message: "Invalid Token :<",
+            };
+        }
+        const user = await User_1.User.findOne({ where: { id: userId } });
+        if (!user) {
+            return {
+                status: false,
+                message: "Invalid User !",
+            };
+        }
+        if (user.verified) {
+            return {
+                status: true,
+                message: "Your Account is Already Verified !",
+            };
+        }
+        user.verified = true;
+        await user.save();
+        return {
+            status: true,
+            message: "Thank you for using Vanille Fraise !",
+        };
     }
     async verifyResetToken(token) {
         if (!token) {
@@ -63,7 +104,7 @@ let SecurityResolver = class SecurityResolver {
             resetRecord.user = user;
             await resetRecord.save();
             const _token = (0, token_1.createResetPasswordToken)(user, resetRecord);
-            await (0, mail_1.sendMail)(user.email, user.name, _token);
+            await (0, mail_1.sendResetPasswordMail)(user.email, user.name, _token);
             return {
                 status: true,
                 message: "Token created successfuly",
@@ -126,6 +167,21 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], SecurityResolver.prototype, "work", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => Boolean),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SecurityResolver.prototype, "isAccountVerified", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    __param(0, (0, type_graphql_1.Arg)("token")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SecurityResolver.prototype, "verifyAccount", null);
 __decorate([
     (0, type_graphql_1.Query)(() => responses_1.VerifyResetPasswordTokenResponse),
     __param(0, (0, type_graphql_1.Arg)("token")),

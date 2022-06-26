@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet } from "react-native";
 import {
   Start,
   IngredientStep,
@@ -19,6 +19,7 @@ import {
   Ingredient,
   TranslatedIngredient,
 } from "../../generated/graphql";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Cooking: React.FC<any> = ({ route, navigation }) => {
   const [cooked] = useCookedRecipeMutation();

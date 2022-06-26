@@ -41,8 +41,10 @@ export type ActivityCategory = {
   __typename?: 'ActivityCategory';
   activities: Array<Activity>;
   calories: Array<ActivityCalories>;
+  highmet: Scalars['Float'];
   icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  lowmet: Scalars['Float'];
   name: Scalars['String'];
 };
 
@@ -76,6 +78,12 @@ export type AuthDefaultResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
+export type CaloriesTrackResponse = {
+  __typename?: 'CaloriesTrackResponse';
+  date: Scalars['DateTime'];
+  value: Scalars['Float'];
+};
+
 export type ChangePasswordInput = {
   newpass: Scalars['String'];
   oldpass: Scalars['String'];
@@ -87,8 +95,19 @@ export type ChangePasswordResponse = {
   status: Scalars['Boolean'];
 };
 
+export type ConfigDietInput = {
+  activity_factor: Scalars['Float'];
+  carbs: Scalars['Float'];
+  fat: Scalars['Float'];
+  filters: Array<Scalars['String']>;
+  height: Scalars['Float'];
+  protein: Scalars['Float'];
+  weight: Scalars['Float'];
+};
+
 export type CookedRecipe = {
   __typename?: 'CookedRecipe';
+  created_at: Scalars['DateTime'];
   id: Scalars['String'];
   recipe: Recipe;
   user: User;
@@ -119,6 +138,20 @@ export type CreateActivityResponse = {
   burnedCalories?: Maybe<Scalars['Float']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
+};
+
+export type CreateDietConfigResponse = {
+  __typename?: 'CreateDietConfigResponse';
+  data?: Maybe<DietConfigResponse>;
+  macros?: Maybe<UserMacrosResponse>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
+export type CreateDietRecordInput = {
+  type: Scalars['String'];
+  unit: Scalars['String'];
+  value: Scalars['Float'];
 };
 
 export type CreateMealRecipeResponse = {
@@ -176,10 +209,51 @@ export type DefaultResponse = {
   status: Scalars['Boolean'];
 };
 
+export type DietConfigResponse = {
+  __typename?: 'DietConfigResponse';
+  config?: Maybe<MacrosConfig>;
+  filters?: Maybe<Array<HealthLabelRefrence>>;
+  status: Scalars['Boolean'];
+};
+
+export type DietFoodFilter = {
+  __typename?: 'DietFoodFilter';
+  healthlabel: HealthLabelRefrence;
+  id: Scalars['String'];
+  user: User;
+};
+
+export type DietHealthLabelResponse = {
+  __typename?: 'DietHealthLabelResponse';
+  count: Scalars['Float'];
+  description: Scalars['String'];
+  id: Scalars['String'];
+  label: Scalars['String'];
+};
+
+export type DietRecord = {
+  __typename?: 'DietRecord';
+  created_at: Scalars['DateTime'];
+  id: Scalars['String'];
+  type: Scalars['String'];
+  unit: Scalars['String'];
+  user: User;
+  value: Scalars['Float'];
+};
+
 export type EarlyAccessRequest = {
   __typename?: 'EarlyAccessRequest';
   id: Scalars['String'];
   user: User;
+};
+
+export type HealthLabelRefrence = {
+  __typename?: 'HealthLabelRefrence';
+  description: Scalars['String'];
+  filters: Array<DietFoodFilter>;
+  id: Scalars['String'];
+  label: Scalars['String'];
+  param: Scalars['String'];
 };
 
 export type Ingredient = {
@@ -193,6 +267,12 @@ export type Ingredient = {
   unit?: Maybe<Scalars['String']>;
 };
 
+export type IngredientLang = {
+  __typename?: 'IngredientLang';
+  ingredient?: Maybe<Scalars['String']>;
+  unit?: Maybe<Scalars['String']>;
+};
+
 export type Instruction = {
   __typename?: 'Instruction';
   created_at: Scalars['DateTime'];
@@ -200,6 +280,12 @@ export type Instruction = {
   index: Scalars['Float'];
   raw: Scalars['String'];
   recipe: Recipe;
+};
+
+export type LanguagesResponse = {
+  __typename?: 'LanguagesResponse';
+  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type ListRecordsResponse = {
@@ -217,6 +303,16 @@ export type LoginAdminInput = {
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+export type MacrosConfig = {
+  __typename?: 'MacrosConfig';
+  activityFactor: Scalars['Float'];
+  carbs: Scalars['Float'];
+  fat: Scalars['Float'];
+  id: Scalars['String'];
+  protein: Scalars['Float'];
+  user: User;
 };
 
 export type MarkedDates = {
@@ -322,9 +418,11 @@ export type Mutation = {
   changeRecipeVisibility: DefaultResponse;
   checkCookedMeal: CookedRecipesResponse;
   checkInfoValidity: UserInfoValidityResponse;
+  configDiet: CreateDietConfigResponse;
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
+  createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
@@ -342,8 +440,10 @@ export type Mutation = {
   resetPassword: AuthDefaultResponse;
   seedActivityCalories: Scalars['Boolean'];
   seedActivityCategories: Scalars['Boolean'];
+  seedHealthLabelRefrence: Scalars['Boolean'];
   seedMeals: Scalars['Boolean'];
   seedMoodCategories: Scalars['Boolean'];
+  seedNutrientCategories: Scalars['Boolean'];
   seedNutritionGuide: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
   seedRecomendation: Scalars['Boolean'];
@@ -351,6 +451,7 @@ export type Mutation = {
   seedSpecialConditions: Scalars['Boolean'];
   updateCategory: UpdateCategoryResponse;
   updateInfo: DefaultResponse;
+  verifyAccount: DefaultResponse;
 };
 
 
@@ -384,6 +485,11 @@ export type MutationCheckInfoValidityArgs = {
 };
 
 
+export type MutationConfigDietArgs = {
+  data: ConfigDietInput;
+};
+
+
 export type MutationCookedRecipeArgs = {
   data: CookedRecipeInput;
 };
@@ -396,6 +502,11 @@ export type MutationCookedRecipesArgs = {
 
 export type MutationCreateActivityArgs = {
   data: CreateActivityInput;
+};
+
+
+export type MutationCreateDietRecordArgs = {
+  data: CreateDietRecordInput;
 };
 
 
@@ -478,6 +589,18 @@ export type MutationUpdateInfoArgs = {
   data: UpdateUserInfoInput;
 };
 
+
+export type MutationVerifyAccountArgs = {
+  token: Scalars['String'];
+};
+
+export type NutritionCategoryOverview = {
+  __typename?: 'NutritionCategoryOverview';
+  id: Scalars['String'];
+  name: Scalars['String'];
+  nutritiens: Array<NutritionOverviewData>;
+};
+
 export type NutritionOverviewData = {
   __typename?: 'NutritionOverviewData';
   code: Scalars['String'];
@@ -489,13 +612,14 @@ export type NutritionOverviewData = {
 
 export type NutritionOverviewResponse = {
   __typename?: 'NutritionOverviewResponse';
-  data?: Maybe<Array<NutritionOverviewData>>;
+  data?: Maybe<Array<NutritionCategoryOverview>>;
   message?: Maybe<Scalars['String']>;
   status: Scalars['Boolean'];
 };
 
 export type Query = {
   __typename?: 'Query';
+  activeFoodFilters: Array<HealthLabelRefrence>;
   activities: Array<Activity>;
   activityCategories: Array<ActivityCategory>;
   adminCategories: Array<AdminCategoryResponse>;
@@ -505,11 +629,16 @@ export type Query = {
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
   getActivityCalories: Scalars['Float'];
+  getDietConfig: DietConfigResponse;
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   getUserBurnedCalories: Scalars['Float'];
+  healthLabels: Array<DietHealthLabelResponse>;
   helloAdmin: Scalars['String'];
+  helloDietData: Scalars['String'];
   isRequested: Scalars['Boolean'];
+  languages: Array<LanguagesResponse>;
+  macros: UserMacrosResponse;
   me?: Maybe<User>;
   mealNutrition: MealNutritionResponse;
   meals: Array<MealListResponse>;
@@ -526,6 +655,9 @@ export type Query = {
   records: ListRecordsResponse;
   searchRecipes: SearchResultResponse;
   specialconditions: Array<SpecialCondition>;
+  trackCalories: Array<CaloriesTrackResponse>;
+  trackMacronutrients: Array<TrackMacronutrientsResponse>;
+  trackWeight: Array<TrackWeightResponse>;
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   verifyResetToken: VerifyResetPasswordTokenResponse;
@@ -653,6 +785,8 @@ export type RecipeHealthLabel = {
 
 export type RecipeItemResponse = {
   __typename?: 'RecipeItemResponse';
+  ingredients?: Maybe<Array<TranslatedIngredient>>;
+  instructions?: Maybe<Array<TranslatedInstruction>>;
   message?: Maybe<Scalars['String']>;
   recipe?: Maybe<Recipe>;
   status: Scalars['Boolean'];
@@ -759,6 +893,46 @@ export type SpecialCondition = {
   users: Array<User>;
 };
 
+export type TrackMacronutrientsResponse = {
+  __typename?: 'TrackMacronutrientsResponse';
+  carbs: Scalars['Float'];
+  date: Scalars['DateTime'];
+  fat: Scalars['Float'];
+  protein: Scalars['Float'];
+};
+
+export type TrackWeightResponse = {
+  __typename?: 'TrackWeightResponse';
+  date: Scalars['DateTime'];
+  value: Scalars['Float'];
+};
+
+export type TranslatedIngredient = {
+  __typename?: 'TranslatedIngredient';
+  amount?: Maybe<Scalars['String']>;
+  ar: IngredientLang;
+  created_at: Scalars['String'];
+  es: IngredientLang;
+  fr: IngredientLang;
+  id: Scalars['String'];
+  ingredients?: Maybe<Scalars['String']>;
+  raw: Scalars['String'];
+  recipe: Recipe;
+  unit?: Maybe<Scalars['String']>;
+};
+
+export type TranslatedInstruction = {
+  __typename?: 'TranslatedInstruction';
+  ar?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime'];
+  es?: Maybe<Scalars['String']>;
+  fr?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  index: Scalars['Float'];
+  raw: Scalars['String'];
+  recipe: Recipe;
+};
+
 export type UpdateCategoryInput = {
   active: Scalars['Boolean'];
   icon?: InputMaybe<Scalars['String']>;
@@ -786,10 +960,13 @@ export type User = {
   banned: Scalars['Boolean'];
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
+  config: MacrosConfig;
   cookedrecipes: Array<CookedRecipe>;
   created_at: Scalars['DateTime'];
+  dietRecords: Array<DietRecord>;
   earequest: Array<EarlyAccessRequest>;
   email: Scalars['String'];
+  filters: Array<DietFoodFilter>;
   gender: Scalars['String'];
   height: Scalars['Float'];
   id: Scalars['String'];
@@ -799,6 +976,7 @@ export type User = {
   records: Array<Record>;
   specialconditions: Array<SpecialCondition>;
   username: Scalars['String'];
+  verified: Scalars['Boolean'];
   version: Scalars['Float'];
   weight: Scalars['Float'];
 };
@@ -822,6 +1000,14 @@ export type UserInfoValidityResponse = {
 export type UserInfoValidtyInput = {
   email: Scalars['String'];
   username: Scalars['String'];
+};
+
+export type UserMacrosResponse = {
+  __typename?: 'UserMacrosResponse';
+  message?: Maybe<Scalars['String']>;
+  ree?: Maybe<Scalars['Float']>;
+  status: Scalars['Boolean'];
+  tdee?: Maybe<Scalars['Float']>;
 };
 
 export type VerifyResetPasswordTokenResponse = {
@@ -857,6 +1043,13 @@ export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PingQuery = { __typename?: 'Query', ping: string };
+
+export type VerifyAccountMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type VerifyAccountMutation = { __typename?: 'Mutation', verifyAccount: { __typename?: 'DefaultResponse', status: boolean, message?: string | null } };
 
 
 export const RequestResetPasswordDocument = gql`
@@ -1001,3 +1194,37 @@ export function usePingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PingQ
 export type PingQueryHookResult = ReturnType<typeof usePingQuery>;
 export type PingLazyQueryHookResult = ReturnType<typeof usePingLazyQuery>;
 export type PingQueryResult = Apollo.QueryResult<PingQuery, PingQueryVariables>;
+export const VerifyAccountDocument = gql`
+    mutation VerifyAccount($token: String!) {
+  verifyAccount(token: $token) {
+    status
+    message
+  }
+}
+    `;
+export type VerifyAccountMutationFn = Apollo.MutationFunction<VerifyAccountMutation, VerifyAccountMutationVariables>;
+
+/**
+ * __useVerifyAccountMutation__
+ *
+ * To run a mutation, you first call `useVerifyAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyAccountMutation, { data, loading, error }] = useVerifyAccountMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useVerifyAccountMutation(baseOptions?: Apollo.MutationHookOptions<VerifyAccountMutation, VerifyAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyAccountMutation, VerifyAccountMutationVariables>(VerifyAccountDocument, options);
+      }
+export type VerifyAccountMutationHookResult = ReturnType<typeof useVerifyAccountMutation>;
+export type VerifyAccountMutationResult = Apollo.MutationResult<VerifyAccountMutation>;
+export type VerifyAccountMutationOptions = Apollo.BaseMutationOptions<VerifyAccountMutation, VerifyAccountMutationVariables>;

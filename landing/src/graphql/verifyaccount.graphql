@@ -1,0 +1,6 @@
+mutation VerifyAccount($token: String!){
+ verifyAccount(token: $token){
+  status
+  message
+	} 
+}

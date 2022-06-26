@@ -1,6 +1,9 @@
-const DOMAIN: string = "http://localhost:3000";
-export const getResetPasswordMail = (name: string, token: string) => {
-  return `
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getMail = void 0;
+const DOMAIN = "http://localhost:3000";
+const getMail = (name, token) => {
+    return `
     
   <!DOCTYPE html>
 
@@ -9,24 +12,8 @@ export const getResetPasswordMail = (name: string, token: string) => {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A Basic HTML5 Template</title>
-    <meta
-      name="description"
-      content="A simple HTML5 Template for new projects."
-    />
+    <title>Verify your Vanille Fraise Email</title>
     <meta name="author" content="SitePoint" />
-
-    <meta property="og:title" content="A Basic HTML5 Template" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://www.sitepoint.com/a-basic-html5-template/"
-    />
-    <meta
-      property="og:description"
-      content="A simple HTML5 Template for new projects."
-    />
-    <meta property="og:image" content="image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -108,11 +95,12 @@ export const getResetPasswordMail = (name: string, token: string) => {
     <div class="container">
       <h1 class="logo">Vanille Fraise</h1>
       <hr class="line" />
-      <h1 class="title">Reset Password</h1>
+      <h1 class="title">Verify Your Account</h1>
       <h2 class="subtitle">
-        Hello ${name}, you need to update your password ? click on the button below.
+        Hello ${name}<br />
+        Welcome to Vanille Fraise, to start using your account and tracking your nutrition, please verify your email address.
       </h2>
-      <a class="btn" href="${DOMAIN}/rp/${token}">SET NEW PASSWORD</a>
+      <a class="btn" href="${DOMAIN}/rp/${token}">Verify Now</a>
     </div>
     <!-- your content here... -->
     <script src="js/scripts.js"></script>
@@ -121,3 +109,5 @@ export const getResetPasswordMail = (name: string, token: string) => {
 
   `;
 };
+exports.getMail = getMail;
+//# sourceMappingURL=verifyAccountMain.js.map

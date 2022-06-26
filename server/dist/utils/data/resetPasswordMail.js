@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMail = void 0;
+exports.getResetPasswordMail = void 0;
 const DOMAIN = "http://localhost:3000";
-const getMail = (name, token) => {
+const getResetPasswordMail = (name, token) => {
     return `
     
   <!DOCTYPE html>
@@ -124,5 +124,5 @@ const getMail = (name, token) => {
 
   `;
 };
-exports.getMail = getMail;
+exports.getResetPasswordMail = getResetPasswordMail;
 //# sourceMappingURL=resetPasswordMail.js.map

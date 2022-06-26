@@ -71,6 +71,10 @@ export class User extends BaseEntity {
   bmi: number;
 
   @Field()
+  @Column({ default: false })
+  verified: boolean;
+
+  @Field()
   @Column()
   birth: Date;
 

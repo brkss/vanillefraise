@@ -12,9 +12,14 @@ import {
   NutritionOverview,
   MealsOverview,
   TopBar,
+  EmailVerification,
 } from "../../components";
 import { useFonts } from "expo-font";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  IsAccountVerifiedDocument,
+  useIsAccountVerifiedQuery,
+} from "../../generated/graphql";
 
 const wait = (timeout: number) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -25,44 +30,53 @@ export const Overview: React.FC<any> = ({ navigation }) => {
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
-
+  const { data, error, loading } = useIsAccountVerifiedQuery();
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  if (!helviticaCondensed) {
+  if (!helviticaCondensed || loading || error) {
     return <Loading />;
   }
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView
-        style={{ flex: 1, marginBottom: Platform.OS === "ios" ? -40 : 0 }}
-      >
-        <ScrollView
-          style={{ flex: 1 }}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          showsVerticalScrollIndicator={false}
+    <>
+      {!data.isAccountVerified ? <EmailVerification /> : null}
+      <View style={styles.container}>
+        <SafeAreaView
+          style={{
+            flex: 1,
+            marginBottom: Platform.OS === "ios" ? -40 : 0,
+          }}
         >
-          <TopBar navigation={navigation} />
-          <CaloriesOverview
-            dietPressed={() => navigation.push("DietConfiguration")}
-            refreshing={refreshing}
-          />
-          <MealsOverview refreshing={refreshing} navigation={navigation} />
-          <NutritionOverview
-            clicked={(code: string, name: string) =>
-              navigation.push("RecipesByNutritions", { code: code, name: name })
+          <ScrollView
+            style={{ flex: 1 }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
-            refreshing={refreshing}
-          />
-          <View style={{ height: 100 }} />
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+            showsVerticalScrollIndicator={false}
+          >
+            <TopBar navigation={navigation} />
+            <CaloriesOverview
+              dietPressed={() => navigation.push("DietConfiguration")}
+              refreshing={refreshing}
+            />
+            <MealsOverview refreshing={refreshing} navigation={navigation} />
+            <NutritionOverview
+              clicked={(code: string, name: string) =>
+                navigation.push("RecipesByNutritions", {
+                  code: code,
+                  name: name,
+                })
+              }
+              refreshing={refreshing}
+            />
+            <View style={{ height: 100 }} />
+          </ScrollView>
+        </SafeAreaView>
+      </View>
+    </>
   );
 };
 

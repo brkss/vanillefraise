@@ -23,7 +23,7 @@ import { useRegisterMutation } from "../../../generated/graphql";
 import { AuthContext } from "../../../utils/auth/AuthProvider";
 import { setAccessToken } from "../../../utils/token/token";
 import * as SecureStore from "expo-secure-store";
-import { calculateREE, calculateTDEE } from '../../../utils/modules/macros';
+import { calculateREE, calculateTDEE } from "../../../utils/modules/macros";
 
 interface IUserData {
   username: string | "";
@@ -87,7 +87,12 @@ export const Register: React.FC<any> = ({ navigation }) => {
       setData({
         ...data,
         gender: d.gender.gender,
-        bmi: calculateREE(d.gender.gender, data.weight, data.height, getAge(data.birth))
+        bmi: calculateREE(
+          d.gender.gender,
+          data.weight,
+          data.height,
+          getAge(data.birth)
+        ),
       });
       setStatus("RESULT");
     } else if (d.sc) {

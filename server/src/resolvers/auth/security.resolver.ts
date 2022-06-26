@@ -1,6 +1,14 @@
-import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+} from "type-graphql";
 import {
   AuthDefaultResponse,
+  DefaultResponse,
   VerifyResetPasswordTokenResponse,
 } from "../../utils/responses";
 import {
@@ -11,19 +19,68 @@ import {
   generateAccessToken,
   generateRefreshToken,
   sendRefreshToken,
+  verifyAccountVerificationToken,
 } from "../../utils/token";
 import { User } from "../../entity/User";
 import { ResetPasswordInput } from "../../utils/inputs/auth/resetpassword.input";
 import { IContext } from "../../utils/types/Context";
 import { hash } from "bcrypt";
 import { ResetPassword } from "../../entity/ResetPassword";
-import { sendMail } from "../../utils/helpers/mail";
+import { sendResetPasswordMail } from "../../utils/helpers/mail";
+import { isUserAuth } from "../../utils/middlewares";
 
 @Resolver()
 export class SecurityResolver {
   @Query(() => String)
   work() {
     return "yes !";
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Query(() => Boolean)
+  async isAccountVerified(@Ctx() ctx: IContext): Promise<boolean> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return false;
+    return user.verified;
+  }
+
+  @Mutation(() => DefaultResponse)
+  async verifyAccount(@Arg("token") token: string): Promise<DefaultResponse> {
+    if (!token) {
+      return {
+        status: false,
+        message: "Invalid Token",
+      };
+    }
+
+    const userId = verifyAccountVerificationToken(token);
+    if (!userId) {
+      return {
+        status: false,
+        message: "Invalid Token :<",
+      };
+    }
+
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) {
+      return {
+        status: false,
+        message: "Invalid User !",
+      };
+    }
+    if (user.verified) {
+      return {
+        status: true,
+        message: "Your Account is Already Verified !",
+      };
+    }
+    user.verified = true;
+    await user.save();
+
+    return {
+      status: true,
+      message: "Thank you for using Vanille Fraise !",
+    };
   }
 
   @Query(() => VerifyResetPasswordTokenResponse)
@@ -71,7 +128,7 @@ export class SecurityResolver {
       resetRecord.user = user;
       await resetRecord.save();
       const _token = createResetPasswordToken(user, resetRecord);
-      await sendMail(user.email, user.name, _token);
+      await sendResetPasswordMail(user.email, user.name, _token);
       // you must not send token as response the token should be sent in email !
       // this is only for test reasons
       return {
@@ -116,7 +173,7 @@ export class SecurityResolver {
           message: "User not found !",
         };
       }
-      // RESPECT ! i thaught i forgot it lol 
+      // RESPECT ! i thaught i forgot it lol
       user.version = user.version + 1;
       user.password = await hash(data.newPassword, 5);
       await user.save();

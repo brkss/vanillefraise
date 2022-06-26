@@ -16,3 +16,4 @@ export * from './NothingFound';
 export * from './EnterDietButton';
 export * from './AddDietRecord'
 export * from './TopBar';
+export * from './EmailVerification';

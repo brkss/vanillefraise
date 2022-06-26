@@ -23,4 +23,5 @@ Object.defineProperty(exports, "createResetPasswordToken", { enumerable: true, g
 Object.defineProperty(exports, "verifyPasswordToken", { enumerable: true, get: function () { return password_1.verifyPasswordToken; } });
 __exportStar(require("./adminToken"), exports);
 __exportStar(require("./refreshAdminToken"), exports);
+__exportStar(require("./accountVerificationToken"), exports);
 //# sourceMappingURL=index.js.map
