@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 export const EmailVerification: React.FC = () => {
   return (
@@ -9,6 +9,9 @@ export const EmailVerification: React.FC = () => {
         Please verify your email ! unverified accounts will be automatically
         suspended.
       </Text>
+      <Pressable style={styles.btn}>
+        <Text style={styles.btnText}>Done ? 👍</Text>
+      </Pressable>
     </View>
   );
 };
@@ -26,5 +29,19 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     fontSize: 14,
     marginTop: 4,
+  },
+  btn: {
+    width: 100,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    backgroundColor: "#434343",
+    borderRadius: 50,
+    marginTop: 10,
+    display: "none",
+  },
+  btnText: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
   },
 });
