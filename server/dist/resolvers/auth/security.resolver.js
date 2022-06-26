@@ -63,7 +63,7 @@ let SecurityResolver = class SecurityResolver {
             resetRecord.user = user;
             await resetRecord.save();
             const _token = (0, token_1.createResetPasswordToken)(user, resetRecord);
-            await (0, mail_1.sendMail)(user.email, user.name, _token);
+            await (0, mail_1.sendResetPasswordMail)(user.email, user.name, _token);
             return {
                 status: true,
                 message: "Token created successfuly",

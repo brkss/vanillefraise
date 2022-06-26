@@ -17,7 +17,7 @@ import { ResetPasswordInput } from "../../utils/inputs/auth/resetpassword.input"
 import { IContext } from "../../utils/types/Context";
 import { hash } from "bcrypt";
 import { ResetPassword } from "../../entity/ResetPassword";
-import { sendMail } from "../../utils/helpers/mail";
+import { sendResetPasswordMail } from "../../utils/helpers/mail";
 
 @Resolver()
 export class SecurityResolver {
@@ -71,7 +71,7 @@ export class SecurityResolver {
       resetRecord.user = user;
       await resetRecord.save();
       const _token = createResetPasswordToken(user, resetRecord);
-      await sendMail(user.email, user.name, _token);
+      await sendResetPasswordMail(user.email, user.name, _token);
       // you must not send token as response the token should be sent in email !
       // this is only for test reasons
       return {
@@ -116,7 +116,7 @@ export class SecurityResolver {
           message: "User not found !",
         };
       }
-      // RESPECT ! i thaught i forgot it lol 
+      // RESPECT ! i thaught i forgot it lol
       user.version = user.version + 1;
       user.password = await hash(data.newPassword, 5);
       await user.save();

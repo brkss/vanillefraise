@@ -4,3 +4,4 @@ export { refreshToken } from "./refreshToken";
 export { createResetPasswordToken, verifyPasswordToken } from "./password";
 export * from './adminToken';
 export * from './refreshAdminToken'
+export * from './accountVerificationToken';

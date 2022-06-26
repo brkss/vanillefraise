@@ -15,6 +15,7 @@ import {
   generateAccessToken,
   generateRefreshToken,
   sendRefreshToken,
+  generateAccountVerificationToken,
 } from "../utils/token";
 import { IContext } from "../utils/types/Context";
 import { isUserAuth } from "../utils/middlewares";
@@ -25,6 +26,7 @@ import {
   validateEmail,
   validateUsername,
 } from "../utils/helpers";
+import { sendVerifyAccountMail } from "../utils/helpers/mail";
 
 @Resolver()
 export class UserResolver {
@@ -80,7 +82,10 @@ export class UserResolver {
 
     // treated email field as username in request input just till i change it in client side !
     const user = await User.findOne({
-      where: [{ email: data.email.toLowerCase() }, { username: data.email.toLowerCase()}],
+      where: [
+        { email: data.email.toLowerCase() },
+        { username: data.email.toLowerCase() },
+      ],
     });
     if (!user) {
       return {
@@ -164,6 +169,9 @@ export class UserResolver {
       }
       user.specialconditions = sc;
       await user.save();
+      // send account verification email !
+      const _verificationToken = generateAccountVerificationToken(user);
+      sendVerifyAccountMail(user.email, user.name, _verificationToken)
       // send refresh token as cookie
       const refreshToken = generateRefreshToken(user);
       sendRefreshToken(res, refreshToken);
