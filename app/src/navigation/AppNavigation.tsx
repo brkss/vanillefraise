@@ -12,50 +12,55 @@ import {
   DietConfiguration,
   DietOverview,
   CreateDietRecord,
-  DietSettings
+  DietSettings,
 } from "../screens";
-import { DietNavigation } from "./DietNavigation";
+import { EmailVerification } from "../components";
 
 export const AppNavigation: React.FC = () => {
   const { Group, Navigator, Screen } = createStackNavigator();
 
   return (
-    <Navigator>
-      <Group screenOptions={{ headerShown: false }}>
-        <Screen name={"tabs"} component={TabsNavigation} />
-        <Screen
-          options={{
-            headerLeft: () => null,
+    <>
+      <Navigator>
+        <Group screenOptions={{ headerShown: false }}>
+          <Screen name={"tabs"} component={TabsNavigation} />
+          <Screen
+            options={{
+              headerLeft: () => null,
+            }}
+            name={"Cooking"}
+            component={Cooking}
+          />
+          <Screen name={"ConfigActivity"} component={ActivityConfig} />
+          <Screen name={"Active"} component={Active} />
+          <Screen name={"FinishExercise"} component={FinishExercise} />
+          {/* -- Diet Navigation -- */}
+          <Screen name={"DietOverview"} component={DietOverview} />
+          <Screen name={"DietSetting"} component={DietSettings} />
+        </Group>
+        <Group screenOptions={{ presentation: "modal", headerShown: false }}>
+          <Screen name={"RecipeDetails"} component={RecipeDetails} />
+          <Screen
+            name={"RecipesByNutritions"}
+            component={RecipesByNutritions}
+          />
+          <Screen name={"DietConfiguration"} component={DietConfiguration} />
+        </Group>
+        <Group
+          screenOptions={{
+            cardOverlayEnabled: true,
+            headerShown: false,
+            presentation: "modal",
+            cardStyle: {
+              backgroundColor: "transparent",
+              opacity: 0.99,
+            },
           }}
-          name={"Cooking"}
-          component={Cooking}
-        />
-        <Screen name={"ConfigActivity"} component={ActivityConfig} />
-        <Screen name={"Active"} component={Active} />
-        <Screen name={"FinishExercise"} component={FinishExercise} />
-        {/* -- Diet Navigation -- */}
-        <Screen name={"DietOverview"} component={DietOverview} />
-        <Screen name={"DietSetting"} component={DietSettings} />
-      </Group>
-      <Group screenOptions={{ presentation: "modal", headerShown: false }}>
-        <Screen name={"RecipeDetails"} component={RecipeDetails} />
-        <Screen name={"RecipesByNutritions"} component={RecipesByNutritions} />
-        <Screen name={"DietConfiguration"} component={DietConfiguration} />
-      </Group>
-      <Group
-        screenOptions={{
-          cardOverlayEnabled: true,
-          headerShown: false,
-          presentation: "modal",
-          cardStyle: {
-            backgroundColor: "transparent",
-            opacity: 0.99,
-          },
-        }}
-      >
-        <Screen name={"CreateDietRecord"} component={CreateDietRecord} />
-        <Screen name={"MealsOptions"} component={MealsOptions} />
-      </Group>
-    </Navigator>
+        >
+          <Screen name={"CreateDietRecord"} component={CreateDietRecord} />
+          <Screen name={"MealsOptions"} component={MealsOptions} />
+        </Group>
+      </Navigator>
+    </>
   );
 };

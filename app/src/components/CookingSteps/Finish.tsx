@@ -31,7 +31,7 @@ export const FinishStep: React.FC<Props> = ({ finish, restart }) => {
         <Button txt={"Yess 🎉"} clicked={() => finish()} />
         <View style={{ height: 20 }} />
         <Button
-          bg={colors.c2}
+          bg={"#FFC9C9"}
           color={"#434343"}
           txt={"Restart"}
           clicked={() => restart()}

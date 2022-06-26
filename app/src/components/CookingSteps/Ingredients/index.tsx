@@ -94,10 +94,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     fontFamily: "helvitica-condesed",
-    marginVertical: 15,
+    //marginVertical: 15,
     marginBottom: 0,
+    //backgroundColor: "pink",
   },
   hint: {
     //marginTop: 7,

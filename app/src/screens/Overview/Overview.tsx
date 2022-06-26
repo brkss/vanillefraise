@@ -12,6 +12,7 @@ import {
   NutritionOverview,
   MealsOverview,
   TopBar,
+  EmailVerification,
 } from "../../components";
 import { useFonts } from "expo-font";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -36,33 +37,44 @@ export const Overview: React.FC<any> = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView
-        style={{ flex: 1, marginBottom: Platform.OS === "ios" ? -40 : 0 }}
-      >
-        <ScrollView
-          style={{ flex: 1 }}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          showsVerticalScrollIndicator={false}
+    <>
+      <EmailVerification />
+      <View style={styles.container}>
+        <SafeAreaView
+          importantForAccessibility={'no'}
+          //accessible={false}
+          style={{
+            flex: 1,
+            marginBottom: Platform.OS === "ios" ? -40 : 0,
+          }}
         >
-          <TopBar navigation={navigation} />
-          <CaloriesOverview
-            dietPressed={() => navigation.push("DietConfiguration")}
-            refreshing={refreshing}
-          />
-          <MealsOverview refreshing={refreshing} navigation={navigation} />
-          <NutritionOverview
-            clicked={(code: string, name: string) =>
-              navigation.push("RecipesByNutritions", { code: code, name: name })
+          <ScrollView
+            style={{ flex: 1 }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
-            refreshing={refreshing}
-          />
-          <View style={{ height: 100 }} />
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+            showsVerticalScrollIndicator={false}
+          >
+            <TopBar navigation={navigation} />
+            <CaloriesOverview
+              dietPressed={() => navigation.push("DietConfiguration")}
+              refreshing={refreshing}
+            />
+            <MealsOverview refreshing={refreshing} navigation={navigation} />
+            <NutritionOverview
+              clicked={(code: string, name: string) =>
+                navigation.push("RecipesByNutritions", {
+                  code: code,
+                  name: name,
+                })
+              }
+              refreshing={refreshing}
+            />
+            <View style={{ height: 100 }} />
+          </ScrollView>
+        </SafeAreaView>
+      </View>
+    </>
   );
 };
 

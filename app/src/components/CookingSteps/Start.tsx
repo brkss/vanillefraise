@@ -58,7 +58,7 @@ export const Start: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <View style={{ height: 100 }} />
+      <View style={{ }} />
       {total !== "unknown" ? (
         <Text style={styles.time}>About {total} in total</Text>
       ) : null}
@@ -93,48 +93,50 @@ export const Start: React.FC<Props> = ({
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     alignItems: "center",
   },
   time: {
-    fontSize: 25,
+    fontSize: 18,
     fontFamily: "helvitica-condesed",
     color: "#2A2A2A",
     textAlign: "center",
     opacity: 0.8,
   },
   info: {
-    fontSize: 25,
+    fontSize: 20,
     opacity: 0.8,
     fontFamily: "helvitica-condesed",
     color: "#2A2A2A",
     textAlign: "center",
+    marginBottom: 6,
   },
   title: {
-    fontSize: 35,
+    fontSize: 25,
     fontFamily: "helvitica-condesed",
     color: "#2A2A2A",
     textAlign: "center",
   },
   btn: {
-    height: 130,
-    width: 130,
+    height: 100,
+    width: 100,
     backgroundColor: "#FFC9C9",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 130,
   },
   btnTxt: {
-    fontSize: 27,
+    fontSize: 22,
     fontFamily: "helvitica-condesed",
     fontWeight: "bold",
     marginBottom: 5,
   },
   cheers: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "400",
     opacity: 0.6,
   },
