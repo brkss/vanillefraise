@@ -26,6 +26,34 @@ let SecurityResolver = class SecurityResolver {
     work() {
         return "yes !";
     }
+    async verifyAccount(token) {
+        if (!token) {
+            return {
+                status: false,
+                message: "Invalid Token",
+            };
+        }
+        const userId = (0, token_2.verifyAccountVerificationToken)(token);
+        if (!userId) {
+            return {
+                status: false,
+                message: "Invalid Verification Token",
+            };
+        }
+        const user = await User_1.User.findOne({ where: { id: userId } });
+        if (!user) {
+            return {
+                status: false,
+                message: "Invalid User !",
+            };
+        }
+        user.verified = true;
+        await user.save();
+        return {
+            status: true,
+            message: "Thank you for using Vanille Fraise !",
+        };
+    }
     async verifyResetToken(token) {
         if (!token) {
             return {
@@ -126,6 +154,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], SecurityResolver.prototype, "work", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    __param(0, (0, type_graphql_1.Arg)("token")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SecurityResolver.prototype, "verifyAccount", null);
 __decorate([
     (0, type_graphql_1.Query)(() => responses_1.VerifyResetPasswordTokenResponse),
     __param(0, (0, type_graphql_1.Arg)("token")),

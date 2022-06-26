@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Arg, Ctx } from "type-graphql";
 import {
   AuthDefaultResponse,
+  DefaultResponse,
   VerifyResetPasswordTokenResponse,
 } from "../../utils/responses";
 import {
@@ -11,6 +12,7 @@ import {
   generateAccessToken,
   generateRefreshToken,
   sendRefreshToken,
+  verifyAccountVerificationToken,
 } from "../../utils/token";
 import { User } from "../../entity/User";
 import { ResetPasswordInput } from "../../utils/inputs/auth/resetpassword.input";
@@ -24,6 +26,41 @@ export class SecurityResolver {
   @Query(() => String)
   work() {
     return "yes !";
+  }
+
+  @Mutation(() => DefaultResponse)
+  async verifyAccount(
+    @Arg("token") token: string
+  ): Promise<DefaultResponse> {
+    if (!token) {
+      return {
+        status: false,
+        message: "Invalid Token",
+      };
+    }
+
+    const userId = verifyAccountVerificationToken(token);
+    if (!userId) {
+      return {
+        status: false,
+        message: "Invalid Verification Token",
+      };
+    }
+
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) {
+      return {
+        status: false,
+        message: "Invalid User !",
+      };
+    }
+    user.verified = true;
+    await user.save();
+
+    return {
+      status: true,
+      message: "Thank you for using Vanille Fraise !",
+    };
   }
 
   @Query(() => VerifyResetPasswordTokenResponse)
