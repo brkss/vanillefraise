@@ -20,7 +20,7 @@ exports.filterRecipes = filterRecipes;
 const checkFilter = (recipe, filters) => {
     for (let filter of filters) {
         for (let hl of recipe.healthlabel) {
-            if (filter.healthlabel.id === hl.id)
+            if (filter.healthlabel.label.split(" ").join("_") === hl.label)
                 return true;
         }
     }

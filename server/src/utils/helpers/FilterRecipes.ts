@@ -8,7 +8,7 @@ export const filterRecipes = async (recipes: Recipe[], user: User) => {
     where: { user: user },
     relations: ["healthlabel"],
   });
-  if(filters.length === 0) return recipes;
+  if (filters.length === 0) return recipes;
   for (let r of recipes) {
     if (checkFilter(r, filters)) data.push(r);
   }
@@ -19,7 +19,8 @@ export const filterRecipes = async (recipes: Recipe[], user: User) => {
 export const checkFilter = (recipe: Recipe, filters: DietFoodFilter[]) => {
   for (let filter of filters) {
     for (let hl of recipe.healthlabel) {
-      if (filter.healthlabel.id === hl.id) return true;
+      if (filter.healthlabel.label.split(" ").join("_") === hl.label)
+        return true;
     }
   }
   return false;
