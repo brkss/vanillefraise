@@ -13,6 +13,7 @@ import {
 } from "../../utils/responses";
 import {
   createResetPasswordToken,
+  generateAccountVerificationToken,
   verifyPasswordToken,
 } from "../../utils/token";
 import {
@@ -26,7 +27,10 @@ import { ResetPasswordInput } from "../../utils/inputs/auth/resetpassword.input"
 import { IContext } from "../../utils/types/Context";
 import { hash } from "bcrypt";
 import { ResetPassword } from "../../entity/ResetPassword";
-import { sendResetPasswordMail } from "../../utils/helpers/mail";
+import {
+  sendResetPasswordMail,
+  sendVerifyAccountMail,
+} from "../../utils/helpers/mail";
 import { isUserAuth } from "../../utils/middlewares";
 
 @Resolver()
@@ -42,6 +46,32 @@ export class SecurityResolver {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return false;
     return user.verified;
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Mutation(() => DefaultResponse)
+  async resendAccountVerification(
+    @Ctx() ctx: IContext
+  ): Promise<DefaultResponse> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) {
+      return {
+        status: false,
+        message: "Invalid User",
+      };
+    }
+    if (user.verified) {
+      return {
+        status: true,
+        message: "Your Account Is Already Verified !",
+      };
+    }
+    const _token = generateAccountVerificationToken(user);
+    sendVerifyAccountMail(user.email, user.name, _token);
+    return {
+      status: true,
+      message: `Verification Link sent successfuly to ${user.email}`,
+    };
   }
 
   @Mutation(() => DefaultResponse)

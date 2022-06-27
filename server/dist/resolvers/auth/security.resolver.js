@@ -33,6 +33,27 @@ let SecurityResolver = class SecurityResolver {
             return false;
         return user.verified;
     }
+    async resendAccountVerification(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user) {
+            return {
+                status: false,
+                message: "Invalid User",
+            };
+        }
+        if (user.verified) {
+            return {
+                status: true,
+                message: "Your Account Is Already Verified !",
+            };
+        }
+        const _token = (0, token_1.generateAccountVerificationToken)(user);
+        (0, mail_1.sendVerifyAccountMail)(user.email, user.name, _token);
+        return {
+            status: true,
+            message: `Verification Link sent successfuly to ${user.email}`,
+        };
+    }
     async verifyAccount(token) {
         if (!token) {
             return {
@@ -175,6 +196,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], SecurityResolver.prototype, "isAccountVerified", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SecurityResolver.prototype, "resendAccountVerification", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
     __param(0, (0, type_graphql_1.Arg)("token")),
