@@ -30,10 +30,13 @@ export const Overview: React.FC<any> = ({ navigation }) => {
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
   });
-  const { data, error, loading } = useIsAccountVerifiedQuery();
+  const { data, error, loading, refetch } = useIsAccountVerifiedQuery();
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    wait(2000).then(() => {
+      setRefreshing(false);
+      refetch();
+    });
   }, []);
 
   if (!helviticaCondensed || loading || error) {
