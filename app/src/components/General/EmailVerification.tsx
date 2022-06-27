@@ -1,11 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { EmailVerificationModal } from './EmailVerificationModal';
+import { EmailVerificationModal } from "./EmailVerificationModal";
 
 export const EmailVerification: React.FC = () => {
-
   const [visibleModal, setVisibleModal] = React.useState(false);
-
 
   return (
     <Pressable onPress={() => setVisibleModal(true)} style={styles.container}>
@@ -17,7 +15,10 @@ export const EmailVerification: React.FC = () => {
       <Pressable style={styles.btn}>
         <Text style={styles.btnText}>Done ? 👍</Text>
       </Pressable>
-      <EmailVerificationModal closed={() => setVisibleModal(false)} isVisible={visibleModal} />
+      <EmailVerificationModal
+        closed={() => setVisibleModal(false)}
+        isVisible={visibleModal}
+      />
     </Pressable>
   );
 };
