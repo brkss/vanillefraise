@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import Modal from "react-native-modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useResendAccountVerificationMutation, useIsAccountVerifiedQuery } from '../../generated/graphql';
+
 
 interface Props {
   isVisible: boolean;
@@ -12,6 +14,17 @@ export const EmailVerificationModal: React.FC<Props> = ({
   isVisible,
   closed,
 }) => {
+
+  const [resend] = useResendAccountVerificationMutation();
+
+  const handleResend = () => {
+    resend().then(res => {
+      if(!res.errors){
+        alert(res.data.resendAccountVerification.message || "");
+      }
+    })
+  }
+
   return (
     <Modal
       isVisible={isVisible}
@@ -28,7 +41,7 @@ export const EmailVerificationModal: React.FC<Props> = ({
             style={{ marginBottom: 10 }}
             name={"ios-information-circle-sharp"}
           />
-          <Pressable style={styles.btn}>
+          <Pressable onPress={() => handleResend()} style={styles.btn}>
             <Text style={styles.btnText}>Resend Verification Link ?</Text>
           </Pressable>
           <Pressable style={styles.btn}>
