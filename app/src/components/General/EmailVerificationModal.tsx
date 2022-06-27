@@ -2,8 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import Modal from "react-native-modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useResendAccountVerificationMutation, useIsAccountVerifiedQuery } from '../../generated/graphql';
-
+import {
+  useResendAccountVerificationMutation,
+  useIsAccountVerifiedQuery,
+} from "../../generated/graphql";
 
 interface Props {
   isVisible: boolean;
@@ -14,16 +16,25 @@ export const EmailVerificationModal: React.FC<Props> = ({
   isVisible,
   closed,
 }) => {
-
   const [resend] = useResendAccountVerificationMutation();
-
+  const { refetch } = useIsAccountVerifiedQuery();
   const handleResend = () => {
-    resend().then(res => {
-      if(!res.errors){
+    resend().then((res) => {
+      if (!res.errors) {
         alert(res.data.resendAccountVerification.message || "");
       }
-    })
-  }
+    });
+  };
+
+  const handleChecking = () => {
+    refetch().then((res) => {
+      if (res.data.isAccountVerified) {
+        alert("Conratulation Your Account Is Verified 🎉 !");
+      } else if (!res.data.isAccountVerified) {
+        alert("Your Account Is Not Verified Please check you inbox !");
+      }
+    });
+  };
 
   return (
     <Modal
@@ -44,7 +55,7 @@ export const EmailVerificationModal: React.FC<Props> = ({
           <Pressable onPress={() => handleResend()} style={styles.btn}>
             <Text style={styles.btnText}>Resend Verification Link ?</Text>
           </Pressable>
-          <Pressable style={styles.btn}>
+          <Pressable onPress={() => handleChecking()} style={styles.btn}>
             <Text style={styles.btnText}>Check If Verified ?</Text>
           </Pressable>
         </View>
