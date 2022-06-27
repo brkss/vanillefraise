@@ -48,7 +48,7 @@ let SecurityResolver = class SecurityResolver {
             };
         }
         const _token = (0, token_1.generateAccountVerificationToken)(user);
-        (0, mail_1.sendVerifyAccountMail)(user.email, user.name, _token);
+        await (0, mail_1.sendVerifyAccountMail)(user.email, user.name, _token);
         return {
             status: true,
             message: `Verification Link sent successfuly to ${user.email}`,

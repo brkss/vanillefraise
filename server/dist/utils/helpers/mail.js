@@ -19,7 +19,7 @@ const sendVerifyAccountMail = async (to, name, token) => {
         from: process.env.EMAIL,
         to: to,
         subject: "Vanille Fraise: Verify Your Account",
-        html: (0, verifyAccountMail_1.getVerifyAccountMail)(name, token)
+        html: (0, verifyAccountMail_1.getVerifyAccountMail)(name, token),
     });
     console.log(JSON.stringify(result, null, 4));
 };
