@@ -1,9 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { EmailVerificationModal } from './EmailVerificationModal';
 
 export const EmailVerification: React.FC = () => {
+
+  const [visibleModal, setVisibleModal] = React.useState(false);
+
+
   return (
-    <View style={styles.container}>
+    <Pressable onPress={() => setVisibleModal(true)} style={styles.container}>
       <Text style={styles.txt}>Welcome To The Party 🎉</Text>
       <Text style={styles.subtxt}>
         Please verify your email ! unverified accounts will be automatically
@@ -12,7 +17,8 @@ export const EmailVerification: React.FC = () => {
       <Pressable style={styles.btn}>
         <Text style={styles.btnText}>Done ? 👍</Text>
       </Pressable>
-    </View>
+      <EmailVerificationModal closed={() => setVisibleModal(false)} isVisible={visibleModal} />
+    </Pressable>
   );
 };
 
