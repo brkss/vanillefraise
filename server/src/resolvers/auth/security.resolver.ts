@@ -109,7 +109,8 @@ export class SecurityResolver {
 
     return {
       status: true,
-      message: "Thank you for using Vanille Fraise !",
+      message:
+        "Your account is now active. Thank you for using Vanille Fraise !",
     };
   }
 

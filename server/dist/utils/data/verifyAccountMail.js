@@ -100,7 +100,7 @@ const getVerifyAccountMail = (name, token) => {
         Hello ${name}<br />
         Welcome to Vanille Fraise, to start using your account and tracking your nutrition, please verify your email address.
       </h2>
-      <a class="btn" href="${DOMAIN}/rp/${token}">Verify Now</a>
+      <a class="btn" href="${DOMAIN}/va/${token}">Verify Now</a>
     </div>
     <!-- your content here... -->
     <script src="js/scripts.js"></script>

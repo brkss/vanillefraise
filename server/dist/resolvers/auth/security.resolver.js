@@ -85,7 +85,7 @@ let SecurityResolver = class SecurityResolver {
         await user.save();
         return {
             status: true,
-            message: "Thank you for using Vanille Fraise !",
+            message: "Your account is now active. Thank you for using Vanille Fraise !",
         };
     }
     async verifyResetToken(token) {
