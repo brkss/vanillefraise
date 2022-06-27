@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg } from "type-graphql";
+import { Resolver, Mutation, Arg, UseMiddleware, Ctx } from "type-graphql";
 import { downloadImage } from "../../utils/helpers/donwloadImage";
 import {
   Recipe,
@@ -6,8 +6,9 @@ import {
   Instruction,
   RecipeCategory,
 } from "../../entity/Recipe";
-import { CreateRecipeResponse } from "../../utils/responses";
+import { CreateRecipeResponse, DefaultResponse } from "../../utils/responses";
 import { CreateRecipeInput } from "../../utils/inputs/recipes/createrecipe.input";
+import { CreateBulkRecipesInput } from "../../utils/inputs/recipes";
 import { recipeNutrition } from "../../utils/nutrition";
 import {
   RecipeDietLabel,
@@ -21,11 +22,49 @@ const recipeScraper = require("recipe-scraper");
 import { scaleRecipe, fractionConverter } from "../../utils/helpers";
 import { TranlatingResolver } from "../translating";
 import { translated_text_refrence } from "../../utils/data/translate/refrence";
+import { isAdminAuth } from "../../utils/middlewares";
+import { IContext } from "src/utils/types/Context";
+import { Admin } from "../../entity/admin/Admin";
 
 const translate = new TranlatingResolver();
 
 @Resolver()
 export class CreateRecipeResolver {
+  @UseMiddleware(isAdminAuth)
+  @Mutation(() => DefaultResponse)
+  async createBulkRecipes(
+    @Arg("data", () => [CreateBulkRecipesInput]) data: CreateBulkRecipesInput[],
+    @Ctx() ctx: IContext
+  ): Promise<DefaultResponse> {
+    if (!data || data.length === 0)
+      return {
+        status: false,
+        message: "Invalid Data !",
+      };
+    const admin = await Admin.findOne({ where: { id: ctx.payload.adminID } });
+    if (!admin) {
+      return {
+        status: false,
+        message: "Invalid Admin",
+      };
+    }
+    try {
+      for (let r of data) {
+        await this.createRecipe({ url: r.url, categories: r.categories });
+      }
+      return {
+        status: true,
+        message: "Recipes Added Successfuly !",
+      };
+    } catch (e) {
+      console.log("Something went wrng adding recipes !");
+      return {
+        status: false,
+        message: "Something went wrong !",
+      };
+    }
+  }
+
   @Mutation(() => CreateRecipeResponse)
   async createRecipe(
     @Arg("data") data: CreateRecipeInput
@@ -157,7 +196,7 @@ export class CreateRecipeResolver {
         await translate.translateAll(
           inst,
           translated_text_refrence.instruction,
-          instruction.id,
+          instruction.id
         );
       }
     }

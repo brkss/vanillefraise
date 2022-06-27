@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./cookedrecipe.input"), exports);
 __exportStar(require("./updateCategory.input"), exports);
 __exportStar(require("./createcategory.input"), exports);
+__exportStar(require("./addBulkRecipes.response"), exports);
 //# sourceMappingURL=index.js.map

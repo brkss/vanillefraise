@@ -17,6 +17,7 @@ import { CookedRecipesResponse } from "../../utils/responses";
 
 @Resolver()
 export class CookedRecipeResolver {
+
   @UseMiddleware(isUserAuth)
   @Mutation(() => CookedRecipesResponse)
   async checkCookedMeal(

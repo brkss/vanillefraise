@@ -18,6 +18,7 @@ const donwloadImage_1 = require("../../utils/helpers/donwloadImage");
 const Recipe_1 = require("../../entity/Recipe");
 const responses_1 = require("../../utils/responses");
 const createrecipe_input_1 = require("../../utils/inputs/recipes/createrecipe.input");
+const recipes_1 = require("../../utils/inputs/recipes");
 const nutrition_1 = require("../../utils/nutrition");
 const Nutrition_1 = require("../../entity/Nutrition");
 const recipe_ingredient_parser_v2_1 = require("recipe-ingredient-parser-v2");
@@ -25,8 +26,40 @@ const recipeScraper = require("recipe-scraper");
 const helpers_1 = require("../../utils/helpers");
 const translating_1 = require("../translating");
 const refrence_1 = require("../../utils/data/translate/refrence");
+const middlewares_1 = require("../../utils/middlewares");
+const Admin_1 = require("../../entity/admin/Admin");
 const translate = new translating_1.TranlatingResolver();
 let CreateRecipeResolver = class CreateRecipeResolver {
+    async createBulkRecipes(data, ctx) {
+        if (!data || data.length === 0)
+            return {
+                status: false,
+                message: "Invalid Data !",
+            };
+        const admin = await Admin_1.Admin.findOne({ where: { id: ctx.payload.adminID } });
+        if (!admin) {
+            return {
+                status: false,
+                message: "Invalid Admin",
+            };
+        }
+        try {
+            for (let r of data) {
+                await this.createRecipe({ url: r.url, categories: r.categories });
+            }
+            return {
+                status: true,
+                message: "Recipes Added Successfuly !",
+            };
+        }
+        catch (e) {
+            console.log("Something went wrng adding recipes !");
+            return {
+                status: false,
+                message: "Something went wrong !",
+            };
+        }
+    }
     async createRecipe(data) {
         if (!data.url || data.categories.length == 0)
             return {
@@ -200,6 +233,15 @@ let CreateRecipeResolver = class CreateRecipeResolver {
         }
     }
 };
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isAdminAuth),
+    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    __param(0, (0, type_graphql_1.Arg)("data", () => [recipes_1.CreateBulkRecipesInput])),
+    __param(1, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", Promise)
+], CreateRecipeResolver.prototype, "createBulkRecipes", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => responses_1.CreateRecipeResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
