@@ -8,7 +8,6 @@ interface Props {
 }
 
 export const TopBar: React.FC<Props> = ({ navigation }) => {
-
   return (
     <>
       <View style={styles.container}>
@@ -37,6 +36,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 10,
     //alignItems: "baseline",
+    paddingBottom: 0,
   },
   title: {
     fontSize: 30,

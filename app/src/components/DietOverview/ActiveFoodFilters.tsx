@@ -21,6 +21,14 @@ export const ActiveFoodFilters: React.FC<Props> = ({ refreshing }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Active Food Filters</Text>
+      {data.activeFoodFilters.length === 0 && (
+        <View style={styles.nofilters}>
+          <Text style={{ fontWeight: "bold", textAlign: "center" }}>
+            Great No Filters ! 😋
+          </Text>
+        </View>
+      )}
+
       <ScrollView
         showsHorizontalScrollIndicator={false}
         style={{ marginTop: 10 }}
@@ -54,5 +62,11 @@ const styles = StyleSheet.create({
   itemText: {
     fontWeight: "bold",
     color: "#434343",
+  },
+  nofilters: {
+    padding: 15,
+    borderRadius: 13,
+    marginTop: 10,
+    backgroundColor: "#ECEAEA",
   },
 });

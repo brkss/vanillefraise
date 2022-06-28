@@ -17,7 +17,7 @@ export const NewActivity: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView>
         <View>
-          <Text style={styles.heading}>NEW{"\n"}Exercise.</Text>
+          <Text style={styles.heading}>NEW{"\n"}Exercise</Text>
         </View>
         <View>
           <ActivityCategory
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: "helvitica-condesed",
-    fontSize: 60,
+    fontSize: 40,
     color: "#434343",
-    lineHeight: 60,
+    lineHeight: 40,
   },
 });

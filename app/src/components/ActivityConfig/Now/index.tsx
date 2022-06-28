@@ -34,7 +34,10 @@ export const ActivityConfigNow: React.FC<Props> = ({
       <Text style={styles.subinfo}>
         Add record after finishing your exercise !
       </Text>
-      <Text style={styles.calories}>{data.getActivityCalories} Cal</Text>
+      <Text style={styles.hint}>For You It'll Be About</Text>
+      <Text style={styles.calories}>
+        {data.getActivityCalories.low} - {data.getActivityCalories.high} Cal
+      </Text>
       <Pressable style={styles.btn} onPress={() => start()}>
         <Text style={styles.btnText}>Record</Text>
       </Pressable>
@@ -58,7 +61,6 @@ const styles = StyleSheet.create({
     fontSize: 27,
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
-    marginTop: 20,
   },
   btn: {
     height: 150,
@@ -80,5 +82,10 @@ const styles = StyleSheet.create({
     color: "#434343",
     opacity: 0.9,
     marginTop: 8,
+  },
+  hint: {
+    fontSize: 12,
+    opacity: 0.7,
+    marginTop: 20,
   },
 });

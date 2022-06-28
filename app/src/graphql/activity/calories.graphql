@@ -1,3 +1,7 @@
 query GetActivityCalories($id: String!){
-  getActivityCalories(cat: $id)
+  getActivityCalories(cat: $id){
+    status
+    low
+    high
+  }
 }

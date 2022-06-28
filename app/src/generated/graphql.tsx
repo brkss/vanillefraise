@@ -37,6 +37,13 @@ export type ActivityCalories = {
   zone: Scalars['Float'];
 };
 
+export type ActivityCaloriesResponse = {
+  __typename?: 'ActivityCaloriesResponse';
+  high: Scalars['Float'];
+  low: Scalars['Float'];
+  status: Scalars['Boolean'];
+};
+
 export type ActivityCategory = {
   __typename?: 'ActivityCategory';
   activities: Array<Activity>;
@@ -138,6 +145,11 @@ export type CreateActivityResponse = {
   burnedCalories?: Maybe<Scalars['Float']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
+};
+
+export type CreateBulkRecipesInput = {
+  categories: Array<Scalars['String']>;
+  url: Scalars['String'];
 };
 
 export type CreateDietConfigResponse = {
@@ -422,6 +434,7 @@ export type Mutation = {
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
+  createBulkRecipes: DefaultResponse;
   createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
@@ -503,6 +516,11 @@ export type MutationCookedRecipesArgs = {
 
 export type MutationCreateActivityArgs = {
   data: CreateActivityInput;
+};
+
+
+export type MutationCreateBulkRecipesArgs = {
+  data: Array<CreateBulkRecipesInput>;
 };
 
 
@@ -629,7 +647,7 @@ export type Query = {
   categoryDetails?: Maybe<RecipeCategory>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
-  getActivityCalories: Scalars['Float'];
+  getActivityCalories: ActivityCaloriesResponse;
   getDietConfig: DietConfigResponse;
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
@@ -1024,7 +1042,7 @@ export type GetActivityCaloriesQueryVariables = Exact<{
 }>;
 
 
-export type GetActivityCaloriesQuery = { __typename?: 'Query', getActivityCalories: number };
+export type GetActivityCaloriesQuery = { __typename?: 'Query', getActivityCalories: { __typename?: 'ActivityCaloriesResponse', status: boolean, low: number, high: number } };
 
 export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1377,7 +1395,11 @@ export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateInfo: { __
 
 export const GetActivityCaloriesDocument = gql`
     query GetActivityCalories($id: String!) {
-  getActivityCalories(cat: $id)
+  getActivityCalories(cat: $id) {
+    status
+    low
+    high
+  }
 }
     `;
 
