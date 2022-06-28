@@ -48,7 +48,8 @@ export class CreateActivityResolver {
       activity.calories = calculateActivityBurnedCalories(
         category,
         data.duration,
-        user.weight
+        user.weight,
+        data.feedback
       );
       await activity.save();
       const a = await Activity.findOne({
