@@ -19,16 +19,22 @@ const Activity_1 = require("../../entity/Activity");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
 const calculateBurnedCalories_1 = require("../../utils/helpers/activity/calculateBurnedCalories");
+const activity_1 = require("../../utils/responses/activity");
 let ActivityCaloriesResolver = class ActivityCaloriesResolver {
     async getActivityCalories(cat, ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
-            return -1;
+            return { status: false, high: -1, low: -1 };
         const category = await Activity_1.ActivityCategory.findOne({ where: { id: cat } });
         if (!category)
-            return -1;
-        const burned_calories = (0, calculateBurnedCalories_1.calculateActivityBurnedCalories)(category, "1:00", user.weight);
-        return burned_calories;
+            return { status: false, high: -1, low: -1 };
+        const burned_calories_low = (0, calculateBurnedCalories_1.calculateActivityBurnedCalories)(category, "1:00", user.weight, "normal");
+        const burned_calories_high = (0, calculateBurnedCalories_1.calculateActivityBurnedCalories)(category, "1:00", user.weight, "strong");
+        return {
+            status: true,
+            low: burned_calories_low,
+            high: burned_calories_high,
+        };
     }
     async seedActivityCalories() {
         const acalories = await Activity_1.ActivityCalories.find();
@@ -53,7 +59,7 @@ let ActivityCaloriesResolver = class ActivityCaloriesResolver {
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Query)(() => Number),
+    (0, type_graphql_1.Query)(() => activity_1.ActivityCaloriesResponse),
     __param(0, (0, type_graphql_1.Arg)("cat")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),

@@ -12,22 +12,37 @@ import { isUserAuth } from "../../utils/middlewares";
 import { IContext } from "../../utils/types/Context";
 import { User } from "../../entity/User";
 import { calculateActivityBurnedCalories } from "../../utils/helpers/activity/calculateBurnedCalories";
+import { ActivityCaloriesResponse } from "../../utils/responses/activity";
 
 @Resolver()
 export class ActivityCaloriesResolver {
   @UseMiddleware(isUserAuth)
-  @Query(() => Number)
-  async getActivityCalories(@Arg("cat") cat: string, @Ctx() ctx: IContext) {
+  @Query(() => ActivityCaloriesResponse)
+  async getActivityCalories(
+    @Arg("cat") cat: string,
+    @Ctx() ctx: IContext
+  ): Promise<ActivityCaloriesResponse> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
-    if (!user) return -1;
+    if (!user) return { status: false, high: -1, low: -1 };
     const category = await ActivityCategory.findOne({ where: { id: cat } });
-    if (!category) return -1;
-    const burned_calories = calculateActivityBurnedCalories(
+    if (!category) return { status: false, high: -1, low: -1 };
+    const burned_calories_low = calculateActivityBurnedCalories(
       category,
       "1:00",
-      user.weight
+      user.weight,
+      "normal"
     );
-    return burned_calories;
+    const burned_calories_high = calculateActivityBurnedCalories(
+      category,
+      "1:00",
+      user.weight,
+      "strong"
+    );
+    return {
+      status: true,
+      low: burned_calories_low,
+      high: burned_calories_high,
+    };
   }
 
   @Mutation(() => Boolean)

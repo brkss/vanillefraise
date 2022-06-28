@@ -9,9 +9,14 @@ const durationScale = (duration) => {
     };
     return d.hours * 60 + d.minutes;
 };
-const calculateActivityBurnedCalories = (category, duration, weight) => {
+const calculateActivityBurnedCalories = (category, duration, weight, feedback) => {
     const scale = durationScale(duration);
-    const met = category.lowmet;
+    let met = 0;
+    if (feedback.toLowerCase() === "intense" ||
+        feedback.toLowerCase() === "strong")
+        met = category.highmet;
+    else
+        met = category.lowmet;
     const bc = (met * weight * 3.5) / 200;
     return Math.floor(bc * scale);
 };

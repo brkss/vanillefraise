@@ -12,10 +12,17 @@ const durationScale = (duration: string) => {
 export const calculateActivityBurnedCalories = (
   category: ActivityCategory,
   duration: string,
-  weight: number
+  weight: number,
+  feedback: string
 ) => {
   const scale = durationScale(duration);
-  const met = category.lowmet;
+  let met = 0;
+  if (
+    feedback.toLowerCase() === "intense" ||
+    feedback.toLowerCase() === "strong"
+  )
+    met = category.highmet;
+  else met = category.lowmet;
   const bc = (met * weight * 3.5) / 200;
   return Math.floor(bc * scale);
 };
