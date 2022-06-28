@@ -78,7 +78,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({
             calculateREE(gender, weight, height, getAge(birth))
           )}
         />
-        <Macronutrients />
+        {/*<Macronutrients />*/}
       </View>
       <NextButton next={next} previous={previous} showNext showPrevious />
     </View>

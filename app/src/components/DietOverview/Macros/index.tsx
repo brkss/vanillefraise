@@ -30,7 +30,7 @@ export const DietMacrosOverview: React.FC<Props> = ({ refreshing }) => {
       />
       <View style={styles.macronutrients}>
         <View style={styles.line} />
-        <MacronutrientBar />
+        {/*<MacronutrientBar />*/}
       </View>
     </View>
   );
