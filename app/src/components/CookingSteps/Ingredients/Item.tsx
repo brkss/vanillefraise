@@ -26,15 +26,27 @@ export const Item: React.FC<Props> = ({ txt, unit, amount }) => {
           { backgroundColor: checked ? "#7fba75" : "#343433" },
         ]}
       ></View>
-      <Text
-        style={[
-          styles.txt,
-          { textDecorationLine: checked ? "line-through" : "none" },
-        ]}
-      >
-        {PRESENT_MEASURES(unit, amount)}
-        {txt}
-      </Text>
+      <View>
+        <Text
+          style={[
+            styles.txt,
+            { textDecorationLine: checked ? "line-through" : "none" },
+          ]}
+        >
+          {PRESENT_MEASURES(unit, amount)}
+        </Text>
+        <Text
+          style={[
+            styles.txt,
+            {
+              textDecorationLine: checked ? "line-through" : "none",
+              fontWeight: "500",
+            },
+          ]}
+        >
+          {txt}
+        </Text>
+      </View>
     </Pressable>
   );
 };
@@ -46,6 +58,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingTop: 15,
     flexDirection: "row",
+    //justifyContent: "center",
+    alignItems: "center",
   },
   check: {
     height: 20,

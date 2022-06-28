@@ -11,7 +11,7 @@ import Animated, {
   Easing,
 } from "react-native-reanimated";
 import { snapPoint } from "react-native-redash";
-import { colors } from "../../../utils";
+//import { colors } from "../../../utils";
 
 const { width: wWidth, height } = Dimensions.get("window");
 const SNAP_POINTS = [-wWidth, 0, wWidth];
@@ -115,8 +115,10 @@ export const Item: React.FC<Props> = ({
 const styles = StyleSheet.create({
   box: {
     ...StyleSheet.absoluteFillObject,
+    //...StyleSheet.absoluteFill,
     justifyContent: "center",
     alignItems: "center",
+    //height: 200,
   },
   container: {
     padding: 12,
