@@ -16,6 +16,7 @@ import {
   ActiveFoodFilters,
   DietMacrosOverview,
   Close,
+  DietConfigurationIntro
 } from "../../components";
 import { useGetDietConfigQuery } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -41,21 +42,7 @@ export const DietOverview: React.FC<any> = ({ navigation }) => {
   if (data.getDietConfig.status === false) {
     //navigation.push("DietConfiguration");
     return (
-      <View style={{ flex: 1, padding: 10 }}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Close isRegister pressed={() => navigation.goBack()} />
-          <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <Pressable
-              onPress={() => navigation.push("DietConfiguration")}
-              style={styles.config}
-            >
-              <Text style={styles.configText}>CONFIGURE YOUR DIET </Text>
-            </Pressable>
-          </View>
-        </SafeAreaView>
-      </View>
+      <DietConfigurationIntro navigation={navigation} /> 
     );
   }
 
