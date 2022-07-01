@@ -48,9 +48,10 @@ export const EmailVerificationModal: React.FC<Props> = ({
       <View>
         <View style={styles.container}>
           <Ionicons
-            size={40}
+            size={33}
+            color={"#434343"}
             style={{ marginBottom: 10 }}
-            name={"ios-information-circle-sharp"}
+            name={"lock-closed"}
           />
           <Pressable onPress={() => handleResend()} style={styles.btn}>
             <Text style={styles.btnText}>Resend Verification Link ?</Text>
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 22,
+    paddingTop: 0,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
@@ -86,10 +88,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   btn: {
-    backgroundColor: "#FFC9C9",
+    backgroundColor: "#fcd9d9",
     padding: 15,
     width: "100%",
-    borderRadius: 4,
+    borderRadius: 14,
     marginTop: 10,
   },
   btnText: {

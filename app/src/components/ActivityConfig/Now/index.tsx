@@ -13,6 +13,11 @@ interface Props {
   category: string;
 }
 
+const SET_CALORIES_OVERVIEW = (low: number, high: number) => {
+  if(low === high) return `${low}`;
+  return `${low} - ${high}`;
+}
+
 export const ActivityConfigNow: React.FC<Props> = ({
   start,
   activity,
@@ -36,7 +41,7 @@ export const ActivityConfigNow: React.FC<Props> = ({
       </Text>
       <Text style={styles.hint}>For You It'll Be About</Text>
       <Text style={styles.calories}>
-        {data.getActivityCalories.low} - {data.getActivityCalories.high} Cal
+        {SET_CALORIES_OVERVIEW(data.getActivityCalories.low, data.getActivityCalories.high)} Cal
       </Text>
       <Pressable style={styles.btn} onPress={() => start()}>
         <Text style={styles.btnText}>Record</Text>
