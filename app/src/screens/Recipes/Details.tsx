@@ -84,7 +84,10 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           saved={saved}
           save={async () => await handleSavingRecipe()}
         />
-        <Info txt={`${_energy.data.recipeEnergy} Kcal`} clicked={() => {}} />
+        <Info
+          txt={`${_energy.data.recipeEnergy} kcal per serving`}
+          clicked={() => {}}
+        />
         <Close pressed={() => navigation.popToTop()} />
       </View>
       <ScrollView

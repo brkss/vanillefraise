@@ -10,7 +10,7 @@ export const DietOverviewTopBar: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.item}>
-        <Text style={styles.title}>Diet</Text>
+        <Text style={styles.title}>Diet Overview</Text>
       </View>
       <View style={[styles.item, { alignItems: "flex-end" }]}>
         <Ionicons

@@ -32,6 +32,7 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Nutrition Facts</Text>
+      <Text style={styles.subheading}>Per serving</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         {nutrition.map((nut, key) => (
           <RecipeNutritionItem
@@ -72,6 +73,10 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
+  },
+  subheading: {
+    marginBottom: 15,
+    fontSize: 15,
+    opacity: 0.7,
   },
 });
