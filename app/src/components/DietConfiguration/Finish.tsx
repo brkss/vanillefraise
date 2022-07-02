@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     borderRadius: 50,
     backgroundColor: "#FEE8BF",
+    borderWidth: 1,
+    borderColor: "#979797",
     //
   },
   gbText: {

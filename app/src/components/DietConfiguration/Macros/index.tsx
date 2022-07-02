@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //backgroundColor: "red",
     //alignItems: "stretch",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     marginBottom: 15,
   },
 });
