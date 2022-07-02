@@ -1,4 +1,4 @@
-import { Resolver, Field, Mutation } from "type-graphql";
+import { Resolver, Mutation } from "type-graphql";
 import { NutritienCategory, Nutrition } from "../../entity/Nutrition";
 
 const tmp = [

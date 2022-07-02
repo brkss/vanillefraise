@@ -63,6 +63,7 @@ export class NutritionOverviewResolver {
       nutritiens: [],
     }));
 
+    /*
     for (let nutrient of nutrients) {
       let quantity = 0;
       for (let rn of recipesNutrition) {
@@ -76,7 +77,7 @@ export class NutritionOverviewResolver {
         quantity: quantity,
         unit: nutrient.unit,
       };
-    }
+    }*/
 
     for (let n of nutrients) {
       let quantity = 0;
