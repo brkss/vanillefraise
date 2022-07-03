@@ -33,6 +33,7 @@ export const DietRecordTime: React.FC<Props> = ({ changed }) => {
         </Text>
       </Pressable>
       <DateTimePickerModal
+        maximumDate={new Date()}
         date={time}
         mode={"datetime"}
         onCancel={handleHideModal}
