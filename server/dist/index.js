@@ -13,6 +13,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const token_1 = require("./utils/token");
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
+const seed_1 = require("./utils/seed");
 (async () => {
     await (0, typeorm_1.createConnection)({
         type: "mysql",
@@ -20,7 +21,7 @@ const path_1 = __importDefault(require("path"));
         port: 3306,
         username: process.env.DB_USER || "root",
         password: process.env.DB_PASS || "root",
-        database: process.env.DB_NAME || "opencc",
+        database: "vanillefraise_lab",
         charset: "utf8mb4_unicode_ci",
         synchronize: true,
         logging: false,
@@ -46,6 +47,7 @@ const path_1 = __importDefault(require("path"));
         context: ({ req, res }) => ({ req, res }),
     });
     apolloServer.applyMiddleware({ app, cors: false });
+    await (0, seed_1.seed)();
     app.listen(process.env.PORT, () => {
         console.log(`🚀 server runing http://localhost:${process.env.PORT}`);
     });

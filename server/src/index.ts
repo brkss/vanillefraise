@@ -9,6 +9,7 @@ import { refreshToken, refreshAdminToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
 //import { optimize } from './utils/helpers';
+import { seed } from "./utils/seed";
 
 (async () => {
   await createConnection({
@@ -17,7 +18,8 @@ import path from "path";
     port: 3306,
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASS || "root",
-    database: process.env.DB_NAME || "opencc",
+    database: "vanillefraise_lab",
+    //database: process.env.DB_NAME || "opencc",
     charset: "utf8mb4_unicode_ci",
     synchronize: true,
     logging: false,
@@ -40,7 +42,6 @@ import path from "path";
     //res.send("hello from express !");
   });
 
-
   app.post("/refresh_token", async (req, res) => await refreshToken(res, req));
   app.post(
     "/refresh_admin_token",
@@ -58,6 +59,7 @@ import path from "path";
 
   apolloServer.applyMiddleware({ app, cors: false });
 
+  await seed();
   app.listen(process.env.PORT!, () => {
     console.log(`🚀 server runing http://localhost:${process.env.PORT}`);
   });
