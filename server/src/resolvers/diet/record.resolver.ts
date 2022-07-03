@@ -7,13 +7,7 @@
 "MACRONUTRIENT",
 */
 import { DefaultResponse } from "../../utils/responses";
-import {
-  Resolver,
-  Mutation,
-  UseMiddleware,
-  Ctx,
-  Arg,
-} from "type-graphql";
+import { Resolver, Mutation, UseMiddleware, Ctx, Arg } from "type-graphql";
 import { CreateDietRecordInput } from "../../utils/inputs/diet/createrecord.input";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { User } from "../../entity/User";
@@ -28,7 +22,7 @@ export class DietRecordResolver {
     @Arg("data") data: CreateDietRecordInput,
     @Ctx() ctx: IContext
   ): Promise<DefaultResponse> {
-    if (!data || !data.unit || !data.type || !data.value)
+    if (!data || !data.unit || !data.type || !data.value || !data.time)
       return {
         status: false,
         message: "Invalid Data",
@@ -48,6 +42,7 @@ export class DietRecordResolver {
     record.value = data.value;
     record.unit = data.unit;
     record.type = data.type;
+    record.created_at = data.time;
     await record.save();
     return {
       status: true,

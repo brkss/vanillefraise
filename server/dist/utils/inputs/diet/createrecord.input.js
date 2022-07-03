@@ -25,6 +25,10 @@ __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], CreateDietRecordInput.prototype, "type", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Date)
+], CreateDietRecordInput.prototype, "time", void 0);
 CreateDietRecordInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], CreateDietRecordInput);

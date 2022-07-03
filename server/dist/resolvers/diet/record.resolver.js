@@ -21,7 +21,7 @@ const User_1 = require("../../entity/User");
 const Record_1 = require("../../entity/Diet/Record");
 let DietRecordResolver = class DietRecordResolver {
     async createDietRecord(data, ctx) {
-        if (!data || !data.unit || !data.type || !data.value)
+        if (!data || !data.unit || !data.type || !data.value || !data.time)
             return {
                 status: false,
                 message: "Invalid Data",
@@ -43,6 +43,7 @@ let DietRecordResolver = class DietRecordResolver {
         record.value = data.value;
         record.unit = data.unit;
         record.type = data.type;
+        record.created_at = data.time;
         await record.save();
         return {
             status: true,

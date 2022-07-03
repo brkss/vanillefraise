@@ -10,4 +10,8 @@ export class CreateDietRecordInput {
 
   @Field()
   type: string;
+
+  @Field()
+  time: Date;
+
 }
