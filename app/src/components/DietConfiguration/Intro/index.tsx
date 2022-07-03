@@ -47,6 +47,7 @@ export const DietConfigurationIntro: React.FC<Props> = ({ navigation }) => {
             <Text style={styles.title}>Flexible{"\n"}Diet</Text>
             {tmp.map((item, key) => (
               <InfoItem
+                key={key}
                 icon={item.icon}
                 subtitle={item.subtitle}
                 title={item.title}
