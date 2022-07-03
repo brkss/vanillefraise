@@ -47,7 +47,7 @@ export const VerifyAccount: React.FC = () => {
           status={status ? "success" : "warning"}
         >
           <AlertIcon />
-          <AlertTitle>{message}</AlertTitle>
+          <AlertTitle>{message} </AlertTitle>
         </Alert>
       </Center>
     );
@@ -55,7 +55,6 @@ export const VerifyAccount: React.FC = () => {
 
   return (
     <Center h={"100vh"}>
-      <Text>{token}</Text>
       <Spinner size={"sm"} />
     </Center>
   );
