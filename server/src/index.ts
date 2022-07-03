@@ -47,6 +47,8 @@ import { seed } from "./utils/seed";
     "/refresh_admin_token",
     async (req, res) => await refreshAdminToken(req, res)
   );
+  // seed
+  app.get("/seed", async (_, res) => { await seed(); res.send({status: true}) });
   // cdn
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));
@@ -59,7 +61,6 @@ import { seed } from "./utils/seed";
 
   apolloServer.applyMiddleware({ app, cors: false });
 
-  await seed();
   app.listen(process.env.PORT!, () => {
     console.log(`🚀 server runing http://localhost:${process.env.PORT}`);
   });

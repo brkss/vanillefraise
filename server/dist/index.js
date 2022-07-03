@@ -40,6 +40,7 @@ const seed_1 = require("./utils/seed");
     });
     app.post("/refresh_token", async (req, res) => await (0, token_1.refreshToken)(res, req));
     app.post("/refresh_admin_token", async (req, res) => await (0, token_1.refreshAdminToken)(req, res));
+    app.get("/seed", async (_, res) => { await (0, seed_1.seed)(); res.send({ status: true }); });
     const dir = path_1.default.join(__dirname, "cdn/images");
     app.use("/images", express_1.default.static(dir));
     const apolloServer = new apollo_server_express_1.ApolloServer({
@@ -47,7 +48,6 @@ const seed_1 = require("./utils/seed");
         context: ({ req, res }) => ({ req, res }),
     });
     apolloServer.applyMiddleware({ app, cors: false });
-    await (0, seed_1.seed)();
     app.listen(process.env.PORT, () => {
         console.log(`🚀 server runing http://localhost:${process.env.PORT}`);
     });

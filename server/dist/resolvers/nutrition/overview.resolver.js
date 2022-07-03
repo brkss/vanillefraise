@@ -63,6 +63,20 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
             name: cat.name,
             nutritiens: [],
         }));
+        for (let nutrient of nutrients) {
+            let quantity = 0;
+            for (let rn of recipesNutrition) {
+                if (rn.code == nutrient.code) {
+                    quantity += rn.quantity;
+                }
+            }
+            let obj = {
+                name: nutrient.name,
+                code: nutrient.code,
+                quantity: quantity,
+                unit: nutrient.unit,
+            };
+        }
         for (let n of nutrients) {
             let quantity = 0;
             for (let rn of recipesNutrition) {

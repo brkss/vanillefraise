@@ -15,7 +15,7 @@ const Nutrition_1 = require("../../entity/Nutrition");
 const tmp = [
     {
         name: "Mineral",
-        nutrients: ["K", "P", "ZN", "CA", "RIBF", "FOLAC", "NA", "MG", "FE"],
+        nutrients: ["K", "P", "ZN", "CA", "CA", "RIBF", "FOLAC", "NA", "MG", "FE"],
     },
     {
         name: "Vitamins",
