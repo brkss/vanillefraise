@@ -161,6 +161,7 @@ export type CreateDietConfigResponse = {
 };
 
 export type CreateDietRecordInput = {
+  time: Scalars['DateTime'];
   type: Scalars['String'];
   unit: Scalars['String'];
   value: Scalars['Float'];
@@ -1145,6 +1146,7 @@ export type CreateDietRecordMutationVariables = Exact<{
   value: Scalars['Float'];
   unit: Scalars['String'];
   type: Scalars['String'];
+  time: Scalars['DateTime'];
 }>;
 
 
@@ -1973,8 +1975,8 @@ export type MacrosQueryHookResult = ReturnType<typeof useMacrosQuery>;
 export type MacrosLazyQueryHookResult = ReturnType<typeof useMacrosLazyQuery>;
 export type MacrosQueryResult = Apollo.QueryResult<MacrosQuery, MacrosQueryVariables>;
 export const CreateDietRecordDocument = gql`
-    mutation CreateDietRecord($value: Float!, $unit: String!, $type: String!) {
-  createDietRecord(data: {value: $value, unit: $unit, type: $type}) {
+    mutation CreateDietRecord($value: Float!, $unit: String!, $type: String!, $time: DateTime!) {
+  createDietRecord(data: {value: $value, unit: $unit, type: $type, time: $time}) {
     status
     message
   }
@@ -1998,6 +2000,7 @@ export type CreateDietRecordMutationFn = Apollo.MutationFunction<CreateDietRecor
  *      value: // value for 'value'
  *      unit: // value for 'unit'
  *      type: // value for 'type'
+ *      time: // value for 'time'
  *   },
  * });
  */

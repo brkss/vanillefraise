@@ -1,8 +1,9 @@
-mutation CreateDietRecord($value: Float!, $unit: String!, $type: String!){
+mutation CreateDietRecord($value: Float!, $unit: String!, $type: String!, $time: DateTime!){
   createDietRecord(data:{
     value: $value,
     unit: $unit,
     type: $type
+    time: $time
   })
   {
     status

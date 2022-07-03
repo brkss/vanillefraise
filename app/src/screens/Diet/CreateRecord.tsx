@@ -5,6 +5,7 @@ import {
   Close,
   DietRecordTypes,
   InvisibleInput,
+  DietRecordTime,
 } from "../../components";
 import { diet_record_types } from "../../utils/data/dietrecordstypes.data";
 import {
@@ -21,6 +22,7 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
   const [type, setType] = React.useState<number>(0);
   const [record] = useCreateDietRecordMutation();
 
+  const [time, setTime] = React.useState<Date>(new Date());
   const [value, setValue] = React.useState(0);
   const handleVal = (val: string) => {
     const parsed = parseInt(val);
@@ -36,44 +38,49 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
         type: diet_record_types[type].id,
         value: value,
         unit: diet_record_types[type].unit,
+        time: time,
       },
       update: (store, { data }) => {
         if (data.createDietRecord.status === false) return;
         if (diet_record_types[type].id === "WEIGHT") {
           const weights = store.readQuery<TrackWeightQuery>({
             query: TrackWeightDocument,
-          }).trackWeight;
+          })!.trackWeight;
           store.writeQuery<TrackWeightQuery>({
             query: TrackWeightDocument,
             data: {
-              trackWeight: [...weights, value],
+              trackWeight: [
+                ...weights,
+                { __typename: "TrackWeightResponse", value: value, date: time },
+              ],
             },
           });
         }
-        if(diet_record_types[type].id === "IN_CALORIES"){
+        if (diet_record_types[type].id === "IN_CALORIES") {
           const userCalories = store.readQuery<UserCaloriesQuery>({
-            query: UserCaloriesDocument
+            query: UserCaloriesDocument,
           }).userCalories;
           store.writeQuery<UserCaloriesQuery>({
             query: UserCaloriesDocument,
             data: {
               userCalories: {
                 ...userCalories,
-                value: userCalories.value + value
-              }
-            }
-          })
+                value: userCalories.value + value,
+              },
+            },
+          });
         }
-        if(diet_record_types[type].id === "BURNED_CALORIES"){
-          const userBurnedCalories = store.readQuery<GetUserBurnedCaloriesQuery>({
-            query: GetUserBurnedCaloriesDocument 
-          }).getUserBurnedCalories;
+        if (diet_record_types[type].id === "BURNED_CALORIES") {
+          const userBurnedCalories =
+            store.readQuery<GetUserBurnedCaloriesQuery>({
+              query: GetUserBurnedCaloriesDocument,
+            }).getUserBurnedCalories;
           store.writeQuery<GetUserBurnedCaloriesQuery>({
             query: GetUserBurnedCaloriesDocument,
             data: {
-              getUserBurnedCalories: userBurnedCalories + value
-            }
-          })
+              getUserBurnedCalories: userBurnedCalories + value,
+            },
+          });
         }
       },
     }).then((res) => {
@@ -106,6 +113,7 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
             }}
           >
             <View style={{ height: 30 }} />
+            <DietRecordTime changed={(t) => setTime(t)} />
             <InvisibleInput
               label={diet_record_types[type].name}
               value={value.toString()}
