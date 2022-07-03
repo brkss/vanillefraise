@@ -28,9 +28,8 @@ export const DietRecordTime: React.FC<Props> = ({ changed }) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={handleShowModal}>
-        <Text style={styles.time}>
-          {Moment(time).format("DD/MM/YYYY \thh:mm a")}
-        </Text>
+        <Text style={styles.time}>{Moment(time).format("DD/MM/YYYY")}</Text>
+        <Text style={[styles.time, {marginTop: 2}]}>{Moment(time).format("hh:mm a")}</Text>
       </Pressable>
       <DateTimePickerModal
         maximumDate={new Date()}
