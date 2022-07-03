@@ -31,7 +31,11 @@ const seed_1 = require("./utils/seed");
     });
     const app = (0, express_1.default)();
     app.use((0, cors_1.default)({
-        origin: ["http://localhost:3000", "https://api.opencc.tech"],
+        origin: [
+            "http://localhost:3001",
+            "http://localhost:3000",
+            "https://api.opencc.tech",
+        ],
         credentials: true,
     }));
     app.use((0, cookie_parser_1.default)());
@@ -40,7 +44,10 @@ const seed_1 = require("./utils/seed");
     });
     app.post("/refresh_token", async (req, res) => await (0, token_1.refreshToken)(res, req));
     app.post("/refresh_admin_token", async (req, res) => await (0, token_1.refreshAdminToken)(req, res));
-    app.get("/seed", async (_, res) => { await (0, seed_1.seed)(); res.send({ status: true }); });
+    app.get("/seed", async (_, res) => {
+        await (0, seed_1.seed)();
+        res.send({ status: true });
+    });
     const dir = path_1.default.join(__dirname, "cdn/images");
     app.use("/images", express_1.default.static(dir));
     const apolloServer = new apollo_server_express_1.ApolloServer({

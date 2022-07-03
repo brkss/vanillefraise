@@ -30,7 +30,11 @@ import { seed } from "./utils/seed";
   const app = express();
   app.use(
     cors({
-      origin: ["http://localhost:3000", "https://api.opencc.tech"],
+      origin: [
+        "http://localhost:3001",
+        "http://localhost:3000",
+        "https://api.opencc.tech",
+      ],
       credentials: true,
     })
   );
@@ -48,7 +52,10 @@ import { seed } from "./utils/seed";
     async (req, res) => await refreshAdminToken(req, res)
   );
   // seed
-  app.get("/seed", async (_, res) => { await seed(); res.send({status: true}) });
+  app.get("/seed", async (_, res) => {
+    await seed();
+    res.send({ status: true });
+  });
   // cdn
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));
