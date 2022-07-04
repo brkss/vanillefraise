@@ -29,8 +29,10 @@ export const calculateNutrients = (
   const data = nutritients.map((n) => {
     let val = 0;
     if (n.unit === "kcal") {
+      // convert from calorie to gram !
       val = n.quantity * 0.129598;
     } else {
+     
       val = convert(n.quantity)
         .from(n.unit === "µg" ? "mcg" : (n.unit as any))
         .to("g");
