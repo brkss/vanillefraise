@@ -6,5 +6,11 @@ query TotalNutrition($recipe_id: String!){
       quantity
       unit
     }
+    totalDaily {
+      id
+      label 
+      unit
+      quantity
+    }
   } 
 }

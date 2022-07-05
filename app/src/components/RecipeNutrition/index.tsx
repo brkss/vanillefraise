@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { RecipeNutritionItem } from "./Item";
 import { nutrition_data } from "../../utils/data/nutritions.data";
 import { useTotalNutritionQuery } from "../../generated/graphql";
+import { DailyNutritionItem } from "./DailyNutritionItem";
 
 interface Props {
   recipeId: string;
@@ -40,6 +41,18 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
             label={nut.label}
             quantity={nut.quantity}
             unit={nut.unit}
+          />
+        ))}
+      </ScrollView>
+      <View style={{ height: 20 }} />
+      <Text style={styles.heading}>Total Daily Nutrition</Text>
+      <Text style={styles.subheading}>Per serving</Text>
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+        {data.getRecipeNutrition.totalDaily.map((n, key) => (
+          <DailyNutritionItem
+            unit={n.unit}
+            quantity={n.quantity}
+            label={n.label}
           />
         ))}
       </ScrollView>

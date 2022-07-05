@@ -1286,7 +1286,7 @@ export type TotalNutritionQueryVariables = Exact<{
 }>;
 
 
-export type TotalNutritionQuery = { __typename?: 'Query', getRecipeNutrition: { __typename?: 'RecipeNutritionResponse', totalNutrition?: Array<{ __typename?: 'RecipeTotalNutrition', id: string, label: string, quantity: number, unit: string }> | null | undefined } };
+export type TotalNutritionQuery = { __typename?: 'Query', getRecipeNutrition: { __typename?: 'RecipeNutritionResponse', totalNutrition?: Array<{ __typename?: 'RecipeTotalNutrition', id: string, label: string, quantity: number, unit: string }> | null | undefined, totalDaily?: Array<{ __typename?: 'RecipeTotalDaily', id: string, label: string, unit: string, quantity: number }> | null | undefined } };
 
 export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2773,6 +2773,12 @@ export const TotalNutritionDocument = gql`
       label
       quantity
       unit
+    }
+    totalDaily {
+      id
+      label
+      unit
+      quantity
     }
   }
 }
