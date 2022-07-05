@@ -41,6 +41,7 @@ export const PasswordSettings: React.FC<any> = ({ navigation }) => {
         setError(res.data.changePassword.message);
       } else if (res.data.changePassword.status) {
         setForm({});
+        alert("👍 Password Updated Successfuly !");
         navigation.goBack();
       }
     });

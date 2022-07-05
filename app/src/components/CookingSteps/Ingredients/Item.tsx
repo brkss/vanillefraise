@@ -30,7 +30,10 @@ export const Item: React.FC<Props> = ({ txt, unit, amount }) => {
         <Text
           style={[
             styles.txt,
-            { textDecorationLine: checked ? "line-through" : "none" },
+            {
+              textDecorationLine: checked ? "line-through" : "none",
+              display: unit && amount ? "flex" : "none",
+            },
           ]}
         >
           {PRESENT_MEASURES(unit, amount)}
@@ -40,7 +43,7 @@ export const Item: React.FC<Props> = ({ txt, unit, amount }) => {
             styles.txt,
             {
               textDecorationLine: checked ? "line-through" : "none",
-              fontWeight: "500",
+              fontWeight: unit && amount ? "500" : "bold",
             },
           ]}
         >

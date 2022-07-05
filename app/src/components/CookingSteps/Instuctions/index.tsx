@@ -9,14 +9,21 @@ import Animated, {
 } from "react-native-reanimated";
 import { Button } from "../../General/Button";
 import { Languages } from "../../Translation/Languages";
-import {TranslatedInstruction} from "../../../generated/graphql";
+import { TranslatedInstruction } from "../../../generated/graphql";
 
 interface Props {
   finish: () => void;
   instructions: any[];
+  navigation: any;
+  title: string;
 }
 
-export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
+export const InstructionsStep: React.FC<Props> = ({
+  finish,
+  instructions,
+  navigation,
+  title,
+}) => {
   const [lang, setLang] = React.useState<string>("en");
   const shuffleBack = useSharedValue(false);
   const swipedAll = useSharedValue(false);
@@ -24,8 +31,8 @@ export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
 
   const handleLang = (instruction: TranslatedInstruction) => {
     if (lang === "es" && instruction.es) return instruction.es;
-    else if (lang === "fr" && instruction.fr ) return instruction.fr;
-    else if (lang === "ar" && instruction.ar ) return instruction.ar;
+    else if (lang === "fr" && instruction.fr) return instruction.fr;
+    else if (lang === "ar" && instruction.ar) return instruction.ar;
     else return instruction.raw;
   };
 
@@ -58,6 +65,13 @@ export const InstructionsStep: React.FC<Props> = ({ finish, instructions }) => {
               index={key}
               num={instructions.length - key - 1}
               key={key}
+              clicked={() =>
+                navigation.push("ExpandedInstruction", {
+                  index: instructions.length - key,
+                  txt: handleLang(inst),
+                  title: title
+                })
+              }
             />
           );
         })}

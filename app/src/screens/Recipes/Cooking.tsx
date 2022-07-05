@@ -84,7 +84,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
   if (!helviticaCondensed || loading || error || !data) return <Loading />;
 
   return (
-    <LinearGradient colors={["#FBECEC", "#FFDDDD"]} style={styles.container}>
+    <LinearGradient colors={["#FDF3F3", "#FFDADA"]} style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.top}>
           <AntDesign
@@ -119,6 +119,8 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
               ),
               instructions: (
                 <InstructionsStep
+                  title={data.recipe.recipe.name}
+                  navigation={navigation}
                   instructions={data!.recipe.instructions.sort(
                     ({ index: a }, { index: b }) => a - b
                   )}

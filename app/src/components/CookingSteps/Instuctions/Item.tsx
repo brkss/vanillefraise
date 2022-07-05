@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Dimensions } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
@@ -23,6 +23,7 @@ interface Props {
   swipedAll: Animated.SharedValue<boolean>;
   txt: string;
   num: number;
+  clicked: () => void;
 }
 
 export const Item: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const Item: React.FC<Props> = ({
   shuffleBack,
   swipedAll,
   txt,
+  clicked
 }) => {
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(-height);
@@ -101,14 +103,14 @@ export const Item: React.FC<Props> = ({
   });
 
   return (
-    <View pointerEvents={"box-none"} style={styles.box}>
+    <Pressable onPress={clicked} pointerEvents={"box-none"} style={styles.box}>
       <GestureDetector gesture={gesture}>
         <Animated.View style={[styles.container, style]}>
           <Text style={styles.number}>#{num + 1}</Text>
           <Text style={styles.txt}>{txt}</Text>
         </Animated.View>
       </GestureDetector>
-    </View>
+    </Pressable>
   );
 };
 
