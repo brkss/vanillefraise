@@ -3,13 +3,10 @@ import ReactDOM from "react-dom";
 import { Application } from "./Application";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ApolloClient, InMemoryCache, ApolloLink} from "@apollo/client";
-//import { ApolloClient } from "apollo-client";
 import { HttpLink } from "apollo-boost";
-//import { ApolloClient, InMemoryCache } from '@apollo/client'
-//import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { onError } from "apollo-link-error";
-//import { ApolloLink } from "apollo-link";
+import { URL } from './utils/config/default';
 
 const client: any = new ApolloClient({
   link: ApolloLink.from([
@@ -18,7 +15,7 @@ const client: any = new ApolloClient({
       console.log(networkError);
     }) as any,
     new HttpLink({
-      uri: "http://localhost:4000/graphql",
+      uri: URL,
     }),
   ]),
   cache: new InMemoryCache(),
