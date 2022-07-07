@@ -9,8 +9,7 @@ import {
 import { routes } from "./utils/config/routes";
 import { URI } from "./utils/config/defaults";
 import { getToken, setToken } from "./utils/token/token";
-import { Loading } from './components'
-
+import { Loading } from "./components";
 
 export const Application: React.FC = () => {
   const [loading, setLoading] = React.useState(true);
@@ -21,6 +20,7 @@ export const Application: React.FC = () => {
       method: "POST",
     }).then(async (res) => {
       const data = await res.json();
+      console.log("refresh token response : ", data);
       if (data.status === true && data.token) {
         setToken(data.token);
       }
@@ -54,7 +54,7 @@ export const Application: React.FC = () => {
                   }}
                 />
               ) : (
-                <Redirect to={"login"} />
+                <Redirect key={key} to={"login"} />
               )
             ) : (
               <Route
