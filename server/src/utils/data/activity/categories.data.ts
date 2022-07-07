@@ -6,6 +6,18 @@ export const activity_categories = [
     lowmet: 7.5,
   },
   {
+    name: "Surfing",
+    icon: "🏄",
+    highmet: 5,
+    lowmet: 3,
+  },
+  {
+    name: "GYM",
+    icon: "👟",
+    highmet: 7.8,
+    lowmet: 5,
+  },
+  {
     name: "Swimming",
     icon: "🏊‍♀️",
     highmet: 9.8,
