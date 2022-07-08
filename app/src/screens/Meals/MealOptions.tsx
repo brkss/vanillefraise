@@ -32,38 +32,6 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
           return;
         }
 
-        const daysWithRecipes = store.readQuery<DaysWithRecipesQuery>({
-          query: DaysWithRecipesDocument,
-        })?.daysWithRecipes;
-
-        const days = Object.assign({}, daysWithRecipes.markedDates);
-
-        let found = false;
-        for (let day of days) {
-          if (date.toDateString() === new Date(day.date).toDateString()) {
-            day.count += 1;
-            found = true;
-              markedDates: [...days]
-          }
-        }
-        if (!found) {
-          days.push({
-            __typename: "MarkedDates",
-            date: date.toDateString(),
-            count: 1,
-          });
-        }
-
-        store.writeQuery<DaysWithRecipesQuery>({
-          query: DaysWithRecipesDocument,
-          data: {
-            daysWithRecipes: {
-              ...daysWithRecipes,
-              markedDates: [...days],
-            },
-          },
-        });
-
         if (date.toDateString() === new Date().toDateString()) {
           const oldMeals = store.readQuery<MealsQuery>({
             query: MealsDocument,
