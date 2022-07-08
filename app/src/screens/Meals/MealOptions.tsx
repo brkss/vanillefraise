@@ -2,6 +2,8 @@ import React from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { Close, MealOptionsSelect, Button } from "../../components";
 import {
+  DaysWithRecipesDocument,
+  DaysWithRecipesQuery,
   MealsDocument,
   MealsQuery,
   useAddMealRecipeMutation,
@@ -26,31 +28,62 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
         date: date,
       },
       update: (store, { data }) => {
-        if (
-          !data ||
-          !data.addMealRecipe.status ||
-          date.toDateString() !== new Date().toDateString()
-        ) {
+        if (!data || !data.addMealRecipe.status) {
           return;
         }
-        const oldMeals = store.readQuery<MealsQuery>({
-          query: MealsDocument,
-        })?.meals;
-        let mls = [];
-        let i = oldMeals.length - 1;
-        while (i >= 0) {
-          console.log("curr : ", oldMeals[i].id, " meal id : ", meal);
-          if (oldMeals[i].id == meal) oldMeals[i].count += 1;
-          mls.push(oldMeals[i]);
-          i--;
+
+        const daysWithRecipes = store.readQuery<DaysWithRecipesQuery>({
+          query: DaysWithRecipesDocument,
+        })?.daysWithRecipes;
+
+        const days = Object.assign({}, daysWithRecipes.markedDates);
+
+        let found = false;
+        for (let day of days) {
+          if (date.toDateString() === new Date(day.date).toDateString()) {
+            day.count += 1;
+            found = true;
+              markedDates: [...days]
+          }
         }
-        console.log("UPDATE THAT SHIT!");
-        store.writeQuery<MealsQuery>({
-          query: MealsDocument,
+        if (!found) {
+          days.push({
+            __typename: "MarkedDates",
+            date: date.toDateString(),
+            count: 1,
+          });
+        }
+
+        store.writeQuery<DaysWithRecipesQuery>({
+          query: DaysWithRecipesDocument,
           data: {
-            meals: [...mls],
+            daysWithRecipes: {
+              ...daysWithRecipes,
+              markedDates: [...days],
+            },
           },
         });
+
+        if (date.toDateString() === new Date().toDateString()) {
+          const oldMeals = store.readQuery<MealsQuery>({
+            query: MealsDocument,
+          })?.meals;
+          let mls = [];
+          let i = oldMeals.length - 1;
+          while (i >= 0) {
+            console.log("curr : ", oldMeals[i].id, " meal id : ", meal);
+            if (oldMeals[i].id == meal) oldMeals[i].count += 1;
+            mls.push(oldMeals[i]);
+            i--;
+          }
+          console.log("UPDATE THAT SHIT!");
+          store.writeQuery<MealsQuery>({
+            query: MealsDocument,
+            data: {
+              meals: [...mls],
+            },
+          });
+        }
       },
     })
       .then((res) => {

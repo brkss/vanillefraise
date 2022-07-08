@@ -50,7 +50,7 @@ export const RecipeThumbnail: React.FC<Props> = ({
         )}
         <Text style={styles.title}>{title}</Text>
         {time ? <Text style={styles.time}>about {time} to make.</Text> : null}
-        {carbs && <Text style={styles.carbs}>120g of carbs</Text>}
+        {carbs !== "-1" && <Text style={styles.carbs}>{carbs}g of carbs</Text>}
       </ImageBackground>
     </TouchableOpacity>
   );

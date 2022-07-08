@@ -53,6 +53,7 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
             unit={n.unit}
             quantity={n.quantity}
             label={n.label}
+            key={key}  
           />
         ))}
       </ScrollView>

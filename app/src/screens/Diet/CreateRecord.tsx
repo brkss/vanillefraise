@@ -42,6 +42,7 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
       },
       update: (store, { data }) => {
         if (data.createDietRecord.status === false) return;
+
         if (diet_record_types[type].id === "WEIGHT") {
           const weights = store.readQuery<TrackWeightQuery>({
             query: TrackWeightDocument,
@@ -57,6 +58,7 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
           });
         }
         if (diet_record_types[type].id === "IN_CALORIES") {
+          if (time.toDateString() !== new Date().toDateString()) return;
           const userCalories = store.readQuery<UserCaloriesQuery>({
             query: UserCaloriesDocument,
           }).userCalories;
@@ -71,6 +73,7 @@ export const CreateDietRecord: React.FC<any> = ({ navigation }) => {
           });
         }
         if (diet_record_types[type].id === "BURNED_CALORIES") {
+          if (time.toDateString() !== new Date().toDateString()) return;
           const userBurnedCalories =
             store.readQuery<GetUserBurnedCaloriesQuery>({
               query: GetUserBurnedCaloriesDocument,
