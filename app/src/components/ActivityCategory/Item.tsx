@@ -29,12 +29,13 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 100,
-    backgroundColor: "#B5F7CD",
+    backgroundColor: "#EDEAEA",
+    //backgroundColor: "#B5F7CD",
     justifyContent: "center",
     alignItems: "center",
   },
   icon: {
-    fontSize: 50,
+    fontSize: 40,
   },
   title: {
     fontSize: 14,
