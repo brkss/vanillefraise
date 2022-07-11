@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { AddDietRecordButton } from "./AddDietRecord";
 import { EnterDietButton } from "./EnterDietButton";
+import { EnterFoodConfig } from './EnterFoodConfig';
 
 interface Props {
   navigation: any;
@@ -25,6 +26,7 @@ export const TopBar: React.FC<Props> = ({ navigation }) => {
             pressed={() => navigation.push("CreateDietRecord")}
           />
           <EnterDietButton pressed={() => navigation.push("DietOverview")} />
+          <EnterFoodConfig  pressed={() => navigation.push("DietOverview")} />
         </View>
       </View>
     </>
