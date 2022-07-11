@@ -9,12 +9,12 @@ const steps = [
   {
     title: "1. CALCULATE YOUR MACROS.",
     description:
-      "Balancing macronutrients give you the best chance of building the body you want without feeling deprived or exhausted",
+      "Balancing macronutrients give you the best chance of building the body you want and staying healthy without feeling deprived or exhausted",
   },
   {
     title: "2. FIND FOOD THAT FIT.",
     description:
-      "Find type of food you love mix pre-exsiting diets philosophies exclude special ingredients (food allergy, health problems…)",
+      "Find type of food you love mix pre-exsiting diet philosophies exclude special ingredients (food allergy, health problems…)",
   },
   {
     title: "3. SET AN EATING SCHEDULE.",

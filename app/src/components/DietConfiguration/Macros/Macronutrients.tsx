@@ -38,13 +38,14 @@ export const Macronutrients: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <View style={[styles.item, { justifyContent: "center" }]}>
+        <View style={[styles.item, { justifyContent: "space-between" }]}>
           {data.map((i, key) => (
             <View key={key} style={styles.keyContainer}>
               <View style={[styles.color, { backgroundColor: i.color }]} />
-              <Text style={styles.key}>
-                {i.name} ({i.value}%){" "}
-              </Text>
+              <View>
+                <Text style={styles.key}>{i.name}</Text>
+                <Text>{i.value}% - 300g </Text>
+              </View>
             </View>
           ))}
         </View>
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
   keyContainer: {
     flexDirection: "row",
     marginBottom: 10,
+    alignItems: "center",
   },
   color: {
     height: 20,

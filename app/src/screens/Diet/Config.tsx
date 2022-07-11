@@ -210,6 +210,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     //
+    marginTop: -40,
     padding: 10,
     flex: 1,
   },
