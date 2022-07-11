@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 
-const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
+const steps = ["MACROS", "FOOD", "SCHEDULE"];
 
 interface Props {
   selected: string;

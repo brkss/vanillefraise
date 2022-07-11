@@ -25,7 +25,7 @@ import {
 import { getMealsSchedule, saveMealsSchedule } from "../../utils/modules/meals";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const steps = ["START", "MACROS", "FOOD", "SCHEDULE", "FINISH"];
+const steps = ["START", "MACROS", "FOOD", "SCHEDULE"];
 
 // TODO : make fetchPolicy depend on cache first by updating get config query  !
 // TODO : handle errors !
@@ -38,7 +38,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
     fetchPolicy: "network-only",
     onCompleted: (res) => {
       if (res.getDietConfig.status === true) {
-        console.log("avocado selected filters : ", res.getDietConfig.filters);
+        setStep(steps[1]);
         setData({
           ...data,
           factor: res.getDietConfig.config.activityFactor,
@@ -177,6 +177,7 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
                 birth={_me.data.me.birth}
                 gender={_me.data.me.gender}
                 factorval={data.factor}
+                hidePrevious={true}
                 changed={(key: string, val: any | any[]) => changed(key, val)}
                 previous={backward}
                 next={forward}
@@ -196,7 +197,6 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
                 changed={(k, v) => changed(k, v)}
                 previous={backward}
                 next={save}
-        
               />
             ),
             //ANALYSE: <DietAnalyse previous={backward} />,

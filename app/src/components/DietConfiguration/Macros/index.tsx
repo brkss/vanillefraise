@@ -9,6 +9,7 @@ import { calculateREE, calculateTDEE } from "../../../utils/modules/macros";
 import { getAge } from "../../../utils/modules/bmr";
 
 interface Props {
+  hidePrevious?: boolean;
   previous: () => void;
   next: () => void;
   changed: (key: string, val: any | any[]) => void;
@@ -27,6 +28,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({
   weight: w,
   height: h,
   gender,
+  hidePrevious,
   birth,
 }) => {
   const [ree, setRee] = React.useState(0);
@@ -80,7 +82,12 @@ export const ConfigureDietMacros: React.FC<Props> = ({
         />
         <Macronutrients />
       </View>
-      <Navigation next={next} previous={previous} showNext showPrevious />
+      <Navigation
+        next={next}
+        previous={previous}
+        showNext
+        showPrevious={!hidePrevious}
+      />
     </View>
   );
 };
