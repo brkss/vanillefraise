@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { PieChart } from "react-native-svg-charts";
 
-const COLORS = ["#3C3B3B", "#878585", "#D8D8D8"];
+const COLORS = ["#8cd3dd", "#f583ae", "#172c67"];
 
 export const Macronutrients: React.FC = () => {
   const data = [
