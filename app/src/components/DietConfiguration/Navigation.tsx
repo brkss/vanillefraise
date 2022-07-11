@@ -7,6 +7,7 @@ interface Props {
   previous: () => void;
   showNext: boolean;
   showPrevious: boolean;
+  nextBtnText?: string;
 }
 
 export const Navigation: React.FC<Props> = ({
@@ -14,6 +15,7 @@ export const Navigation: React.FC<Props> = ({
   previous,
   showNext,
   showPrevious,
+  nextBtnText
 }) => {
   return (
     <View style={styles.row}>
@@ -33,7 +35,7 @@ export const Navigation: React.FC<Props> = ({
         {showNext && (
           <Pressable style={styles.container} onPress={next}>
             <Text style={styles.txt}>
-              NEXT{" "}
+              {nextBtnText || "NEXT"}{" "}
               <Ionicons
                 size={18}
                 style={{ marginBottom: -25, marginRight: 5 }}

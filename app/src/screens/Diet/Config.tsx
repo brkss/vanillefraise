@@ -195,7 +195,8 @@ export const DietConfiguration: React.FC<any> = ({ navigation }) => {
                 meals={data.meals}
                 changed={(k, v) => changed(k, v)}
                 previous={backward}
-                next={forward}
+                next={save}
+        
               />
             ),
             //ANALYSE: <DietAnalyse previous={backward} />,

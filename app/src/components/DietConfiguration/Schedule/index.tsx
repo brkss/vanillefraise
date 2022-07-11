@@ -62,7 +62,7 @@ export const ConfigureMealSchedule: React.FC<Props> = ({
         ))}
         <ReminderCheckBox />
       </View>
-      <Navigation previous={previous} next={next} showNext showPrevious />
+      <Navigation nextBtnText={'SAVE'} previous={previous} next={next} showNext showPrevious />
     </View>
   );
 };
