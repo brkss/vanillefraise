@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { FoodItem } from "./Item";
-import { NextButton } from "../NextButton";
+import { Navigation } from "../Navigation";
 import { useHealthLabelsQuery } from "../../../generated/graphql";
 import { Loading } from "../../../components/General";
 //import Modal from "react-native-modal";
@@ -88,7 +88,7 @@ export const ConfigureDietFood: React.FC<Props> = ({
         ))}
       </ScrollView>
 
-      <NextButton previous={previous} next={next} showNext showPrevious />
+      <Navigation previous={previous} next={next} showNext showPrevious />
       <ItemInfoModal
         closed={() => setVisibleModal(false)}
         isVisible={visibleModal}

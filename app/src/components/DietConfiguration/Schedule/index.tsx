@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { NextButton } from "../NextButton";
+import { Navigation } from "../Navigation";
 import { MealTime } from "./MealTime";
 import { ReminderCheckBox } from "./ReminderCheckBox";
 
@@ -62,7 +62,7 @@ export const ConfigureMealSchedule: React.FC<Props> = ({
         ))}
         <ReminderCheckBox />
       </View>
-      <NextButton previous={previous} next={next} showNext showPrevious />
+      <Navigation previous={previous} next={next} showNext showPrevious />
     </View>
   );
 };

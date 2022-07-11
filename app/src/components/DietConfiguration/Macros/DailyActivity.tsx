@@ -1,28 +1,34 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { activity_factors } from "../../../utils/data/activityFactors";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
   onSelect: (factor: number) => void;
   factor: number;
 }
 
-export const DailyActivity: React.FC<Props> = ({onSelect, factor}) => {
+export const DailyActivity: React.FC<Props> = ({ onSelect, factor }) => {
   const [active, setActive] = React.useState(0);
 
   React.useEffect(() => {
-    const index = activity_factors.findIndex(x => x.factor === factor);
-    if(index != -1) setActive(index);
+    const index = activity_factors.findIndex((x) => x.factor === factor);
+    if (index != -1) setActive(index);
   }, []);
 
   const select = (index: number) => {
     setActive(index);
-    onSelect(activity_factors[index].factor)
+    onSelect(activity_factors[index].factor);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>DAILY ACTIVITY</Text>
+      <Text style={styles.description}>
+        {" "}
+        <Ionicons size={16} name={"information-circle-outline"} />{" "}
+        {activity_factors[active].description}
+      </Text>
       <View style={styles.options}>
         {activity_factors.map((option, key) => (
           <Pressable
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#DBF3D4",
+    backgroundColor: "#f0eada",
   },
   circleText: {
     //
@@ -86,5 +92,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     position: "absolute",
     bottom: -15,
+  },
+  description: {
+    marginVertical: 10,
+    //textAlign: "center",
+    fontSize: 17,
   },
 });

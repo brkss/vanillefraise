@@ -4,7 +4,7 @@ import { DailyActivity } from "./DailyActivity";
 import { BodyMeasurements } from "./BodyMeasurements";
 import { MacrosValues } from "./MacrosValues";
 import { Macronutrients } from "./Macronutrients";
-import { NextButton } from "../NextButton";
+import { Navigation } from "../Navigation";
 import { calculateREE, calculateTDEE } from "../../../utils/modules/macros";
 import { getAge } from "../../../utils/modules/bmr";
 
@@ -62,7 +62,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> MACROS </Text>
+      <Text style={styles.title}> ENERGY NEEDS </Text>
       <View style={styles.contentContainer}>
         <DailyActivity factor={factorval} onSelect={(f) => handleFactor(f)} />
         <BodyMeasurements
@@ -80,7 +80,7 @@ export const ConfigureDietMacros: React.FC<Props> = ({
         />
         {/*<Macronutrients />*/}
       </View>
-      <NextButton next={next} previous={previous} showNext showPrevious />
+      <Navigation next={next} previous={previous} showNext showPrevious />
     </View>
   );
 };

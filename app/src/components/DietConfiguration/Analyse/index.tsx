@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import { NextButton } from "../NextButton";
+import { Navigation } from "../Navigation";
 import { CaloriesIntake } from "./CaloriesIntake";
 import { WeightTrack } from "./WeightTrack";
 import { TrackMacronutrients } from "./TrackMacronutrients";
@@ -18,7 +18,7 @@ export const DietAnalyse: React.FC<Props> = ({ previous }) => {
         <TrackMacronutrients />
         <View style={{ height: 100 }} />
       </ScrollView>
-      <NextButton
+      <Navigation
         next={() => {}}
         previous={previous}
         showNext={false}
