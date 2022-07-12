@@ -30,17 +30,18 @@ let FoodFilterResolver = class FoodFilterResolver {
         return user.filters.map((filter) => filter.healthlabel);
     }
     async saveFoodFilters(data, ctx) {
-        if (!data || data.length === 0)
+        if (!data)
             return [];
         let user = await User_1.User.findOne({
             where: {
                 id: ctx.payload.userID,
-                relations: ["filters", "filters.healthlabel"],
             },
+            relations: ["filters", "filters.healthlabel"],
         });
         if (!user)
             return [];
-        const result = [];
+        user.filters = [];
+        await user.save();
         for (let item of data) {
             const label = await Nutrition_1.HealthLabelRefrence.findOne({ where: { id: item } });
             if (!label ||
@@ -54,8 +55,8 @@ let FoodFilterResolver = class FoodFilterResolver {
         user = await User_1.User.findOne({
             where: {
                 id: ctx.payload.userID,
-                relations: ["filters", "filters.healthlabel"],
             },
+            relations: ["filters", "filters.healthlabel"],
         });
         return user.filters.map((filter) => filter.healthlabel);
     }
