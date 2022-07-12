@@ -17,6 +17,7 @@ const type_graphql_1 = require("type-graphql");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const Nutrition_1 = require("../../entity/Nutrition");
 const User_1 = require("../../entity/User");
+const FoodFilter_1 = require("../../entity/Diet/FoodFilter");
 let FoodFilterResolver = class FoodFilterResolver {
     async activeFoodFilters(ctx) {
         const user = await User_1.User.findOne({
@@ -28,6 +29,36 @@ let FoodFilterResolver = class FoodFilterResolver {
         }
         return user.filters.map((filter) => filter.healthlabel);
     }
+    async saveFoodFilters(data, ctx) {
+        if (!data || data.length === 0)
+            return [];
+        let user = await User_1.User.findOne({
+            where: {
+                id: ctx.payload.userID,
+                relations: ["filters", "filters.healthlabel"],
+            },
+        });
+        if (!user)
+            return [];
+        const result = [];
+        for (let item of data) {
+            const label = await Nutrition_1.HealthLabelRefrence.findOne({ where: { id: item } });
+            if (!label ||
+                user.filters.findIndex((x) => x.healthlabel.id === item) !== -1)
+                continue;
+            const filter = new FoodFilter_1.DietFoodFilter();
+            filter.user = user;
+            filter.healthlabel = label;
+            await filter.save();
+        }
+        user = await User_1.User.findOne({
+            where: {
+                id: ctx.payload.userID,
+                relations: ["filters", "filters.healthlabel"],
+            },
+        });
+        return user.filters.map((filter) => filter.healthlabel);
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
@@ -37,6 +68,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], FoodFilterResolver.prototype, "activeFoodFilters", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
+    (0, type_graphql_1.Mutation)(() => [Nutrition_1.HealthLabelRefrence]),
+    __param(0, (0, type_graphql_1.Arg)("data", () => [String])),
+    __param(1, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object]),
+    __metadata("design:returntype", Promise)
+], FoodFilterResolver.prototype, "saveFoodFilters", null);
 FoodFilterResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], FoodFilterResolver);

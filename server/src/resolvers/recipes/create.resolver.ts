@@ -57,7 +57,7 @@ export class CreateRecipeResolver {
         message: "Recipes Added Successfuly !",
       };
     } catch (e) {
-      console.log("Something went wrng adding recipes !");
+      console.log("Something went wrng adding recipes !", e);
       return {
         status: false,
         message: "Something went wrong !",
