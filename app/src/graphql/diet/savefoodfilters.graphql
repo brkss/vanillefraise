@@ -1,0 +1,6 @@
+mutation SaveFoodFilters($filters: [String!]!){
+  saveFoodFilters (data: $filters){
+    id
+    label
+  }
+}

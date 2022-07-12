@@ -12,6 +12,7 @@ interface Props {
   previous: () => void;
   changed: (key: string, val: any | any[]) => void;
   preselected: string[];
+  hidenavigation?: boolean;
 }
 
 export const ConfigureDietFood: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const ConfigureDietFood: React.FC<Props> = ({
   previous,
   changed,
   preselected,
+  hidenavigation,
 }) => {
   const [visibleModal, setVisibleModal] = React.useState(false);
   const { data, error, loading } = useHealthLabelsQuery();
@@ -88,7 +90,9 @@ export const ConfigureDietFood: React.FC<Props> = ({
         ))}
       </ScrollView>
 
-      <Navigation previous={previous} next={next} showNext showPrevious />
+      {!hidenavigation && (
+        <Navigation previous={previous} next={next} showNext showPrevious />
+      )}
       <ItemInfoModal
         closed={() => setVisibleModal(false)}
         isVisible={visibleModal}

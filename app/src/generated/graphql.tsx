@@ -453,6 +453,7 @@ export type Mutation = {
   requestResetPassword: AuthDefaultResponse;
   resendAccountVerification: DefaultResponse;
   resetPassword: AuthDefaultResponse;
+  saveFoodFilters: Array<HealthLabelRefrence>;
   seedActivityCalories: Scalars['Boolean'];
   seedActivityCategories: Scalars['Boolean'];
   seedHealthLabelRefrence: Scalars['Boolean'];
@@ -597,6 +598,11 @@ export type MutationRequestResetPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput;
+};
+
+
+export type MutationSaveFoodFiltersArgs = {
+  data: Array<Scalars['String']>;
 };
 
 
@@ -1151,6 +1157,13 @@ export type CreateDietRecordMutationVariables = Exact<{
 
 
 export type CreateDietRecordMutation = { __typename?: 'Mutation', createDietRecord: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
+
+export type SaveFoodFiltersMutationVariables = Exact<{
+  filters: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type SaveFoodFiltersMutation = { __typename?: 'Mutation', saveFoodFilters: Array<{ __typename?: 'HealthLabelRefrence', id: string, label: string }> };
 
 export type TrackCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2011,6 +2024,40 @@ export function useCreateDietRecordMutation(baseOptions?: Apollo.MutationHookOpt
 export type CreateDietRecordMutationHookResult = ReturnType<typeof useCreateDietRecordMutation>;
 export type CreateDietRecordMutationResult = Apollo.MutationResult<CreateDietRecordMutation>;
 export type CreateDietRecordMutationOptions = Apollo.BaseMutationOptions<CreateDietRecordMutation, CreateDietRecordMutationVariables>;
+export const SaveFoodFiltersDocument = gql`
+    mutation SaveFoodFilters($filters: [String!]!) {
+  saveFoodFilters(data: $filters) {
+    id
+    label
+  }
+}
+    `;
+export type SaveFoodFiltersMutationFn = Apollo.MutationFunction<SaveFoodFiltersMutation, SaveFoodFiltersMutationVariables>;
+
+/**
+ * __useSaveFoodFiltersMutation__
+ *
+ * To run a mutation, you first call `useSaveFoodFiltersMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveFoodFiltersMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveFoodFiltersMutation, { data, loading, error }] = useSaveFoodFiltersMutation({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useSaveFoodFiltersMutation(baseOptions?: Apollo.MutationHookOptions<SaveFoodFiltersMutation, SaveFoodFiltersMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SaveFoodFiltersMutation, SaveFoodFiltersMutationVariables>(SaveFoodFiltersDocument, options);
+      }
+export type SaveFoodFiltersMutationHookResult = ReturnType<typeof useSaveFoodFiltersMutation>;
+export type SaveFoodFiltersMutationResult = Apollo.MutationResult<SaveFoodFiltersMutation>;
+export type SaveFoodFiltersMutationOptions = Apollo.BaseMutationOptions<SaveFoodFiltersMutation, SaveFoodFiltersMutationVariables>;
 export const TrackCaloriesDocument = gql`
     query TrackCalories {
   trackCalories {
