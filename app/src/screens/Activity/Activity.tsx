@@ -15,6 +15,7 @@ import {
   Loading,
   MoodStats,
   ActivityRecords,
+  ActivityList
 } from "../../components";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
@@ -86,6 +87,7 @@ export const Activity: React.FC<any> = ({ navigation }) => {
               </View>
             </Pressable>
           </View>
+          <ActivityList />
           <ActivityRecords />
           <View
             style={{
@@ -125,39 +127,6 @@ export const Activity: React.FC<any> = ({ navigation }) => {
               <MoodStats refreshing={refreshing} />
             </View>
           </View>
-          {/*
-        <View style={{ height: 140 }}>
-          <Slider
-            selected={selected}
-            onSelect={(sel) => handleSelect(sel)}
-            color={colors.c3}
-            categories={data.recordCategories}
-          />
-        </View>
-
-        <View style={styles.recipesContainer}>
-          {_records.loading || _records.error ? (
-            <Loading />
-          ) : (
-            <ScrollView showsVerticalScrollIndicator={false}>
-              {selected != "sports" ? (
-                _records.data.records.records?.map((rec, key) => (
-                  <ActivityThumbnail
-                    unit={rec.category.unit}
-                    value={rec.value}
-                    feedback={"You know better !"}
-                    time={rec.time}
-                    key={key}
-                  />
-                ))
-              ) : (
-                <Text>Sports !</Text>
-              )}
-              <View style={{ height: 150 }} />
-            </ScrollView>
-          )}
-          </View>
-          */}
         </ScrollView>
       </SafeAreaView>
     </View>

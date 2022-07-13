@@ -63,9 +63,11 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
           <Text style={styles.unit}>calories</Text>
         </Text>
       </View>
-      <Text style={styles.metadata}> {data.userCalories.value} Cal Taken</Text>
       <Text style={styles.metadata}>
-        -{_burnedCalories.data.getUserBurnedCalories} Cal Burned
+        🥘 {data.userCalories.value} calories taken 
+      </Text>
+      <Text style={styles.metadata}>
+        🔥 -{_burnedCalories.data.getUserBurnedCalories} calories burned
       </Text>
       <LoadingBar
         progress={calcProgress(

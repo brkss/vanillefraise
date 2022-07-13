@@ -2,13 +2,17 @@ import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
 interface Props {
-  change: (v: string) => void; 
+  change: (v: string) => void;
 }
 
-export const SearchInput: React.FC<Props> = ({change}) => {
+export const SearchInput: React.FC<Props> = ({ change }) => {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} onChangeText={(v) => change(v)} placeholder={"Search..."} />
+      <TextInput
+        style={styles.input}
+        onChangeText={(v) => change(v)}
+        placeholder={"Search (title, nutritient, ingredient)..."}
+      />
     </View>
   );
 };
@@ -16,7 +20,7 @@ export const SearchInput: React.FC<Props> = ({change}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 0,
-    marginBottom: 5,
+    marginBottom: 10,
   },
   input: {
     backgroundColor: "#EBEBEB",

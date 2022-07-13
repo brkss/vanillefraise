@@ -24,6 +24,7 @@
     "convert-units": "^2.3.4",
     "dayjs": "^1.10.8",
     "expo": "~44.0.0",
+    "expo-blur": "~11.0.0",
     "expo-constants": "~13.0.1",
     "expo-device": "~4.1.0",
     "expo-font": "~10.0.4",
