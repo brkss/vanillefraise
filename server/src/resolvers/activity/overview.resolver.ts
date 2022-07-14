@@ -42,7 +42,7 @@ export class ActivityOverviewResolver {
         result[index].count += activity.calories || 0;
       }
     }
-    return result;
+    return result.reverse();
   }
 
   @UseMiddleware(isUserAuth)

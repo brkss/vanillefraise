@@ -47,7 +47,7 @@ let ActivityOverviewResolver = class ActivityOverviewResolver {
                 result[index].count += activity.calories || 0;
             }
         }
-        return result;
+        return result.reverse();
     }
     async getUserBurnedCalories(ctx) {
         const user = await User_1.User.findOne({
