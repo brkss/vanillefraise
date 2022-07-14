@@ -8,12 +8,15 @@ import {
   ActivityTime,
 } from "../../components";
 import {
+  ActivitiesBurnedCaloriesDataDocument,
+  ActivitiesBurnedCaloriesDataQuery,
   GetUserBurnedCaloriesDocument,
   GetUserBurnedCaloriesQuery,
   useCreateActivityMutation,
   UserCaloriesDocument,
   UserCaloriesQuery,
 } from "../../generated/graphql";
+import dayjs from "dayjs";
 
 interface IFeedBack {
   id: string;
@@ -72,24 +75,41 @@ export const FinishExercise: React.FC<any> = ({ route, navigation }) => {
       },
       update: (store, { data }) => {
         if (!data || !data.createActivity.status) return;
+        const burnedCaloriesData =
+          store.readQuery<ActivitiesBurnedCaloriesDataQuery>({
+            query: ActivitiesBurnedCaloriesDataDocument,
+          }).activitiesBurnedCaloriesData;
+        const index = burnedCaloriesData.findIndex(
+          (d) => dayjs(d.date).diff(dayjs(), "d") === 0
+        );
+        if (index > -1) {
+          burnedCaloriesData[index].count += data.createActivity.burnedCalories;
+        } else if (index === -1) {
+          burnedCaloriesData.push(
+            Object.assign(
+              {},
+              {
+                count: data.createActivity.burnedCalories || 0,
+                date: new Date(),
+              }
+            )
+          );
+        }
         const caloriesData = store.readQuery<GetUserBurnedCaloriesQuery>({
           query: GetUserBurnedCaloriesDocument,
         }).getUserBurnedCalories;
         console.log("UPDATE THAT SHIT !");
+        store.writeQuery<ActivitiesBurnedCaloriesDataQuery>({
+          query: ActivitiesBurnedCaloriesDataDocument,
+          data: {
+            activitiesBurnedCaloriesData: [...burnedCaloriesData],
+          },
+        });
         store.writeQuery<GetUserBurnedCaloriesQuery>({
           query: GetUserBurnedCaloriesDocument,
           data: {
-            getUserBurnedCalories: caloriesData + data.createActivity.burnedCalories 
-            /*
-            userCalories: {
-              value: caloriesData.value,
-              status: caloriesData.status,
-              burnt: caloriesData.burnt + data.createActivity.burnedCalories,
-              message: caloriesData.message,
-              target: caloriesData.target,
-              __typename: caloriesData.__typename,
-              },
-             */
+            getUserBurnedCalories:
+              caloriesData + data.createActivity.burnedCalories,
           },
         });
       },
