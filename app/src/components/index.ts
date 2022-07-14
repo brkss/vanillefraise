@@ -33,3 +33,4 @@ export * from './DietRecords';
 export * from './DietSettings';
 export * from './Translation';
 export * from './ActivityList'
+export * from './ActivityCalorieChart';
