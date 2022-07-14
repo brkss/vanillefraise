@@ -8,11 +8,11 @@ const filters = [
     id: "BY_NAME",
   },
   {
-    name: "By Ingredients",
+    name: "By Ingredient",
     id: "BY_INGREDIENTS",
   },
   {
-    name: "By Nutritients",
+    name: "By Nutritient",
     id: "BY_NUTRITIENTS",
   },
 ];
@@ -40,7 +40,7 @@ export const RecipeSearchSlider: React.FC<Props> = ({ select }) => {
           key={key}
           style={[
             styles.item,
-            { backgroundColor: selected == filter.id ? colors.c1 : colors.c2 },
+            { backgroundColor: selected == filter.id ? "#F6B1B1" : "#FFD9D9" },
           ]}
           onPress={() => handleSelect(filter.id)}
         >
@@ -54,14 +54,18 @@ export const RecipeSearchSlider: React.FC<Props> = ({ select }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 0,
-    marginVertical: 20,
+    marginVertical: 5,
+    height: 45,
   },
   item: {
+    alignItems: "center",
+    justifyContent: "center",
     padding: 10,
     paddingHorizontal: 17,
     marginRight: 5,
     backgroundColor: colors.c2,
     borderRadius: 10,
+    height: 40,
   },
   txt: {
     fontWeight: "bold",

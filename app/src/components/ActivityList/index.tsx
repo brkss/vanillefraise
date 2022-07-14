@@ -1,19 +1,19 @@
 import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { Item } from "./Item";
-import { useActivitiesQuery } from '../../generated/graphql';
-import { Loading } from '../General';
+import { useActivitiesQuery } from "../../generated/graphql";
+import { Loading } from "../General";
 
 const tmp = new Array(10).fill(0);
 
 export const ActivityList: React.FC = () => {
-
   const { data, loading, error } = useActivitiesQuery();
-  if(loading || error ) return <Loading />
+  if (loading || error) return <Loading />;
 
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>Latest Activities</Text>
         <View style={styles.row}>
           {data.activities.map((item, key) => (
             <View
@@ -26,7 +26,11 @@ export const ActivityList: React.FC = () => {
                 },
               ]}
             >
-              <Item title={item.category.name} icon={item.category.icon} date={item.created_at} />
+              <Item
+                title={item.category.name}
+                icon={item.category.icon}
+                date={item.created_at}
+              />
             </View>
           ))}
         </View>
@@ -37,7 +41,7 @@ export const ActivityList: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    //
+    marginTop: 15,
   },
   row: {
     flexDirection: "row",
@@ -49,5 +53,11 @@ const styles = StyleSheet.create({
     width: "50%",
     marginBottom: 10,
     //padding: 10
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#434343",
+    marginBottom: 7,
   },
 });

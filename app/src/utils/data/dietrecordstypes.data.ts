@@ -5,11 +5,6 @@ export const diet_record_types  = [
     name: "weight",
   },
   {
-    id: "HEIGHT",
-    unit: "cm",
-    name: "height"
-  },
-  {
     id: "IN_CALORIES",
     name: "Taken Calories",
     unit: "Cal"
@@ -19,4 +14,10 @@ export const diet_record_types  = [
     unit: "Cal",
     id: "BURNED_CALORIES"
   },
+  {
+    id: "HEIGHT",
+    unit: "cm",
+    name: "height"
+  },
+  
 ]

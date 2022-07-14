@@ -1,8 +1,39 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import { useActivitiesBurnedCaloriesDataQuery } from "../../generated/graphql";
+import { Loading } from "../../components/General";
+import Moment from "moment";
 
 export const ActivityCalorieChart: React.FC = () => {
+  const [data, setData] = React.useState<any>({
+    labels: [],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  });
+  const _results = useActivitiesBurnedCaloriesDataQuery({
+    onCompleted: (res) => {
+      if (res.activitiesBurnedCaloriesData.length > 0) {
+        setData({
+          labels: res.activitiesBurnedCaloriesData.map((d) =>
+            Moment(d.date).format("DD/MM").toString()
+          ),
+          datasets: [
+            {
+              data: res.activitiesBurnedCaloriesData.map((d) => d.count),
+            },
+          ],
+        });
+      }
+    },
+  });
+
+  if (_results.loading || _results.error) return <Loading />;
+
+  /*
   const data = {
     labels: ["09/07", "10/07", "11/07", "12/07", "13/07", "14/07"],
     datasets: [
@@ -10,7 +41,7 @@ export const ActivityCalorieChart: React.FC = () => {
         data: [20, 145, 28, 80, 99, 43],
       },
     ],
-  };
+  };*/
 
   const config = {
     backgroundColor: "#fff",
@@ -29,7 +60,18 @@ export const ActivityCalorieChart: React.FC = () => {
       <View style={styles.chartContainer}>
         <LineChart
           bezier
-          data={data}
+          data={{
+            labels: _results.data.activitiesBurnedCaloriesData.map((d) =>
+              Moment(d.date).format("DD/MM").toString()
+            ),
+            datasets: [
+              {
+                data: _results.data.activitiesBurnedCaloriesData.map(
+                  (d) => d.count
+                ),
+              },
+            ],
+          }}
           width={Dimensions.get("window").width + 50}
           height={200}
           chartConfig={{
@@ -64,7 +106,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#434343"
+    color: "#434343",
   },
   subtitle: {
     fontSize: 14,
