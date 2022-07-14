@@ -7,9 +7,44 @@ import { getRepository } from "typeorm";
 import { DietRecord } from "../../entity/Diet/Record";
 import dayjs from "dayjs";
 import { Like } from "typeorm";
+import { ActivityDataResponse } from "../../utils/responses/activity";
 
 @Resolver()
 export class ActivityOverviewResolver {
+  @UseMiddleware(isUserAuth)
+  @Query(() => [ActivityDataResponse])
+  async activitiesBurnedCaloriesData(
+    @Ctx() ctx: IContext
+  ): Promise<ActivityDataResponse[]> {
+    const user = await User.findOne({
+      where: { id: ctx.payload.userID },
+    });
+    if (!user) return [];
+    const activities = await Activity.find({
+      where: { user: user },
+      order: { created_at: "DESC" },
+      take: 7,
+      //take: 8,
+    });
+    const result: ActivityDataResponse[] = [];
+    for (let activity of activities) {
+      const index = result.findIndex(
+        (x) => dayjs(x.date).diff(activity.created_at, "d") === 0
+      );
+      if (index === -1) {
+        result.push(
+          Object.assign(
+            {},
+            { count: activity.calories || 0, date: activity.created_at }
+          )
+        );
+      } else if (index > -1) {
+        result[index].count += activity.calories || 0;
+      }
+    }
+    return result;
+  }
+
   @UseMiddleware(isUserAuth)
   @Query(() => Number)
   async getUserBurnedCalories(@Ctx() ctx: IContext): Promise<number> {
@@ -38,7 +73,8 @@ export class ActivityOverviewResolver {
       },
     });
     const res =
-      (sum === null ? 0 : Number(sum)) + records.reduce((s, e) => s + e.value, 0) ;
+      (sum === null ? 0 : Number(sum)) +
+      records.reduce((s, e) => s + e.value, 0);
     return res;
   }
 }
