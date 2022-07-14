@@ -1,12 +1,20 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
+import Moment from "moment";
+import { colors } from "../../utils/colors";
 
-export const Item: React.FC = () => {
+interface Props {
+  title: string;
+  icon: string;
+  date: Date;
+}
+
+export const Item: React.FC<Props> = ({ icon, title, date }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.icon}>🏄</Text>
-      <Text style={styles.title}>Surfing</Text>
-      <Text style={styles.date}>09/07/2022 19:03</Text>
+      <Text style={styles.icon}>{icon}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.date}>{Moment(date).format("DD/MM/YYYY hh:mm")}</Text>
     </View>
   );
 };
@@ -14,7 +22,7 @@ export const Item: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: "#DEE5FF",
+    backgroundColor: colors.c3,
     borderRadius: 14,
   },
   icon: {
