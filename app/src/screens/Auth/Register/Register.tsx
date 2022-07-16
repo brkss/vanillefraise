@@ -59,7 +59,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
     sc: [],
     birth: undefined,
   });
-  const [status, setStatus] = React.useState("INTRO");
+  const [status, setStatus] = React.useState("INFORMATION");
   const [helviticaCondensed] = useFonts({
     "helvitica-condesed": require("../../../assets/helvitica-condensed.otf"),
   });
@@ -107,7 +107,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
   };
 
   const closeRegister = () => {
-    setStatus("INTRO");
+    navigation.push("intro");
   };
   const handleRegister = () => {
     register({
@@ -138,12 +138,12 @@ export const Register: React.FC<any> = ({ navigation }) => {
             await SecureStore.getItemAsync("TOKEN")
           );
         } else {
-          setStatus("INTRO");
+          navigation.push("intro");
         }
         console.log("register response => ", res);
       })
       .catch((e) => {
-        setStatus("INTRO");
+        setStatus("INFORMATION");
         console.log("Sonething went wrong while trying to register => ", e);
       });
   };
@@ -162,23 +162,15 @@ export const Register: React.FC<any> = ({ navigation }) => {
     */
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1, paddingTop: 10 }}>
-        {status != "INTRO" && (
-          <Close
-            isRegister={true}
-            pressed={() => {
-              closeRegister();
-            }}
-          />
-        )}
+        <Close
+          isRegister={true}
+          pressed={() => {
+            closeRegister();
+          }}
+        />
         <View style={styles.content}>
           {
             {
-              INTRO: (
-                <RegisterIntro
-                  login={() => navigation.push("login")}
-                  pass={() => setStatus("INFORMATION")}
-                />
-              ),
               INFORMATION: (
                 <RegisterInformation
                   pass={(data: IInformationData) =>
