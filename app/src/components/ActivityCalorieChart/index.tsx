@@ -33,16 +33,6 @@ export const ActivityCalorieChart: React.FC = () => {
 
   if (_results.loading || _results.error) return <Loading />;
 
-  /*
-  const data = {
-    labels: ["09/07", "10/07", "11/07", "12/07", "13/07", "14/07"],
-    datasets: [
-      {
-        data: [20, 145, 28, 80, 99, 43],
-      },
-    ],
-  };*/
-
   const config = {
     backgroundColor: "#fff",
     //backgroundGradientFrom: "#ffe4d4",
@@ -72,7 +62,7 @@ export const ActivityCalorieChart: React.FC = () => {
               },
             ],
           }}
-          width={Dimensions.get("window").width + 50}
+          width={Dimensions.get("window").width + 40}
           height={200}
           chartConfig={{
             //backgroundColor: "white",
@@ -90,7 +80,6 @@ export const ActivityCalorieChart: React.FC = () => {
           }}
           style={{ padding: 0, margin: 0, paddingLeft: 0 }}
           withInnerLines={false}
-          //withVerticalLabels={false}
           withHorizontalLabels={false}
           withOuterLines={false}
         />

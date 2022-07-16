@@ -90,45 +90,6 @@ export const Activity: React.FC<any> = ({ navigation }) => {
           </View>
           <ActivityCalorieChart />
           <ActivityList />
-          <ActivityRecords />
-          <View
-            style={{
-              borderTopWidth: 1,
-              borderTopColor: "#434343",
-              marginVertical: 15,
-              marginBottom: 20,
-              opacity: 0.4,
-            }}
-          />
-          {alertData.show ? (
-            <Alert
-              onClick={() => SetAlertData({ ...alertData, show: false })}
-              type={alertData.type as any}
-              txt={alertData.text}
-            />
-          ) : null}
-          <TodaysMood
-            triggerAlert={(msg) => {
-              onRefresh();
-              SetAlertData({ text: msg, type: "success", show: true });
-            }}
-          />
-          <View
-            style={{
-              borderTopWidth: 1,
-              borderTopColor: "#434343",
-              marginVertical: 15,
-              marginBottom: 20,
-              opacity: 0.4,
-            }}
-          />
-          <View>
-            <Text style={styles.subtitle}>About your mood</Text>
-            <Text> According to your records </Text>
-            <View style={{ marginBottom: 30 }}>
-              <MoodStats refreshing={refreshing} />
-            </View>
-          </View>
         </ScrollView>
       </SafeAreaView>
     </View>

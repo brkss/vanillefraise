@@ -34,3 +34,4 @@ export * from './DietSettings';
 export * from './Translation';
 export * from './ActivityList'
 export * from './ActivityCalorieChart';
+export * from './RecipeHealthLabels'

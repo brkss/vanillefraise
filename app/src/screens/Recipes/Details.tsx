@@ -18,6 +18,7 @@ import {
   RecipeNutrition,
   SaveRecipe,
   Languages,
+  RecipeHealthLabel,
 } from "../../components";
 import {
   useRecipeQuery,
@@ -108,6 +109,9 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             prep={data.recipe.recipe?.prep || undefined}
             cook={data.recipe.recipe?.cook || undefined}
             total={data.recipe.recipe?.total || undefined}
+          />
+          <RecipeHealthLabel
+            labels={data.recipe.recipe.healthlabel.map((hl) => hl.label.split('_').join(' '))}
           />
           <RecipeNutrition recipeId={id} />
           <View
