@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, View, StyleSheet, Text, Dimensions } from "react-native";
 import { IntroSlider } from "../../components";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,30 +30,36 @@ const sliders = [
   },
 ];
 
-export const Intro: React.FC = () => {
+export const Intro: React.FC<any> = ({ navigation }) => {
   return (
-    <View style={{ flex: 1 }}>
+    <LinearGradient
+      colors={["#fff", "#fbeaea"]}
+      end={{ x: 1, y: 1 }}
+      style={{ flex: 1 }}
+    >
       <View style={{ flex: 1 }}>
         <ScrollView
           bounces={false}
           snapToInterval={width}
           //snapToOffsets={[0, width / 2]}
           horizontal
-          style={{ backgroundColor: "lightpink" }}
           decelerationRate="fast"
         >
           {sliders.map((slider, key) => (
             <View style={{ width: width, height: height }} key={key}>
               <IntroSlider
+                isLast={sliders.length - 1 === key}
                 description={slider.description}
                 title={slider.title}
                 icon={slider.icon}
+                register={() => navigation.push("register")}
+                login={() => navigation.push("login")}
               />
             </View>
           ))}
         </ScrollView>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 

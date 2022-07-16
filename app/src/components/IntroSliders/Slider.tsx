@@ -1,32 +1,52 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Button } from "./Button";
+import { LinearGradient } from "expo-linear-gradient";
+import { BlurView } from "expo-blur";
 
 interface Props {
-  title: string,
+  title: string;
   description: string;
   icon: string;
+  isLast?: boolean;
+  login: () => void;
+  register: () => void;
 }
 
-export const IntroSlider: React.FC<Props> = ({icon, title, description}) => {
+export const IntroSlider: React.FC<Props> = ({
+  icon,
+  title,
+  description,
+  isLast,
+  login,
+  register
+}) => {
   return (
     <View style={styles.container}>
-      <View style={{}}>
+      <BlurView style={{ flex: 1, justifyContent: "space-evenly" }}>
         <Text style={styles.icon}>{icon}</Text>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>
-          {description}
-        </Text>
-      </View>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{description}</Text>
+        </View>
+        {isLast && (
+          <View style={{ marginTop: 30 }}>
+            <Button clicked={() => register()} txt={"Create Account"} />
+            <Button clicked={() => login()} txt={"Login "} />
+          </View>
+        )}
+      </BlurView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    padding: 20,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
+    //justifyContent: "space-between",
+    //alignItems: "center",
+    //backgroundColor: "white",
   },
   icon: {
     fontSize: 100,
