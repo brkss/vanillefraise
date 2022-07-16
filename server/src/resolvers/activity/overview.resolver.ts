@@ -26,11 +26,24 @@ export class ActivityOverviewResolver {
       take: 7,
       //take: 8,
     });
-    const result: ActivityDataResponse[] = [];
+    let result: ActivityDataResponse[] = new Array(7).fill({
+      date: new Date(),
+      count: 0,
+    });
+    result = result.map((_, i) => {
+      return {
+        date: dayjs()
+          .subtract(7 - i, "d")
+          .toDate(),
+        count: 0,
+      };
+    });
+    console.log("results : ", result);
     for (let activity of activities) {
       const index = result.findIndex(
         (x) => dayjs(x.date).diff(activity.created_at, "d") === 0
       );
+      /* 
       if (index === -1) {
         result.push(
           Object.assign(
@@ -38,11 +51,11 @@ export class ActivityOverviewResolver {
             { count: activity.calories || 0, date: activity.created_at }
           )
         );
-      } else if (index > -1) {
+      } else*/ if (index > -1) {
         result[index].count += activity.calories || 0;
       }
     }
-    return result.reverse();
+    return result;
   }
 
   @UseMiddleware(isUserAuth)

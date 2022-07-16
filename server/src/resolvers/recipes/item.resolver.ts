@@ -78,7 +78,7 @@ export class RecipeItemResolver {
     }
     const recipe = await Recipe.findOne({
       where: { id: id },
-      relations: ["instructions", "ingredients"],
+      relations: ["instructions", "ingredients", "healthlabel"],
     });
     if (!recipe)
       return {

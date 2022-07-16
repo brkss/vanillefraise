@@ -37,17 +37,26 @@ let ActivityOverviewResolver = class ActivityOverviewResolver {
             order: { created_at: "DESC" },
             take: 7,
         });
-        const result = [];
+        let result = new Array(7).fill({
+            date: new Date(),
+            count: 0,
+        });
+        result = result.map((_, i) => {
+            return {
+                date: (0, dayjs_1.default)()
+                    .subtract(7 - i, "d")
+                    .toDate(),
+                count: 0,
+            };
+        });
+        console.log("results : ", result);
         for (let activity of activities) {
             const index = result.findIndex((x) => (0, dayjs_1.default)(x.date).diff(activity.created_at, "d") === 0);
-            if (index === -1) {
-                result.push(Object.assign({}, { count: activity.calories || 0, date: activity.created_at }));
-            }
-            else if (index > -1) {
+            if (index > -1) {
                 result[index].count += activity.calories || 0;
             }
         }
-        return result.reverse();
+        return result;
     }
     async getUserBurnedCalories(ctx) {
         const user = await User_1.User.findOne({

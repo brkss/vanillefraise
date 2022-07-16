@@ -57,7 +57,7 @@ let RecipeItemResolver = class RecipeItemResolver {
         }
         const recipe = await Recipe_1.Recipe.findOne({
             where: { id: id },
-            relations: ["instructions", "ingredients"],
+            relations: ["instructions", "ingredients", "healthlabel"],
         });
         if (!recipe)
             return {
