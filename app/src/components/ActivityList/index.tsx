@@ -27,6 +27,7 @@ export const ActivityList: React.FC = () => {
               ]}
             >
               <Item
+                calories={item.calories}
                 title={item.category.name}
                 icon={item.category.icon}
                 date={item.created_at}

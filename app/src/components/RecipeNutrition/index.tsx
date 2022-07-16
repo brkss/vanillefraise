@@ -48,14 +48,16 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
       <Text style={styles.heading}>Total Daily Nutrition</Text>
       <Text style={styles.subheading}>Per serving</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-        {data.getRecipeNutrition.totalDaily.map((n, key) => (
-          <DailyNutritionItem
-            unit={n.unit}
-            quantity={n.quantity}
-            label={n.label}
-            key={key}  
-          />
-        ))}
+        {data.getRecipeNutrition.totalDaily
+          .sort((a, b) => b.quantity - a.quantity)
+          .map((n, key) => (
+            <DailyNutritionItem
+              unit={n.unit}
+              quantity={n.quantity}
+              label={n.label}
+              key={key}
+            />
+          ))}
       </ScrollView>
     </View>
   );

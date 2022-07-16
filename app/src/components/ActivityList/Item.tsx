@@ -15,7 +15,7 @@ export const Item: React.FC<Props> = ({ icon, title, date, calories }) => {
     <View style={styles.container}>
       <Text style={styles.icon}>{icon}</Text>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.calories}>🔥 {calories} calorie</Text>
+      <Text style={styles.calories}>{calories} calorie</Text>
       <Text style={styles.date}>{Moment(date).format("DD/MM/YYYY hh:mm")}</Text>
     </View>
   );
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   calories: {
-    fontSize: 15,
+    fontSize: 14,
     opacity: 0.8,
   },
   date: {
