@@ -155,7 +155,6 @@ export class UserResolver {
       user.gender = data.gender;
       user.bmi = data.bmi;
       user.birth = data.birth;
-
       const sc: SpecialCondition[] = [];
       for (let s of data.sc) {
         const condition = await SpecialCondition.findOne({ where: { id: s } });
@@ -171,7 +170,7 @@ export class UserResolver {
       await user.save();
       // send account verification email !
       const _verificationToken = generateAccountVerificationToken(user);
-      sendVerifyAccountMail(user.email, user.name, _verificationToken)
+      sendVerifyAccountMail(user.email, user.name, _verificationToken);
       // send refresh token as cookie
       const refreshToken = generateRefreshToken(user);
       sendRefreshToken(res, refreshToken);

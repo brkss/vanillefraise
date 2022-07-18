@@ -13,6 +13,7 @@ const transporter = nodemailer_1.default.createTransport({
         user: process.env.EMAIL,
         pass: process.env.PASS,
     },
+    from: "berkassebrahim12@gmail.com"
 });
 const sendVerifyAccountMail = async (to, name, token) => {
     const result = await transporter.sendMail({
