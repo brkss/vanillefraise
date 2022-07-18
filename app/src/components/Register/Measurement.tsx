@@ -10,14 +10,15 @@ import {
 import { InvisibleInput } from "../General/InvisibleInput";
 import { Button } from "../General/Button";
 import { IMeasurementData } from "../../utils/types/Register";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import dayjs from "dayjs";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import Moment from "moment";
 
 interface Props {
   pass: (data: IMeasurementData) => void;
 }
 
 export const Measurement: React.FC<Props> = ({ pass }) => {
+  const [visible, setVisible] = React.useState(false);
   const [show, setShow] = React.useState(Platform.OS == "ios");
   const [date, setDate] = React.useState(new Date("4/9/2000"));
   const [form, SetForm] = React.useState<any>({
@@ -37,6 +38,19 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
     setDate(currentDate);
     console.log("CHANGE DATE !");
     handleForm("birth", currentDate);
+  };
+
+  const handleShowModal = () => {
+    setVisible(true);
+  };
+  const handleHideModal = () => {
+    setVisible(false);
+  };
+
+  const handleConfirm = (time: Date) => {
+    setDate(time);
+    handleForm("birth", time);
+    handleHideModal();
   };
 
   const saveData = () => {
@@ -69,11 +83,6 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
         label={"HEIGHT"}
         txtChange={(t) => handleForm("height", t)}
       />
-      {/*<InvisibleInput
-        unit={"YEARS"}
-        label={"AGE"}
-        txtChange={(t) => handleForm("age", t)}
-      />*/}
       <View>
         <Text
           style={{
@@ -85,6 +94,20 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
         >
           BIRTHDAY
         </Text>
+        <Pressable onPress={handleShowModal}>
+          <Text style={styles.datevalue}>
+            {Moment(date).format("DD/MM/YYYY")}
+          </Text>
+        </Pressable>
+        <DateTimePickerModal
+          maximumDate={new Date()}
+          date={date}
+          mode={"date"}
+          onCancel={handleHideModal}
+          isVisible={visible}
+          onConfirm={(t) => handleConfirm(t)}
+        />
+        {/*
         {show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -98,7 +121,7 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
           <Pressable onPress={() => setShow((curr) => !curr)}>
             <Text style={styles.date}>{dayjs(date).format("DD/MM/YYYY")}</Text>
           </Pressable>
-        )}
+        )}*/}
       </View>
       <Button clicked={() => saveData()} txt={"NEXT"} />
     </KeyboardAvoidingView>
@@ -114,6 +137,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     textAlign: "right",
+    fontFamily: "helvitica-condesed",
+  },
+  datevalue: {
+    fontSize: 35,
+    opacity: 0.8,
+    color: "#434343",
+    fontWeight: "bold",
     fontFamily: "helvitica-condesed",
   },
 });
