@@ -1,19 +1,56 @@
 import React from "react";
-import { Center, Box, Text } from "@chakra-ui/react";
+import { Center, Box, Text, Image, Button } from "@chakra-ui/react";
+const cheese = require("../assets/sandwish-fly.png");
 
 export const Intro: React.FC = () => {
   return (
     <Box h={"100vh"}>
-      <Center h={"100vh"}>
-        <Box
-          rounded={"50px"}
-          borderBottomLeftRadius={"10px"}
-          p={"10px 20px"}
-          bg={"#2294fb"}
-          color={"white"}
+      <Center
+        pos={"relative"}
+        h={"100vh"}
+        padding={"10px"}
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(251,248,248,1) 0%, rgba(254,208,208,1) 100%)",
+        }}
+      >
+        <Image src={cheese} pos={"absolute"} />
+        <Text
+          fontWeight={"bold"}
+          //zIndex={999}
+          width={{ lg: "auto", base: "110%" }}
+          fontSize={{ lg: "40px", base: "17px" }}
+          color={"#434343"}
         >
-          <Text fontWeight={"bold"}>meet you for eggs in the morning ? 🍳</Text>
-        </Box>
+          Extend your lifespan
+        </Text>
+        <Text
+          fontWeight={"bold"}
+          transform={{ lg: "translateY(150%)", base: "translateY(240%)" }}
+          width={{ lg: "auto", base: "110%" }}
+          fontSize={{ lg: "40px", base: "20px" }}
+          //zIndex={999}
+          color={"#434343"}
+        >
+          by up to ten-years.
+        </Text>
+        <Button
+          fontWeight={"bold"}
+          pos={"absolute"}
+          _focus={{ outline: "none" }}
+          _hover={{
+            background: "#fe8285",
+            color: "white",
+            opacity: 1,
+            transition: 0.3,
+          }}
+          rounded={"50px"}
+          background={"#fe8285"}
+          color={"white"}
+          bottom={{ lg: "50px", base: "20px" }}
+        >
+          ✨ Get Started, It's Free. ✨
+        </Button>
       </Center>
     </Box>
   );

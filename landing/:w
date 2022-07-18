@@ -1,0 +1,38 @@
+import React from "react";
+import { Center, Box, Text, Image } from "@chakra-ui/react";
+const cheese = require("../assets/sandwish-fly.png");
+
+export const Intro: React.FC = () => {
+  return (
+    <Box h={"100vh"}>
+      <Center
+      h={"100vh"}
+      p={'10px'}
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(251,248,248,1) 0%, rgba(254,208,208,1) 100%)",
+        }}
+      >
+        <Image src={cheese} pos={"absolute"} />
+        <Text
+          fontWeight={"bold"}
+          //zIndex={999}
+          width={{ lg: "auto", base: "110%" }}
+          fontSize={{ lg: "40px", base: "20px" }}
+          color={"#434343"}
+        >
+          Extend you lifespan
+        </Text>
+        <Text
+          fontWeight={"bold"}
+          transform={"translateY(150%)"}
+          //zIndex={999}
+          fontSize={"40px"}
+          color={"#434343"}
+        >
+          by up to ten-years.
+        </Text>
+      </Center>
+    </Box>
+  );
+};
