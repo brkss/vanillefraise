@@ -1,25 +1,39 @@
 import React from "react";
 import { Center, Box, Text, Image, Button } from "@chakra-ui/react";
-const cloud = require("../assets/cloud.png");
+const icon = require("../assets/icon.png");
 const cheese = require("../assets/sandwish-fly.png");
 
 export const Intro: React.FC = () => {
   return (
-    <Box h={"100vh"}>
+    <Box h={"90vh"}>
       <Center
         pos={"relative"}
-        h={"100vh"}
+        h={"90vh"}
         padding={"10px"}
         style={{
           background:
             "linear-gradient(180deg, rgba(251,248,248,1) 0%, rgba(254,208,208,1) 100%)",
         }}
       >
-        <Image src={cheese} pos={"absolute"} />
+        <Text
+          zIndex={9}
+          top={"100px"}
+          rounded={"17px"}
+          pos={"absolute"}
+          w={"100%"}
+          opacity={0.7}
+          color={"#434343"}
+          textAlign={"center"}
+          fontSize={{ md: "20px", base: "16px" }}
+          fontWeight={"bold"}
+        >
+          👉 flexible enough to eat anything while keeping healthy 👈
+        </Text>
+        <Image zIndex={9} src={cheese} pos={"absolute"} />
         <Text
           fontWeight={"bold"}
-          //zIndex={999}
-          width={{ lg: "auto", base: "110%" }}
+          filter={"blur(.5px)"}
+          width={{ lg: "auto", base: "170%" }}
           fontSize={{ lg: "40px", base: "17px" }}
           color={"#434343"}
         >
@@ -28,32 +42,37 @@ export const Intro: React.FC = () => {
         <Text
           fontWeight={"bold"}
           transform={{ lg: "translateY(150%)", base: "translateY(240%)" }}
-          width={{ lg: "auto", base: "110%" }}
+          width={{ lg: "auto", base: "150%" }}
           fontSize={{ lg: "40px", base: "20px" }}
-          //zIndex={999}
+          zIndex={10}
           color={"#434343"}
         >
-          by up to ten-years.
+          up to ten-years.
         </Text>
-        <Button
-          fontWeight={"bold"}
-          pos={"absolute"}
-          _focus={{ outline: "none" }}
-          _hover={{
-            background: "#fe8285",
-            color: "white",
-            opacity: 1,
-            transition: 0.3,
-          }}
-          rounded={"50px"}
-          background={"#fe8285"}
-          color={"white"}
-          bottom={{ lg: "50px", base: "20px" }}
-          padding={"21px 14px"}
-          border={"6px solid #ffbdbe"}
-        >
-          ✨ Get Started, It's Free. ✨
-        </Button>
+        <Box pos={"absolute"} bottom={{ lg: "50px", base: "20px" }}>
+          <Box pos={"relative"}>
+            <Text pos={"absolute"} fontSize={"30px"} zIndex={99} top={"-13px"}>
+              ✨
+            </Text>
+            <Button
+              fontWeight={"bold"}
+              _focus={{ outline: "none" }}
+              _hover={{
+                background: "#fe8285",
+                color: "white",
+                opacity: 1,
+                transition: 0.3,
+              }}
+              rounded={"50px"}
+              background={"#fe8285"}
+              color={"white"}
+              padding={"21px 14px"}
+              border={"6px solid #ffbdbe"}
+            >
+              Get Started, It's Free.
+            </Button>
+          </Box>
+        </Box>
       </Center>
     </Box>
   );

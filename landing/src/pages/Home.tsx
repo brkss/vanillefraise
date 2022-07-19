@@ -22,9 +22,13 @@ export const Home: React.FC = () => {
               fontSize={{ md: "90px", base: "70px" }}
               lineHeight={{ md: "90px", base: "70px" }}
               fontWeight={"bold"}
-              opacity={0.8}
               fontFamily={"'Bebas Neue', cursive"}
               letterSpacing={"-1px"}
+              transform={"translateX(12px)"}
+              background={"-webkit-linear-gradient(#ffdada, #ff8d8d)"}
+              backgroundClip={"text"}
+              style={{ WebkitTextFillColor: "transparent" }}
+              zIndex={999}
             >
               Because
               <br />
