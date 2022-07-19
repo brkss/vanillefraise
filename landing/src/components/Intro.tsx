@@ -1,5 +1,6 @@
 import React from "react";
 import { Center, Box, Text, Image, Button } from "@chakra-ui/react";
+const cloud = require("../assets/cloud.png");
 const cheese = require("../assets/sandwish-fly.png");
 
 export const Intro: React.FC = () => {
@@ -48,6 +49,8 @@ export const Intro: React.FC = () => {
           background={"#fe8285"}
           color={"white"}
           bottom={{ lg: "50px", base: "20px" }}
+          padding={"21px 14px"}
+          border={"6px solid #ffbdbe"}
         >
           ✨ Get Started, It's Free. ✨
         </Button>

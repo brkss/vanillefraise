@@ -1,12 +1,13 @@
 import React from "react";
 import { Box, Center, GridItem, Grid, Heading } from "@chakra-ui/react";
-import { TopBar, Intro, Subscribe, Footer } from "../components";
+import { TopBar, Intro, Subscribe, Footer, About } from "../components";
 
 export const Home: React.FC = () => {
   return (
     <Box>
       <TopBar />
       <Intro />
+      <About />
       <Grid templateColumns="repeat(6, 1fr)">
         <GridItem colSpan={{ md: 3, base: 6 }}>
           <Center
