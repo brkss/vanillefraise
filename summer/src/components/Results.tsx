@@ -11,7 +11,7 @@ export const Results: React.FC = () => {
       </Text>
       <Box>
         <Text fontSize={"25px"} fontWeight={"bold"} display={"inline"}>
-          <Sparkles>Taghazout</Sparkles>
+          <Sparkles>📍 Taghazout</Sparkles>
         </Text>
         <Text
           fontSize={"25px"}
@@ -19,7 +19,7 @@ export const Results: React.FC = () => {
           display={"inline"}
           float={"right"}
         >
-          <Sparkles>31 °C</Sparkles>
+          <Sparkles>🌡 31 °C</Sparkles>
         </Text>
       </Box>
       <Text fontSize={"17px"} opacity={0.8} mb={"20px"}>
@@ -27,17 +27,23 @@ export const Results: React.FC = () => {
       </Text>
       <Box>
         <Text fontSize={"25px"} fontWeight={"bold"}>
-          UV index
+          🌞 UV index
         </Text>
         <Text fontSize={"35px"} fontWeight={"bold"} mt={"-16px"}>
           9
         </Text>
       </Box>
-      <hr style={{ borderTopColor: "#00000030", marginBottom: "20px" }} />
+      <hr
+        style={{
+          borderStyle: "dashed",
+          borderTopColor: "#00000030",
+          marginBottom: "20px",
+        }}
+      />
       <Grid templateColumns={"repeat(12, 1fr)"}>
         <GridItem colSpan={6}>
           <Text fontSize={"20px"} fontWeight={"bold"}>
-            <Sparkles>Sunscreen's SPF</Sparkles>
+            <Sparkles> 🧴 Sunscreen's SPF </Sparkles>
           </Text>
           <Text fontSize={"30px"} mt={"-10px"} fontWeight={"bold"}>
             40 SPF
@@ -49,10 +55,16 @@ export const Results: React.FC = () => {
           </Center>
         </GridItem>
       </Grid>
-      <hr style={{ borderTopColor: "#00000030", margin: "20px 0" }} />
+      <hr
+        style={{
+          borderStyle: "dashed",
+          borderTopColor: "#00000030",
+          margin: "20px 0",
+        }}
+      />
       <Box>
         <Text fontSize={"20px"} fontWeight={"bold"}>
-          <Sparkles>Protection</Sparkles>
+          <Sparkles>Protection ⛱</Sparkles>
         </Text>
         <Text>
           According to today’s UV follow these instructions for good skin
