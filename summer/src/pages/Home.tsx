@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading, Center, Box, Button, Text } from "@chakra-ui/react";
-import { Intro, SkinType, LocationPermission } from "../components";
+import { Intro, SkinType, LocationPermission, Results } from "../components";
 
 export const Home: React.FC = () => {
   return (
@@ -8,7 +8,8 @@ export const Home: React.FC = () => {
       <Center h={"100%"} bg={"#FFEFD3"}>
         {/*<Intro />*/}
         {/*<SkinType />*/}
-        <LocationPermission />  
+        {/*<LocationPermission /> */}
+        <Results />
       </Center>
     </Box>
   );
