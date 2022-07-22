@@ -17,24 +17,37 @@ export const Intro: React.FC = () => {
       >
         <Text
           zIndex={9}
-          top={"100px"}
+          top={"75px"}
           rounded={"17px"}
           pos={"absolute"}
           w={"100%"}
           opacity={0.7}
           color={"#434343"}
           textAlign={"center"}
-          fontSize={{ md: "20px", base: "16px" }}
+          fontSize={{ md: "20px", base: "13px" }}
           fontWeight={"bold"}
         >
-          👉 flexible enough to eat anything while keeping healthy 👈
+          ✨ Balancing your nutrition has never been so simple. ✨
+        </Text>
+        <Text
+          zIndex={9}
+          top={{ md: "110px", base: "100px" }}
+          rounded={"17px"}
+          pos={"absolute"}
+          w={"100%"}
+          opacity={0.7}
+          color={"#434343"}
+          textAlign={"center"}
+          fontSize={{ md: "15px", base: "12px" }}
+        >
+          🔒 Currently on Private Beta — Join the waitlist
         </Text>
         <Image zIndex={9} src={cheese} pos={"absolute"} />
         <Text
           fontWeight={"bold"}
           filter={"blur(.5px)"}
-          width={{ lg: "auto", base: "170%" }}
-          fontSize={{ lg: "40px", base: "17px" }}
+          width={{ md: "auto", base: "170%" }}
+          fontSize={{ md: "40px", base: "17px" }}
           color={"#434343"}
         >
           Extend your lifespan
@@ -42,8 +55,8 @@ export const Intro: React.FC = () => {
         <Text
           fontWeight={"bold"}
           transform={{ lg: "translateY(150%)", base: "translateY(240%)" }}
-          width={{ lg: "auto", base: "150%" }}
-          fontSize={{ lg: "40px", base: "20px" }}
+          width={{ md: "auto", base: "150%" }}
+          fontSize={{ md: "40px", base: "20px" }}
           zIndex={10}
           color={"#434343"}
         >
@@ -69,7 +82,7 @@ export const Intro: React.FC = () => {
               padding={"21px 14px"}
               border={"6px solid #ffbdbe"}
             >
-              Get Started, It's Free.
+              Guess what, It's free !
             </Button>
           </Box>
         </Box>

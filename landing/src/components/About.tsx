@@ -6,9 +6,28 @@ export const About: React.FC = () => {
   return (
     <Box h={"100vh"}>
       <Grid templateColumns={"repeat(6, 1fr)"}>
-        <GridItem h={"100vh"} colSpan={{ md: 3, base: 6 }}>
+        <GridItem
+          h={{ md: "100vh", base: "50vh" }}
+          pos={"relative"}
+          colSpan={{ md: 3, base: 6 }}
+        >
           <Center h={"100%"}>
-            <Box>
+            <Image
+              w={"300px"}
+              //top={"50%"}
+              //left={"50%"}
+              //pos={"absolute"}
+              //transform={"translate(-50%, -50%)"}
+              src={screenshot}
+            />
+          </Center>
+        </GridItem>
+        <GridItem
+          h={{ md: "100vh", base: "50vh" }}
+          colSpan={{ md: 3, base: 6 }}
+        >
+          <Center h={"100%"}>
+            <Box w={{ md: "400px", base: "300px" }}>
               <Text
                 color={"#434343"}
                 lineHeight={"30px"}
@@ -19,18 +38,15 @@ export const About: React.FC = () => {
                 Your Appetite, <br />
                 Your way !
               </Text>
+              <Text textAlign={"justify"} mt={"20px"}>
+                Take control ! listen to your appetite while choosing recipes to
+                cook and planing your meals. eat whatever you like while keeping
+                your nutritional balance, use <b>Vanille Fraise🍓</b> to track
+                and consume the right amount of calories, macronutrients and
+                micronutrients in your day without exceeding your caloric needs.
+              </Text>
             </Box>
           </Center>
-        </GridItem>
-        <GridItem h={"100vh"} pos={"relative"} colSpan={{ md: 3, base: 6 }}>
-          <Image
-            w={"300px"}
-            top={"50%"}
-            left={"50%"}
-            pos={"absolute"}
-            transform={"translate(-50%, -50%)"}
-            src={screenshot}
-          />
         </GridItem>
       </Grid>
     </Box>

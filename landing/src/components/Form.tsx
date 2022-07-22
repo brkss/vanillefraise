@@ -30,7 +30,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
     } else if (!name) {
       setError("Name cannot be blank");
       return false;
-    } else if (name.length < 4 ) {
+    } else if (name.length < 4) {
       setError("Invalid Name !");
       return false;
     } else if (!email) {
@@ -56,7 +56,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
         </Alert>
       )}
       <Text fontSize={"20px"} fontWeight={"bold"}>
-        GET INVITED
+        GET EARLY ACCESS
       </Text>
       <Input
         mb={"10px"}
@@ -105,7 +105,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
         loadingText={"Sending..."}
         isLoading={status === "sending"}
       >
-        JOIN
+        SEND
       </Button>
     </Box>
   );

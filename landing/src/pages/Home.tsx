@@ -45,6 +45,7 @@ export const Home: React.FC = () => {
           <Subscribe />
         </GridItem>
       </Grid>
+      <About />
       <Footer />
       {/*
       <TopBar />
