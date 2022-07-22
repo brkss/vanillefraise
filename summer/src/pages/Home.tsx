@@ -1,5 +1,6 @@
 import React from "react";
-import { Heading, Center, Box, Button } from "@chakra-ui/react";
+import { Heading, Center, Box, Button, Text } from "@chakra-ui/react";
+import Sparkles from "../components/Sparkles";
 
 export const Home: React.FC = () => {
   return (
@@ -7,8 +8,10 @@ export const Home: React.FC = () => {
       <Center h={"100%"} bg={"#FFEFD3"}>
         <Box>
           <Heading textAlign={"center"}>
-            Protect your skin, <br />
-            The right way !
+            <Sparkles>Protect your skin</Sparkles>, <br />
+            <Sparkles>
+              <Text fontWeight={"light"}>The right way !</Text>
+            </Sparkles>
           </Heading>
           <Heading mt={"30px"} fontSize={"100px"} textAlign={"center"}>
             🌞
