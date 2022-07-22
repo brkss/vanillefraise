@@ -1,18 +1,26 @@
 import React from "react";
-import { Box, position, Text } from "@chakra-ui/react";
+import { Box, Alert, AlertIcon, Text } from "@chakra-ui/react";
 import Sparkles from "./Sparkles";
 import { Btn } from "./Button";
-export const LocationPermission: React.FC = () => {
+
+interface Props {
+  forward: () => void;
+}
+
+export const LocationPermission: React.FC<Props> = ({ forward }) => {
   const [cords, setCords] = React.useState({ lat: 0, lon: 0 });
+  const [error, setError] = React.useState("");
 
   const handleLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         console.log("post : ", pos.coords.latitude, pos.coords.longitude);
         setCords({ lon: pos.coords.longitude, lat: pos.coords.latitude });
+        forward();
       },
       (e) => {
-        console.log("Someting went wrong !");
+        setError("Something Went Wrong !");
+        console.log("Someting went wrong !", e);
       }
     );
   };
@@ -22,6 +30,19 @@ export const LocationPermission: React.FC = () => {
       <Text fontSize={"20px"} fontWeight={"bold"}>
         <Sparkles>📍 Allow Location</Sparkles>
       </Text>
+
+      {error ? (
+        <Alert
+          rounded={"14px"}
+          fontWeight={"bold"}
+          marginY={"10px"}
+          status="error"
+        >
+          <AlertIcon />
+          {error}
+        </Alert>
+      ) : null}
+
       <Text mt={"20px"} fontWeight={"bold"}>
         why ? 🧐
       </Text>

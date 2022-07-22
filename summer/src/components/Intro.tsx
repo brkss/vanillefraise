@@ -1,8 +1,12 @@
 import React from "react";
-import { Heading, Center, Box, Button, Text } from "@chakra-ui/react";
+import { Heading, Box, Button, Text } from "@chakra-ui/react";
 import Sparkles from "./Sparkles";
 
-export const Intro: React.FC = () => {
+interface Props {
+  forward: () => void;
+}
+
+export const Intro: React.FC<Props> = ({forward}) => {
   return (
         <Box>
           <Heading textAlign={"center"}>
@@ -15,6 +19,7 @@ export const Intro: React.FC = () => {
             🌞
           </Heading>
           <Button
+            onClick={forward}
             mt={"30px"}
             w={"100%"}
             bg={"#FBD5A2"}
