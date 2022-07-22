@@ -1,13 +1,14 @@
 import React from "react";
 import { Heading, Center, Box, Button, Text } from "@chakra-ui/react";
-import { Intro, SkinType } from "../components";
+import { Intro, SkinType, LocationPermission } from "../components";
 
 export const Home: React.FC = () => {
   return (
     <Box h={"100vh"}>
       <Center h={"100%"} bg={"#FFEFD3"}>
         {/*<Intro />*/}
-        <SkinType />
+        {/*<SkinType />*/}
+        <LocationPermission />  
       </Center>
     </Box>
   );
