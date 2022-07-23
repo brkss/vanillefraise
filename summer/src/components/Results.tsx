@@ -6,6 +6,7 @@ import { SunHoursSlider } from "./SunHoursSlider";
 import { weather, uvi } from "../utils/weather";
 import { getSPF } from "../utils/spf";
 import { getUVProtection, getUVBadge } from "../utils/uv";
+import { AiFillInfoCircle } from "react-icons/ai";
 
 interface IData {
   city: string;
@@ -67,6 +68,11 @@ export const Results: React.FC<Props> = ({ data: d }) => {
       <Box>
         <Text fontSize={"25px"} fontWeight={"bold"}>
           🌞 UV index{" "}
+          <AiFillInfoCircle
+            display={"inline"}
+            style={{ display: "inline" }}
+            size={"16px"}
+          />
           <Text
             float={"right"}
             bg={getUVBadge(data.uv).color}
@@ -94,7 +100,15 @@ export const Results: React.FC<Props> = ({ data: d }) => {
       <Grid templateColumns={"repeat(12, 1fr)"}>
         <GridItem colSpan={6}>
           <Text fontSize={"20px"} fontWeight={"bold"}>
-            <Sparkles> 🧴 Sunscreen's SPF </Sparkles>
+            <Sparkles>
+              {" "}
+              🧴 Sunscreen's SPF{" "}
+              <AiFillInfoCircle
+                display={"inline"}
+                style={{ display: "inline" }}
+                size={"16px"}
+              />{" "}
+            </Sparkles>
           </Text>
           <Text fontSize={"30px"} mt={"-4px"} fontWeight={"bold"}>
             {getSPF(data.skinId, data.hours as any)} SPF
