@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Text, Grid, GridItem, Center } from "@chakra-ui/react";
 import { Instruction } from "./Instruction";
 import Sparkles from "./Sparkles";
+import { SunHoursSlider } from "./SunHoursSlider";
 
 export const Results: React.FC = () => {
   return (
@@ -40,12 +41,13 @@ export const Results: React.FC = () => {
           marginBottom: "20px",
         }}
       />
+      <SunHoursSlider />
       <Grid templateColumns={"repeat(12, 1fr)"}>
         <GridItem colSpan={6}>
           <Text fontSize={"20px"} fontWeight={"bold"}>
             <Sparkles> 🧴 Sunscreen's SPF </Sparkles>
           </Text>
-          <Text fontSize={"30px"} mt={"-10px"} fontWeight={"bold"}>
+          <Text fontSize={"30px"} mt={"-4px"} fontWeight={"bold"}>
             40 SPF
           </Text>
         </GridItem>

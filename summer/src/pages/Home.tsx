@@ -12,8 +12,8 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <Box h={"100vh"}>
-      <Center h={"100%"} bg={"#FFEFD3"}>
+    <Box minH={"100vh"}>
+      <Center minH={"100vh"} bg={"#FFEFD3"}>
         {
           {
             INTRO: <Intro forward={forward} />,

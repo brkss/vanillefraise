@@ -19,7 +19,7 @@ export const LocationPermission: React.FC<Props> = ({ forward }) => {
         forward();
       },
       (e) => {
-        setError("Something Went Wrong !");
+        setError("Location Permission Denied !");
         console.log("Someting went wrong !", e);
       }
     );
