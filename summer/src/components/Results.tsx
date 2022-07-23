@@ -16,6 +16,8 @@ import { getUVProtection, getUVBadge } from "../utils/uv";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { Info } from "./Info";
 import { descriptions } from "../utils/data/descriptions";
+import { save } from "../utils/storage";
+import { GrPowerReset } from "react-icons/gr";
 
 interface IData {
   city: string;
@@ -29,9 +31,10 @@ interface IData {
 
 interface Props {
   data: IData;
+  reset: () => void;
 }
 
-export const Results: React.FC<Props> = ({ data: d }) => {
+export const Results: React.FC<Props> = ({ data: d, reset }) => {
   const [data, setData] = React.useState<IData>(d);
   const [loading, setLoading] = React.useState(true);
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -50,6 +53,7 @@ export const Results: React.FC<Props> = ({ data: d }) => {
         city: w.name,
         uv: uv.value,
       });
+      save({ skinId: data.skinId, locationPermision: true });
       console.log("weather : ", w);
       console.log("uvi : ", uv);
       setLoading(false);
@@ -65,12 +69,24 @@ export const Results: React.FC<Props> = ({ data: d }) => {
   };
 
   if (loading) return <Text> ✨ Doing the magic ...</Text>;
-  <SunHoursSlider changed={(hours) => setData({ ...data, hours: hours })} />;
   return (
     <Box p={"10px"}>
       <Text mb={"20px"} textAlign={"center"} fontSize={"50px"}>
         <Sparkles>🌞 🍃</Sparkles>
       </Text>
+      <Box cursor={"pointer"} onClick={reset} mb={"15px"}>
+        <GrPowerReset
+          style={{
+            display: "inline",
+            cursor: "pointer",
+            float: "left",
+            marginTop: "5px",
+          }}
+        />
+        <Text display={"inline"} ml={"5px"} fontWeight={"bold"}>
+          Reset
+        </Text>
+      </Box>
       <Box>
         <Text fontSize={"25px"} fontWeight={"bold"} display={"inline"}>
           <Sparkles>📍 {data.city}</Sparkles>
