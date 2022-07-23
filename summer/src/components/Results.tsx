@@ -39,6 +39,8 @@ export const Results: React.FC<Props> = ({ data: d }) => {
     })();
   }, []);
 
+  if (loading) return <Text> ✨ Doing the magic ...</Text>;
+  <SunHoursSlider changed={(hours) => setData({ ...data, hours: hours })} />;
   return (
     <Box p={"10px"}>
       <Text textAlign={"center"} fontSize={"50px"}>
@@ -75,14 +77,14 @@ export const Results: React.FC<Props> = ({ data: d }) => {
           marginBottom: "20px",
         }}
       />
-      <SunHoursSlider />
+      <SunHoursSlider changed={(hours) => setData({ ...data, hours: hours })} />
       <Grid templateColumns={"repeat(12, 1fr)"}>
         <GridItem colSpan={6}>
           <Text fontSize={"20px"} fontWeight={"bold"}>
             <Sparkles> 🧴 Sunscreen's SPF </Sparkles>
           </Text>
           <Text fontSize={"30px"} mt={"-4px"} fontWeight={"bold"}>
-            40 SPF
+             40 SPF
           </Text>
         </GridItem>
         <GridItem p={"5px"} colSpan={6}>

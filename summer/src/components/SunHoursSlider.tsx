@@ -1,13 +1,22 @@
 import React from "react";
 import { Box, Center, Grid, GridItem, Text } from "@chakra-ui/react";
 
+
 const tmp = new Array(5).fill(0);
 
-export const SunHoursSlider: React.FC = () => {
+interface Props {
+  changed: (hours: number) => void;
+}
+
+export const SunHoursSlider: React.FC<Props> = ({changed}) => {
   const [selected, setSelected] = React.useState(3);
+  
 
   const select = (index: number) => {
-    if (index > 0 && index < 6) setSelected(index);
+    if (index > 0 && index < 6) {
+      setSelected(index);
+      changed(index);
+    }
   };
 
   return (
