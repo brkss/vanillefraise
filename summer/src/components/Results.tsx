@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Text, Grid, GridItem, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Grid,
+  GridItem,
+  Center,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { Instruction } from "./Instruction";
 import Sparkles from "./Sparkles";
 import { SunHoursSlider } from "./SunHoursSlider";
@@ -7,6 +14,8 @@ import { weather, uvi } from "../utils/weather";
 import { getSPF } from "../utils/spf";
 import { getUVProtection, getUVBadge } from "../utils/uv";
 import { AiFillInfoCircle } from "react-icons/ai";
+import { Info } from "./Info";
+import { descriptions } from "../utils/data/descriptions";
 
 interface IData {
   city: string;
@@ -25,6 +34,11 @@ interface Props {
 export const Results: React.FC<Props> = ({ data: d }) => {
   const [data, setData] = React.useState<IData>(d);
   const [loading, setLoading] = React.useState(true);
+  const { onOpen, onClose, isOpen } = useDisclosure();
+  const [infoData, setInfoData] = React.useState({
+    title: "",
+    description: "",
+  });
 
   React.useEffect(() => {
     (async () => {
@@ -42,11 +56,19 @@ export const Results: React.FC<Props> = ({ data: d }) => {
     })();
   }, []);
 
+  const handleShowInfo = (title: string, description: string) => {
+    setInfoData({
+      title: title,
+      description: description,
+    });
+    onOpen();
+  };
+
   if (loading) return <Text> ✨ Doing the magic ...</Text>;
   <SunHoursSlider changed={(hours) => setData({ ...data, hours: hours })} />;
   return (
     <Box p={"10px"}>
-      <Text textAlign={"center"} fontSize={"50px"}>
+      <Text mb={"20px"} textAlign={"center"} fontSize={"50px"}>
         <Sparkles>🌞 🍃</Sparkles>
       </Text>
       <Box>
@@ -62,16 +84,20 @@ export const Results: React.FC<Props> = ({ data: d }) => {
           <Sparkles>🌡 {data.temperature} °C</Sparkles>
         </Text>
       </Box>
-      <Text fontSize={"17px"} opacity={0.8} mb={"20px"}>
+      <Text fontSize={"13px"} opacity={0.8} mb={"20px"}>
         {data.date.toDateString()}
       </Text>
       <Box>
-        <Text fontSize={"25px"} fontWeight={"bold"}>
+        <Text
+          onClick={() => handleShowInfo("UV index", descriptions.UV)}
+          fontSize={{ md: "25px", base: "18px" }}
+          fontWeight={"bold"}
+        >
           🌞 UV index{" "}
           <AiFillInfoCircle
             display={"inline"}
             style={{ display: "inline" }}
-            size={"16px"}
+            size={"14px"}
           />
           <Text
             float={"right"}
@@ -85,7 +111,11 @@ export const Results: React.FC<Props> = ({ data: d }) => {
             UV is {getUVBadge(data.uv).label}
           </Text>
         </Text>
-        <Text fontSize={"35px"} fontWeight={"bold"} mt={"-16px"}>
+        <Text
+          fontSize={"35px"}
+          fontWeight={"bold"}
+          mt={{ md: "-16px", base: "-8px" }}
+        >
           {data.uv}
         </Text>
       </Box>
@@ -99,18 +129,26 @@ export const Results: React.FC<Props> = ({ data: d }) => {
       <SunHoursSlider changed={(hours) => setData({ ...data, hours: hours })} />
       <Grid templateColumns={"repeat(12, 1fr)"}>
         <GridItem colSpan={6}>
-          <Text fontSize={"20px"} fontWeight={"bold"}>
+          <Text
+            fontSize={{ md: "20px", base: "15px" }}
+            fontWeight={"bold"}
+            onClick={() => handleShowInfo("SPF", descriptions.SPF)}
+          >
             <Sparkles>
               {" "}
               🧴 Sunscreen's SPF{" "}
               <AiFillInfoCircle
                 display={"inline"}
                 style={{ display: "inline" }}
-                size={"16px"}
+                size={"14px"}
               />{" "}
             </Sparkles>
           </Text>
-          <Text fontSize={"30px"} mt={"-4px"} fontWeight={"bold"}>
+          <Text
+            fontSize={{ md: "30px", base: "25px" }}
+            mt={"-4px"}
+            fontWeight={"bold"}
+          >
             {getSPF(data.skinId, data.hours as any)} SPF
           </Text>
         </GridItem>
@@ -131,16 +169,22 @@ export const Results: React.FC<Props> = ({ data: d }) => {
         <Text fontSize={"20px"} fontWeight={"bold"}>
           <Sparkles>Protection ⛱</Sparkles>
         </Text>
-        <Text>
+        <Text fontSize={"13px"}>
           According to today’s UV follow these instructions for good skin
           protection
         </Text>
       </Box>
-      <Box mt={"10px"}>
+      <Box mt={"10px"} mb={"40px"}>
         {getUVProtection(data.uv).map((p, key) => (
           <Instruction priority={"Required"} txt={p} key={key} />
         ))}
       </Box>
+      <Info
+        description={infoData.description}
+        isOpen={isOpen}
+        onClose={onClose}
+        title={infoData.title}
+      />
     </Box>
   );
 };
