@@ -4,6 +4,8 @@ import { Instruction } from "./Instruction";
 import Sparkles from "./Sparkles";
 import { SunHoursSlider } from "./SunHoursSlider";
 import { weather, uvi } from "../utils/weather";
+import { getSPF } from "../utils/spf";
+import { getUVProtection, getUVBadge } from "../utils/uv";
 
 interface IData {
   city: string;
@@ -64,7 +66,18 @@ export const Results: React.FC<Props> = ({ data: d }) => {
       </Text>
       <Box>
         <Text fontSize={"25px"} fontWeight={"bold"}>
-          🌞 UV index
+          🌞 UV index{" "}
+          <Text
+            float={"right"}
+            bg={getUVBadge(data.uv).color}
+            rounded={"4px"}
+            p={"2px 10px"}
+            mt={"9px"}
+            fontSize={"12px"}
+            display={"inline"}
+          >
+            UV is {getUVBadge(data.uv).label}
+          </Text>
         </Text>
         <Text fontSize={"35px"} fontWeight={"bold"} mt={"-16px"}>
           {data.uv}
@@ -84,7 +97,7 @@ export const Results: React.FC<Props> = ({ data: d }) => {
             <Sparkles> 🧴 Sunscreen's SPF </Sparkles>
           </Text>
           <Text fontSize={"30px"} mt={"-4px"} fontWeight={"bold"}>
-             40 SPF
+            {getSPF(data.skinId, data.hours as any)} SPF
           </Text>
         </GridItem>
         <GridItem p={"5px"} colSpan={6}>
@@ -110,10 +123,9 @@ export const Results: React.FC<Props> = ({ data: d }) => {
         </Text>
       </Box>
       <Box mt={"10px"}>
-        <Instruction priority={"Required"} txt={"Use Sunscreen"} />
-        <Instruction priority={"Required"} txt={"Use Sunscreen"} />
-        <Instruction priority={"Required"} txt={"Use Sunscreen"} />
-        <Instruction priority={"Required"} txt={"Use Sunscreen"} />
+        {getUVProtection(data.uv).map((p, key) => (
+          <Instruction priority={"Required"} txt={p} key={key} />
+        ))}
       </Box>
     </Box>
   );
