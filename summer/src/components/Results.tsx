@@ -3,8 +3,42 @@ import { Box, Text, Grid, GridItem, Center } from "@chakra-ui/react";
 import { Instruction } from "./Instruction";
 import Sparkles from "./Sparkles";
 import { SunHoursSlider } from "./SunHoursSlider";
+import { weather, uvi } from "../utils/weather";
 
-export const Results: React.FC = () => {
+interface IData {
+  city: string;
+  temperature: string;
+  skinId: number;
+  coords: { lat: string; lon: string };
+  uv: number;
+  hours: number;
+  date: Date;
+}
+
+interface Props {
+  data: IData;
+}
+
+export const Results: React.FC<Props> = ({ data: d }) => {
+  const [data, setData] = React.useState<IData>(d);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    (async () => {
+      const w = await weather(data.coords.lat, data.coords.lon);
+      const uv = await uvi(data.coords.lat, data.coords.lon);
+      setData({
+        ...data,
+        temperature: w.main.feels_like.toString(),
+        city: w.name,
+        uv: uv.value,
+      });
+      console.log("weather : ", w);
+      console.log("uvi : ", uv);
+      setLoading(false);
+    })();
+  }, []);
+
   return (
     <Box p={"10px"}>
       <Text textAlign={"center"} fontSize={"50px"}>
@@ -12,7 +46,7 @@ export const Results: React.FC = () => {
       </Text>
       <Box>
         <Text fontSize={"25px"} fontWeight={"bold"} display={"inline"}>
-          <Sparkles>📍 Taghazout</Sparkles>
+          <Sparkles>📍 {data.city}</Sparkles>
         </Text>
         <Text
           fontSize={"25px"}
@@ -20,18 +54,18 @@ export const Results: React.FC = () => {
           display={"inline"}
           float={"right"}
         >
-          <Sparkles>🌡 31 °C</Sparkles>
+          <Sparkles>🌡 {data.temperature} °C</Sparkles>
         </Text>
       </Box>
       <Text fontSize={"17px"} opacity={0.8} mb={"20px"}>
-        22/07/2022
+        {data.date.toDateString()}
       </Text>
       <Box>
         <Text fontSize={"25px"} fontWeight={"bold"}>
           🌞 UV index
         </Text>
         <Text fontSize={"35px"} fontWeight={"bold"} mt={"-16px"}>
-          9
+          {data.uv}
         </Text>
       </Box>
       <hr

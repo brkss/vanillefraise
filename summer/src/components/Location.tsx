@@ -5,9 +5,10 @@ import { Btn } from "./Button";
 
 interface Props {
   forward: () => void;
+  changed: (lat: string, lon: string) => void;
 }
 
-export const LocationPermission: React.FC<Props> = ({ forward }) => {
+export const LocationPermission: React.FC<Props> = ({ forward, changed }) => {
   const [cords, setCords] = React.useState({ lat: 0, lon: 0 });
   const [error, setError] = React.useState("");
 
@@ -16,6 +17,7 @@ export const LocationPermission: React.FC<Props> = ({ forward }) => {
       (pos) => {
         console.log("post : ", pos.coords.latitude, pos.coords.longitude);
         setCords({ lon: pos.coords.longitude, lat: pos.coords.latitude });
+        changed(pos.coords.latitude.toString(), pos.coords.longitude.toString())
         forward();
       },
       (e) => {

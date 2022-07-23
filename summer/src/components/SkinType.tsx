@@ -7,13 +7,15 @@ import { skins } from '../utils/data/skins'
 
 interface Props {
   forward: () => void;
+  changed: (id: number) => void;
 }
 
-export const SkinType: React.FC<Props> = ({ forward }) => {
+export const SkinType: React.FC<Props> = ({ forward, changed }) => {
   const [selected, setSelected] = React.useState(skins[0]);
 
   const select = (index: number) => {
     setSelected(skins[index]);
+    changed(skins[index].id);
   };
 
   return (
