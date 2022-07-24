@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Center, Image } from "@chakra-ui/react";
-import logo from "../assets/icon.png";
 import { Form } from "./Form";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
+const logo = require("../assets/icon.png");
 
 export const Subscribe: React.FC = () => {
   return (
