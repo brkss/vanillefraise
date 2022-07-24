@@ -16,7 +16,7 @@ export const Pub: React.FC = () => {
       rounded={"15px"}
     >
       <Sparkles>
-        <Text fontSize={"12px"} fontWeight={"bold"}>
+        <Text fontSize={{ md: "12px", base: "11px" }} fontWeight={"bold"}>
           Refreshing recipes and drinks for a healthy summer 😋
         </Text>
         <Text opacity={0.7} fontSize={"12px"}>

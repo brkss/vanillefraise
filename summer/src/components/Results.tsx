@@ -50,9 +50,9 @@ export const Results: React.FC<Props> = ({ data: d, reset }) => {
       const uv = await uvi(data.coords.lat, data.coords.lon);
       setData({
         ...data,
-        temperature: w.main.feels_like.toString(),
+        temperature: Math.round(w.main.feels_like).toString(),
         city: w.name,
-        uv: uv.value,
+        uv: Math.floor(uv.value),
       });
       save({ skinId: data.skinId, locationPermision: true });
       console.log("weather : ", w);
@@ -71,7 +71,7 @@ export const Results: React.FC<Props> = ({ data: d, reset }) => {
 
   if (loading) return <Text> ✨ Doing the magic ...</Text>;
   return (
-    <Box p={"10px"}>
+    <Box p={"13px"}>
       <Text mb={"20px"} textAlign={"center"} fontSize={"50px"}>
         <Sparkles>🌞 🍃</Sparkles>
       </Text>
@@ -89,7 +89,14 @@ export const Results: React.FC<Props> = ({ data: d, reset }) => {
           Reset
         </Text>
       </Box>
-      <Box>
+      <hr
+        style={{
+          borderStyle: "dashed",
+          borderTopColor: "#00000030",
+          marginBottom: "20px",
+        }}
+      />
+      <Box margin={"20px 0 20px"}>
         <Text fontSize={"25px"} fontWeight={"bold"} display={"inline"}>
           <Sparkles>📍 {data.city}</Sparkles>
         </Text>
@@ -101,11 +108,18 @@ export const Results: React.FC<Props> = ({ data: d, reset }) => {
         >
           <Sparkles>🌡 {data.temperature} °C</Sparkles>
         </Text>
+        <Text fontSize={"13px"} opacity={0.8}>
+          {data.date.toDateString()}
+        </Text>
       </Box>
-      <Text fontSize={"13px"} opacity={0.8} mb={"20px"}>
-        {data.date.toDateString()}
-      </Text>
-      <Box>
+      <hr
+        style={{
+          borderStyle: "dashed",
+          borderTopColor: "#00000030",
+          marginBottom: "20px",
+        }}
+      />
+      <Box mb={"15px"}>
         <Text
           onClick={() => handleShowInfo("UV index", descriptions.UV)}
           fontSize={{ md: "25px", base: "18px" }}
@@ -122,7 +136,7 @@ export const Results: React.FC<Props> = ({ data: d, reset }) => {
             bg={getUVBadge(data.uv).color}
             rounded={"4px"}
             p={"2px 10px"}
-            mt={"9px"}
+            mt={{ md: "7px", base: "2px" }}
             fontSize={"12px"}
             display={"inline"}
           >
@@ -145,32 +159,39 @@ export const Results: React.FC<Props> = ({ data: d, reset }) => {
         }}
       />
       <SunHoursSlider changed={(hours) => setData({ ...data, hours: hours })} />
-      <Grid templateColumns={"repeat(12, 1fr)"}>
+      <Grid marginTop={"25px"} templateColumns={"repeat(12, 1fr)"}>
         <GridItem colSpan={6}>
-          <Text
-            fontSize={{ md: "20px", base: "15px" }}
-            fontWeight={"bold"}
-            onClick={() => handleShowInfo("SPF", descriptions.SPF)}
-          >
-            <Sparkles>
-              {" "}
-              🧴 Sunscreen's SPF{" "}
-              <AiFillInfoCircle
-                display={"inline"}
-                style={{ display: "inline" }}
-                size={"14px"}
-              />{" "}
-            </Sparkles>
-          </Text>
-          <Text
-            fontSize={{ md: "30px", base: "25px" }}
-            mt={"-4px"}
-            fontWeight={"bold"}
-          >
-            {getSPF(data.skinId, data.hours as any)} SPF
-          </Text>
+          <Center h={"100%"}>
+            <Text
+              fontSize={{ md: "20px", base: "15px" }}
+              fontWeight={"bold"}
+              onClick={() => handleShowInfo("SPF", descriptions.SPF)}
+            >
+              <Sparkles>
+                {" "}
+                🧴 Sunscreen's SPF{" "}
+                <AiFillInfoCircle
+                  display={"inline"}
+                  style={{ display: "inline" }}
+                  size={"14px"}
+                />{" "}
+              </Sparkles>
+            </Text>
+          </Center>
         </GridItem>
-        <GridItem p={"5px"} colSpan={6}>
+        <GridItem colSpan={6}>
+          <Center h={"100%"}>
+            {" "}
+            <Text
+              fontSize={{ md: "30px", base: "21px" }}
+              mt={"-4px"}
+              fontWeight={"bold"}
+            >
+              {getSPF(data.skinId, data.hours as any)} SPF
+            </Text>{" "}
+          </Center>
+        </GridItem>
+        <GridItem p={"5px"} display={"none"} colSpan={6}>
           <Center rounded={"14px"} bg={"#FFD6AE"} h={"100%"}>
             <Text fontWeight={"bold"}>🔗 examples</Text>
           </Center>
