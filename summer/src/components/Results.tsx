@@ -18,6 +18,7 @@ import { Info } from "./Info";
 import { descriptions } from "../utils/data/descriptions";
 import { save } from "../utils/storage";
 import { GrPowerReset } from "react-icons/gr";
+import { Pub } from "./Pub";
 
 interface IData {
   city: string;
@@ -74,6 +75,7 @@ export const Results: React.FC<Props> = ({ data: d, reset }) => {
       <Text mb={"20px"} textAlign={"center"} fontSize={"50px"}>
         <Sparkles>🌞 🍃</Sparkles>
       </Text>
+      <Pub />
       <Box cursor={"pointer"} onClick={reset} mb={"15px"}>
         <GrPowerReset
           style={{
