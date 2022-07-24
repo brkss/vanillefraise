@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Center, GridItem, Grid, Heading } from "@chakra-ui/react";
-import { TopBar, Intro, Subscribe, Footer, About } from "../components";
+import { TopBar, Intro, Subscribe, Footer, About, Info } from "../components";
 
 export const Home: React.FC = () => {
   return (
@@ -45,7 +45,7 @@ export const Home: React.FC = () => {
           <Subscribe />
         </GridItem>
       </Grid>
-      <About />
+      <Info />
       <Footer />
       {/*
       <TopBar />

@@ -13,7 +13,7 @@ export const About: React.FC = () => {
         >
           <Center h={"100%"}>
             <Image
-              w={"300px"}
+              w={{ md: "300px", base: "200px" }}
               //top={"50%"}
               //left={"50%"}
               //pos={"absolute"}
