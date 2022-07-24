@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Grid, GridItem, Text, Image, Center } from "@chakra-ui/react";
-const screenshot = require("../assets/ss.png");
+import screenshot from "../assets/ss.png";
 
 export const About: React.FC = () => {
   return (

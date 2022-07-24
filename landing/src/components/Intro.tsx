@@ -1,6 +1,6 @@
 import React from "react";
 import { Center, Box, Text, Image, Button } from "@chakra-ui/react";
-const cheese = require("../assets/sandwish-fly.png");
+import cheese from "../assets/sandwish-fly.png";
 
 export const Intro: React.FC = () => {
   return (
