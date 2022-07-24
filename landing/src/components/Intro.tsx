@@ -23,17 +23,17 @@ export const Intro: React.FC = () => {
             fontSize={{ md: "40px", base: "17px" }}
             color={"#434343"}
           >
-            Extend your lifespan
+            Helping you live longer
           </Text>
           <Text
             fontWeight={"bold"}
             transform={{ lg: "translateY(150%)", base: "translateY(240%)" }}
             width={{ md: "auto", base: "150%" }}
-            fontSize={{ md: "40px", base: "20px" }}
+            fontSize={{ md: "40px", base: "16px" }}
             zIndex={10}
             color={"#434343"}
           >
-            up to ten-years.
+            healthier, and better.
           </Text>
           <Box pos={"absolute"} bottom={{ lg: "50px", base: "20px" }}>
             <Box pos={"relative"}>
