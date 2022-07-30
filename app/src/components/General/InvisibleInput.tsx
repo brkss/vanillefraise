@@ -16,14 +16,15 @@ export const InvisibleInput: React.FC<Props> = ({
   type,
   secure,
   unit,
-  value
+  value,
 }) => {
   return (
     <View
       style={[styles.container, { flexDirection: unit ? "row" : "column" }]}
     >
       <TextInput
-        autoCapitalize={'none'}
+        autoCapitalize={"none"}
+        placeholderTextColor={"#c2c2c2"}
         secureTextEntry={secure}
         textContentType={(type as any) || "none"}
         placeholder={label}

@@ -42,6 +42,7 @@ export const Intro: React.FC<any> = ({ navigation }) => {
           bounces={false}
           snapToInterval={width}
           //snapToOffsets={[0, width / 2]}
+          showsHorizontalScrollIndicator={false}
           horizontal
           decelerationRate="fast"
         >
