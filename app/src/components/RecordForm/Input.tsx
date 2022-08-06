@@ -19,6 +19,7 @@ export const Input: React.FC<Props> = ({ value, onChange, unit }) => {
     <View style={styles.container}>
       <TextInput
         placeholder={"Value"}
+		placeholderTextColor={"#c2c2c2"}
         onChangeText={(v) => handleValue(v)}
         style={styles.input}
         value={val}

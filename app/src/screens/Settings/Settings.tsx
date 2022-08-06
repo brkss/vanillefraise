@@ -23,7 +23,7 @@ export const Settings: React.FC<any> = ({ navigation }) => {
   }
 
   const choosePp = () => {
-    const pp = ["🐝", "🐞", "🦄", "🍩", "🦋", "🍕", "🍭", "🍓", "🥑", "🍪"];
+    const pp = ["🐝", "🐞", "🦄", "🍩", "🍕", "🍭", "🍓", "🥑", "🍪"];
     return pp[Math.floor(pp.length * Math.random())];
   };
 

@@ -15,6 +15,7 @@ export const Input: React.FC<Props> = ({ label, password, onChange }) => {
         style={styles.input}
         secureTextEntry={password}
         placeholder={label}
+		placeholderTextColor={"#c2c2c2"}
         onChangeText={(val) => onChange(val)}
       />
     </View>

@@ -4,7 +4,7 @@ import { StyleSheet, View, TextInput } from "react-native";
 export const Input: React.FC = () => {
   return (
     <View style={styles.container}>
-      <TextInput placeholder={"Name"} style={styles.input} />
+      <TextInput placeholder={"Name"} placeholderTextColor={"#c2c2c2"} style={styles.input} />
     </View>
   );
 };
