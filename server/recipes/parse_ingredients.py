@@ -1,12 +1,15 @@
-import parse_ingredient
+from PyIng import parse_ingredients
 import json
 
-def parse_ingredients(ingredients):
-    parsed = []
-    for ingredient in ingredients:
-        p_ing = parse_ingredient.parse(ingredient)
-        parsed.append(p_ing.as_dict())
-        print("ing : ", json.dumps(p_ing.as_dict()))
+def parse_recipe_ingredients(ingredients):
+    #parsed = []
+    parsed = parse_ingredients(ingredients)
+    """
+    for ingredient in parse_ingredients:
+    
+        ['raw'] = ingredient
+        parsed.append(p_ing)
+    """
     return parsed
 
 ingredients = [
@@ -16,4 +19,4 @@ ingredients = [
             "1 (10 ounce) box frozen chopped spinach, thawed and squeezed dry",
             "2 pounds ground turkey"
         ]
-parse_ingredients(ingredients)
+#parse_ingredients(ingredients)

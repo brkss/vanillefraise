@@ -5,3 +5,4 @@ mysqlclient===2.1.1
 cerberus==1.3.4
 recipe-scrapers==14.12.0
 zestful-parse-ingredient==0.0.7
+PyIng==0.1.15
