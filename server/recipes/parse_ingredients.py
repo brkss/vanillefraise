@@ -2,8 +2,11 @@ from PyIng import parse_ingredients
 import json
 
 def parse_recipe_ingredients(ingredients):
-    #parsed = []
-    parsed = parse_ingredients(ingredients)
+    parsed = []
+    parsed_ingredients = parse_ingredients(ingredients)
+    for i, ingredient in enumerate(parsed_ingredients):
+        ingredient['raw'] = ingredients[i]
+        parsed.append(ingredient)
     """
     for ingredient in parse_ingredients:
     
