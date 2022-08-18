@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
+#RUN apt-get install python-scipy
+
 RUN pip install -r requirements.txt
 
 COPY . .
