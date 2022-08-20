@@ -12,7 +12,6 @@ def scrape_recipe(url):
         "instructions": scraper.instructions_list(),
         "image": scraper.image(),
         "host": scraper.host(),
-        "nutritions": scraper.nutrients()
     }
     print("data ingredients : ", data['ingredients'])
     return data

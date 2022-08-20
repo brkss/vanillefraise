@@ -15,10 +15,10 @@ const get_recipe = async (url) => {
             url: url,
         },
     });
-    console.log("get recipe results : ", res);
-    return {
-        title: "SUCCESS",
-    };
+    if (res.data.success === false)
+        return null;
+    console.log("get recipe results : ", res.data.recipe.nutrition);
+    return null;
 };
 exports.get_recipe = get_recipe;
 //# sourceMappingURL=index.js.map

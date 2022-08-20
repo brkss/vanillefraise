@@ -1,7 +1,21 @@
 import Axios from "axios";
 
+export interface IIngredient {
+  name: string;
+  quantity: number;
+  unit: string;
+  raw: string;
+}
+
 interface IRecipe {
   title: string;
+  time: number;
+  yields: string;
+  ingredients: IIngredient[];
+  instructions: string[];
+  image: string;
+  host: string;
+  nutritions: any;
 }
 
 export const get_recipe = async (url: string): Promise<IRecipe | null> => {
@@ -13,9 +27,7 @@ export const get_recipe = async (url: string): Promise<IRecipe | null> => {
       url: url,
     },
   });
-  console.log("get recipe results : ", res);
-  return {
-    title: "SUCCESS",
-  };
+  if (res.data.success === false) return null;
+  console.log("get recipe results : ", res.data.recipe.nutrition);
+  return null;
 };
-
