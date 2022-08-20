@@ -26,10 +26,27 @@ import { isAdminAuth } from "../../utils/middlewares";
 import { IContext } from "src/utils/types/Context";
 import { Admin } from "../../entity/admin/Admin";
 
+// test python api for recipes !
+import { get_recipe } from "../../utils/helpers/recipe";
+
 const translate = new TranlatingResolver();
 
-@Resolver()
+    //await get_recipe(url);
 export class CreateRecipeResolver {
+  @Mutation(() => DefaultResponse)
+  async createRecipeTest(@Arg("url") url: string): Promise<DefaultResponse> {
+    if (!url)
+      return {
+        status: false,
+        message: "Invalid data !",
+      };
+    await get_recipe(url);
+    return {
+      status: true,
+      message: "Success !",
+    };
+  }
+
   @UseMiddleware(isAdminAuth)
   @Mutation(() => DefaultResponse)
   async createBulkRecipes(

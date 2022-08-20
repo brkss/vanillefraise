@@ -28,8 +28,21 @@ const translating_1 = require("../translating");
 const refrence_1 = require("../../utils/data/translate/refrence");
 const middlewares_1 = require("../../utils/middlewares");
 const Admin_1 = require("../../entity/admin/Admin");
+const recipe_1 = require("../../utils/helpers/recipe");
 const translate = new translating_1.TranlatingResolver();
-let CreateRecipeResolver = class CreateRecipeResolver {
+class CreateRecipeResolver {
+    async createRecipeTest(url) {
+        if (!url)
+            return {
+                status: false,
+                message: "Invalid data !",
+            };
+        await (0, recipe_1.get_recipe)(url);
+        return {
+            status: true,
+            message: "Success !",
+        };
+    }
     async createBulkRecipes(data, ctx) {
         if (!data || data.length === 0)
             return {
@@ -232,7 +245,14 @@ let CreateRecipeResolver = class CreateRecipeResolver {
             await totalNutritionKcal.save();
         }
     }
-};
+}
+__decorate([
+    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
+    __param(0, (0, type_graphql_1.Arg)("url")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CreateRecipeResolver.prototype, "createRecipeTest", null);
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isAdminAuth),
     (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
@@ -249,8 +269,5 @@ __decorate([
     __metadata("design:paramtypes", [createrecipe_input_1.CreateRecipeInput]),
     __metadata("design:returntype", Promise)
 ], CreateRecipeResolver.prototype, "createRecipe", null);
-CreateRecipeResolver = __decorate([
-    (0, type_graphql_1.Resolver)()
-], CreateRecipeResolver);
 exports.CreateRecipeResolver = CreateRecipeResolver;
 //# sourceMappingURL=create.resolver.js.map
