@@ -49,7 +49,7 @@ export class CreateRecipeResolver {
     if (!created.success) {
       return {
         status: false,
-        message:  created.message || "Something went wrong !",
+        message: created.message || "Something went wrong !",
       };
     }
     return {
