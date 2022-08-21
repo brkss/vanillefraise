@@ -51,11 +51,11 @@ export const create_recipe = async (
   recipe.url = url;
   recipe.description = "none";
   recipe.image = await download_recipe_image(data.image, data.title);
-  recipe.serving = data.nutritions.yield;
+  recipe.serving = data.nutrition.yield;
   await recipe.save();
   await create_recipe_ingredients(recipe, data.ingredients);
   await create_recipe_instructions(recipe, data.instructions);
-  await create_recipe_nutrition(recipe, data.nutritions);
+  await create_recipe_nutrition(recipe, data.nutrition);
   return {
     success: true,
     recipe: recipe,
@@ -66,10 +66,13 @@ const create_recipe_instructions = async (
   recipe: Recipe,
   instructions: string[]
 ): Promise<boolean> => {
+  let index = 1;
   for (let instruction of instructions) {
     const inst = new Instruction();
     inst.recipe = recipe;
     inst.raw = instruction;
+    inst.index = index;
+    index++;
     await inst.save();
   }
   return true;

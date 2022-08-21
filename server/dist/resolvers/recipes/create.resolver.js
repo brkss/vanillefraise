@@ -26,10 +26,10 @@ let CreateRecipeResolver = class CreateRecipeResolver {
         const created = await (0, create_1.create_recipe)(url, [
             "92d964fa-5b15-4b76-8dfc-3ad180fdcdaa",
         ]);
-        if (!created) {
+        if (!created.success) {
             return {
                 status: false,
-                message: "Something went wrong !",
+                message: created.message || "Something went wrong !",
             };
         }
         return {

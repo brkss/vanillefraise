@@ -15,7 +15,7 @@ interface IRecipe {
   instructions: string[];
   image: string;
   host: string;
-  nutritions: any;
+  nutrition: any;
 }
 
 export const get_recipe = async (url: string): Promise<IRecipe | null> => {
@@ -29,5 +29,5 @@ export const get_recipe = async (url: string): Promise<IRecipe | null> => {
   });
   if (res.data.success === false) return null;
   console.log("get recipe results : ", res.data.recipe.nutrition);
-  return null;
+  return res.data.recipe;
 };
