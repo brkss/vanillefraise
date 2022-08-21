@@ -15,7 +15,8 @@ export const scaleRecipe = (
   const results: Ingredient[] = ingredients.map((ing) => {
     return {
       ...ing,
-      amount: scale(parseFloat(ing.amount || "0"), target, servings).toString(),
+      amount: scale(ing.amount || 0, target, servings)
+      //amount: scale(parseFloat(ing.amount || "0"), target, servings).toString(),
     } as Ingredient;
   });
 

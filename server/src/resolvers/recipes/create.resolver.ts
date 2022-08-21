@@ -1,4 +1,6 @@
 import { Resolver, Mutation, Arg, UseMiddleware, Ctx } from "type-graphql";
+import { CreateRecipeResponse, DefaultResponse } from "../../utils/responses";
+/*
 import { downloadImage } from "../../utils/helpers/donwloadImage";
 import {
   Recipe,
@@ -6,7 +8,7 @@ import {
   Instruction,
   RecipeCategory,
 } from "../../entity/Recipe";
-import { CreateRecipeResponse, DefaultResponse } from "../../utils/responses";
+
 import { CreateRecipeInput } from "../../utils/inputs/recipes/createrecipe.input";
 import { CreateBulkRecipesInput } from "../../utils/inputs/recipes";
 import { recipeNutrition } from "../../utils/nutrition";
@@ -25,13 +27,14 @@ import { translated_text_refrence } from "../../utils/data/translate/refrence";
 import { isAdminAuth } from "../../utils/middlewares";
 import { IContext } from "src/utils/types/Context";
 import { Admin } from "../../entity/admin/Admin";
-
+*/
 // test python api for recipes !
-import { get_recipe } from "../../utils/helpers/recipe";
+import { create_recipe } from "../../utils/helpers/recipe/create";
 
-const translate = new TranlatingResolver();
+//const translate = new TranlatingResolver();
 
-    //await get_recipe(url);
+//await get_recipe(url);
+@Resolver()
 export class CreateRecipeResolver {
   @Mutation(() => DefaultResponse)
   async createRecipeTest(@Arg("url") url: string): Promise<DefaultResponse> {
@@ -40,13 +43,21 @@ export class CreateRecipeResolver {
         status: false,
         message: "Invalid data !",
       };
-    await get_recipe(url);
+    const created = await create_recipe(url, [
+      "92d964fa-5b15-4b76-8dfc-3ad180fdcdaa",
+    ]);
+    if (!created) {
+      return {
+        status: false,
+        message: "Something went wrong !",
+      };
+    }
     return {
       status: true,
       message: "Success !",
     };
   }
-
+  /*
   @UseMiddleware(isAdminAuth)
   @Mutation(() => DefaultResponse)
   async createBulkRecipes(
@@ -287,5 +298,5 @@ export class CreateRecipeResolver {
       totalNutritionKcal.code = tnutrKcal;
       await totalNutritionKcal.save();
     }
-  }
+  }*/
 }

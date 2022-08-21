@@ -10,7 +10,7 @@ const scaleRecipe = (servings, target, ingredients) => {
         return ingredients;
     console.log("scale recipe sevings :::: ", servings);
     const results = ingredients.map((ing) => {
-        return Object.assign(Object.assign({}, ing), { amount: scale(parseFloat(ing.amount || "0"), target, servings).toString() });
+        return Object.assign(Object.assign({}, ing), { amount: scale(ing.amount || 0, target, servings) });
     });
     return results;
 };

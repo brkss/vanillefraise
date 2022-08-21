@@ -2,17 +2,27 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.create_recipe = void 0;
 const Recipe_1 = require("../../../entity/Recipe");
+const Nutrition_1 = require("../../../entity/Nutrition");
 const index_1 = require("./index");
 const donwloadImage_1 = require("../donwloadImage");
 const create_recipe = async (url, cats) => {
     const data = await (0, index_1.get_recipe)(url);
     if (!data)
-        return null;
+        return {
+            success: false,
+            message: "Invalid Data !",
+        };
     const categories = await get_categories(cats);
     if (categories.length === 0)
-        return null;
+        return {
+            success: false,
+            message: "invalid category",
+        };
     if (await Recipe_1.Recipe.findOne({ where: { url: url } }))
-        return null;
+        return {
+            success: false,
+            message: "recipe already exist !",
+        };
     const recipe = new Recipe_1.Recipe();
     recipe.name = data.title;
     recipe.total = data.time.toString();
@@ -20,10 +30,15 @@ const create_recipe = async (url, cats) => {
     recipe.url = url;
     recipe.description = "none";
     recipe.image = await download_recipe_image(data.image, data.title);
-    recipe.serving = 0;
+    recipe.serving = data.nutritions.yield;
     await recipe.save();
     await create_recipe_ingredients(recipe, data.ingredients);
     await create_recipe_instructions(recipe, data.instructions);
+    await create_recipe_nutrition(recipe, data.nutritions);
+    return {
+        success: true,
+        recipe: recipe,
+    };
 };
 exports.create_recipe = create_recipe;
 const create_recipe_instructions = async (recipe, instructions) => {
@@ -61,5 +76,50 @@ const download_recipe_image = async (img_url, title) => {
     const img = `${title.split(" ").join("_")}_${new Date().getTime()}.jpg`;
     await (0, donwloadImage_1.downloadImage)(img_url, `../../cdn/images/${img}`);
     return img;
+};
+const create_recipe_nutrition = async (recipe, nutrition) => {
+    for (let label in nutrition.dietLabels) {
+        const dietLabel = new Nutrition_1.RecipeDietLabel();
+        dietLabel.label = label;
+        dietLabel.recipe = recipe;
+        await dietLabel.save();
+    }
+    for (let hl of nutrition.healthLabels) {
+        const healthLabel = new Nutrition_1.RecipeHealthLabel();
+        healthLabel.label = hl;
+        healthLabel.recipe = recipe;
+        await healthLabel.save();
+    }
+    const totalNutrientsData = nutrition.totalNutrients;
+    for (let tnutrition of Object.keys(totalNutrientsData)) {
+        const totalNutrients = new Nutrition_1.RecipeTotalNutrition();
+        totalNutrients.recipe = recipe;
+        totalNutrients.label = totalNutrientsData[tnutrition].label;
+        totalNutrients.quantity = totalNutrientsData[tnutrition].quantity;
+        totalNutrients.unit = totalNutrientsData[tnutrition].unit;
+        totalNutrients.code = tnutrition;
+        await totalNutrients.save();
+    }
+    const totalDailyData = nutrition.totalDaily;
+    for (let tdaily of Object.keys(totalDailyData)) {
+        const totalDaily = new Nutrition_1.RecipeTotalDaily();
+        totalDaily.recipe = recipe;
+        totalDaily.label = totalDailyData[tdaily].label;
+        totalDaily.quantity = totalDailyData[tdaily].quantity;
+        totalDaily.unit = totalDailyData[tdaily].unit;
+        totalDaily.code = tdaily;
+        await totalDaily.save();
+    }
+    const totalNutrientKcalData = nutrition.totalNutrientsKCal;
+    for (let tnutrKcal of Object.keys(totalNutrientKcalData)) {
+        const totalNutritionKcal = new Nutrition_1.RecipeTotalNutritionKcal();
+        totalNutritionKcal.recipe = recipe;
+        totalNutritionKcal.label = totalNutrientKcalData[tnutrKcal].label;
+        totalNutritionKcal.quantity = totalNutrientKcalData[tnutrKcal].quantity;
+        totalNutritionKcal.unit = totalNutrientKcalData[tnutrKcal].unit;
+        totalNutritionKcal.code = tnutrKcal;
+        await totalNutritionKcal.save();
+    }
+    return true;
 };
 //# sourceMappingURL=create.js.map
