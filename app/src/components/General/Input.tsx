@@ -11,11 +11,11 @@ export const Input: React.FC<Props> = ({ label, password, onChange }) => {
   return (
     <View style={styles.container}>
       <TextInput
-        autoCapitalize={'none'}
+        autoCapitalize={"none"}
         style={styles.input}
         secureTextEntry={password}
         placeholder={label}
-		placeholderTextColor={"#c2c2c2"}
+        placeholderTextColor={"#878787"}
         onChangeText={(val) => onChange(val)}
       />
     </View>
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
   },
   input: {
     padding: 15,
-    fontFamily: "helvitica-condesed",
+    //fontFamily: "helvitica-condesed",
     color: "black",
     borderRadius: 13,
-    backgroundColor: "#C0C0C0",
+    backgroundColor: "#ebebeb",
     width: "100%",
+    fontWeight: "bold",
   },
 });

@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
   txt: {
     textAlign: "center",
     color: "white",
-    fontFamily: "helvitica-condesed",
+    //fontFamily: "helvitica-condesed",
     fontSize: 20,
-    marginBottom: 5,
+    fontWeight: "bold",
+    //marginBottom: 5,
   },
 });
