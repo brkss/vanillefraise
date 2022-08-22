@@ -8,21 +8,27 @@ import Animated, {
   withDelay,
   withTiming,
 } from "react-native-reanimated";
+import { AuthContext } from "../../utils/auth/AuthProvider";
+import { useLoginMutation } from "../../generated/graphql";
+import * as SecureStorage from "expo-secure-store";
+import { setAccessToken } from "../../utils";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
 export const Login: React.FC = () => {
+  const _ctx = React.useContext(AuthContext);
   const opacity = useSharedValue(1);
   const offset = useSharedValue(-200);
   const statusOpacity = useSharedValue(0);
-  const statusOffset = useSharedValue(90);
+  const statusOffset = useSharedValue(70);
   const [error, setError] = React.useState("");
   const [form, setForm] = React.useState({
     username: "",
     password: "",
   });
+  const [login] = useLoginMutation();
 
   const handleForm = (id: string, val: string) => {
     setForm({
@@ -36,20 +42,51 @@ export const Login: React.FC = () => {
       setError("Invalid entry please check you data ");
       return;
     }
-    setError("");
+    //setError("");
     handleAnimationIn();
-    await wait(4000);
-    setError("Invalid Password !");
-    handleAnimationOut();
+    await wait(1500);
+    login({
+      variables: {
+        email: form.username.toLowerCase(),
+        password: form.password,
+      },
+    })
+      .then(async (res) => {
+        if (!res || !res.data || res.errors) {
+          setError("something went wrong, please try again. ");
+          handleAnimationOut();
+          return;
+        } else if (!res.data.login.status) {
+          setError(
+            res.data.login.message || "Something went wrong please try again"
+          );
+          handleAnimationOut();
+          return;
+        } else if (res.data.login.token && res.data.login.rToken) {
+          const _token = res.data.login.token;
+          const _refreshToken = res.data.login.rToken;
+          await SecureStorage.setItemAsync("TOKEN", _refreshToken);
+          setAccessToken(_token);
+          _ctx.login(_token);
+        }
+      })
+      .catch((e) => {
+        setError("something went wrong, please try again. ");
+        handleAnimationOut();
+        return;
+      });
+    //
+    //setError("Invalid Password !");
+    //handleAnimationOut();
   };
 
   const handleAnimationOut = () => {
     opacity.value = withDelay(500, withTiming(1, { duration: 500 }));
     offset.value = withDelay(0, withTiming(-200, { duration: 400 }));
     statusOpacity.value = withDelay(0, withTiming(0, { duration: 500 }));
-    statusOffset.value = withTiming(90, { duration: 500 });
+    statusOffset.value = withTiming(70, { duration: 500 });
   };
-
+  
   const handleAnimationIn = () => {
     opacity.value = withDelay(0, withTiming(0, { duration: 500 }));
     offset.value = withDelay(500, withTiming(0, { duration: 700 }));
