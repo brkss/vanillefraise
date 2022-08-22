@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
+import { Pressable, Text, StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 
 interface Props {
@@ -22,14 +22,14 @@ export const Button: React.FC<Props> = ({ txt, clicked, color, bg }) => {
     );
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={[styles.container, { backgroundColor: bg ? bg : "#323232" }]}
       onPress={() => clicked()}
     >
       <Text style={[styles.txt, { color: color ? color : "white" }]}>
         {txt}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -18,17 +18,17 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 10,
     marginBottom: 20,
-    padding: 17,
-    paddingTop: 17,
+    padding: 15,
+    paddingTop: 15,
     borderRadius: 12,
     backgroundColor: "#F7DBDB",
     width: "100%",
   },
   txt: {
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: 14,
     color: "#5C5C5C",
     textAlign: "center",
-    fontFamily: "helvitica-condesed",
+    //fontFamily: "helvitica-condesed",
   },
 });
