@@ -12,3 +12,4 @@ export * from './Meals';
 export * from './NotConnected';
 export * from './Diet';
 export * from './Intro';
+export * from './Nutrition';

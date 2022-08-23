@@ -63,12 +63,14 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
           <Text style={styles.unit}>calories</Text>
         </Text>
       </View>
+      <View style={styles.row}>
       <Text style={styles.metadata}>
-        🥘 {data.userCalories.value} calories taken 
+        🥘 {data.userCalories.value} calories taken
       </Text>
       <Text style={styles.metadata}>
-        🔥 -{_burnedCalories.data.getUserBurnedCalories} calories burned
+        🔥 {_burnedCalories.data.getUserBurnedCalories} calories burned
       </Text>
+      </View>
       <LoadingBar
         progress={calcProgress(
           _macros.data.macros.tdee || _macros.data.macros.ree,
@@ -127,6 +129,7 @@ const styles = StyleSheet.create({
     marginTop: -3,
     //lineHeight: 26,
     color: "#434343",
+    opacity: 0.8,
   },
   row: {
     flexDirection: "row",
