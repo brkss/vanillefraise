@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -31,7 +32,7 @@ export const RecipeThumbnail: React.FC<Props> = ({
 }) => {
   console.log("Image : ", img);
   return (
-    <TouchableOpacity onPress={() => pressed()}>
+    <Pressable onPress={() => pressed()}>
       <ImageBackground
         source={{
           uri: img,
@@ -50,9 +51,11 @@ export const RecipeThumbnail: React.FC<Props> = ({
         )}
         <Text style={styles.title}>{title}</Text>
         {time ? <Text style={styles.time}>about {time} to make.</Text> : null}
-        {carbs && carbs !== "-1" && <Text style={styles.carbs}>{carbs}g of carbs</Text>}
+        {carbs && carbs !== "-1" && (
+          <Text style={styles.carbs}>{carbs}g of carbs</Text>
+        )}
       </ImageBackground>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

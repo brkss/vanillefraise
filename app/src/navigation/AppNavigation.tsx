@@ -14,7 +14,8 @@ import {
   CreateDietRecord,
   DietSettings,
   ExpandedInstruction,
-  FoodFilters
+  FoodFilters,
+  NutritionPlanDetails,
 } from "../screens";
 import { EmailVerification } from "../components";
 
@@ -42,13 +43,20 @@ export const AppNavigation: React.FC = () => {
           <Screen name={"DietFoodFilters"} component={FoodFilters} />
         </Group>
         <Group screenOptions={{ presentation: "modal", headerShown: false }}>
+          <Screen
+            name={"NutritionPlanDetails"}
+            component={NutritionPlanDetails}
+          />
           <Screen name={"RecipeDetails"} component={RecipeDetails} />
           <Screen
             name={"RecipesByNutritions"}
             component={RecipesByNutritions}
           />
           <Screen name={"DietConfiguration"} component={DietConfiguration} />
-          <Screen name={'ExpandedInstruction'} component={ExpandedInstruction} />
+          <Screen
+            name={"ExpandedInstruction"}
+            component={ExpandedInstruction}
+          />
         </Group>
         <Group
           screenOptions={{
