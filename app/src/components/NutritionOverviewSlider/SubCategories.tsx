@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Text, StyleSheet, View } from "react-native";
+import { ScrollView, Text, StyleSheet, View, Pressable } from "react-native";
 
 const tmp = [
   {
@@ -27,9 +27,9 @@ export const NutritionSubCategories: React.FC = () => {
       style={styles.container}
     >
       {tmp.map((item, key) => (
-        <View key={key} style={styles.item}>
+        <Pressable key={key} style={styles.item}>
           <Text style={styles.txt}>{item.name}</Text>
-        </View>
+        </Pressable>
       ))}
     </ScrollView>
   );
