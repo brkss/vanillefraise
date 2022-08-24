@@ -39,3 +39,4 @@ export * from "./IntroSliders";
 export * from "./PlanThumbnail";
 export * from './PlanDetails';
 export * from './NutritionChart';
+export * from './NutritionOverviewSlider'

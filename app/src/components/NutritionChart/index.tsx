@@ -45,10 +45,11 @@ export const NutritionChart: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Burned Calories</Text>
-      <Text style={styles.subtitle}>last 7 days</Text>
       <View style={styles.chartContainer}>
         <LineChart
+          yLabelsOffset={20}
+          yAxisSuffix={"dd"}
+          fromZero
           bezier
           data={{
             labels: _results.data.activitiesBurnedCaloriesData.map((d) =>

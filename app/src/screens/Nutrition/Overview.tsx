@@ -1,7 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { NutritionChart } from '../../components';
+import { NutritionChart, NutritionOverviewSlider } from '../../components';
+
 
 export const NutritionOverview: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ export const NutritionOverview: React.FC = () => {
           <Text style={styles.subtitle}>
             Close overview to your nutrition intake.
           </Text>
+          <NutritionOverviewSlider />
           <NutritionChart />
         </View>
       </SafeAreaView>
