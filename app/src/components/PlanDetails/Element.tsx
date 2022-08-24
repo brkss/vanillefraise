@@ -1,18 +1,29 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const PlanTrackedElement: React.FC = () => {
+interface Props {
+  name: string,
+  amount: string;
+  description: string;
+  index: number;
+}
+
+const formIndex = (index: number) => {
+  if(index < 10) return `0${index}`
+  return index.toString()
+}
+
+export const PlanTrackedElement: React.FC<Props> = ({index, description, amount ,name}) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.index}>
-          <Text style={styles.indexText}>01</Text>
+          <Text style={styles.indexText}>{formIndex(index)}</Text>
         </View>
         <View style={styles.info}>
-          <Text style={styles.infoTitle}>Omega-3</Text>
+          <Text style={styles.infoTitle}>{name} — {amount}</Text>
           <Text>
-            help reduce inflammation, and make your skin less sensitive to the
-            sun.
+            {description}
           </Text>
         </View>
       </View>

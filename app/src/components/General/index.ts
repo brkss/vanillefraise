@@ -17,4 +17,5 @@ export * from './EnterDietButton';
 export * from './AddDietRecord'
 export * from './TopBar';
 export * from './EmailVerification';
-export * from './EnterFoodConfig'
+export * from './EnterFoodConfig';
+export * from './BluredButton';
