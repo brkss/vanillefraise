@@ -37,4 +37,5 @@ export * from "./ActivityCalorieChart";
 export * from "./RecipeHealthLabels";
 export * from "./IntroSliders";
 export * from "./PlanThumbnail";
-export * from './PlanDetails'
+export * from './PlanDetails';
+export * from './NutritionChart';
