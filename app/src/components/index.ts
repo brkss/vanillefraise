@@ -40,3 +40,4 @@ export * from "./PlanThumbnail";
 export * from './PlanDetails';
 export * from './NutritionChart';
 export * from './NutritionOverviewSlider'
+export * from './ActiveNutritionPlans'
