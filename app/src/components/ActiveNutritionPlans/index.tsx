@@ -8,6 +8,9 @@ export const ActiveNutritionPlan: React.FC = () => {
       <Text style={styles.title}>Active Management Plans</Text>
       <View style={styles.box}>
         <ActiveNutritionPlanItem />
+        <ActiveNutritionPlanItem />
+        <ActiveNutritionPlanItem />
+        <ActiveNutritionPlanItem />
       </View>
     </View>
   );

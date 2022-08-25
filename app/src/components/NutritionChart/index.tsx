@@ -14,6 +14,7 @@ export const NutritionChart: React.FC = () => {
       },
     ],
   });
+
   const _results = useActivitiesBurnedCaloriesDataQuery({
     onCompleted: (res) => {
       if (res.activitiesBurnedCaloriesData.length > 0) {
