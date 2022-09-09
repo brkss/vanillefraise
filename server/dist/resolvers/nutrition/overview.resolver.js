@@ -176,7 +176,7 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
         }
         console.log("data : ", data);
         console.log("results : ", results);
-        return { data: [] };
+        return { data: results };
     }
 };
 __decorate([
