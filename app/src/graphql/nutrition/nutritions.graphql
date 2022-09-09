@@ -1,0 +1,12 @@
+query Nutritions {
+  nutritions {
+    id
+    name
+    nutrients {
+      id
+      code
+      name
+      unit
+    }
+  }
+}

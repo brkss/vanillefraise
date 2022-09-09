@@ -1,0 +1,8 @@
+query NutritionIntake($code: String!) {
+  nutritionIntake(code: $code) {
+    data {
+      quantity
+      date
+    }
+  }
+}

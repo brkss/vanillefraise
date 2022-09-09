@@ -1,33 +1,43 @@
 import React from "react";
 import { ScrollView, Text, StyleSheet, View, Pressable } from "react-native";
+import { Nutrition } from "../../generated/graphql";
 
-const tmp = [
-  {
-    name: "Vitamin A",
-  },
-  {
-    name: "Vitamin B-6",
-  },
-  {
-    name: "Vitamin E",
-  },
-  {
-    name: "Vitamin C",
-  },
-  {
-    name: "Vitamin D",
-  },
-];
+interface Props {
+  nutritions: Nutrition[];
+  select: (id: string) => void;
+}
 
-export const NutritionSubCategories: React.FC = () => {
+export const NutritionSubCategories: React.FC<Props> = ({
+  nutritions,
+  select,
+}) => {
+  const [selected, setSelected] = React.useState(nutritions[0].code || "");
+
+  React.useEffect(() => {
+    setSelected( nutritions[0].code || "")
+  }, [nutritions]);
+
+  const handleSelect = (code: string) => {
+    if (!code) return;
+    setSelected(code);
+    select(code);
+  };
+
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
       horizontal
       style={styles.container}
     >
-      {tmp.map((item, key) => (
-        <Pressable key={key} style={styles.item}>
+      {nutritions.map((item, key) => (
+        <Pressable
+          onPress={() => handleSelect(item.code)}
+          key={key}
+          style={[
+            styles.item,
+            { backgroundColor: item.code === selected ? "#ffc4c4" : "#FAD6D6" },
+          ]}
+        >
           <Text style={styles.txt}>{item.name}</Text>
         </Pressable>
       ))}
@@ -46,7 +56,7 @@ const styles = StyleSheet.create({
   item: {
     paddingHorizontal: 17,
     paddingVertical: 10,
-    backgroundColor: "#FFDFDF",
+    backgroundColor: "#FAD6D6",
     marginRight: 7,
     borderRadius: 10,
   },
