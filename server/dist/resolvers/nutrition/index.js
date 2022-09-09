@@ -15,4 +15,5 @@ __exportStar(require("./recipe.resolver"), exports);
 __exportStar(require("./overview.resolver"), exports);
 __exportStar(require("./healthlabels.resolver"), exports);
 __exportStar(require("./category.resolver"), exports);
+__exportStar(require("./stats.resolver"), exports);
 //# sourceMappingURL=index.js.map

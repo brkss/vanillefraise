@@ -1,4 +1,4 @@
-import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
+import { Resolver, Query, UseMiddleware, Ctx, Arg } from "type-graphql";
 import { User } from "../../entity/User";
 import { CookedRecipe } from "../../entity/UserInfo/CookedRecipe";
 import { Recipe } from "../../entity/Recipe";
@@ -20,6 +20,7 @@ import { Like, LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
 import { UserCaloriesResponse } from "../../utils/responses/nutrition/calories.response";
 import dayjs from "dayjs";
 import { DietRecord } from "../../entity/Diet/Record";
+import { NutritionIntakeResponse } from "../../utils/responses/nutrition";
 
 @Resolver()
 export class NutritionOverviewResolver {
@@ -62,23 +63,6 @@ export class NutritionOverviewResolver {
       name: cat.name,
       nutritiens: [],
     }));
-
-    /*
-    for (let nutrient of nutrients) {
-      let quantity = 0;
-      for (let rn of recipesNutrition) {
-        if (rn.code == nutrient.code) {
-          quantity += rn.quantity;
-        }
-      }
-      
-      let obj = {
-        name: nutrient.name,
-        code: nutrient.code,
-        quantity: quantity,
-        unit: nutrient.unit,
-      };
-    }*/
 
     for (let n of nutrients) {
       let quantity = 0;
@@ -160,5 +144,49 @@ export class NutritionOverviewResolver {
         message: "Something went wrong !",
       };
     }
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Query(() => NutritionIntakeResponse)
+  async nutritionIntake(
+    @Arg("code") code: string,
+    @Ctx() ctx: IContext
+  ): Promise<NutritionIntakeResponse> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user || !code) {
+      return { data: [] };
+    }
+    const cookedRecipes = await CookedRecipe.find({
+      where: { user: user },
+      relations: ["recipe", "recipe.totalnutrition"],
+      order: { created_at: "DESC" },
+    });
+    const data: { quantity: number; date: Date }[] = [];
+    for (let cooked of cookedRecipes) {
+      const nutrition = cooked.recipe.totalnutrition.find(
+        (x) => x.code === code
+      );
+      if (!nutrition) continue;
+      const obj = {
+        quantity: nutrition.quantity,
+        date: cooked.created_at,
+      };
+      data.push(obj);
+    }
+    // -- set dates -- --- - -- ----- -
+    const results: { quantity: number; date: Date }[] = [];
+    for (let item of data) {
+      const index = results.findIndex(
+        (x) => dayjs(x.date).diff(item.date, "d") === 0
+      );
+      if (index === -1) {
+        results.push(Object.assign({}, item));
+      } else if (index > -1) {
+        results[index].quantity += item.quantity;
+      }
+    }
+    console.log("data : ", data);
+    console.log("results : ", results);
+    return { data: [] };
   }
 }

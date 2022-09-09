@@ -29,6 +29,7 @@ const typeorm_1 = require("typeorm");
 const calories_response_1 = require("../../utils/responses/nutrition/calories.response");
 const dayjs_1 = __importDefault(require("dayjs"));
 const Record_1 = require("../../entity/Diet/Record");
+const nutrition_2 = require("../../utils/responses/nutrition");
 let NutritionOverviewResolver = class NutritionOverviewResolver {
     async userNutrition(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -142,6 +143,41 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
             };
         }
     }
+    async nutritionIntake(code, ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user || !code) {
+            return { data: [] };
+        }
+        const cookedRecipes = await CookedRecipe_1.CookedRecipe.find({
+            where: { user: user },
+            relations: ["recipe", "recipe.totalnutrition"],
+            order: { created_at: "DESC" },
+        });
+        const data = [];
+        for (let cooked of cookedRecipes) {
+            const nutrition = cooked.recipe.totalnutrition.find((x) => x.code === code);
+            if (!nutrition)
+                continue;
+            const obj = {
+                quantity: nutrition.quantity,
+                date: cooked.created_at,
+            };
+            data.push(obj);
+        }
+        const results = [];
+        for (let item of data) {
+            const index = results.findIndex((x) => (0, dayjs_1.default)(x.date).diff(item.date, "d") === 0);
+            if (index === -1) {
+                results.push(Object.assign({}, item));
+            }
+            else if (index > -1) {
+                results[index].quantity += item.quantity;
+            }
+        }
+        console.log("data : ", data);
+        console.log("results : ", results);
+        return { data: [] };
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
@@ -159,6 +195,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], NutritionOverviewResolver.prototype, "userCalories", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => nutrition_2.NutritionIntakeResponse),
+    __param(0, (0, type_graphql_1.Arg)("code")),
+    __param(1, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], NutritionOverviewResolver.prototype, "nutritionIntake", null);
 NutritionOverviewResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], NutritionOverviewResolver);
