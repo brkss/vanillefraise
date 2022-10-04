@@ -40,7 +40,7 @@ export const RecipeSearchSlider: React.FC<Props> = ({ select }) => {
           key={key}
           style={[
             styles.item,
-            { backgroundColor: selected == filter.id ? "#F6B1B1" : "#FFD9D9" },
+            { borderColor: selected == filter.id ? "#f5b3b3" : "transparent" },
           ]}
           onPress={() => handleSelect(filter.id)}
         >
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     padding: 0,
     marginVertical: 5,
     height: 45,
+	marginBottom: 12,
   },
   item: {
     alignItems: "center",
@@ -63,9 +64,10 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingHorizontal: 17,
     marginRight: 5,
-    backgroundColor: colors.c2,
-    borderRadius: 10,
+    backgroundColor: "#FBECEC", 
+    borderRadius: 100,
     height: 40,
+	borderWidth: 2,
   },
   txt: {
     fontWeight: "bold",
