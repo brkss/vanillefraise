@@ -36,3 +36,4 @@ export * from './ActivityList'
 export * from './ActivityCalorieChart';
 export * from './RecipeHealthLabels'
 export * from './IntroSliders';
+export * from './NutritionIntakesDaily'
