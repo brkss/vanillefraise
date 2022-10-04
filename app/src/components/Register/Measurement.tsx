@@ -74,25 +74,22 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
       style={styles.container}
     >
       <InvisibleInput
-        unit={"KG"}
-        label={"WEIGHT"}
+        unit={"kg"}
+        label={"Weight"}
         txtChange={(t) => handleForm("weight", t)}
       />
       <InvisibleInput
-        unit={"CM"}
-        label={"HEIGHT"}
+        unit={"cm"}
+        label={"Height"}
         txtChange={(t) => handleForm("height", t)}
       />
       <View>
         <Text
           style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            color: "#434343",
-            fontFamily: "helvitica-condesed",
+            
           }}
         >
-          BIRTHDAY
+          Birthday
         </Text>
         <Pressable onPress={handleShowModal}>
           <Text style={styles.datevalue}>
@@ -107,21 +104,6 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
           isVisible={visible}
           onConfirm={(t) => handleConfirm(t)}
         />
-        {/*
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={"date"}
-            display={Platform.OS == "ios" ? "default" : "calendar"}
-            onChange={(e: any, date: Date) => onChange(e, date)}
-          />
-        )}
-        {Platform.OS == "android" && (
-          <Pressable onPress={() => setShow((curr) => !curr)}>
-            <Text style={styles.date}>{dayjs(date).format("DD/MM/YYYY")}</Text>
-          </Pressable>
-        )}*/}
       </View>
       <Button clicked={() => saveData()} txt={"NEXT"} />
     </KeyboardAvoidingView>
@@ -146,4 +128,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "helvitica-condesed",
   },
+  label: {
+	fontSize: 25,
+	fontWeight: "bold",
+	color: "#434343",
+	fontFamily: "AvNextiBold",
+  }
 });

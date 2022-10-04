@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
   unit: {
     fontSize: 31,
     opacity: 0.7,
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
   },
 });

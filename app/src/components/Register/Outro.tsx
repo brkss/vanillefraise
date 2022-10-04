@@ -9,26 +9,30 @@ interface Props {
 export const RegisterOutro: React.FC<Props> = ({ pass }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>That's It 😅</Text>
+		<View>
+	  <Text style={styles.heading}>✨</Text>
       <Text style={styles.info}>
-        Everything's is set, enjoy the taste of eating right.
+        Thank You For Eating Healthy!
       </Text>
-      <Button txt={"SAVE & ENTER"} clicked={() => pass()} />
+	  </View>
+      <Button txt={"SAVE"} clicked={() => pass()} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 40,
+    fontSize: 70,
     fontWeight: "bold",
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
     color: "#434343",
+	textAlign: 'center',
+	marginBottom: 20,
   },
   info: {
     fontWeight: "bold",
     fontSize: 21,
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
     textAlign: "center",
     color: "#434343",
   },

@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 17,
+	fontFamily: "AvNextBold",
     color: "#434343",
   },
 });

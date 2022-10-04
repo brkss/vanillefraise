@@ -94,7 +94,7 @@ export const Register: React.FC<any> = ({ navigation }) => {
           getAge(data.birth)
         ),
       });
-      setStatus("RESULT");
+      setStatus("OUTRO");
     } else if (d.sc) {
       setData({
         ...data,
@@ -162,12 +162,13 @@ export const Register: React.FC<any> = ({ navigation }) => {
     */
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1, paddingTop: 10 }}>
-        <Close
+        {/*
+		<Close
           isRegister={true}
           pressed={() => {
             closeRegister();
           }}
-        />
+        />*/}
         <View style={styles.content}>
           {
             {

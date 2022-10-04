@@ -10,29 +10,39 @@ interface Props {
 export const RegisterGender: React.FC<Props> = ({ pass }) => {
   const [selected, setSelected] = React.useState("MALE");
   const saveData = () => {
-    const data: IGender = { gender: selected };
+    const data: IGender = { gender: selected === "MALE" ? selected : "FEMALE" };
     pass(data);
   };
 
   return (
     <View style={styles.container}>
+	<Text style={styles.title}>Gender</Text>
       <Pressable
         onPress={() => setSelected("MALE")}
         style={[
-          styles.choise,
-          { backgroundColor: selected == "MALE" ? "#FFC9C9" : "#FBECEC" },
+          styles.choice,
+          { borderColor: selected == "MALE" ? "#f5b3b3" : "transparent" },
         ]}
       >
-        <Text style={styles.choisetxt}>MALE</Text>
+        <Text style={styles.choisetxt}>🙋‍♂️ Male</Text>
       </Pressable>
       <Pressable
         onPress={() => setSelected("FEMALE")}
         style={[
-          styles.choise,
-          { backgroundColor: selected == "FEMALE" ? "#FFC9C9" : "#FBECEC" },
+          styles.choice,
+          { borderColor: selected == "FEMALE" ? "#f5b3b3" : "transparent" },
         ]}
       >
-        <Text style={styles.choisetxt}>FEMALE</Text>
+        <Text style={styles.choisetxt}>🙋‍♀️ Female</Text>
+      </Pressable>
+	  <Pressable
+        onPress={() => setSelected("OTHER")}
+        style={[
+          styles.choice,
+          { borderColor: selected == "OTHER" ? "#f5b3b3" : "transparent" },
+        ]}
+      >
+        <Text style={styles.choisetxt}>✨ Other</Text>
       </Pressable>
       <Button txt={"NEXT"} clicked={() => saveData()} />
     </View>
@@ -45,19 +55,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  choise: {
+  title:{
+	fontSize: 30,
+	fontWeight: "bold",
+	fontFamily: "AvNextBold",
+	textAlign: "left",
+	alignSelf: "flex-start",
+	marginBottom: 20
+},
+choice: {
     width: "100%",
     padding: 20,
-    backgroundColor: "#F2D5C3",
-    marginBottom: 10,
+    backgroundColor: "#FBECEC",
+    marginBottom: 20,
     borderRadius: 13,
     //borderStyle: "dashed",
-    //borderColor: "#434343",
-    //borderWidth: 0,
+    borderColor: "transparent",
+    borderWidth: 3,
   },
   choisetxt: {
     textAlign: "center",
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
     fontWeight: "bold",
     fontSize: 20,
   },

@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     padding: 10,
- paddingVertical: 15,
- paddingTop: 18,   
-	borderRadius: 13,
+ paddingVertical: 20,
+ paddingTop: 22,   
+	borderRadius: 16,
   },
   txt: {
     textAlign: "center",

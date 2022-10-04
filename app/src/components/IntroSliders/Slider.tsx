@@ -31,8 +31,8 @@ export const IntroSlider: React.FC<Props> = ({
         </View>
         {isLast && (
           <View style={{ marginTop: 30 }}>
-            <Button clicked={() => register()} txt={"Create Account"} />
-            <Button clicked={() => login()} txt={"Login "} />
+            <Button clicked={() => register()} txt={"Get Started"} />
+            <Button clicked={() => login()} txt={"Already have an account ?"} />
           </View>
         )}
       </BlurView>

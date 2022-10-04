@@ -39,10 +39,6 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       setError("Invalid Data");
       return;
     }
-    if (form.password !== form.repassword) {
-      setError("passwords doesn't match !");
-      return;
-    }
     if (!validateUsername(form.username.toLowerCase())) {
       setError("Invalid Username");
       return;
@@ -89,7 +85,8 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       style={styles.container}
     >
       <Text style={styles.heading}>Let's get started 🎉</Text>
-      {error ? <Error txt={error} close={() => setError("")} /> : null}
+		<View style={{height: 15}} />
+	  {error ? <Error txt={error} close={() => setError("")} /> : null}
       <View style={styles.form}>
         <BasicInput
 			placeholder="name"
@@ -102,7 +99,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
           onChange={(v) => handleForm("email", v)}
         />
         <BasicInput
-          label={"Username"}
+          label={"Username ✨"}
 		  placeholder={'username'}
           onChange={(v) => handleForm("username", v)}
         />
@@ -112,12 +109,7 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
           label={"Choose Password"}
           onChange={(v) => handleForm("password", v)}
         />
-        <BasicInput
-			isPassword
-			placeholder="password"
-			label={"Repeat Password"}
-        	onChange={(v) => handleForm("repassword", v)}
-        />
+        
         <Button txt={"NEXT"} clicked={() => handleSendingData()} />
       </View>
     </KeyboardAvoidingView>
