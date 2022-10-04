@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   bar: {
     height: 30,
-    backgroundColor: "#C0E6D8",
-    borderRadius: 70,
+    backgroundColor: "#A3D7A6",
+    borderRadius: 9,
   },
 });
