@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   item: {
-    //padding: 5,
+    padding: 2,
     paddingBottom: 10,
-    width: "100%",
+    width: "33%",
   },
 });

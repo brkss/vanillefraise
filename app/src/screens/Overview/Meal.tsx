@@ -7,7 +7,7 @@ import {
   MealRecipes,
   MealGrocery,
   SmoothLoading,
-  //MealNutritionOverview,
+  NoSelectedRecipes,
 } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
 import {
@@ -18,6 +18,7 @@ import {
   UserCaloriesDocument,
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 
 interface MarkedDate {
   count: number;
@@ -140,16 +141,17 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
             )}
           </View>
         </View>
+		<View style={{height: 10}} />
         <View style={styles.row}>
           <Text style={styles.calories}>
-            {" "}
             {loading || error ? "__" : data.getMealRecipes.calories} Cal
           </Text>
           <Text style={styles.time}>
-            {" "}
-            ⏱ {loading || error ? "__" : data.getMealRecipes.time} min
+            
+            ⏲ {loading || error ? "__" : data.getMealRecipes.time} min
           </Text>
         </View>
+		<View style={{height: 10}} />
         {_daysWithMeals.loading || _daysWithMeals.error ? (
           <Loading />
         ) : (
@@ -180,16 +182,17 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
         )}
         {loading || error ? (
           <Loading />
-        ) : (
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {/*<MealNutritionOverview meal={mealID} date={date} />*/}
-            <MealRecipes
+        ) : data.getMealRecipes.mealrecipes.length === 0 ? <NoSelectedRecipes selectRecipes={() => navigation.navigate("Recipes")} /> : (
+		  <ScrollView showsVerticalScrollIndicator={false}>
+			
+				<MealRecipes
               mealids={data.getMealRecipes.mealrecipes || []}
               navigation={navigation}
               recipes={data.getMealRecipes.recipes}
               removedRecipe={() => refetch()}
             />
             <MealGrocery ingredients={data.getMealRecipes.ingredients} />
+				
           </ScrollView>
         )}
       </SafeAreaView>
@@ -203,28 +206,30 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   title: {
-    fontFamily: "condensed",
-    fontSize: 35,
+    fontFamily: "AvNextBold",
+    fontSize: 30,
     fontWeight: "bold",
     flexWrap: "wrap",
+	color: "#434343"
   },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
+	marginTop: 10
   },
   calories: {
     //lineHeight: 25,
     color: "#434343",
-    fontSize: 25,
-    fontFamily: "condensed",
+    fontSize: 20,
+    fontFamily: "AvNextBold",
     fontWeight: "bold",
     width: "50%",
   },
   time: {
     marginTop: -5,
-    fontFamily: "condensed",
-    fontSize: 24,
+    fontFamily: "AvNextBold",
+    fontSize: 20,
     textAlign: "right",
     width: "48%",
   },

@@ -54,21 +54,10 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.caloriesContainer}>
-        <Text style={styles.takenCalories}>
-          {data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}
-        </Text>
-        <Text style={styles.needCalories}>
-          / {_macros.data.macros.tdee || _macros.data.macros.ree}{" "}
-          <Text style={styles.unit}>calories</Text>
-        </Text>
-      </View>
-      <Text style={styles.metadata}>
-        🥘 {data.userCalories.value} calories taken 
-      </Text>
-      <Text style={styles.metadata}>
-        🔥 -{_burnedCalories.data.getUserBurnedCalories} calories burned
-      </Text>
+	  <View style={styles.row}>
+	  	<Text style={styles.label}>Today's energy intake</Text>
+	  	<Text style={styles.calories}>{data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}/{_macros.data.macros.tdee || _macros.data.macros.ree} cal</Text>
+		</View>
       <LoadingBar
         progress={calcProgress(
           _macros.data.macros.tdee || _macros.data.macros.ree,
@@ -86,6 +75,7 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
+	marginTop: 30
   },
   caloriesContainer: {
     flexDirection: "row",
@@ -132,4 +122,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+
+  // ---
+  label: {
+	fontFamily: "AvNextBold",
+	fontWeight: "bold",
+	fontSize: 17,
+	color: "#434343"
+  },
+  calories: {
+	fontFamily: "AvNextBold",
+	fontSize: 15,
+	fontWeight: "bold",
+	opacity: .8
+  }
 });

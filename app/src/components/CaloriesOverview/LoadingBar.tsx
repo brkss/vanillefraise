@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginVertical: 10,
     backgroundColor: "#D6D4D4",
-    borderRadius: 70,
+    borderRadius: 9,
     //borderWidth: 1,
   },
   bar: {
-    height: 20,
+    height: 30,
     backgroundColor: "#C0E6D8",
     borderRadius: 70,
   },

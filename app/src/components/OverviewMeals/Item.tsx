@@ -28,7 +28,7 @@ export const MealItem: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     padding: 8,
-    height: 70,
+    height: 120,
     justifyContent: "flex-end",
     //borderWidth: 1,
     borderRadius: 11,
@@ -37,15 +37,20 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 11,
     fontWeight: "400",
+	fontFamily: "AvNextBold"
   },
   title: {
     color: "black",
     fontWeight: "bold",
     fontSize: 19,
+	fontFamily: "AvNextBold",
+	marginTop: 5,
+	color: "#434343"
   },
   recipes: {
     color: "black",
     fontSize: 13,
+	fontFamily: "AvNext"
     //color: "#434343",
   },
 });

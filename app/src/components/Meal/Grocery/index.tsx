@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    fontSize: 34,
-    fontFamily: "condensed",
+    fontSize: 24,
+    fontFamily: "AvNextBold",
     color: "#434343",
   },
   items: {

@@ -61,10 +61,12 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
           >
             <TopBar navigation={navigation} />
-            <CaloriesOverview
+   			<View style={{height: 10}} />         
+			<CaloriesOverview
               dietPressed={() => navigation.push("DietConfiguration")}
               refreshing={refreshing}
             />
+   			<View style={{height: 10}} />         
             <MealsOverview refreshing={refreshing} navigation={navigation} />
             <NutritionOverview
               clicked={(code: string, name: string) =>

@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "#434343",
+	fontFamily: "AvNextBold"
     //display: "none",
     //backgroundColor: "red",
   },

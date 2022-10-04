@@ -54,7 +54,7 @@ export const MealRecipes: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recipes</Text>
+      <Text style={styles.title}>Selected Recipes</Text>
       <View style={styles.recipes}>
         {recipes.length > 0 ? (
           recipes.map((recipe, key) => (
@@ -95,9 +95,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    fontSize: 34,
-    fontFamily: "condensed",
+    fontSize: 24,
+    fontFamily: "AvNextBold",
     color: "#434343",
+	marginBottom: 3,
   },
   date: {
     lineHeight: 25,

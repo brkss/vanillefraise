@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     color: "white",
     left: 10,
     width: "90%",
+	fontFamily: "AvNextBold"
   },
   time: {
     fontSize: 13,
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     left: 10,
+	fontFamily: "AvNextBold"
   },
   carbs: {
     fontSize: 13,

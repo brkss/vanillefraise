@@ -127,7 +127,7 @@ export const Login: React.FC = () => {
             
 			<View style={{height: 10}} />
    			<BasicInput
-				label="Identifier"
+				label="Username"
 				onChange={(t) => handleForm("username", t)}
 				placeholder={"username / email"}   
 			/>
@@ -181,5 +181,8 @@ const styles = StyleSheet.create({
   status: {
     fontWeight: "bold",
     position: "absolute",
+	fontFamily: "AvNextBold",
+	fontSize: 20,
+	color: "#434343"
   },
 });

@@ -27,8 +27,8 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>About your nutrition</Text>
       <Text>{dayjs().format("DD/MM/YYYY")}</Text>
-      <Text style={styles.info}>Based on recipes you cooked !</Text>
-      {data.userNutrition.data
+   		<View style={{height: 20}} />   
+	  {data.userNutrition.data
         .sort((a, b) => b.nutritiens.length - a.nutritiens.length)
         .map((nutCat, key) => (
           <View key={key}>
