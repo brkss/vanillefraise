@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, KeyboardAvoidingView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Input, Button, Error, BasicInput } from "../../components";
 import Animated, {
@@ -53,7 +53,7 @@ export const Login: React.FC = () => {
     })
       .then(async (res) => {
         if (!res || !res.data || res.errors) {
-          setError("something went wrong, please try again. ");
+          setError("Something went wrong, please try again. ");
           handleAnimationOut();
           return;
         } else if (!res.data.login.status) {
@@ -111,7 +111,10 @@ export const Login: React.FC = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.center}>
+		<KeyboardAvoidingView style={{flex: 1}} behavior={'padding'} enabled>
+
+		
+		<View style={styles.center}>
           <Animated.Image
             style={[styles.image, imageStyle]}
             source={require("../../assets/icon.png")}
@@ -120,9 +123,9 @@ export const Login: React.FC = () => {
             ❤️ Linking your account...
           </Animated.Text>
           <Animated.View style={[styles.box, boxStyle]}>
-            {error ? <Error txt={error} close={() => setError("")} /> : null}
-            <Text style={styles.title}>Login</Text>
-			<View style={{height: 20}} />
+            {error ? <Error txt={error} close={() => setError("")} /> : <Text style={styles.title}>Welcome Back!</Text>}
+            
+			<View style={{height: 10}} />
    			<BasicInput
 				label="Identifier"
 				onChange={(t) => handleForm("username", t)}
@@ -136,25 +139,13 @@ export const Login: React.FC = () => {
 				placeholder={"*********"}   
 			/>
 			<View style={{height: 20}} />
-			{/*
-			<Input
-              label={"username / email"}
-              onChange={(t) => handleForm("username", t)}
-            />
-            <Input
-              label={"password"}
-              password
-              onChange={(t) => handleForm("password", t)}
-            />
-  			*/}
             <Button
-              //bg={"#FFD9D9"}
-              //color={"#434343"}
               txt={"Login"}
               clicked={() => handleLogin()}
             />
           </Animated.View>
         </View>
+		</KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
@@ -174,8 +165,6 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     position: "absolute",
-    //top: 100,
-    //transform: [{ translateY: -50 }],
   },
   title: {
     fontSize: 30,
@@ -184,15 +173,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   box: {
-    width: "80%",
+    width: "90%",
     alignItems: "flex-start",
     opacity: 0,
+	marginTop: 50,
   },
   status: {
     fontWeight: "bold",
     position: "absolute",
-    //transform: [{ translateY: 70 }],
-    //top: 0,
-    //opacity: 1,
   },
 });
