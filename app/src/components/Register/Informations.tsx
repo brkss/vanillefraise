@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { InvisibleInput } from "../General/InvisibleInput";
+import { InvisibleInput, BasicInput } from "../General";
 import { Button } from "../General/Button";
 import { IInformationData } from "../../utils/types/Register";
 import { useCheckInfoValidtyMutation } from "../../generated/graphql";
@@ -88,31 +88,35 @@ export const RegisterInformation: React.FC<Props> = ({ pass }) => {
       behavior={Platform.OS == "ios" ? "padding" : null}
       style={styles.container}
     >
-      <Text style={styles.heading}>Basic {"\n"}Informations</Text>
+      <Text style={styles.heading}>Let's get started 🎉</Text>
       {error ? <Error txt={error} close={() => setError("")} /> : null}
       <View style={styles.form}>
-        <InvisibleInput
-          label={"NAME"}
-          txtChange={(v) => handleForm("name", v)}
+        <BasicInput
+			placeholder="name"
+			label={"Name"}
+        	onChange={(v) => handleForm("name", v)}
         />
-        <InvisibleInput
-          type={"emailAddress"}
-          label={"EMAIl"}
-          txtChange={(v) => handleForm("email", v)}
+        <BasicInput
+          placeholder="email"
+          label={"Your Email"}
+          onChange={(v) => handleForm("email", v)}
         />
-        <InvisibleInput
-          label={"USERNAME"}
-          txtChange={(v) => handleForm("username", v)}
+        <BasicInput
+          label={"Username"}
+		  placeholder={'username'}
+          onChange={(v) => handleForm("username", v)}
         />
-        <InvisibleInput
-          secure
-          label={"PASSWORD"}
-          txtChange={(v) => handleForm("password", v)}
+        <BasicInput
+          isPassword
+			placeholder="password"
+          label={"Choose Password"}
+          onChange={(v) => handleForm("password", v)}
         />
-        <InvisibleInput
-          secure
-          label={"RE-PASSWORD"}
-          txtChange={(v) => handleForm("repassword", v)}
+        <BasicInput
+			isPassword
+			placeholder="password"
+			label={"Repeat Password"}
+        	onChange={(v) => handleForm("repassword", v)}
         />
         <Button txt={"NEXT"} clicked={() => handleSendingData()} />
       </View>
@@ -126,8 +130,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginTop: 10,
-    fontSize: 40,
-    fontFamily: "helvitica-condesed",
+    fontSize: 30,
+    fontFamily: "AvNextBold",
     fontWeight: "bold",
     color: "#434343",
   },

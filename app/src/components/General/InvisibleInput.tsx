@@ -44,7 +44,7 @@ export const InvisibleInput: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {},
   input: {
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
     fontSize: 31,
   },
   unit: {

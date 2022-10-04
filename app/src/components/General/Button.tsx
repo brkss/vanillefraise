@@ -1,6 +1,5 @@
 import React from "react";
 import { Pressable, Text, StyleSheet, View } from "react-native";
-import { useFonts } from "expo-font";
 
 interface Props {
   txt: string;
@@ -10,17 +9,7 @@ interface Props {
 }
 
 export const Button: React.FC<Props> = ({ txt, clicked, color, bg }) => {
-  const [helviticaCondensed] = useFonts({
-    "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
-  });
-
-  if (!helviticaCondensed)
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Loading..</Text>
-      </View>
-    );
-
+  
   return (
     <Pressable
       style={[styles.container, { backgroundColor: bg ? bg : "#323232" }]}
@@ -39,12 +28,14 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     padding: 10,
-    borderRadius: 13,
+ paddingVertical: 15,
+ paddingTop: 18,   
+	borderRadius: 13,
   },
   txt: {
     textAlign: "center",
     color: "white",
-    //fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
     fontSize: 20,
     fontWeight: "bold",
     //marginBottom: 5,

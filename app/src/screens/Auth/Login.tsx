@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Input, Button, Error } from "../../components";
+import { Input, Button, Error, BasicInput } from "../../components";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -75,9 +75,6 @@ export const Login: React.FC = () => {
         handleAnimationOut();
         return;
       });
-    //
-    //setError("Invalid Password !");
-    //handleAnimationOut();
   };
 
   const handleAnimationOut = () => {
@@ -125,7 +122,22 @@ export const Login: React.FC = () => {
           <Animated.View style={[styles.box, boxStyle]}>
             {error ? <Error txt={error} close={() => setError("")} /> : null}
             <Text style={styles.title}>Login</Text>
-            <Input
+			<View style={{height: 20}} />
+   			<BasicInput
+				label="Identifier"
+				onChange={(t) => handleForm("username", t)}
+				placeholder={"username / email"}   
+			/>
+			<View style={{height: 7}} />
+			<BasicInput
+				isPassword
+				label="Password"
+				onChange={(t) => handleForm("password", t)}
+				placeholder={"*********"}   
+			/>
+			<View style={{height: 20}} />
+			{/*
+			<Input
               label={"username / email"}
               onChange={(t) => handleForm("username", t)}
             />
@@ -134,6 +146,7 @@ export const Login: React.FC = () => {
               password
               onChange={(t) => handleForm("password", t)}
             />
+  			*/}
             <Button
               //bg={"#FFD9D9"}
               //color={"#434343"}
