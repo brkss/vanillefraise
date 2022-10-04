@@ -42,7 +42,8 @@ export const MealsOverview: React.FC<Props> = ({ navigation, refreshing }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
+   	<Text style={styles.title}>Today's Meals</Text>   
+	  <View style={styles.row}>
         {data.meals
           .sort((a, b) => a.index - b.index)
           .map((meal, key) => (
@@ -69,6 +70,13 @@ const styles = StyleSheet.create({
   container: {
     padding: 0,
     marginBottom: 10,
+  },
+  title: {
+	fontFamily: "AvNextBold",
+	fontWeight: "bold",
+	color: "#434343",
+	fontSize: 20,
+	marginBottom: 10
   },
   row: {
     flexDirection: "row",
