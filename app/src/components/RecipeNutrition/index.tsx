@@ -32,17 +32,6 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Nutrition Facts</Text>
-      <Text style={styles.subheading}>Per serving</Text>
-        {nutrition.map((nut, key) => (
-          <RecipeNutritionItem
-            key={key}
-            label={nut.label}
-            quantity={nut.quantity}
-            unit={nut.unit}
-          />
-        ))}
-      <View style={{ height: 20 }} />
       <Text style={styles.heading}>Total Daily Nutrition</Text>
       <Text style={styles.subheading}>Per serving</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
@@ -57,6 +46,18 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
             />
           ))}
       </ScrollView>
+
+      <View style={{ height: 20 }} />
+      <Text style={styles.heading}>Nutrition Facts</Text>
+      <Text style={styles.subheading}>Per serving</Text>
+      {nutrition.map((nut, key) => (
+        <RecipeNutritionItem
+          key={key}
+          label={nut.label}
+          quantity={nut.quantity}
+          unit={nut.unit}
+        />
+      ))}
     </View>
   );
 };

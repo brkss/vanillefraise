@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
+    //borderWidth: 1,
+    //borderBottomWidth: 1,
+    //borderBottomColor: "#eee",
+    paddingBottom: 10,
     marginBottom: 10,
   },
   title: {
