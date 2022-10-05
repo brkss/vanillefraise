@@ -14,9 +14,9 @@ import {
   TopBar,
   EmailVerification,
   NutritionIntakeDaily,
-  FeaturedRecipes
+  FeaturedRecipes,
 } from "../../components";
-import { useFonts } from "expo-font";
+			<NutritionIntakeDaily navigation={navigation} />
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   IsAccountVerifiedDocument,
@@ -63,18 +63,18 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
           >
             <TopBar navigation={navigation} />
-   			<View style={{height: 10}} />         
-			<CaloriesOverview
+            <View style={{ height: 10 }} />
+            <CaloriesOverview
               dietPressed={() => navigation.push("DietConfiguration")}
               refreshing={refreshing}
             />
-   			<View style={{height: 10}} />         
+            <View style={{ height: 10 }} />
             <MealsOverview refreshing={refreshing} navigation={navigation} />
-			<View style={{height: 10}} /> 
-			<FeaturedRecipes />
-			<View style={{height: 25}} /> 
-			<NutritionIntakeDaily />
-			{/*
+            <View style={{ height: 10 }} />
+            <FeaturedRecipes />
+            <View style={{ height: 25 }} />
+            <NutritionIntakeDaily navigation={navigation} />
+            {/*
 			<NutritionOverview
               clicked={(code: string, name: string) =>
                 navigation.push("RecipesByNutritions", {

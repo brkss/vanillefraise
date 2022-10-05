@@ -31,14 +31,18 @@ const data = [
 		
 ]
 
-export const NutritionIntakeDaily : React.FC = () => {
+interface Props {
+  navigation: any;
+}
+
+export const NutritionIntakeDaily : React.FC<Props> = ({navigation}) => {
 
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>You Nutrition</Text>
 			{
 				data.map((item, key) => (
-					<Item status={item.status} title={item.title} value={item.value}  />	
+          <Item clicked={() => navigation.navigate('NutritionOverview')} status={item.status} title={item.title} value={item.value}  />	
 				))
 			}
 			

@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text,  } from 'react-native';
+import { StyleSheet, View, Text, Pressable  } from 'react-native';
 
 interface Props {
 	title: string,
 	status: string,
 	value: number
+  clicked: () => void;
 }
 
 const getColor = (value: number) => {
@@ -22,11 +23,11 @@ const getColor = (value: number) => {
 
 }
 
-export const Item : React.FC<Props> = ({status, title, value}) => {
+export const Item : React.FC<Props> = ({status, title, value, clicked}) => {
 
 	return (
 
-		<View style={[styles.container, {backgroundColor: getColor(value).box}]}>
+    <Pressable onPress={() => clicked()} style={[styles.container, {backgroundColor: getColor(value).box}]}>
 			<View style={styles.row}>
 				<View style={[styles.circle, {backgroundColor: getColor(value).circle}]}>
 					<Text style={styles.txt}>{value}%</Text>
@@ -36,7 +37,7 @@ export const Item : React.FC<Props> = ({status, title, value}) => {
 					<Text style={styles.info}>{status}</Text>
 				</View>
 			</View>
-		</View>
+		</Pressable>
 	);
 
 }
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
 	txt: {
 		fontFamily: "AvNextBold",
     fontWeight: "bold",
-    color: "black",
 	marginBottom: -2,
 	color: "#434343",
 	fontSize: 12
