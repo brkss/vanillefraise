@@ -20,6 +20,7 @@ import {
   Languages,
   RecipeHealthLabel,
   RecipesTabs,
+  BluredButton,
 } from "../../components";
 import {
   useRecipeQuery,
@@ -151,33 +152,54 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               ),
             }[tab]
           }
-          {!mealId ? (
-            <Button
-              //color={"#2A2A2A"}
-              bg={"#595959"}
-              txt={"Add To Meal"}
-              clicked={() =>
-                navigation.push("MealsOptions", {
-                  recipe: data.recipe.recipe.id,
-                })
-              }
-            />
-          ) : (
-            <Button
-              //color={"#2A2A2A"}
-              //bg={"#B6DA81"}
-              txt={"Start Cooking"}
-              clicked={() =>
-                navigation.push("Cooking", {
-                  id: data.recipe.recipe!.id,
-                  mealId: mealId,
-                })
-              }
-            />
-          )}
-          <View style={{ height: 50 }} />
+
+          <View style={{ height: 150 }} />
         </View>
       </ScrollView>
+      <View
+        style={{
+          position: "absolute",
+          width: "100%",
+          bottom: 20,
+          padding: 10,
+          //padding: 10,
+          //paddingBottom: 20,
+          //backgroundColor: "transparent",
+        }}
+      >
+        {!mealId ? (
+          <BluredButton
+            clicked={() =>
+              navigation.push("MealsOptions", {
+                recipe: data.recipe.recipe.id,
+              })
+            }
+            txt={"Add To Meal"}
+          />
+        ) : (
+          /*<Button
+            //color={"#2A2A2A"}
+            bg={"#595959"}
+            txt={"Add To Meal"}
+            clicked={() =>
+              navigation.push("MealsOptions", {
+                recipe: data.recipe.recipe.id,
+              })
+            }
+          />*/
+          <Button
+            //color={"#2A2A2A"}
+            //bg={"#B6DA81"}
+            txt={"Start Cooking"}
+            clicked={() =>
+              navigation.push("Cooking", {
+                id: data.recipe.recipe!.id,
+                mealId: mealId,
+              })
+            }
+          />
+        )}
+      </View>
     </View>
   );
 };

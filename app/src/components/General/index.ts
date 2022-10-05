@@ -19,3 +19,4 @@ export * from './TopBar';
 export * from './EmailVerification';
 export * from './EnterFoodConfig'
 export * from './BasicInput';
+export * from './BluredButton';

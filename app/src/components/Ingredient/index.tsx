@@ -53,12 +53,12 @@ export const Ingredients: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
+    marginTop: 10,
   },
   title: {
     fontSize: 25,
     marginBottom: 15,
     fontWeight: "bold",
-    fontFamily: "AvNextBold"
+    fontFamily: "AvNextBold",
   },
 });
