@@ -16,7 +16,7 @@ import {
   NutritionIntakeDaily,
   FeaturedRecipes,
 } from "../../components";
-			<NutritionIntakeDaily navigation={navigation} />
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   IsAccountVerifiedDocument,
@@ -29,9 +29,6 @@ const wait = (timeout: number) => {
 // TO DO FIX REFRESH !
 export const Overview: React.FC<any> = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
-  const [helviticaCondensed] = useFonts({
-    "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
-  });
   const { data, error, loading, refetch } = useIsAccountVerifiedQuery();
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -41,7 +38,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
     });
   }, []);
 
-  if (!helviticaCondensed || loading || error) {
+  if ( loading || error) {
     return <Loading />;
   }
 

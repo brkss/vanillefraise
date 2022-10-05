@@ -27,8 +27,8 @@ export const NutritionOverview: React.FC<Props> = ({ refreshing, clicked }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>About your nutrition</Text>
       <Text>{dayjs().format("DD/MM/YYYY")}</Text>
-   		<View style={{height: 20}} />   
-	  {data.userNutrition.data
+      <View style={{ height: 20 }} />
+      {data.userNutrition.data
         .sort((a, b) => b.nutritiens.length - a.nutritiens.length)
         .map((nutCat, key) => (
           <View key={key}>
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 20,
     fontWeight: "bold",
+    fontFamily: "AvNextBold",
   },
   info: {
     fontSize: 13,
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     color: "#434343",
     marginVertical: 10,
     marginTop: 0,
+    fontFamily: "AvNextBold",
   },
   row: {
     flexDirection: "row",
