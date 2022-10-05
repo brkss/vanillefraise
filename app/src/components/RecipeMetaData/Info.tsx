@@ -12,15 +12,15 @@ export const Info: React.FC<Props> = ({ prep, cook, total }) => {
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.title}>Prep</Text>
-        <Text style={styles.value}>{prep || "unknown"}</Text>
+        <Text style={styles.value}>{prep || "-"}</Text>
       </View>
       <View style={[styles.item, { alignItems: "center" }]}>
         <Text style={styles.title}>Cook</Text>
-        <Text style={styles.value}>{cook || "unknown"}</Text>
+        <Text style={styles.value}>{cook || "-"}</Text>
       </View>
       <View style={[styles.item, { alignItems: "flex-end" }]}>
         <Text style={styles.title}>Total Time</Text>
-        <Text style={styles.value}>{total || "unknown"}</Text>
+        <Text style={styles.value}>{total || "-"}</Text>
       </View>
     </View>
   );

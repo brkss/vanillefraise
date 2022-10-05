@@ -19,7 +19,6 @@ import {
   SaveRecipe,
   Languages,
   RecipeHealthLabel,
-  RecipesTabs,
 } from "../../components";
 import {
   useRecipeQuery,
@@ -31,13 +30,9 @@ import { CDN } from "../../utils/config/defaults";
 import { saveRecipe, IRecipe, isRecipeSaved } from "../../utils/modules/save";
 //import { languages } from "../../utils/data";
 
-const TABS = ["INGREDIENTS", "INSTRUCTIONS", "NUTRITIONS"];
-
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
-  const [tab, setTab] = React.useState(TABS[0]);
   const [lang, setLang] = React.useState<string>("en");
   const [saved, SetSaved] = React.useState(false);
-  const [servings, setServings] = React.useState(1);
   const { id, mealId } = route.params;
   const _energy = useRecipeEnergyQuery({
     variables: {
@@ -50,7 +45,6 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
       id: id,
     },
     onCompleted: async (res) => {
-      setServings(data.recipe.recipe.serving || 22);
       if (res.recipe.status) {
         const isit = await isRecipeSaved(res.recipe.recipe.id);
         SetSaved(isit);
@@ -117,40 +111,24 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             total={data.recipe.recipe?.total || undefined}
           />
           <RecipeHealthLabel
-            labels={data.recipe.recipe.healthlabel.map((hl) =>
-              hl.label.split("_").join(" ")
+            labels={data.recipe.recipe.healthlabel.map((hl) => hl.label.split('_').join(' '))}
+          />
+          <RecipeNutrition recipeId={id} />
+          <View
+            style={{ borderTopWidth: 1, opacity: 0.3, marginVertical: 20 }}
+          />
+          <Languages onSelect={(lang) => setLang(lang)} selected={lang} />
+          <Ingredients
+            lang={lang}
+            servings={data.recipe.recipe.serving || 1}
+            ingredients={data.recipe.ingredients as TranslatedIngredient[]}
+          />
+          <Instructions
+            lang={lang}
+            instructions={data.recipe.instructions.sort(
+              ({ index: a }, { index: b }) => a - b
             )}
           />
-          <RecipesTabs selectTab={(t) => setTab(t)} />
-
-          {
-            {
-              NUTRITIONS: <RecipeNutrition recipeId={id} />,
-              INGREDIENTS: (
-                <>
-                  {/*<Languages
-                    onSelect={(lang) => setLang(lang)}
-                    selected={lang}
-                  />*/}
-                  <Ingredients
-                    lang={lang}
-                    servings={data.recipe.recipe.serving || 1}
-                    ingredients={
-                      data.recipe.ingredients as TranslatedIngredient[]
-                    }
-                  />
-                </>
-              ),
-              INSTRUCTIONS: (
-                <Instructions
-                  lang={lang}
-                  instructions={data.recipe.instructions.sort(
-                    ({ index: a }, { index: b }) => a - b
-                  )}
-                />
-              ),
-            }[tab]
-          }
           {!mealId ? (
             <Button
               //color={"#2A2A2A"}

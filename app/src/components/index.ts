@@ -38,3 +38,4 @@ export * from './RecipeHealthLabels'
 export * from './IntroSliders';
 export * from './NutritionIntakesDaily';
 export * from './FeaturedRecipes';
+export * from './RecipeTabs';

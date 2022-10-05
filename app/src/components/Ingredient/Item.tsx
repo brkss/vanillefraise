@@ -60,25 +60,28 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 25,
   },
   circle: {
-    height: 20,
-    width: 20,
+    height: 25,
+    width: 5,
     backgroundColor: "#696969",
     //backgroundColor: colors.c2,
     marginRight: 10,
     borderRadius: 20,
   },
   measures: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: "700",
     opacity: 0.9,
+    fontFamily: "AvNextBold",
+    lineHeight: 16,
   },
   txt: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "700",
     opacity: 0.7,
+    fontFamily: "AvNextBold",
   },
   item: {
     //

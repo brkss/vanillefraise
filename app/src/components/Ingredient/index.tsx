@@ -21,7 +21,7 @@ export const Ingredients: React.FC<Props> = ({
   const handleLang = (ingredient: TranslatedIngredient) => {
     if (lang === "es" && ingredient.es.unit && ingredient.es.ingredient)
       return { unit: ingredient.es.unit, ingredient: ingredient.es.ingredient };
-    else if (lang === "ar" && ingredient.ar.unit && ingredient.ar.ingredient )
+    else if (lang === "ar" && ingredient.ar.unit && ingredient.ar.ingredient)
       return { unit: ingredient.ar.unit, ingredient: ingredient.ar.ingredient };
     else if (lang === "fr" && ingredient.fr.unit && ingredient.fr.ingredient)
       return { unit: ingredient.fr.unit, ingredient: ingredient.fr.ingredient };
@@ -59,5 +59,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 15,
     fontWeight: "bold",
+    fontFamily: "AvNextBold"
   },
 });

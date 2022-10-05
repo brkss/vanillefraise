@@ -32,5 +32,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 5,
+	fontFamily: "AvNextBold"
   },
 });

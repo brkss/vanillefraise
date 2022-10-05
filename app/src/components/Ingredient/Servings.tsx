@@ -27,7 +27,7 @@ export const RecipeServing: React.FC<Props> = ({ onChange, servings, center }) =
   };
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, {textAlign: center ? 'center' : 'left'}]}>Servings</Text>
+      <Text style={[styles.label, {textAlign: center ? 'center' : 'center'}]}>🍽 Servings</Text>
       <View style={styles.row}>
         <Pressable onPress={() => more()} style={styles.btn}>
           <Text style={styles.btnText}>+</Text>
@@ -44,14 +44,20 @@ export const RecipeServing: React.FC<Props> = ({ onChange, servings, center }) =
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+	alignItems: 'stretch',
+	marginBottom: 15
+},
   label: {
     fontSize: 17,
     fontWeight: "bold",
+	fontFamily: 'AvNextBold',
+	textAlign: 'center'
   },
   row: {
     flexDirection: "row",
     marginVertical: 10,
+	justifyContent: 'space-around'
   },
   val: {
     width: 30,
@@ -60,20 +66,21 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
   },
   valTxt: {
-    fontSize: 14,
+    fontSize: 17,
     fontWeight: "bold",
     textAlign: "center",
+	fontFamily: 'AvNextBold'
   },
   btn: {
     //height: 17,
     //width: 17,
-    paddingVertical: 3,
-    paddingHorizontal: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 20,
     justifyContent: "center",
     alignContent: "center",
-    backgroundColor: "#0C090D",
+    backgroundColor: "#434343",
     //backgroundColor: "#FFEAD9",
-    borderRadius: 10,
+    borderRadius: 100,
   },
   btnText: {
     fontSize: 18,
