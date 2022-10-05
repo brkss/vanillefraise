@@ -38,8 +38,11 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 18,
+	fontFamily: "AvNextBold",
+	lineHeight: 20
   },
   value: {
     fontSize: 14,
+	fontFamily: "AvNext",
   },
 });

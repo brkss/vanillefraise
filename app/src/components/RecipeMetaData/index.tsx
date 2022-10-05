@@ -34,10 +34,16 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "left",
+	fontFamily: "AvNextBold",
+	color: "#434343",
+	marginBottom: 7
   },
   description: {
     fontSize: 14,
     opacity: 0.8,
     marginTop: 10,
-  },
+	fontFamily: "AvNext",
+	fontWeight: '900',
+	lineHeight: 17	
+	},
 });
