@@ -13,7 +13,8 @@ import {
   MealsOverview,
   TopBar,
   EmailVerification,
-  NutritionIntakeDaily
+  NutritionIntakeDaily,
+  FeaturedRecipes
 } from "../../components";
 import { useFonts } from "expo-font";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -70,6 +71,8 @@ export const Overview: React.FC<any> = ({ navigation }) => {
    			<View style={{height: 10}} />         
             <MealsOverview refreshing={refreshing} navigation={navigation} />
 			<View style={{height: 10}} /> 
+			<FeaturedRecipes />
+			<View style={{height: 25}} /> 
 			<NutritionIntakeDaily />
 			{/*
 			<NutritionOverview

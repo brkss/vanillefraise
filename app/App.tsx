@@ -115,7 +115,7 @@ export default function App() {
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>
-          <StatusBar style={"auto"} />
+          <StatusBar style={"dark"} />
           <AuthProvider>
             <NativeBaseProvider>
               <MealScheduleNotification />
