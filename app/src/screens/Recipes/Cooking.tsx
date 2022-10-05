@@ -37,10 +37,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
     },
   });
   const [step, SetStep] = React.useState("start");
-  const [helviticaCondensed] = useFonts({
-    "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
-  });
-
+  
   const changeStep = (s: string) => {
     SetStep(s);
   };
@@ -81,7 +78,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
       });
   };
 
-  if (!helviticaCondensed || loading || error || !data) return <Loading />;
+  if (loading || error || !data) return <Loading />;
 
   return (
     <LinearGradient colors={["#FDF3F3", "#FFDADA"]} style={styles.container}>

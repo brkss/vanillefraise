@@ -54,5 +54,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 4,
     textAlign: "center",
+	fontFamily: "AvNextBold",
+	lineHeight: 13
   },
 });

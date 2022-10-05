@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
   },
   recipesContainer: {
     //flex: 0.86,
+	//flex:1 
   },
   headingSperator: {
     flexDirection: "row",
