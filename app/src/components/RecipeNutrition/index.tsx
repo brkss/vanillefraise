@@ -34,7 +34,6 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>Nutrition Facts</Text>
       <Text style={styles.subheading}>Per serving</Text>
-      <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         {nutrition.map((nut, key) => (
           <RecipeNutritionItem
             key={key}
@@ -43,7 +42,6 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
             unit={nut.unit}
           />
         ))}
-      </ScrollView>
       <View style={{ height: 20 }} />
       <Text style={styles.heading}>Total Daily Nutrition</Text>
       <Text style={styles.subheading}>Per serving</Text>

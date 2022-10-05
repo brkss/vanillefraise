@@ -33,44 +33,25 @@ export const RecipeNutritionItem: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <View style={styles.row}>
-        <Text style={styles.quantity}> {converted.val}</Text>
-        <Text style={styles.unit}>{converted.unit}</Text>
-      </View>
+      <Text style={styles.title}>{label}</Text>
+      <Text style={styles.val}>
+        {converted.val} {converted.unit}
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    //borderWidth: 1,
-    padding: 17,
-    backgroundColor: colors.c3,
-    //backgroundColor: "#D8D8D8",
-    marginRight: 15,
-    borderRadius: 14,
-    minHeight: 100,
-    minWidth: 150,
-    alignItems: "baseline",
-    justifyContent: "flex-end",
-  },
-  row: {
     flexDirection: "row",
-    alignItems: "baseline",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
-  quantity: {
-    marginLeft: -5,
-    fontSize: 27,
-    fontWeight: "bold",
+  title: {
+    fontFamily: "AvNextBold",
   },
-  label: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  unit: {
-    marginLeft: 5,
-    fontSize: 14,
-    fontWeight: "bold",
+  val: {
+    fontFamily: "AvNextBold",
+    opacity: 0.6,
   },
 });
