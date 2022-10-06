@@ -18,11 +18,11 @@ export const MarkAsFinished: React.FC<Props> = ({ marked, mark }) => {
         if (!marked) mark();
       }}
     >
-      <Ionicons
+      {/*<Ionicons
         name={marked ? "checkmark-circle-outline" : "restaurant-outline"}
         color={"white"}
         size={16}
-      />
+    />*/}
       <Text style={styles.txt}>{marked ? "COOKED" : "MARK AS COOKED"}</Text>
     </Pressable>
   );
@@ -32,19 +32,21 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingHorizontal: 15,
-    backgroundColor: "black",
+    backgroundColor: "#434343",
     borderRadius: 15,
     marginBottom: 3,
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: -5,
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   txt: {
-    fontFamily: "AvNextBold",
+    //fontFamily: "AvNextBold",
     fontWeight: "bold",
     color: "white",
     fontSize: 13,
-    marginLeft: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    //marginLeft: 10,
   },
 });
