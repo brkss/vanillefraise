@@ -18,7 +18,7 @@ import { seed } from "./utils/seed";
     port: 3306,
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASS || "root",
-    database: "vanillefraise",
+    database: process.env.DB_NAME || "vanillefraise",
     //database: process.env.DB_NAME || "opencc",
     charset: "utf8mb4_unicode_ci",
     synchronize: true,
