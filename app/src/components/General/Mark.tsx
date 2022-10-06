@@ -38,8 +38,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: -5,
+    justifyContent: 'center'
   },
   txt: {
+    fontFamily: "AvNextBold",
     fontWeight: "bold",
     color: "white",
     fontSize: 13,
