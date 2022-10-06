@@ -9,7 +9,7 @@ import { filterRecipes } from "../../utils/helpers/FilterRecipes";
 export class RecomendedRecipesResolver {
   @UseMiddleware(isUserAuth)
   @Query(() => [Recipe])
-  async recomnededRecipes(@Ctx() ctx: IContext): Promise<Recipe[]> {
+  async recommendedRecipes(@Ctx() ctx: IContext): Promise<Recipe[]> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) {
       return [];

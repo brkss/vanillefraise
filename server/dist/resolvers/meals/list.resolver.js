@@ -92,7 +92,7 @@ let ListMealsResolver = class ListMealsResolver {
         let cal = 0;
         let total = 0;
         for (let recipe of recipes) {
-            cal =
+            cal +=
                 ((_a = recipe.totalnutrition.find((x) => x.code == "ENERC_KCAL")) === null || _a === void 0 ? void 0 : _a.quantity) ||
                     0;
             total += parseInt(recipe.total || "0") || 0;

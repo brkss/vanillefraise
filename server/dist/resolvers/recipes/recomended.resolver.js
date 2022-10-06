@@ -19,7 +19,7 @@ const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const Recipe_1 = require("../../entity/Recipe");
 const FilterRecipes_1 = require("../../utils/helpers/FilterRecipes");
 let RecomendedRecipesResolver = class RecomendedRecipesResolver {
-    async recomnededRecipes(ctx) {
+    async recommendedRecipes(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user) {
             return [];
@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], RecomendedRecipesResolver.prototype, "recomnededRecipes", null);
+], RecomendedRecipesResolver.prototype, "recommendedRecipes", null);
 RecomendedRecipesResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], RecomendedRecipesResolver);
