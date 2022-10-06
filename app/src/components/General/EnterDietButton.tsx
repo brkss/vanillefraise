@@ -10,9 +10,9 @@ export const EnterDietButton: React.FC<Props> = ({ pressed }) => {
     <Pressable style={styles.container} onPress={() => pressed()}>
       <View style={styles.behindCircle} />
       <View style={styles.circle}>
-        <Text style={styles.icon}>🍦</Text>
+        <Text style={styles.icon}>🗓</Text>
       </View>
-      <Text style={styles.txt}>Diet</Text>
+      <Text style={styles.txt}>Cooking</Text>
     </Pressable>
   );
 };

@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   View,
-  TouchableOpacity,
+  Pressable,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -31,7 +31,7 @@ export const RecipeThumbnail: React.FC<Props> = ({
 }) => {
   console.log("Image : ", img);
   return (
-    <TouchableOpacity onPress={() => pressed()}>
+    <Pressable onPress={() => pressed()}>
       <ImageBackground
         source={{
           uri: img,
@@ -50,9 +50,11 @@ export const RecipeThumbnail: React.FC<Props> = ({
         )}
         <Text style={styles.title}>{title}</Text>
         {time ? <Text style={styles.time}>about {time} to make.</Text> : null}
-        {carbs && carbs !== "-1" && <Text style={styles.carbs}>{carbs}g of carbs</Text>}
+        {carbs && carbs !== "-1" && (
+          <Text style={styles.carbs}>{carbs}g of carbs</Text>
+        )}
       </ImageBackground>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
   },
   shadow: {
     height: 175,
-    width: "100%",
+    fontSize: 22,
     backgroundColor: "black",
     borderRadius: 13,
     opacity: 0.4,
@@ -73,11 +75,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 22,
     color: "white",
     left: 10,
     width: "90%",
-	fontFamily: "AvNextBold"
+    fontFamily: "AvNextBold",
   },
   time: {
     fontSize: 13,
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     left: 10,
-	fontFamily: "AvNextBold"
+    fontFamily: "AvNextBold",
   },
   carbs: {
     fontSize: 13,

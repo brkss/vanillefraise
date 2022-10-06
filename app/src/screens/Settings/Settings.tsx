@@ -7,10 +7,9 @@ import { useMeQuery } from "../../generated/graphql";
 import Constants from "expo-constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 export const Settings: React.FC<any> = ({ navigation }) => {
   const { data, loading, error } = useMeQuery();
-  const _ctx = React.useContext(AuthContext);
+    const pp = ["🐝", "🐞", "🍩", "🍕", "🍭", "🍓", "🥑", "🍪"];  const _ctx = React.useContext(AuthContext);
 
   const logout = async () => {
     _ctx.logout();
@@ -23,10 +22,9 @@ export const Settings: React.FC<any> = ({ navigation }) => {
   }
 
   const choosePp = () => {
-    const pp = ["🐝", "🐞", "🦄", "🍩", "🍕", "🍭", "🍓", "🥑", "🍪"];
+    const pp = ["🐝", "🐞", "🍩", "🍕", "🍭", "🍓", "🥑", "🍪"];
     return pp[Math.floor(pp.length * Math.random())];
   };
-
 
   return (
     <View style={styles.container}>

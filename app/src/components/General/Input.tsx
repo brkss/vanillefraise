@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     fontSize: 12,
+    fontFamily: "AvNextBold",
   },
   input: {
     padding: 15,
@@ -39,5 +40,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebebeb",
     width: "100%",
     fontWeight: "bold",
+    fontFamily: "AvNextBold",
   },
 });

@@ -12,8 +12,8 @@ export const SearchInput: React.FC<Props> = ({ change }) => {
         style={styles.input}
         onChangeText={(v) => change(v)}
         placeholder={"Search (title, nutritient, ingredient)..."}
-		placeholderTextColor={"#c2c2c2"}
-	  />
+        placeholderTextColor={"#c2c2c2"}
+      />
     </View>
   );
 };
@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 18,
     borderRadius: 10,
+    fontFamily: "AvNextBold",
   },
 });
