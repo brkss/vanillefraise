@@ -66,15 +66,13 @@ export const ConfigureDietFood: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>FOOD THAT FIT ?</Text>
-      <Text style={styles.subtitle}>enjoy what you’re eating</Text>
+      <Text style={styles.title}>Enjoy what you're eating</Text>
+      <Text style={styles.subtitle}>alergies and dislikes</Text>
       <Text style={[styles.hint, { display: "none" }]}>
         setup filters for recipes, note that filters may affect your recipes
         choises !
       </Text>
-      <Text style={[styles.hint, { fontWeight: "bold", marginTop: 10 }]}>
-        {selected.length} selected
-      </Text>
+      <Text style={[styles.hint]}>{selected.length} selected</Text>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.items}>
         {data.healthLabels.map((label, key) => (
           <FoodItem
@@ -111,24 +109,28 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    textAlign: "center",
+    fontFamily: "AvNextBold",
+    //textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
     fontWeight: "bold",
     opacity: 0.7,
-    textAlign: "center",
+    lineHeight: 18,
+    fontFamily: "AvNextBold",
+    //textAlign: "center",
   },
   items: {
     flex: 1,
     marginBottom: 10,
   },
   hint: {
-    textAlign: "center",
-    marginTop: 20,
+    textAlign: "right",
+    //marginTop: 20,
     marginBottom: 10,
     fontSize: 13,
     opacity: 0.7,
+
     //display: "none",
   },
 });

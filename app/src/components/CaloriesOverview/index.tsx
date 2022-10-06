@@ -24,11 +24,19 @@ interface Props {
 }
 
 export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
-  const _macros = useMacrosQuery();
-  const { data, loading, error, refetch } = useUserCaloriesQuery();
-  const _burnedCalories = useGetUserBurnedCaloriesQuery();
+  const _macros = useMacrosQuery({
+    
+  });
+  const { data, loading, error, refetch } = useUserCaloriesQuery({
+    
+  });
+  const _burnedCalories = useGetUserBurnedCaloriesQuery({
+    
+  });
 
-  const _count = useCookedRecipesCountQuery();
+  const _count = useCookedRecipesCountQuery({
+    
+  });
 
   React.useEffect(() => {
     if (refreshing) {
@@ -54,10 +62,13 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
 
   return (
     <View style={styles.container}>
-	  <View style={styles.row}>
-	  	<Text style={styles.label}>Today's energy intake</Text>
-	  	<Text style={styles.calories}>{data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}/{_macros.data.macros.tdee || _macros.data.macros.ree} cal</Text>
-		</View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Today's energy intake</Text>
+        <Text style={styles.calories}>
+          {data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}
+          /{_macros.data.macros.tdee || _macros.data.macros.ree} cal
+        </Text>
+      </View>
       <LoadingBar
         progress={calcProgress(
           _macros.data.macros.tdee || _macros.data.macros.ree,
@@ -75,7 +86,7 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
-	marginTop: 30
+    marginTop: 30,
   },
   caloriesContainer: {
     flexDirection: "row",
@@ -125,15 +136,15 @@ const styles = StyleSheet.create({
 
   // ---
   label: {
-	fontFamily: "AvNextBold",
-	fontWeight: "bold",
-	fontSize: 17,
-	color: "#434343"
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
+    fontSize: 17,
+    color: "#434343",
   },
   calories: {
-	fontFamily: "AvNextBold",
-	fontSize: 15,
-	fontWeight: "bold",
-	opacity: .8
-  }
+    fontFamily: "AvNextBold",
+    fontSize: 15,
+    fontWeight: "bold",
+    opacity: 0.8,
+  },
 });

@@ -1,65 +1,43 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
-import { Item } from './Item';
-
-const data = [
-	{
-		title: "Vitamins",
-		value: 19,
-		status: "Low Intake !"
-	},
-	{
-		title: "Minirals",
-		value: 12,
-		status: "Low Intake !"
-	},
-	{
-		title: "Fats",
-		value: 73,
-		status: "Pretty Healthy !"
-	},
-	{
-		title: "Protein",
-		value: 56,
-		status: "Pretty Healthy !"
-	},
-	{
-		title: "Carbs",
-		value: 203,
-		status: "High intake !"
-	},
-		
-]
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Item } from "./Item";
+import { useNutritionCategoryIntakeQuery } from "../../generated/graphql";
+import { Loading } from "../General";
 
 interface Props {
   navigation: any;
 }
 
-export const NutritionIntakeDaily : React.FC<Props> = ({navigation}) => {
+export const NutritionIntakeDaily: React.FC<Props> = ({ navigation }) => {
+  const { data, loading, error } = useNutritionCategoryIntakeQuery();
 
-	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>You Nutrition</Text>
-			{
-				data.map((item, key) => (
-          <Item clicked={() => navigation.navigate('NutritionOverview')} status={item.status} title={item.title} value={item.value}  />	
-				))
-			}
-			
-		</View>
-	)
+  if (loading || error) return <Loading />;
 
-}
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Your Nutrition</Text>
+      {data.nutritionCategoryIntake.categories.map((item, key) => (
+        <Item
+          key={key}
+          clicked={() => navigation.navigate("NutritionOverview")}
+          status={"everything's good"}
+          title={item.name}
+          value={Math.floor(item.intake)}
+        />
+      ))}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-	container: {
-		//padding: 10,
-	},
-	title: {
-		fontFamily: "AvNextBold",
-		fontSize: 20,
-		fontWeight: "bold",
-		color: "#434343",
-		marginBottom: 20,
-	}
-})
+  container: {
+    //padding: 10,
+  },
+  title: {
+    fontFamily: "AvNextBold",
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#434343",
+    marginBottom: 20,
+  },
+});

@@ -1,0 +1,9 @@
+query NutritionCategoryIntake{
+  nutritionCategoryIntake{
+    categories{
+      name
+      intake
+      id
+    }
+  }
+}

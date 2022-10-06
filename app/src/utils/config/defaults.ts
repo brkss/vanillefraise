@@ -1,5 +1,5 @@
-export const URI = "http://localhost:4003";
-export const CDN = "http://localhost:4003/images";
+export const URI = "http://localhost:4000";
+export const CDN = "http://localhost:4000/images";
 
 //export const URI = "https://api.opencc.tech";
 //export const CDN = "https://api.opencc.tech/images";

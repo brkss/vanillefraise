@@ -14,7 +14,7 @@ import {
   TopBar,
   EmailVerification,
   NutritionIntakeDaily,
-  FeaturedRecipes,
+  RecomendedRecipes,
 } from "../../components";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -38,7 +38,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
     });
   }, []);
 
-  if ( loading || error) {
+  if (loading || error) {
     return <Loading />;
   }
 
@@ -68,7 +68,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             <View style={{ height: 10 }} />
             <MealsOverview refreshing={refreshing} navigation={navigation} />
             <View style={{ height: 10 }} />
-            <FeaturedRecipes />
+            <RecomendedRecipes navigation={navigation} />
             <View style={{ height: 25 }} />
             <NutritionIntakeDaily navigation={navigation} />
             {/*

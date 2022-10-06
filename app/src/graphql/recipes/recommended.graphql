@@ -1,0 +1,7 @@
+query RecommendedRecipes{
+  recommendedRecipes{
+    id
+    name
+    image
+  }
+}

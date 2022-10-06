@@ -153,11 +153,6 @@ export type CreateActivityResponse = {
   status: Scalars['Boolean'];
 };
 
-export type CreateBulkRecipesInput = {
-  categories: Array<Scalars['String']>;
-  url: Scalars['String'];
-};
-
 export type CreateDietConfigResponse = {
   __typename?: 'CreateDietConfigResponse';
   data?: Maybe<DietConfigResponse>;
@@ -196,18 +191,6 @@ export type CreateRecipeCategoryResponse = {
   status: Scalars['Boolean'];
 };
 
-export type CreateRecipeInput = {
-  categories: Array<Scalars['String']>;
-  url: Scalars['String'];
-};
-
-export type CreateRecipeResponse = {
-  __typename?: 'CreateRecipeResponse';
-  message: Scalars['String'];
-  recipe?: Maybe<Recipe>;
-  status: Scalars['Boolean'];
-};
-
 export type CreateRecordInput = {
   category: Scalars['Float'];
   date: Scalars['DateTime'];
@@ -220,6 +203,11 @@ export type CreateRecordResponse = {
   message: Scalars['String'];
   record: Record;
   status: Scalars['Boolean'];
+};
+
+export type DailyNutritionIntakeResponse = {
+  __typename?: 'DailyNutritionIntakeResponse';
+  categories: Array<NutritionCategoryData>;
 };
 
 export type DefaultResponse = {
@@ -277,7 +265,7 @@ export type HealthLabelRefrence = {
 
 export type Ingredient = {
   __typename?: 'Ingredient';
-  amount?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Float']>;
   created_at: Scalars['String'];
   id: Scalars['String'];
   ingredients?: Maybe<Scalars['String']>;
@@ -441,11 +429,10 @@ export type Mutation = {
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
   createActivity: CreateActivityResponse;
-  createBulkRecipes: DefaultResponse;
   createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
-  createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
+  createRecipeTest: DefaultResponse;
   createRecord: CreateRecordResponse;
   deleteCategory: DefaultResponse;
   deleterecipe: Scalars['Boolean'];
@@ -527,11 +514,6 @@ export type MutationCreateActivityArgs = {
 };
 
 
-export type MutationCreateBulkRecipesArgs = {
-  data: Array<CreateBulkRecipesInput>;
-};
-
-
 export type MutationCreateDietRecordArgs = {
   data: CreateDietRecordInput;
 };
@@ -542,13 +524,13 @@ export type MutationCreateMoodRecordArgs = {
 };
 
 
-export type MutationCreateRecipeArgs = {
-  data: CreateRecipeInput;
+export type MutationCreateRecipeCategoryArgs = {
+  data: CreateRecipeCategoryInput;
 };
 
 
-export type MutationCreateRecipeCategoryArgs = {
-  data: CreateRecipeCategoryInput;
+export type MutationCreateRecipeTestArgs = {
+  url: Scalars['String'];
 };
 
 
@@ -626,6 +608,13 @@ export type MutationVerifyAccountArgs = {
   token: Scalars['String'];
 };
 
+export type NutritionCategoryData = {
+  __typename?: 'NutritionCategoryData';
+  id: Scalars['String'];
+  intake: Scalars['Float'];
+  name: Scalars['String'];
+};
+
 export type NutritionCategoryOverview = {
   __typename?: 'NutritionCategoryOverview';
   id: Scalars['String'];
@@ -678,6 +667,7 @@ export type Query = {
   meals: Array<MealListResponse>;
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
+  nutritionCategoryIntake: DailyNutritionIntakeResponse;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
@@ -685,6 +675,7 @@ export type Query = {
   recipeCategories: Array<RecipeCategory>;
   recipeEnergy: Scalars['Float'];
   recipes: Array<Recipe>;
+  recommendedRecipes: Array<Recipe>;
   recordCategories: Array<RecordCategory>;
   records: ListRecordsResponse;
   searchRecipes: SearchResultResponse;
@@ -943,7 +934,7 @@ export type TrackWeightResponse = {
 
 export type TranslatedIngredient = {
   __typename?: 'TranslatedIngredient';
-  amount?: Maybe<Scalars['String']>;
+  amount?: Maybe<Scalars['Float']>;
   ar: IngredientLang;
   created_at: Scalars['String'];
   es: IngredientLang;
@@ -1242,7 +1233,7 @@ export type GetMealRecipesQueryVariables = Exact<{
 }>;
 
 
-export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, cooked?: boolean | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: string | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string, recipe: { __typename?: 'Recipe', id: string } }> | null | undefined } };
+export type GetMealRecipesQuery = { __typename?: 'Query', getMealRecipes: { __typename?: 'MealRecipeResponse', status: boolean, message?: string | null | undefined, time?: number | null | undefined, calories?: number | null | undefined, cooked?: boolean | null | undefined, recipes?: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }> | null | undefined, ingredients?: Array<{ __typename?: 'Ingredient', id: string, amount?: number | null | undefined, unit?: string | null | undefined, ingredients?: string | null | undefined }> | null | undefined, mealrecipes?: Array<{ __typename?: 'MealRecipes', id: string, recipe: { __typename?: 'Recipe', id: string } }> | null | undefined } };
 
 export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1293,6 +1284,11 @@ export type RecipeEnergyQueryVariables = Exact<{
 
 
 export type RecipeEnergyQuery = { __typename?: 'Query', recipeEnergy: number };
+
+export type NutritionCategoryIntakeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NutritionCategoryIntakeQuery = { __typename?: 'Query', nutritionCategoryIntake: { __typename?: 'DailyNutritionIntakeResponse', categories: Array<{ __typename?: 'NutritionCategoryData', name: string, intake: number, id: string }> } };
 
 export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1348,7 +1344,12 @@ export type RecipeQueryVariables = Exact<{
 }>;
 
 
-export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, healthlabel: Array<{ __typename?: 'RecipeHealthLabel', label: string }> } | null | undefined, ingredients?: Array<{ __typename?: 'TranslatedIngredient', unit?: string | null | undefined, raw: string, amount?: string | null | undefined, ingredients?: string | null | undefined, es: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, fr: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, ar: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined } }> | null | undefined, instructions?: Array<{ __typename?: 'TranslatedInstruction', id: string, raw: string, index: number, es?: string | null | undefined, ar?: string | null | undefined, fr?: string | null | undefined }> | null | undefined } };
+export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, healthlabel: Array<{ __typename?: 'RecipeHealthLabel', label: string }> } | null | undefined, ingredients?: Array<{ __typename?: 'TranslatedIngredient', unit?: string | null | undefined, raw: string, amount?: number | null | undefined, ingredients?: string | null | undefined, es: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, fr: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, ar: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined } }> | null | undefined, instructions?: Array<{ __typename?: 'TranslatedInstruction', id: string, raw: string, index: number, es?: string | null | undefined, ar?: string | null | undefined, fr?: string | null | undefined }> | null | undefined } };
+
+export type RecommendedRecipesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RecommendedRecipesQuery = { __typename?: 'Query', recommendedRecipes: Array<{ __typename?: 'Recipe', id: string, name: string, image: string }> };
 
 export type SearchRecipesQueryVariables = Exact<{
   query: Scalars['String'];
@@ -2776,6 +2777,44 @@ export function useRecipeEnergyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type RecipeEnergyQueryHookResult = ReturnType<typeof useRecipeEnergyQuery>;
 export type RecipeEnergyLazyQueryHookResult = ReturnType<typeof useRecipeEnergyLazyQuery>;
 export type RecipeEnergyQueryResult = Apollo.QueryResult<RecipeEnergyQuery, RecipeEnergyQueryVariables>;
+export const NutritionCategoryIntakeDocument = gql`
+    query NutritionCategoryIntake {
+  nutritionCategoryIntake {
+    categories {
+      name
+      intake
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useNutritionCategoryIntakeQuery__
+ *
+ * To run a query within a React component, call `useNutritionCategoryIntakeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNutritionCategoryIntakeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNutritionCategoryIntakeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNutritionCategoryIntakeQuery(baseOptions?: Apollo.QueryHookOptions<NutritionCategoryIntakeQuery, NutritionCategoryIntakeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NutritionCategoryIntakeQuery, NutritionCategoryIntakeQueryVariables>(NutritionCategoryIntakeDocument, options);
+      }
+export function useNutritionCategoryIntakeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NutritionCategoryIntakeQuery, NutritionCategoryIntakeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NutritionCategoryIntakeQuery, NutritionCategoryIntakeQueryVariables>(NutritionCategoryIntakeDocument, options);
+        }
+export type NutritionCategoryIntakeQueryHookResult = ReturnType<typeof useNutritionCategoryIntakeQuery>;
+export type NutritionCategoryIntakeLazyQueryHookResult = ReturnType<typeof useNutritionCategoryIntakeLazyQuery>;
+export type NutritionCategoryIntakeQueryResult = Apollo.QueryResult<NutritionCategoryIntakeQuery, NutritionCategoryIntakeQueryVariables>;
 export const UserNutritionDocument = gql`
     query UserNutrition {
   userNutrition {
@@ -3154,6 +3193,42 @@ export function useRecipeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Rec
 export type RecipeQueryHookResult = ReturnType<typeof useRecipeQuery>;
 export type RecipeLazyQueryHookResult = ReturnType<typeof useRecipeLazyQuery>;
 export type RecipeQueryResult = Apollo.QueryResult<RecipeQuery, RecipeQueryVariables>;
+export const RecommendedRecipesDocument = gql`
+    query RecommendedRecipes {
+  recommendedRecipes {
+    id
+    name
+    image
+  }
+}
+    `;
+
+/**
+ * __useRecommendedRecipesQuery__
+ *
+ * To run a query within a React component, call `useRecommendedRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecommendedRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecommendedRecipesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRecommendedRecipesQuery(baseOptions?: Apollo.QueryHookOptions<RecommendedRecipesQuery, RecommendedRecipesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecommendedRecipesQuery, RecommendedRecipesQueryVariables>(RecommendedRecipesDocument, options);
+      }
+export function useRecommendedRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecommendedRecipesQuery, RecommendedRecipesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecommendedRecipesQuery, RecommendedRecipesQueryVariables>(RecommendedRecipesDocument, options);
+        }
+export type RecommendedRecipesQueryHookResult = ReturnType<typeof useRecommendedRecipesQuery>;
+export type RecommendedRecipesLazyQueryHookResult = ReturnType<typeof useRecommendedRecipesLazyQuery>;
+export type RecommendedRecipesQueryResult = Apollo.QueryResult<RecommendedRecipesQuery, RecommendedRecipesQueryVariables>;
 export const SearchRecipesDocument = gql`
     query SearchRecipes($query: String!) {
   searchRecipes(query: $query) {
