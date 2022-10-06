@@ -20,6 +20,7 @@ import { Like, LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
 import { UserCaloriesResponse } from "../../utils/responses/nutrition/calories.response";
 import dayjs from "dayjs";
 import { DietRecord } from "../../entity/Diet/Record";
+import { calculateREE } from "../../utils/helpers/macros";
 
 @Resolver()
 export class NutritionOverviewResolver {
@@ -104,7 +105,12 @@ export class NutritionOverviewResolver {
       };
     }
     try {
-      const target = user.bmi;
+      const target = calculateREE(
+        user.gender,
+        user.weight,
+        user.height,
+        user.birth
+      );
       const cookedRecipes = await CookedRecipe.find({
         where: {
           user: user,
@@ -127,6 +133,7 @@ export class NutritionOverviewResolver {
           created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`),
         },
       });
+
       return {
         status: true,
         burnt: 0,

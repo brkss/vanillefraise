@@ -25,6 +25,7 @@ const typeorm_1 = require("typeorm");
 const dayjs_1 = __importDefault(require("dayjs"));
 const Nutrition_1 = require("../../entity/Nutrition");
 const getAge_1 = require("../../utils/helpers/getAge");
+const macros_1 = require("../../utils/helpers/macros");
 const Recomendation_1 = require("../../entity/recomendation/Recomendation");
 let NutritionIntakeResolver = class NutritionIntakeResolver {
     async nutritionCategoryIntake(ctx) {
@@ -74,10 +75,13 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
             }
         }
         for (let nutrition of nutritions) {
-            nutrition.intake =
-                nutrition.recomendation === -1
-                    ? -1
-                    : (nutrition.quantity * 100) / nutrition.recomendation;
+            if (nutrition.code === "ENERC_KCAL")
+                nutrition.intake = nutrition.quantity;
+            else
+                nutrition.intake =
+                    nutrition.recomendation === -1
+                        ? -1
+                        : (nutrition.quantity * 100) / nutrition.recomendation;
         }
         const categories = await Nutrition_1.NutritienCategory.find({
             relations: ["nutrients"],
@@ -94,9 +98,15 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
             }
             results.push({
                 id: category.id,
-                intake: intake / count,
+                intake: count === 0 ? 0 : intake / count,
                 name: category.name,
             });
+        }
+        for (let i = 0; i < results.length; i++) {
+            if (results[i].name === "Energy") {
+                const ree = (0, macros_1.calculateREE)(user.gender, user.weight, user.height, user.birth);
+                results[i].intake = (results[i].intake * 100) / ree;
+            }
         }
         return {
             categories: results,

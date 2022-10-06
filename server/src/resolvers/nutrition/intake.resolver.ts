@@ -8,10 +8,11 @@ import { getRepository, LessThanOrEqual, Like, MoreThanOrEqual } from "typeorm";
 import dayjs from "dayjs";
 import {
   NutritienCategory,
-  RecipeTotalNutrition,
+  //RecipeTotalNutrition,
   Nutrition,
 } from "../../entity/Nutrition";
 import { getAge } from "../../utils/helpers/getAge";
+import { calculateREE } from "../../utils/helpers/macros";
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
 
 @Resolver()
@@ -79,10 +80,13 @@ export class NutritionIntakeResolver {
 
     // calclate intake !
     for (let nutrition of nutritions) {
-      nutrition.intake =
-        nutrition.recomendation === -1
-          ? -1
-          : (nutrition.quantity * 100) / nutrition.recomendation;
+      if (nutrition.code === "ENERC_KCAL")
+        nutrition.intake = nutrition.quantity;
+      else
+        nutrition.intake =
+          nutrition.recomendation === -1
+            ? -1
+            : (nutrition.quantity * 100) / nutrition.recomendation;
     }
 
     const categories = await NutritienCategory.find({
@@ -102,9 +106,22 @@ export class NutritionIntakeResolver {
       }
       results.push({
         id: category.id,
-        intake: intake / count,
+        intake: count === 0 ? 0 : intake / count,
         name: category.name,
       });
+    }
+
+    // correction !
+    for (let i = 0; i < results.length; i++) {
+      if (results[i].name === "Energy") {
+        const ree = calculateREE(
+          user.gender,
+          user.weight,
+          user.height,
+          user.birth
+        );
+        results[i].intake = (results[i].intake * 100) / ree;
+      }
     }
 
     return {

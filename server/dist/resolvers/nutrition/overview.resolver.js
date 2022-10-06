@@ -29,6 +29,7 @@ const typeorm_1 = require("typeorm");
 const calories_response_1 = require("../../utils/responses/nutrition/calories.response");
 const dayjs_1 = __importDefault(require("dayjs"));
 const Record_1 = require("../../entity/Diet/Record");
+const macros_1 = require("../../utils/helpers/macros");
 let NutritionOverviewResolver = class NutritionOverviewResolver {
     async userNutrition(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -102,7 +103,7 @@ let NutritionOverviewResolver = class NutritionOverviewResolver {
             };
         }
         try {
-            const target = user.bmi;
+            const target = (0, macros_1.calculateREE)(user.gender, user.weight, user.height, user.birth);
             const cookedRecipes = await CookedRecipe_1.CookedRecipe.find({
                 where: {
                     user: user,
