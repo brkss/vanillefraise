@@ -17,4 +17,5 @@ __exportStar(require("./delete.resolver"), exports);
 __exportStar(require("./item.resolver"), exports);
 __exportStar(require("./cooked.resolver"), exports);
 __exportStar(require("./search.resolver"), exports);
+__exportStar(require("./recomended.resolver"), exports);
 //# sourceMappingURL=index.js.map
