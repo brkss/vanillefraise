@@ -56,9 +56,9 @@ export const Item: React.FC<Props> = ({ txt, unit, amount }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderTopColor: "#434343",
-    borderTopWidth: 1,
-    marginBottom: 15,
+    //borderTopColor: "#434343",
+    //borderTopWidth: 1,
+    marginBottom: 30,
     paddingTop: 15,
     flexDirection: "row",
     //justifyContent: "center",
@@ -75,5 +75,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     fontSize: 17,
     fontWeight: "bold",
+    fontFamily: "AvNextBold",
+    lineHeight: 19,
   },
 });

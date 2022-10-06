@@ -31,6 +31,7 @@ import {
 import { CDN } from "../../utils/config/defaults";
 import { saveRecipe, IRecipe, isRecipeSaved } from "../../utils/modules/save";
 //import { languages } from "../../utils/data";
+import { BlurView } from "expo-blur";
 
 const TABS = ["INGREDIENTS", "INSTRUCTIONS", "NUTRITIONS"];
 
@@ -177,19 +178,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             txt={"Add To Meal"}
           />
         ) : (
-          /*<Button
-            //color={"#2A2A2A"}
-            bg={"#595959"}
-            txt={"Add To Meal"}
-            clicked={() =>
-              navigation.push("MealsOptions", {
-                recipe: data.recipe.recipe.id,
-              })
-            }
-          />*/
-          <Button
-            //color={"#2A2A2A"}
-            //bg={"#B6DA81"}
+          <BluredButton
             txt={"Start Cooking"}
             clicked={() =>
               navigation.push("Cooking", {

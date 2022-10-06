@@ -19,7 +19,6 @@ import {
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 interface MarkedDate {
   count: number;
   date: string;
@@ -117,13 +116,6 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
     refetch();
     //console.log("meal recipes ids: ", mr);
   };
-
-  const [helviticaCondensed] = useFonts({
-    condensed: require("../../assets/helvitica-condensed.otf"),
-  });
-  if (!helviticaCondensed) {
-    return <Loading />;
-  }
 
   return (
     <View style={styles.container}>

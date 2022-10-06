@@ -55,16 +55,13 @@ export const IngredientStep: React.FC<Props> = ({
 
   return (
     <Animated.View style={[styles.container, { opacity: opcAnim }]}>
-      <Text style={styles.title}>
-        You'll need the following ingredients for your recipe
-      </Text>
-      <Languages
+      <Text style={styles.title}>Click on each ingredient you've prepared</Text>
+      {/*<Languages
         isCooking={true}
         onSelect={(l) => setLang(l)}
         selected={lang}
-      />
+      />*/}
       <View style={{ marginTop: 10 }} />
-      <Text style={styles.hint}>press any ingredient you’ve prepared !</Text>
       <Text style={styles.hint}>
         Managed To Serve {servings} person{servings > 1 ? "s" : ""}
       </Text>
@@ -94,8 +91,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 25,
-    fontFamily: "helvitica-condesed",
+    fontSize: 22,
+    lineHeight: 24,
+    fontFamily: "AvNextBold",
     //marginVertical: 15,
     marginBottom: 0,
     //backgroundColor: "pink",
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
     //marginBottom: 5,
     opacity: 0.7,
     fontSize: 15,
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
   },
   ings: {
     flex: 1,

@@ -10,7 +10,7 @@ interface Props {
 export const BluredButton: React.FC<Props> = ({ txt, clicked }) => {
   return (
     <Pressable onPress={() => clicked()} style={styles.container}>
-      <BlurView style={styles.content} intensity={60} tint={"dark"}>
+      <BlurView style={styles.content} intensity={100} tint={"dark"}>
         <Text style={styles.txt}>{txt}</Text>
       </BlurView>
     </Pressable>
