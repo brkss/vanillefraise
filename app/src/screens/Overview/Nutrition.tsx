@@ -9,14 +9,19 @@ import { useNutritionCategoryItemsQuery } from "../../generated/graphql";
 
 export const NutritionOverview: React.FC<any> = ({ route }) => {
   const { cat_id, cat_name } = route.params;
+  const [selected, setSelected] = React.useState("");
+
+  const handleSelect = (id: string) => {
+    setSelected(id);
+  }
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>{cat_name}</Text>
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-          <NutritionIntakeChart />
-          <NutritionCategoryItems cat_id={cat_id} />
+          {selected.length > 0 && <NutritionIntakeChart />}
+          <NutritionCategoryItems select={(id) => handleSelect(id)} cat_id={cat_id} />
         </ScrollView>
       </SafeAreaView>
     </View>
