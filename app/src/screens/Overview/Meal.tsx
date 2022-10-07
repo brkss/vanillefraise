@@ -133,17 +133,16 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
             )}
           </View>
         </View>
-		<View style={{height: 10}} />
+        <View style={{ height: 10 }} />
         <View style={styles.row}>
           <Text style={styles.calories}>
-            {loading || error ? "__" : data.getMealRecipes.calories} Cal
+            {loading || error ? "-" : data.getMealRecipes.calories} Cal
           </Text>
           <Text style={styles.time}>
-            
-            ⏲ {loading || error ? "__" : data.getMealRecipes.time} min
+            ⏲ {loading || error ? "-" : data.getMealRecipes.time} min
           </Text>
         </View>
-		<View style={{height: 10}} />
+        <View style={{ height: 10 }} />
         {_daysWithMeals.loading || _daysWithMeals.error ? (
           <Loading />
         ) : (
@@ -174,17 +173,22 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
         )}
         {loading || error ? (
           <Loading />
-        ) : data.getMealRecipes.mealrecipes.length === 0 ? <NoSelectedRecipes selectRecipes={() => navigation.navigate("Recipes")} /> : (
-		  <ScrollView showsVerticalScrollIndicator={false}>
-			
-				<MealRecipes
+        ) : data.getMealRecipes.mealrecipes.length === 0 ? (
+          <NoSelectedRecipes
+            selectRecipes={() => navigation.navigate("Recipes")}
+          />
+        ) : (
+          <ScrollView
+            style={{ flex: 1, marginBottom: 0 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <MealRecipes
               mealids={data.getMealRecipes.mealrecipes || []}
               navigation={navigation}
               recipes={data.getMealRecipes.recipes}
               removedRecipe={() => refetch()}
             />
             <MealGrocery ingredients={data.getMealRecipes.ingredients} />
-				
           </ScrollView>
         )}
       </SafeAreaView>
@@ -202,13 +206,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     flexWrap: "wrap",
-	color: "#434343"
+    color: "#434343",
   },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
-	marginTop: 10
+    marginTop: 10,
   },
   calories: {
     //lineHeight: 25,

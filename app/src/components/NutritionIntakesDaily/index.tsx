@@ -19,7 +19,7 @@ export const NutritionIntakeDaily: React.FC<Props> = ({ navigation }) => {
       {data.nutritionCategoryIntake.categories.map((item, key) => (
         <Item
           key={key}
-          clicked={() => navigation.navigate("NutritionOverview")}
+          clicked={() => navigation.navigate("NutritionOverview", {cat_id: item.id, cat_name: item.name})}
           status={"everything's good"}
           title={item.name}
           value={Math.floor(item.intake)}

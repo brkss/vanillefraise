@@ -615,6 +615,15 @@ export type NutritionCategoryData = {
   name: Scalars['String'];
 };
 
+export type NutritionCategoryItemsResponse = {
+  __typename?: 'NutritionCategoryItemsResponse';
+  id: Scalars['String'];
+  intake: Scalars['Float'];
+  name: Scalars['String'];
+  recommended: Scalars['Float'];
+  unit: Scalars['String'];
+};
+
 export type NutritionCategoryOverview = {
   __typename?: 'NutritionCategoryOverview';
   id: Scalars['String'];
@@ -668,6 +677,7 @@ export type Query = {
   moodOverview: MoodOverviewResponse;
   moods: Array<Mood>;
   nutritionCategoryIntake: DailyNutritionIntakeResponse;
+  nutritionCategoryItems: Array<NutritionCategoryItemsResponse>;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
@@ -722,6 +732,11 @@ export type QueryIsRequestedArgs = {
 
 export type QueryMealNutritionArgs = {
   data: MealRecipesInput;
+};
+
+
+export type QueryNutritionCategoryItemsArgs = {
+  cat_id: Scalars['String'];
 };
 
 
@@ -1277,6 +1292,13 @@ export type UserCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserCaloriesQuery = { __typename?: 'Query', userCalories: { __typename?: 'UserCaloriesResponse', status: boolean, message?: string | null | undefined, target?: number | null | undefined, value?: number | null | undefined, burnt?: number | null | undefined } };
+
+export type NutritionCategoryItemsQueryVariables = Exact<{
+  cat_id: Scalars['String'];
+}>;
+
+
+export type NutritionCategoryItemsQuery = { __typename?: 'Query', nutritionCategoryItems: Array<{ __typename?: 'NutritionCategoryItemsResponse', id: string, name: string, recommended: number, intake: number, unit: string }> };
 
 export type RecipeEnergyQueryVariables = Exact<{
   recipe_id: Scalars['String'];
@@ -2744,6 +2766,45 @@ export function useUserCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type UserCaloriesQueryHookResult = ReturnType<typeof useUserCaloriesQuery>;
 export type UserCaloriesLazyQueryHookResult = ReturnType<typeof useUserCaloriesLazyQuery>;
 export type UserCaloriesQueryResult = Apollo.QueryResult<UserCaloriesQuery, UserCaloriesQueryVariables>;
+export const NutritionCategoryItemsDocument = gql`
+    query NutritionCategoryItems($cat_id: String!) {
+  nutritionCategoryItems(cat_id: $cat_id) {
+    id
+    name
+    recommended
+    intake
+    unit
+  }
+}
+    `;
+
+/**
+ * __useNutritionCategoryItemsQuery__
+ *
+ * To run a query within a React component, call `useNutritionCategoryItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNutritionCategoryItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNutritionCategoryItemsQuery({
+ *   variables: {
+ *      cat_id: // value for 'cat_id'
+ *   },
+ * });
+ */
+export function useNutritionCategoryItemsQuery(baseOptions: Apollo.QueryHookOptions<NutritionCategoryItemsQuery, NutritionCategoryItemsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NutritionCategoryItemsQuery, NutritionCategoryItemsQueryVariables>(NutritionCategoryItemsDocument, options);
+      }
+export function useNutritionCategoryItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NutritionCategoryItemsQuery, NutritionCategoryItemsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NutritionCategoryItemsQuery, NutritionCategoryItemsQueryVariables>(NutritionCategoryItemsDocument, options);
+        }
+export type NutritionCategoryItemsQueryHookResult = ReturnType<typeof useNutritionCategoryItemsQuery>;
+export type NutritionCategoryItemsLazyQueryHookResult = ReturnType<typeof useNutritionCategoryItemsLazyQuery>;
+export type NutritionCategoryItemsQueryResult = Apollo.QueryResult<NutritionCategoryItemsQuery, NutritionCategoryItemsQueryVariables>;
 export const RecipeEnergyDocument = gql`
     query RecipeEnergy($recipe_id: String!) {
   recipeEnergy(recipe_id: $recipe_id)
