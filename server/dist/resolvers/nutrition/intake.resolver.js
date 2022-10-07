@@ -27,6 +27,7 @@ const Nutrition_1 = require("../../entity/Nutrition");
 const getAge_1 = require("../../utils/helpers/getAge");
 const macros_1 = require("../../utils/helpers/macros");
 const Recomendation_1 = require("../../entity/recomendation/Recomendation");
+const nutrition_1 = require("../../utils/responses/nutrition");
 let NutritionIntakeResolver = class NutritionIntakeResolver {
     async nutritionCategoryIntake(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -112,6 +113,53 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
             categories: results,
         };
     }
+    async nutritionCategoryItems(cat_id, ctx) {
+        if (!cat_id)
+            return [];
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return [];
+        const category = await Nutrition_1.NutritienCategory.findOne({
+            where: { id: cat_id },
+            relations: ["nutrients"],
+        });
+        if (!category)
+            return [];
+        const cooked = await UserInfo_1.CookedRecipe.find({
+            where: {
+                user: user,
+                created_at: (0, typeorm_1.Like)(`%${(0, dayjs_1.default)().format("YYYY-MM-DD")}%`),
+            },
+            relations: ["recipe", "recipe.totalnutrition"],
+        });
+        const results = [];
+        for (let nutrient of category.nutrients) {
+            let obj;
+            let intake = 0;
+            for (let cookedrecipe of cooked) {
+                for (let n of cookedrecipe.recipe.totalnutrition) {
+                    if (n.code === nutrient.code) {
+                        intake += n.quantity;
+                    }
+                }
+            }
+            const recommended = await (0, typeorm_1.getRepository)(Recomendation_1.NutritionRecomendation).findOne({
+                ageStart: (0, typeorm_1.LessThanOrEqual)((0, getAge_1.getAge)(user.birth)),
+                ageEnd: (0, typeorm_1.MoreThanOrEqual)((0, getAge_1.getAge)(user.birth)),
+                population: user.gender,
+                code: nutrient.code,
+            });
+            obj = {
+                name: nutrient.name,
+                intake: intake,
+                id: nutrient.id,
+                recommended: (recommended === null || recommended === void 0 ? void 0 : recommended.quantity) || -1,
+                unit: nutrient.unit,
+            };
+            results.push(obj);
+        }
+        return results;
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
@@ -121,6 +169,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], NutritionIntakeResolver.prototype, "nutritionCategoryIntake", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => [nutrition_1.NutritionCategoryItemsResponse]),
+    __param(0, (0, type_graphql_1.Arg)("cat_id")),
+    __param(1, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], NutritionIntakeResolver.prototype, "nutritionCategoryItems", null);
 NutritionIntakeResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], NutritionIntakeResolver);

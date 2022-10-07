@@ -1,10 +1,16 @@
-import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
+import { Resolver, Query, UseMiddleware, Ctx, Arg } from "type-graphql";
 import { User } from "../../entity/User";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { DailyNutritionIntakeResponse } from "../../utils/responses/nutrition/intake.response";
 import { IContext } from "../../utils/types/Context";
 import { CookedRecipe } from "../../entity/UserInfo";
-import { getRepository, LessThanOrEqual, Like, MoreThanOrEqual } from "typeorm";
+import {
+  getRepository,
+  getTreeRepository,
+  LessThanOrEqual,
+  Like,
+  MoreThanOrEqual,
+} from "typeorm";
 import dayjs from "dayjs";
 import {
   NutritienCategory,
@@ -14,6 +20,7 @@ import {
 import { getAge } from "../../utils/helpers/getAge";
 import { calculateREE } from "../../utils/helpers/macros";
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
+import { NutritionCategoryItemsResponse } from "../../utils/responses/nutrition";
 
 @Resolver()
 export class NutritionIntakeResolver {
@@ -127,5 +134,57 @@ export class NutritionIntakeResolver {
     return {
       categories: results,
     };
+  }
+
+  @UseMiddleware(isUserAuth)
+  @Query(() => [NutritionCategoryItemsResponse])
+  async nutritionCategoryItems(
+    @Arg("cat_id") cat_id: string,
+    @Ctx() ctx: IContext
+  ): Promise<NutritionCategoryItemsResponse[]> {
+    if (!cat_id) return [];
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return [];
+
+    const category = await NutritienCategory.findOne({
+      where: { id: cat_id },
+      relations: ["nutrients"],
+    });
+    if (!category) return [];
+
+    const cooked = await CookedRecipe.find({
+      where: {
+        user: user,
+        created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`),
+      },
+      relations: ["recipe", "recipe.totalnutrition"],
+    });
+    const results: NutritionCategoryItemsResponse[] = [];
+    for (let nutrient of category.nutrients) {
+      let obj: NutritionCategoryItemsResponse;
+      let intake = 0;
+      for (let cookedrecipe of cooked) {
+        for (let n of cookedrecipe.recipe.totalnutrition) {
+          if (n.code === nutrient.code) {
+            intake += n.quantity;
+          }
+        }
+      }
+      const recommended = await getRepository(NutritionRecomendation).findOne({
+        ageStart: LessThanOrEqual(getAge(user.birth)),
+        ageEnd: MoreThanOrEqual(getAge(user.birth)),
+        population: user.gender,
+        code: nutrient.code,
+      });
+      obj = {
+        name: nutrient.name,
+        intake: intake,
+        id: nutrient.id,
+        recommended: recommended?.quantity || -1,
+        unit: nutrient.unit,
+      };
+      results.push(obj);
+    }
+    return results;
   }
 }
