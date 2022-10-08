@@ -8,7 +8,7 @@ const dayjs_1 = __importDefault(require("dayjs"));
 const mergeDates = (data) => {
     const results = [];
     for (let item of data) {
-        const date = (0, dayjs_1.default)(item.date).format("DD/MM/YYYY");
+        const date = (0, dayjs_1.default)(item.date).format("MM/DD/YYYY");
         const index = results.findIndex((x) => x.date === date);
         if (index === -1) {
             results.push({ intake: item.intake, date: date });
