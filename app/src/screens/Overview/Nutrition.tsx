@@ -13,15 +13,18 @@ export const NutritionOverview: React.FC<any> = ({ route }) => {
 
   const handleSelect = (id: string) => {
     setSelected(id);
-  }
+  };
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>{cat_name}</Text>
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-          {selected.length > 0 && <NutritionIntakeChart />}
-          <NutritionCategoryItems select={(id) => handleSelect(id)} cat_id={cat_id} />
+          {selected.length > 0 && <NutritionIntakeChart code={selected} />}
+          <NutritionCategoryItems
+            select={(id) => handleSelect(id)}
+            cat_id={cat_id}
+          />
         </ScrollView>
       </SafeAreaView>
     </View>

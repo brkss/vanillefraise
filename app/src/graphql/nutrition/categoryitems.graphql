@@ -1,6 +1,6 @@
 query NutritionCategoryItems($cat_id: String!){
   nutritionCategoryItems(cat_id: $cat_id){
-    id
+    code 
     name
     recommended
     intake

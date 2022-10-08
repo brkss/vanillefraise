@@ -617,7 +617,7 @@ export type NutritionCategoryData = {
 
 export type NutritionCategoryItemsResponse = {
   __typename?: 'NutritionCategoryItemsResponse';
-  id: Scalars['String'];
+  code: Scalars['String'];
   intake: Scalars['Float'];
   name: Scalars['String'];
   recommended: Scalars['Float'];
@@ -629,6 +629,12 @@ export type NutritionCategoryOverview = {
   id: Scalars['String'];
   name: Scalars['String'];
   nutritiens: Array<NutritionOverviewData>;
+};
+
+export type NutritionIntakeChartResponse = {
+  __typename?: 'NutritionIntakeChartResponse';
+  date: Scalars['String'];
+  intake: Scalars['Float'];
 };
 
 export type NutritionOverviewData = {
@@ -678,6 +684,7 @@ export type Query = {
   moods: Array<Mood>;
   nutritionCategoryIntake: DailyNutritionIntakeResponse;
   nutritionCategoryItems: Array<NutritionCategoryItemsResponse>;
+  nutritionIntakeChart: Array<NutritionIntakeChartResponse>;
   ping: Scalars['String'];
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
@@ -737,6 +744,11 @@ export type QueryMealNutritionArgs = {
 
 export type QueryNutritionCategoryItemsArgs = {
   cat_id: Scalars['String'];
+};
+
+
+export type QueryNutritionIntakeChartArgs = {
+  code: Scalars['String'];
 };
 
 
@@ -1298,7 +1310,14 @@ export type NutritionCategoryItemsQueryVariables = Exact<{
 }>;
 
 
-export type NutritionCategoryItemsQuery = { __typename?: 'Query', nutritionCategoryItems: Array<{ __typename?: 'NutritionCategoryItemsResponse', id: string, name: string, recommended: number, intake: number, unit: string }> };
+export type NutritionCategoryItemsQuery = { __typename?: 'Query', nutritionCategoryItems: Array<{ __typename?: 'NutritionCategoryItemsResponse', code: string, name: string, recommended: number, intake: number, unit: string }> };
+
+export type NutritionIntakeChartQueryVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+
+export type NutritionIntakeChartQuery = { __typename?: 'Query', nutritionIntakeChart: Array<{ __typename?: 'NutritionIntakeChartResponse', date: string, intake: number }> };
 
 export type RecipeEnergyQueryVariables = Exact<{
   recipe_id: Scalars['String'];
@@ -2769,7 +2788,7 @@ export type UserCaloriesQueryResult = Apollo.QueryResult<UserCaloriesQuery, User
 export const NutritionCategoryItemsDocument = gql`
     query NutritionCategoryItems($cat_id: String!) {
   nutritionCategoryItems(cat_id: $cat_id) {
-    id
+    code
     name
     recommended
     intake
@@ -2805,6 +2824,42 @@ export function useNutritionCategoryItemsLazyQuery(baseOptions?: Apollo.LazyQuer
 export type NutritionCategoryItemsQueryHookResult = ReturnType<typeof useNutritionCategoryItemsQuery>;
 export type NutritionCategoryItemsLazyQueryHookResult = ReturnType<typeof useNutritionCategoryItemsLazyQuery>;
 export type NutritionCategoryItemsQueryResult = Apollo.QueryResult<NutritionCategoryItemsQuery, NutritionCategoryItemsQueryVariables>;
+export const NutritionIntakeChartDocument = gql`
+    query NutritionIntakeChart($code: String!) {
+  nutritionIntakeChart(code: $code) {
+    date
+    intake
+  }
+}
+    `;
+
+/**
+ * __useNutritionIntakeChartQuery__
+ *
+ * To run a query within a React component, call `useNutritionIntakeChartQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNutritionIntakeChartQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNutritionIntakeChartQuery({
+ *   variables: {
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useNutritionIntakeChartQuery(baseOptions: Apollo.QueryHookOptions<NutritionIntakeChartQuery, NutritionIntakeChartQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NutritionIntakeChartQuery, NutritionIntakeChartQueryVariables>(NutritionIntakeChartDocument, options);
+      }
+export function useNutritionIntakeChartLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NutritionIntakeChartQuery, NutritionIntakeChartQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NutritionIntakeChartQuery, NutritionIntakeChartQueryVariables>(NutritionIntakeChartDocument, options);
+        }
+export type NutritionIntakeChartQueryHookResult = ReturnType<typeof useNutritionIntakeChartQuery>;
+export type NutritionIntakeChartLazyQueryHookResult = ReturnType<typeof useNutritionIntakeChartLazyQuery>;
+export type NutritionIntakeChartQueryResult = Apollo.QueryResult<NutritionIntakeChartQuery, NutritionIntakeChartQueryVariables>;
 export const RecipeEnergyDocument = gql`
     query RecipeEnergy($recipe_id: String!) {
   recipeEnergy(recipe_id: $recipe_id)

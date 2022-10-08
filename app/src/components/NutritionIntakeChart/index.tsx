@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import { useActivitiesBurnedCaloriesDataQuery } from "../../generated/graphql";
+import { useNutritionIntakeChartQuery } from "../../generated/graphql";
 import { Loading } from "../../components/General";
 import Moment from "moment";
 
-export const NutritionIntakeChart: React.FC = () => {
+interface Props {
+  code: string;
+}
+
+export const NutritionIntakeChart: React.FC<Props> = ({ code }) => {
   const [data, setData] = React.useState<any>({
     labels: [],
     datasets: [
@@ -14,16 +18,19 @@ export const NutritionIntakeChart: React.FC = () => {
       },
     ],
   });
-  const _results = useActivitiesBurnedCaloriesDataQuery({
+  const _results = useNutritionIntakeChartQuery({
+    variables: {
+      code: code,
+    },
     onCompleted: (res) => {
-      if (res.activitiesBurnedCaloriesData.length > 0) {
+      if (res.nutritionIntakeChart.length > 0) {
         setData({
-          labels: res.activitiesBurnedCaloriesData.map((d) =>
-            Moment(d.date).format("DD/MM").toString()
-          ),
+          labels: res.nutritionIntakeChart
+            .reverse()
+            .map((d) => Moment(d.date).format("DD/MM").toString()),
           datasets: [
             {
-              data: res.activitiesBurnedCaloriesData.map((d) => d.count),
+              data: res.nutritionIntakeChart.reverse().map((d) => d.intake),
             },
           ],
         });
@@ -51,14 +58,12 @@ export const NutritionIntakeChart: React.FC = () => {
         <LineChart
           bezier
           data={{
-            labels: _results.data.activitiesBurnedCaloriesData.map((d) =>
+            labels: _results.data.nutritionIntakeChart.map((d) =>
               Moment(d.date).format("DD/MM").toString()
             ),
             datasets: [
               {
-                data: _results.data.activitiesBurnedCaloriesData.map(
-                  (d) => d.count
-                ),
+                data: _results.data.nutritionIntakeChart.map((d) => d.intake),
               },
             ],
           }}

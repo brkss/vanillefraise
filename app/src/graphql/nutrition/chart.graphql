@@ -1,0 +1,6 @@
+query NutritionIntakeChart($code: String!){
+  nutritionIntakeChart(code: $code){
+    date
+    intake
+  }
+}

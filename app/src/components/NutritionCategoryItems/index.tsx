@@ -18,7 +18,7 @@ export const NutritionCategoryItems: React.FC<Props> = ({ cat_id, select }) => {
     },
     onCompleted: (res) => {
       if (res.nutritionCategoryItems.length > 0) {
-        const id = res.nutritionCategoryItems[0].id;
+        const id = res.nutritionCategoryItems[0].code;
         handleSelect(id);
       }
     },
@@ -37,12 +37,12 @@ export const NutritionCategoryItems: React.FC<Props> = ({ cat_id, select }) => {
         {data.nutritionCategoryItems.map((item, key) => (
           <View key={key} style={styles.item}>
             <NutrientItem
-              clicked={() => handleSelect(item.id)}
+              clicked={() => handleSelect(item.code)}
               recomended={item.recommended}
               title={item.name}
               unit={item.unit}
               value={item.intake}
-              selected={selected === item.id}
+              selected={selected === item.code}
             />
           </View>
         ))}
