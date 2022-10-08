@@ -38,7 +38,22 @@ export const NutritionIntakeChart: React.FC<Props> = ({ code }) => {
     },
   });
 
-  if (_results.loading || _results.error) return <Loading />;
+  if (_results.loading || _results.error)
+    return (
+      <View
+        style={{ height: 250, justifyContent: "center", alignItems: "center" }}
+      >
+        <Text
+          style={{
+            display: "none",
+            fontWeight: "bold",
+            fontFamily: "AvNextBold",
+          }}
+        >
+          ✨ Loading Data..
+        </Text>
+      </View>
+    );
 
   const config = {
     backgroundColor: "#fff",
@@ -58,12 +73,14 @@ export const NutritionIntakeChart: React.FC<Props> = ({ code }) => {
         <LineChart
           bezier
           data={{
-            labels: _results.data.nutritionIntakeChart.map((d) =>
-              Moment(d.date).format("DD/MM").toString()
-            ),
+            labels: _results.data.nutritionIntakeChart
+              .reverse()
+              .map((d) => Moment(d.date).format("DD/MM").toString()),
             datasets: [
               {
-                data: _results.data.nutritionIntakeChart.map((d) => d.intake),
+                data: _results.data.nutritionIntakeChart
+                  .reverse()
+                  .map((d) => d.intake),
               },
             ],
           }}
