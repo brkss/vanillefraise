@@ -179,7 +179,7 @@ export class NutritionIntakeResolver {
       obj = {
         name: nutrient.name,
         intake: intake,
-        id: nutrient.id,
+        code: nutrient.code,
         recommended: recommended?.quantity || -1,
         unit: nutrient.unit,
       };

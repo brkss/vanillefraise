@@ -3,7 +3,7 @@ import { ObjectType, Field } from "type-graphql";
 @ObjectType()
 export class NutritionCategoryItemsResponse {
   @Field()
-  id: string;
+  code: string;
 
   @Field()
   recommended: number;

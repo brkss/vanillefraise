@@ -9,32 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NutritionCategoryItemsResponse = void 0;
+exports.NutritionIntakeChartResponse = void 0;
 const type_graphql_1 = require("type-graphql");
-let NutritionCategoryItemsResponse = class NutritionCategoryItemsResponse {
+let NutritionIntakeChartResponse = class NutritionIntakeChartResponse {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
-], NutritionCategoryItemsResponse.prototype, "code", void 0);
+], NutritionIntakeChartResponse.prototype, "date", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", Number)
-], NutritionCategoryItemsResponse.prototype, "recommended", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", Number)
-], NutritionCategoryItemsResponse.prototype, "intake", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", String)
-], NutritionCategoryItemsResponse.prototype, "unit", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", String)
-], NutritionCategoryItemsResponse.prototype, "name", void 0);
-NutritionCategoryItemsResponse = __decorate([
+], NutritionIntakeChartResponse.prototype, "intake", void 0);
+NutritionIntakeChartResponse = __decorate([
     (0, type_graphql_1.ObjectType)()
-], NutritionCategoryItemsResponse);
-exports.NutritionCategoryItemsResponse = NutritionCategoryItemsResponse;
-//# sourceMappingURL=categoryItems.response.js.map
+], NutritionIntakeChartResponse);
+exports.NutritionIntakeChartResponse = NutritionIntakeChartResponse;
+//# sourceMappingURL=chart.response.js.map

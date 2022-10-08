@@ -152,7 +152,7 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
             obj = {
                 name: nutrient.name,
                 intake: intake,
-                id: nutrient.id,
+                code: nutrient.code,
                 recommended: (recommended === null || recommended === void 0 ? void 0 : recommended.quantity) || -1,
                 unit: nutrient.unit,
             };

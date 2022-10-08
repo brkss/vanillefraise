@@ -13,4 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./recipenutrition.response"), exports);
 __exportStar(require("./overview.response"), exports);
 __exportStar(require("./categoryItems.response"), exports);
+__exportStar(require("./chart.response"), exports);
 //# sourceMappingURL=index.js.map
