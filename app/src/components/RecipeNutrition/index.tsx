@@ -52,6 +52,7 @@ export const RecipeNutrition: React.FC<Props> = ({ recipeId }) => {
       <Text style={styles.subheading}>Per serving</Text>
       {nutrition.map((nut, key) => (
         <RecipeNutritionItem
+          striped={key % 2 === 0}
           key={key}
           label={nut.label}
           quantity={nut.quantity}

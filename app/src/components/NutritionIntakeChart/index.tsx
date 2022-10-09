@@ -7,9 +7,10 @@ import Moment from "moment";
 
 interface Props {
   code: string;
+  title: string;
 }
 
-export const NutritionIntakeChart: React.FC<Props> = ({ code }) => {
+export const NutritionIntakeChart: React.FC<Props> = ({ code, title }) => {
   const [data, setData] = React.useState<any>({
     labels: [],
     datasets: [
@@ -67,7 +68,7 @@ export const NutritionIntakeChart: React.FC<Props> = ({ code }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Vitamin C intake </Text>
+      <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>last 7 days</Text>
       <View style={styles.chartContainer}>
         <LineChart

@@ -17,7 +17,7 @@ export const TabsNavigation: React.FC = () => {
           let iconName;
 
           if (route.name === "Settings")
-            iconName = focused ? "ios-settings" : "ios-settings-outline";
+            iconName = focused ? "person" : "person-outline";
           else if (route.name == "Recipes")
             iconName = focused ? "ios-disc" : "ios-disc-outline";
           else if (route.name == "Overview")

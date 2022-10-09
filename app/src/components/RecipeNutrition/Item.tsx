@@ -7,6 +7,7 @@ interface Props {
   label: string;
   quantity: number;
   unit: string;
+  striped?: boolean;
 }
 
 const HANDLE_CONVERTION = (quantity: number, unit: string, label: string) => {
@@ -28,11 +29,17 @@ export const RecipeNutritionItem: React.FC<Props> = ({
   label,
   quantity,
   unit,
+  striped,
 }) => {
   const converted = HANDLE_CONVERTION(quantity, unit, label);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: striped ? "#F7F1D7" : "transparent" },
+      ]}
+    >
       <Text style={styles.title}>{label}</Text>
       <Text style={styles.val}>
         {converted.val} {converted.unit}
@@ -48,8 +55,10 @@ const styles = StyleSheet.create({
     //borderWidth: 1,
     //borderBottomWidth: 1,
     //borderBottomColor: "#eee",
+    padding: 5,
+    paddingTop: 10,
     paddingBottom: 10,
-    marginBottom: 10,
+    //marginBottom: 10,
   },
   title: {
     fontFamily: "AvNextBold",

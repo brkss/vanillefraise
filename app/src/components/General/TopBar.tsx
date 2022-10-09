@@ -22,9 +22,9 @@ export const TopBar: React.FC<Props> = ({ navigation }) => {
             alignSelf: "flex-end",
           }}
         >
-          <AddDietRecordButton
+          {/*<AddDietRecordButton
             pressed={() => navigation.push("CreateDietRecord")}
-          />
+            />*/}
           <EnterDietButton
             pressed={() => navigation.push("BatchCookingConfig")}
           />

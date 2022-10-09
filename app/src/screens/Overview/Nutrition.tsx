@@ -10,9 +10,11 @@ import { useNutritionCategoryItemsQuery } from "../../generated/graphql";
 export const NutritionOverview: React.FC<any> = ({ route }) => {
   const { cat_id, cat_name } = route.params;
   const [selected, setSelected] = React.useState("");
+  const [title, setTitle] = React.useState("");
 
-  const handleSelect = (id: string) => {
+  const handleSelect = (id: string, title: string) => {
     setSelected(id);
+    setTitle(title);
   };
 
   return (
@@ -20,9 +22,9 @@ export const NutritionOverview: React.FC<any> = ({ route }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>{cat_name}</Text>
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-          {selected.length > 0 && <NutritionIntakeChart code={selected} />}
+          {selected.length > 0 && title.length > 0 && <NutritionIntakeChart code={selected} title={title} />}
           <NutritionCategoryItems
-            select={(id) => handleSelect(id)}
+            select={(id, title) => handleSelect(id, title)}
             cat_id={cat_id}
           />
         </ScrollView>
