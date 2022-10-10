@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { CreateRecord, MentalHealthIntro } from "../screens";
+import { NutritionPlans, MentalHealthIntro } from "../screens";
 import { RecipeNavigation } from "./RecipesNavigation";
 import { ActivityNavigation } from "./ActivityNavigation";
 import { SettingsNavigation } from "./SettingsNavigation";
@@ -22,8 +22,8 @@ export const TabsNavigation: React.FC = () => {
             iconName = focused ? "ios-disc" : "ios-disc-outline";
           else if (route.name == "Overview")
             iconName = focused ? "albums" : "albums-outline";
-          else if (route.name == "Activity")
-            iconName = focused ? "ios-eye" : "ios-eye-outline";
+          else if (route.name == "Plans")
+            iconName = focused ? "reader" : "reader-outline";
           else if (route.name == "Reminders")
             iconName = focused ? "ios-time" : "ios-time-outline";
           else if (route.name == "Record")
@@ -41,7 +41,8 @@ export const TabsNavigation: React.FC = () => {
       <Group>
         <Screen name={"Overview"} component={OverviewNavigation} />
         <Screen name={"Recipes"} component={RecipeNavigation} />
-        <Screen name={"Activity"} component={ActivityNavigation} />
+        <Screen name={"Plans"} component={NutritionPlans} />
+        {/*<Screen name={"Activity"} component={ActivityNavigation} />*}
         {/*<Screen name={"Record"} component={CreateRecord} />*/}
         {/*<Screen name={"Reminders"} component={RemindersNavigation} />*/}
         <Screen name={"Mental"} component={MentalHealthIntro} />

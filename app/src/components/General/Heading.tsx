@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
+    color: "#434343",
     fontSize: 33,
     fontWeight: "bold",
     fontFamily: "AvNextBold",

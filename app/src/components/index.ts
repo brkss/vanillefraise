@@ -41,3 +41,5 @@ export * from "./RecommendedRecipes";
 export * from "./RecipeTabs";
 export * from "./NutritionIntakeChart";
 export * from "./NutritionCategoryItems";
+export * from './NutritionPlanThumbnail';
+export * from './NutritionPlan';

@@ -13,3 +13,4 @@ export * from './NotConnected';
 export * from './Diet';
 export * from './Intro';
 export * from './BatchCooking';
+export * from './Plans';
