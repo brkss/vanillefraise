@@ -1,14 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
 
-export const PlansTrackingOverview: React.FC = () => {
+export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>Tracking Nutrition Plans</Text>
         <View style={styles.content}>
           <Text style={styles.subtitle}>no selected plans.</Text>
-          <Pressable style={styles.btn}>
+          <Pressable
+            onPress={() => navigation.navigate("Plans")}
+            style={styles.btn}
+          >
             <Text style={styles.btnText}>Select Plans</Text>
           </Pressable>
         </View>
