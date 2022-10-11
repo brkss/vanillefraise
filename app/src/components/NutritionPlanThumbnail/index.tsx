@@ -1,22 +1,26 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import {
+  Pressable,
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 
 interface Props {
-  image: any,
+  image: any;
   title: string;
+  clicked: () => void;
 }
 
-export const NutritionPlanThumbnail: React.FC<Props> = ({image, title}) => {
+export const NutritionPlanThumbnail: React.FC<Props> = ({ image, title, clicked }) => {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        source={image}
-      >
+    <Pressable onPress={() => clicked()} style={styles.container}>
+      <ImageBackground style={styles.image} source={image}>
         <View style={styles.shadow}></View>
         <Text style={styles.title}>{title}</Text>
       </ImageBackground>
-    </View>
+    </Pressable>
   );
 };
 

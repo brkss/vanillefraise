@@ -36,7 +36,7 @@ const _data = [
   },
 ];
 
-export const NutritionPlans: React.FC = () => {
+export const NutritionPlans: React.FC<any> = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
 
   const info = () => {
@@ -55,6 +55,7 @@ export const NutritionPlans: React.FC = () => {
           </View>
           {_data.map((item, key) => (
             <NutritionPlanThumbnail
+              clicked={() => navigation.navigate("PlanDetails")}
               key={key}
               image={item.image}
               title={item.title}

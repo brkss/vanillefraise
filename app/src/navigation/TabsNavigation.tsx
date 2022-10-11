@@ -6,6 +6,7 @@ import { ActivityNavigation } from "./ActivityNavigation";
 import { SettingsNavigation } from "./SettingsNavigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { OverviewNavigation } from "./OverviewNavigation";
+import { NutritionPlanNavigation } from "./PlanNavigation";
 
 export const TabsNavigation: React.FC = () => {
   const { Group, Screen, Navigator } = createBottomTabNavigator();
@@ -41,7 +42,7 @@ export const TabsNavigation: React.FC = () => {
       <Group>
         <Screen name={"Overview"} component={OverviewNavigation} />
         <Screen name={"Recipes"} component={RecipeNavigation} />
-        <Screen name={"Plans"} component={NutritionPlans} />
+        <Screen name={"Plans"} component={NutritionPlanNavigation} />
         {/*<Screen name={"Activity"} component={ActivityNavigation} />*}
         {/*<Screen name={"Record"} component={CreateRecord} />*/}
         {/*<Screen name={"Reminders"} component={RemindersNavigation} />*/}
