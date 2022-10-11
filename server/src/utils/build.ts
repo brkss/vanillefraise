@@ -51,9 +51,9 @@ import {
   NutrionIntakeChartResolver,
   // ******* RECIPES ********
   RecomendedRecipesResolver,
-
+  // ******* Nutritients plans ******
+  PlansListResolver,
 } from "../resolvers";
-
 export const build = async () => {
   return await buildSchema({
     resolvers: [
@@ -102,7 +102,8 @@ export const build = async () => {
       NutrientCategoryResolver,
       NutritionIntakeResolver,
       RecomendedRecipesResolver,
-      NutrionIntakeChartResolver 
+      NutrionIntakeChartResolver,
+      PlansListResolver,
     ],
     validate: false,
     dateScalarMode: "isoDate",

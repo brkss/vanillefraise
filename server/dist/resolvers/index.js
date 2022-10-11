@@ -23,4 +23,5 @@ __exportStar(require("./meals"), exports);
 __exportStar(require("./admin"), exports);
 __exportStar(require("./diet"), exports);
 __exportStar(require("./translating"), exports);
+__exportStar(require("./plans"), exports);
 //# sourceMappingURL=index.js.map

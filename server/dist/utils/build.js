@@ -51,7 +51,8 @@ const build = async () => {
             resolvers_1.NutrientCategoryResolver,
             resolvers_1.NutritionIntakeResolver,
             resolvers_1.RecomendedRecipesResolver,
-            resolvers_1.NutrionIntakeChartResolver
+            resolvers_1.NutrionIntakeChartResolver,
+            resolvers_1.PlansListResolver,
         ],
         validate: false,
         dateScalarMode: "isoDate",

@@ -11,3 +11,4 @@ export * from './meals';
 export * from './admin';
 export * from './diet';
 export * from './translating';
+export * from './plans';
