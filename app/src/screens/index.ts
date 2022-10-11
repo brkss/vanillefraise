@@ -14,3 +14,4 @@ export * from './Diet';
 export * from './Intro';
 export * from './BatchCooking';
 export * from './Plans';
+export * from './TrackingPlans';

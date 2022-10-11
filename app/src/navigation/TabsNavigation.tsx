@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NutritionPlans, MentalHealthIntro } from "../screens";
+import { PlansTrackingOverview, MentalHealthIntro } from "../screens";
 import { RecipeNavigation } from "./RecipesNavigation";
 import { ActivityNavigation } from "./ActivityNavigation";
 import { SettingsNavigation } from "./SettingsNavigation";
@@ -17,10 +17,10 @@ export const TabsNavigation: React.FC = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Settings")
+          if (route.name === "Me")
             iconName = focused ? "person" : "person-outline";
           else if (route.name == "Recipes")
-            iconName = focused ? "ios-disc" : "ios-disc-outline";
+            iconName = focused ? "pizza" : "pizza-outline";
           else if (route.name == "Overview")
             iconName = focused ? "albums" : "albums-outline";
           else if (route.name == "Plans")
@@ -29,8 +29,8 @@ export const TabsNavigation: React.FC = () => {
             iconName = focused ? "ios-time" : "ios-time-outline";
           else if (route.name == "Record")
             iconName = focused ? "ios-add-circle" : "ios-add-circle-outline";
-          else if (route.name == "Mental")
-            iconName = focused ? "ios-sunny" : "ios-sunny-outline";
+          else if (route.name == "Tracking")
+            iconName = focused ? "analytics" : "analytics-outline";
           // You can return any component that you like here!
           return <Ionicons name={iconName as any} size={size} color={color} />;
         },
@@ -42,12 +42,12 @@ export const TabsNavigation: React.FC = () => {
       <Group>
         <Screen name={"Overview"} component={OverviewNavigation} />
         <Screen name={"Recipes"} component={RecipeNavigation} />
+        <Screen name={"Tracking"} component={PlansTrackingOverview} />
         <Screen name={"Plans"} component={NutritionPlanNavigation} />
         {/*<Screen name={"Activity"} component={ActivityNavigation} />*}
         {/*<Screen name={"Record"} component={CreateRecord} />*/}
         {/*<Screen name={"Reminders"} component={RemindersNavigation} />*/}
-        <Screen name={"Mental"} component={MentalHealthIntro} />
-        <Screen name={"Settings"} component={SettingsNavigation} />
+        <Screen name={"Me"} component={SettingsNavigation} />
       </Group>
     </Navigator>
   );
