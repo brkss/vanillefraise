@@ -1,20 +1,25 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const PlanNutritientItem: React.FC = () => {
+interface Props {
+  title: string;
+  quantity: number;
+  unit: string;
+  description: string;
+}
+
+export const PlanNutritientItem: React.FC<Props> = ({title, quantity, description, unit}) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.line} />
         <View>
-          <Text style={styles.title}>Vitamin C</Text>
-          <Text style={styles.quantity}>~50mg per day</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.quantity}>~{quantity}{unit} per day</Text>
         </View>
       </View>
       <Text style={styles.description}>
-        Vitamin C is a powerful antioxidant, protecting you from free radicals
-        and lowering your chance of skin cancer, low levels of vitamin C can
-        cause easy bruising and bleeding gums, as well as slower-healing sores.
+        {description}
       </Text>
     </View>
   );
@@ -23,6 +28,7 @@ export const PlanNutritientItem: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
+    marginBottom: 20,
   },
   row: {
     flexDirection: "row",
