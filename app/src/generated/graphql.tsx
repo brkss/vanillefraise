@@ -263,6 +263,23 @@ export type HealthLabelRefrence = {
   param: Scalars['String'];
 };
 
+export type IPlan = {
+  __typename?: 'IPlan';
+  description: Scalars['String'];
+  id: Scalars['String'];
+  image: Scalars['String'];
+  nutrients: Array<IPlanNutritien>;
+  title: Scalars['String'];
+};
+
+export type IPlanNutritien = {
+  __typename?: 'IPlanNutritien';
+  description: Scalars['String'];
+  quantity: Scalars['Float'];
+  title: Scalars['String'];
+  unit: Scalars['String'];
+};
+
 export type Ingredient = {
   __typename?: 'Ingredient';
   amount?: Maybe<Scalars['Float']>;
@@ -686,6 +703,7 @@ export type Query = {
   nutritionCategoryItems: Array<NutritionCategoryItemsResponse>;
   nutritionIntakeChart: Array<NutritionIntakeChartResponse>;
   ping: Scalars['String'];
+  plans: Array<IPlan>;
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
   recipeByNutrition: Array<Recipe>;
@@ -1354,6 +1372,11 @@ export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PingQuery = { __typename?: 'Query', ping: string };
+
+export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'IPlan', id: string, title: string, image: string }> };
 
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3092,6 +3115,42 @@ export function usePingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PingQ
 export type PingQueryHookResult = ReturnType<typeof usePingQuery>;
 export type PingLazyQueryHookResult = ReturnType<typeof usePingLazyQuery>;
 export type PingQueryResult = Apollo.QueryResult<PingQuery, PingQueryVariables>;
+export const PlansDocument = gql`
+    query Plans {
+  plans {
+    id
+    title
+    image
+  }
+}
+    `;
+
+/**
+ * __usePlansQuery__
+ *
+ * To run a query within a React component, call `usePlansQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlansQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlansQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePlansQuery(baseOptions?: Apollo.QueryHookOptions<PlansQuery, PlansQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PlansQuery, PlansQueryVariables>(PlansDocument, options);
+      }
+export function usePlansLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlansQuery, PlansQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PlansQuery, PlansQueryVariables>(PlansDocument, options);
+        }
+export type PlansQueryHookResult = ReturnType<typeof usePlansQuery>;
+export type PlansLazyQueryHookResult = ReturnType<typeof usePlansLazyQuery>;
+export type PlansQueryResult = Apollo.QueryResult<PlansQuery, PlansQueryVariables>;
 export const RecipeCategoriesDocument = gql`
     query RecipeCategories {
   recipeCategories {

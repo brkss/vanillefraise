@@ -16,7 +16,7 @@ interface Props {
 export const NutritionPlanThumbnail: React.FC<Props> = ({ image, title, clicked }) => {
   return (
     <Pressable onPress={() => clicked()} style={styles.container}>
-      <ImageBackground style={styles.image} source={image}>
+      <ImageBackground style={styles.image} source={{uri: image}}>
         <View style={styles.shadow}></View>
         <Text style={styles.title}>{title}</Text>
       </ImageBackground>

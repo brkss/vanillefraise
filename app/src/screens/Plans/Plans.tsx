@@ -11,7 +11,10 @@ import {
   Heading,
   NutritionPlanThumbnail,
   NutritionPlanInfoModal,
+  Loading,
 } from "../../components/";
+import { usePlansQuery } from "../../generated/graphql";
+import { CDN } from '../../utils/config/defaults';
 
 const _data = [
   {
@@ -36,12 +39,17 @@ const _data = [
   },
 ];
 
-export const NutritionPlans: React.FC<any> = ({navigation}) => {
+export const NutritionPlans: React.FC<any> = ({ navigation }) => {
   const [visible, setVisible] = React.useState(false);
+  const { data, error, loading } = usePlansQuery();
 
   const info = () => {
     setVisible(true);
   };
+
+  if (loading || error) {
+    return <Loading />;
+  }
 
   return (
     <View style={styles.container}>
@@ -53,11 +61,11 @@ export const NutritionPlans: React.FC<any> = ({navigation}) => {
               <Text style={styles.infoTitle}>What is this ?</Text>
             </Pressable>
           </View>
-          {_data.map((item, key) => (
+          {data.plans.map((item, key) => (
             <NutritionPlanThumbnail
               clicked={() => navigation.navigate("PlanDetails")}
               key={key}
-              image={item.image}
+              image={`${CDN}${item.image}`}
               title={item.title}
             />
           ))}
