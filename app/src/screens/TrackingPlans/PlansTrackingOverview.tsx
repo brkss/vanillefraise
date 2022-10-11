@@ -9,7 +9,7 @@ export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
         <View style={styles.content}>
           <Text style={styles.subtitle}>no selected plans.</Text>
           <Pressable
-            onPress={() => navigation.navigate("Plans")}
+            onPress={() => navigation.navigate("PlansList")}
             style={styles.btn}
           >
             <Text style={styles.btnText}>Select Plans</Text>

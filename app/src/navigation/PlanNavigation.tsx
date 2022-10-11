@@ -8,7 +8,7 @@ export const NutritionPlanNavigation: React.FC = () => {
   return (
     <Navigator>
       <Group screenOptions={{ headerShown: false }}>
-        <Screen name={"Plans"} component={NutritionPlans} />
+        <Screen name={"PlansList"} component={NutritionPlans} />
       </Group>
       <Group screenOptions={{ headerShown: false, presentation: "modal" }}>
         <Screen name={"PlanDetails"} component={PlanDetails} />

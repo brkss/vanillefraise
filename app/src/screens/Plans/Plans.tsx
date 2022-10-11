@@ -14,7 +14,7 @@ import {
   Loading,
 } from "../../components/";
 import { usePlansQuery } from "../../generated/graphql";
-import { CDN } from '../../utils/config/defaults';
+import { CDN } from "../../utils/config/defaults";
 
 const _data = [
   {
@@ -65,7 +65,7 @@ export const NutritionPlans: React.FC<any> = ({ navigation }) => {
             <NutritionPlanThumbnail
               clicked={() => navigation.navigate("PlanDetails")}
               key={key}
-              image={`${CDN}${item.image}`}
+              image={`${CDN}/${item.image}`}
               title={item.title}
             />
           ))}
