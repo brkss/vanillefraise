@@ -1,4 +1,6 @@
-const d = [
+import { IPlanNutritien } from '../../types/Plan';
+
+export const brain_nutritients_data : IPlanNutritien[] = [
   {
     title: "Vitamin B12",
     quantity: 2.4,

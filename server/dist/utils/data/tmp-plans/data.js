@@ -1,41 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.data = void 0;
+const brain_1 = require("./brain");
 exports.data = [
     {
-        title: "Skin Health",
+        id: "p-5",
+        title: "Healthy Brain",
+        description: "",
+        image: "plans/energy.png",
+        nutrients: brain_1.brain_nutritients_data,
+    },
+    {
+        title: "Healthy Skin",
         description: "",
         id: "p-1",
         image: "plans/skin.png",
-        nutrients: [],
+        nutrients: brain_1.brain_nutritients_data,
     },
     {
         id: "p-2",
-        title: "Hair Health",
+        title: "Healthy Hair",
         description: "",
         image: "plans/hair.jpeg",
-        nutrients: [],
-    },
-    {
-        id: "p-3",
-        title: "Focus and Concentration",
-        description: "",
-        image: "plans/focus.jpeg",
-        nutrients: [],
-    },
-    {
-        id: "p-4",
-        title: "Better Memory",
-        description: "",
-        image: "plans/memory.png",
-        nutrients: [],
-    },
-    {
-        id: "p-5",
-        title: "More Energy",
-        description: "",
-        image: "plans/energy.png",
-        nutrients: [],
+        nutrients: brain_1.brain_nutritients_data,
     },
 ];
 //# sourceMappingURL=data.js.map

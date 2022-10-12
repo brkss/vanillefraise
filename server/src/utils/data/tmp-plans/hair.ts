@@ -1,4 +1,5 @@
-const data = [
+import { IPlanNutritien } from '../../types/Plan'
+export const hair_nutrients_data : IPlanNutritien[] = [
   {
     title: "Protein",
     description:

@@ -1,4 +1,7 @@
-const d = [
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.brain_nutritients_data = void 0;
+exports.brain_nutritients_data = [
     {
         title: "Vitamin B12",
         quantity: 2.4,

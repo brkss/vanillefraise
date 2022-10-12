@@ -1,39 +1,29 @@
 import { IPlan } from "../../types/Plan";
+import { skin_nutrients_data } from './skin'
+import { hair_nutrients_data } from './hair'
+import { brain_nutritients_data } from './brain'
 
 export const data: IPlan[] = [
   {
-    title: "Skin Health",
+    id: "p-5",
+    title: "Healthy Brain",
+    description: "",
+    image: "plans/energy.png",
+    nutrients: brain_nutritients_data,
+  },
+
+  {
+    title: "Healthy Skin",
     description: "",
     id: "p-1",
     image: "plans/skin.png",
-    nutrients: [],
+    nutrients: brain_nutritients_data,
   },
   {
     id: "p-2",
-    title: "Hair Health",
+    title: "Healthy Hair",
     description: "",
     image: "plans/hair.jpeg",
-    nutrients: [],
-  },
-  {
-    id: "p-3",
-    title: "Focus and Concentration",
-    description: "",
-    image: "plans/focus.jpeg",
-    nutrients: [],
-  },
-  {
-    id: "p-4",
-    title: "Better Memory",
-    description: "",
-    image: "plans/memory.png",
-    nutrients: [],
-  },
-  {
-    id: "p-5",
-    title: "More Energy",
-    description: "",
-    image: "plans/energy.png",
-    nutrients: [],
+    nutrients: brain_nutritients_data,
   },
 ];

@@ -1,4 +1,7 @@
-const data = [
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.hair_nutrients_data = void 0;
+exports.hair_nutrients_data = [
     {
         title: "Protein",
         description: "Your hair’s structure is made of hardened proteins called keratin. When your protein stores are low, generation of this important building block slows and hair grows slower and weaker.",

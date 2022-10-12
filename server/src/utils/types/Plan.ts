@@ -1,7 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
-class IPlanNutritien {
+export class IPlanNutritien {
   @Field()
   title: string;
 
