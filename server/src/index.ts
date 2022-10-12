@@ -42,7 +42,7 @@ import { seed } from "./utils/seed";
   app.use(cookieParser());
 
   app.get("/", (_, res) => {
-    res.redirect("https://opencc.tech");
+    res.redirect("https://vanillefraise.me");
     //res.send("hello from express !");
   });
 

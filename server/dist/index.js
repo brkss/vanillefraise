@@ -40,7 +40,7 @@ const seed_1 = require("./utils/seed");
     }));
     app.use((0, cookie_parser_1.default)());
     app.get("/", (_, res) => {
-        res.redirect("https://opencc.tech");
+        res.redirect("https://vanillefraise.me");
     });
     app.post("/refresh_token", async (req, res) => await (0, token_1.refreshToken)(res, req));
     app.post("/refresh_admin_token", async (req, res) => await (0, token_1.refreshAdminToken)(req, res));
