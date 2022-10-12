@@ -16,7 +16,11 @@ export const AuthContext = React.createContext<{
   logout: async () => {},
 });
 
-export const AuthProvider: React.FC = ({ children }) => {
+interface Props {
+  reset: () => Promise<void>;
+}
+
+export const AuthProvider: React.FC<Props> = ({ children, reset }) => {
   const [token, SetToken, ref] = useState(null);
 
   return (
@@ -31,7 +35,8 @@ export const AuthProvider: React.FC = ({ children }) => {
           setAccessToken("");
           SetToken("");
           await SecureStore.setItemAsync("TOKEN", "");
-          await Update.reloadAsync();
+          await reset();
+          //await Update.reloadAsync();
           //const val = await SecureStore.getItemAsync("TOKEN");
         },
       }}

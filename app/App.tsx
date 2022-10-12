@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from 'react-native';
+import { View } from "react-native";
 import { MainNavigation } from "./src/navigation";
 import { NativeBaseProvider } from "native-base";
 import { ApolloClient } from "apollo-client";
@@ -17,8 +17,8 @@ import * as Network from "expo-network";
 import { NotConnected } from "./src/screens";
 import { StatusBar } from "expo-status-bar";
 import { MealScheduleNotification } from "./src/utils/modules/notifications";
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen'
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 const cache = new InMemoryCache({});
 
@@ -94,8 +94,7 @@ export default function App() {
     AvNextBold: require("./src/assets/fonts/AvenirNextLTPro-Bold.otf"),
     AvNextIt: require("./src/assets/fonts/AvenirNextLTPro-It.otf"),
     AvNext: require("./src/assets/fonts/AvenirNextLTPro-Regular.otf"),
-	
-});
+  });
 
   React.useEffect(() => {
     (async () => {
@@ -110,13 +109,13 @@ export default function App() {
   if (!avNext) return null;
 
   return (
-    <View onLayout={onLayoutRootView} style={{flex: 1}}>
+    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
       {!isConnected && false ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>
           <StatusBar style={"dark"} />
-          <AuthProvider>
+          <AuthProvider reset={async () => await cache.reset()}>
             <NativeBaseProvider>
               <MealScheduleNotification />
               <MainNavigation />
