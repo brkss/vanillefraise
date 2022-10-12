@@ -7,16 +7,24 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { Heading, PlanNutritientItem, BluredButton, Loading } from "../../components";
-import { usePlanDetailsQuery } from '../../generated/graphql';
-import { CDN } from '../../utils/config/defaults';
+import {
+  Heading,
+  PlanNutritientItem,
+  BluredButton,
+  Loading,
+  NutritionPlanStatusModal,
+} from "../../components";
+import { usePlanDetailsQuery } from "../../generated/graphql";
+import { CDN } from "../../utils/config/defaults";
 
-export const PlanDetails: React.FC<any> = ({route}) => {
-
+export const PlanDetails: React.FC<any> = ({ route }) => {
+  const [visible, setVisible] = React.useState(false);
   const { planId } = route.params;
-  const { data, loading, error } = usePlanDetailsQuery({variables: {id: planId}});
+  const { data, loading, error } = usePlanDetailsQuery({
+    variables: { id: planId },
+  });
 
-  if(loading || error ) return <Loading />
+  if (loading || error) return <Loading />;
 
   return (
     <View style={styles.container}>
@@ -28,7 +36,7 @@ export const PlanDetails: React.FC<any> = ({route}) => {
           <Image
             resizeMode={"cover"}
             style={styles.image}
-            source={{uri: `${CDN}/${data.planDetails.image}`}}
+            source={{ uri: `${CDN}/${data.planDetails.image}` }}
           />
           <View style={styles.content}>
             <Text style={styles.description}>
@@ -55,9 +63,16 @@ export const PlanDetails: React.FC<any> = ({route}) => {
             padding: 10,
           }}
         >
-          <BluredButton clicked={() => {}} txt={"Apply This Plan"} />
+          <BluredButton
+            clicked={() => setVisible(true)}
+            txt={"Apply This Plan"}
+          />
         </View>
       </SafeAreaView>
+      <NutritionPlanStatusModal
+        closed={() => setVisible(false)}
+        isVisible={visible}
+      />
     </View>
   );
 };

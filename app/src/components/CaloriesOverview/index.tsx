@@ -27,16 +27,10 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
   const _macros = useMacrosQuery({
     
   });
-  const { data, loading, error, refetch } = useUserCaloriesQuery({
-    
-  });
-  const _burnedCalories = useGetUserBurnedCaloriesQuery({
-    
-  });
+  const { data, loading, error, refetch } = useUserCaloriesQuery();
+  const _burnedCalories = useGetUserBurnedCaloriesQuery();
 
-  const _count = useCookedRecipesCountQuery({
-    
-  });
+  const _count = useCookedRecipesCountQuery();
 
   React.useEffect(() => {
     if (refreshing) {

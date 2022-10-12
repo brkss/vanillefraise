@@ -8,19 +8,25 @@ interface Props {
   description: string;
 }
 
-export const PlanNutritientItem: React.FC<Props> = ({title, quantity, description, unit}) => {
+export const PlanNutritientItem: React.FC<Props> = ({
+  title,
+  quantity,
+  description,
+  unit,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.line} />
         <View>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.quantity}>~{quantity}{unit} per day</Text>
+          <Text style={styles.quantity}>
+            ~{quantity}
+            {unit} per day
+          </Text>
         </View>
       </View>
-      <Text style={styles.description}>
-        {description}
-      </Text>
+      <Text style={styles.description}>{description}</Text>
     </View>
   );
 };
@@ -48,6 +54,7 @@ const styles = StyleSheet.create({
   quantity: {
     fontFamily: "AvNextBold",
     fontSize: 15,
+    opacity: 0.6,
   },
   description: {
     fontSize: 14,

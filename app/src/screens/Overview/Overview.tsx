@@ -70,7 +70,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             <View style={{ height: 10 }} />
             <RecomendedRecipes navigation={navigation} />
             <View style={{ height: 25 }} />
-            <NutritionIntakeDaily navigation={navigation} />
+            <NutritionIntakeDaily refreshing={refreshing} navigation={navigation} />
             {/*
 			<NutritionOverview
               clicked={(code: string, name: string) =>

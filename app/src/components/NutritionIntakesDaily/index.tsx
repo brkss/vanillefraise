@@ -6,10 +6,17 @@ import { Loading } from "../General";
 
 interface Props {
   navigation: any;
+  refreshing: boolean;
 }
 
-export const NutritionIntakeDaily: React.FC<Props> = ({ navigation }) => {
-  const { data, loading, error } = useNutritionCategoryIntakeQuery();
+export const NutritionIntakeDaily: React.FC<Props> = ({ navigation, refreshing }) => {
+  const { data, loading, error, refetch } = useNutritionCategoryIntakeQuery();
+
+  React.useEffect(() => {
+      if(refreshing){
+        refetch(); 
+      }
+  }, [refreshing]);
 
   if (loading || error) return <Loading />;
 
