@@ -56,6 +56,11 @@ export class NutritionIntakeResolver {
       intake: number;
     }[] = [];
 
+    /*
+     * QUICK REMINDER !
+     * INTAKE IS THE PERCENTAGE OF COMPLETTING THE DAILY RECOMMENDATION !
+     */
+
     for (let c of cooked) {
       for (let n of c.recipe.totalnutrition) {
         const index = nutritions.findIndex((x) => x.code === n.code);
@@ -85,6 +90,15 @@ export class NutritionIntakeResolver {
       }
     }
 
+    const categories = await NutritienCategory.find({
+      relations: ["nutrients"],
+    });
+
+    // merge nutritions with the same category !
+    const categorized_nutrition = [];
+
+    //console.log("nutritions: ", nutritions);
+
     // calclate intake !
     for (let nutrition of nutritions) {
       if (nutrition.code === "ENERC_KCAL")
@@ -96,10 +110,6 @@ export class NutritionIntakeResolver {
             : (nutrition.quantity * 100) / nutrition.recomendation;
     }
 
-    const categories = await NutritienCategory.find({
-      relations: ["nutrients"],
-    });
-
     // fill results !
     const results: { name: string; intake: number; id: string }[] = [];
     for (let category of categories) {
@@ -108,6 +118,9 @@ export class NutritionIntakeResolver {
       for (let nutrition of nutritions) {
         if (nutrition.categoryId === category.id) {
           count++;
+          // forumal = (100 / categoy item count ) * intake% / 100
+          nutrition.intake =
+            ((100 / category.nutrients.length) * nutrition.intake) / 100;
           intake += nutrition.intake;
         }
       }
@@ -151,7 +164,6 @@ export class NutritionIntakeResolver {
       relations: ["nutrients"],
     });
     if (!category) return [];
-
     const cooked = await CookedRecipe.find({
       where: {
         user: user,

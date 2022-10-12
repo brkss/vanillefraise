@@ -23,7 +23,7 @@ let PlansListResolver = class PlansListResolver {
     async planDetails(id) {
         if (!id)
             return null;
-        const item = data_1.data.find(x => x.id === id);
+        const item = data_1.data.find((x) => x.id === id);
         if (!item)
             return null;
         return item;
@@ -37,7 +37,7 @@ __decorate([
 ], PlansListResolver.prototype, "plans", null);
 __decorate([
     (0, type_graphql_1.Query)(() => Plan_1.IPlan, { nullable: true }),
-    __param(0, (0, type_graphql_1.Arg)('id')),
+    __param(0, (0, type_graphql_1.Arg)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

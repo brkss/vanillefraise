@@ -75,6 +75,10 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
                 }
             }
         }
+        const categories = await Nutrition_1.NutritienCategory.find({
+            relations: ["nutrients"],
+        });
+        const categorized_nutrition = [];
         for (let nutrition of nutritions) {
             if (nutrition.code === "ENERC_KCAL")
                 nutrition.intake = nutrition.quantity;
@@ -84,9 +88,6 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
                         ? -1
                         : (nutrition.quantity * 100) / nutrition.recomendation;
         }
-        const categories = await Nutrition_1.NutritienCategory.find({
-            relations: ["nutrients"],
-        });
         const results = [];
         for (let category of categories) {
             let count = 0;
@@ -94,6 +95,8 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
             for (let nutrition of nutritions) {
                 if (nutrition.categoryId === category.id) {
                     count++;
+                    nutrition.intake =
+                        ((100 / category.nutrients.length) * nutrition.intake) / 100;
                     intake += nutrition.intake;
                 }
             }
