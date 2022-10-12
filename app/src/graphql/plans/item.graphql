@@ -1,0 +1,14 @@
+query PlanDetails($id: String!){
+ planDetails(id: $id){
+  id
+  title
+  description
+  image
+  nutrients{
+    title
+    quantity
+    unit
+    description
+  }
+}
+}

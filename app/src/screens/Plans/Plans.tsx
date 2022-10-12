@@ -16,29 +16,6 @@ import {
 import { usePlansQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 
-const _data = [
-  {
-    image: require("../../assets/skin.png"),
-    title: "Skin Health",
-  },
-  {
-    image: require("../../assets/hair.jpeg"),
-    title: "Hair Health",
-  },
-  {
-    image: require("../../assets/focus.jpeg"),
-    title: "Focus & Concentration",
-  },
-  {
-    image: require("../../assets/memory.png"),
-    title: "Better Memory",
-  },
-  {
-    image: require("../../assets/energy.png"),
-    title: "More Energy",
-  },
-];
-
 export const NutritionPlans: React.FC<any> = ({ navigation }) => {
   const [visible, setVisible] = React.useState(false);
   const { data, error, loading } = usePlansQuery();
@@ -63,7 +40,9 @@ export const NutritionPlans: React.FC<any> = ({ navigation }) => {
           </View>
           {data.plans.map((item, key) => (
             <NutritionPlanThumbnail
-              clicked={() => navigation.navigate("PlanDetails")}
+              clicked={() =>
+                navigation.navigate("PlanDetails", { planId: item.id })
+              }
               key={key}
               image={`${CDN}/${item.image}`}
               title={item.title}
