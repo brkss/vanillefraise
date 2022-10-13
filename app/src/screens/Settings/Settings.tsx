@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { Heading, Loading, SocialMedia } from "../../components";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
@@ -9,7 +16,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Settings: React.FC<any> = ({ navigation }) => {
   const { data, loading, error } = useMeQuery();
-    const pp = ["🐝", "🐞", "🍩", "🍕", "🍭", "🍓", "🥑", "🍪"];  const _ctx = React.useContext(AuthContext);
+  const pp = ["🐝", "🐞", "🍩", "🍕", "🍭", "🍓", "🥑", "🍪"];
+  const _ctx = React.useContext(AuthContext);
+
+  const logoutAlert = async () => {
+    Alert.alert("Logout", "Do you want to logout from your account ?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "Logout",
+        style: "destructive",
+        onPress: async () => await logout(),
+      },
+    ]);
+  };
 
   const logout = async () => {
     _ctx.logout();
@@ -55,7 +78,7 @@ export const Settings: React.FC<any> = ({ navigation }) => {
               <Text style={styles.optionText}>About This Version</Text>
             </Pressable>
             <Pressable
-              onPress={async () => await logout()}
+              onPress={async () => await logoutAlert()}
               style={styles.option}
             >
               <Text style={styles.optionText}>Logout</Text>

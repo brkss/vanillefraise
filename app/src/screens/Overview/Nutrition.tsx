@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import {
   NutritionIntakeChart,
   NutritionCategoryItems,
   Loading,
 } from "../../components";
 import { useNutritionCategoryItemsQuery } from "../../generated/graphql";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const NutritionOverview: React.FC<any> = ({ route }) => {
   const { cat_id, cat_name } = route.params;
@@ -22,7 +23,9 @@ export const NutritionOverview: React.FC<any> = ({ route }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>{cat_name}</Text>
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-          {selected.length > 0 && title.length > 0 && <NutritionIntakeChart code={selected} title={title} />}
+          {selected.length > 0 && title.length > 0 && (
+            <NutritionIntakeChart code={selected} title={title} />
+          )}
           <NutritionCategoryItems
             select={(id, title) => handleSelect(id, title)}
             cat_id={cat_id}
