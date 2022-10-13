@@ -7,6 +7,7 @@ const index_1 = require("./index");
 const donwloadImage_1 = require("../donwloadImage");
 const create_recipe = async (url, cats) => {
     const data = await (0, index_1.get_recipe)(url);
+    console.log("Starting creating recipe !");
     if (!data)
         return {
             success: false,
@@ -59,7 +60,7 @@ const create_recipe_ingredients = async (recipe, ingredients) => {
         ing.recipe = recipe;
         ing.raw = ingredient.raw;
         ing.unit = ingredient.unit;
-        ing.amount = ingredient.quantity;
+        ing.amount = ingredient.qty;
         ing.ingredients = ingredient.name;
         await ing.save();
     }

@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export interface IIngredient {
   name: string;
-  quantity: number;
+  qty: number;
   unit: string;
   raw: string;
 }

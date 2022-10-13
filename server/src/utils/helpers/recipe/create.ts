@@ -28,6 +28,7 @@ export const create_recipe = async (
   cats: string[]
 ): Promise<ICreateRecipeResponse> => {
   const data = await get_recipe(url);
+  console.log("Starting creating recipe !"); 
   if (!data)
     return {
       success: false,
@@ -87,7 +88,7 @@ const create_recipe_ingredients = async (
     ing.recipe = recipe;
     ing.raw = ingredient.raw;
     ing.unit = ingredient.unit;
-    ing.amount = ingredient.quantity;
+    ing.amount = ingredient.qty ;
     ing.ingredients = ingredient.name;
     await ing.save();
   }
