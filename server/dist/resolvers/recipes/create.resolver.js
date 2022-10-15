@@ -39,6 +39,7 @@ let CreateRecipeResolver = class CreateRecipeResolver {
             };
         }
         catch (e) {
+            console.log("error accured creating recipe : ", e);
             return {
                 status: false,
                 message: "Something went wrong !",
