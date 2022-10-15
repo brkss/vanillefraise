@@ -15,6 +15,7 @@ services:
       - DB_USER=eynak
       - DB_PASS=tsew
       - DB_HOST=db
+      - RECIPE_API_URL=recipes
     depends_on:
       - db 
     networks:
