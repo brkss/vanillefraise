@@ -21,7 +21,7 @@ export const RecipeMetaData: React.FC<Props> = ({
     <View style={styles.container}>
       <Text style={styles.title}>{title.trim()} </Text>
       <Info prep={prep} cook={cook} total={total} />
-      {description ? (
+      {false && description ? (
         <Text style={styles.description}>{description}</Text>
       ) : null}
     </View>

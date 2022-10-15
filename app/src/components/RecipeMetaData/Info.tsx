@@ -12,15 +12,15 @@ export const Info: React.FC<Props> = ({ prep, cook, total }) => {
     <View style={styles.container}>
       <View style={styles.item}>
         <Text style={styles.title}>Prep</Text>
-        <Text style={styles.value}>{prep || "-"}</Text>
+        <Text style={styles.value}>{prep ? `${prep} min` : "-"}</Text>
       </View>
       <View style={[styles.item, { alignItems: "center" }]}>
         <Text style={styles.title}>Cook</Text>
-        <Text style={styles.value}>{cook || "-"}</Text>
+        <Text style={styles.value}>{cook ? `${cook} min` : "-"}</Text>
       </View>
       <View style={[styles.item, { alignItems: "flex-end" }]}>
         <Text style={styles.title}>Total Time</Text>
-        <Text style={styles.value}>{total || "-"}</Text>
+        <Text style={styles.value}>{total ? `${total} min` : "-"}</Text>
       </View>
     </View>
   );
@@ -38,11 +38,11 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 18,
-	fontFamily: "AvNextBold",
-	lineHeight: 20
+    fontFamily: "AvNextBold",
+    lineHeight: 20,
   },
   value: {
     fontSize: 14,
-	fontFamily: "AvNext",
+    fontFamily: "AvNext",
   },
 });

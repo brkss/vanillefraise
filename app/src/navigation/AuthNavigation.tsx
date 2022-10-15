@@ -9,7 +9,6 @@ export const AuthNavigation: React.FC = () => {
     <Navigator screenOptions={{ headerShown: false }}>
       <Group>
         <Screen name={"intro"} component={Intro} />
-        <Screen name={"splash"} component={Splash} />
         <Screen name={"register"} component={Register} />
         <Screen name={"login"} component={Login} />
       </Group>

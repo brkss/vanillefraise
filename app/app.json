@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.berkasse.occ"
@@ -37,9 +39,16 @@
         {
           "icon": "./assets/icon.png",
           "color": "#ffffff",
-          "sounds": ["./assets/meal-notification.wav"]
+          "sounds": [
+            "./assets/meal-notification.wav"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "17705975-75c8-44eb-82ea-d1c0eeb9a077"
+      }
+    }
   }
 }
