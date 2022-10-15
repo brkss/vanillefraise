@@ -1,5 +1,5 @@
-import { Resolver, Mutation, Arg, } from "type-graphql";
-import { DefaultResponse } from "../../utils/responses";
+import { Resolver, Mutation, Arg } from "type-graphql";
+import { DefaultResponse, CreateRecipeResponse } from "../../utils/responses";
 /*
 import { downloadImage } from "../../utils/helpers/donwloadImage";
 import {
@@ -30,32 +30,41 @@ import { Admin } from "../../entity/admin/Admin";
 */
 // test python api for recipes !
 import { create_recipe } from "../../utils/helpers/recipe/create";
+import { CreateBulkRecipesInput } from "../../utils/inputs/recipes";
 
 //const translate = new TranlatingResolver();
 
 //await get_recipe(url);
 @Resolver()
 export class CreateRecipeResolver {
-  @Mutation(() => DefaultResponse)
-  async createRecipeTest(@Arg("url") url: string): Promise<DefaultResponse> {
-    if (!url)
+  @Mutation(() => CreateRecipeResponse)
+  async createRecipe(
+    @Arg("data") data: CreateBulkRecipesInput
+  ): Promise<CreateRecipeResponse> {
+    if (!data || !data.url || data.categories.length === 0)
       return {
         status: false,
         message: "Invalid data !",
       };
-    const created = await create_recipe(url, [
-      "92d964fa-5b15-4b76-8dfc-3ad180fdcdaa",
-    ]);
-    if (!created.success) {
+    try {
+      const created = await create_recipe(data.url, data.categories);
+      if (!created.success) {
+        return {
+          status: false,
+          message: created.message || "Something went wrong !",
+        };
+      }
+      return {
+        status: true,
+        message: "Success !",
+        recipe: created.recipe,
+      };
+    } catch (e) {
       return {
         status: false,
-        message: created.message || "Something went wrong !",
+        message: "Something went wrong !",
       };
     }
-    return {
-      status: true,
-      message: "Success !",
-    };
   }
   /*
   @UseMiddleware(isAdminAuth)

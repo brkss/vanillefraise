@@ -16,35 +16,43 @@ exports.CreateRecipeResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const responses_1 = require("../../utils/responses");
 const create_1 = require("../../utils/helpers/recipe/create");
+const recipes_1 = require("../../utils/inputs/recipes");
 let CreateRecipeResolver = class CreateRecipeResolver {
-    async createRecipeTest(url) {
-        if (!url)
+    async createRecipe(data) {
+        if (!data || !data.url || data.categories.length === 0)
             return {
                 status: false,
                 message: "Invalid data !",
             };
-        const created = await (0, create_1.create_recipe)(url, [
-            "92d964fa-5b15-4b76-8dfc-3ad180fdcdaa",
-        ]);
-        if (!created.success) {
+        try {
+            const created = await (0, create_1.create_recipe)(data.url, data.categories);
+            if (!created.success) {
+                return {
+                    status: false,
+                    message: created.message || "Something went wrong !",
+                };
+            }
             return {
-                status: false,
-                message: created.message || "Something went wrong !",
+                status: true,
+                message: "Success !",
+                recipe: created.recipe,
             };
         }
-        return {
-            status: true,
-            message: "Success !",
-        };
+        catch (e) {
+            return {
+                status: false,
+                message: "Something went wrong !",
+            };
+        }
     }
 };
 __decorate([
-    (0, type_graphql_1.Mutation)(() => responses_1.DefaultResponse),
-    __param(0, (0, type_graphql_1.Arg)("url")),
+    (0, type_graphql_1.Mutation)(() => responses_1.CreateRecipeResponse),
+    __param(0, (0, type_graphql_1.Arg)("data")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [recipes_1.CreateBulkRecipesInput]),
     __metadata("design:returntype", Promise)
-], CreateRecipeResolver.prototype, "createRecipeTest", null);
+], CreateRecipeResolver.prototype, "createRecipe", null);
 CreateRecipeResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], CreateRecipeResolver);

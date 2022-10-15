@@ -19,15 +19,6 @@ services:
       - db
     networks:
       - app-network
-  recipes:
-    build: ./recipes
-    image: recipes-ms
-    container_name: recipes-ms
-    restart: unless-stopped
-    ports:
-      - 4001:3001
-    networks:
-      - app-network
   db:
     build: ./docker/database
     command: --default-authentication-plugin=mysql_native_password

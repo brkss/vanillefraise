@@ -13,6 +13,7 @@ def home():
 
 @app.route('/get-recipe', methods=['POST'])
 def get_recipe():
+    print("GET RECIPE FROM RECIPES MS")
     data = request.get_json()
     url = data['url']
     recipe = scrape_recipe(url)

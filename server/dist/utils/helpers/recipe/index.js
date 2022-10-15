@@ -17,7 +17,6 @@ const get_recipe = async (url) => {
     });
     if (res.data.success === false)
         return null;
-    console.log("get recipe results : ", res.data.recipe.nutrition);
     return res.data.recipe;
 };
 exports.get_recipe = get_recipe;

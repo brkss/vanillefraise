@@ -6,6 +6,12 @@ const Nutrition_1 = require("../../../entity/Nutrition");
 const index_1 = require("./index");
 const donwloadImage_1 = require("../donwloadImage");
 const create_recipe = async (url, cats) => {
+    let recipe = await Recipe_1.Recipe.findOne({ where: { url: url } });
+    if (recipe)
+        return {
+            success: false,
+            message: "Recipe Already exist !",
+        };
     const data = await (0, index_1.get_recipe)(url);
     console.log("Starting creating recipe !");
     if (!data)
@@ -19,27 +25,37 @@ const create_recipe = async (url, cats) => {
             success: false,
             message: "invalid category",
         };
-    if (await Recipe_1.Recipe.findOne({ where: { url: url } }))
+    try {
+        recipe = new Recipe_1.Recipe();
+        recipe.name = data.title;
+        recipe.total = data.time.toString();
+        recipe.categories = categories;
+        recipe.url = url;
+        recipe.description = "none";
+        recipe.image = await download_recipe_image(data.image, data.title);
+        recipe.serving = parseInt(data.yields);
+        await recipe.save();
+        await create_recipe_ingredients(recipe, data.ingredients).catch((e) => {
+            console.log("error creating ingredients : ", e);
+        });
+        await create_recipe_instructions(recipe, data.instructions).catch((e) => {
+            console.log("results creating instructions : ", e);
+        });
+        await create_recipe_nutrition(recipe, data.nutrition).catch((e) => {
+            console.log("error creating nutritions : ", e);
+        });
+        return {
+            success: true,
+            recipe: recipe,
+        };
+    }
+    catch (e) {
+        console.log("Something went wrong creating recipe !");
         return {
             success: false,
-            message: "recipe already exist !",
+            message: "Something went wrong !",
         };
-    const recipe = new Recipe_1.Recipe();
-    recipe.name = data.title;
-    recipe.total = data.time.toString();
-    recipe.categories = categories;
-    recipe.url = url;
-    recipe.description = "none";
-    recipe.image = await download_recipe_image(data.image, data.title);
-    recipe.serving = data.nutrition.yield;
-    await recipe.save();
-    await create_recipe_ingredients(recipe, data.ingredients);
-    await create_recipe_instructions(recipe, data.instructions);
-    await create_recipe_nutrition(recipe, data.nutrition);
-    return {
-        success: true,
-        recipe: recipe,
-    };
+    }
 };
 exports.create_recipe = create_recipe;
 const create_recipe_instructions = async (recipe, instructions) => {
@@ -82,6 +98,7 @@ const download_recipe_image = async (img_url, title) => {
     return img;
 };
 const create_recipe_nutrition = async (recipe, nutrition) => {
+    const servings = recipe.serving || 1;
     for (let label in nutrition.dietLabels) {
         const dietLabel = new Nutrition_1.RecipeDietLabel();
         dietLabel.label = label;
@@ -99,7 +116,8 @@ const create_recipe_nutrition = async (recipe, nutrition) => {
         const totalNutrients = new Nutrition_1.RecipeTotalNutrition();
         totalNutrients.recipe = recipe;
         totalNutrients.label = totalNutrientsData[tnutrition].label;
-        totalNutrients.quantity = totalNutrientsData[tnutrition].quantity;
+        totalNutrients.quantity =
+            totalNutrientsData[tnutrition].quantity / servings;
         totalNutrients.unit = totalNutrientsData[tnutrition].unit;
         totalNutrients.code = tnutrition;
         await totalNutrients.save();
@@ -109,7 +127,7 @@ const create_recipe_nutrition = async (recipe, nutrition) => {
         const totalDaily = new Nutrition_1.RecipeTotalDaily();
         totalDaily.recipe = recipe;
         totalDaily.label = totalDailyData[tdaily].label;
-        totalDaily.quantity = totalDailyData[tdaily].quantity;
+        totalDaily.quantity = totalDailyData[tdaily].quantity / servings;
         totalDaily.unit = totalDailyData[tdaily].unit;
         totalDaily.code = tdaily;
         await totalDaily.save();
@@ -119,7 +137,8 @@ const create_recipe_nutrition = async (recipe, nutrition) => {
         const totalNutritionKcal = new Nutrition_1.RecipeTotalNutritionKcal();
         totalNutritionKcal.recipe = recipe;
         totalNutritionKcal.label = totalNutrientKcalData[tnutrKcal].label;
-        totalNutritionKcal.quantity = totalNutrientKcalData[tnutrKcal].quantity;
+        totalNutritionKcal.quantity =
+            totalNutrientKcalData[tnutrKcal].quantity / servings;
         totalNutritionKcal.unit = totalNutrientKcalData[tnutrKcal].unit;
         totalNutritionKcal.code = tnutrKcal;
         await totalNutritionKcal.save();
