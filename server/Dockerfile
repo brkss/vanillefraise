@@ -7,9 +7,9 @@ COPY package.json .
 
 COPY . .
 
-RUN npm install --save
+RUN yarn 
 
-RUN npm rebuild bcrypt --build-from-source
+RUN yarn rebuild bcrypt --build-from-source
 
 EXPOSE 4000
 
