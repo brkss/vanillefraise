@@ -1,4 +1,5 @@
-FROM arm64v8/python:3.8
+#FROM arm64v8/python:3.8
+FROM python:3.8
 
 WORKDIR /app
 

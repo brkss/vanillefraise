@@ -30,6 +30,15 @@ services:
       - app-network
     volumes:
       - ./docker/database/data:/var/lib/mysql
+  recipes:
+        build: ./recipes
+        image: recipes-ms
+        container_name: recipes_ms
+        restart: unless-stopped
+        ports:
+          - 4300:3001
+        networks:
+          - app-network
   nginx:
     image: nginx:alpine
     container_name: web-proxy
