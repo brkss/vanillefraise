@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
-import { DefaultResponse, CreateRecipeResponse } from "../../utils/responses";
+import { CreateRecipeResponse } from "../../utils/responses";
 /*
 import { downloadImage } from "../../utils/helpers/donwloadImage";
 import {
@@ -60,6 +60,7 @@ export class CreateRecipeResolver {
         recipe: created.recipe,
       };
     } catch (e) {
+      console.log("error accured creating recipe : ", e)
       return {
         status: false,
         message: "Something went wrong !",

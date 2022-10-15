@@ -6,7 +6,6 @@ import { IContext } from "../../utils/types/Context";
 import { CookedRecipe } from "../../entity/UserInfo";
 import {
   getRepository,
-  getTreeRepository,
   LessThanOrEqual,
   Like,
   MoreThanOrEqual,
@@ -95,7 +94,7 @@ export class NutritionIntakeResolver {
     });
 
     // merge nutritions with the same category !
-    const categorized_nutrition = [];
+    //const categorized_nutrition = [];
 
     //console.log("nutritions: ", nutritions);
 

@@ -78,7 +78,6 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
         const categories = await Nutrition_1.NutritienCategory.find({
             relations: ["nutrients"],
         });
-        const categorized_nutrition = [];
         for (let nutrition of nutritions) {
             if (nutrition.code === "ENERC_KCAL")
                 nutrition.intake = nutrition.quantity;
