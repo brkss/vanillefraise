@@ -1,5 +1,5 @@
-#FROM node:14.5.0 
-FROM arm64v8/node 
+FROM node:14.5.0 
+#FROM arm64v8/node 
 
 WORKDIR /usr/src/app
 
@@ -7,9 +7,9 @@ COPY package.json .
 
 COPY . .
 
-RUN yarn 
+RUN npm install --save 
 
-RUN yarn rebuild bcrypt --build-from-source
+RUN npm rebuild bcrypt --build-from-source
 
 EXPOSE 4000
 

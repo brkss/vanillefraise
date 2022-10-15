@@ -2,29 +2,30 @@ version: "3.0"
 services:
   security:
     build: .
-    image: opencc
-    container_name: opencc
+    image: vanillefraise 
+    container_name: vanillefraise
     restart: unless-stopped
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - 4000:4000
+      - 4019:4000
     environment:
       - DB_NAME=opencc
       - DB_USER=eynak
       - DB_PASS=tsew
       - DB_HOST=db
     depends_on:
-      - db
+      - db 
     networks:
       - app-network
   db:
+    container_name: vanillefraise_db
     build: ./docker/database
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
-      - 3318:3306
+      - 3310:3306
     networks:
       - app-network
     volumes:
@@ -36,7 +37,7 @@ services:
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - 9090:9090
+      - 9019:9090
     depends_on:
       - security
     networks:
