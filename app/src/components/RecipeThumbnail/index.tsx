@@ -17,8 +17,6 @@ interface Props {
   showDel?: boolean;
   removeRecipe?: () => void;
 }
-const perv =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
 
 export const RecipeThumbnail: React.FC<Props> = ({
   img,
@@ -49,7 +47,9 @@ export const RecipeThumbnail: React.FC<Props> = ({
           />
         )}
         <Text style={styles.title}>{title}</Text>
-        {time ? <Text style={styles.time}>about {time} to make.</Text> : null}
+        {time ? (
+          <Text style={styles.time}>about {time}min to make.</Text>
+        ) : null}
         {carbs && carbs !== "-1" && (
           <Text style={styles.carbs}>{carbs}g of carbs</Text>
         )}
