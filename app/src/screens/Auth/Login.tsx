@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Input, Button, Error, BasicInput } from "../../components";
 import Animated, {
@@ -83,7 +89,7 @@ export const Login: React.FC = () => {
     statusOpacity.value = withDelay(0, withTiming(0, { duration: 500 }));
     statusOffset.value = withTiming(70, { duration: 500 });
   };
-  
+
   const handleAnimationIn = () => {
     opacity.value = withDelay(0, withTiming(0, { duration: 500 }));
     offset.value = withDelay(500, withTiming(0, { duration: 700 }));
@@ -111,41 +117,40 @@ export const Login: React.FC = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-		<KeyboardAvoidingView style={{flex: 1}} behavior={'padding'} enabled>
-
-		
-		<View style={styles.center}>
-          <Animated.Image
-            style={[styles.image, imageStyle]}
-            source={require("../../assets/icon.png")}
-          />
-          <Animated.Text style={[styles.status, statusStyle]}>
-            ❤️ Linking your account...
-          </Animated.Text>
-          <Animated.View style={[styles.box, boxStyle]}>
-            {error ? <Error txt={error} close={() => setError("")} /> : <Text style={styles.title}>Welcome Back!</Text>}
-            
-			<View style={{height: 10}} />
-   			<BasicInput
-				label="Username"
-				onChange={(t) => handleForm("username", t)}
-				placeholder={"username / email"}   
-			/>
-			<View style={{height: 7}} />
-			<BasicInput
-				isPassword
-				label="Password"
-				onChange={(t) => handleForm("password", t)}
-				placeholder={"*********"}   
-			/>
-			<View style={{height: 20}} />
-            <Button
-              txt={"Login"}
-              clicked={() => handleLogin()}
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={"padding"} enabled>
+          <View style={styles.center}>
+            <Animated.Image
+              style={[styles.image, imageStyle]}
+              source={require("../../assets/icon.png")}
             />
-          </Animated.View>
-        </View>
-		</KeyboardAvoidingView>
+            <Animated.Text style={[styles.status, statusStyle]}>
+              ❤️ Linking your account...
+            </Animated.Text>
+            <Animated.View style={[styles.box, boxStyle, { marginTop: 80 }]}>
+              {error ? (
+                <Error txt={error} close={() => setError("")} />
+              ) : (
+                <Text style={styles.title}>Welcome Back!</Text>
+              )}
+
+              <View style={{ height: 20 }} />
+              <BasicInput
+                label="Username"
+                onChange={(t) => handleForm("username", t)}
+                placeholder={"username / email"}
+              />
+              <View style={{ height: 10 }} />
+              <BasicInput
+                isPassword
+                label="Password"
+                onChange={(t) => handleForm("password", t)}
+                placeholder={"*********"}
+              />
+              <View style={{ height: 20 }} />
+              <Button txt={"Login"} clicked={() => handleLogin()} />
+            </Animated.View>
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
@@ -176,13 +181,13 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "flex-start",
     opacity: 0,
-	marginTop: 50,
+    marginTop: 50,
   },
   status: {
     fontWeight: "bold",
     position: "absolute",
-	fontFamily: "AvNextBold",
-	fontSize: 20,
-	color: "#434343"
+    fontFamily: "AvNextBold",
+    fontSize: 20,
+    color: "#434343",
   },
 });
