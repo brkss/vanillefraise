@@ -15,6 +15,7 @@ services:
       - DB_USER=eynak
       - DB_PASS=tsew
       - DB_HOST=db
+      - RECIPE_API_URL=http://recipes:3001/
     depends_on:
       - db 
     networks:
@@ -34,7 +35,7 @@ services:
         build: ./recipes
         image: recipes-ms
         container_name: recipes_ms
-        restart: unless-stopped
+        restart: always 
         ports:
           - 4300:3001
         networks:
