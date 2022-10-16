@@ -29,10 +29,11 @@ export const NutritionPlanInfoModal: React.FC<Props> = ({
             name={"ios-information-circle-sharp"}
           />
           <Text style={styles.info}>
-            Nutrition plans help you improve specific health related with
-            nutrition such as (focus, memory, hair health, skin health
-            ect..),When you apply selected plan it automaticlly track the
-            nutrients with the given recomendation !
+            Nutrition plans help you improve specific health area with nutrition
+            such as (focus, memory, hair health, skin health ect..),When you
+            apply selected plan it automaticlly track the nutrients with the
+            given recomendation. You can personalize and cufigure your own
+            nutrition plan according to your doctor recomendations !
           </Text>
         </View>
       </View>

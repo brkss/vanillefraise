@@ -9,24 +9,32 @@ interface Props {
   refreshing: boolean;
 }
 
-export const NutritionIntakeDaily: React.FC<Props> = ({ navigation, refreshing }) => {
+export const NutritionIntakeDaily: React.FC<Props> = ({
+  navigation,
+  refreshing,
+}) => {
   const { data, loading, error, refetch } = useNutritionCategoryIntakeQuery();
 
   React.useEffect(() => {
-      if(refreshing){
-        refetch(); 
-      }
+    if (refreshing) {
+      refetch();
+    }
   }, [refreshing]);
 
   if (loading || error) return <Loading />;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Your Nutrition</Text>
+      <Text style={styles.title}>Your Daily Nutrition Intake </Text>
       {data.nutritionCategoryIntake.categories.map((item, key) => (
         <Item
           key={key}
-          clicked={() => navigation.navigate("NutritionOverview", {cat_id: item.id, cat_name: item.name})}
+          clicked={() =>
+            navigation.navigate("NutritionOverview", {
+              cat_id: item.id,
+              cat_name: item.name,
+            })
+          }
           status={"everything's good"}
           title={item.name}
           value={Math.floor(item.intake)}
