@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 const { width, height } = Dimensions.get("window");
 
 const sliders = [
+  /*
   {
     title: "Eat Healthy",
     description: "Keep Record Of Taken Calorie and Nutrition",
@@ -21,7 +22,7 @@ const sliders = [
     title: "Walkout Healthy",
     description: "Keep a record of activities and burned calories",
     icon: "🎾",
-  },
+    },*/
   {
     icon: "🥗",
     title: "Full Control",

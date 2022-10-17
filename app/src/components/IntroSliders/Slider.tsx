@@ -19,7 +19,7 @@ export const IntroSlider: React.FC<Props> = ({
   description,
   isLast,
   login,
-  register
+  register,
 }) => {
   return (
     <View style={styles.container}>
@@ -57,9 +57,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "#434343",
+    fontFamily: "AvNextBold",
   },
   description: {
     textAlign: "center",
     marginTop: 10,
+    fontFamily: "AvNextBold",
   },
 });

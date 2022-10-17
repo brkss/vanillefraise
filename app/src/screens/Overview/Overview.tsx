@@ -44,7 +44,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
 
   return (
     <>
-      {!data.isAccountVerified ? <EmailVerification /> : null}
+    {/*!data.isAccountVerified ? <EmailVerification /> : null*/}
       <View style={styles.container}>
         <SafeAreaView
           style={{

@@ -9,6 +9,18 @@ interface Props {
   refreshing: boolean;
 }
 
+const GET_STATUS = (intake: number) => {
+  if (intake == 0) {
+    return "0 intake, find recipes to cook";
+  } else if (intake > 0 && intake <= 90) {
+    return `${
+      100 - Math.floor(intake)
+    }% to Finish your daily recommended intake !`;
+  } else {
+    return "Well Done !";
+  }
+};
+
 export const NutritionIntakeDaily: React.FC<Props> = ({
   navigation,
   refreshing,
@@ -35,7 +47,7 @@ export const NutritionIntakeDaily: React.FC<Props> = ({
               cat_name: item.name,
             })
           }
-          status={"everything's good"}
+          status={GET_STATUS(item.intake)}
           title={item.name}
           value={Math.floor(item.intake)}
         />
