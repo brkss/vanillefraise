@@ -37,7 +37,7 @@ export const RecipeNutritionItem: React.FC<Props> = ({
     <View
       style={[
         styles.container,
-        { backgroundColor: striped ? "#F7F1D7" : "transparent" },
+        { backgroundColor: striped ? "#f7ead7" : "transparent" },
       ]}
     >
       <Text style={styles.title}>{label}</Text>
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingTop: 10,
     paddingBottom: 10,
+    borderRadius: 3,
     //marginBottom: 10,
   },
   title: {
