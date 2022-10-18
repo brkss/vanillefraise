@@ -14,6 +14,7 @@ const token_1 = require("./utils/token");
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const seed_1 = require("./utils/seed");
+const fix_recipes_ingredients_1 = require("./utils/helpers/automate/fix_recipes_ingredients");
 (async () => {
     await (0, typeorm_1.createConnection)({
         type: "mysql",
@@ -21,7 +22,7 @@ const seed_1 = require("./utils/seed");
         port: 3306,
         username: process.env.DB_USER || "root",
         password: process.env.DB_PASS || "root",
-        database: process.env.DB_NAME || "vanillefraise_test",
+        database: process.env.DB_NAME || "vanillefraise_test_tmp",
         charset: "utf8mb4_unicode_ci",
         synchronize: true,
         logging: false,
@@ -50,6 +51,10 @@ const seed_1 = require("./utils/seed");
     });
     const dir = path_1.default.join(__dirname, "cdn/images");
     app.use("/images", express_1.default.static(dir));
+    app.get("/fix-ingredients", async (_, res) => {
+        await (0, fix_recipes_ingredients_1.fix_recipe_ingredients)();
+        res.send("done !");
+    });
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, build_1.build)(),
         context: ({ req, res }) => ({ req, res }),
