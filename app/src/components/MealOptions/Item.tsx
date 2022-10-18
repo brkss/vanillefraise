@@ -16,7 +16,9 @@ export const Option: React.FC<Props> = ({ pressed, txt, selected }) => {
       ]}
       onPress={() => pressed()}
     >
-      <Text style={[styles.txt, {color: selected ? 'white' : 'black'}]}>{txt}</Text>
+      <Text style={[styles.txt, { color: selected ? "white" : "black" }]}>
+        {txt}
+      </Text>
     </Pressable>
   );
 };
@@ -31,5 +33,6 @@ const styles = StyleSheet.create({
   txt: {
     fontSize: 20,
     fontWeight: "bold",
+    fontFamily: "AvNextBold",
   },
 });

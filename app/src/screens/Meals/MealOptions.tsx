@@ -97,7 +97,7 @@ export const MealsOptions: React.FC<any> = ({ route, navigation }) => {
               useIsoWeekday={false}
             />
             <MealOptionsSelect select={(id) => setMeal(id)} />
-            <Button clicked={() => save()} txt={"ADD"} />
+            <Button clicked={() => save()} txt={"Save"} />
           </View>
         </SafeAreaView>
       </View>

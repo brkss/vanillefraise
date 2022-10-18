@@ -26,30 +26,30 @@ export const Item: React.FC<Props> = ({ txt, unit, amount }) => {
           { backgroundColor: checked ? "#7fba75" : "#343433" },
         ]}
       ></View>
-      <View>
-        <Text
-          style={[
-            styles.txt,
-            {
-              textDecorationLine: checked ? "line-through" : "none",
-              display: unit && amount ? "flex" : "none",
-            },
-          ]}
-        >
-          {PRESENT_MEASURES(unit, amount)}
-        </Text>
-        <Text
-          style={[
-            styles.txt,
-            {
-              textDecorationLine: checked ? "line-through" : "none",
-              fontWeight: unit && amount ? "500" : "bold",
-            },
-          ]}
-        >
-          {txt}
-        </Text>
-      </View>
+      <Text
+        style={[
+          styles.txt,
+          {
+            textDecorationLine: checked ? "line-through" : "none",
+            fontWeight: unit && amount ? "500" : "bold",
+          },
+        ]}
+      >
+        {txt}
+      </Text>
+      <Text
+        style={[
+          styles.txt,
+          {
+            textAlign: "right",
+            opacity: 0.7,
+            textDecorationLine: checked ? "line-through" : "none",
+            display: unit && amount ? "flex" : "none",
+          },
+        ]}
+      >
+        {PRESENT_MEASURES(unit, amount)}
+      </Text>
     </Pressable>
   );
 };
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     //borderTopColor: "#434343",
     //borderTopWidth: 1,
-    marginBottom: 30,
+    marginBottom: 10,
     paddingTop: 15,
     flexDirection: "row",
     //justifyContent: "center",
@@ -77,5 +77,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "AvNextBold",
     lineHeight: 19,
+    width: "50%",
+  },
+  row: {
+    flexDirection: "row",
   },
 });
