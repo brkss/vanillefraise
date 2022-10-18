@@ -141,14 +141,14 @@ const styles = StyleSheet.create({
   number: {
     textAlign: "center",
     marginBottom: 30,
-    fontFamily: "helvitica-condesed",
+    fontFamily: 'AvNextBold',
     fontSize: 18,
     fontWeight: "bold",
   },
   txt: {
     marginBottom: 30,
     fontWeight: "bold",
-    fontFamily: "helvitica-condesed",
+    fontFamily: 'AvNextBold',
     fontSize: 17,
   },
 });

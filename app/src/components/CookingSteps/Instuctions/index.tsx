@@ -54,7 +54,6 @@ export const InstructionsStep: React.FC<Props> = ({
       <Text style={styles.hint}>
         You got it chef ! just follow these instructions
       </Text>
-      <Languages isCooking onSelect={(l) => setLang(l)} selected={lang} />
       <View style={styles.items}>
         {instructions.reverse().map((inst, key) => {
           return (
@@ -69,7 +68,7 @@ export const InstructionsStep: React.FC<Props> = ({
                 navigation.push("ExpandedInstruction", {
                   index: instructions.length - key,
                   txt: handleLang(inst),
-                  title: title
+                  title: title,
                 })
               }
             />
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   hint: {
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
     fontSize: 17,
     textAlign: "center",
   },
