@@ -38,7 +38,7 @@ export const Application: React.FC = () => {
         <Switch>
           {routes.map((route, key) =>
             route.protected ? (
-              getToken() ? (
+              !getToken() ? (
                 <Route
                   key={key}
                   path={route.path}

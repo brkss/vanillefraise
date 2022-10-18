@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { useNutritionIntakeChartQuery } from "../../generated/graphql";
-import { Loading } from "../../components/General";
+//import { Loading } from "../../components/General";
 import Moment from "moment";
 
 interface Props {
@@ -71,41 +71,58 @@ export const NutritionIntakeChart: React.FC<Props> = ({ code, title }) => {
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>last 7 days</Text>
       <View style={styles.chartContainer}>
-        <LineChart
-          bezier
-          data={{
-            labels: _results.data.nutritionIntakeChart
-              .reverse()
-              .map((d) => Moment(d.date).format("DD/MM").toString()),
-            datasets: [
-              {
-                data: _results.data.nutritionIntakeChart
-                  .reverse()
-                  .map((d) => d.intake),
+        {_results.data.nutritionIntakeChart.length === 0 ? (
+          <View
+            style={{
+              //backgroundColor: "#e6e3e3",
+              height: 190,
+              //marginTop: 10,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 15,
+            }}
+          >
+            <Text style={[styles.subtitle, { textAlign: "center" }]}>
+              No Data Available !
+            </Text>
+          </View>
+        ) : (
+          <LineChart
+            bezier
+            data={{
+              labels: _results.data.nutritionIntakeChart
+                .reverse()
+                .map((d) => Moment(d.date).format("DD/MM").toString()),
+              datasets: [
+                {
+                  data: _results.data.nutritionIntakeChart
+                    .reverse()
+                    .map((d) => d.intake),
+                },
+              ],
+            }}
+            width={Dimensions.get("window").width + 40}
+            height={200}
+            chartConfig={{
+              //backgroundColor: "white",
+              backgroundGradientFrom: "white",
+              backgroundGradientTo: "white",
+              backgroundGradientToOpacity: 0,
+              backgroundGradientFromOpacity: 0,
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              style: {
+                backgroundColor: "#fff",
               },
-            ],
-          }}
-          width={Dimensions.get("window").width + 40}
-          height={200}
-          chartConfig={{
-            //backgroundColor: "white",
-            backgroundGradientFrom: "white",
-            backgroundGradientTo: "white",
-            backgroundGradientToOpacity: 0,
-            backgroundGradientFromOpacity: 0,
-            decimalPlaces: 0,
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              backgroundColor: "#fff",
-            },
-            paddingRight: 0,
-            barPercentage: 10,
-          }}
-          style={{ padding: 0, margin: 0, paddingLeft: 0 }}
-          withInnerLines={false}
-          withHorizontalLabels={false}
-          withOuterLines={false}
-        />
+              paddingRight: 0,
+              barPercentage: 10,
+            }}
+            style={{ padding: 0, margin: 0, paddingLeft: 0 }}
+            withInnerLines={false}
+            withHorizontalLabels={false}
+            withOuterLines={false}
+          />
+        )}
       </View>
     </View>
   );

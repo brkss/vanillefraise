@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
     fontFamily: "AvNext",
     color: "#434343",
     opacity: 0.8,
-    marginTop: 2,
+    marginTop: 5,
   },
 });

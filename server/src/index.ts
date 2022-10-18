@@ -10,6 +10,7 @@ import cors from "cors";
 import path from "path";
 //import { optimize } from './utils/helpers';
 import { seed } from "./utils/seed";
+import { fix_recipe_ingredients } from "./utils/helpers/automate/fix_recipes_ingredients";
 
 (async () => {
   await createConnection({
@@ -18,7 +19,7 @@ import { seed } from "./utils/seed";
     port: 3306,
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASS || "root",
-    database: process.env.DB_NAME || "vanillefraise_test",
+    database: process.env.DB_NAME || "vanillefraise_test_tmp",
     //database: process.env.DB_NAME || "opencc",
     charset: "utf8mb4_unicode_ci",
     synchronize: true,
@@ -59,6 +60,11 @@ import { seed } from "./utils/seed";
   // cdn
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));
+
+  app.get("/fix-ingredients", async (_, res) => {
+    await fix_recipe_ingredients();
+    res.send("done !");
+  });
 
   const apolloServer = new ApolloServer({
     schema: await build(),

@@ -190,7 +190,7 @@ export const Resourses: React.FC = () => {
         <li>
           <p>
             <a href="https://budgetbytes.com" rel="nofollow">
-              https://budgetbytes.com/
+              https://budgetbytes.com/ (⭐️ works)
             </a>
           </p>
         </li>
