@@ -15,4 +15,8 @@ EXPOSE 4000
 
 VOLUME ["/usr/src/app/node_modules"]
 
+RUN apt update && apt install tzdata -y
+
+ENV TZ Africa/Casablanca
+
 CMD ["node", "dist/index.js"]
