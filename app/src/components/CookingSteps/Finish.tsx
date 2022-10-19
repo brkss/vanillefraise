@@ -18,7 +18,9 @@ export const FinishStep: React.FC<Props> = ({ finish, restart }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.hint}>Did you make it ?</Text>
+      <View style={{flex :1, justifyContent: 'center'}}>
+        <Text style={styles.hint}>Did you make it ?</Text>
+      </View>
       {/*
       <View style={styles.instagram}>
         <TouchableOpacity style={styles.takepic}>
@@ -44,10 +46,12 @@ export const FinishStep: React.FC<Props> = ({ finish, restart }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
   },
   hint: {
     fontWeight: "bold",
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
+    //fontFamily: "helvitica-condesed",
     fontSize: 25,
     textAlign: "center",
   },
