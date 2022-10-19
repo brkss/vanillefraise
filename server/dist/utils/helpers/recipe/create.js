@@ -35,7 +35,7 @@ const create_recipe = async (url, cats) => {
         recipe.image = await download_recipe_image(data.image, data.title);
         recipe.serving = parseInt(data.yields);
         await recipe.save();
-        await create_recipe_ingredients(recipe, data.ingredients).catch((e) => {
+        await create_recipe_ingredients(recipe, data.nutrition).catch((e) => {
             console.log("error creating ingredients : ", e);
         });
         await create_recipe_instructions(recipe, data.instructions).catch((e) => {
@@ -70,14 +70,16 @@ const create_recipe_instructions = async (recipe, instructions) => {
     }
     return true;
 };
-const create_recipe_ingredients = async (recipe, ingredients) => {
-    for (let ingredient of ingredients) {
+const create_recipe_ingredients = async (recipe, nutrition_data) => {
+    if (nutrition_data.error)
+        throw new Error("Invalid Nutrition !");
+    for (let ingredient of nutrition_data.ingredients) {
         const ing = new Recipe_1.Ingredient();
         ing.recipe = recipe;
-        ing.raw = ingredient.raw;
-        ing.unit = ingredient.unit;
-        ing.amount = ingredient.qty;
-        ing.ingredients = ingredient.name;
+        ing.raw = ingredient.text;
+        ing.unit = ingredient.measure;
+        ing.amount = ingredient.quanity;
+        ing.ingredients = ingredient.foodMatch;
         await ing.save();
     }
     return true;

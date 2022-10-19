@@ -5,8 +5,6 @@ import {
   RecipeCategory,
 } from "../../../entity/Recipe";
 import {
-  //Nutrition,
-  //HealthLabelRefrence,
   RecipeDietLabel,
   RecipeHealthLabel,
   RecipeTotalDaily,
@@ -15,7 +13,6 @@ import {
 } from "../../../entity/Nutrition";
 import { get_recipe } from "./index";
 import { downloadImage } from "../donwloadImage";
-import { IIngredient } from ".";
 
 interface ICreateRecipeResponse {
   success: boolean;
@@ -56,7 +53,7 @@ export const create_recipe = async (
     recipe.image = await download_recipe_image(data.image, data.title);
     recipe.serving = parseInt(data.yields);
     await recipe.save();
-    await create_recipe_ingredients(recipe, data.ingredients).catch((e) => {
+    await create_recipe_ingredients(recipe, data.nutrition).catch((e) => {
       console.log("error creating ingredients : ", e);
     });
     await create_recipe_instructions(recipe, data.instructions).catch((e) => {
@@ -96,15 +93,17 @@ const create_recipe_instructions = async (
 
 const create_recipe_ingredients = async (
   recipe: Recipe,
-  ingredients: IIngredient[]
+  nutrition_data: any
 ): Promise<boolean> => {
-  for (let ingredient of ingredients) {
+  if (nutrition_data.error) throw new Error("Invalid Nutrition !");
+
+  for (let ingredient of nutrition_data.ingredients) {
     const ing = new Ingredient();
     ing.recipe = recipe;
-    ing.raw = ingredient.raw;
-    ing.unit = ingredient.unit;
-    ing.amount = ingredient.qty;
-    ing.ingredients = ingredient.name;
+    ing.raw = ingredient.text;
+    ing.unit = ingredient.measure;
+    ing.amount = ingredient.quanity;
+    ing.ingredients = ingredient.foodMatch;
     await ing.save();
   }
   return true;
