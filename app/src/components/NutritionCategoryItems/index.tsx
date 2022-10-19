@@ -7,12 +7,17 @@ import { useNutritionCategoryItemsQuery } from "../../generated/graphql";
 interface Props {
   cat_id: string;
   select: (id: string, title: string) => void;
+  refreshing: boolean;
 }
 
-export const NutritionCategoryItems: React.FC<Props> = ({ cat_id, select }) => {
+export const NutritionCategoryItems: React.FC<Props> = ({
+  cat_id,
+  select,
+  refreshing,
+}) => {
   const [selected, setSelected] = React.useState("");
 
-  const { loading, data, error } = useNutritionCategoryItemsQuery({
+  const { loading, data, error, refetch } = useNutritionCategoryItemsQuery({
     variables: {
       cat_id: cat_id,
     },
@@ -23,6 +28,12 @@ export const NutritionCategoryItems: React.FC<Props> = ({ cat_id, select }) => {
       }
     },
   });
+
+  React.useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+  }, [refreshing]);
 
   const handleSelect = (id: string, title: string) => {
     setSelected(id);

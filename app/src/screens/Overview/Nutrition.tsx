@@ -1,17 +1,34 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import {
   NutritionIntakeChart,
   NutritionCategoryItems,
-  Loading,
+  //Loading,
 } from "../../components";
-import { useNutritionCategoryItemsQuery } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 export const NutritionOverview: React.FC<any> = ({ route }) => {
   const { cat_id, cat_name } = route.params;
   const [selected, setSelected] = React.useState("");
   const [title, setTitle] = React.useState("");
+  const [refresh, setRefresh] = React.useState(false);
+
+  const onRefresh = () => {
+    setRefresh(true);
+    wait(2000).then((_) => {
+      setRefresh(false);
+    });
+  };
 
   const handleSelect = (id: string, title: string) => {
     setSelected(id);
@@ -22,7 +39,13 @@ export const NutritionOverview: React.FC<any> = ({ route }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>{cat_name}</Text>
-        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ flex: 1 }}
+          refreshControl={
+            <RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+          }
+        >
           {selected.length > 0 && title.length > 0 && (
             <NutritionIntakeChart code={selected} title={title} />
           )}

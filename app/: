@@ -8,14 +8,9 @@ import Moment from "moment";
 interface Props {
   code: string;
   title: string;
-  refreshing: boolean;
 }
 
-export const NutritionIntakeChart: React.FC<Props> = ({
-  code,
-  title,
-  refreshing,
-}) => {
+export const NutritionIntakeChart: React.FC<Props> = ({ code, title }) => {
   const [data, setData] = React.useState<any>({
     labels: [],
     datasets: [
@@ -43,12 +38,6 @@ export const NutritionIntakeChart: React.FC<Props> = ({
       }
     },
   });
-
-  React.useEffect(() => {
-    if (refreshing) {
-      _results.refetch();
-    }
-  }, [refreshing]);
 
   if (_results.loading || _results.error)
     return (
@@ -162,5 +151,6 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     marginLeft: -25,
+  
   },
 });
