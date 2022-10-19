@@ -8,9 +8,7 @@ import cookieParser from "cookie-parser";
 import { refreshToken, refreshAdminToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
-//import { optimize } from './utils/helpers';
 import { seed } from "./utils/seed";
-//import { fix_recipe_ingredients } from "./utils/helpers/automate/fix_recipes_ingredients";
 
 (async () => {
   await createConnection({
@@ -60,13 +58,6 @@ import { seed } from "./utils/seed";
   // cdn
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));
-
-  /*
-  app.get("/fix-ingredients", async (_, res) => {
-    await fix_recipe_ingredients();
-    res.send("done !");
-  });
-  */
 
   const apolloServer = new ApolloServer({
     schema: await build(),

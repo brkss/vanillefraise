@@ -4,12 +4,7 @@ import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { DailyNutritionIntakeResponse } from "../../utils/responses/nutrition/intake.response";
 import { IContext } from "../../utils/types/Context";
 import { CookedRecipe } from "../../entity/UserInfo";
-import {
-  getRepository,
-  LessThanOrEqual,
-  Like,
-  MoreThanOrEqual,
-} from "typeorm";
+import { getRepository, LessThanOrEqual, Like, MoreThanOrEqual } from "typeorm";
 import dayjs from "dayjs";
 import {
   NutritienCategory,
@@ -29,11 +24,12 @@ export class NutritionIntakeResolver {
     @Ctx() ctx: IContext
   ): Promise<DailyNutritionIntakeResponse> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
-    console.log("user :", user);
+
     if (!user)
       return {
         categories: [],
       };
+
     const meta = {
       gender: user.gender,
       age: getAge(user.birth),
@@ -59,7 +55,6 @@ export class NutritionIntakeResolver {
      * QUICK REMINDER !
      * INTAKE IS THE PERCENTAGE OF COMPLETTING THE DAILY RECOMMENDATION !
      */
-
     for (let c of cooked) {
       for (let n of c.recipe.totalnutrition) {
         const index = nutritions.findIndex((x) => x.code === n.code);
@@ -88,17 +83,9 @@ export class NutritionIntakeResolver {
         }
       }
     }
-
     const categories = await NutritienCategory.find({
       relations: ["nutrients"],
     });
-
-    // merge nutritions with the same category !
-    //const categorized_nutrition = [];
-
-    //console.log("nutritions: ", nutritions);
-
-    // calclate intake !
     for (let nutrition of nutritions) {
       if (nutrition.code === "ENERC_KCAL")
         nutrition.intake = nutrition.quantity;
@@ -108,26 +95,33 @@ export class NutritionIntakeResolver {
             ? -1
             : (nutrition.quantity * 100) / nutrition.recomendation;
     }
-
     // fill results !
+    // NOTE : i've removed a variable called counter (i used to devide the total intake
+    // by this variable) before i change the way i count intake !
     const results: { name: string; intake: number; id: string }[] = [];
     for (let category of categories) {
-      let count = 0;
       let intake = 0;
       for (let nutrition of nutritions) {
         if (nutrition.categoryId === category.id) {
-          count++;
           // forumal = (100 / categoy item count ) * intake% / 100
-          nutrition.intake =
+          if (nutrition.intake === -1 || nutrition.intake > 100)
+            nutrition.intake = 100;
+
+          intake +=
             ((100 / category.nutrients.length) * nutrition.intake) / 100;
-          intake += nutrition.intake;
         }
       }
       results.push({
         id: category.id,
-        intake: count === 0 ? 0 : intake / count,
+        intake: intake,
         name: category.name,
       });
+    }
+
+    // remove water !
+    const index = results.findIndex((x) => x.name === "Water");
+    if (index > -1) {
+      results.splice(index, 1);
     }
 
     // correction !

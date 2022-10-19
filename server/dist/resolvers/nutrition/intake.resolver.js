@@ -31,7 +31,6 @@ const nutrition_1 = require("../../utils/responses/nutrition");
 let NutritionIntakeResolver = class NutritionIntakeResolver {
     async nutritionCategoryIntake(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
-        console.log("user :", user);
         if (!user)
             return {
                 categories: [],
@@ -89,21 +88,24 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
         }
         const results = [];
         for (let category of categories) {
-            let count = 0;
             let intake = 0;
             for (let nutrition of nutritions) {
                 if (nutrition.categoryId === category.id) {
-                    count++;
-                    nutrition.intake =
+                    if (nutrition.intake === -1 || nutrition.intake > 100)
+                        nutrition.intake = 100;
+                    intake +=
                         ((100 / category.nutrients.length) * nutrition.intake) / 100;
-                    intake += nutrition.intake;
                 }
             }
             results.push({
                 id: category.id,
-                intake: count === 0 ? 0 : intake / count,
+                intake: intake,
                 name: category.name,
             });
+        }
+        const index = results.findIndex((x) => x.name === "Water");
+        if (index > -1) {
+            results.splice(index, 1);
         }
         for (let i = 0; i < results.length; i++) {
             if (results[i].name === "Energy") {
