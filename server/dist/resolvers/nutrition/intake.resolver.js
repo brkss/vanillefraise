@@ -28,6 +28,7 @@ const getAge_1 = require("../../utils/helpers/getAge");
 const macros_1 = require("../../utils/helpers/macros");
 const Recomendation_1 = require("../../entity/recomendation/Recomendation");
 const nutrition_1 = require("../../utils/responses/nutrition");
+const userTakenEnergy_1 = require("../../utils/helpers/userTakenEnergy");
 let NutritionIntakeResolver = class NutritionIntakeResolver {
     async nutritionCategoryIntake(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -110,7 +111,8 @@ let NutritionIntakeResolver = class NutritionIntakeResolver {
         for (let i = 0; i < results.length; i++) {
             if (results[i].name === "Energy") {
                 const ree = (0, macros_1.calculateREE)(user.gender, user.weight, user.height, user.birth);
-                results[i].intake = (results[i].intake * 100) / ree;
+                const energy = await (0, userTakenEnergy_1.getUserTakenEnergy)(user);
+                results[i].intake = (Number(energy) * 100) / ree;
             }
         }
         return {

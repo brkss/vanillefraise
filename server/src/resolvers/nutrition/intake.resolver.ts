@@ -6,15 +6,12 @@ import { IContext } from "../../utils/types/Context";
 import { CookedRecipe } from "../../entity/UserInfo";
 import { getRepository, LessThanOrEqual, Like, MoreThanOrEqual } from "typeorm";
 import dayjs from "dayjs";
-import {
-  NutritienCategory,
-  //RecipeTotalNutrition,
-  Nutrition,
-} from "../../entity/Nutrition";
+import { NutritienCategory, Nutrition } from "../../entity/Nutrition";
 import { getAge } from "../../utils/helpers/getAge";
 import { calculateREE } from "../../utils/helpers/macros";
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
 import { NutritionCategoryItemsResponse } from "../../utils/responses/nutrition";
+import { getUserTakenEnergy } from "../../utils/helpers/userTakenEnergy";
 
 @Resolver()
 export class NutritionIntakeResolver {
@@ -133,7 +130,8 @@ export class NutritionIntakeResolver {
           user.height,
           user.birth
         );
-        results[i].intake = (results[i].intake * 100) / ree;
+        const energy = await getUserTakenEnergy(user);
+        results[i].intake = (Number(energy) * 100) / ree;
       }
     }
 
