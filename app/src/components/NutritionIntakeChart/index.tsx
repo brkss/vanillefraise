@@ -97,7 +97,14 @@ export const NutritionIntakeChart: React.FC<Props> = ({ code, title }) => {
                 {
                   data: _results.data.nutritionIntakeChart
                     .reverse()
-                    .map((d) => d.intake),
+                    .map((d) => {
+                      console.log("intake : ", d.intake);
+                      return d.intake;
+                    }),
+                },
+                {
+                  data: [0],
+                  withDots: false,
                 },
               ],
             }}
@@ -119,7 +126,7 @@ export const NutritionIntakeChart: React.FC<Props> = ({ code, title }) => {
             }}
             style={{ padding: 0, margin: 0, paddingLeft: 0 }}
             withInnerLines={false}
-            withHorizontalLabels={false}
+            //withHorizontalLabels={false}
             withOuterLines={false}
           />
         )}
@@ -143,6 +150,6 @@ const styles = StyleSheet.create({
     //fontWeight: "",
   },
   chartContainer: {
-    marginLeft: -40,
+    marginLeft: -25,
   },
 });

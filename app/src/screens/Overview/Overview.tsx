@@ -44,7 +44,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
 
   return (
     <>
-    {/*!data.isAccountVerified ? <EmailVerification /> : null*/}
+      {/*!data.isAccountVerified ? <EmailVerification /> : null*/}
       <View style={styles.container}>
         <SafeAreaView
           style={{
@@ -68,9 +68,15 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             <View style={{ height: 10 }} />
             <MealsOverview refreshing={refreshing} navigation={navigation} />
             <View style={{ height: 10 }} />
-            <RecomendedRecipes navigation={navigation} />
+            <RecomendedRecipes
+              refreshing={refreshing}
+              navigation={navigation}
+            />
             <View style={{ height: 25 }} />
-            <NutritionIntakeDaily refreshing={refreshing} navigation={navigation} />
+            <NutritionIntakeDaily
+              refreshing={refreshing}
+              navigation={navigation}
+            />
             {/*
 			<NutritionOverview
               clicked={(code: string, name: string) =>

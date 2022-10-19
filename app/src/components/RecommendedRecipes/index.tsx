@@ -5,14 +5,21 @@ import { useRecommendedRecipesQuery } from "../../generated/graphql";
 
 interface Props {
   navigation: any;
+  refreshing: boolean;
 }
 
-export const RecomendedRecipes: React.FC<Props> = ({ navigation }) => {
+export const RecomendedRecipes: React.FC<Props> = ({ navigation, refreshing }) => {
   const _recipes = useRecommendedRecipesQuery({
     fetchPolicy: "cache-first",
   });
 
+  React.useEffect(() => {
+    if(refreshing)
+      _recipes.refetch();
+  }, [refreshing]);
+
   if (_recipes.loading || _recipes.error) return null;
+
 
   return (
     <View style={styles.container}>
