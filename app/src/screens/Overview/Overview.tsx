@@ -13,6 +13,7 @@ import {
   TopBar,
   NutritionIntakeDaily,
   RecomendedRecipes,
+  EmailVerification,
 } from "../../components";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -47,6 +48,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             }
             showsVerticalScrollIndicator={false}
           >
+          <EmailVerification />
             <TopBar navigation={navigation} />
             <View style={{ height: 10 }} />
             <CaloriesOverview

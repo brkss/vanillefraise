@@ -9,28 +9,27 @@ export const EmailVerification: React.FC = () => {
     <Pressable onPress={() => setVisibleModal(true)} style={styles.container}>
       <Text style={styles.txt}>Welcome To The Party 🎉</Text>
       <Text style={styles.subtxt}>
-        Please verify your email ! unverified accounts will be automatically
-        suspended.
+        But first please verify your email ! you'll find a link in your email
+        inbox with a link to verify your account.
       </Text>
       <Pressable style={styles.btn}>
         <Text style={styles.btnText}>Done ? 👍</Text>
       </Pressable>
-      <EmailVerificationModal
-        closed={() => setVisibleModal(false)}
-        isVisible={visibleModal}
-      />
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    paddingTop: 50,
-    backgroundColor: "#FFDB47",
+    padding: 20,
+    backgroundColor: "#fce583",
+    borderRadius: 15,
+    marginBottom: 15,
   },
   txt: {
     fontWeight: "bold",
+    fontFamily: "AvNextBold",
+    fontSize: 17,
   },
   subtxt: {
     opacity: 0.7,
