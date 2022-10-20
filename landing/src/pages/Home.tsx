@@ -47,11 +47,6 @@ export const Home: React.FC = () => {
       </Grid>
       <Info />
       <Footer />
-      {/*
-      <TopBar />
-      <Slide />
-      <About />
-      */}
     </Box>
   );
 };
