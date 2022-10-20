@@ -9,8 +9,8 @@ export const EmailVerification: React.FC = () => {
     <Pressable onPress={() => setVisibleModal(true)} style={styles.container}>
       <Text style={styles.txt}>Welcome To The Party 🎉</Text>
       <Text style={styles.subtxt}>
-        But first please verify your email ! you'll find a email in your
-        inbox with a link to verify your account.
+        But first please verify your email ! you'll find a email in your inbox
+        with a link to verify your account.
       </Text>
       <Pressable style={styles.btn}>
         <Text style={styles.btnText}>Done ? 👍</Text>

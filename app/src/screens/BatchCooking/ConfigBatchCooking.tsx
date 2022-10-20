@@ -9,7 +9,9 @@ export const BatchCookingConfig: React.FC = () => {
         <View style={styles.content}>
           <View style={{ alignItems: "center" }}>
             <Text style={styles.title}>Batch Cooking 🧑‍🍳</Text>
-            <Text style={styles.subtitle}>7-30 days meal perp</Text>
+            <Text style={styles.subtitle}>
+              Prepare meals for the next 7-30 days{" "}
+            </Text>
           </View>
           <View style={{ alignItems: "center" }}>
             <Text style={styles.subtitle}>Cook It Once</Text>
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     color: "#434343",
   },
   subtitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: "bold",
     fontFamily: "AvNextBold",
     color: "#666666",
