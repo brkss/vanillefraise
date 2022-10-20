@@ -27,6 +27,6 @@ const Bar = Styled.div`
     backdrop-filter: blur(5px);
     position: fixed;
     width: 100%;
-    z-index: 999;
+    z-index: 1000;
     padding: 0px;    
 `;

@@ -32,11 +32,11 @@ export const Home: React.FC = () => {
             >
               Because
               <br />
-              Nutrition
+              You Deserve
               <br />
-              Is
+              A Healthy 
               <br />
-              Influential.
+              Life.
               <br />
             </Heading>
           </Center>

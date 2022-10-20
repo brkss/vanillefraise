@@ -56,7 +56,7 @@ export const Form: React.FC<Props> = ({ onValidate, message, status }) => {
         </Alert>
       )}
       <Text fontSize={"20px"} fontWeight={"bold"}>
-        GET EARLY ACCESS
+        JOIN THE WAIT
       </Text>
       <Input
         mb={"10px"}

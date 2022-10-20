@@ -1,6 +1,7 @@
 import React from "react";
 import { Center, Box, Text, Image, Button } from "@chakra-ui/react";
 import cheese from "../assets/sandwish-fly.png";
+import Sparkles from "./Sparkles";
 
 export const Intro: React.FC = () => {
   return (
@@ -37,14 +38,6 @@ export const Intro: React.FC = () => {
           </Text>
           <Box pos={"absolute"} bottom={{ lg: "50px", base: "20px" }}>
             <Box pos={"relative"}>
-              <Text
-                pos={"absolute"}
-                fontSize={"30px"}
-                zIndex={99}
-                top={"-13px"}
-              >
-                ✨
-              </Text>
               <Button
                 fontWeight={"bold"}
                 _focus={{ outline: "none" }}
@@ -55,12 +48,11 @@ export const Intro: React.FC = () => {
                   transition: 0.3,
                 }}
                 rounded={"50px"}
-                background={"#fe8285"}
-                color={"white"}
-                padding={"21px 14px"}
-                border={"6px solid #ffbdbe"}
+                background={"#f9f4f4"}
+                color={"#f3b7b7"}
+                padding={"23px 30px"}
               >
-                Guess what, It's free !
+                <Sparkles>Guess what, It's free !</Sparkles>
               </Button>
             </Box>
           </Box>
@@ -77,7 +69,7 @@ export const Intro: React.FC = () => {
           fontSize={{ md: "20px", base: "13px" }}
           fontWeight={"bold"}
         >
-          ✨ Balancing your nutrition has never been so simple. ✨
+          Balancing your nutrition has never been so simple.
         </Text>
         <Text
           zIndex={9}
