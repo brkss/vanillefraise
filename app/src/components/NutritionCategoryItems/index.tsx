@@ -6,7 +6,7 @@ import { useNutritionCategoryItemsQuery } from "../../generated/graphql";
 
 interface Props {
   cat_id: string;
-  select: (id: string, title: string) => void;
+  select: (id: string, title: string, unit: string) => void;
   refreshing: boolean;
 }
 
@@ -24,7 +24,7 @@ export const NutritionCategoryItems: React.FC<Props> = ({
     onCompleted: (res) => {
       if (res.nutritionCategoryItems.length > 0) {
         const id = res.nutritionCategoryItems[0].code;
-        handleSelect(id, res.nutritionCategoryItems[0].name);
+        handleSelect(id, res.nutritionCategoryItems[0].name, res.nutritionCategoryItems[0].unit);
       }
     },
   });
@@ -35,9 +35,9 @@ export const NutritionCategoryItems: React.FC<Props> = ({
     }
   }, [refreshing]);
 
-  const handleSelect = (id: string, title: string) => {
+  const handleSelect = (id: string, title: string, unit: string) => {
     setSelected(id);
-    select(id, title);
+    select(id, title, unit);
   };
 
   if (loading || error) return <Loading />;
@@ -48,7 +48,7 @@ export const NutritionCategoryItems: React.FC<Props> = ({
         {data.nutritionCategoryItems.map((item, key) => (
           <View key={key} style={styles.item}>
             <NutrientItem
-              clicked={() => handleSelect(item.code, item.name)}
+              clicked={() => handleSelect(item.code, item.name, item.unit)}
               recomended={item.recommended}
               title={item.name}
               unit={item.unit}

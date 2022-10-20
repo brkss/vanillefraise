@@ -22,6 +22,7 @@ export const NutritionOverview: React.FC<any> = ({ route }) => {
   const [selected, setSelected] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [refresh, setRefresh] = React.useState(false);
+  const [unit, setUnit] = React.useState("");
 
   const onRefresh = () => {
     setRefresh(true);
@@ -30,9 +31,10 @@ export const NutritionOverview: React.FC<any> = ({ route }) => {
     });
   };
 
-  const handleSelect = (id: string, title: string) => {
-    setSelected(id);
-    setTitle(title);
+  const handleSelect = (_id: string, _title: string, _unit: string) => {
+    setSelected(_id);
+    setTitle(_title);
+    setUnit(_unit);
   };
 
   return (
@@ -47,10 +49,16 @@ export const NutritionOverview: React.FC<any> = ({ route }) => {
           }
         >
           {selected.length > 0 && title.length > 0 && (
-            <NutritionIntakeChart code={selected} title={title} />
+            <NutritionIntakeChart
+              refreshing={refresh}
+              code={selected}
+              title={title}
+              unit={unit}
+            />
           )}
           <NutritionCategoryItems
-            select={(id, title) => handleSelect(id, title)}
+            refreshing={refresh}
+            select={(id, title, unit) => handleSelect(id, title, unit)}
             cat_id={cat_id}
           />
         </ScrollView>

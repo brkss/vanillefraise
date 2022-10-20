@@ -9,12 +9,14 @@ interface Props {
   code: string;
   title: string;
   refreshing: boolean;
+  unit: string;
 }
 
 export const NutritionIntakeChart: React.FC<Props> = ({
   code,
   title,
   refreshing,
+  unit,
 }) => {
   const [data, setData] = React.useState<any>({
     labels: [],
@@ -79,7 +81,9 @@ export const NutritionIntakeChart: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>
+        {title} ({unit})
+      </Text>
       <Text style={styles.subtitle}>last 7 days</Text>
       <View style={styles.chartContainer}>
         {_results.data.nutritionIntakeChart.length === 0 ? (
@@ -107,11 +111,8 @@ export const NutritionIntakeChart: React.FC<Props> = ({
               datasets: [
                 {
                   data: _results.data.nutritionIntakeChart
-                    .reverse()
-                    .map((d) => {
-                      console.log("intake : ", d.intake);
-                      return d.intake;
-                    }),
+                    .map((d) => d.intake)
+                    .reverse(),
                 },
                 {
                   data: [0],
