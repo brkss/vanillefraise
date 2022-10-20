@@ -15,6 +15,7 @@ import {
   RecomendedRecipes,
   EmailVerification,
 } from "../../components";
+import { useIsAccountVerifiedQuery } from "../../generated/graphql";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -24,13 +25,16 @@ const wait = (timeout: number) => {
 // TO DO FIX REFRESH !
 export const Overview: React.FC<any> = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
-  //const { data, error, loading, refetch } = useIsAccountVerifiedQuery();
+  const { data, error, loading, refetch } = useIsAccountVerifiedQuery();
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => {
       setRefreshing(false);
+      refetch();
     });
   }, []);
+
+  if (loading || error) return <Loading />;
 
   return (
     <>
@@ -48,7 +52,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             }
             showsVerticalScrollIndicator={false}
           >
-          <EmailVerification />
+            {!data.isAccountVerified && <EmailVerification />}
             <TopBar navigation={navigation} />
             <View style={{ height: 10 }} />
             <CaloriesOverview
