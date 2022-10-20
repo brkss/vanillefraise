@@ -10,6 +10,7 @@ import {
   AuthDefaultResponse,
   DefaultResponse,
   VerifyResetPasswordTokenResponse,
+  IsAccountVerifiedResponse,
 } from "../../utils/responses";
 import {
   createResetPasswordToken,
@@ -41,11 +42,17 @@ export class SecurityResolver {
   }
 
   @UseMiddleware(isUserAuth)
-  @Query(() => Boolean)
-  async isAccountVerified(@Ctx() ctx: IContext): Promise<boolean> {
+  @Query(() => IsAccountVerifiedResponse)
+  async isAccountVerified(
+    @Ctx() ctx: IContext
+  ): Promise<IsAccountVerifiedResponse> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
-    if (!user) return false;
-    return user.verified;
+    if (!user) return { status: false, message: "User not found !" };
+    const title = user.verified ? "" : "Welcome to the party"
+    const msg = user.verified
+      ? ""
+      : "But first please verify your email ! you'll find a email in your inbox with a link to verify your account.";
+    return { status: user.verified, message: msg, title: title };
   }
 
   @UseMiddleware(isUserAuth)

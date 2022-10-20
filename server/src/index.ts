@@ -9,6 +9,7 @@ import { refreshToken, refreshAdminToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
 import { seed } from "./utils/seed";
+import mailgun from "mailgun-js";
 
 (async () => {
   await createConnection({
@@ -58,6 +59,24 @@ import { seed } from "./utils/seed";
   // cdn
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));
+
+  app.post("/send-mail-sendbox", (_, res) => {
+    const mg = mailgun({
+      apiKey: process.env.MAILGUN_API_KEY!,
+      domain: process.env.MAILGUN_URL!,
+    });
+    const data = {
+      from: "Excited User <me@samples.mailgun.org>",
+      to: "berkassebrahim@gmail.com",
+      subject: "Hello",
+      text: "Testing some Mailgun awesomness!",
+    };
+    mg.messages().send(data, function (error, body) {
+      console.log(body);
+      console.log("mg error : ", error);
+    });
+    return res.send({ message: "email sent" });
+  });
 
   const apolloServer = new ApolloServer({
     schema: await build(),

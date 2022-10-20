@@ -30,8 +30,12 @@ let SecurityResolver = class SecurityResolver {
     async isAccountVerified(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
-            return false;
-        return user.verified;
+            return { status: false, message: "User not found !" };
+        const title = user.verified ? "" : "Welcome to the party";
+        const msg = user.verified
+            ? ""
+            : "But first please verify your email ! you'll find a email in your inbox with a link to verify your account.";
+        return { status: user.verified, message: msg, title: title };
     }
     async resendAccountVerification(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -190,7 +194,7 @@ __decorate([
 ], SecurityResolver.prototype, "work", null);
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Query)(() => Boolean),
+    (0, type_graphql_1.Query)(() => responses_1.IsAccountVerifiedResponse),
     __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

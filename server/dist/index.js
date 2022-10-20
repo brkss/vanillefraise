@@ -14,6 +14,7 @@ const token_1 = require("./utils/token");
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const seed_1 = require("./utils/seed");
+const mailgun_js_1 = __importDefault(require("mailgun-js"));
 (async () => {
     await (0, typeorm_1.createConnection)({
         type: "mysql",
@@ -50,6 +51,23 @@ const seed_1 = require("./utils/seed");
     });
     const dir = path_1.default.join(__dirname, "cdn/images");
     app.use("/images", express_1.default.static(dir));
+    app.post("/send-mail-sendbox", (_, res) => {
+        const mg = (0, mailgun_js_1.default)({
+            apiKey: process.env.MAILGUN_API_KEY,
+            domain: process.env.MAILGUN_URL,
+        });
+        const data = {
+            from: "Excited User <me@samples.mailgun.org>",
+            to: "berkassebrahim@gmail.com",
+            subject: "Hello",
+            text: "Testing some Mailgun awesomness!",
+        };
+        mg.messages().send(data, function (error, body) {
+            console.log(body);
+            console.log("mg error : ", error);
+        });
+        return res.send({ message: "email sent" });
+    });
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, build_1.build)(),
         context: ({ req, res }) => ({ req, res }),
