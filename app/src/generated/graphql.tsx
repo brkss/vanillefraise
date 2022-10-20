@@ -153,6 +153,11 @@ export type CreateActivityResponse = {
   status: Scalars['Boolean'];
 };
 
+export type CreateBulkRecipesInput = {
+  categories: Array<Scalars['String']>;
+  url: Scalars['String'];
+};
+
 export type CreateDietConfigResponse = {
   __typename?: 'CreateDietConfigResponse';
   data?: Maybe<DietConfigResponse>;
@@ -188,6 +193,13 @@ export type CreateRecipeCategoryResponse = {
   __typename?: 'CreateRecipeCategoryResponse';
   category?: Maybe<RecipeCategory>;
   message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
+export type CreateRecipeResponse = {
+  __typename?: 'CreateRecipeResponse';
+  message: Scalars['String'];
+  recipe?: Maybe<Recipe>;
   status: Scalars['Boolean'];
 };
 
@@ -304,6 +316,13 @@ export type Instruction = {
   index: Scalars['Float'];
   raw: Scalars['String'];
   recipe: Recipe;
+};
+
+export type IsAccountVerifiedResponse = {
+  __typename?: 'IsAccountVerifiedResponse';
+  message: Scalars['String'];
+  status: Scalars['Boolean'];
+  title: Scalars['String'];
 };
 
 export type LanguagesResponse = {
@@ -448,8 +467,8 @@ export type Mutation = {
   createActivity: CreateActivityResponse;
   createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
+  createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
-  createRecipeTest: DefaultResponse;
   createRecord: CreateRecordResponse;
   deleteCategory: DefaultResponse;
   deleterecipe: Scalars['Boolean'];
@@ -541,13 +560,13 @@ export type MutationCreateMoodRecordArgs = {
 };
 
 
-export type MutationCreateRecipeCategoryArgs = {
-  data: CreateRecipeCategoryInput;
+export type MutationCreateRecipeArgs = {
+  data: CreateBulkRecipesInput;
 };
 
 
-export type MutationCreateRecipeTestArgs = {
-  url: Scalars['String'];
+export type MutationCreateRecipeCategoryArgs = {
+  data: CreateRecipeCategoryInput;
 };
 
 
@@ -690,7 +709,7 @@ export type Query = {
   healthLabels: Array<DietHealthLabelResponse>;
   helloAdmin: Scalars['String'];
   helloDietData: Scalars['String'];
-  isAccountVerified: Scalars['Boolean'];
+  isAccountVerified: IsAccountVerifiedResponse;
   isRequested: Scalars['Boolean'];
   languages: Array<LanguagesResponse>;
   macros: UserMacrosResponse;
@@ -1138,7 +1157,7 @@ export type SeedActivityCategoriesMutation = { __typename?: 'Mutation', seedActi
 export type IsAccountVerifiedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type IsAccountVerifiedQuery = { __typename?: 'Query', isAccountVerified: boolean };
+export type IsAccountVerifiedQuery = { __typename?: 'Query', isAccountVerified: { __typename?: 'IsAccountVerifiedResponse', status: boolean, title: string, message: string } };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -1752,7 +1771,11 @@ export type SeedActivityCategoriesMutationResult = Apollo.MutationResult<SeedAct
 export type SeedActivityCategoriesMutationOptions = Apollo.BaseMutationOptions<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>;
 export const IsAccountVerifiedDocument = gql`
     query IsAccountVerified {
-  isAccountVerified
+  isAccountVerified {
+    status
+    title
+    message
+  }
 }
     `;
 

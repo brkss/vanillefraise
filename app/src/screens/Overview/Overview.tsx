@@ -52,7 +52,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             }
             showsVerticalScrollIndicator={false}
           >
-            {!data.isAccountVerified && <EmailVerification />}
+            {!data.isAccountVerified.status && <EmailVerification title={data.isAccountVerified.title} msg={data.isAccountVerified.message} />}
             <TopBar navigation={navigation} />
             <View style={{ height: 10 }} />
             <CaloriesOverview

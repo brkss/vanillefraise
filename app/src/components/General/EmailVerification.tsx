@@ -2,15 +2,19 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { EmailVerificationModal } from "./EmailVerificationModal";
 
-export const EmailVerification: React.FC = () => {
+interface Props {
+  title: string;
+  msg: string;
+}
+
+export const EmailVerification: React.FC<Props> = ({msg, title}) => {
   const [visibleModal, setVisibleModal] = React.useState(false);
 
   return (
     <Pressable onPress={() => setVisibleModal(true)} style={styles.container}>
-      <Text style={styles.txt}>Welcome To The Party 🎉</Text>
+      <Text style={styles.txt}>{title}</Text>
       <Text style={styles.subtxt}>
-        But first please verify your email ! you'll find a email in your inbox
-        with a link to verify your account.
+        {msg}
       </Text>
       <Pressable style={styles.btn}>
         <Text style={styles.btnText}>Done ? 👍</Text>
