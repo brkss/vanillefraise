@@ -1,13 +1,24 @@
 import React from "react";
 import { Box, Center, GridItem, Grid, Heading } from "@chakra-ui/react";
-import { TopBar, Intro, Subscribe, Footer, About, Info } from "../components";
+import {
+  TopBar,
+  Intro,
+  Subscribe,
+  Footer,
+  About,
+  Info,
+  InfoSection,
+} from "../components";
+import { data } from "../utils/data/infos";
 
 export const Home: React.FC = () => {
   return (
     <Box>
       <TopBar />
       <Intro />
-      <About />
+      {data.map((item, key) => (
+        <InfoSection text={item.text} image={item.image} title={item.title} />
+      ))}
       <Grid templateColumns="repeat(6, 1fr)">
         <GridItem colSpan={{ md: 3, base: 6 }}>
           <Center
@@ -34,7 +45,7 @@ export const Home: React.FC = () => {
               <br />
               You Deserve
               <br />
-              A Healthy 
+              A Healthy
               <br />
               Life.
               <br />
@@ -45,7 +56,6 @@ export const Home: React.FC = () => {
           <Subscribe />
         </GridItem>
       </Grid>
-      <Info />
       <Footer />
     </Box>
   );
