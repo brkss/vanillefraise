@@ -17,7 +17,12 @@ export const Home: React.FC = () => {
       <TopBar />
       <Intro />
       {data.map((item, key) => (
-        <InfoSection text={item.text} image={item.image} title={item.title} />
+        <InfoSection
+          reverse={(key + 1) % 2 === 0}
+          text={item.text}
+          image={item.image}
+          title={item.title}
+        />
       ))}
       <Grid templateColumns="repeat(6, 1fr)">
         <GridItem colSpan={{ md: 3, base: 6 }}>

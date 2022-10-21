@@ -24,7 +24,7 @@ export const Intro: React.FC = () => {
             fontSize={{ md: "40px", base: "17px" }}
             color={"#434343"}
           >
-            Helping you live longer
+            For you to live longer
           </Text>
           <Text
             fontWeight={"bold"}
@@ -42,10 +42,7 @@ export const Intro: React.FC = () => {
                 fontWeight={"bold"}
                 _focus={{ outline: "none" }}
                 _hover={{
-                  background: "#fe8285",
-                  color: "white",
-                  opacity: 1,
-                  transition: 0.3,
+                  background: "#f9f4f4",
                 }}
                 rounded={"50px"}
                 background={"#f9f4f4"}

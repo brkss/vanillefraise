@@ -16,7 +16,7 @@ export const InfoSection: React.FC<Props> = ({
 }) => {
   return (
     <Flex
-      flexDir={{ md: reverse ? "revert" : "unset", base: "column" }}
+      flexDir={{ md: reverse ? "row-reverse" : "unset", base: "column" }}
       h={"100vh"}
       //minH={{ md: "100vh", base: "50vh" }}
     >
@@ -29,7 +29,11 @@ export const InfoSection: React.FC<Props> = ({
         </Box>
       </Center>
       <Center h={"100%"} flex={1}>
-        <Image w={{ md: "300px", base: "200px" }} src={image} />
+        <Image
+          borderRadius={15}
+          w={{ md: "200px", base: "200px" }}
+          src={image}
+        />
       </Center>
     </Flex>
   );
