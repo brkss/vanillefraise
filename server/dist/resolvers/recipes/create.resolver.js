@@ -16,7 +16,7 @@ exports.CreateRecipeResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const responses_1 = require("../../utils/responses");
 const create_1 = require("../../utils/helpers/recipe/create");
-const recipes_1 = require("../../utils/inputs/recipes");
+const createrecipe_input_1 = require("../../utils/inputs/recipes/createrecipe.input");
 let CreateRecipeResolver = class CreateRecipeResolver {
     async createRecipe(data) {
         if (!data || !data.url || data.categories.length === 0)
@@ -51,7 +51,7 @@ __decorate([
     (0, type_graphql_1.Mutation)(() => responses_1.CreateRecipeResponse),
     __param(0, (0, type_graphql_1.Arg)("data")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [recipes_1.CreateBulkRecipesInput]),
+    __metadata("design:paramtypes", [createrecipe_input_1.CreateRecipeInput]),
     __metadata("design:returntype", Promise)
 ], CreateRecipeResolver.prototype, "createRecipe", null);
 CreateRecipeResolver = __decorate([

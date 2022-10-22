@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 
 interface Props {
   onChange: (n: number) => void;
@@ -7,7 +7,11 @@ interface Props {
   center?: boolean;
 }
 
-export const RecipeServing: React.FC<Props> = ({ onChange, servings, center }) => {
+export const RecipeServing: React.FC<Props> = ({
+  onChange,
+  servings,
+  center,
+}) => {
   const [serv, SetServ] = React.useState(servings);
 
   const more = () => {
@@ -27,7 +31,9 @@ export const RecipeServing: React.FC<Props> = ({ onChange, servings, center }) =
   };
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, {textAlign: center ? 'center' : 'center'}]}>🍽 Servings</Text>
+      <Text style={[styles.label, { textAlign: center ? "center" : "center" }]}>
+        🍽 Servings
+      </Text>
       <View style={styles.row}>
         <Pressable onPress={() => more()} style={styles.btn}>
           <Text style={styles.btnText}>+</Text>
@@ -45,19 +51,19 @@ export const RecipeServing: React.FC<Props> = ({ onChange, servings, center }) =
 
 const styles = StyleSheet.create({
   container: {
-	alignItems: 'stretch',
-	marginBottom: 15
-},
+    alignItems: "stretch",
+    marginBottom: 15,
+  },
   label: {
     fontSize: 17,
     fontWeight: "bold",
-	fontFamily: 'AvNextBold',
-	textAlign: 'center'
+    fontFamily: "AvNextBold",
+    textAlign: "center",
   },
   row: {
     flexDirection: "row",
     marginVertical: 10,
-	justifyContent: 'space-around'
+    justifyContent: "space-around",
   },
   val: {
     width: 30,
@@ -69,13 +75,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
     textAlign: "center",
-	fontFamily: 'AvNextBold'
+    fontFamily: "AvNextBold",
   },
   btn: {
     //height: 17,
     //width: 17,
     paddingVertical: 13,
-    paddingHorizontal: 20,
+    paddingHorizontal: Platform.OS === "ios" ? 20 : 23,
     justifyContent: "center",
     alignContent: "center",
     backgroundColor: "#434343",

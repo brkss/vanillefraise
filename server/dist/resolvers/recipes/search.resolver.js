@@ -35,10 +35,11 @@ let SearchRecipeResolver = class SearchRecipeResolver {
             where: { label: (0, typeorm_1.Like)(`%${query}%`), quantity: (0, typeorm_2.MoreThan)(0) },
             relations: ["recipe"],
         });
+        console.log("ingredients : ", ingredients);
         return {
-            ingredients: ingredients,
-            recipes: recipes,
-            nutritients: nutritions,
+            ingredients: ingredients || [],
+            recipes: recipes || [],
+            nutritients: nutritions || [],
         };
     }
 };

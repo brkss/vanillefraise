@@ -37,7 +37,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
     },
   });
   const [step, SetStep] = React.useState("start");
-  
+
   const changeStep = (s: string) => {
     SetStep(s);
   };
@@ -81,7 +81,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
   if (loading || error || !data) return <Loading />;
 
   return (
-    <LinearGradient colors={["#FDF3F3", "#FFDADA"]} style={styles.container}>
+    <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.top}>
           <AntDesign
@@ -134,15 +134,15 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
           }
         </View>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 };
-
+//"#FDF3F3", "#FFDADA"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: colors.c2,
+    backgroundColor: "#FDF3F3",
   },
   content: {
     flex: 1,

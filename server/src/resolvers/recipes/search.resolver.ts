@@ -31,10 +31,12 @@ export class SearchRecipeResolver {
       relations: ["recipe"],
     });
 
+    console.log("ingredients : ", ingredients);
+
     return {
-      ingredients: ingredients,
-      recipes: recipes,
-      nutritients: nutritions,
+      ingredients: ingredients || [],
+      recipes: recipes || [],
+      nutritients: nutritions || [],
     };
   }
 }
