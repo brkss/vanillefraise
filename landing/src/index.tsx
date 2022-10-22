@@ -2,11 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Application } from "./Application";
 import { ChakraProvider } from "@chakra-ui/react";
-import { ApolloClient, InMemoryCache, ApolloLink} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloLink } from "@apollo/client";
 import { HttpLink } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { onError } from "apollo-link-error";
-import { URL } from './utils/config/default';
+import { URL } from "./utils/config/default";
+import "./assets/index.css";
 
 const client: any = new ApolloClient({
   link: ApolloLink.from([

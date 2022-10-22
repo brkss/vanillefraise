@@ -1,5 +1,13 @@
 import React from "react";
-import { Flex, Center, Text, Box, Heading, Image } from "@chakra-ui/react";
+import {
+  keyframes,
+  Flex,
+  Center,
+  Text,
+  Box,
+  Heading,
+  Image,
+} from "@chakra-ui/react";
 
 interface Props {
   reverse?: boolean;
@@ -7,6 +15,11 @@ interface Props {
   title: string;
   text: string;
 }
+
+const spin = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
 
 export const InfoSection: React.FC<Props> = ({
   text,
@@ -30,8 +43,9 @@ export const InfoSection: React.FC<Props> = ({
       </Center>
       <Center h={"100%"} flex={1}>
         <Image
+          animation={`${spin} infinite 60s linear`}
           borderRadius={15}
-          w={{ md: "200px", base: "200px" }}
+          w={{ md: "300px", base: "200px" }}
           src={image}
         />
       </Center>
