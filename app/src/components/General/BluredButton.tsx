@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, Text, StyleSheet } from "react-native";
+import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
 import { BlurView } from "expo-blur";
 
 interface Props {
@@ -10,9 +10,15 @@ interface Props {
 export const BluredButton: React.FC<Props> = ({ txt, clicked }) => {
   return (
     <Pressable onPress={() => clicked()} style={styles.container}>
-      <BlurView style={styles.content} intensity={90} tint={"dark"}>
-        <Text style={styles.txt}>{txt}</Text>
-      </BlurView>
+      {Platform.OS === "android" ? (
+        <View style={styles.content}>
+          <Text style={styles.txt}>{txt}</Text>
+        </View>
+      ) : (
+        <BlurView style={styles.content} intensity={90} tint={"dark"}>
+          <Text style={styles.txt}>{txt}</Text>
+        </BlurView>
+      )}
     </Pressable>
   );
 };
@@ -26,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 19,
     width: "100%",
-    //backgroundColor: "pink",
+    backgroundColor: "#434343",
   },
   txt: {
     fontFamily: "AvNextBold",

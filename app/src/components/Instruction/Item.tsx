@@ -11,7 +11,9 @@ export const Item: React.FC<Props> = ({ txt, index }) => {
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.numItem}>
-          <Text style={styles.num}>{index}</Text>
+          <View style={styles.num}>
+            <Text style={styles.numText}>{index}</Text>
+          </View>
         </View>
         <View style={styles.txtItem}>
           <Text style={styles.txt}>{txt}</Text>
@@ -39,12 +41,13 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     //borderRadius: 20,
-    fontSize: 17,
+    //fontSize: 17,
+    alignItems: "center",
     paddingTop: 5,
-    fontWeight: "bold",
-    textAlign: "center",
+    //fontWeight: "bold",
+    //textAlign: "center",
     justifyContent: "center",
-    fontFamily: "AvNextBold",
+    //fontFamily: "AvNextBold",
   },
   txt: {
     fontSize: 16,
@@ -61,5 +64,12 @@ const styles = StyleSheet.create({
   },
   txtItem: {
     width: "90%",
+  },
+  numText: {
+    color: "white",
+    fontWeight: "bold",
+    fontFamily: "AvNextBold",
+    marginTop: -5,
+    //
   },
 });
