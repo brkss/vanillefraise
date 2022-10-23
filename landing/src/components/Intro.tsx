@@ -6,10 +6,10 @@ import Sparkles from "./Sparkles";
 export const Intro: React.FC = () => {
   return (
     <>
-      <Box h={"90vh"}>
+      <Box h={"100vh"}>
         <Center
           pos={"relative"}
-          h={"90vh"}
+          h={"100vh"}
           padding={"10px"}
           style={{
             //background:
@@ -26,7 +26,7 @@ export const Intro: React.FC = () => {
             color={"white"}
             fontFamily={"AvBold"}
           >
-            For you to live longer
+            <Sparkles>For you to live longer</Sparkles>
           </Text>
           <Text
             fontWeight={"bold"}
@@ -37,7 +37,7 @@ export const Intro: React.FC = () => {
             color={"white"}
             fontFamily={"AvBold"}
           >
-            healthier, and better.
+            <Sparkles>healthier, and better.</Sparkles>
           </Text>
           <Box pos={"absolute"} bottom={{ lg: "50px", base: "20px" }}>
             <Box pos={"relative"}>
@@ -51,6 +51,8 @@ export const Intro: React.FC = () => {
                 background={"#f9f4f4"}
                 color={"#f3b7b7"}
                 padding={"23px 30px"}
+                fontSize={"26px"}
+                fontFamily={"AvBold"}
               >
                 <Sparkles>Guess what, It's free !</Sparkles>
               </Button>
