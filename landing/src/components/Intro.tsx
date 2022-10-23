@@ -1,7 +1,14 @@
 import React from "react";
-import { Center, Box, Text, Image, Button } from "@chakra-ui/react";
+import { Center, Box, Text, Image, Button, keyframes } from "@chakra-ui/react";
 import cheese from "../assets/sandwish-fly.png";
 import Sparkles from "./Sparkles";
+
+const spin = keyframes`
+  0% { transform: translateY(0px); }
+  25% { transform: translateY(5px); }
+  50% { transform: translateY(10px); }
+  75% { transform: translateY(5px); }
+  100% { transform: translateY(0px) }`;
 
 export const Intro: React.FC = () => {
   return (
@@ -17,8 +24,14 @@ export const Intro: React.FC = () => {
             background: "black",
           }}
         >
-          <Image zIndex={9} src={cheese} pos={"absolute"} />
+          <Image
+            animation={`${spin} infinite 10s linear`}
+            zIndex={9}
+            src={cheese}
+            pos={"absolute"}
+          />
           <Text
+            animation={`${spin} infinite 10s linear`}
             fontWeight={"bold"}
             filter={"blur(.5px)"}
             width={{ md: "auto", base: "170%" }}
@@ -43,12 +56,10 @@ export const Intro: React.FC = () => {
             <Box pos={"relative"}>
               <Button
                 fontWeight={"bold"}
-                _focus={{ outline: "none" }}
-                _hover={{
-                  background: "#f9f4f4",
-                }}
+                _focus={{ outline: "none", background: "transparent" }}
+                _hover={{ background: "transparent" }}
                 rounded={"50px"}
-                background={"#f9f4f4"}
+                background={"transparent"}
                 color={"#f3b7b7"}
                 padding={"23px 30px"}
                 fontSize={"26px"}

@@ -34,8 +34,8 @@ export const InfoSection: React.FC<Props> = ({
       //minH={{ md: "100vh", base: "50vh" }}
     >
       <Center h={"100%"} flex={1}>
-        <Box w={{ md: "400px", base: "300px" }}>
-          <Heading mb={5} fontWeight={"bold"}>
+        <Box w={{ md: "500px", base: "90%" }}>
+          <Heading mb={5} fontFamily={"AvBold"} fontWeight={"bold"}>
             {title}
           </Heading>
           <Text>
