@@ -5,9 +5,8 @@ import {
   Intro,
   Subscribe,
   Footer,
-  About,
-  Info,
   InfoSection,
+  Description,
 } from "../components";
 import { data } from "../utils/data/infos";
 
@@ -16,6 +15,7 @@ export const Home: React.FC = () => {
     <Box>
       <TopBar />
       <Intro />
+      <Description />
       {data.map((item, key) => (
         <InfoSection
           reverse={(key + 1) % 2 === 0}

@@ -1,0 +1,29 @@
+import React from "react";
+import { Center, Box, Text } from "@chakra-ui/react";
+
+export const Description: React.FC = () => {
+  return (
+    <Center p={{ md: "20px", base: "5px" }} mt={"30px"}>
+      <Box w={"80%"}>
+        <Text
+          textAlign={"left"}
+          fontSize={{ md: "30px", base: "20px" }}
+          fontWeight={"bold"}
+          color={"#434343"}
+        >
+          Vanille Fraise is an app that help you balance you nutrition. With
+          taking in consideration your food intolerances, intake limit or simply
+          you just want to eat and stay healthy, we’ve got you covered.
+        </Text>
+        <Text
+          mt={"30px"}
+          fontWeight={"bold"}
+          fontSize={{ md: "30px", base: "20px" }}
+          color={"#434343"}
+        >
+          Discover Recipes, Enjoy cooking it yourself, Stay Healthy.
+        </Text>
+      </Box>
+    </Center>
+  );
+};
