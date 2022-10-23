@@ -12,8 +12,9 @@ export const Intro: React.FC = () => {
           h={"90vh"}
           padding={"10px"}
           style={{
-            background:
-              "linear-gradient(180deg, rgba(251,248,248,1) 0%, rgba(254,208,208,1) 100%)",
+            //background:
+            //"linear-gradient(180deg, rgba(251,248,248,1) 0%, rgba(254,208,208,1) 100%)",
+            background: "black",
           }}
         >
           <Image zIndex={9} src={cheese} pos={"absolute"} />
@@ -22,7 +23,8 @@ export const Intro: React.FC = () => {
             filter={"blur(.5px)"}
             width={{ md: "auto", base: "170%" }}
             fontSize={{ md: "40px", base: "17px" }}
-            color={"#434343"}
+            color={"white"}
+            fontFamily={"AvBold"}
           >
             For you to live longer
           </Text>
@@ -32,7 +34,8 @@ export const Intro: React.FC = () => {
             width={{ md: "auto", base: "150%" }}
             fontSize={{ md: "40px", base: "16px" }}
             zIndex={10}
-            color={"#434343"}
+            color={"white"}
+            fontFamily={"AvBold"}
           >
             healthier, and better.
           </Text>

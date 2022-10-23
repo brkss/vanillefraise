@@ -23,7 +23,7 @@ const Bar = Styled.div`
     /* border-radius: 50px; */
     font-weight: bold;
     color: #f3b7b7;
-    background-color: rgb(249 242 242 / 80%);
+    background-color: rgb(0 0 0 / 80%);
     backdrop-filter: blur(5px);
     position: fixed;
     width: 100%;

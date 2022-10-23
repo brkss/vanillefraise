@@ -2,11 +2,19 @@
   font-family: "monument";
   src: local("monument"),
     url(./fonts/monument/monument-bold.otf) format("opentype");
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                           'embedded-opentype', and 'svg' */
 }
 
-@keyframes rotateImage{
+@font-face {
+  font-family: "Av";
+  src: url(./fonts/AvenirNextLTPro-Regular.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "AvBold";
+  src: url(./fonts/AvenirNextLTPro-Bold.otf) format("opentype");
+}
+
+@keyframes rotateImage {
   from {
     transform: rotate(0);
   }
