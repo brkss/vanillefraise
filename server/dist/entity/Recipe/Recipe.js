@@ -18,6 +18,7 @@ const Category_1 = require("./Category");
 const Nutrition_1 = require("../Nutrition");
 const UserInfo_1 = require("../UserInfo");
 const MealRecipes_1 = require("../Meals/MealRecipes");
+const Report_1 = require("./Report");
 let Recipe = class Recipe extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -132,6 +133,11 @@ __decorate([
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], Recipe.prototype, "categories", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Report_1.RecipeReport),
+    (0, typeorm_1.OneToMany)(() => Report_1.RecipeReport, report => report.recipe),
+    __metadata("design:type", Array)
+], Recipe.prototype, "reports", void 0);
 Recipe = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("recipes")

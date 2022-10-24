@@ -21,6 +21,7 @@ import {
 } from "../Nutrition";
 import { CookedRecipe } from "../UserInfo";
 import { MealRecipes } from "../Meals/MealRecipes";
+import { RecipeReport } from './Report';
 
 @ObjectType()
 @Entity("recipes")
@@ -121,4 +122,8 @@ export class Recipe extends BaseEntity {
   @ManyToMany(() => RecipeCategory, (categories) => categories.recipes)
   @JoinTable()
   categories: RecipeCategory[];
+
+  @Field(() => RecipeReport)
+  @OneToMany(() => RecipeReport, report => report.recipe)
+  reports: RecipeReport[];
 }
