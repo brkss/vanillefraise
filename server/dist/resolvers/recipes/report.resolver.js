@@ -17,29 +17,36 @@ const type_graphql_1 = require("type-graphql");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const User_1 = require("../../entity/User");
 const Recipe_1 = require("../../entity/Recipe");
+const recipes_1 = require("../../utils/responses/recipes");
 let ReportRecipeResolver = class ReportRecipeResolver {
     async reportRecipe(recipe_id, ctx) {
         if (!recipe_id)
-            return false;
+            return { message: "Invalid Data !", status: false };
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         const recipe = await Recipe_1.Recipe.findOne({ where: { id: recipe_id } });
         if (!user || !recipe)
-            return false;
+            return { message: "Invalid Recipe !", status: false };
         const alreadyReported = await Recipe_1.RecipeReport.findOne({
             where: { user: user, recipe: recipe },
         });
         if (alreadyReported)
-            return false;
+            return {
+                status: false,
+                message: "Thank you, you already reported this recipe !",
+            };
         const report = new Recipe_1.RecipeReport();
         report.recipe = recipe;
         report.user = user;
         await report.save();
-        return true;
+        return {
+            message: "Thank you ! recipe reported successfuly !",
+            status: true,
+        };
     }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
-    (0, type_graphql_1.Mutation)(() => Boolean),
+    (0, type_graphql_1.Mutation)(() => recipes_1.ReportRecipeResponse),
     __param(0, (0, type_graphql_1.Arg)("recipe_id")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
