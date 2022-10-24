@@ -1,11 +1,43 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
+import { useReportRecipeMutation } from "../../generated/graphql";
 
 interface Props {
   recipeId: string;
 }
 
 export const ReportRecipe: React.FC<Props> = ({ recipeId }) => {
+  const [report] = useReportRecipeMutation();
+
+  const handleReport = () => {
+    Alert.alert("Report Recipe", "Is something wrong with this recipe ?", [
+      {
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
+      },
+      {
+        text: "Yes, Report This",
+        onPress: () => {
+          report({
+            variables: {
+              recipe_id: recipeId,
+            },
+          }).then((res) => {
+            let msg = "";
+            if (res.data.reportRecipe) {
+              msg = "Recipe successfuly reported, Thank you !";
+            } else {
+              msg = "Something went wrong reporting this recipe !";
+            }
+            Alert.alert("Recipe Report", msg);
+          });
+        },
+        style: "default",
+      },
+    ]);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Help make Vanille Fraise better.</Text>
@@ -13,7 +45,7 @@ export const ReportRecipe: React.FC<Props> = ({ recipeId }) => {
         if you see missing ingredients, unclear instructions or something is off
         let me know by reporting this recipe. Thank you !
       </Text>
-      <Pressable style={styles.btn}>
+      <Pressable onPress={handleReport} style={styles.btn}>
         <Text style={styles.btnText}>Report This Recipe.</Text>
       </Pressable>
     </View>

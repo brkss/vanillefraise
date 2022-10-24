@@ -153,11 +153,6 @@ export type CreateActivityResponse = {
   status: Scalars['Boolean'];
 };
 
-export type CreateBulkRecipesInput = {
-  categories: Array<Scalars['String']>;
-  url: Scalars['String'];
-};
-
 export type CreateDietConfigResponse = {
   __typename?: 'CreateDietConfigResponse';
   data?: Maybe<DietConfigResponse>;
@@ -194,6 +189,11 @@ export type CreateRecipeCategoryResponse = {
   category?: Maybe<RecipeCategory>;
   message?: Maybe<Scalars['String']>;
   status: Scalars['Boolean'];
+};
+
+export type CreateRecipeInput = {
+  categories: Array<Scalars['String']>;
+  url: Scalars['String'];
 };
 
 export type CreateRecipeResponse = {
@@ -478,6 +478,7 @@ export type Mutation = {
   register: AuthDefaultResponse;
   registerAdmin: AuthDefaultResponse;
   removeRecipe: DefaultResponse;
+  reportRecipe: Scalars['Boolean'];
   requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
   resendAccountVerification: DefaultResponse;
@@ -561,7 +562,7 @@ export type MutationCreateMoodRecordArgs = {
 
 
 export type MutationCreateRecipeArgs = {
-  data: CreateBulkRecipesInput;
+  data: CreateRecipeInput;
 };
 
 
@@ -607,6 +608,11 @@ export type MutationRegisterAdminArgs = {
 
 export type MutationRemoveRecipeArgs = {
   data: RemoveMealRecipeInput;
+};
+
+
+export type MutationReportRecipeArgs = {
+  recipe_id: Scalars['String'];
 };
 
 
@@ -846,6 +852,7 @@ export type Recipe = {
   name: Scalars['String'];
   prep?: Maybe<Scalars['String']>;
   public: Scalars['Boolean'];
+  reports: RecipeReport;
   serving?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['String']>;
   totalDaily: Array<RecipeTotalDaily>;
@@ -894,6 +901,14 @@ export type RecipeNutritionResponse = {
   totalDaily?: Maybe<Array<RecipeTotalDaily>>;
   totalNutrition?: Maybe<Array<RecipeTotalNutrition>>;
   totalNutritionKcal?: Maybe<Array<RecipeTotalNutritionKcal>>;
+};
+
+export type RecipeReport = {
+  __typename?: 'RecipeReport';
+  created_at: Scalars['DateTime'];
+  id: Scalars['String'];
+  recipe: Recipe;
+  user: User;
 };
 
 export type RecipeTotalDaily = {
@@ -1069,6 +1084,7 @@ export type User = {
   moodrecords: Array<MoodRecord>;
   name: Scalars['String'];
   records: Array<Record>;
+  reportedrecipes: RecipeReport;
   specialconditions: Array<SpecialCondition>;
   username: Scalars['String'];
   verified: Scalars['Boolean'];
@@ -1446,6 +1462,13 @@ export type RecommendedRecipesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecommendedRecipesQuery = { __typename?: 'Query', recommendedRecipes: Array<{ __typename?: 'Recipe', id: string, name: string, image: string }> };
+
+export type ReportRecipeMutationVariables = Exact<{
+  recipe_id: Scalars['String'];
+}>;
+
+
+export type ReportRecipeMutation = { __typename?: 'Mutation', reportRecipe: boolean };
 
 export type SearchRecipesQueryVariables = Exact<{
   query: Scalars['String'];
@@ -3484,6 +3507,37 @@ export function useRecommendedRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type RecommendedRecipesQueryHookResult = ReturnType<typeof useRecommendedRecipesQuery>;
 export type RecommendedRecipesLazyQueryHookResult = ReturnType<typeof useRecommendedRecipesLazyQuery>;
 export type RecommendedRecipesQueryResult = Apollo.QueryResult<RecommendedRecipesQuery, RecommendedRecipesQueryVariables>;
+export const ReportRecipeDocument = gql`
+    mutation ReportRecipe($recipe_id: String!) {
+  reportRecipe(recipe_id: $recipe_id)
+}
+    `;
+export type ReportRecipeMutationFn = Apollo.MutationFunction<ReportRecipeMutation, ReportRecipeMutationVariables>;
+
+/**
+ * __useReportRecipeMutation__
+ *
+ * To run a mutation, you first call `useReportRecipeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReportRecipeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reportRecipeMutation, { data, loading, error }] = useReportRecipeMutation({
+ *   variables: {
+ *      recipe_id: // value for 'recipe_id'
+ *   },
+ * });
+ */
+export function useReportRecipeMutation(baseOptions?: Apollo.MutationHookOptions<ReportRecipeMutation, ReportRecipeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ReportRecipeMutation, ReportRecipeMutationVariables>(ReportRecipeDocument, options);
+      }
+export type ReportRecipeMutationHookResult = ReturnType<typeof useReportRecipeMutation>;
+export type ReportRecipeMutationResult = Apollo.MutationResult<ReportRecipeMutation>;
+export type ReportRecipeMutationOptions = Apollo.BaseMutationOptions<ReportRecipeMutation, ReportRecipeMutationVariables>;
 export const SearchRecipesDocument = gql`
     query SearchRecipes($query: String!) {
   searchRecipes(query: $query) {

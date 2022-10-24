@@ -1,0 +1,3 @@
+mutation ReportRecipe($recipe_id: String!){
+  reportRecipe(recipe_id: $recipe_id)
+}
