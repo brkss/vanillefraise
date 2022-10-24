@@ -43,3 +43,4 @@ export * from "./NutritionIntakeChart";
 export * from "./NutritionCategoryItems";
 export * from './NutritionPlanThumbnail';
 export * from './NutritionPlan';
+export * from './ReportRecipe';

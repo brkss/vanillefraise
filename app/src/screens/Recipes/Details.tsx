@@ -5,19 +5,16 @@ import {
   StyleSheet,
   ImageBackground,
   ScrollView,
-  Text,
 } from "react-native";
 import {
   Close,
   Ingredients,
   Instructions,
   RecipeMetaData,
-  Button,
   Loading,
   Info,
   RecipeNutrition,
   SaveRecipe,
-  Languages,
   RecipeHealthLabel,
   RecipesTabs,
   BluredButton,
@@ -25,19 +22,15 @@ import {
 import {
   useRecipeQuery,
   useRecipeEnergyQuery,
-  Ingredient,
   TranslatedIngredient,
 } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 import { saveRecipe, IRecipe, isRecipeSaved } from "../../utils/modules/save";
-//import { languages } from "../../utils/data";
-import { BlurView } from "expo-blur";
 
 const TABS = ["INGREDIENTS", "INSTRUCTIONS", "NUTRITIONS"];
 
 export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   const [tab, setTab] = React.useState(TABS[0]);
-  const [lang, setLang] = React.useState<string>("en");
   const [saved, SetSaved] = React.useState(false);
   const [servings, setServings] = React.useState(1);
   const { id, mealId } = route.params;
@@ -135,7 +128,6 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
                     selected={lang}
                   />*/}
                   <Ingredients
-                    lang={lang}
                     servings={data.recipe.recipe.serving || 1}
                     ingredients={
                       data.recipe.ingredients as TranslatedIngredient[]
@@ -145,7 +137,6 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               ),
               INSTRUCTIONS: (
                 <Instructions
-                  lang={lang}
                   instructions={data.recipe.instructions.sort(
                     ({ index: a }, { index: b }) => a - b
                   )}
