@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export const ReportRecipe: React.FC = () => {
+interface Props {
+  recipeId: string;
+}
+
+export const ReportRecipe: React.FC<Props> = ({ recipeId }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Help make Vanille Fraise better.</Text>

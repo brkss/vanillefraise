@@ -145,7 +145,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               ),
             }[tab]
           }
-          <ReportRecipe />
+          <ReportRecipe  recipeId={data.recipe.recipe.id} />
           <View style={{ height: 150 }} />
         </View>
       </ScrollView>
