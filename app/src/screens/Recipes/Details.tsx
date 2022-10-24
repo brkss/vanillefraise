@@ -18,6 +18,7 @@ import {
   RecipeHealthLabel,
   RecipesTabs,
   BluredButton,
+  ReportRecipe,
 } from "../../components";
 import {
   useRecipeQuery,
@@ -144,7 +145,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               ),
             }[tab]
           }
-
+          <ReportRecipe />
           <View style={{ height: 150 }} />
         </View>
       </ScrollView>

@@ -18,18 +18,31 @@ export const ReportRecipe: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    //
+    marginTop: 20,
+    paddingTop: 45,
+    borderTopColor: "#DEDEDE",
+    borderTopWidth: 1,
   },
   title: {
-    //
+    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: "AvNextBold",
+    marginBottom: 10,
   },
   subtitle: {
-    //
+    fontSize: 16,
   },
   btn: {
-    //
+    marginTop: 20,
+    borderRadius: 15,
+    padding: 25,
+    backgroundColor: "#FFE3E3",
   },
   btnText: {
-    //
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "AvNextBold",
+    fontSize: 17,
+    color: "#434343",
   },
 });
