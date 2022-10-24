@@ -1,1 +1,1 @@
-export const URL = "https://api.opencc.tech/graphql";
+export const URL = "https://api.vanillefraise.me/graphql";
