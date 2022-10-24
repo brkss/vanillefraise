@@ -25,10 +25,10 @@ export const ReportRecipe: React.FC<Props> = ({ recipeId }) => {
             },
           }).then((res) => {
             let msg = "";
-            if (res.data.reportRecipe) {
+            if (res.errors || !res.data) {
               msg = "Recipe successfuly reported, Thank you !";
             } else {
-              msg = "Something went wrong reporting this recipe !";
+              msg = res.data.reportRecipe.message;
             }
             Alert.alert("Recipe Report", msg);
           });

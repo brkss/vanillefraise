@@ -478,7 +478,7 @@ export type Mutation = {
   register: AuthDefaultResponse;
   registerAdmin: AuthDefaultResponse;
   removeRecipe: DefaultResponse;
-  reportRecipe: Scalars['Boolean'];
+  reportRecipe: ReportRecipeResponse;
   requestEarlyAccess: Scalars['Boolean'];
   requestResetPassword: AuthDefaultResponse;
   resendAccountVerification: DefaultResponse;
@@ -984,6 +984,12 @@ export type RemoveMealRecipeInput = {
   recipeid: Scalars['String'];
 };
 
+export type ReportRecipeResponse = {
+  __typename?: 'ReportRecipeResponse';
+  message: Scalars['String'];
+  status: Scalars['Boolean'];
+};
+
 export type ResetPasswordInput = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
@@ -1468,7 +1474,7 @@ export type ReportRecipeMutationVariables = Exact<{
 }>;
 
 
-export type ReportRecipeMutation = { __typename?: 'Mutation', reportRecipe: boolean };
+export type ReportRecipeMutation = { __typename?: 'Mutation', reportRecipe: { __typename?: 'ReportRecipeResponse', status: boolean, message: string } };
 
 export type SearchRecipesQueryVariables = Exact<{
   query: Scalars['String'];
@@ -3509,7 +3515,10 @@ export type RecommendedRecipesLazyQueryHookResult = ReturnType<typeof useRecomme
 export type RecommendedRecipesQueryResult = Apollo.QueryResult<RecommendedRecipesQuery, RecommendedRecipesQueryVariables>;
 export const ReportRecipeDocument = gql`
     mutation ReportRecipe($recipe_id: String!) {
-  reportRecipe(recipe_id: $recipe_id)
+  reportRecipe(recipe_id: $recipe_id) {
+    status
+    message
+  }
 }
     `;
 export type ReportRecipeMutationFn = Apollo.MutationFunction<ReportRecipeMutation, ReportRecipeMutationVariables>;
