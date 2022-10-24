@@ -22,4 +22,5 @@ __exportStar(require("./item.resolver"), exports);
 __exportStar(require("./cooked.resolver"), exports);
 __exportStar(require("./search.resolver"), exports);
 __exportStar(require("./recomended.resolver"), exports);
+__exportStar(require("./report.resolver"), exports);
 //# sourceMappingURL=index.js.map

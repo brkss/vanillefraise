@@ -50,6 +50,7 @@ import {
   NutritionIntakeResolver,
   NutrionIntakeChartResolver,
   // ******* RECIPES ********
+  ReportRecipeResolver,
   RecomendedRecipesResolver,
   // ******* Nutritients plans ******
   PlansListResolver,
@@ -104,6 +105,7 @@ export const build = async () => {
       RecomendedRecipesResolver,
       NutrionIntakeChartResolver,
       PlansListResolver,
+      ReportRecipeResolver,
     ],
     validate: false,
     dateScalarMode: "isoDate",

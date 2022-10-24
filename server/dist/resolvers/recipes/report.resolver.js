@@ -15,15 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportRecipeResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
-if (!recipe_id)
-    return false;
+const User_1 = require("../../entity/User");
+const Recipe_1 = require("../../entity/Recipe");
 let ReportRecipeResolver = class ReportRecipeResolver {
     async reportRecipe(recipe_id, ctx) {
         if (!recipe_id)
             return false;
-        const user = await User.findOne({ where: { id: ctx.payload.userId } });
-        if (!user)
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        const recipe = await Recipe_1.Recipe.findOne({ where: { id: recipe_id } });
+        if (!user || !recipe)
             return false;
+        const alreadyReported = await Recipe_1.RecipeReport.findOne({
+            where: { user: user, recipe: recipe },
+        });
+        if (alreadyReported)
+            return false;
+        const report = new Recipe_1.RecipeReport();
+        report.recipe = recipe;
+        report.user = user;
+        await report.save();
         return true;
     }
 };
