@@ -1,15 +1,12 @@
 import React from "react";
 import { View, SafeAreaView, Text, StyleSheet } from "react-native";
 import { Button } from "../../components";
-import { InfiniteScrolling } from "../../components/InfiniteScolling";
 
 export const BatchCookingConfig: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <InfiniteScrolling />
-        {/* Remove display none after testing ! */}
-        <View style={[styles.content, { display: "none" }]}>
+        <View style={styles.content}>
           <View style={{ alignItems: "center" }}>
             <Text style={styles.title}>Batch Cooking 🧑‍🍳</Text>
             <Text style={styles.subtitle}>
@@ -26,7 +23,6 @@ export const BatchCookingConfig: React.FC = () => {
             flex: 0.4,
             padding: 10,
             justifyContent: "flex-end",
-            display: "none",
           }}
         >
           <Text style={styles.info}>

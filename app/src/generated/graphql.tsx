@@ -807,7 +807,7 @@ export type QueryRecipeArgs = {
 
 
 export type QueryRecipeByCategoryArgs = {
-  cat_id: Scalars['String'];
+  data: RecipeByCategoryInput;
 };
 
 
@@ -859,6 +859,11 @@ export type Recipe = {
   totalnutrition: Array<RecipeTotalNutrition>;
   totalnutritionkcal: Array<RecipeTotalNutritionKcal>;
   url: Scalars['String'];
+};
+
+export type RecipeByCategoryInput = {
+  batch: Scalars['Float'];
+  cat_id: Scalars['String'];
 };
 
 export type RecipeCategory = {
@@ -1452,6 +1457,7 @@ export type CookedRecipesCountQuery = { __typename?: 'Query', cookedRecipesCount
 
 export type RecipeByCategoryQueryVariables = Exact<{
   cat_id: Scalars['String'];
+  batch: Scalars['Float'];
 }>;
 
 
@@ -3365,8 +3371,8 @@ export type CookedRecipesCountQueryHookResult = ReturnType<typeof useCookedRecip
 export type CookedRecipesCountLazyQueryHookResult = ReturnType<typeof useCookedRecipesCountLazyQuery>;
 export type CookedRecipesCountQueryResult = Apollo.QueryResult<CookedRecipesCountQuery, CookedRecipesCountQueryVariables>;
 export const RecipeByCategoryDocument = gql`
-    query RecipeByCategory($cat_id: String!) {
-  recipeByCategory(cat_id: $cat_id) {
+    query RecipeByCategory($cat_id: String!, $batch: Float!) {
+  recipeByCategory(data: {cat_id: $cat_id, batch: $batch}) {
     id
     name
     total
@@ -3388,6 +3394,7 @@ export const RecipeByCategoryDocument = gql`
  * const { data, loading, error } = useRecipeByCategoryQuery({
  *   variables: {
  *      cat_id: // value for 'cat_id'
+ *      batch: // value for 'batch'
  *   },
  * });
  */

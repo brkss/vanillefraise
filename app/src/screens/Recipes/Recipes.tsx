@@ -26,10 +26,20 @@ import { CDN } from "../../utils/config/defaults";
 import { wait } from "../../utils/modules/wait";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 20;
+  return (
+    layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom
+  );
+};
+
 export const Recipes: React.FC<any> = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [category, SetCategory] = React.useState("");
+  const [category, SetCategory] = React.useState("NO");
+  const [batch, setBatch] = React.useState(1);
+  const [refetching, setRefetching] = React.useState(false);
 
   const _categories = useRecipeCategoriesQuery({
     fetchPolicy: "cache-first",
@@ -44,8 +54,15 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
     fetchPolicy: "cache-first",
     variables: {
       cat_id: "NO",
+      batch: 1,
     },
   });
+
+  const handleScroll = (nativeEvent: any) => {
+    if (!refetching && isCloseToBottom(nativeEvent)) {
+      console.log("bottom reched !");
+    }
+  };
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -58,7 +75,8 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
     const category = _categories.data!.recipeCategories.find(
       (x) => x.id === cat_id
     );
-    _recipes.refetch({ cat_id: category.id });
+    setBatch(1);
+    _recipes.refetch({ cat_id: category.id, batch: 1 });
     //SetRecipes(category!.recipes);
   };
 
@@ -72,7 +90,9 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
         <View style={styles.headingContainer}>
           <View style={styles.headingSperator}>
             <Heading title={"Recipes"} />
-            <SavedRecipesButton onClick={() => navigation.push('SavedRecipes')} />
+            <SavedRecipesButton
+              onClick={() => navigation.push("SavedRecipes")}
+            />
           </View>
           <SearchInput change={(v) => setSearchQuery(v)} />
         </View>
@@ -81,6 +101,9 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
             <RecipeSearchResult navigation={navigation} query={searchQuery} />
           ) : (
             <ScrollView
+              bounces={false}
+              onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}
+              scrollEventThrottle={400}
               refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
               }
@@ -130,7 +153,7 @@ const styles = StyleSheet.create({
   },
   recipesContainer: {
     //flex: 0.86,
-	//flex:1 
+    //flex:1
   },
   headingSperator: {
     flexDirection: "row",
