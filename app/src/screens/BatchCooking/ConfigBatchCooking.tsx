@@ -1,12 +1,15 @@
 import React from "react";
 import { View, SafeAreaView, Text, StyleSheet } from "react-native";
 import { Button } from "../../components";
-<Button clicked={() => {}} txt={"Start"} />;
+import { InfiniteScrolling } from "../../components/InfiniteScolling";
+
 export const BatchCookingConfig: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.content}>
+        <InfiniteScrolling />
+        {/* Remove display none after testing ! */}
+        <View style={[styles.content, { display: "none" }]}>
           <View style={{ alignItems: "center" }}>
             <Text style={styles.title}>Batch Cooking 🧑‍🍳</Text>
             <Text style={styles.subtitle}>
@@ -18,7 +21,14 @@ export const BatchCookingConfig: React.FC = () => {
             <Text style={styles.subtitle}>Save Time ⏰ and Money 💸</Text>
           </View>
         </View>
-        <View style={{ flex: 0.4, padding: 10, justifyContent: "flex-end" }}>
+        <View
+          style={{
+            flex: 0.4,
+            padding: 10,
+            justifyContent: "flex-end",
+            display: "none",
+          }}
+        >
           <Text style={styles.info}>
             this feature is currently unavailable{" "}
           </Text>
