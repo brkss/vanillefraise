@@ -18,34 +18,40 @@ const Recipe_1 = require("../../entity/Recipe");
 const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
 const FilterRecipes_1 = require("../../utils/helpers/FilterRecipes");
+const recipes_1 = require("../../utils/inputs/recipes");
+const random_1 = require("../../utils/helpers/random");
 let RecipesListResolver = class RecipesListResolver {
     async recipes() {
         return await Recipe_1.Recipe.find({ where: { public: true } });
     }
-    async recipeByCategory(cat_id, ctx) {
-        if (!cat_id) {
+    async recipeByCategory(data, ctx) {
+        if (!data || !data.batch || !data.cat_id || !data.seed) {
             return [];
         }
         try {
+            const step = 10;
             const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
             if (!user)
                 return [];
             let category;
-            if (cat_id == "NO")
+            if (data.cat_id == "NO")
                 category = (await Recipe_1.RecipeCategory.find({
                     relations: ["recipes", "recipes.healthlabel"],
                 }))[0];
             else
                 category = await Recipe_1.RecipeCategory.findOne({
-                    where: { id: cat_id },
+                    where: { id: data.cat_id },
                     relations: ["recipes", "recipes.healthlabel"],
                 });
             if (!category) {
                 return [];
             }
             const recipes = category.recipes.filter((r) => r.public === true);
-            const data = await (0, FilterRecipes_1.filterRecipes)(recipes, user);
-            return data.sort((_) => Math.random() - 0.5);
+            const results = await (0, FilterRecipes_1.filterRecipes)(recipes, user);
+            console.log("get recipes ! ");
+            return results
+                .sort((_) => (0, random_1.random)(data.seed) - 0.5)
+                .slice(step * data.batch - step, step * data.batch);
         }
         catch (e) {
             console.log("Sonething went wrong : ", e);
@@ -62,10 +68,10 @@ __decorate([
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
     (0, type_graphql_1.Query)(() => [Recipe_1.Recipe]),
-    __param(0, (0, type_graphql_1.Arg)("cat_id")),
+    __param(0, (0, type_graphql_1.Arg)("data")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [recipes_1.RecipeByCategoryInput, Object]),
     __metadata("design:returntype", Promise)
 ], RecipesListResolver.prototype, "recipeByCategory", null);
 RecipesListResolver = __decorate([

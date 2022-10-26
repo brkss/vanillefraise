@@ -1,7 +1,7 @@
 import React from "react";
 import { View, SafeAreaView, Text, StyleSheet } from "react-native";
 import { Button } from "../../components";
-<Button clicked={() => {}} txt={"Start"} />;
+
 export const BatchCookingConfig: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -18,7 +18,13 @@ export const BatchCookingConfig: React.FC = () => {
             <Text style={styles.subtitle}>Save Time ⏰ and Money 💸</Text>
           </View>
         </View>
-        <View style={{ flex: 0.4, padding: 10, justifyContent: "flex-end" }}>
+        <View
+          style={{
+            flex: 0.4,
+            padding: 10,
+            justifyContent: "flex-end",
+          }}
+        >
           <Text style={styles.info}>
             this feature is currently unavailable{" "}
           </Text>

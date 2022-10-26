@@ -1,5 +1,5 @@
-query RecipeByCategory($cat_id: String!){
-  recipeByCategory(cat_id: $cat_id){
+query RecipeByCategory($cat_id: String!, $batch: Float!, $seed: Float!){
+  recipeByCategory(data: {cat_id: $cat_id, batch: $batch, seed: $seed}){
     id
     name
     total

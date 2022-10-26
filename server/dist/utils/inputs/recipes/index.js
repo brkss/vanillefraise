@@ -18,4 +18,5 @@ __exportStar(require("./cookedrecipe.input"), exports);
 __exportStar(require("./updateCategory.input"), exports);
 __exportStar(require("./createcategory.input"), exports);
 __exportStar(require("./addBulkRecipes.response"), exports);
+__exportStar(require("./recipebycategory.input"), exports);
 //# sourceMappingURL=index.js.map
