@@ -6,6 +6,7 @@ import {
   ScrollView,
   //SafeAreaView,
   RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import {
   Heading,
@@ -34,6 +35,9 @@ const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   );
 };
 
+// seed to randomize recipes !
+const SEED = Math.floor(Math.random() * 1000);
+
 export const Recipes: React.FC<any> = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
@@ -55,18 +59,34 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
     variables: {
       cat_id: "NO",
       batch: 1,
+      seed: SEED,
     },
   });
 
   const handleScroll = (nativeEvent: any) => {
     if (!refetching && isCloseToBottom(nativeEvent)) {
-      console.log("bottom reched !");
+      setRefetching(true);
+      setBatch((curr) => curr + 1);
+      _recipes
+        .fetchMore({
+          variables: { batch: batch, cat_id: category, seed: SEED },
+          updateQuery: (oldRecipes, { fetchMoreResult }) => {
+            return {
+              recipeByCategory: [
+                ...oldRecipes.recipeByCategory,
+                ...fetchMoreResult.recipeByCategory,
+              ],
+            };
+          },
+        })
+        .then((_) => setRefetching(false));
+      //console.log("bottom reched !");
     }
   };
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    _recipes.refetch();
+    //_recipes.refetch();
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
@@ -101,7 +121,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
             <RecipeSearchResult navigation={navigation} query={searchQuery} />
           ) : (
             <ScrollView
-              bounces={false}
+              //bounces={false}
               onScroll={({ nativeEvent }) => handleScroll(nativeEvent)}
               scrollEventThrottle={400}
               refreshControl={
@@ -133,6 +153,11 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
                   />
                 ))
               )}
+              {refetching && (
+                <View style={styles.indicatorContainer}>
+                  <ActivityIndicator size={"small"} />
+                </View>
+              )}
               <View style={{ height: 300 }} />
             </ScrollView>
           )}
@@ -158,5 +183,10 @@ const styles = StyleSheet.create({
   headingSperator: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  indicatorContainer: {
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
