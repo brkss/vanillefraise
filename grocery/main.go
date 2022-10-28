@@ -8,18 +8,22 @@ import (
 	"net/http"
 )
 
-type Post struct {
-	title  string
-	id     int64
-	userId int64
-	body   string
+type ProductPrice struct {
+	Price float64 `json:"price_ttc"`
+}
+
+type Product struct {
+	Label       string         `json:"default_label"`
+	Description string         `json:"description"`
+	price       []ProductPrice `json:"prices"`
+	image       string         `json:"thumbnail_picture"`
 }
 
 var ps string = `[{"title": "a", "id": 1, "userId": 1, "body": "test"}]`
 
 func main() {
 
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/posts")
+	resp, err := http.Get("https://api-ayaline.marjane.ma/front/products?fetchMode=list&type[]=product&to_sell=true&status=VALIDATED&search=flacon%20d%27avoine&autocomplete=true&range=1-10&")
 	if err != nil {
 		log.Fatal("Error getting posts : ", err)
 	}
@@ -30,11 +34,10 @@ func main() {
 		log.Fatal("Error reading data : ", err)
 	}
 
-	//fmt.Println(string(body))
-	var posts []Post
-	//json.NewDecoder(resp.Body).Decode(&posts)
-	json.Unmarshal([]byte(ps), &posts)
-	fmt.Printf("id: %d \n title %s \n", posts[0].id, posts[0].title)
+	var products []Product
+	json.Unmarshal([]byte(sb), &products)
+
+	fmt.Printf("title: %s \ndescription %s \n", products[0].Label, products[0].Description)
 	/*
 		for _, post := range posts {
 			fmt.Println("id: ", post.id, " title: ", post.title)
