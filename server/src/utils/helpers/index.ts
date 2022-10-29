@@ -8,3 +8,4 @@ export * from "./fraction";
 export * from "./mail";
 export * from "./activity";
 export * from "./mergeDates";
+export * from './mailgun';

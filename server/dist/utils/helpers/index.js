@@ -23,4 +23,5 @@ __exportStar(require("./fraction"), exports);
 __exportStar(require("./mail"), exports);
 __exportStar(require("./activity"), exports);
 __exportStar(require("./mergeDates"), exports);
+__exportStar(require("./mailgun"), exports);
 //# sourceMappingURL=index.js.map

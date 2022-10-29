@@ -33,6 +33,7 @@ import {
   sendVerifyAccountMail,
 } from "../../utils/helpers/mail";
 import { isUserAuth } from "../../utils/middlewares";
+import { mg_verify_account } from "../../utils/helpers";
 
 @Resolver()
 export class SecurityResolver {
@@ -73,8 +74,9 @@ export class SecurityResolver {
         message: "Your Account Is Already Verified !",
       };
     }
-    const _token = generateAccountVerificationToken(user);
-    await sendVerifyAccountMail(user.email, user.name, _token);
+    //const _token = generateAccountVerificationToken(user);
+    await mg_verify_account(user);
+    //await sendVerifyAccountMail(user.email, user.name, _token);
     return {
       status: true,
       message: `Verification Link sent successfuly to ${user.email}`,

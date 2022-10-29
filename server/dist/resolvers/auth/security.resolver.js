@@ -23,6 +23,7 @@ const bcrypt_1 = require("bcrypt");
 const ResetPassword_1 = require("../../entity/ResetPassword");
 const mail_1 = require("../../utils/helpers/mail");
 const middlewares_1 = require("../../utils/middlewares");
+const helpers_1 = require("../../utils/helpers");
 let SecurityResolver = class SecurityResolver {
     work() {
         return "yes !";
@@ -51,8 +52,7 @@ let SecurityResolver = class SecurityResolver {
                 message: "Your Account Is Already Verified !",
             };
         }
-        const _token = (0, token_1.generateAccountVerificationToken)(user);
-        await (0, mail_1.sendVerifyAccountMail)(user.email, user.name, _token);
+        await (0, helpers_1.mg_verify_account)(user);
         return {
             status: true,
             message: `Verification Link sent successfuly to ${user.email}`,

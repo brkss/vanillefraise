@@ -9,7 +9,6 @@ import { refreshToken, refreshAdminToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
 import { seed } from "./utils/seed";
-import mailgun from "mailgun-js";
 
 (async () => {
   await createConnection({
@@ -18,7 +17,7 @@ import mailgun from "mailgun-js";
     port: 3306,
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASS || "root",
-    database: process.env.DB_NAME || "vanillefraise", 
+    database: process.env.DB_NAME || "vanillefraise",
     //database: process.env.DB_NAME || "opencc",
     charset: "utf8mb4_unicode_ci",
     synchronize: true,
@@ -60,25 +59,7 @@ import mailgun from "mailgun-js";
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));
 
-  app.post("/send-mail-sendbox", (_, res) => {
-    const mg = mailgun({
-      apiKey: process.env.MAILGUN_API_KEY!,
-      domain: process.env.MAILGUN_URL!,
-    });
-    const data = {
-      from: "Excited User <me@samples.mailgun.org>",
-      to: "berkassebrahim@gmail.com",
-      subject: "Hello",
-      text: "Testing some Mailgun awesomness!",
-    };
-    mg.messages().send(data, function (error, body) {
-      console.log(body);
-      console.log("mg error : ", error);
-    });
-    return res.send({ message: "email sent" });
-  });
-
-  const apolloServer = new ApolloServer({
+    const apolloServer = new ApolloServer({
     schema: await build(),
     context: ({ req, res }) => ({ req, res }),
     //playground: false

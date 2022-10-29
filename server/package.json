@@ -39,7 +39,6 @@
     "imagemin-pngquant": "^9.0.2",
     "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
-    "mailgun-js": "^0.22.0",
     "mailgun.js": "^8.0.2",
     "mysql": "^2.14.1",
     "nodemailer": "^6.7.5",
