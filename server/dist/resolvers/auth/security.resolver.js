@@ -52,7 +52,8 @@ let SecurityResolver = class SecurityResolver {
                 message: "Your Account Is Already Verified !",
             };
         }
-        await (0, helpers_1.mg_verify_account)(user);
+        const _token = (0, token_1.generateAccountVerificationToken)(user);
+        await (0, helpers_1.mg_verify_account)(user, _token);
         return {
             status: true,
             message: `Verification Link sent successfuly to ${user.email}`,

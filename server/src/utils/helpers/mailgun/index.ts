@@ -1,6 +1,7 @@
 import Mailgun from "mailgun.js";
 import FormData from "form-data";
 import { User } from "../../../entity/User";
+import { getVerifyAccountMail } from "../../data";
 
 const mailgun = new Mailgun(FormData);
 const mg = mailgun.client({
@@ -9,14 +10,18 @@ const mg = mailgun.client({
   url: "https://api.eu.mailgun.net",
 });
 
-export const mg_verify_account = async (user: User): Promise<boolean> => {
+export const mg_verify_account = async (
+  user: User,
+  token: string
+): Promise<boolean> => {
   if (!user) return false;
   const response = await mg.messages
     .create(process.env.MAILGUN_DOMAIN!, {
       from: "Vanille Fraise <email@vanillefraise.me>",
       to: [user.email],
       subject: "Verify Your Account",
-      text: "testing account verification ! ",
+      //text: "testing account verification ! ",
+      html: getVerifyAccountMail(user.name, token),
     })
     .catch((e) => {
       console.log("something went wronf sending verification email !", e);

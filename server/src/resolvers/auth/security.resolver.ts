@@ -74,8 +74,8 @@ export class SecurityResolver {
         message: "Your Account Is Already Verified !",
       };
     }
-    //const _token = generateAccountVerificationToken(user);
-    await mg_verify_account(user);
+    const _token = generateAccountVerificationToken(user);
+    await mg_verify_account(user, _token);
     //await sendVerifyAccountMail(user.email, user.name, _token);
     return {
       status: true,

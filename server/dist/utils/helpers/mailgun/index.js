@@ -6,13 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mg_verify_account = void 0;
 const mailgun_js_1 = __importDefault(require("mailgun.js"));
 const form_data_1 = __importDefault(require("form-data"));
+const data_1 = require("../../data");
 const mailgun = new mailgun_js_1.default(form_data_1.default);
 const mg = mailgun.client({
     username: "api",
     key: process.env.MAILGUN_API_KEY,
     url: "https://api.eu.mailgun.net",
 });
-const mg_verify_account = async (user) => {
+const mg_verify_account = async (user, token) => {
     if (!user)
         return false;
     const response = await mg.messages
@@ -20,7 +21,7 @@ const mg_verify_account = async (user) => {
         from: "Vanille Fraise <email@vanillefraise.me>",
         to: [user.email],
         subject: "Verify Your Account",
-        text: "testing account verification ! ",
+        html: (0, data_1.getVerifyAccountMail)(user.name, token),
     })
         .catch((e) => {
         console.log("something went wronf sending verification email !", e);

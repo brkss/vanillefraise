@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getVerifyAccountMail = void 0;
-const DOMAIN = "http://localhost:3000";
+const DOMAIN = "https://vanillefraise.me";
 const getVerifyAccountMail = (name, token) => {
     return `
     
