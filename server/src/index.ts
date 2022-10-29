@@ -18,7 +18,7 @@ import mailgun from "mailgun-js";
     port: 3306,
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASS || "root",
-    database: process.env.DB_NAME || "vanillefraise_sanitizing", 
+    database: process.env.DB_NAME || "vanillefraise", 
     //database: process.env.DB_NAME || "opencc",
     charset: "utf8mb4_unicode_ci",
     synchronize: true,
