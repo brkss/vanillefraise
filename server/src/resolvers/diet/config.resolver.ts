@@ -16,7 +16,7 @@ import {
   DietConfigResponse,
   CreateDietConfigResponse,
 } from "../../utils/responses/diet";
-import { calculateREE, calculateTDEE } from '../../utils/helpers/macros';
+import { calculateREE, calculateTDEE } from '../../utils/helpers/user/macros';
 
 @Resolver()
 export class DietConfigResolver {

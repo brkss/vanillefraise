@@ -12,7 +12,7 @@ import {
 } from "../../utils/responses/diet";
 import { DietRecord } from "../../entity/Diet/Record";
 import dayjs from "dayjs";
-import { calculateREE, calculateTDEE } from "../../utils/helpers/macros";
+import { calculateREE, calculateTDEE } from "../../utils/helpers/user/macros";
 import { RecipeHealthLabel } from "../../entity/Nutrition/HealthLabel";
 import { RecipeTotalNutrition } from "../../entity/Nutrition";
 

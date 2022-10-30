@@ -18,17 +18,23 @@ let RecipeReport = class RecipeReport extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
 ], RecipeReport.prototype, "id", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => User_1.User),
-    (0, typeorm_1.ManyToOne)(() => User_1.User, user => user.reportedrecipes, { onDelete: 'CASCADE', onUpdate: "CASCADE" }),
+    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.reportedrecipes, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    }),
     __metadata("design:type", User_1.User)
 ], RecipeReport.prototype, "user", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Recipe_1.Recipe),
-    (0, typeorm_1.ManyToOne)(() => Recipe_1.Recipe, recipe => recipe.reports, { onDelete: "CASCADE", onUpdate: "CASCADE" }),
+    (0, typeorm_1.ManyToOne)(() => Recipe_1.Recipe, (recipe) => recipe.reports, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    }),
     __metadata("design:type", Recipe_1.Recipe)
 ], RecipeReport.prototype, "recipe", void 0);
 __decorate([

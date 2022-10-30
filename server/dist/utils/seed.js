@@ -17,8 +17,6 @@ const cleanup = async () => {
 };
 const seed = async () => {
     const meals = new resolvers_1.CreateMealsResolver();
-    const activity = new resolvers_1.ActivityCaloriesResolver();
-    const activity_category = new resolvers_1.ActivityCategoryResolver();
     const mood = new resolvers_1.MoodResolver();
     const nutritient = new resolvers_1.NutrientCategoryResolver();
     const nutrition_guide = new resolvers_1.NutritionGuideResolver();
@@ -28,8 +26,6 @@ const seed = async () => {
     const record = new resolvers_1.RecordCategoryResolver();
     await cleanup();
     await meals.seedMeals();
-    await activity.seedActivityCalories();
-    await activity_category.seedActivityCategories();
     await mood.seedMoodCategories();
     await nutritient.seedNutrientCategories();
     await nutrition_guide.seedNutritionGuide();

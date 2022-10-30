@@ -17,7 +17,7 @@ const type_graphql_1 = require("type-graphql");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const macros_response_1 = require("../../utils/responses/diet/macros.response");
 const User_1 = require("../../entity/User");
-const macros_1 = require("../../utils/helpers/macros");
+const macros_1 = require("../../utils/helpers/user/macros");
 let MacrosResolver = class MacrosResolver {
     async macros(ctx) {
         const user = await User_1.User.findOne({

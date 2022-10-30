@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import { User } from "../../entity/User";
-import { CookedRecipe } from "../../entity/UserInfo";
+import { User } from "../../../entity/User";
+import { CookedRecipe } from "../../../entity/UserInfo";
 import { Like } from "typeorm";
 
 export const getUserTakenEnergy = async (user: User): Promise<Number> => {

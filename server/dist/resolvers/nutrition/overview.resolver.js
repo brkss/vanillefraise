@@ -24,12 +24,12 @@ const Nutrition_1 = require("../../entity/Nutrition");
 const middlewares_1 = require("../../utils/middlewares");
 const nutrition_1 = require("../../utils/responses/nutrition");
 const Recomendation_1 = require("../../entity/recomendation/Recomendation");
-const getAge_1 = require("../../utils/helpers/getAge");
+const getAge_1 = require("../../utils/helpers/user/getAge");
 const typeorm_1 = require("typeorm");
 const calories_response_1 = require("../../utils/responses/nutrition/calories.response");
 const dayjs_1 = __importDefault(require("dayjs"));
 const Record_1 = require("../../entity/Diet/Record");
-const macros_1 = require("../../utils/helpers/macros");
+const macros_1 = require("../../utils/helpers/user/macros");
 let NutritionOverviewResolver = class NutritionOverviewResolver {
     async userNutrition(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });

@@ -24,7 +24,7 @@ const User_1 = require("../../entity/User");
 const diet_1 = require("../../utils/responses/diet");
 const Record_1 = require("../../entity/Diet/Record");
 const dayjs_1 = __importDefault(require("dayjs"));
-const macros_1 = require("../../utils/helpers/macros");
+const macros_1 = require("../../utils/helpers/user/macros");
 const HealthLabel_1 = require("../../entity/Nutrition/HealthLabel");
 const sumupFats = (nutrients) => {
     var _a, _b, _c, _d;

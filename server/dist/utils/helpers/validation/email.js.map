@@ -1,0 +1,1 @@
+{"version":3,"file":"email.js","sourceRoot":"","sources":["../../../../src/utils/helpers/validation/email.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,gEAAkD;AAE3C,MAAM,aAAa,GAAG,CAAC,KAAa,EAAW,EAAE;IACtD,OAAO,cAAc,CAAC,QAAQ,CAAC,KAAK,CAAC,CAAC;AACxC,CAAC,CAAC;AAFW,QAAA,aAAa,iBAExB"}

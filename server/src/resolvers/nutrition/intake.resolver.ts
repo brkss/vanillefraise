@@ -7,11 +7,11 @@ import { CookedRecipe } from "../../entity/UserInfo";
 import { getRepository, LessThanOrEqual, Like, MoreThanOrEqual } from "typeorm";
 import dayjs from "dayjs";
 import { NutritienCategory, Nutrition } from "../../entity/Nutrition";
-import { getAge } from "../../utils/helpers/getAge";
-import { calculateREE } from "../../utils/helpers/macros";
+import { getAge } from "../../utils/helpers/user/getAge";
+import { calculateREE } from "../../utils/helpers/user/macros";
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
 import { NutritionCategoryItemsResponse } from "../../utils/responses/nutrition";
-import { getUserTakenEnergy } from "../../utils/helpers/userTakenEnergy";
+import { getUserTakenEnergy } from "../../utils/helpers/user/userTakenEnergy";
 
 @Resolver()
 export class NutritionIntakeResolver {

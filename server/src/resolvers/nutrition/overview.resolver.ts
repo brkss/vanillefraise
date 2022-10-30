@@ -15,12 +15,12 @@ import {
   NutritionCategoryOverview,
 } from "../../utils/responses/nutrition";
 import { NutritionRecomendation } from "../../entity/recomendation/Recomendation";
-import { getAge } from "../../utils/helpers/getAge";
+import { getAge } from "../../utils/helpers/user/getAge";
 import { Like, LessThanOrEqual, MoreThanOrEqual, getRepository } from "typeorm";
 import { UserCaloriesResponse } from "../../utils/responses/nutrition/calories.response";
 import dayjs from "dayjs";
 import { DietRecord } from "../../entity/Diet/Record";
-import { calculateREE } from "../../utils/helpers/macros";
+import { calculateREE } from "../../utils/helpers/user/macros";
 
 @Resolver()
 export class NutritionOverviewResolver {
