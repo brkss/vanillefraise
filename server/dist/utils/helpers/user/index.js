@@ -18,4 +18,5 @@ __exportStar(require("./bmr"), exports);
 __exportStar(require("./getAge"), exports);
 __exportStar(require("./userTakenEnergy"), exports);
 __exportStar(require("./macros"), exports);
+__exportStar(require("./calculateBurnedCalories"), exports);
 //# sourceMappingURL=index.js.map
