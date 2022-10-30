@@ -2,9 +2,11 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
-  Image,
+  Pressable,
   KeyboardAvoidingView,
+  StyleSheet,
+  Linking,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Input, Button, Error, BasicInput } from "../../components";
@@ -18,6 +20,7 @@ import { AuthContext } from "../../utils/auth/AuthProvider";
 import { useLoginMutation } from "../../generated/graphql";
 import * as SecureStorage from "expo-secure-store";
 import { setAccessToken } from "../../utils";
+import { RESET_PASSWORD_URL } from "../../utils/config/defaults";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -35,6 +38,13 @@ export const Login: React.FC = () => {
     password: "",
   });
   const [login] = useLoginMutation();
+
+  const handleResetPassword = () => {
+    if (Linking.canOpenURL(RESET_PASSWORD_URL)) {
+      Alert.alert("Can't open URL !");
+    }
+    Linking.openURL(RESET_PASSWORD_URL);
+  };
 
   const handleForm = (id: string, val: string) => {
     setForm({
@@ -130,7 +140,7 @@ export const Login: React.FC = () => {
               {error ? (
                 <Error txt={error} close={() => setError("")} />
               ) : (
-                <Text style={styles.title}>Welcome Back!</Text>
+                <Text style={styles.title}>Welcome Back</Text>
               )}
 
               <View style={{ height: 20 }} />
@@ -146,6 +156,19 @@ export const Login: React.FC = () => {
                 onChange={(t) => handleForm("password", t)}
                 placeholder={"*********"}
               />
+              <View style={{ height: 20 }} />
+              <Pressable onPress={() => handleResetPassword()}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontFamily: "AvNextBold",
+                    fontSize: 20,
+                    opacity: 0.6,
+                  }}
+                >
+                  Forget your password ?
+                </Text>
+              </Pressable>
               <View style={{ height: 20 }} />
               <Button txt={"Login"} clicked={() => handleLogin()} />
             </Animated.View>
@@ -172,10 +195,11 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#434343",
     marginBottom: 10,
+    fontFamily: "AvNextBold",
   },
   box: {
     width: "90%",
@@ -187,7 +211,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: "absolute",
     fontFamily: "AvNextBold",
-    fontSize: 20,
+    fontSize: 17,
     color: "#434343",
   },
 });

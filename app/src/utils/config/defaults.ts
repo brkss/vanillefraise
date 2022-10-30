@@ -1,6 +1,9 @@
 export const URI = "http://localhost:4000";
 export const CDN = "http://localhost:4000/images";
 
+export const RESET_PASSWORD_URL =
+  "https://vanillefraise.me/request-reset-password";
+
 //export const URI = "https://api.vanillefraise.me";
 //export const CDN = "https://api.vanillefraise.me/images";
 
