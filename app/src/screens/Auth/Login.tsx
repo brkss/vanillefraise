@@ -40,9 +40,7 @@ export const Login: React.FC = () => {
   const [login] = useLoginMutation();
 
   const handleResetPassword = () => {
-    if (Linking.canOpenURL(RESET_PASSWORD_URL)) {
-      Alert.alert("Can't open URL !");
-    }
+    if (!Linking.canOpenURL(RESET_PASSWORD_URL)) return;
     Linking.openURL(RESET_PASSWORD_URL);
   };
 
