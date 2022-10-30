@@ -24,11 +24,8 @@ interface Props {
 }
 
 export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
-  const _macros = useMacrosQuery({
-    
-  });
+  const _macros = useMacrosQuery({});
   const { data, loading, error, refetch } = useUserCaloriesQuery();
-  const _burnedCalories = useGetUserBurnedCaloriesQuery();
 
   const _count = useCookedRecipesCountQuery();
 
@@ -36,7 +33,6 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
     if (refreshing) {
       refetch();
       _count.refetch();
-      _burnedCalories.refetch();
     }
   }, [refreshing]);
 
@@ -45,8 +41,6 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
     _macros.error ||
     _count.loading ||
     _count.error ||
-    _burnedCalories.loading ||
-    _burnedCalories.error ||
     loading ||
     error ||
     !data.userCalories.status
@@ -59,7 +53,10 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
       <View style={styles.row}>
         <Text style={styles.label}>Today's energy intake</Text>
         <Text style={styles.calories}>
-          {data.userCalories.value - _burnedCalories.data.getUserBurnedCalories}
+          {
+            data.userCalories.value -
+              0 /* burned calories | connect apple health ! */
+          }
           /{_macros.data.macros.tdee || _macros.data.macros.ree} cal
         </Text>
       </View>
@@ -67,7 +64,7 @@ export const CaloriesOverview: React.FC<Props> = ({ refreshing }) => {
         progress={calcProgress(
           _macros.data.macros.tdee || _macros.data.macros.ree,
           data.userCalories.value,
-          _burnedCalories.data.getUserBurnedCalories
+          0 // burned calories
         )}
       />
       <Text style={styles.recipeCooked}>

@@ -138,7 +138,7 @@ export const Login: React.FC = () => {
               {error ? (
                 <Error txt={error} close={() => setError("")} />
               ) : (
-                <Text style={styles.title}>Welcome Back</Text>
+                <Text style={styles.title}></Text>
               )}
 
               <View style={{ height: 20 }} />
