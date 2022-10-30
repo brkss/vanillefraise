@@ -21,7 +21,6 @@ const User_1 = require("../../entity/User");
 const resetpassword_input_1 = require("../../utils/inputs/auth/resetpassword.input");
 const bcrypt_1 = require("bcrypt");
 const ResetPassword_1 = require("../../entity/ResetPassword");
-const mail_1 = require("../../utils/helpers/mail");
 const middlewares_1 = require("../../utils/middlewares");
 const helpers_1 = require("../../utils/helpers");
 let SecurityResolver = class SecurityResolver {
@@ -130,7 +129,7 @@ let SecurityResolver = class SecurityResolver {
             resetRecord.user = user;
             await resetRecord.save();
             const _token = (0, token_1.createResetPasswordToken)(user, resetRecord);
-            await (0, mail_1.sendResetPasswordMail)(user.email, user.name, _token);
+            await (0, helpers_1.mg_reset_password_email)(user, _token);
             return {
                 status: true,
                 message: "Token created successfuly",

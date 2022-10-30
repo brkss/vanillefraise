@@ -28,12 +28,11 @@ import { ResetPasswordInput } from "../../utils/inputs/auth/resetpassword.input"
 import { IContext } from "../../utils/types/Context";
 import { hash } from "bcrypt";
 import { ResetPassword } from "../../entity/ResetPassword";
-import {
-  sendResetPasswordMail,
-  sendVerifyAccountMail,
-} from "../../utils/helpers/mail";
 import { isUserAuth } from "../../utils/middlewares";
-import { mg_verify_account } from "../../utils/helpers";
+import {
+  mg_reset_password_email,
+  mg_verify_account,
+} from "../../utils/helpers";
 
 @Resolver()
 export class SecurityResolver {
@@ -168,7 +167,7 @@ export class SecurityResolver {
       resetRecord.user = user;
       await resetRecord.save();
       const _token = createResetPasswordToken(user, resetRecord);
-      await sendResetPasswordMail(user.email, user.name, _token);
+      await mg_reset_password_email(user, _token);
       // you must not send token as response the token should be sent in email !
       // this is only for test reasons
       return {

@@ -1,4 +1,4 @@
-const DOMAIN: string = "http://localhost:3000";
+const DOMAIN: string = "https://vanillefraise.me";
 export const getResetPasswordMail = (name: string, token: string) => {
   return `
     
