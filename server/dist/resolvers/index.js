@@ -17,7 +17,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./user.resolver"), exports);
 __exportStar(require("./auth"), exports);
 __exportStar(require("./recipes"), exports);
-__exportStar(require("./activity"), exports);
 __exportStar(require("./user"), exports);
 __exportStar(require("./records"), exports);
 __exportStar(require("./mental"), exports);

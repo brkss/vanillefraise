@@ -20,7 +20,7 @@ const Diet_1 = require("../../entity/Diet");
 const User_1 = require("../../entity/User");
 const HealthLabelReference_1 = require("../../entity/Nutrition/HealthLabelReference");
 const diet_1 = require("../../utils/responses/diet");
-const macros_1 = require("../../utils/helpers/macros");
+const macros_1 = require("../../utils/helpers/user/macros");
 let DietConfigResolver = class DietConfigResolver {
     async configDiet(data, ctx) {
         if (!data || !data.activity_factor) {

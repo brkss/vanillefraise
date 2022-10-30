@@ -3,7 +3,7 @@ import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { IContext } from "../../utils/types/Context";
 import { UserMacrosResponse } from "../../utils/responses/diet/macros.response";
 import { User } from "../../entity/User";
-import { calculateREE, calculateTDEE } from "../../utils/helpers/macros";
+import { calculateREE, calculateTDEE } from "../../utils/helpers/user/macros";
 
 @Resolver()
 export class MacrosResolver {

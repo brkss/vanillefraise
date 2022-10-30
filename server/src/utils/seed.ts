@@ -1,7 +1,5 @@
 import {
   CreateMealsResolver,
-  ActivityCaloriesResolver,
-  ActivityCategoryResolver,
   MoodResolver,
   NutrientCategoryResolver,
   NutritionGuideResolver,
@@ -30,8 +28,6 @@ const cleanup = async () => {
 
 export const seed = async () => {
   const meals = new CreateMealsResolver();
-  const activity = new ActivityCaloriesResolver();
-  const activity_category = new ActivityCategoryResolver();
   const mood = new MoodResolver();
   const nutritient = new NutrientCategoryResolver();
   const nutrition_guide = new NutritionGuideResolver();
@@ -44,8 +40,6 @@ export const seed = async () => {
   await cleanup();
   // exec seeding !
   await meals.seedMeals();
-  await activity.seedActivityCalories();
-  await activity_category.seedActivityCategories();
   await mood.seedMoodCategories();
   await nutritient.seedNutrientCategories();
   await nutrition_guide.seedNutritionGuide();

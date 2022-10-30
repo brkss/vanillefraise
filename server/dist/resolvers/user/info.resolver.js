@@ -18,7 +18,7 @@ const User_1 = require("../../entity/User");
 const middlewares_1 = require("../../utils/middlewares");
 const responses_1 = require("../../utils/responses");
 const user_1 = require("../../utils/inputs/user");
-const bmr_1 = require("../../utils/helpers/bmr");
+const bmr_1 = require("../../utils/helpers/user/bmr");
 let UserInfoResolver = class UserInfoResolver {
     async me(ctx) {
         return (await User_1.User.findOne({ where: { id: ctx.payload.userID } })) || null;

@@ -12,7 +12,6 @@ export const filterRecipes = async (recipes: Recipe[], user: User) => {
   for (let r of recipes) {
     if (checkFilter(r, filters)) data.push(r);
   }
-
   return data;
 };
 

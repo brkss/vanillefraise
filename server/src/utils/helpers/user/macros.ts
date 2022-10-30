@@ -1,3 +1,4 @@
+import { getAge } from './getAge';
 export const calculateREE = (
   gender: string,
   weight: number,
@@ -14,15 +15,4 @@ export const calculateREE = (
 
 export const calculateTDEE = (activity: number, ree: number) => {
   return Math.floor(ree * activity);
-};
-
-const getAge = (dateString: any) => {
-  var today = new Date();
-  var birthDate = new Date(dateString);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
 };

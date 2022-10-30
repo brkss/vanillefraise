@@ -11,7 +11,7 @@ import { IContext } from "../../utils/types/Context";
 import { isUserAuth } from "../../utils/middlewares";
 import { DefaultResponse } from "../../utils/responses";
 import { UpdateUserInfoInput } from "../../utils/inputs/user";
-import { calcBMR } from "../../utils/helpers/bmr";
+import { calcBMR } from "../../utils/helpers/user/bmr";
 
 @Resolver()
 export class UserInfoResolver {

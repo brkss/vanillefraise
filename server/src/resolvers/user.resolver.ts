@@ -26,7 +26,7 @@ import {
   validateEmail,
   validateUsername,
 } from "../utils/helpers";
-import { sendVerifyAccountMail } from "../utils/helpers/mail";
+import { mg_verify_account } from "../utils/helpers";
 
 @Resolver()
 export class UserResolver {
@@ -170,7 +170,7 @@ export class UserResolver {
       await user.save();
       // send account verification email !
       const _verificationToken = generateAccountVerificationToken(user);
-      sendVerifyAccountMail(user.email, user.name, _verificationToken);
+      mg_verify_account(user, _verificationToken);
       // send refresh token as cookie
       const refreshToken = generateRefreshToken(user);
       sendRefreshToken(res, refreshToken);

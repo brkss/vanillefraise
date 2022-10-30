@@ -24,7 +24,7 @@ const middlewares_1 = require("../utils/middlewares");
 const auth_1 = require("../utils/inputs/auth");
 const auth_2 = require("../utils/responses/auth");
 const helpers_1 = require("../utils/helpers");
-const mail_1 = require("../utils/helpers/mail");
+const helpers_2 = require("../utils/helpers");
 let UserResolver = class UserResolver {
     ping() {
         return "pong";
@@ -137,7 +137,7 @@ let UserResolver = class UserResolver {
             user.specialconditions = sc;
             await user.save();
             const _verificationToken = (0, token_1.generateAccountVerificationToken)(user);
-            (0, mail_1.sendVerifyAccountMail)(user.email, user.name, _verificationToken);
+            (0, helpers_2.mg_verify_account)(user, _verificationToken);
             const refreshToken = (0, token_1.generateRefreshToken)(user);
             (0, token_1.sendRefreshToken)(res, refreshToken);
             return {
