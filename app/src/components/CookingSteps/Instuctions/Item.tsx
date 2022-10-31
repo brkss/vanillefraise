@@ -32,7 +32,7 @@ export const Item: React.FC<Props> = ({
   shuffleBack,
   swipedAll,
   txt,
-  clicked
+  clicked,
 }) => {
   const offsetX = useSharedValue(0);
   const offsetY = useSharedValue(-height);
@@ -141,14 +141,14 @@ const styles = StyleSheet.create({
   number: {
     textAlign: "center",
     marginBottom: 30,
-    fontFamily: 'AvNextBold',
+    fontFamily: "AvNextBold",
     fontSize: 18,
     fontWeight: "bold",
   },
   txt: {
     marginBottom: 30,
     fontWeight: "bold",
-    fontFamily: 'AvNextBold',
+    fontFamily: "AvNextBold",
     fontSize: 17,
   },
 });

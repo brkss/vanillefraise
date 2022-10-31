@@ -5,7 +5,7 @@ interface Props {
   label: string;
   placeholder: string;
   isPassword?: boolean;
-  isNumber ?: boolean;
+  isNumber?: boolean;
   onChange: (txt: string) => void;
 }
 
@@ -14,19 +14,19 @@ export const BasicInput: React.FC<Props> = ({
   label,
   isPassword,
   isNumber,
-  onChange
+  onChange,
 }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{label}</Text>
       <TextInput
-	  	onChangeText={(txt) => onChange(txt)}
+        onChangeText={(txt) => onChange(txt)}
         placeholderTextColor="#bababa"
         autoCapitalize={"none"}
         secureTextEntry={isPassword}
         style={styles.input}
         placeholder={placeholder}
-        keyboardType={isNumber ? "numeric" : 'default'}
+        keyboardType={isNumber ? "numeric" : "default"}
       />
     </View>
   );
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     //
   },
   title: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
     fontFamily: "AvNextBold",
     color: "#696868",
@@ -52,3 +52,4 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
 });
+

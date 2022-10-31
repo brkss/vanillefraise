@@ -1,35 +1,17 @@
 import React from "react";
-import { ScrollView, View, StyleSheet, Text, Dimensions } from "react-native";
-import { IntroSlider } from "../../components";
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { IntroSlides } from "../../components";
 
 const { width, height } = Dimensions.get("window");
-
-const sliders = [
-  /*
-  {
-    title: "Eat Healthy",
-    description: "Keep Record Of Taken Calorie and Nutrition",
-    icon: "🍃",
-  },
-
-  {
-    title: "What To Eat ?",
-    description: "Find Delecious And Healthy Recipes ",
-    icon: "🥘",
-  },
-  {
-    title: "Walkout Healthy",
-    description: "Keep a record of activities and burned calories",
-    icon: "🎾",
-    },*/
-  {
-    icon: "🥗",
-    title: "Full Control",
-    description:
-      "Cotumize Your Food The Way You Want Using Filters To Execlude alergitic or unwanted recipes",
-  },
-];
 
 export const Intro: React.FC<any> = ({ navigation }) => {
   return (
@@ -38,28 +20,38 @@ export const Intro: React.FC<any> = ({ navigation }) => {
       end={{ x: 1, y: 1 }}
       style={{ flex: 1 }}
     >
-      <View style={{ flex: 1 }}>
-        <ScrollView
-          bounces={false}
-          snapToInterval={width}
-          //snapToOffsets={[0, width / 2]}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          decelerationRate="fast"
+      <IntroSlides />
+      <View style={styles.content}>
+        <ImageBackground
+          style={{ height: 200, justifyContent: "center" }}
+          source={require("../../assets/oval.png")}
         >
-          {sliders.map((slider, key) => (
-            <View style={{ width: width, height: height }} key={key}>
-              <IntroSlider
-                isLast={sliders.length - 1 === key}
-                description={slider.description}
-                title={slider.title}
-                icon={slider.icon}
-                register={() => navigation.push("register")}
-                login={() => navigation.push("login")}
-              />
-            </View>
-          ))}
-        </ScrollView>
+          <Text style={styles.title}>Vanille Fraise</Text>
+        </ImageBackground>
+        <View style={styles.txtContainer}>
+          <Text style={styles.subtitle}>Hey! 👋</Text>
+          <Text style={styles.description}>
+            we help you balance your nutrition, prevent diseases, live longer
+            and heltier
+          </Text>
+        </View>
+        <View style={styles.actions}>
+          <Pressable
+            onPress={() => navigation.push("register")}
+            style={styles.btn}
+          >
+            <Text style={styles.btnText}>Get Started</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.push("login")}
+            style={[
+              styles.btn,
+              { borderColor: "#979797", backgroundColor: "transparent" },
+            ]}
+          >
+            <Text style={styles.btnText}>Already have an account ?</Text>
+          </Pressable>
+        </View>
       </View>
     </LinearGradient>
   );
@@ -72,5 +64,50 @@ const styles = StyleSheet.create({
     width: width,
     backgroundColor: "pink",
     height: height,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  title: {
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "#434343",
+  },
+  subtitle: {
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#434343",
+  },
+  description: {
+    //
+    textAlign: "center",
+    marginTop: 10,
+  },
+  txtContainer: {
+    alignItems: "center",
+    paddingHorizontal: 20,
+    display: "none",
+  },
+  actions: {
+    //
+  },
+  btn: {
+    padding: 20,
+    backgroundColor: "#FDDEDE",
+    width: width * 0.9,
+    marginBottom: 10,
+    borderRadius: 12,
+    borderColor: "transparent",
+    borderWidth: 2,
+  },
+  btnText: {
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 16,
   },
 });

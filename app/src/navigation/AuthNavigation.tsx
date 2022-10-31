@@ -9,6 +9,8 @@ export const AuthNavigation: React.FC = () => {
     <Navigator screenOptions={{ headerShown: false }}>
       <Group>
         <Screen name={"intro"} component={Intro} />
+      </Group>
+      <Group screenOptions={{ presentation: "modal" }}>
         <Screen name={"register"} component={Register} />
         <Screen name={"login"} component={Login} />
       </Group>
