@@ -3,42 +3,37 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+
+	//"io/ioutil"
 	"log"
 	"net/http"
 )
 
-type ProductPrice struct {
-	Price float64 `json:"price_ttc"`
+type IngredientResponse struct {
+	Ingredients string `json:ingredients`
 }
 
-type Product struct {
-	Label       string         `json:"default_label"`
-	Description string         `json:"description"`
-	Price       []ProductPrice `json:"prices"`
-	Image       string         `json:"thumbnail_picture"`
+type GroceryRaw struct {
+	Text string
+	Id   string
 }
 
-var ps string = `[{"title": "a", "id": 1, "userId": 1, "body": "test"}]`
+const (
+	URL = "http://localhost:4000/grocery"
+)
 
 func main() {
 
-	resp, err := http.Get("https://api-ayaline.marjane.ma/front/products?fetchMode=list&type[]=product&to_sell=true&status=VALIDATED&search=flacon%20d%27avoine&autocomplete=true&range=1-10&")
+	res, err := http.Get(URL)
+
 	if err != nil {
-		log.Fatal("Error getting posts : ", err)
+		log.Fatal("error getting groceries !")
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
-	sb := string(body)
-	if err != nil {
-		log.Fatal("Error reading data : ", err)
+	var ingredients []IngredientResponse
+	decoder := json.NewDecoder(res.Body)
+	decoder.Decode(&ingredients)
+	for _, ing := range ingredients {
+		fmt.Println("ing => ", ing.Ingredients)
 	}
-
-	fmt.Println("body : ", sb)
-
-	var products []Product
-	json.Unmarshal([]byte(sb), &products)
-
-	fmt.Printf("title: %s \ndescription %s \n", products[0].Label, products[0].Description)
-	//fmt.Printf("price : %f", products[0].Price[0].Price)
 }
