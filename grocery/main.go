@@ -1,8 +1,11 @@
 package main
 
 import (
+	//"bytes"
 	"encoding/json"
 	"fmt"
+
+	//"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -29,8 +32,22 @@ const (
 
 func handleGetGroceries(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Add("content-type", "application/text")
-	w.Write([]byte("time ? idk !"))
+	//var groceries []GroceryRaw
+
+	data, err := ioutil.ReadFile("data.json")
+	if err != nil {
+		log.Panic("Semething went wrong reading data from the file !", err)
+	}
+	/*
+		reader := bytes.NewReader(data)
+		decoder := json.NewDecoder(reader)
+		err = decoder.Decode(&groceries)
+		if err != nil {
+			log.Panic("Error accured while decoding json data !")
+		}
+	*/
+	w.Header().Add("content-type", "application/json")
+	w.Write(data)
 
 }
 
@@ -81,7 +98,11 @@ func IngredientToGroceries() {
 		}
 	}
 	data, err := json.MarshalIndent(groceries, "", "\t")
-	ioutil.WriteFile("data.json", data, 0644)
+	err = ioutil.WriteFile("data.json", data, 0644)
+	if err != nil {
+		log.Panic("Something went wrong  writing data to file !", err)
+	}
 	fmt.Println("----------------- 👋 saved to data.json --------------------")
+
 	//printGroceries(groceries)
 }
