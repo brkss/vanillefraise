@@ -27,7 +27,24 @@ const (
 	PORT = 3033
 )
 
+func handleGetGroceries(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Add("content-type", "application/text")
+	w.Write([]byte("time ? idk !"))
+
+}
+
 func main() {
+
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/groceries", handleGetGroceries)
+	log.Print("🚀 server running on http://localhost:3033")
+	err := http.ListenAndServe(":3033", mux)
+
+	if err != nil {
+		log.Fatal("Something went wrong running the server : ", err)
+	}
 
 }
 
