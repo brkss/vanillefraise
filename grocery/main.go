@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -22,17 +23,15 @@ type GroceryRaw struct {
 }
 
 const (
-	URL = "http://localhost:4000/grocery"
+	URL  = "http://localhost:4000/grocery"
+	PORT = 3033
 )
-
-func printGroceries(groceries []GroceryRaw) {
-	for _, g := range groceries {
-		fmt.Printf("-> %+v \n", g)
-	}
-}
 
 func main() {
 
+}
+
+func IngredientToGroceries() {
 	res, err := http.Get(URL)
 	var ingredients []IngredientResponse
 	var groceries []GroceryRaw
@@ -51,14 +50,21 @@ func main() {
 		groceries = append(groceries,
 			GroceryRaw{Text: ing.Ingredients, Translated: "none", Id: id.String()})
 	}
-	printGroceries(groceries)
 	// tranlate groceries to frensh !
-	for i := range groceries {
-		result, _ := gt.Translate(groceries[i].Text, "en", "fr")
-		groceries[i].Translated = result
-		fmt.Printf("translated : %+v\n", groceries[i])
-		time.Sleep(time.Second)
+	for i, grocery := range groceries {
+		if grocery.Text != "" {
+			result, err := gt.Translate(groceries[i].Text, "en", "fr")
+			if err != nil {
+				fmt.Println("Failt to translate : ", groceries[i].Text)
+				continue
+			}
+			groceries[i].Translated = result
+			fmt.Printf("translated : %+v\n", groceries[i])
+			time.Sleep(3 * time.Second)
+		}
 	}
-	fmt.Println("-------------------------------------")
-	printGroceries(groceries)
+	data, err := json.MarshalIndent(groceries, "", "\t")
+	ioutil.WriteFile("data.json", data, 0644)
+	fmt.Println("----------------- 👋 saved to data.json --------------------")
+	//printGroceries(groceries)
 }

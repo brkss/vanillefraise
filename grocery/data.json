@@ -1,0 +1,1682 @@
+[
+	{
+		"Text": "peanut butter",
+		"Id": "9233be7c-736b-4fce-86aa-b38e3617ea29",
+		"Translated": "beurre d'arachide"
+	},
+	{
+		"Text": "salt",
+		"Id": "70137ae5-d38c-481d-8944-20ffed595a91",
+		"Translated": "sel"
+	},
+	{
+		"Text": "sea salt",
+		"Id": "fd9d6dd7-e32d-482b-9006-ef8687f74bdc",
+		"Translated": "sel de mer"
+	},
+	{
+		"Text": "low sodium soy sauce",
+		"Id": "aeb7db7b-bbc4-473d-95ba-729c82beab1b",
+		"Translated": "sauce soya faible en sodium"
+	},
+	{
+		"Text": "115g treacle",
+		"Id": "e2a31dca-0b02-4254-8c0b-14355ec7d7c1",
+		"Translated": "115g de mélasse"
+	},
+	{
+		"Text": "black pepper",
+		"Id": "fe372acb-e1b9-4904-a59a-8a1e3bd66d73",
+		"Translated": "poivre noir"
+	},
+	{
+		"Text": "butter",
+		"Id": "000f457a-75e7-4ce9-bb86-a62ca29d67bd",
+		"Translated": "Beurre"
+	},
+	{
+		"Text": "digestive biscuits",
+		"Id": "b6d40bb3-4f7a-4631-8f7c-a2ec738484fa",
+		"Translated": "Biscuits digestifs"
+	},
+	{
+		"Text": "russet potato",
+		"Id": "8d6a642f-80d1-4e34-a441-aa983b69f8bf",
+		"Translated": "pomme de terre rousse"
+	},
+	{
+		"Text": "flour tortillas",
+		"Id": "8260b03e-308e-4eb5-81de-c4ba2ec74d56",
+		"Translated": "tortillas de blé"
+	},
+	{
+		"Text": "garlic powder",
+		"Id": "0873f481-204e-4b4e-8a31-b8d7eca21561",
+		"Translated": "poudre d'ail"
+	},
+	{
+		"Text": "cooking oil",
+		"Id": "43bc18a5-d677-4053-953c-1c5fbf424544",
+		"Translated": "huile de cuisson"
+	},
+	{
+		"Text": "vanilla extract",
+		"Id": "564a0407-2ebd-4c05-af5f-7f68c075e24d",
+		"Translated": "extrait de vanille"
+	},
+	{
+		"Text": "egg whites",
+		"Id": "1cb300eb-fba3-428d-8aa6-1feb42f373c7",
+		"Translated": "Blancs d'oeufs"
+	},
+	{
+		"Text": "ground cinnamon",
+		"Id": "58589f72-88f3-488e-8b17-bd93fbab8441",
+		"Translated": "cannelle moulue"
+	},
+	{
+		"Text": "garlic",
+		"Id": "9ad414e7-05ae-40a6-bee7-59dbb62ba248",
+		"Translated": "Ail"
+	},
+	{
+		"Text": "pasta",
+		"Id": "c0a68ff5-738c-484f-a032-8606fb9c69f2",
+		"Translated": "Pâtes"
+	},
+	{
+		"Text": "milk chocolate",
+		"Id": "e940d208-e4e3-4c57-81e9-086a4da4631c",
+		"Translated": "chocolat au lait"
+	},
+	{
+		"Text": "unsweetened applesauce",
+		"Id": "6a18f067-0fed-4a8e-966b-5b87a7ef34ec",
+		"Translated": "compote de pommes non sucrée"
+	},
+	{
+		"Text": "cumin",
+		"Id": "f5158ce4-676d-48ad-83b2-9c353e310258",
+		"Translated": "cumin"
+	},
+	{
+		"Text": "pepper",
+		"Id": "66e4b4d8-a22f-4946-8b6d-22aad1ce15ed",
+		"Translated": "poivre"
+	},
+	{
+		"Text": "Roma tomatoes",
+		"Id": "e4c57c92-be4d-49ab-be85-c6c066223648",
+		"Translated": "Tomates romaines"
+	},
+	{
+		"Text": "red onion",
+		"Id": "dd9877cf-6ffa-4cdc-9e16-fd99444ceacf",
+		"Translated": "oignon rouge"
+	},
+	{
+		"Text": "Cheddar cheese",
+		"Id": "21107b08-eb16-4c12-8af7-28fb544d7669",
+		"Translated": "Fromage cheddar"
+	},
+	{
+		"Text": "fine sea salt",
+		"Id": "88710136-e413-4a78-a775-a7667176f679",
+		"Translated": "sel de mer fin"
+	},
+	{
+		"Text": "jack cheese",
+		"Id": "1838635d-68e6-4bb7-8dc9-3200abd89da7",
+		"Translated": "fromage jack"
+	},
+	{
+		"Text": "milk",
+		"Id": "838e57e4-13b3-4402-90ea-82693684e2c3",
+		"Translated": "Le Lait"
+	},
+	{
+		"Text": "tomato paste",
+		"Id": "512c8813-9942-44bb-817e-6c523678a803",
+		"Translated": "pâte de tomate"
+	},
+	{
+		"Text": "kidney beans",
+		"Id": "c7dc4302-c3ae-45b8-a388-de94e5c5180e",
+		"Translated": "haricots rouges"
+	},
+	{
+		"Text": "cilantro",
+		"Id": "2df755c3-d5b5-4280-9abd-21b8015af3d1",
+		"Translated": "coriandre"
+	},
+	{
+		"Text": "mayonnaise",
+		"Id": "141ed6ed-fa06-4b37-9eec-4353fe12246f",
+		"Translated": "Mayonnaise"
+	},
+	{
+		"Text": "celery",
+		"Id": "3933e086-ddba-4755-9c78-23e264b9e707",
+		"Translated": "céleri"
+	},
+	{
+		"Text": "eggs",
+		"Id": "80427e86-91d2-4ddf-8163-64c9202caca0",
+		"Translated": "des œufs"
+	},
+	{
+		"Text": "pineapple",
+		"Id": "a128b6d2-7f48-4b26-bbea-b8a6fba2fe74",
+		"Translated": "ananas"
+	},
+	{
+		"Text": "baking powder",
+		"Id": "c225b497-de28-4ef1-bf49-222f9967eb55",
+		"Translated": "levure chimique"
+	},
+	{
+		"Text": "luncheon meat",
+		"Id": "1bcb15ab-0295-408c-84eb-d7845d454fc6",
+		"Translated": "déjeuner de viande"
+	},
+	{
+		"Text": "water",
+		"Id": "aa10b107-e058-4ac3-8aab-7d565e63adbb",
+		"Translated": "l'eau"
+	},
+	{
+		"Text": "brown sugar",
+		"Id": "76764cdd-4ada-4fd9-bd24-8d0f3af1e6b3",
+		"Translated": "cassonade"
+	},
+	{
+		"Text": "parmesan cheese",
+		"Id": "b338db93-1828-49f9-a99a-a2956b4771f9",
+		"Translated": "parmesan"
+	},
+	{
+		"Text": "apple cider vinegar",
+		"Id": "251bd91e-9df0-4dd6-be6e-3684aa1f0b69",
+		"Translated": "vinaigre de cidre de pomme"
+	},
+	{
+		"Text": "lime juice",
+		"Id": "63744b20-402a-4a1a-817e-4567b786f992",
+		"Translated": "jus de citron vert"
+	},
+	{
+		"Text": "salted butter",
+		"Id": "e5ccffeb-30e3-4931-8ac4-89d6b162fa20",
+		"Translated": "beurre salé"
+	},
+	{
+		"Text": "all purpose flour",
+		"Id": "1f0ff11d-4d1d-4a68-bd5c-3268cf1ea6f3",
+		"Translated": "farine tout usage"
+	},
+	{
+		"Text": "onion powder",
+		"Id": "641b5d15-3d76-43d4-b4e7-83480d338f2b",
+		"Translated": "poudre d'oignon"
+	},
+	{
+		"Text": "cooked rice",
+		"Id": "a3fa50d3-fad9-46ea-8bf2-ed034e862c9d",
+		"Translated": "riz cuit"
+	},
+	{
+		"Text": "zucchini",
+		"Id": "a0144c8e-15e0-4ffb-bcdf-6190d141f5e1",
+		"Translated": "courgette"
+	},
+	{
+		"Text": "cheese",
+		"Id": "56ee38fc-0b41-4b49-a335-bf0fe26597e0",
+		"Translated": "fromage"
+	},
+	{
+		"Text": "hoagie rolls",
+		"Id": "7e1a4d05-52c0-41f4-9660-41208ff49ce2",
+		"Translated": "Rolls Hoagie"
+	},
+	{
+		"Text": "cinnamon",
+		"Id": "53aa2987-1985-4fff-9340-89891a680042",
+		"Translated": "cannelle"
+	},
+	{
+		"Text": "honey",
+		"Id": "9c1a6f84-dd8a-4f04-9f80-f790c6b5ee35",
+		"Translated": "Miel"
+	},
+	{
+		"Text": "chicken broth",
+		"Id": "b51630dd-4ae2-492e-b1bc-c60264d866ca",
+		"Translated": "bouillon de poulet"
+	},
+	{
+		"Text": "Yukon Gold potatoes",
+		"Id": "59989246-5c41-48fb-9a0a-952467b33f20",
+		"Translated": "Pommes de terre Yukon Gold"
+	},
+	{
+		"Text": "English cucumber",
+		"Id": "315f8ccb-aefc-48f6-8db4-ce9a02ec9767",
+		"Translated": "concombre anglais"
+	},
+	{
+		"Text": "olive oil",
+		"Id": "d6387245-7452-4140-a025-cf04a02b9e64",
+		"Translated": "huile d'olive"
+	},
+	{
+		"Text": "Walnuts",
+		"Id": "a1f95d45-d331-4c6d-92ae-e4a78ae1ed9e",
+		"Translated": "Noix"
+	},
+	{
+		"Text": "maple syrup",
+		"Id": "4c157a60-8167-47a2-b9b2-89025900d932",
+		"Translated": "sirop d'érable"
+	},
+	{
+		"Text": "pearled barley",
+		"Id": "a4f169a5-0c30-455d-8c7a-e3c66fe6f13d",
+		"Translated": "orge perlé"
+	},
+	{
+		"Text": "mushrooms",
+		"Id": "8b73d905-0094-42ec-baa9-d2e0fd8b4646",
+		"Translated": "champignons"
+	},
+	{
+		"Text": "chili powder",
+		"Id": "4112fa96-58da-45b4-9797-571709dedb71",
+		"Translated": "poudre de chili"
+	},
+	{
+		"Text": "boneless, skinless chicken breast",
+		"Id": "2bbdbe5b-8e0a-4c34-8a6d-7e8e41a4db5b",
+		"Translated": "poitrine de poulet désossée et sans peau"
+	},
+	{
+		"Text": "lemon",
+		"Id": "59bb165a-f307-43df-a600-f66126ebdfce",
+		"Translated": "citron"
+	},
+	{
+		"Text": "rice vinegar",
+		"Id": "74aaba0a-f1ee-406d-9f7f-0a8e49de7397",
+		"Translated": "vinaigre de riz"
+	},
+	{
+		"Text": "yellow onion",
+		"Id": "c649b710-5dc0-48c4-b8cc-5ac9b9dacb6a",
+		"Translated": "oignon jaune"
+	},
+	{
+		"Text": "grape tomatoes",
+		"Id": "33e341fc-cc63-4687-b7f9-740fdc11ed3b",
+		"Translated": "Des tomates cerises"
+	},
+	{
+		"Text": "sour cream",
+		"Id": "4e18fb3c-2f27-4297-9605-4292cf18a72b",
+		"Translated": "crème aigre"
+	},
+	{
+		"Text": "Bananas",
+		"Id": "ab29c9cf-4814-4bfc-b3f6-49bcb602c556",
+		"Translated": "Bananes"
+	},
+	{
+		"Text": "avocado",
+		"Id": "7eb331fa-92ed-4d2b-9510-6dfc8b792a44",
+		"Translated": "Avocat"
+	},
+	{
+		"Text": "smoked paprika",
+		"Id": "99795bdf-129e-47e8-a327-9669bee3f167",
+		"Translated": "paprika fumé"
+	},
+	{
+		"Text": "frozen green beans",
+		"Id": "1f6b79b5-b413-403a-b55b-75717bd4d5db",
+		"Translated": "haricots verts surgelés"
+	},
+	{
+		"Text": "relish",
+		"Id": "fce8692b-496c-470e-aed9-779161089353",
+		"Translated": "goût"
+	},
+	{
+		"Text": "green onions",
+		"Id": "0082e80e-e9e2-4f03-b699-c5987bddaad3",
+		"Translated": "oignons verts"
+	},
+	{
+		"Text": "granulated sugar",
+		"Id": "ec85397b-4cb0-4f27-8e3e-f1fef494a599",
+		"Translated": "Sucre en poudre"
+	},
+	{
+		"Text": "tapioca flour",
+		"Id": "f78142d9-c061-4283-b156-6d7304de8565",
+		"Translated": "farine de tapioca"
+	},
+	{
+		"Text": "onion",
+		"Id": "c0959886-360e-401c-acea-d905816a804f",
+		"Translated": "oignon"
+	},
+	{
+		"Text": "skinless chicken thighs",
+		"Id": "9cbddd48-b642-4d23-bb72-ad86643b8c22",
+		"Translated": "cuisses de poulet sans peau"
+	},
+	{
+		"Text": "diced tomatoes",
+		"Id": "363c404d-716f-4722-af0c-9ada4db01ab9",
+		"Translated": "tomates en dés"
+	},
+	{
+		"Text": "whole wheat flour",
+		"Id": "0f32ab71-77b5-4910-a2c3-85f8e40c5680",
+		"Translated": "farine de blé entier"
+	},
+	{
+		"Text": "wide egg noodles",
+		"Id": "c4dce490-3087-412d-b098-aad7c7ae2953",
+		"Translated": "nouilles aux oeufs larges"
+	},
+	{
+		"Text": "coconut oil",
+		"Id": "bce96c60-1535-48a8-a6e1-1a7b7c7b0845",
+		"Translated": "huile de noix de coco"
+	},
+	{
+		"Text": "paprika",
+		"Id": "a2e83d70-2a03-4377-aa9b-7962c8b75601",
+		"Translated": "paprika"
+	},
+	{
+		"Text": "boneless skinless chicken breast",
+		"Id": "ecc9bde6-2c86-42a6-b324-b247e3d7f884",
+		"Translated": "poitrine de poulet désossée et sans peau"
+	},
+	{
+		"Text": "sirloin steaks",
+		"Id": "3a1f2368-5e49-472e-bea7-9bf8fdf8cf71",
+		"Translated": "biftecks ​​de surlonge"
+	},
+	{
+		"Text": "tomato sauce",
+		"Id": "0d428591-c1ad-48d1-aa51-6d8ca7f004f7",
+		"Translated": "sauce tomate"
+	},
+	{
+		"Text": "cocoa",
+		"Id": "d12b4d47-0819-4aac-9e1f-ae8eed8f02bf",
+		"Translated": "cacao"
+	},
+	{
+		"Text": "lime",
+		"Id": "bb51d21e-2d1a-4424-8b0f-bf18b14b6d7d",
+		"Translated": "chaux"
+	},
+	{
+		"Text": "dried basil",
+		"Id": "892bec7d-7389-4608-9975-3e50d09e9617",
+		"Translated": "basilic séché"
+	},
+	{
+		"Text": "chicken breasts",
+		"Id": "7b84290e-84ba-4adc-8997-07d95d07a280",
+		"Translated": "poitrines de poulet"
+	},
+	{
+		"Text": "BBQ sauce",
+		"Id": "bab6b4e0-9b9d-469a-aea7-a0340e4a7747",
+		"Translated": "Sauce barbecue"
+	},
+	{
+		"Text": "coriander",
+		"Id": "c2bcfaa6-9157-4c6a-9228-d8c3602c20f2",
+		"Translated": "coriandre"
+	},
+	{
+		"Text": "light brown sugar",
+		"Id": "fe5eeaeb-61b0-448b-a73d-ec8006c72ea1",
+		"Translated": "cassonade claire"
+	},
+	{
+		"Text": "vanilla bean paste",
+		"Id": "2f2bb32c-19f9-4a10-8d38-e5e984c317c2",
+		"Translated": "pâte de gousse de vanille"
+	},
+	{
+		"Text": "apple",
+		"Id": "ea888eda-fcf2-4374-b4a8-4eb2d7d53e37",
+		"Translated": "Pomme"
+	},
+	{
+		"Text": "crushed tomatoes",
+		"Id": "a610554c-e1c0-43a8-98e9-4592e3225777",
+		"Translated": "Tomates écrasées"
+	},
+	{
+		"Text": "ground beef",
+		"Id": "bb3c859e-0778-4030-a9db-9c8583af08e7",
+		"Translated": "Le bœuf haché"
+	},
+	{
+		"Text": "vegetable oil",
+		"Id": "08e21afe-986f-4240-8797-17968bf2a93c",
+		"Translated": "huile végétale"
+	},
+	{
+		"Text": "pasta sauce",
+		"Id": "13999721-e4b9-423a-b78b-179d06fb426c",
+		"Translated": "sauce pour pâtes"
+	},
+	{
+		"Text": "pizza dough",
+		"Id": "35b71f47-d8e2-417c-be74-21ed2bf55bea",
+		"Translated": "pâte à pizza"
+	},
+	{
+		"Text": "cayenne pepper",
+		"Id": "e5a8a50e-c683-4132-94d1-ca200a3e6345",
+		"Translated": "poivre de Cayenne"
+	},
+	{
+		"Text": "Worcestershire sauce",
+		"Id": "0ebd844e-ad43-45c7-80b4-2506f8f31b69",
+		"Translated": "sauce Worcestershire"
+	},
+	{
+		"Text": "caster sugar",
+		"Id": "d0c3ab61-8a8b-493e-8359-4b080e21d868",
+		"Translated": "sucre semoule"
+	},
+	{
+		"Text": "jalapeño",
+		"Id": "edb9f04e-513a-40b4-b9a0-99f9139c7a71",
+		"Translated": "jalapeno"
+	},
+	{
+		"Text": "green bell pepper",
+		"Id": "e4434c51-cb27-42ed-b882-cc844be4ef9b",
+		"Translated": "poivron vert"
+	},
+	{
+		"Text": "cucumber",
+		"Id": "7b385745-9580-40f1-bdd3-eab8d480c76c",
+		"Translated": "concombre"
+	},
+	{
+		"Text": "yeast",
+		"Id": "2c43456e-ec0d-42dc-b6bf-afc0606972bf",
+		"Translated": "Levure"
+	},
+	{
+		"Text": "Flour",
+		"Id": "db4cc92c-040f-4b98-8d84-dfe75ada4f27",
+		"Translated": "Farine"
+	},
+	{
+		"Text": "rice",
+		"Id": "034ebf0e-6758-45f6-973c-ce47eb53ef69",
+		"Translated": "riz"
+	},
+	{
+		"Text": "potato",
+		"Id": "9519c49b-c594-4702-8008-56617eeede70",
+		"Translated": "Patate"
+	},
+	{
+		"Text": "unsweetened coconut",
+		"Id": "568c5888-2bcb-453a-a49b-154a688da10d",
+		"Translated": "noix de coco non sucrée"
+	},
+	{
+		"Text": "red bell pepper",
+		"Id": "5286da8a-f85a-4948-9f89-f7bcfea2f087",
+		"Translated": "poivron rouge"
+	},
+	{
+		"Text": "can diced tomatoes",
+		"Id": "9ae9d532-55a6-448b-a9af-065c741045cc",
+		"Translated": "tomates en dés"
+	},
+	{
+		"Text": "toasted sesame oil",
+		"Id": "45233031-5ddf-443d-adc9-2e83ba647726",
+		"Translated": "huile de sésame grillé"
+	},
+	{
+		"Text": "ziti",
+		"Id": "f98ba4e5-e668-448b-b868-3f0680998a22",
+		"Translated": "ziti"
+	},
+	{
+		"Text": "whole milk",
+		"Id": "795438f8-9b34-4f1a-b3f9-d4aaa69cc92d",
+		"Translated": "lait entier"
+	},
+	{
+		"Text": "red grapes",
+		"Id": "fd8a9db1-02dd-441e-9314-121fe4049189",
+		"Translated": "raisin rouge"
+	},
+	{
+		"Text": "bell peppers",
+		"Id": "367b9aa8-4a4f-476b-aacc-20d6a467cf9b",
+		"Translated": "poivrons"
+	},
+	{
+		"Text": "all-purpose flour",
+		"Id": "15c5306a-c71f-4900-a8a5-fa643f6146ac",
+		"Translated": "farine tout usage"
+	},
+	{
+		"Text": "egg",
+		"Id": "03bb99b9-76cf-43a7-8f0a-be89b0a5b452",
+		"Translated": "Oeuf"
+	},
+	{
+		"Text": "rum",
+		"Id": "33456cda-2f62-4d43-bb79-cd2da50967c0",
+		"Translated": "Rhum"
+	},
+	{
+		"Text": "carrots",
+		"Id": "6aadea29-75b0-4f8e-83b2-75e7eb37ebe1",
+		"Translated": "carottes"
+	},
+	{
+		"Text": "berries",
+		"Id": "648ed432-abbd-4cff-8a05-0e6aa48607e4",
+		"Translated": "baies"
+	},
+	{
+		"Text": "",
+		"Id": "b86be8c5-5098-4f82-b138-3bedde7c5b81",
+		"Translated": "none"
+	},
+	{
+		"Text": "red pepper",
+		"Id": "88791be3-daa7-4789-9f45-408f9ca66ac9",
+		"Translated": "poivron rouge"
+	},
+	{
+		"Text": "corn",
+		"Id": "80626095-ffbb-4644-873f-3d54005138a2",
+		"Translated": "maïs"
+	},
+	{
+		"Text": "instant coffee",
+		"Id": "4abcd04c-1c6e-4bf1-b994-35fd455ffc99",
+		"Translated": "café instantané"
+	},
+	{
+		"Text": "210ml almond milk",
+		"Id": "18eb104a-a24d-4e02-b565-483af6f056be",
+		"Translated": "210 ml de lait d'amande"
+	},
+	{
+		"Text": "Dijon mustard",
+		"Id": "7410a432-097c-4b30-858a-8fcf0cea203a",
+		"Translated": "Moutarde de Dijon"
+	},
+	{
+		"Text": "ranch dressing",
+		"Id": "6594b05e-65d8-432c-bb24-bec32355d4a3",
+		"Translated": "vinaigrette ranch"
+	},
+	{
+		"Text": "crushed red pepper",
+		"Id": "68270dac-5849-4f2d-80fd-d24e29b317ef",
+		"Translated": "piments rouges en poudre"
+	},
+	{
+		"Text": "broccoli florets",
+		"Id": "94793fd1-5136-448a-974d-db7a0c7e5198",
+		"Translated": "bouquets de brocoli"
+	},
+	{
+		"Text": "enchilada sauce",
+		"Id": "af342ee4-5a2d-4909-bd8a-68bfa1783529",
+		"Translated": "Enchilada sauce"
+	},
+	{
+		"Text": "chicken",
+		"Id": "3c361256-cb09-4b37-ac24-af1d29aa42df",
+		"Translated": "poulet"
+	},
+	{
+		"Text": "taco seasoning",
+		"Id": "031b1214-0153-44b8-8e56-a4cb47b41602",
+		"Translated": "assaisonnement pour tacos"
+	},
+	{
+		"Text": "almond butter",
+		"Id": "bffdb53e-fcf2-4c31-a699-f9f0ae234329",
+		"Translated": "beurre d'amande"
+	},
+	{
+		"Text": "fresh basil",
+		"Id": "d8702b59-6741-4ec9-8df3-a11780522a20",
+		"Translated": "basilic frais"
+	},
+	{
+		"Text": "old-fashioned oats",
+		"Id": "6d5e19a3-7fcc-46fe-9d26-6e32a67bb67a",
+		"Translated": "Avoine à l'ancienne"
+	},
+	{
+		"Text": "pepperoni",
+		"Id": "90d687f3-8876-4755-847a-5c1cfcbd0e39",
+		"Translated": "pepperoni"
+	},
+	{
+		"Text": "soy sauce",
+		"Id": "f4d2a1c4-2ec1-4616-adb5-b99b4334fc82",
+		"Translated": "sauce soja"
+	},
+	{
+		"Text": "white sugar",
+		"Id": "520877e0-b706-4b4b-b27e-f6af8752c2d6",
+		"Translated": "sucre blanc"
+	},
+	{
+		"Text": "pecans",
+		"Id": "0033d378-80a0-4b33-b6c0-dc2a78c87655",
+		"Translated": "noix de pécan"
+	},
+	{
+		"Text": "ground pork",
+		"Id": "c945c639-9f90-4043-87de-1ffed095eb98",
+		"Translated": "porc haché"
+	},
+	{
+		"Text": "applesauce",
+		"Id": "91cb0312-348f-4cef-ae33-bc4cc1349be7",
+		"Translated": "Compote de pommes"
+	},
+	{
+		"Text": "passata",
+		"Id": "3b50f3bc-b3f8-444c-8897-b2c001820a85",
+		"Translated": "passata"
+	},
+	{
+		"Text": "carrot",
+		"Id": "e64f73d7-10ba-4f16-97f0-075232a2e3a8",
+		"Translated": "carotte"
+	},
+	{
+		"Text": "dried thyme",
+		"Id": "ff40d6b4-53aa-4ae0-a557-b7edf72e1847",
+		"Translated": "thym séché"
+	},
+	{
+		"Text": "icing sugar",
+		"Id": "04a3a86b-e94c-4cce-b48c-9b6f4d299144",
+		"Translated": "sucre glace"
+	},
+	{
+		"Text": "seasoning",
+		"Id": "4ad2bbf5-a8cb-4182-be12-c9f1f8434f5a",
+		"Translated": "assaisonnement"
+	},
+	{
+		"Text": "lemon juice",
+		"Id": "3730f2ef-8bd1-48df-bd29-fa568340d8d0",
+		"Translated": "jus de citron"
+	},
+	{
+		"Text": "plain yogurt",
+		"Id": "4b4a65d7-97c6-4c37-893c-32f38c800196",
+		"Translated": "Yahourt nature"
+	},
+	{
+		"Text": "black beans",
+		"Id": "9338cf07-8a29-448b-ab5a-473ac71090c5",
+		"Translated": "haricots noirs"
+	},
+	{
+		"Text": "fresh corn",
+		"Id": "55b1b406-f991-42a8-b408-3ba0bcd036da",
+		"Translated": "maïs frais"
+	},
+	{
+		"Text": "blueberries",
+		"Id": "329ef7db-7aae-455e-b8c8-4232544a2eec",
+		"Translated": "myrtilles"
+	},
+	{
+		"Text": "beef",
+		"Id": "a8d93cd9-7abf-4a44-bc81-43ac66e97332",
+		"Translated": "bœuf"
+	},
+	{
+		"Text": "chicken thighs",
+		"Id": "98c10834-5f7e-4514-a9d6-4ed6e26ed379",
+		"Translated": "cuisses de poulet"
+	},
+	{
+		"Text": "pinto beans",
+		"Id": "5310fced-6a6f-489e-9f8d-e731952e262d",
+		"Translated": "haricots pinto"
+	},
+	{
+		"Text": "buns",
+		"Id": "d64082ec-3622-48f7-b179-7e6f697f7f8b",
+		"Translated": "petits pains"
+	},
+	{
+		"Text": "Andouille sausage",
+		"Id": "9d7108b9-a185-4efb-ae94-d43f4bd8f7a3",
+		"Translated": "Andouille"
+	},
+	{
+		"Text": "cornstarch",
+		"Id": "90d605ef-0290-44d8-a638-9cc53e573b69",
+		"Translated": "fécule de maïs"
+	},
+	{
+		"Text": "spinach",
+		"Id": "d29c9397-e8d2-4fd8-90ee-9a0dfb167f4f",
+		"Translated": "épinard"
+	},
+	{
+		"Text": "coffee",
+		"Id": "1694e040-d799-4fc2-b9ac-2923ff67ce19",
+		"Translated": "café"
+	},
+	{
+		"Text": "oats",
+		"Id": "5d5f9136-56f0-401f-af67-8b6f2d2d138b",
+		"Translated": "L'avoine"
+	},
+	{
+		"Text": "Old Bay",
+		"Id": "2606f8cb-abbe-457c-b20f-66082e160d7b",
+		"Translated": "Vieille Baie"
+	},
+	{
+		"Text": "heavy cream",
+		"Id": "93b8a197-c767-4f08-a012-6ff8c6b12d2f",
+		"Translated": "crème épaisse"
+	},
+	{
+		"Text": "white pepper",
+		"Id": "748171fe-593e-40df-936b-479d6743482b",
+		"Translated": "poivre blanc"
+	},
+	{
+		"Text": "sharp cheddar",
+		"Id": "c75fff98-a2f4-4a96-ab1d-f79a7c68e238",
+		"Translated": "cheddar fort"
+	},
+	{
+		"Text": "chocolate chips",
+		"Id": "07a4c91d-ecb2-4fb8-b3ca-73063aad7c14",
+		"Translated": "pépites de chocolat"
+	},
+	{
+		"Text": "chicken base",
+		"Id": "e5c8f682-bdab-439f-b9c3-9a2de461b64a",
+		"Translated": "fond de poulet"
+	},
+	{
+		"Text": "cans diced tomatoes",
+		"Id": "929c2120-4357-41ca-a4bc-8f83f9544c94",
+		"Translated": "boîtes de tomates en dés"
+	},
+	{
+		"Text": "peaches",
+		"Id": "2b64eadf-cd0f-47c0-be7a-aef29f862159",
+		"Translated": "les pêches"
+	},
+	{
+		"Text": "toppings guacamole salsa",
+		"Id": "39b06ca6-6053-4d7a-bc60-a2b2d38277c5",
+		"Translated": "garnitures salsa guacamole"
+	},
+	{
+		"Text": "unsalted butter",
+		"Id": "edf75384-686b-43a6-9d72-7f77cd3f5faf",
+		"Translated": "Beurre sans sel"
+	},
+	{
+		"Text": "dried cranberries",
+		"Id": "e19c784f-f16e-4100-96c0-05e4a7e54c74",
+		"Translated": "canneberges séchées"
+	},
+	{
+		"Text": "almonds",
+		"Id": "bf7c9bf0-d807-40fe-92ef-d853255d6379",
+		"Translated": "amandes"
+	},
+	{
+		"Text": "can black beans",
+		"Id": "1fb30a5f-d631-4d11-8fce-05e0262b9b67",
+		"Translated": "haricots noirs en boîte"
+	},
+	{
+		"Text": "jalapeno pepper",
+		"Id": "7b138e15-aac8-48fa-b4ee-f32ae356b2ee",
+		"Translated": "piment jalapeno"
+	},
+	{
+		"Text": "tomatoes",
+		"Id": "4db8fec9-0375-41f9-b281-dbcc61e66364",
+		"Translated": "tomates"
+	},
+	{
+		"Text": "Italian seasoning",
+		"Id": "c5cdb907-33fc-4572-b785-04be89a7dd21",
+		"Translated": "assaisonnement italien"
+	},
+	{
+		"Text": "chia seeds",
+		"Id": "4c5e072b-8f01-4ee6-9795-c592952b5fd9",
+		"Translated": "graines de chia"
+	},
+	{
+		"Text": "feta",
+		"Id": "b6707985-09ae-4b13-a541-3fc6a3d7bad6",
+		"Translated": "féta"
+	},
+	{
+		"Text": "sugar",
+		"Id": "175d4fc5-ba88-4a79-ab69-45a9ece8fd9b",
+		"Translated": "du sucre"
+	},
+	{
+		"Text": "cooked chicken",
+		"Id": "b9859f2b-860c-44fd-879c-da6f7d25aceb",
+		"Translated": "poulet cuit"
+	},
+	{
+		"Text": "Chocolate",
+		"Id": "6293ed2d-1100-4498-ae4e-f9f3fced4301",
+		"Translated": "Chocolat"
+	},
+	{
+		"Text": "parsley",
+		"Id": "f969ce91-8d82-4689-8cc5-9cccdc51affb",
+		"Translated": "persil"
+	},
+	{
+		"Text": "cherries",
+		"Id": "d034c9ff-d336-478b-9a9b-6b551e0d25f6",
+		"Translated": "cerises"
+	},
+	{
+		"Text": "hot dog relish",
+		"Id": "e7f9dd12-e2e2-453e-8e2c-b10f51a4e423",
+		"Translated": "goût de hot-dog"
+	},
+	{
+		"Text": "cornmeal",
+		"Id": "23e149fb-f528-418d-a6e0-cf42c8861ab4",
+		"Translated": "semoule de maïs"
+	},
+	{
+		"Text": "fresh dill",
+		"Id": "0a3e1c15-78fe-4211-bc86-7b25447ff65b",
+		"Translated": "aneth frais"
+	},
+	{
+		"Text": "extra virgin olive oil",
+		"Id": "b13d4fe9-c3c4-46c6-b4cc-d46d672089f3",
+		"Translated": "huile d'olive extra vierge"
+	},
+	{
+		"Text": "cayenne",
+		"Id": "f55e33ac-70f5-4eb4-bab6-3334567f5aa6",
+		"Translated": "Cayenne"
+	},
+	{
+		"Text": "Italian sausage",
+		"Id": "c47822d0-6c42-4f19-aff8-3e9502f5df4a",
+		"Translated": "Saucisse italienne"
+	},
+	{
+		"Text": "peas",
+		"Id": "9fbdee09-fa6f-4135-8f60-4f38c618c446",
+		"Translated": "petits pois"
+	},
+	{
+		"Text": "cheddar",
+		"Id": "11147276-c531-475f-b11a-07ec31e7c452",
+		"Translated": "Cheddar"
+	},
+	{
+		"Text": "cream cheese",
+		"Id": "5c70a12f-d794-4019-809e-7d54dea0119a",
+		"Translated": "Fromage Frais"
+	},
+	{
+		"Text": "ground turkey",
+		"Id": "890a126e-2a11-4cd6-a9b4-8c0d24eb5171",
+		"Translated": "dinde hachée"
+	},
+	{
+		"Text": "garlic salt",
+		"Id": "ca496f7e-7083-48e5-b1fa-1dbc20c74337",
+		"Translated": "sel à l'ail"
+	},
+	{
+		"Text": "Swiss cheese",
+		"Id": "dc8e340e-787e-4b43-9a58-2301908a173d",
+		"Translated": "fromage suisse"
+	},
+	{
+		"Text": "apple cider",
+		"Id": "c50365a3-07f4-49be-91fb-22725be2b5b5",
+		"Translated": "Cidre"
+	},
+	{
+		"Text": "vegetable broth",
+		"Id": "2ec01de1-9aed-4bed-86e0-c7da4ef7673e",
+		"Translated": "bouillon de légumes"
+	},
+	{
+		"Text": "sriracha",
+		"Id": "0c1bad50-bffe-4e74-b6dd-563e7b1dc3f9",
+		"Translated": "Sriracha"
+	},
+	{
+		"Text": "mirin",
+		"Id": "6d09e14e-2d06-4c0e-9c30-f168bfe08a32",
+		"Translated": "mirine"
+	},
+	{
+		"Text": "baby potatoes",
+		"Id": "11a3142e-2b7e-45b0-92cd-042a7bdf5fe1",
+		"Translated": "petites patates"
+	},
+	{
+		"Text": "frozen corn",
+		"Id": "cce25fb0-0a20-49d9-819e-4fa2c2452601",
+		"Translated": "Mais congelé"
+	},
+	{
+		"Text": "ground ginger",
+		"Id": "20dfd71a-ca50-49e5-b022-f8bf46737aea",
+		"Translated": "gingembre moulu"
+	},
+	{
+		"Text": "Bread",
+		"Id": "e2cf2e74-ccd3-47cc-8c49-98d2ea9c89db",
+		"Translated": "Pain"
+	},
+	{
+		"Text": "ricotta",
+		"Id": "18ad2982-c8b1-45ff-82c4-0cb1206916d1",
+		"Translated": "ricotta"
+	},
+	{
+		"Text": "green chiles",
+		"Id": "d3f623c0-809c-40f5-9ca6-296e5c6206d3",
+		"Translated": "Piments verts"
+	},
+	{
+		"Text": "ketchup",
+		"Id": "701f1f08-2649-4657-9e52-58eaa796c6de",
+		"Translated": "ketchup"
+	},
+	{
+		"Text": "dried oregano",
+		"Id": "64fbad40-cf55-448e-9438-1465e133f31f",
+		"Translated": "origan séché"
+	},
+	{
+		"Text": "yoghurt",
+		"Id": "22e8b44f-fb23-414a-9aaa-020a863d0340",
+		"Translated": "Yaourt"
+	},
+	{
+		"Text": "tempeh",
+		"Id": "dd5e7a10-ef6e-45c6-9fac-4f7fa2a1893e",
+		"Translated": "tempeh"
+	},
+	{
+		"Text": "bell pepper",
+		"Id": "50d094f1-4178-4353-876e-b5ba640ac91a",
+		"Translated": "poivron"
+	},
+	{
+		"Text": "almond paste",
+		"Id": "11d074bf-cdc6-4fbf-b9f4-3a8c7264bbbc",
+		"Translated": "Pate d'amande"
+	},
+	{
+		"Text": "soy milk",
+		"Id": "6ff61150-304f-4382-ae35-e5be10e4a7cd",
+		"Translated": "lait de soja"
+	},
+	{
+		"Text": "ginger",
+		"Id": "436c1581-feca-43c2-9102-f4ce4d237ad0",
+		"Translated": "Gingembre"
+	},
+	{
+		"Text": "cabbage",
+		"Id": "593e01fb-8305-4008-9a57-d2d872b36b67",
+		"Translated": "chou"
+	},
+	{
+		"Text": "sausage",
+		"Id": "647e6de0-d699-41bc-830a-00bfbcf9a0f4",
+		"Translated": "saucisson"
+	},
+	{
+		"Text": "nutmeg",
+		"Id": "c42b5e17-4ac1-4945-8931-90d286282cf7",
+		"Translated": "Noix de muscade"
+	},
+	{
+		"Text": "guanciale",
+		"Id": "c31d16bd-052f-4ec0-9196-e3cbefe124e9",
+		"Translated": "guanciale"
+	},
+	{
+		"Text": "dill",
+		"Id": "a94f768f-8a6c-4361-afcd-8bc70b96e9ce",
+		"Translated": "aneth"
+	},
+	{
+		"Text": "ground cloves",
+		"Id": "8c8a188d-b9dd-467d-b9fa-359121ddba86",
+		"Translated": "clou de girofle moulu"
+	},
+	{
+		"Text": "baking cocoa",
+		"Id": "093ec53e-8a58-482e-9113-c0c054f27b2c",
+		"Translated": "Cacao à cuire"
+	},
+	{
+		"Text": "Parmesan",
+		"Id": "8cdfbfbf-6d9b-4a82-a770-a4d6a666e8e3",
+		"Translated": "Parmesan"
+	},
+	{
+		"Text": "fresh ginger",
+		"Id": "319488fe-f707-4ce4-a139-a648307d264b",
+		"Translated": "gingembre frais"
+	},
+	{
+		"Text": "pork butt",
+		"Id": "efa0a26e-b6af-4460-bdf3-929a5b91a387",
+		"Translated": "mégot de porc"
+	},
+	{
+		"Text": "cashew milk",
+		"Id": "68f09ac2-4906-4fd8-8b04-8df58f00950b",
+		"Translated": "lait de cajou"
+	},
+	{
+		"Text": "ice",
+		"Id": "05cb7b7a-163f-46ce-870d-df88de9d6738",
+		"Translated": "la glace"
+	},
+	{
+		"Text": "all-purpose gluten-free flour",
+		"Id": "fc5beafe-2726-4df3-8710-5cd4a738673a",
+		"Translated": "farine tout usage sans gluten"
+	},
+	{
+		"Text": "balsamic vinegar",
+		"Id": "fc749f6e-f7c0-480a-aa8c-1a921f2db4c9",
+		"Translated": "vinaigre balsamique"
+	},
+	{
+		"Text": "cooking spray",
+		"Id": "f60ff917-4724-4e86-8f58-e5780bb32bbe",
+		"Translated": "aérosol de cuisson"
+	},
+	{
+		"Text": "unsweetened shredded coconut",
+		"Id": "7bd1b0b8-f049-4ed8-aa6b-ccc443c8c1b0",
+		"Translated": "noix de coco râpée non sucrée"
+	},
+	{
+		"Text": "Greek yogurt",
+		"Id": "c4ba4120-5932-456b-9756-44015cd6f95f",
+		"Translated": "yaourt grec"
+	},
+	{
+		"Text": "green chilies",
+		"Id": "14a4cbc1-fb0d-4893-86c3-03db4fcd92f7",
+		"Translated": "piments verts"
+	},
+	{
+		"Text": "mushroom",
+		"Id": "cf8533b7-3a5e-407e-883d-6ed484884aa2",
+		"Translated": "champignon"
+	},
+	{
+		"Text": "bacon grease",
+		"Id": "aed8dd99-21d7-41ef-96a8-1035ad352ac2",
+		"Translated": "graisse de bacon"
+	},
+	{
+		"Text": "baking soda",
+		"Id": "56079dbe-806d-44e7-b9a2-f289eaa166ad",
+		"Translated": "bicarbonate de soude"
+	},
+	{
+		"Text": "pastry",
+		"Id": "30164ef7-ca47-480f-b254-d4e4f75fd76a",
+		"Translated": "Pâtisserie"
+	},
+	{
+		"Text": "ground nutmeg",
+		"Id": "7b988835-326e-4893-b270-21d015d54a90",
+		"Translated": "muscade moulue"
+	},
+	{
+		"Text": "kale",
+		"Id": "4abdef80-55d7-4406-8301-7709f14c9c47",
+		"Translated": "chou frisé"
+	},
+	{
+		"Text": "feta cheese",
+		"Id": "188681ee-2538-4446-8ee2-72472178ecf2",
+		"Translated": "feta"
+	},
+	{
+		"Text": "rolled oats",
+		"Id": "1fe5c95b-0a31-4b29-aaee-9ff07b01e790",
+		"Translated": "flocons d'avoine"
+	},
+	{
+		"Text": "mozzarella",
+		"Id": "0fd5ded7-b739-4ea5-ac3d-ac523ab70b42",
+		"Translated": "mozzarella"
+	},
+	{
+		"Text": "half and half",
+		"Id": "3bbae7e0-1a6f-474a-8935-39ded10c3a33",
+		"Translated": "moitié moitié"
+	},
+	{
+		"Text": "oregano",
+		"Id": "80dcceeb-f416-4c49-80f8-51b86c5e7f98",
+		"Translated": "Origan"
+	},
+	{
+		"Text": "cracked pepper",
+		"Id": "691c8218-350e-4faf-bab6-7447bff7e2da",
+		"Translated": "poivre concassé"
+	},
+	{
+		"Text": "Pecorino Romano",
+		"Id": "eec11855-ab1c-4373-a57f-048f9db392ca",
+		"Translated": "Pécorino Romano"
+	},
+	{
+		"Text": "mozzarella cheese",
+		"Id": "8215a9a1-a5d9-4a37-8ab3-d7ad10aa62fc",
+		"Translated": "fromage mozzarella"
+	},
+	{
+		"Text": "tortillas",
+		"Id": "53d6f196-35db-4439-9259-d8953e623c15",
+		"Translated": "tortillas"
+	},
+	{
+		"Text": "dark chocolate",
+		"Id": "45133721-650b-49b9-bbfd-5fed4ebb295e",
+		"Translated": "chocolat noir"
+	},
+	{
+		"Text": "molasses",
+		"Id": "fe5ed1df-e7b8-4494-86b0-4078bba6842a",
+		"Translated": "mélasse"
+	},
+	{
+		"Text": "Monterey Jack",
+		"Id": "bbb463d6-b399-44e9-9be5-caab233e4710",
+		"Translated": "Monterey-Jack"
+	},
+	{
+		"Text": "bittersweet chocolate",
+		"Id": "bfd6d04b-783e-4f85-a16e-d28cdb2cc6b2",
+		"Translated": "chocolat amer"
+	},
+	{
+		"Text": "sesame seeds",
+		"Id": "04ed9728-319c-423b-8fef-2abe45d8d71c",
+		"Translated": "graines de sésame"
+	},
+	{
+		"Text": "blanched almond flour",
+		"Id": "f14f76ab-90e3-4f1b-820c-6ec32fb133a1",
+		"Translated": "farine d'amande blanchie"
+	},
+	{
+		"Text": "sesame oil",
+		"Id": "26aa1b5a-dc75-4838-a79e-8047e01aef95",
+		"Translated": "huile de sésame"
+	},
+	{
+		"Text": "beef broth",
+		"Id": "ca2595e6-1e03-4c79-8f15-90e84e2c2d17",
+		"Translated": "bouillon de boeuf"
+	},
+	{
+		"Text": "corn tortillas",
+		"Id": "0ebb65d4-4bb9-4d03-a4ed-d01c64b2cedf",
+		"Translated": "tortillas de mais"
+	},
+	{
+		"Text": "pepper sauce",
+		"Id": "5d56d4fe-4b48-46b8-a660-f44b72edc429",
+		"Translated": "sauce au poivre"
+	},
+	{
+		"Text": "unsweetened cocoa powder",
+		"Id": "ae9389cd-d8ca-4841-9893-f63f0c8f9a39",
+		"Translated": "Poudre de cacao sans sucre"
+	},
+	{
+		"Text": "stevia",
+		"Id": "87564d99-0eec-4553-bc74-39f9c1649005",
+		"Translated": "stévia"
+	},
+	{
+		"Text": "coconut",
+		"Id": "a58720d4-50f1-4427-b093-c5b331ba35b2",
+		"Translated": "noix de coco"
+	},
+	{
+		"Text": "hummus",
+		"Id": "bc26b2ea-4318-46dc-ab5b-cc4b297d7562",
+		"Translated": "Hoummous"
+	},
+	{
+		"Text": "Onion Rolls",
+		"Id": "b20d0111-a8ee-402f-949c-c160416a2dee",
+		"Translated": "Rouleaux à l'oignon"
+	},
+	{
+		"Text": "tortellini",
+		"Id": "36bc64fb-3501-425f-b531-e65e8ccbd73d",
+		"Translated": "tortellinis"
+	},
+	{
+		"Text": "flank steak",
+		"Id": "2d698270-17e4-4ed5-b977-4d3f53c4da4d",
+		"Translated": "bifteck de flanc"
+	},
+	{
+		"Text": "liquid smoke",
+		"Id": "35285f26-fff5-4f0e-bcbd-b75e07815b67",
+		"Translated": "fumée liquide"
+	},
+	{
+		"Text": "coleslaw",
+		"Id": "ac5f2c50-8cef-47e5-be70-de1672d28140",
+		"Translated": "Salade De Chou"
+	},
+	{
+		"Text": "spaghetti",
+		"Id": "1e49b2ac-4490-41da-9968-bbc01446f467",
+		"Translated": "spaghetti"
+	},
+	{
+		"Text": "banana",
+		"Id": "9b12223d-1307-4938-8e0e-2834c688f025",
+		"Translated": "banane"
+	},
+	{
+		"Text": "protein powder",
+		"Id": "dac0e089-dec7-4ae4-a015-a2dd352dfc54",
+		"Translated": "poudre de protéine"
+	},
+	{
+		"Text": "ground turmeric",
+		"Id": "31bfb7e9-a7dc-4a56-8d4a-4c222005918b",
+		"Translated": "curcuma moulu"
+	},
+	{
+		"Text": "extra-virgin olive oil",
+		"Id": "21e94775-518c-4338-9918-b9633d2eb761",
+		"Translated": "huile d'olive extra vierge"
+	},
+	{
+		"Text": "plain whole milk yogurt",
+		"Id": "9a976466-40a7-4ccf-a1ff-a4243fcd3a4d",
+		"Translated": "yaourt nature au lait entier"
+	},
+	{
+		"Text": "minced ginger",
+		"Id": "65c7e1b4-db20-4f48-b61c-b48c4fb2b31a",
+		"Translated": "gingembre émincé"
+	},
+	{
+		"Text": "bacon",
+		"Id": "5dacc88c-8af3-4659-93a2-3100b56065b1",
+		"Translated": "lard"
+	},
+	{
+		"Text": "cacao powder",
+		"Id": "ec3e61ec-8ab0-491e-bd5b-9257f940b3d2",
+		"Translated": "cacao en poudre"
+	},
+	{
+		"Text": "jasmine rice",
+		"Id": "dafc99f7-51b2-4018-942d-180366950a7b",
+		"Translated": "riz au jasmin"
+	},
+	{
+		"Text": "whole wheat pastry flour",
+		"Id": "dbb38c8c-8868-4eef-aca0-0cb8f730ccd2",
+		"Translated": "farine complète de pâtisserie"
+	},
+	{
+		"Text": "kalamata olives",
+		"Id": "9f01480d-7f40-4308-9d4a-a116ec8813d3",
+		"Translated": "olives Kalamata"
+	},
+	{
+		"Text": "avocados",
+		"Id": "ec88dd84-8fa6-4743-95f6-2069231bf4e7",
+		"Translated": "avocats"
+	},
+	{
+		"Text": "white onions",
+		"Id": "4106708a-3c48-4807-b4fa-94d729854c13",
+		"Translated": "Oignons blancs"
+	},
+	{
+		"Text": "hoisin sauce",
+		"Id": "5f94f7bf-05b0-4e62-8a9e-1897625c1ea4",
+		"Translated": "sauce hoisin"
+	},
+	{
+		"Text": "chipotle peppers in adobo",
+		"Id": "5b62e18c-116b-40e3-8e92-21868f5e6129",
+		"Translated": "piments chipotle en adobo"
+	},
+	{
+		"Text": "tilapia",
+		"Id": "641c6acb-0a64-4bd5-9bc3-69b19172442d",
+		"Translated": "tilapia"
+	},
+	{
+		"Text": "lemon zest",
+		"Id": "b5d4083e-e0ab-47ca-8839-a9ee0a619f55",
+		"Translated": "zeste de citron"
+	},
+	{
+		"Text": "green apple",
+		"Id": "d8e3bc84-3ac9-4a01-b385-ed0b95d7147e",
+		"Translated": "pomme verte"
+	},
+	{
+		"Text": "orange",
+		"Id": "0d847b26-baa7-4238-998f-30b45e72bc87",
+		"Translated": "orange"
+	},
+	{
+		"Text": "mango",
+		"Id": "523d9d06-2756-4229-8cd9-d09b47957fab",
+		"Translated": "mangue"
+	},
+	{
+		"Text": "plum tomatoes",
+		"Id": "83b4f414-2d9f-49bf-87ae-7c45440d385b",
+		"Translated": "tomates italiennes"
+	},
+	{
+		"Text": "red wine vinegar",
+		"Id": "68596ec0-a68f-4181-b413-e0867f357b2b",
+		"Translated": "Vinaigre de vin rouge"
+	},
+	{
+		"Text": "tortilla chips",
+		"Id": "10afe006-0c2b-4f19-aa4b-337e061b1d01",
+		"Translated": "tortillas"
+	},
+	{
+		"Text": "golden syrup",
+		"Id": "3d1edc28-7698-4c20-9ee3-0619be99b583",
+		"Translated": "sirop de sucre roux"
+	},
+	{
+		"Text": "breadcrumbs",
+		"Id": "23a2b3cd-ac17-4134-beea-9744dc324c08",
+		"Translated": "chapelure"
+	},
+	{
+		"Text": "sweet potato",
+		"Id": "f9d3a46a-b4e6-48c4-9d10-c738d764cac6",
+		"Translated": "patate douce"
+	},
+	{
+		"Text": "green onion",
+		"Id": "27b07007-2fd0-4850-a7bd-f217f86002c0",
+		"Translated": "oignon vert"
+	},
+	{
+		"Text": "chicken wings",
+		"Id": "21bf7201-9d61-4fd5-b8db-c810fa17f780",
+		"Translated": "ailes de poulet"
+	},
+	{
+		"Text": "firm tofu",
+		"Id": "be1e9a60-eaca-46b9-aa58-aa1699d87004",
+		"Translated": "tofu ferme"
+	},
+	{
+		"Text": "190g butter",
+		"Id": "17e95992-8c44-4683-84bb-8c736ccf9acc",
+		"Translated": "190g de beurre"
+	},
+	{
+		"Text": "elbow macaroni",
+		"Id": "7bf8aa10-a5ab-4695-9930-6acea6e97201",
+		"Translated": "macaroni au coude"
+	},
+	{
+		"Text": "hot sauce",
+		"Id": "bd9b478e-e2f6-4f79-bb42-c8bfde73f681",
+		"Translated": "sauce piquante"
+	},
+	{
+		"Text": "red chilli",
+		"Id": "37cebbcb-0f48-4383-aa02-f8d0f7585818",
+		"Translated": "piment rouge"
+	},
+	{
+		"Text": "ham steaks",
+		"Id": "eccfdf7e-030d-4c3c-b010-c05f58f6b6a6",
+		"Translated": "steaks de jambon"
+	},
+	{
+		"Text": "mustard",
+		"Id": "c4fc7dec-9447-4099-b1e8-fd3192855f7a",
+		"Translated": "moutarde"
+	},
+	{
+		"Text": "almond extract",
+		"Id": "c648d4bc-ee27-42aa-8a9a-1608f912143f",
+		"Translated": "l'extrait d'amande"
+	},
+	{
+		"Text": "rotini",
+		"Id": "e0d69b0c-a674-406d-8ddb-49d1c108d0ab",
+		"Translated": "rotinis"
+	},
+	{
+		"Text": "provolone",
+		"Id": "8f524843-9c5f-49e4-add7-0cb15b13bf1b",
+		"Translated": "Provolone"
+	},
+	{
+		"Text": "honey maple",
+		"Id": "7ad0b4b5-b05b-40a4-8a53-1fd530063ac7",
+		"Translated": "miel d'érable"
+	},
+	{
+		"Text": "chives",
+		"Id": "b38dd7ab-9dc8-47b9-a67c-f994fdc5af03",
+		"Translated": "ciboulette"
+	},
+	{
+		"Text": "vanilla almond milk",
+		"Id": "d7cae549-15b9-4f82-a959-b3c2d73e9705",
+		"Translated": "lait d'amande vanille"
+	},
+	{
+		"Text": "vanilla",
+		"Id": "6b61ca51-3e71-4e8c-a8af-ec35103d188b",
+		"Translated": "vanille"
+	},
+	{
+		"Text": "2% milk",
+		"Id": "a8061cb2-b4aa-4238-8854-3df910baf5b5",
+		"Translated": "lait 2%"
+	},
+	{
+		"Text": "powdered sugar",
+		"Id": "81920ac0-e909-4383-b6ca-b0ba51831548",
+		"Translated": "sucre en poudre"
+	},
+	{
+		"Text": "teriyaki sauce",
+		"Id": "4e5917f5-1adb-4ecf-b582-47ff4748d7fd",
+		"Translated": "sauce teriyaki"
+	},
+	{
+		"Text": "Oil",
+		"Id": "9fba2946-c0d2-42c5-a994-eb72b75b0389",
+		"Translated": "Pétrole"
+	},
+	{
+		"Text": "vegetables",
+		"Id": "956dbeb0-c8e0-4403-9481-9b6b1afbd958",
+		"Translated": "des légumes"
+	},
+	{
+		"Text": "raisins",
+		"Id": "67e59859-acbf-49da-96d3-f621582a285d",
+		"Translated": "raisins secs"
+	},
+	{
+		"Text": "sourdough bread",
+		"Id": "f69f41c2-a96b-4fe3-9ae1-76a3cb24460a",
+		"Translated": "pain au levain"
+	},
+	{
+		"Text": "plain Greek yogurt",
+		"Id": "23c7d613-7c03-4b24-8596-ee1af7f47d4f",
+		"Translated": "yaourt grec nature"
+	},
+	{
+		"Text": "dried sage",
+		"Id": "90f7bb7f-922a-4061-a0ee-5ef6a0a632b8",
+		"Translated": "sauge séchée"
+	},
+	{
+		"Text": "sweet corn",
+		"Id": "9350e954-d3ab-4c49-86d1-4a45421ae28c",
+		"Translated": "le maïs sucré"
+	},
+	{
+		"Text": "broccoli",
+		"Id": "f4f074ae-d186-4e34-a1fd-bd6cf24d6eee",
+		"Translated": "brocoli"
+	},
+	{
+		"Text": "pine nuts",
+		"Id": "56619804-7ff5-4dfc-ad63-6f6e50b363a4",
+		"Translated": "pignons de pin"
+	},
+	{
+		"Text": "milk almond milk",
+		"Id": "8f9fd57d-778d-4430-81cf-a65209610d4c",
+		"Translated": "lait lait d'amande"
+	},
+	{
+		"Text": "frozen peas",
+		"Id": "f2fea2dc-6c82-4e71-8ceb-952394863362",
+		"Translated": "petits pois surgelés"
+	},
+	{
+		"Text": "scallions",
+		"Id": "d76f855d-384e-44eb-8163-f1add53788bc",
+		"Translated": "oignons verts"
+	},
+	{
+		"Text": "demerara sugar",
+		"Id": "be4a3bd1-31ff-43dd-9f60-79fa84220de4",
+		"Translated": "sucre demerara"
+	},
+	{
+		"Text": "boneless skinless chicken breasts",
+		"Id": "c2053083-d864-4e06-8122-57958a3e3dfb",
+		"Translated": "poitrines de poulet désossées et sans peau"
+	},
+	{
+		"Text": "skinless, boneless chicken breast halves",
+		"Id": "20e6aee2-4cb6-47c6-80c9-d6fa34f7cbd6",
+		"Translated": "demi-poitrines de poulet désossées et sans peau"
+	},
+	{
+		"Text": "smoked whitefish",
+		"Id": "82828ef1-f7da-4db2-a5ca-d826ef26bfcc",
+		"Translated": "corégone fumé"
+	},
+	{
+		"Text": "confectioners' sugar",
+		"Id": "caa9a093-e048-4178-bbb2-46aaf470b1a1",
+		"Translated": "sucre glace"
+	},
+	{
+		"Text": "apples",
+		"Id": "e46a3e67-5816-431a-a8ed-0e7ac5ca9a7e",
+		"Translated": "pommes"
+	},
+	{
+		"Text": "fresh rosemary",
+		"Id": "d4b406cf-c903-49a7-8342-e75cff9962db",
+		"Translated": "romarin frais"
+	},
+	{
+		"Text": "fat-free sour cream",
+		"Id": "5d667a4c-35b8-4b4d-9257-3909f8392bd4",
+		"Translated": "crème sure sans gras"
+	},
+	{
+		"Text": "melon",
+		"Id": "0a7481fd-088e-4cd3-aa95-a2a73ebd627c",
+		"Translated": "melon"
+	},
+	{
+		"Text": "cannellini beans",
+		"Id": "ea4b31b2-8407-4c2a-bb94-1a7b29def764",
+		"Translated": "haricots cannellini"
+	},
+	{
+		"Text": "green pepper",
+		"Id": "6f31f60c-9a7d-4ff9-985b-1cd608e53800",
+		"Translated": "poivre vert"
+	},
+	{
+		"Text": "thyme",
+		"Id": "6e3eece0-87db-44e4-b792-a3b16c50db4b",
+		"Translated": "thym"
+	},
+	{
+		"Text": "onion diced",
+		"Id": "17558e95-4f7a-4745-90f9-0a05f4e9bc30",
+		"Translated": "oignon, en dés"
+	}
+]
