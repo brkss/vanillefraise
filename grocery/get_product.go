@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/http"
+	"net/url"
 )
 
 type ProductPrice struct {
@@ -25,6 +27,11 @@ type Grocery struct {
 	Id         string
 }
 
+type ProductGrocery struct {
+	Grocery Grocery
+	Product Product
+}
+
 func GetGroceries() []Grocery {
 	var groceries []Grocery
 
@@ -40,29 +47,34 @@ func GetGroceries() []Grocery {
 
 func main() {
 	groceries := GetGroceries()
-	for _, g := range groceries {
-		fmt.Printf("g : %+v", g)
-	}
-	/*
+	var gp []ProductGrocery
+	for i, g := range groceries {
 		var products []Product
-		url := "https://api-ayaline.marjane.ma/front/products?fetchMode=list&type[]=product&to_sell=true&status=VALIDATED&search=sauce&autocomplete=true&range=1-10&"
+		url := fmt.Sprintf("https://api-ayaline.marjane.ma/front/products?fetchMode=list&type[]=product&to_sell=true&status=VALIDATED&search=%s&autocomplete=true&range=1-10&", url.QueryEscape(g.Translated))
+		fmt.Printf("URL : %s\n", url)
 		res, err := http.Get(url)
+		if err != nil {
+			log.Fatal("Error accured getting products : ", err)
 
-		if err != nil || res.Body == nil {
-			log.Fatal("Failed to get products !", err)
 		}
-
-
 		decoder := json.NewDecoder(res.Body)
 		err = decoder.Decode(&products)
-
-		for _, p := range products {
-			fmt.Printf("product : %+v \n", p)
-			fmt.Println("---------------------------------")
-		}
-
 		if err != nil {
-			log.Fatal("Error accured decoding products json data !", err)
+			log.Fatal("Error accured while decoding the data !", err)
 		}
-	*/
+		gp = append(gp, ProductGrocery{Product: products[0], Grocery: g})
+		fmt.Printf("[%d] : DONE !", i+1)
+	}
+
+	fmt.Println("------------ SAVING ... -------")
+	data, err := json.MarshalIndent(gp, "", "\t")
+	if err != nil {
+		log.Fatal("Something went wrong marshlling data", err)
+	}
+	err = ioutil.WriteFile("products.json", data, 0644)
+	if err != nil {
+		log.Panic("Error accured while writing data to file !", err)
+	}
+	fmt.Println("------------------ 👍 SAVED ! --------------")
+
 }
