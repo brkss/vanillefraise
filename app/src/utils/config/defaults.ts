@@ -12,3 +12,4 @@ export const CDN = "http://10.1.51.244:4000/images";
 
 export const twitter: string = "https://twitter.com/owvanillefraise";
 export const instagram: string = "https://instagram.com/vanilleetfraise";
+export const TRANSLATE_URI : string = "http://localhost:3040"
