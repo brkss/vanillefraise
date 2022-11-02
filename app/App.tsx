@@ -19,6 +19,7 @@ import { StatusBar } from "expo-status-bar";
 import { MealScheduleNotification } from "./src/utils/modules/notifications";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { translate_ingredients } from "./src/utils/modules/translate";
 
 const cache = new InMemoryCache({});
 
@@ -87,6 +88,7 @@ export default function App() {
     (async () => {
       const state = await Network.getNetworkStateAsync();
       setIsConnected(state.isConnected);
+      await translate_ingredients();
     })();
   });
 

@@ -4,14 +4,48 @@ import { IngredientItem } from "./Item";
 import { RecipeServing } from "./Servings";
 import { TranslatedIngredient } from "../../generated/graphql";
 import { scaleRecipe } from "../../utils/modules/scale_recipe";
+import { LanguagePicker } from "../General";
+import { translate_ingredients } from "../../utils/modules/translate";
+import SkeletonLoader from "expo-skeleton-loader";
 
 interface Props {
   ingredients: TranslatedIngredient[];
   servings: number;
 }
 
+interface IIngredient {
+  txt: string;
+  amount: number;
+  unit: string;
+}
+
 export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
   const [scale, setScale] = React.useState<number>(servings);
+  const [translated, setTranslated] = React.useState<IIngredient[]>([]);
+  const [cache, setCache] = React.useState<{ [key: string]: IIngredient[] }>(
+    {}
+  );
+  const handleLangChange = async (lang: string) => {
+    if (lang === "en") {
+      setTranslated([]);
+      return;
+    }
+    if (cache[lang]) {
+      setTranslated(cache[lang]);
+      return;
+    }
+    const res: IIngredient[] = await translate_ingredients(
+      lang,
+      ingredients.map((ing) => ({
+        txt: ing.ingredients,
+        amount: ing.amount,
+        unit: ing.unit,
+      }))
+    );
+    setCache({ ...cache, [lang]: res });
+    //console.log("res : ", res);
+    setTranslated(res);
+  };
 
   return (
     <View style={styles.container}>
@@ -22,15 +56,26 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
         }}
       />
       <Text style={styles.title}>Ingredients</Text>
-      {scaleRecipe(servings, scale, ingredients).map((ing, key) => (
-        <IngredientItem
-          originUnit={ing.unit}
-          key={key}
-          txt={ing.ingredients}
-          amount={ing.amount.toString()}
-          unit={ing.unit}
-        />
-      ))}
+      <LanguagePicker langChange={(l) => handleLangChange(l)} />
+      {translated.length === 0
+        ? scaleRecipe(servings, scale, ingredients).map((ing, key) => (
+            <IngredientItem
+              originUnit={ing.unit}
+              key={key}
+              txt={ing.ingredients}
+              amount={ing.amount.toString()}
+              unit={ing.unit}
+            />
+          ))
+        : translated.map((ing, key) => (
+            <IngredientItem
+              originUnit={ing.unit}
+              key={key}
+              txt={ing.txt}
+              amount={ing.amount.toString()}
+              unit={ing.unit}
+            />
+          ))}
     </View>
   );
 };
