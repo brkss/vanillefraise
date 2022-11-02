@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Item } from "./Item";
 import { LanguagePicker } from "../General";
-import { translate_instructions } from '../../utils/modules/translate';
+import { translate_instructions } from "../../utils/modules/translate";
 
 interface IInstruction {
   txt: string;
@@ -19,7 +19,6 @@ export const Instructions: React.FC<Props> = ({ instructions }) => {
     {}
   );
 
-
   const handleLanguageChange = async (lang: string) => {
     if (lang === "en") {
       setTranslated([]);
@@ -33,8 +32,8 @@ export const Instructions: React.FC<Props> = ({ instructions }) => {
       lang,
       instructions.map((ins) => ({ txt: ins.raw, index: ins.index }))
     );
-    setCache({...cache, [lang]: res});
-    setTranslated(res)
+    setCache({ ...cache, [lang]: res });
+    setTranslated(res);
   };
 
   return (

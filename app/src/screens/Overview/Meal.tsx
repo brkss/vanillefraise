@@ -44,6 +44,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
     variables: {
       mealID: mealID,
     },
+    fetchPolicy: 'network-only',
     onCompleted: (res) => {
       if (res.daysWithRecipes.status) {
         setMarkedDates(generateMarkedDates(res.daysWithRecipes.markedDates));

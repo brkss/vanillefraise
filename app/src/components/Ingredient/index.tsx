@@ -25,6 +25,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
   const [cache, setCache] = React.useState<{ [key: string]: IIngredient[] }>(
     {}
   );
+  const [fetching, setFetching] = React.useState(false);
   const handleLangChange = async (lang: string) => {
     if (lang === "en") {
       setTranslated([]);
@@ -34,6 +35,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
       setTranslated(cache[lang]);
       return;
     }
+    setFetching(true);
     const res: IIngredient[] = await translate_ingredients(
       lang,
       ingredients.map((ing) => ({
@@ -42,6 +44,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
         unit: ing.unit,
       }))
     );
+    setFetching(false);
     setCache({ ...cache, [lang]: res });
     //console.log("res : ", res);
     setTranslated(res);
@@ -57,6 +60,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
       />
       <Text style={styles.title}>Ingredients</Text>
       <LanguagePicker langChange={(l) => handleLangChange(l)} />
+      {fetching && <Text style={styles.hint}>please wait...</Text>}
       {translated.length === 0
         ? scaleRecipe(servings, scale, ingredients).map((ing, key) => (
             <IngredientItem
@@ -89,5 +93,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontWeight: "bold",
     fontFamily: "AvNextBold",
+  },
+  hint: {
+    fontFamily: "AvNextBold",
+    marginBottom: 20,
   },
 });
