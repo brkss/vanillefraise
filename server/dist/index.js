@@ -14,6 +14,8 @@ const token_1 = require("./utils/token");
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const seed_1 = require("./utils/seed");
+const list_1 = require("./utils/helpers/grocery/list");
+const send_verification_email_1 = require("./utils/helpers/automate/send_verification_email");
 (async () => {
     await (0, typeorm_1.createConnection)({
         type: "mysql",
@@ -47,6 +49,14 @@ const seed_1 = require("./utils/seed");
     app.get("/seed", async (_, res) => {
         await (0, seed_1.seed)();
         res.send({ status: true });
+    });
+    app.post("/send-verification", async (_, res) => {
+        await (0, send_verification_email_1.send_verification_emails)();
+        res.send({ status: true });
+    });
+    app.get("/grocery", async (_, res) => {
+        const ingredients = await (0, list_1.groceryList)();
+        res.send(ingredients);
     });
     const dir = path_1.default.join(__dirname, "cdn/images");
     app.use("/images", express_1.default.static(dir));

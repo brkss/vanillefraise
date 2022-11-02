@@ -9,11 +9,13 @@ import { refreshToken, refreshAdminToken } from "./utils/token";
 import cors from "cors";
 import path from "path";
 import { seed } from "./utils/seed";
+import { groceryList } from "./utils/helpers/grocery/list";
+import { send_verification_emails } from "./utils/helpers/automate/send_verification_email";
 
 (async () => {
   await createConnection({
     type: "mysql",
-    host: process.env.DB_HOST || "127.0.0.1",
+     host: process.env.DB_HOST || "127.0.0.1",
     port: 3306,
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASS || "root",
@@ -55,11 +57,24 @@ import { seed } from "./utils/seed";
     await seed();
     res.send({ status: true });
   });
+
+  // -------- ⚠️  CRITICAL ⚠️  ---------
+  app.post("/send-verification", async (_, res) => {
+    await send_verification_emails();
+    res.send({ status: true });
+  });
+  // -------- ⚠️  CRITICAL ⚠️  ---------
+
+  app.get("/grocery", async (_, res) => {
+    const ingredients = await groceryList();
+    res.send(ingredients);
+  });
+
   // cdn
   const dir = path.join(__dirname, "cdn/images");
   app.use("/images", express.static(dir));
 
-    const apolloServer = new ApolloServer({
+  const apolloServer = new ApolloServer({
     schema: await build(),
     context: ({ req, res }) => ({ req, res }),
     //playground: false
