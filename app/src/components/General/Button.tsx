@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const Button: React.FC<Props> = ({ txt, clicked, color, bg }) => {
-  
   return (
     <Pressable
       style={[styles.container, { backgroundColor: bg ? bg : "#323232" }]}
@@ -28,15 +27,15 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     padding: 10,
- paddingVertical: 20,
- paddingTop: 22,   
-	borderRadius: 16,
+    paddingVertical: 20,
+    paddingTop: 22,
+    borderRadius: 16,
   },
   txt: {
     textAlign: "center",
     color: "white",
     fontFamily: "AvNextBold",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     //marginBottom: 5,
   },

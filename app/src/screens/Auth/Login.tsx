@@ -4,6 +4,7 @@ import {
   Text,
   Pressable,
   KeyboardAvoidingView,
+  Keyboard,
   StyleSheet,
   Linking,
   Alert,
@@ -57,6 +58,7 @@ export const Login: React.FC = () => {
       return;
     }
     //setError("");
+    Keyboard.dismiss();
     handleAnimationIn();
     await wait(1500);
     login({
@@ -135,12 +137,6 @@ export const Login: React.FC = () => {
               ❤️ Linking your account...
             </Animated.Text>
             <Animated.View style={[styles.box, boxStyle, { marginTop: 80 }]}>
-              {error ? (
-                <Error txt={error} close={() => setError("")} />
-              ) : (
-                <Text style={styles.title}></Text>
-              )}
-
               <View style={{ height: 20 }} />
               <BasicInput
                 label="Username"
@@ -168,6 +164,11 @@ export const Login: React.FC = () => {
                 </Text>
               </Pressable>
               <View style={{ height: 20 }} />
+              {error ? (
+                <Error txt={error} close={() => setError("")} />
+              ) : (
+                <Text style={styles.title}></Text>
+              )}
               <Button txt={"Login"} clicked={() => handleLogin()} />
             </Animated.View>
           </View>

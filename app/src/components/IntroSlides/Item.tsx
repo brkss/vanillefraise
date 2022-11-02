@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("window");
 
 interface Props {
   text: string;
@@ -16,18 +16,18 @@ interface Props {
 const MAX_WIDTH = width / 2;
 
 export const IntroSlideElement: React.FC<Props> = ({ text }) => {
-  const offsetX = useSharedValue(Math.random() * MAX_WIDTH);
-  const offsetY = useSharedValue(Math.random() * -height);
+  const offsetX = useSharedValue(-MAX_WIDTH - 120);
+  const offsetY = useSharedValue(0);
   React.useEffect(() => {
     offsetX.value = withRepeat(
-      withTiming(MAX_WIDTH, { duration: 5000 }),
+      withTiming(width / 2 + 100, { duration: 9000 }, () => {
+        //offsetX.value = -(width / 2) - 100;
+      }),
       -1,
       false,
       (finished) => {
         console.log("Finished Animation");
-        if (finished) {
-          offsetX.value = -MAX_WIDTH;
-        }
+        //offsetX.value = -(width / 2) - 100;
       }
     );
   }, []);
@@ -56,11 +56,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    backgroundColor: "#FFE8E8",
+    //backgroundColor: "#FFE8E8",
     padding: 13,
     paddingTop: 15,
     paddingHorizontal: 30,
     borderRadius: 50,
+    width: width * 6,
   },
   txt: {
     fontFamily: "AvNextBold",

@@ -9,7 +9,6 @@ import {
   Pressable,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { IntroSlides } from "../../components";
 
 const { width, height } = Dimensions.get("window");
 
@@ -20,7 +19,6 @@ export const Intro: React.FC<any> = ({ navigation }) => {
       end={{ x: 1, y: 1 }}
       style={{ flex: 1 }}
     >
-      <IntroSlides />
       <View style={styles.content}>
         <ImageBackground
           style={{ height: 200, justifyContent: "center" }}

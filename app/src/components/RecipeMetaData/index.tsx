@@ -29,21 +29,23 @@ export const RecipeMetaData: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginTop: 10,
+  },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "left",
-	fontFamily: "AvNextBold",
-	color: "#434343",
-	marginBottom: 7
+    fontFamily: "AvNextBold",
+    color: "#434343",
+    marginBottom: 7,
   },
   description: {
     fontSize: 14,
     opacity: 0.8,
     marginTop: 10,
-	fontFamily: "AvNext",
-	fontWeight: '900',
-	lineHeight: 17	
-	},
+    fontFamily: "AvNext",
+    fontWeight: "900",
+    lineHeight: 17,
+  },
 });

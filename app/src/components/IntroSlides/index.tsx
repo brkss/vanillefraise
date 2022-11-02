@@ -4,13 +4,13 @@ import { IntroSlideElement } from "./Item";
 
 const { width, height } = Dimensions.get("window");
 
-const _tmp = ["test", "test", "test"];
+const _tmp = ["PRIVATE EDITION • PRIVATE EDITION  "];
 
 export const IntroSlides: React.FC = () => {
   return (
     <View style={styles.container}>
       {_tmp.map((t, key) => (
-        <IntroSlideElement key={key} text={`${t} ${key + 1}`} />
+        <IntroSlideElement key={key} text={`${t}`} />
       ))}
     </View>
   );

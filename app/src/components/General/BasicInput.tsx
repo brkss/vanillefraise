@@ -44,12 +44,11 @@ const styles = StyleSheet.create({
   },
   input: {
     padding: 10,
-    marginTop: -10,
+    marginTop: -7,
     paddingLeft: 0,
     backgroundColor: "transparent",
     fontWeight: "bold",
     fontFamily: "AvNextBold",
-    fontSize: 25,
+    fontSize: 20,
   },
 });
-

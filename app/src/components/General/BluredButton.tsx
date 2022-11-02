@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   txt: {
     fontFamily: "AvNextBold",
     color: "white",
-    fontSize: 20,
+    fontSize: 18,
     textAlign: "center",
   },
 });
