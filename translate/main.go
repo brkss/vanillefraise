@@ -12,17 +12,46 @@ import (
 type Ingredient struct {
 	Txt    string  `json:"txt"`
 	Unit   string  `json:"unit"`
-	Amount float64 `json:amount`
+	Amount float64 `json:"amount"`
 }
 
-type Req struct {
+type Instruction struct {
+	Txt   string `json:"txt"`
+	Index int    `json:"index"`
+}
+
+type InsReq struct {
+	Target       string        `josn:"target"`
+	Instructions []Instruction `json:"instructions"`
+}
+
+type IngReq struct {
 	Ingredients []Ingredient `json:"ingredients"`
 	Target      string       `json:"target"`
 }
 
+func HandleTranslateInstruction(w http.ResponseWriter, r *http.Request) {
+	var req InsReq
+	var translated []Instruction
+
+	decoder := json.NewDecoder(r.Body)
+	decoder.Decode(&req)
+
+	for _, inst := range req.Instructions {
+		res, _ := gt.Translate(inst.Txt, "en", req.Target)
+		translated = append(translated, Instruction{Txt: res, Index: inst.Index})
+	}
+	data, err := json.Marshal(translated)
+	if err != nil {
+		log.Fatal("Error accured while encoding instructions ", err)
+	}
+	w.Header().Add("content-type", "application/json")
+	w.Write(data)
+}
+
 func HandleTranslateIngredient(w http.ResponseWriter, r *http.Request) {
 
-	var req Req
+	var req IngReq
 	var translated []Ingredient
 
 	decoder := json.NewDecoder(r.Body)
@@ -47,6 +76,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/ingredients", HandleTranslateIngredient)
+	mux.HandleFunc("/instructions", HandleTranslateInstruction)
 
 	fmt.Println("🚀 Server running at http:localhost:3040")
 	err := http.ListenAndServe(":3040", mux)
