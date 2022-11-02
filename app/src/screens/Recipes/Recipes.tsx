@@ -44,6 +44,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
   const [category, SetCategory] = React.useState("NO");
   const [batch, setBatch] = React.useState(1);
   const [refetching, setRefetching] = React.useState(false);
+  const [isDone, setIsDone] = React.useState(false);
 
   const _categories = useRecipeCategoriesQuery({
     fetchPolicy: "cache-first",
@@ -64,12 +65,11 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
   });
 
   const handleScroll = (nativeEvent: any) => {
-    if (!refetching && isCloseToBottom(nativeEvent)) {
+    if (!refetching && isCloseToBottom(nativeEvent) && !isDone) {
       setRefetching(true);
-      setBatch((curr) => curr + 1);
       _recipes
         .fetchMore({
-          variables: { batch: batch, cat_id: category, seed: SEED },
+          variables: { batch: batch + 1, cat_id: category, seed: SEED },
           updateQuery: (oldRecipes, { fetchMoreResult }) => {
             return {
               recipeByCategory: [
@@ -79,7 +79,13 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
             };
           },
         })
-        .then((_) => setRefetching(false));
+        .then((res) => {
+          if (res.data.recipeByCategory.length === 0) {
+            setIsDone(true);
+          }
+          setRefetching(false);
+          setBatch((curr) => curr + 1);
+        });
       //console.log("bottom reched !");
     }
   };
