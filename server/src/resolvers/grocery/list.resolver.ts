@@ -40,4 +40,27 @@ export class GroceryResolver {
 
     return mergeIngredients(ingredients);
   }
+
+  @UseMiddleware(isUserAuth)
+  @Query(() => Number)
+  async groceryCount(@Ctx() ctx: IContext): Promise<number> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return 0;
+
+    const meals = await MealRecipes.find({
+      where: { user: user, cooked: false },
+      relations: ["recipe", "recipe.ingredients"],
+    });
+    const ingredients: Ingredient[] = [];
+    const NOW = new Date();
+    for (let meal of meals) {
+      if (
+        new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString()
+      ) {
+        ingredients.push(...meal.recipe.ingredients);
+      }
+    }
+
+    return mergeIngredients(ingredients).length;
+  }
 }

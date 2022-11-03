@@ -39,6 +39,23 @@ let GroceryResolver = class GroceryResolver {
         }
         return (0, merge_1.mergeIngredients)(ingredients);
     }
+    async groceryCount(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return 0;
+        const meals = await Meals_1.MealRecipes.find({
+            where: { user: user, cooked: false },
+            relations: ["recipe", "recipe.ingredients"],
+        });
+        const ingredients = [];
+        const NOW = new Date();
+        for (let meal of meals) {
+            if (new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString()) {
+                ingredients.push(...meal.recipe.ingredients);
+            }
+        }
+        return (0, merge_1.mergeIngredients)(ingredients).length;
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
@@ -48,6 +65,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], GroceryResolver.prototype, "grocery", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => Number),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], GroceryResolver.prototype, "groceryCount", null);
 GroceryResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], GroceryResolver);
