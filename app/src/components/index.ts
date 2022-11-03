@@ -46,3 +46,4 @@ export * from "./NutritionPlan";
 export * from "./ReportRecipe";
 export * from "./IntroSlides";
 export * from "./GroceryPanel";
+export * from './GroceryItem';
