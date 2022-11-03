@@ -18,6 +18,7 @@ const Meals_1 = require("../../entity/Meals");
 const Ingredient_1 = require("../../entity/Recipe/Ingredient");
 const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const User_1 = require("../../entity/User");
+const merge_1 = require("../../utils/helpers/grocery/merge");
 let GroceryResolver = class GroceryResolver {
     async grocery(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -36,7 +37,7 @@ let GroceryResolver = class GroceryResolver {
                 ingredients.push(...meal.recipe.ingredients);
             }
         }
-        return ingredients;
+        return (0, merge_1.mergeIngredients)(ingredients);
     }
 };
 __decorate([

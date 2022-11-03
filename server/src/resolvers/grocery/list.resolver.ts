@@ -5,6 +5,7 @@ import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { GroceryListResponse } from "../../utils/responses/grocery";
 import { User } from "../../entity/User";
 import { IContext } from "src/utils/types/Context";
+import { mergeIngredients } from "../../utils/helpers/grocery/merge";
 
 @Resolver()
 export class GroceryResolver {
@@ -37,6 +38,6 @@ export class GroceryResolver {
       }
     }
 
-    return ingredients;
+    return mergeIngredients(ingredients);
   }
 }
