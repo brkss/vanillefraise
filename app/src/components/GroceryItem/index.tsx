@@ -1,20 +1,28 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export const GroceryItem: React.FC = () => {
+interface Props {
+  clicked: () => void;
+  scratched?: boolean;
+}
+
+export const GroceryItem: React.FC<Props> = ({ clicked, scratched }) => {
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={[styles.container, { opacity: scratched ? 0.3 : 1 }]}
+      onPress={clicked}
+    >
       <View style={styles.row}>
         <View>
-          <Text style={styles.title}>Garlic</Text>
-          <Text style={styles.product}>Ail semoule 55g - GAYA</Text>
+          <Text style={[styles.title, {textDecorationLine: scratched ? "line-through" :"none"}]}>Garlic</Text>
+          <Text style={[styles.product, {textDecorationLine: scratched ? "line-through" :"none"} ]}>Ail semoule 55g - GAYA</Text>
         </View>
         <View>
-          <Text style={styles.quantity}>100g</Text>
-          <Text style={styles.total}>28.6Dhs</Text>
+          <Text style={[styles.quantity, {textDecorationLine: scratched ? "line-through" :"none"} ]}>100g</Text>
+          <Text style={[styles.total, {textDecorationLine: scratched ? "line-through" :"none"} ]}>28.6Dhs</Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -47,6 +55,6 @@ const styles = StyleSheet.create({
   },
   total: {
     fontFamily: "AvNextBold",
-    color: '#434343'
+    color: "#434343",
   },
 });
