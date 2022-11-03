@@ -1,7 +1,0 @@
-query GetActivityCalories($id: String!){
-  getActivityCalories(cat: $id){
-    status
-    low
-    high
-  }
-}

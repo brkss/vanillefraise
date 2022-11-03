@@ -4,9 +4,18 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 interface Props {
   clicked: () => void;
   scratched?: boolean;
+  title: string;
+  amount: number;
+  unit: string;
 }
 
-export const GroceryItem: React.FC<Props> = ({ clicked, scratched }) => {
+export const GroceryItem: React.FC<Props> = ({
+  clicked,
+  scratched,
+  title,
+  unit,
+  amount,
+}) => {
   return (
     <Pressable
       style={[styles.container, { opacity: scratched ? 0.3 : 1 }]}
@@ -14,12 +23,40 @@ export const GroceryItem: React.FC<Props> = ({ clicked, scratched }) => {
     >
       <View style={styles.row}>
         <View>
-          <Text style={[styles.title, {textDecorationLine: scratched ? "line-through" :"none"}]}>Garlic</Text>
-          <Text style={[styles.product, {textDecorationLine: scratched ? "line-through" :"none"} ]}>Ail semoule 55g - GAYA</Text>
+          <Text
+            style={[
+              styles.title,
+              { textDecorationLine: scratched ? "line-through" : "none" },
+            ]}
+          >
+            {title}
+          </Text>
+          <Text
+            style={[
+              styles.product,
+              { textDecorationLine: scratched ? "line-through" : "none" },
+            ]}
+          >
+            Ail semoule 55g - GAYA
+          </Text>
         </View>
         <View>
-          <Text style={[styles.quantity, {textDecorationLine: scratched ? "line-through" :"none"} ]}>100g</Text>
-          <Text style={[styles.total, {textDecorationLine: scratched ? "line-through" :"none"} ]}>28.6Dhs</Text>
+          <Text
+            style={[
+              styles.quantity,
+              { textDecorationLine: scratched ? "line-through" : "none" },
+            ]}
+          >
+            {amount} {unit}
+          </Text>
+          <Text
+            style={[
+              styles.total,
+              { textDecorationLine: scratched ? "line-through" : "none" },
+            ]}
+          >
+            28.6Dhs
+          </Text>
         </View>
       </View>
     </Pressable>
@@ -52,9 +89,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#434343",
     fontFamily: "AvNextBold",
+    textAlign: "right",
   },
   total: {
     fontFamily: "AvNextBold",
     color: "#434343",
+    textAlign: "right",
   },
 });

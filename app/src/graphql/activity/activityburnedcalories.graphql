@@ -1,6 +1,0 @@
-query ActivitiesBurnedCaloriesData {
-  activitiesBurnedCaloriesData {
-		count
-    date
-  }
-}

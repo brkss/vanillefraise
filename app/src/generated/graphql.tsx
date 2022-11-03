@@ -37,13 +37,6 @@ export type ActivityCalories = {
   zone: Scalars['Float'];
 };
 
-export type ActivityCaloriesResponse = {
-  __typename?: 'ActivityCaloriesResponse';
-  high: Scalars['Float'];
-  low: Scalars['Float'];
-  status: Scalars['Boolean'];
-};
-
 export type ActivityCategory = {
   __typename?: 'ActivityCategory';
   activities: Array<Activity>;
@@ -53,12 +46,6 @@ export type ActivityCategory = {
   id: Scalars['String'];
   lowmet: Scalars['Float'];
   name: Scalars['String'];
-};
-
-export type ActivityDataResponse = {
-  __typename?: 'ActivityDataResponse';
-  count: Scalars['Float'];
-  date: Scalars['DateTime'];
 };
 
 export type AddMealRecipeInput = {
@@ -135,21 +122,6 @@ export type CookedRecipesResponse = {
   __typename?: 'CookedRecipesResponse';
   calories?: Maybe<Scalars['Float']>;
   message?: Maybe<Scalars['String']>;
-  status: Scalars['Boolean'];
-};
-
-export type CreateActivityInput = {
-  calories?: InputMaybe<Scalars['Float']>;
-  category: Scalars['String'];
-  duration: Scalars['String'];
-  feedback?: InputMaybe<Scalars['String']>;
-};
-
-export type CreateActivityResponse = {
-  __typename?: 'CreateActivityResponse';
-  activity?: Maybe<Activity>;
-  burnedCalories?: Maybe<Scalars['Float']>;
-  message: Scalars['String'];
   status: Scalars['Boolean'];
 };
 
@@ -464,7 +436,6 @@ export type Mutation = {
   configDiet: CreateDietConfigResponse;
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
-  createActivity: CreateActivityResponse;
   createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
   createRecipe: CreateRecipeResponse;
@@ -484,8 +455,6 @@ export type Mutation = {
   resendAccountVerification: DefaultResponse;
   resetPassword: AuthDefaultResponse;
   saveFoodFilters: Array<HealthLabelRefrence>;
-  seedActivityCalories: Scalars['Boolean'];
-  seedActivityCategories: Scalars['Boolean'];
   seedHealthLabelRefrence: Scalars['Boolean'];
   seedMeals: Scalars['Boolean'];
   seedMoodCategories: Scalars['Boolean'];
@@ -543,11 +512,6 @@ export type MutationCookedRecipeArgs = {
 
 export type MutationCookedRecipesArgs = {
   mealRecipesID: Array<Scalars['String']>;
-};
-
-
-export type MutationCreateActivityArgs = {
-  data: CreateActivityInput;
 };
 
 
@@ -698,20 +662,16 @@ export type NutritionOverviewResponse = {
 export type Query = {
   __typename?: 'Query';
   activeFoodFilters: Array<HealthLabelRefrence>;
-  activities: Array<Activity>;
-  activitiesBurnedCaloriesData: Array<ActivityDataResponse>;
-  activityCategories: Array<ActivityCategory>;
   adminCategories: Array<AdminCategoryResponse>;
   adminGetUsers: Array<AdminUserResponse>;
   adminRecipes: Array<AdminRecipesResponse>;
   categoryDetails?: Maybe<RecipeCategory>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
-  getActivityCalories: ActivityCaloriesResponse;
   getDietConfig: DietConfigResponse;
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
-  getUserBurnedCalories: Scalars['Float'];
+  grocery: Array<Ingredient>;
   healthLabels: Array<DietHealthLabelResponse>;
   helloAdmin: Scalars['String'];
   helloDietData: Scalars['String'];
@@ -758,11 +718,6 @@ export type QueryCategoryDetailsArgs = {
 
 export type QueryDaysWithRecipesArgs = {
   mealID: Scalars['String'];
-};
-
-
-export type QueryGetActivityCaloriesArgs = {
-  cat: Scalars['String'];
 };
 
 
@@ -1140,48 +1095,6 @@ export type VerifyResetPasswordTokenResponse = {
   user?: Maybe<User>;
 };
 
-export type ActivitiesBurnedCaloriesDataQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ActivitiesBurnedCaloriesDataQuery = { __typename?: 'Query', activitiesBurnedCaloriesData: Array<{ __typename?: 'ActivityDataResponse', count: number, date: any }> };
-
-export type GetActivityCaloriesQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-export type GetActivityCaloriesQuery = { __typename?: 'Query', getActivityCalories: { __typename?: 'ActivityCaloriesResponse', status: boolean, low: number, high: number } };
-
-export type ActivityCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ActivityCategoriesQuery = { __typename?: 'Query', activityCategories: Array<{ __typename?: 'ActivityCategory', id: string, name: string, icon?: string | null | undefined }> };
-
-export type CreateActivityMutationVariables = Exact<{
-  category: Scalars['String'];
-  duration: Scalars['String'];
-  feedback: Scalars['String'];
-  calories: Scalars['Float'];
-}>;
-
-
-export type CreateActivityMutation = { __typename?: 'Mutation', createActivity: { __typename?: 'CreateActivityResponse', status: boolean, message: string, burnedCalories?: number | null | undefined } };
-
-export type ActivitiesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ActivitiesQuery = { __typename?: 'Query', activities: Array<{ __typename?: 'Activity', id: string, duration: string, feedback?: string | null | undefined, calories?: number | null | undefined, created_at: any, category: { __typename?: 'ActivityCategory', name: string, icon?: string | null | undefined } }> };
-
-export type GetUserBurnedCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetUserBurnedCaloriesQuery = { __typename?: 'Query', getUserBurnedCalories: number };
-
-export type SeedActivityCategoriesMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SeedActivityCategoriesMutation = { __typename?: 'Mutation', seedActivityCategories: boolean };
-
 export type IsAccountVerifiedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1294,6 +1207,11 @@ export type RequestEarlyAccessMutationVariables = Exact<{
 
 
 export type RequestEarlyAccessMutation = { __typename?: 'Mutation', requestEarlyAccess: boolean };
+
+export type GroceryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GroceryQuery = { __typename?: 'Query', grocery: Array<{ __typename?: 'Ingredient', id: string, unit?: string | null | undefined, amount?: number | null | undefined, ingredients?: string | null | undefined }> };
 
 export type CheckCookedMealMutationVariables = Exact<{
   mealrecipesID: Array<Scalars['String']> | Scalars['String'];
@@ -1554,258 +1472,6 @@ export type UpdateUserInfoMutationVariables = Exact<{
 export type UpdateUserInfoMutation = { __typename?: 'Mutation', updateInfo: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
 
-export const ActivitiesBurnedCaloriesDataDocument = gql`
-    query ActivitiesBurnedCaloriesData {
-  activitiesBurnedCaloriesData {
-    count
-    date
-  }
-}
-    `;
-
-/**
- * __useActivitiesBurnedCaloriesDataQuery__
- *
- * To run a query within a React component, call `useActivitiesBurnedCaloriesDataQuery` and pass it any options that fit your needs.
- * When your component renders, `useActivitiesBurnedCaloriesDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useActivitiesBurnedCaloriesDataQuery({
- *   variables: {
- *   },
- * });
- */
-export function useActivitiesBurnedCaloriesDataQuery(baseOptions?: Apollo.QueryHookOptions<ActivitiesBurnedCaloriesDataQuery, ActivitiesBurnedCaloriesDataQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ActivitiesBurnedCaloriesDataQuery, ActivitiesBurnedCaloriesDataQueryVariables>(ActivitiesBurnedCaloriesDataDocument, options);
-      }
-export function useActivitiesBurnedCaloriesDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActivitiesBurnedCaloriesDataQuery, ActivitiesBurnedCaloriesDataQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ActivitiesBurnedCaloriesDataQuery, ActivitiesBurnedCaloriesDataQueryVariables>(ActivitiesBurnedCaloriesDataDocument, options);
-        }
-export type ActivitiesBurnedCaloriesDataQueryHookResult = ReturnType<typeof useActivitiesBurnedCaloriesDataQuery>;
-export type ActivitiesBurnedCaloriesDataLazyQueryHookResult = ReturnType<typeof useActivitiesBurnedCaloriesDataLazyQuery>;
-export type ActivitiesBurnedCaloriesDataQueryResult = Apollo.QueryResult<ActivitiesBurnedCaloriesDataQuery, ActivitiesBurnedCaloriesDataQueryVariables>;
-export const GetActivityCaloriesDocument = gql`
-    query GetActivityCalories($id: String!) {
-  getActivityCalories(cat: $id) {
-    status
-    low
-    high
-  }
-}
-    `;
-
-/**
- * __useGetActivityCaloriesQuery__
- *
- * To run a query within a React component, call `useGetActivityCaloriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetActivityCaloriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetActivityCaloriesQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetActivityCaloriesQuery(baseOptions: Apollo.QueryHookOptions<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>(GetActivityCaloriesDocument, options);
-      }
-export function useGetActivityCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>(GetActivityCaloriesDocument, options);
-        }
-export type GetActivityCaloriesQueryHookResult = ReturnType<typeof useGetActivityCaloriesQuery>;
-export type GetActivityCaloriesLazyQueryHookResult = ReturnType<typeof useGetActivityCaloriesLazyQuery>;
-export type GetActivityCaloriesQueryResult = Apollo.QueryResult<GetActivityCaloriesQuery, GetActivityCaloriesQueryVariables>;
-export const ActivityCategoriesDocument = gql`
-    query ActivityCategories {
-  activityCategories {
-    id
-    name
-    icon
-  }
-}
-    `;
-
-/**
- * __useActivityCategoriesQuery__
- *
- * To run a query within a React component, call `useActivityCategoriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useActivityCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useActivityCategoriesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useActivityCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>(ActivityCategoriesDocument, options);
-      }
-export function useActivityCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>(ActivityCategoriesDocument, options);
-        }
-export type ActivityCategoriesQueryHookResult = ReturnType<typeof useActivityCategoriesQuery>;
-export type ActivityCategoriesLazyQueryHookResult = ReturnType<typeof useActivityCategoriesLazyQuery>;
-export type ActivityCategoriesQueryResult = Apollo.QueryResult<ActivityCategoriesQuery, ActivityCategoriesQueryVariables>;
-export const CreateActivityDocument = gql`
-    mutation CreateActivity($category: String!, $duration: String!, $feedback: String!, $calories: Float!) {
-  createActivity(
-    data: {category: $category, duration: $duration, feedback: $feedback, calories: $calories}
-  ) {
-    status
-    message
-    burnedCalories
-  }
-}
-    `;
-export type CreateActivityMutationFn = Apollo.MutationFunction<CreateActivityMutation, CreateActivityMutationVariables>;
-
-/**
- * __useCreateActivityMutation__
- *
- * To run a mutation, you first call `useCreateActivityMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateActivityMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createActivityMutation, { data, loading, error }] = useCreateActivityMutation({
- *   variables: {
- *      category: // value for 'category'
- *      duration: // value for 'duration'
- *      feedback: // value for 'feedback'
- *      calories: // value for 'calories'
- *   },
- * });
- */
-export function useCreateActivityMutation(baseOptions?: Apollo.MutationHookOptions<CreateActivityMutation, CreateActivityMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateActivityMutation, CreateActivityMutationVariables>(CreateActivityDocument, options);
-      }
-export type CreateActivityMutationHookResult = ReturnType<typeof useCreateActivityMutation>;
-export type CreateActivityMutationResult = Apollo.MutationResult<CreateActivityMutation>;
-export type CreateActivityMutationOptions = Apollo.BaseMutationOptions<CreateActivityMutation, CreateActivityMutationVariables>;
-export const ActivitiesDocument = gql`
-    query Activities {
-  activities {
-    id
-    duration
-    feedback
-    calories
-    created_at
-    category {
-      name
-      icon
-    }
-  }
-}
-    `;
-
-/**
- * __useActivitiesQuery__
- *
- * To run a query within a React component, call `useActivitiesQuery` and pass it any options that fit your needs.
- * When your component renders, `useActivitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useActivitiesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useActivitiesQuery(baseOptions?: Apollo.QueryHookOptions<ActivitiesQuery, ActivitiesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ActivitiesQuery, ActivitiesQueryVariables>(ActivitiesDocument, options);
-      }
-export function useActivitiesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActivitiesQuery, ActivitiesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ActivitiesQuery, ActivitiesQueryVariables>(ActivitiesDocument, options);
-        }
-export type ActivitiesQueryHookResult = ReturnType<typeof useActivitiesQuery>;
-export type ActivitiesLazyQueryHookResult = ReturnType<typeof useActivitiesLazyQuery>;
-export type ActivitiesQueryResult = Apollo.QueryResult<ActivitiesQuery, ActivitiesQueryVariables>;
-export const GetUserBurnedCaloriesDocument = gql`
-    query GetUserBurnedCalories {
-  getUserBurnedCalories
-}
-    `;
-
-/**
- * __useGetUserBurnedCaloriesQuery__
- *
- * To run a query within a React component, call `useGetUserBurnedCaloriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserBurnedCaloriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUserBurnedCaloriesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetUserBurnedCaloriesQuery(baseOptions?: Apollo.QueryHookOptions<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>(GetUserBurnedCaloriesDocument, options);
-      }
-export function useGetUserBurnedCaloriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>(GetUserBurnedCaloriesDocument, options);
-        }
-export type GetUserBurnedCaloriesQueryHookResult = ReturnType<typeof useGetUserBurnedCaloriesQuery>;
-export type GetUserBurnedCaloriesLazyQueryHookResult = ReturnType<typeof useGetUserBurnedCaloriesLazyQuery>;
-export type GetUserBurnedCaloriesQueryResult = Apollo.QueryResult<GetUserBurnedCaloriesQuery, GetUserBurnedCaloriesQueryVariables>;
-export const SeedActivityCategoriesDocument = gql`
-    mutation SeedActivityCategories {
-  seedActivityCategories
-}
-    `;
-export type SeedActivityCategoriesMutationFn = Apollo.MutationFunction<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>;
-
-/**
- * __useSeedActivityCategoriesMutation__
- *
- * To run a mutation, you first call `useSeedActivityCategoriesMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSeedActivityCategoriesMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [seedActivityCategoriesMutation, { data, loading, error }] = useSeedActivityCategoriesMutation({
- *   variables: {
- *   },
- * });
- */
-export function useSeedActivityCategoriesMutation(baseOptions?: Apollo.MutationHookOptions<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>(SeedActivityCategoriesDocument, options);
-      }
-export type SeedActivityCategoriesMutationHookResult = ReturnType<typeof useSeedActivityCategoriesMutation>;
-export type SeedActivityCategoriesMutationResult = Apollo.MutationResult<SeedActivityCategoriesMutation>;
-export type SeedActivityCategoriesMutationOptions = Apollo.BaseMutationOptions<SeedActivityCategoriesMutation, SeedActivityCategoriesMutationVariables>;
 export const IsAccountVerifiedDocument = gql`
     query IsAccountVerified {
   isAccountVerified {
@@ -2414,6 +2080,43 @@ export function useRequestEarlyAccessMutation(baseOptions?: Apollo.MutationHookO
 export type RequestEarlyAccessMutationHookResult = ReturnType<typeof useRequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationResult = Apollo.MutationResult<RequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationOptions = Apollo.BaseMutationOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
+export const GroceryDocument = gql`
+    query Grocery {
+  grocery {
+    id
+    unit
+    amount
+    ingredients
+  }
+}
+    `;
+
+/**
+ * __useGroceryQuery__
+ *
+ * To run a query within a React component, call `useGroceryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroceryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroceryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGroceryQuery(baseOptions?: Apollo.QueryHookOptions<GroceryQuery, GroceryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GroceryQuery, GroceryQueryVariables>(GroceryDocument, options);
+      }
+export function useGroceryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GroceryQuery, GroceryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GroceryQuery, GroceryQueryVariables>(GroceryDocument, options);
+        }
+export type GroceryQueryHookResult = ReturnType<typeof useGroceryQuery>;
+export type GroceryLazyQueryHookResult = ReturnType<typeof useGroceryLazyQuery>;
+export type GroceryQueryResult = Apollo.QueryResult<GroceryQuery, GroceryQueryVariables>;
 export const CheckCookedMealDocument = gql`
     mutation CheckCookedMeal($mealrecipesID: [String!]!) {
   checkCookedMeal(mealRecipesID: $mealrecipesID) {
