@@ -37,15 +37,14 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 11,
     fontWeight: "400",
-	fontFamily: "AvNextBold"
+	  fontFamily: "AvNextBold"
   },
   title: {
-    color: "black",
     fontWeight: "bold",
     fontSize: 19,
-	fontFamily: "AvNextBold",
-	marginTop: 5,
-	color: "#434343"
+	  fontFamily: "AvNextBold",
+	  marginTop: 5,
+	  color: "#434343"
   },
   recipes: {
     color: "black",

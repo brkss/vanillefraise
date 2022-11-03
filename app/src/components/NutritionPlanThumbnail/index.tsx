@@ -13,10 +13,18 @@ interface Props {
   clicked: () => void;
 }
 
-export const NutritionPlanThumbnail: React.FC<Props> = ({ image, title, clicked }) => {
+export const NutritionPlanThumbnail: React.FC<Props> = ({
+  image,
+  title,
+  clicked,
+}) => {
   return (
     <Pressable onPress={() => clicked()} style={styles.container}>
-      <ImageBackground style={styles.image} source={{uri: image}}>
+      <ImageBackground
+        imageStyle={{ borderRadius: 20 }}
+        style={styles.image}
+        source={{ uri: image }}
+      >
         <View style={styles.shadow}></View>
         <Text style={styles.title}>{title}</Text>
       </ImageBackground>
@@ -26,12 +34,14 @@ export const NutritionPlanThumbnail: React.FC<Props> = ({ image, title, clicked 
 
 const styles = StyleSheet.create({
   container: {
-    ///
+    padding: 5,
+    borderRadius: 20,
   },
   image: {
     height: 170,
     width: "100%",
     justifyContent: "flex-end",
+    borderRadius: 20,
     //padding: 10,
   },
   shadow: {
@@ -41,6 +51,7 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "black",
     opacity: 0.2,
+    borderRadius: 20,
   },
   title: {
     margin: 10,

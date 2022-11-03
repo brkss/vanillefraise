@@ -102,6 +102,7 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
       (x) => x.id === cat_id
     );
     setBatch(1);
+    setIsDone(false);
     _recipes.refetch({ cat_id: category.id, batch: 1 });
     //SetRecipes(category!.recipes);
   };

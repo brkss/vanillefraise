@@ -14,6 +14,7 @@ import {
   NutritionIntakeDaily,
   RecomendedRecipes,
   EmailVerification,
+  GroceryOverviewPanel,
 } from "../../components";
 import { useIsAccountVerifiedQuery } from "../../generated/graphql";
 
@@ -52,7 +53,12 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             }
             showsVerticalScrollIndicator={false}
           >
-            {!data.isAccountVerified.status && <EmailVerification title={data.isAccountVerified.title} msg={data.isAccountVerified.message} />}
+            {!data.isAccountVerified.status && (
+              <EmailVerification
+                title={data.isAccountVerified.title}
+                msg={data.isAccountVerified.message}
+              />
+            )}
             <TopBar navigation={navigation} />
             <View style={{ height: 10 }} />
             <CaloriesOverview
@@ -61,6 +67,9 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             />
             <View style={{ height: 10 }} />
             <MealsOverview refreshing={refreshing} navigation={navigation} />
+            <GroceryOverviewPanel
+              view={() => navigation.navigate("GroceryList")}
+            />
             <View style={{ height: 10 }} />
             <RecomendedRecipes
               refreshing={refreshing}

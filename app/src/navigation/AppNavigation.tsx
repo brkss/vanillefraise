@@ -15,7 +15,8 @@ import {
   DietSettings,
   ExpandedInstruction,
   FoodFilters,
-  BatchCookingConfig
+  BatchCookingConfig,
+  GroceryList,
 } from "../screens";
 import { EmailVerification } from "../components";
 
@@ -49,8 +50,12 @@ export const AppNavigation: React.FC = () => {
             component={RecipesByNutritions}
           />
           <Screen name={"DietConfiguration"} component={DietConfiguration} />
-          <Screen name={'ExpandedInstruction'} component={ExpandedInstruction} />
-          <Screen name={'BatchCookingConfig'} component={BatchCookingConfig} />
+          <Screen
+            name={"ExpandedInstruction"}
+            component={ExpandedInstruction}
+          />
+          <Screen name={"BatchCookingConfig"} component={BatchCookingConfig} />
+          <Screen name={"GroceryList"} component={GroceryList} />
         </Group>
         <Group
           screenOptions={{

@@ -112,11 +112,11 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             cook={data.recipe.recipe?.cook || undefined}
             total={data.recipe.recipe?.total || undefined}
           />
-          <RecipeHealthLabel
+          {/*<RecipeHealthLabel
             labels={data.recipe.recipe.healthlabel.map((hl) =>
               hl.label.split("_").join(" ")
             )}
-          />
+          />*/}
           <RecipesTabs selectTab={(t) => setTab(t)} />
 
           {
@@ -145,7 +145,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               ),
             }[tab]
           }
-          <ReportRecipe  recipeId={data.recipe.recipe.id} />
+          <ReportRecipe recipeId={data.recipe.recipe.id} />
           <View style={{ height: 150 }} />
         </View>
       </ScrollView>
