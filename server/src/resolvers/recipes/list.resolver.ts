@@ -6,7 +6,7 @@ import { IContext } from "../../utils/types/Context";
 import { filterRecipes } from "../../utils/helpers/FilterRecipes";
 //import { checkFilter } from '../../utils/helpers/checkRecipeFilter';
 import { RecipeByCategoryInput } from "../../utils/inputs/recipes";
-import { random } from "../../utils/helpers/random";
+//import { random } from "../../utils/helpers/random";
 
 @Resolver()
 export class RecipesListResolver {
@@ -53,9 +53,11 @@ export class RecipesListResolver {
       const recipes = category.recipes.filter((r) => r.public === true);
       const results = await filterRecipes(recipes, user);
       console.log("get recipes ! ");
-      return results
-        .sort((_) => random(data.seed) - 0.5)
-        .slice(step * data.batch - step, step * data.batch);
+      return (
+        results
+          //.sort((_) => random(data.seed) - 0.5)
+          .slice(step * data.batch - step, step * data.batch)
+      );
     } catch (e) {
       console.log("Sonething went wrong : ", e);
       return [];

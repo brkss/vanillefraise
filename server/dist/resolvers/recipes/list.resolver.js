@@ -19,7 +19,6 @@ const middlewares_1 = require("../../utils/middlewares");
 const User_1 = require("../../entity/User");
 const FilterRecipes_1 = require("../../utils/helpers/FilterRecipes");
 const recipes_1 = require("../../utils/inputs/recipes");
-const random_1 = require("../../utils/helpers/random");
 let RecipesListResolver = class RecipesListResolver {
     async recipes() {
         return await Recipe_1.Recipe.find({ where: { public: true } });
@@ -49,9 +48,8 @@ let RecipesListResolver = class RecipesListResolver {
             const recipes = category.recipes.filter((r) => r.public === true);
             const results = await (0, FilterRecipes_1.filterRecipes)(recipes, user);
             console.log("get recipes ! ");
-            return results
-                .sort((_) => (0, random_1.random)(data.seed) - 0.5)
-                .slice(step * data.batch - step, step * data.batch);
+            return (results
+                .slice(step * data.batch - step, step * data.batch));
         }
         catch (e) {
             console.log("Sonething went wrong : ", e);
