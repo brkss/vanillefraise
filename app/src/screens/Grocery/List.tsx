@@ -13,11 +13,12 @@ export const GroceryList: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20
+    padding: 10,
+    paddingTop: 25,
   },
   title: {
     fontFamily: "AvNextBold",
-    fontSize: 19,
+    fontSize: 30,
     fontWeight: "bold",
   },
 });
