@@ -672,6 +672,7 @@ export type Query = {
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
   grocery: Array<Ingredient>;
+  groceryCount: Scalars['Float'];
   healthLabels: Array<DietHealthLabelResponse>;
   helloAdmin: Scalars['String'];
   helloDietData: Scalars['String'];
@@ -1207,6 +1208,11 @@ export type RequestEarlyAccessMutationVariables = Exact<{
 
 
 export type RequestEarlyAccessMutation = { __typename?: 'Mutation', requestEarlyAccess: boolean };
+
+export type GroceryCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GroceryCountQuery = { __typename?: 'Query', groceryCount: number };
 
 export type GroceryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2080,6 +2086,38 @@ export function useRequestEarlyAccessMutation(baseOptions?: Apollo.MutationHookO
 export type RequestEarlyAccessMutationHookResult = ReturnType<typeof useRequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationResult = Apollo.MutationResult<RequestEarlyAccessMutation>;
 export type RequestEarlyAccessMutationOptions = Apollo.BaseMutationOptions<RequestEarlyAccessMutation, RequestEarlyAccessMutationVariables>;
+export const GroceryCountDocument = gql`
+    query GroceryCount {
+  groceryCount
+}
+    `;
+
+/**
+ * __useGroceryCountQuery__
+ *
+ * To run a query within a React component, call `useGroceryCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroceryCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroceryCountQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGroceryCountQuery(baseOptions?: Apollo.QueryHookOptions<GroceryCountQuery, GroceryCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GroceryCountQuery, GroceryCountQueryVariables>(GroceryCountDocument, options);
+      }
+export function useGroceryCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GroceryCountQuery, GroceryCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GroceryCountQuery, GroceryCountQueryVariables>(GroceryCountDocument, options);
+        }
+export type GroceryCountQueryHookResult = ReturnType<typeof useGroceryCountQuery>;
+export type GroceryCountLazyQueryHookResult = ReturnType<typeof useGroceryCountLazyQuery>;
+export type GroceryCountQueryResult = Apollo.QueryResult<GroceryCountQuery, GroceryCountQueryVariables>;
 export const GroceryDocument = gql`
     query Grocery {
   grocery {
