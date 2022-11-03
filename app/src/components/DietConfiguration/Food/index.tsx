@@ -67,7 +67,7 @@ export const ConfigureDietFood: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Enjoy what you're eating</Text>
-      <Text style={styles.subtitle}>alergies and dislikes</Text>
+      <Text style={styles.subtitle}>select allergies and dislikes !</Text>
       <Text style={[styles.hint, { display: "none" }]}>
         setup filters for recipes, note that filters may affect your recipes
         choises !
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontFamily: "AvNextBold",
     //textAlign: "center",
+    marginTop: 3,
   },
   items: {
     flex: 1,

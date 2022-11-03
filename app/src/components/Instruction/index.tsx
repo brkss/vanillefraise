@@ -14,6 +14,7 @@ interface Props {
 }
 
 export const Instructions: React.FC<Props> = ({ instructions }) => {
+  const [fetching, setFetching] = React.useState(false);
   const [translated, setTranslated] = React.useState<IInstruction[]>([]);
   const [cache, setCache] = React.useState<{ [key: string]: IInstruction[] }>(
     {}
@@ -28,10 +29,12 @@ export const Instructions: React.FC<Props> = ({ instructions }) => {
       setTranslated(cache[lang]);
       return;
     }
+    setFetching(true);
     const res = await translate_instructions(
       lang,
       instructions.map((ins) => ({ txt: ins.raw, index: ins.index }))
     );
+    setFetching(false);
     setCache({ ...cache, [lang]: res });
     setTranslated(res);
   };
@@ -40,6 +43,7 @@ export const Instructions: React.FC<Props> = ({ instructions }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Instructions</Text>
       <LanguagePicker langChange={(lang) => handleLanguageChange(lang)} />
+      {fetching && <Text style={styles.hint}>translating...</Text>}
       {translated.length === 0
         ? instructions.map((instruction, key) => (
             <Item index={instruction.index} txt={instruction.raw} key={key} />
@@ -59,5 +63,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 15,
     fontWeight: "bold",
+  },
+  hint: {
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
+    marginBottom: 20,
   },
 });

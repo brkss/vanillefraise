@@ -3,10 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { IngredientItem } from "./Item";
 import { RecipeServing } from "./Servings";
 import { TranslatedIngredient } from "../../generated/graphql";
-import { scaleRecipe } from "../../utils/modules/scale_recipe";
+import { scaleRecipe, scale } from "../../utils/modules/scale_recipe";
 import { LanguagePicker } from "../General";
 import { translate_ingredients } from "../../utils/modules/translate";
-import SkeletonLoader from "expo-skeleton-loader";
 
 interface Props {
   ingredients: TranslatedIngredient[];
@@ -71,15 +70,17 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
               unit={ing.unit}
             />
           ))
-        : translated.map((ing, key) => (
-            <IngredientItem
-              originUnit={ing.unit}
-              key={key}
-              txt={ing.txt}
-              amount={ing.amount.toString()}
-              unit={ing.unit}
-            />
-          ))}
+        : translated
+            .map((ing) => ({ ...ing, amount: (ing.amount * scale) / servings }))
+            .map((ing, key) => (
+              <IngredientItem
+                originUnit={ing.unit}
+                key={key}
+                txt={ing.txt}
+                amount={ing.amount.toString()}
+                unit={ing.unit}
+              />
+            ))}
     </View>
   );
 };

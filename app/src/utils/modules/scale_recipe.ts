@@ -1,6 +1,6 @@
 import { TranslatedIngredient } from "../../generated/graphql";
 
-const scale = (amount: number, target: number, serving: number): number => {
+export const scale = (amount: number, target: number, serving: number): number => {
   console.log("scale to this =>> ", (amount * target) / serving);
   return (amount * target) / serving;
 };
