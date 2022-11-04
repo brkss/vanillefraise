@@ -18,11 +18,11 @@ export const GroceryItem: React.FC<Props> = ({
 }) => {
   return (
     <Pressable
-      style={[styles.container, { opacity: scratched ? 0.3 : 1 }]}
+      style={[styles.container, { opacity: scratched ? 0.5 : 1 }]}
       onPress={clicked}
     >
       <View style={styles.row}>
-        <View>
+        <View style={{ justifyContent: "center" }}>
           <Text
             style={[
               styles.title,
@@ -40,14 +40,14 @@ export const GroceryItem: React.FC<Props> = ({
             _
           </Text>
         </View>
-        <View>
+        <View style={{ justifyContent: "center" }}>
           <Text
             style={[
               styles.quantity,
               { textDecorationLine: scratched ? "line-through" : "none" },
             ]}
           >
-            {amount} {unit}
+            {amount === 0 ? "" : amount} {unit}
           </Text>
           <Text
             style={[
@@ -67,12 +67,13 @@ const styles = StyleSheet.create({
   container: {
     padding: 15,
     backgroundColor: "#ECE8E8",
-    marginBottom: 10,
+    marginBottom: 15,
     borderRadius: 15,
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingTop: 7,
   },
   title: {
     fontSize: 21,
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
   product: {
+    display: "none",
     fontFamily: "AvNextBold",
     color: "#434343",
   },
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   total: {
+    display: "none",
     fontFamily: "AvNextBold",
     color: "#434343",
     textAlign: "right",
