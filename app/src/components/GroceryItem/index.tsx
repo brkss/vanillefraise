@@ -37,7 +37,7 @@ export const GroceryItem: React.FC<Props> = ({
               { textDecorationLine: scratched ? "line-through" : "none" },
             ]}
           >
-            Ail semoule 55g - GAYA
+            _
           </Text>
         </View>
         <View>
@@ -55,7 +55,7 @@ export const GroceryItem: React.FC<Props> = ({
               { textDecorationLine: scratched ? "line-through" : "none" },
             ]}
           >
-            28.6Dhs
+            _
           </Text>
         </View>
       </View>

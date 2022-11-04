@@ -9,7 +9,7 @@ export const RESET_PASSWORD_URL =
 
 export const URI = "http://10.1.51.244:4000";
 export const CDN = "http://10.1.51.244:4000/images";
+export const TRANSLATE_URI: string = "http://10.1.51.244:3040";
 
 export const twitter: string = "https://twitter.com/owvanillefraise";
 export const instagram: string = "https://instagram.com/vanilleetfraise";
-export const TRANSLATE_URI : string = "http://localhost:3040"

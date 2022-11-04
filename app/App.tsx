@@ -88,7 +88,6 @@ export default function App() {
     (async () => {
       const state = await Network.getNetworkStateAsync();
       setIsConnected(state.isConnected);
-      await translate_ingredients();
     })();
   });
 
@@ -112,7 +111,7 @@ export default function App() {
 
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      {!isConnected && false ? (
+      {!isConnected ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>

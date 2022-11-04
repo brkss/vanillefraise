@@ -1,25 +1,33 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import { useGroceryCountQuery } from "../../generated/graphql";
+import { Loading } from "../General";
 
 interface Props {
   view: () => void;
 }
 
 export const GroceryOverviewPanel: React.FC<Props> = ({ view }) => {
+  const { data, loading, error } = useGroceryCountQuery();
+
+  if (loading || error) {
+    return <Loading />;
+  }
+
   return (
     <Pressable style={styles.container} onPress={view}>
       <View style={styles.row}>
         <View style={{ flexDirection: "row" }}>
           <View style={styles.circle}>
-            <Text style={styles.circleText}>0</Text>
+            <Text style={styles.circleText}>{data.groceryCount || 0}</Text>
           </View>
           <View style={styles.info}>
             <Text style={styles.title}>Grocery List</Text>
-            <Text style={styles.date}>20-27 oct 2022</Text>
+            <Text style={styles.date}>next 7 days</Text>
           </View>
         </View>
         <View style={styles.price}>
-          <Text style={styles.total}>120.8 Dhs</Text>
+          <Text style={styles.total}>_</Text>
         </View>
       </View>
     </Pressable>
@@ -67,7 +75,7 @@ const styles = StyleSheet.create({
   date: {
     opacity: 0.8,
     fontSize: 14,
-    display: "none",
+    //display: "none",
   },
   price: {
     alignSelf: "flex-end",
