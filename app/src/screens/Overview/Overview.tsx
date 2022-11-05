@@ -68,6 +68,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
             <View style={{ height: 10 }} />
             <MealsOverview refreshing={refreshing} navigation={navigation} />
             <GroceryOverviewPanel
+              refreshing={refreshing}
               view={() => navigation.navigate("GroceryList")}
             />
             <View style={{ height: 10 }} />

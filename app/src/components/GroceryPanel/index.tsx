@@ -5,10 +5,18 @@ import { Loading } from "../General";
 
 interface Props {
   view: () => void;
+  refreshing: boolean;
 }
 
-export const GroceryOverviewPanel: React.FC<Props> = ({ view }) => {
-  const { data, loading, error } = useGroceryCountQuery();
+export const GroceryOverviewPanel: React.FC<Props> = ({ view, refreshing }) => {
+  const { data, loading, error, refetch } = useGroceryCountQuery();
+
+  React.useEffect(() => {
+    if (refreshing) {
+      console.log("refetching !");
+      refetch();
+    }
+  }, [refreshing]);
 
   if (loading || error) {
     return <Loading />;

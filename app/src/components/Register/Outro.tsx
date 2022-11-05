@@ -14,7 +14,7 @@ export const RegisterOutro: React.FC<Props> = ({ pass }) => {
         <Text style={[styles.info, { marginBottom: 20 }]}>
           Everything's set.
         </Text>
-        <Text style={styles.info}>Thank You For Eating Healthy!</Text>
+        <Text style={styles.info}>Enjoy Eating Healthy!</Text>
       </View>
       <Button txt={"SAVE"} clicked={() => pass()} />
     </View>

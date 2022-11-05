@@ -1,7 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 //import { SafeAreaView } from "react-native-safe-area-context";
-import { GroceryItem, Loading, LanguagePicker } from "../../components";
+import {
+  GroceryItem,
+  Loading,
+  LanguagePicker,
+  EmptyGroceryList,
+} from "../../components";
 import { useGroceryQuery } from "../../generated/graphql";
 import { translate_ingredients } from "../../utils/modules/translate";
 
@@ -11,7 +16,7 @@ interface IIngredient {
   amount: number;
 }
 
-export const GroceryList: React.FC = () => {
+export const GroceryList: React.FC<any> = ({ navigation }) => {
   const [scratched, setScratched] = React.useState<string[]>([]);
   const { data, loading, error } = useGroceryQuery();
   const [translated, setTranslated] = React.useState<IIngredient[]>([]);
@@ -65,7 +70,9 @@ export const GroceryList: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Grocery List</Text>
 
-      <LanguagePicker langChange={(l) => handleLangChange(l)} />
+      {data.grocery.length > 0 && (
+        <LanguagePicker langChange={(l) => handleLangChange(l)} />
+      )}
       {transling && (
         <Text
           style={{
@@ -78,28 +85,33 @@ export const GroceryList: React.FC = () => {
           please wait ...
         </Text>
       )}
+      {data.grocery.length == 0 ? (
+        <EmptyGroceryList
+          navigateToRecipes={() => navigation.navigate("Recipes")}
+        />
+      ) : null}
       <ScrollView>
-        {translated.length === 0 ? data.grocery.map((item, key) => (
-          <GroceryItem
-            key={key}
-            clicked={() => handleScratchItem(item.id)}
-            scratched={isScratched(item.id)}
-            unit={item.unit}
-            amount={item.amount}
-            title={item.ingredients}
-          />
-            )): 
-          translated.map((item, key) => (
-        <GroceryItem
-            key={key}
-            clicked={() => handleScratchItem(data.grocery[key].id)}
-            scratched={isScratched(data.grocery[key].id)}
-            unit={item.unit}
-            amount={item.amount}
-            title={item.txt}
-          />
+        {translated.length === 0
+          ? data.grocery.map((item, key) => (
+              <GroceryItem
+                key={key}
+                clicked={() => handleScratchItem(item.id)}
+                scratched={isScratched(item.id)}
+                unit={item.unit}
+                amount={item.amount}
+                title={item.ingredients}
+              />
             ))
-          }
+          : translated.map((item, key) => (
+              <GroceryItem
+                key={key}
+                clicked={() => handleScratchItem(data.grocery[key].id)}
+                scratched={isScratched(data.grocery[key].id)}
+                unit={item.unit}
+                amount={item.amount}
+                title={item.txt}
+              />
+            ))}
       </ScrollView>
     </View>
   );
