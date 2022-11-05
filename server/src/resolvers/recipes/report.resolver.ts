@@ -25,7 +25,7 @@ export class ReportRecipeResolver {
     if (alreadyReported)
       return {
         status: false,
-        message: "Thank you, you already reported this recipe !",
+        message: "You already reported this recipe !",
       };
     const report = new RecipeReport();
     report.recipe = recipe;

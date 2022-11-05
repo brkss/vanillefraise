@@ -49,8 +49,10 @@ let GroceryResolver = class GroceryResolver {
         });
         const ingredients = [];
         const NOW = new Date();
+        const LAST = new Date().setDate(new Date().getDate() + 3);
         for (let meal of meals) {
-            if (new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString()) {
+            if (new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString() &&
+                new Date(meal.date) <= new Date(LAST)) {
                 ingredients.push(...meal.recipe.ingredients);
             }
         }

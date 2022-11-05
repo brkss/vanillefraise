@@ -2,7 +2,7 @@ import { Resolver, Query, UseMiddleware, Ctx } from "type-graphql";
 import { MealRecipes } from "../../entity/Meals";
 import { Ingredient } from "../../entity/Recipe/Ingredient";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
-import { GroceryListResponse } from "../../utils/responses/grocery";
+//import { GroceryListResponse } from "../../utils/responses/grocery";
 import { User } from "../../entity/User";
 import { IContext } from "src/utils/types/Context";
 import { mergeIngredients } from "../../utils/helpers/grocery/merge";
@@ -53,9 +53,11 @@ export class GroceryResolver {
     });
     const ingredients: Ingredient[] = [];
     const NOW = new Date();
+    const LAST = new Date().setDate(new Date().getDate() + 3);
     for (let meal of meals) {
       if (
-        new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString()
+        new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString() &&
+        new Date(meal.date) <= new Date(LAST)
       ) {
         ingredients.push(...meal.recipe.ingredients);
       }

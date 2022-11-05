@@ -32,7 +32,7 @@ let ReportRecipeResolver = class ReportRecipeResolver {
         if (alreadyReported)
             return {
                 status: false,
-                message: "Thank you, you already reported this recipe !",
+                message: "You already reported this recipe !",
             };
         const report = new Recipe_1.RecipeReport();
         report.recipe = recipe;
