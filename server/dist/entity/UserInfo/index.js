@@ -16,4 +16,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./SpecialCondition"), exports);
 __exportStar(require("./CookedRecipe"), exports);
+__exportStar(require("./ResetPassword"), exports);
 //# sourceMappingURL=index.js.map

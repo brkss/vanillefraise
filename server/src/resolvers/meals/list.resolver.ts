@@ -11,6 +11,7 @@ import {
 import { User } from "../../entity/User";
 import { Like, getRepository } from "typeorm";
 import { DefaultResponse } from "src/utils/responses";
+import { mergeIngredients } from "../../utils/helpers/grocery/merge";
 
 @Resolver()
 export class ListMealsResolver {
@@ -122,7 +123,7 @@ export class ListMealsResolver {
       message: `DATE : ${data.date.toLocaleDateString()}`,
       mealrecipes: mr,
       recipes: recipes,
-      ingredients: ingredients,
+      ingredients: mergeIngredients(ingredients),
       time: total,
       calories: cal,
       cooked: cooked.status,

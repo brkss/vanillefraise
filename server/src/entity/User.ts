@@ -18,7 +18,7 @@ import { Activity } from "./Activity";
 import { EarlyAccessRequest } from "./UserInfo/EarlyAccess";
 import { MealRecipes } from "./Meals/MealRecipes";
 import { DietFoodFilter, MacrosConfig, DietRecord } from "./Diet";
-import {RecipeReport} from "./Recipe";
+import { RecipeReport } from "./Recipe";
 
 @ObjectType()
 @Entity("users")
@@ -132,7 +132,6 @@ export class User extends BaseEntity {
   dietRecords: DietRecord[];
 
   @Field(() => RecipeReport)
-  @OneToMany(() => RecipeReport, report => report.user)
+  @OneToMany(() => RecipeReport, (report) => report.user)
   reportedrecipes: RecipeReport[];
-
 }

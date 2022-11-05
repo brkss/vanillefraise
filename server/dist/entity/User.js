@@ -149,7 +149,7 @@ __decorate([
 ], User.prototype, "dietRecords", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Recipe_1.RecipeReport),
-    (0, typeorm_1.OneToMany)(() => Recipe_1.RecipeReport, report => report.user),
+    (0, typeorm_1.OneToMany)(() => Recipe_1.RecipeReport, (report) => report.user),
     __metadata("design:type", Array)
 ], User.prototype, "reportedrecipes", void 0);
 User = __decorate([

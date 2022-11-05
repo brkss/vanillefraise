@@ -20,6 +20,7 @@ const meals_1 = require("../../utils/inputs/meals");
 const meals_2 = require("../../utils/responses/meals");
 const User_1 = require("../../entity/User");
 const typeorm_1 = require("typeorm");
+const merge_1 = require("../../utils/helpers/grocery/merge");
 let ListMealsResolver = class ListMealsResolver {
     async meals(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -110,7 +111,7 @@ let ListMealsResolver = class ListMealsResolver {
             message: `DATE : ${data.date.toLocaleDateString()}`,
             mealrecipes: mr,
             recipes: recipes,
-            ingredients: ingredients,
+            ingredients: (0, merge_1.mergeIngredients)(ingredients),
             time: total,
             calories: cal,
             cooked: cooked.status,
