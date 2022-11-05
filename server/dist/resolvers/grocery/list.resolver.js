@@ -31,8 +31,10 @@ let GroceryResolver = class GroceryResolver {
         });
         const ingredients = [];
         const NOW = new Date();
+        const LAST = new Date().setDate(new Date().getDate() + 7);
         for (let meal of meals) {
-            if (new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString()) {
+            if (new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString() &&
+                new Date(meal.date) <= new Date(LAST)) {
                 console.log("ingredients: ", meal.recipe.ingredients);
                 ingredients.push(...meal.recipe.ingredients);
             }
@@ -49,7 +51,7 @@ let GroceryResolver = class GroceryResolver {
         });
         const ingredients = [];
         const NOW = new Date();
-        const LAST = new Date().setDate(new Date().getDate() + 3);
+        const LAST = new Date().setDate(new Date().getDate() + 7);
         for (let meal of meals) {
             if (new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString() &&
                 new Date(meal.date) <= new Date(LAST)) {

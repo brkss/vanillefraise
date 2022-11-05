@@ -29,9 +29,11 @@ export class GroceryResolver {
     //const filred_meals : MealRecipes[] = [];
     const ingredients: Ingredient[] = [];
     const NOW = new Date();
+    const LAST = new Date().setDate(new Date().getDate() + 7);
     for (let meal of meals) {
       if (
-        new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString()
+        new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString() &&
+        new Date(meal.date) <= new Date(LAST)
       ) {
         console.log("ingredients: ", meal.recipe.ingredients);
         ingredients.push(...meal.recipe.ingredients);
@@ -46,14 +48,13 @@ export class GroceryResolver {
   async groceryCount(@Ctx() ctx: IContext): Promise<number> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return 0;
-
     const meals = await MealRecipes.find({
       where: { user: user, cooked: false },
       relations: ["recipe", "recipe.ingredients"],
     });
     const ingredients: Ingredient[] = [];
     const NOW = new Date();
-    const LAST = new Date().setDate(new Date().getDate() + 3);
+    const LAST = new Date().setDate(new Date().getDate() + 7);
     for (let meal of meals) {
       if (
         new Date(meal.date).toLocaleDateString() >= NOW.toLocaleDateString() &&
