@@ -56,7 +56,7 @@ export const Settings: React.FC<any> = ({ navigation }) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.profile}>
             <View style={styles.profilePic}>
-              <Text style={styles.ppText}>{choosePp()}</Text>
+              <Text style={styles.ppText}>{data.me.name[0].toUpperCase()}</Text>
             </View>
             <Text style={styles.name}> {data.me.name} </Text>
             <Text style={styles.username}>@{data.me.username}</Text>
@@ -117,6 +117,9 @@ const styles = StyleSheet.create({
   },
   ppText: {
     fontSize: 40,
+    fontWeight: "bold",
+    fontFamily: "AvNextBold",
+    marginBottom: -15,
   },
   name: {
     marginTop: 10,

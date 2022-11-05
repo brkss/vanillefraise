@@ -23,15 +23,15 @@ export const MarkAsFinished: React.FC<Props> = ({ marked, mark }) => {
         color={"white"}
         size={16}
     />*/}
-      <Text style={styles.txt}>{marked ? "COOKED" : "MARK AS COOKED"}</Text>
+      <Text style={styles.txt}>{marked ? "COOKED" : "I ate this"}</Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    paddingHorizontal: 15,
+    padding: 7,
+    //paddingHorizontal: 10,
     backgroundColor: "#434343",
     borderRadius: 15,
     marginBottom: 3,

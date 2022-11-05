@@ -24,6 +24,10 @@ interface MarkedDate {
   date: string;
 }
 
+const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 export const Meal: React.FC<any> = ({ route, navigation }) => {
   //const [iscooked, setIscooked] = React.useState(false);
   const [cooked] = useCookedRecipesMutation();
@@ -44,7 +48,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
     variables: {
       mealID: mealID,
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     onCompleted: (res) => {
       if (res.daysWithRecipes.status) {
         setMarkedDates(generateMarkedDates(res.daysWithRecipes.markedDates));
@@ -135,63 +139,72 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
           </View>
         </View>
         <View style={{ height: 10 }} />
-        <View style={styles.row}>
-          <Text style={styles.calories}>
-            {loading || error ? "-" : data.getMealRecipes.calories} Cal
-          </Text>
-          <Text style={styles.time}>
-            ⏲ {loading || error ? "-" : data.getMealRecipes.time} min
-          </Text>
-        </View>
-        <View style={{ height: 10 }} />
-        {_daysWithMeals.loading || _daysWithMeals.error ? (
-          <Loading />
-        ) : (
-          <CalendarStrip
-            selectedDate={date}
-            scrollable
-            calendarAnimation={{ type: "sequence", duration: 30 }}
-            daySelectionAnimation={{
-              type: "background",
-              duration: 300,
-              highlightColor: "#9265DC",
+        <ScrollView
+          style={{ flex: 1, marginBottom: 0 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.row}>
+            <Text style={styles.calories}>
+              {loading || error ? "-" : data.getMealRecipes.calories} Cal
+            </Text>
+            <Text style={styles.time}>
+              ⏲ {loading || error ? "-" : data.getMealRecipes.time} min
+            </Text>
+          </View>
+          <View
+            style={{
+              marginVertical: 20,
+              borderTopColor: "#E5E2E2",
+              borderTopWidth: 1,
             }}
-            style={{ height: 90, paddingTop: 0, paddingBottom: 0 }}
-            calendarHeaderStyle={{ color: "black" }}
-            markedDates={markedDates}
-            dateNumberStyle={{ color: "black" }}
-            dateNameStyle={{ color: "black" }}
-            iconContainer={{ flex: 0.1 }}
-            highlightDateNameStyle={{ color: "white" }}
-            highlightDateNumberStyle={{ color: "white" }}
-            highlightDateContainerStyle={{ backgroundColor: "black" }}
-            onDateSelected={(d) => {
-              setDate(d.toDate());
-              refetch({ date: date.toString(), meal: mealID });
-            }}
-            useIsoWeekday={false}
           />
-        )}
-        {loading || error ? (
-          <Loading />
-        ) : data.getMealRecipes.mealrecipes.length === 0 ? (
-          <NoSelectedRecipes
-            selectRecipes={() => navigation.navigate("Recipes")}
-          />
-        ) : (
-          <ScrollView
-            style={{ flex: 1, marginBottom: 0 }}
-            showsVerticalScrollIndicator={false}
-          >
-            <MealRecipes
-              mealids={data.getMealRecipes.mealrecipes || []}
-              navigation={navigation}
-              recipes={data.getMealRecipes.recipes}
-              removedRecipe={() => refetch()}
+
+          {_daysWithMeals.loading || _daysWithMeals.error ? (
+            <Loading />
+          ) : (
+            <CalendarStrip
+              selectedDate={date}
+              scrollable
+              calendarAnimation={{ type: "sequence", duration: 30 }}
+              daySelectionAnimation={{
+                type: "background",
+                duration: 300,
+                highlightColor: "#9265DC",
+              }}
+              style={{ height: 90, paddingTop: 0, paddingBottom: 0 }}
+              calendarHeaderStyle={{ color: "black" }}
+              markedDates={markedDates}
+              dateNumberStyle={{ color: "black" }}
+              dateNameStyle={{ color: "black" }}
+              iconContainer={{ flex: 0.1 }}
+              highlightDateNameStyle={{ color: "white" }}
+              highlightDateNumberStyle={{ color: "white" }}
+              highlightDateContainerStyle={{ backgroundColor: "black" }}
+              onDateSelected={(d) => {
+                setDate(d.toDate());
+                refetch({ date: date.toString(), meal: mealID });
+              }}
+              useIsoWeekday={false}
             />
-            <MealGrocery ingredients={data.getMealRecipes.ingredients} />
-          </ScrollView>
-        )}
+          )}
+          {loading || error ? (
+            <Loading />
+          ) : data.getMealRecipes.mealrecipes.length === 0 ? (
+            <NoSelectedRecipes
+              selectRecipes={() => navigation.navigate("Recipes")}
+            />
+          ) : (
+            <>
+              <MealRecipes
+                mealids={data.getMealRecipes.mealrecipes || []}
+                navigation={navigation}
+                recipes={data.getMealRecipes.recipes}
+                removedRecipe={() => refetch()}
+              />
+              <MealGrocery ingredients={data.getMealRecipes.ingredients} />
+            </>
+          )}
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
