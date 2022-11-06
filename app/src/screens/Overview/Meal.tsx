@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, View, StyleSheet, Text } from "react-native";
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+  RefreshControl,
+} from "react-native";
 import { useFonts } from "expo-font";
 import {
   MarkAsFinished,
@@ -36,6 +42,7 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
   const [date, setDate] = React.useState(new Date());
   const [isLoading, SetIsLoading] = React.useState(false);
   const [isCooked, setIsCooked] = React.useState<boolean>(false);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const getMealRecipesIds = (): string[] => {
     let mr: string[] = [];
@@ -122,6 +129,14 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
     //console.log("meal recipes ids: ", mr);
   };
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    wait(2000).then((_) => {
+      setRefreshing(false);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       {isLoading && <SmoothLoading text={"Marking.."} />}
@@ -140,6 +155,9 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
         </View>
         <View style={{ height: 10 }} />
         <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
           style={{ flex: 1, marginBottom: 0 }}
           showsVerticalScrollIndicator={false}
         >

@@ -111,7 +111,7 @@ export default function App() {
 
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      {isConnected ? (
+      {!isConnected ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>

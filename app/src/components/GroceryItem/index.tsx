@@ -88,10 +88,11 @@ const styles = StyleSheet.create({
   },
   quantity: {
     marginBottom: 5,
-    fontSize: 17,
+    fontSize: 15,
     color: "#434343",
     fontFamily: "AvNextBold",
     textAlign: "right",
+    opacity: 0.8,
   },
   total: {
     display: "none",
