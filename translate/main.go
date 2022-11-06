@@ -59,7 +59,12 @@ func HandleTranslateIngredient(w http.ResponseWriter, r *http.Request) {
 
 	for _, ing := range req.Ingredients {
 		txtT, _ := gt.Translate(ing.Txt, "en", req.Target)
-		translated = append(translated, Ingredient{Txt: txtT, Amount: ing.Amount, Unit: ing.Unit})
+
+		unitT := ing.Unit
+		if ing.Unit == "teaspoon" || ing.Unit == "tablespoon" {
+			unitT, _ = gt.Translate(ing.Unit, "en", req.Target)
+		}
+		translated = append(translated, Ingredient{Txt: txtT, Amount: ing.Amount, Unit: unitT})
 	}
 	data, err := json.Marshal(translated)
 	if err != nil {
