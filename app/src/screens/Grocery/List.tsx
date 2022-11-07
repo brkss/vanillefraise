@@ -18,7 +18,9 @@ interface IIngredient {
 
 export const GroceryList: React.FC<any> = ({ navigation }) => {
   const [scratched, setScratched] = React.useState<string[]>([]);
-  const { data, loading, error } = useGroceryQuery();
+  const { data, loading, error } = useGroceryQuery({
+    fetchPolicy: "network-only",
+  });
   const [translated, setTranslated] = React.useState<IIngredient[]>([]);
   const [cache, setCache] = React.useState<IIngredient[]>([]);
   const [transling, setTranslating] = React.useState<boolean>(false);
