@@ -42,13 +42,14 @@ export const MealsOverview: React.FC<Props> = ({ navigation, refreshing }) => {
 
   return (
     <View style={styles.container}>
-   	<Text style={styles.title}>Today's Meals</Text>   
-	  <View style={styles.row}>
+      <Text style={styles.title}>Today's Meals</Text>
+      <View style={styles.row}>
         {data.meals
           .sort((a, b) => a.index - b.index)
           .map((meal, key) => (
             <View key={key} style={styles.item}>
               <MealItem
+                index={key}
                 color={meals[key].color}
                 recipes={meal.count}
                 navigate={() =>
@@ -72,11 +73,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-	fontFamily: "AvNextBold",
-	fontWeight: "bold",
-	color: "#434343",
-	fontSize: 20,
-	marginBottom: 5
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
+    color: "#434343",
+    fontSize: 20,
+    marginBottom: 5,
   },
   row: {
     flexDirection: "row",

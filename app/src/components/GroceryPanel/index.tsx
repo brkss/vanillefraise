@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useGroceryCountQuery } from "../../generated/graphql";
 import { Loading } from "../General";
+import Animated, { useSharedValue, useAnimatedStyle, withDelay, withTiming } from 'react-native-reanimated';
 
 interface Props {
   view: () => void;
@@ -10,6 +11,9 @@ interface Props {
 
 export const GroceryOverviewPanel: React.FC<Props> = ({ view, refreshing }) => {
   const { data, loading, error, refetch } = useGroceryCountQuery();
+
+  const scale = useSharedValue(0);
+  const opacity = useSharedValue(0)
 
   React.useEffect(() => {
     if (refreshing) {
