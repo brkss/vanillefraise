@@ -7,20 +7,66 @@ import {
   StyleSheet,
 } from "react-native";
 import { CDN } from "../../utils/config/defaults";
-
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 interface Props {
   title: string;
   image: string;
   clicked: () => void;
+  index: number;
 }
+
 const adjustTitle = (title: string) => {
   if (title.length > 22) {
     return `${title.substring(0, 22)}..`;
   } else return title;
 };
-export const Item: React.FC<Props> = ({ image, title, clicked }) => {
+
+const DELAY_INTERVAL = 200;
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+export const Item: React.FC<Props> = ({ image, title, clicked, index }) => {
+  const offset = useSharedValue(10);
+  const boxOpacity = useSharedValue(0);
+  const opacity = useSharedValue(0);
+      transform: [{ translateY: offset.value }],
+  React.useEffect(() => {
+    offset.value = withDelay(
+      200 + DELAY_INTERVAL * index,
+      withTiming(0, { duration: 300 })
+    );
+    boxOpacity.value = withDelay(
+      200 + DELAY_INTERVAL * index,
+      withTiming(1, { duration: 300 })
+    );
+    opacity.value = withDelay(
+      600 + DELAY_INTERVAL * index,
+      withTiming(1, { duration: 400 })
+    );
+  }, []);
+
+  const boxStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: offset.value }],
+      opacity: boxOpacity.value,
+    };
+  });
+
+  const txtStyle = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
+
   return (
-    <Pressable onPress={() => clicked()} style={styles.container}>
+    <AnimatedPressable
+      onPress={() => clicked()}
+      style={[styles.container, boxStyle]}
+    >
       <ImageBackground
         imageStyle={{ borderRadius: 10 }}
         source={{ uri: `${CDN}/${image}` }}
@@ -28,8 +74,8 @@ export const Item: React.FC<Props> = ({ image, title, clicked }) => {
       >
         <View style={styles.shadow} />
       </ImageBackground>
-      <Text style={styles.title}>{adjustTitle(title)}</Text>
-    </Pressable>
+      <Text style={[styles.title, txtStyle]}>{adjustTitle(title)}</Text>
+    </AnimatedPressable>
   );
 };
 
@@ -62,4 +108,3 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-

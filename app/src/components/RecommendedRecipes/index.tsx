@@ -8,25 +8,34 @@ interface Props {
   refreshing: boolean;
 }
 
-export const RecomendedRecipes: React.FC<Props> = ({ navigation, refreshing }) => {
+export const RecomendedRecipes: React.FC<Props> = ({
+  navigation,
+  refreshing,
+}) => {
   const _recipes = useRecommendedRecipesQuery({
     fetchPolicy: "cache-first",
   });
 
   React.useEffect(() => {
-    if(refreshing)
-      _recipes.refetch();
+    if (refreshing) _recipes.refetch();
   }, [refreshing]);
 
   if (_recipes.loading || _recipes.error) return null;
-
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recomended Recipes</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {_recipes.data.recommendedRecipes.map((recipe, key) => (
-          <Item clicked={() => { navigation.push("RecipeDetails", { id: recipe.id }) }} key={key} image={recipe.image} title={recipe.name} />
+          <Item
+            index={key}
+            clicked={() => {
+              navigation.push("RecipeDetails", { id: recipe.id });
+            }}
+            key={key}
+            image={recipe.image}
+            title={recipe.name}
+          />
         ))}
       </ScrollView>
     </View>

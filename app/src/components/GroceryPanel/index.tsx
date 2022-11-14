@@ -2,24 +2,45 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useGroceryCountQuery } from "../../generated/graphql";
 import { Loading } from "../General";
-import Animated, { useSharedValue, useAnimatedStyle, withDelay, withTiming } from 'react-native-reanimated';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 
 interface Props {
   view: () => void;
   refreshing: boolean;
 }
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 export const GroceryOverviewPanel: React.FC<Props> = ({ view, refreshing }) => {
   const { data, loading, error, refetch } = useGroceryCountQuery();
 
   const scale = useSharedValue(0);
-  const opacity = useSharedValue(0)
+  const opacity = useSharedValue(0);
+
+  const boxStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: scale.value }],
+    };
+  });
+  const txtStyle = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
 
   React.useEffect(() => {
     if (refreshing) {
       console.log("refetching !");
       refetch();
     }
+    scale.value = withDelay(100, withTiming(1, { duration: 500 }));
+    opacity.value = withDelay(600, withTiming(1, { duration: 400 }));
+    opacity.value = withDelay(600, withTiming(1, { duration: 400 }));
   }, [refreshing]);
 
   if (loading || error) {
@@ -27,22 +48,28 @@ export const GroceryOverviewPanel: React.FC<Props> = ({ view, refreshing }) => {
   }
 
   return (
-    <Pressable style={styles.container} onPress={view}>
+    <AnimatedPressable style={[styles.container, boxStyle]} onPress={view}>
       <View style={styles.row}>
         <View style={{ flexDirection: "row" }}>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}>{data.groceryCount || 0}</Text>
-          </View>
+          <Animated.View style={[styles.circle]}>
+            <Animated.Text style={[styles.circleText, txtStyle]}>
+              {data.groceryCount || 0}
+            </Animated.Text>
+          </Animated.View>
           <View style={styles.info}>
-            <Text style={styles.title}>Grocery List</Text>
-            <Text style={styles.date}>next 7 days</Text>
+            <Animated.Text style={[styles.title, txtStyle]}>
+              Grocery List
+            </Animated.Text>
+            <Animated.Text style={[styles.date, txtStyle]}>
+              next 7 days
+            </Animated.Text>
           </View>
         </View>
         <View style={styles.price}>
           <Text style={styles.total}>_</Text>
         </View>
       </View>
-    </Pressable>
+    </AnimatedPressable>
   );
 };
 
