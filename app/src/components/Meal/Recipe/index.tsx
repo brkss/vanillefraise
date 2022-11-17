@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { RecipeThumbnail } from "../../RecipeThumbnail";
 import { CDN } from "../../../utils/config/defaults";
 import { NoMealFound } from "./Nothing";
@@ -23,7 +23,24 @@ export const MealRecipes: React.FC<Props> = ({
   removedRecipe,
 }) => {
   const [removeRecipe] = useRemoveRecipeMutation();
-  console.log("Meals ids ?? : ", mealids);
+
+  const confirmDeletingRecipe = (
+    recipeName: string,
+    mealId: string,
+    recipeID: string
+  ) =>
+    Alert.alert("Are you sure ?", `Remove ${recipeName} from this meal `, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "Remove",
+        style: "destructive",
+        onPress: () => handleRemoveRecipe(mealId, recipeID),
+      },
+    ]);
 
   const getRecipeMealId = (recipeID: string): string | null => {
     for (let mr of mealids) {
@@ -73,7 +90,11 @@ export const MealRecipes: React.FC<Props> = ({
               carbs={recipe.carbs}
               key={key}
               removeRecipe={() =>
-                handleRemoveRecipe(getRecipeMealId(recipe.id), recipe.id)
+                confirmDeletingRecipe(
+                  recipe.name,
+                  getRecipeMealId(recipe.id),
+                  recipe.id
+                )
               }
             />
           ))
@@ -98,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "AvNextBold",
     color: "#434343",
-	marginBottom: 3,
+    marginBottom: 3,
   },
   date: {
     lineHeight: 25,
