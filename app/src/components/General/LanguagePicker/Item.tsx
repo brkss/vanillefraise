@@ -18,11 +18,13 @@ export const LanguageItem: React.FC<Props> = ({
     <Pressable
       style={[
         styles.container,
-        { borderColor: selected ? "#FFCBCB" : "transparent" },
+        { backgroundColor: selected ? "#383838" : "white" },
       ]}
       onPress={onSelect}
     >
-      <Text style={styles.txt}>{txt}</Text>
+      <Text style={[styles.txt, { color: selected ? "white" : "#434343" }]}>
+        {txt}
+      </Text>
     </Pressable>
   );
 };
@@ -33,14 +35,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 9,
     paddingTop: 11,
-    backgroundColor: "#FFE8E8",
+    //backgroundColor: "#383838",
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: "transparent",
+    borderColor: "#383838",
   },
   txt: {
     fontFamily: "AvNextBold",
     fontWeight: "bold",
     fontSize: 17,
+    color: "#434343",
   },
 });

@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontFamily: "AvNextBold",
+    fontFamily: "AbFace",
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 35,
     color: "#434343",
   },
   subtitle: {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FDDEDE",
     width: width * 0.9,
     marginBottom: 10,
-    borderRadius: 12,
+    borderRadius: 18,
     borderColor: "transparent",
     borderWidth: 2,
   },

@@ -12,6 +12,7 @@ import {
   NutritionPlanThumbnail,
   NutritionPlanInfoModal,
   Loading,
+  AddNutritionPlan,
 } from "../../components/";
 import { usePlansQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
@@ -38,6 +39,7 @@ export const NutritionPlans: React.FC<any> = ({ navigation }) => {
               <Text style={styles.infoTitle}>What is this ?</Text>
             </Pressable>
           </View>
+          <AddNutritionPlan pressed={() => navigation.navigate("CreateNewPlan")} />
           {data.plans.map((item, key) => (
             <NutritionPlanThumbnail
               clicked={() =>

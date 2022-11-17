@@ -95,6 +95,7 @@ export default function App() {
     AvNextBold: require("./src/assets/fonts/AvenirNextLTPro-Bold.otf"),
     AvNextIt: require("./src/assets/fonts/AvenirNextLTPro-It.otf"),
     AvNext: require("./src/assets/fonts/AvenirNextLTPro-Regular.otf"),
+    AbFace: require("./src/assets/fonts/AbrilFatface-Regular.ttf"),
   });
 
   React.useEffect(() => {
@@ -111,7 +112,7 @@ export default function App() {
 
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      {isConnected ? (
+      {!isConnected ? (
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>

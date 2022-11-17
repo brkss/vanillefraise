@@ -46,4 +46,7 @@ export * from "./NutritionPlan";
 export * from "./ReportRecipe";
 export * from "./IntroSlides";
 export * from "./GroceryPanel";
-export * from './GroceryItem';
+export * from "./GroceryItem";
+export * from "./AddNutritionPlan";
+export * from "./NewPlanNutritionSlider";
+export * from "./EditPlanNutrition";

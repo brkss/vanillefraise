@@ -30,10 +30,10 @@ export const MarkAsFinished: React.FC<Props> = ({ marked, mark }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 7,
-    //paddingHorizontal: 10,
+    padding: 4,
+    paddingHorizontal: 10,
     backgroundColor: "#434343",
-    borderRadius: 15,
+    borderRadius: 10,
     marginBottom: 3,
     flexDirection: "row",
     flexWrap: "wrap",

@@ -6,7 +6,6 @@ import {
   Text,
   RefreshControl,
 } from "react-native";
-import { useFonts } from "expo-font";
 import {
   MarkAsFinished,
   Loading,
@@ -14,6 +13,7 @@ import {
   MealGrocery,
   SmoothLoading,
   NoSelectedRecipes,
+  Button,
 } from "../../components";
 import CalendarStrip from "react-native-calendar-strip";
 import {
@@ -24,6 +24,7 @@ import {
   UserCaloriesDocument,
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Moment from "moment";
 
 interface MarkedDate {
   count: number;
@@ -219,7 +220,16 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
                 recipes={data.getMealRecipes.recipes}
                 removedRecipe={() => refetch()}
               />
-              <MealGrocery ingredients={data.getMealRecipes.ingredients} />
+              <Button
+                clicked={() =>
+                  navigation.navigate("MealGrocery", {
+                    ingredients: data.getMealRecipes.ingredients,
+                    mealName: mealName,
+                    date: Moment(date).format("DD/MM/YYYY"),
+                  })
+                }
+                txt={"What do i need ?"}
+              />
             </>
           )}
         </ScrollView>

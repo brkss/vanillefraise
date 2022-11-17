@@ -30,24 +30,24 @@ const DELAY_INTERVAL = 200;
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export const Item: React.FC<Props> = ({ image, title, clicked, index }) => {
-  const offset = useSharedValue(10);
+  const offset = useSharedValue(5);
   const boxOpacity = useSharedValue(0);
   const opacity = useSharedValue(0);
-      transform: [{ translateY: offset.value }],
-  React.useEffect(() => {
-    offset.value = withDelay(
-      200 + DELAY_INTERVAL * index,
-      withTiming(0, { duration: 300 })
-    );
-    boxOpacity.value = withDelay(
-      200 + DELAY_INTERVAL * index,
-      withTiming(1, { duration: 300 })
-    );
-    opacity.value = withDelay(
-      600 + DELAY_INTERVAL * index,
-      withTiming(1, { duration: 400 })
-    );
-  }, []);
+  transform: [{ translateY: offset.value }],
+    React.useEffect(() => {
+      offset.value = withDelay(
+        300 + DELAY_INTERVAL * index,
+        withTiming(0, { duration: 300 })
+      );
+      boxOpacity.value = withDelay(
+        300 + DELAY_INTERVAL * index,
+        withTiming(1, { duration: 300 })
+      );
+      opacity.value = withDelay(
+        700 + DELAY_INTERVAL * index,
+        withTiming(1, { duration: 400 })
+      );
+    }, []);
 
   const boxStyle = useAnimatedStyle(() => {
     return {
