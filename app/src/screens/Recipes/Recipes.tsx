@@ -64,6 +64,13 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
     },
   });
 
+  const get_category_name = (id: string, categories: any[]) => {
+    if (id == "NO") return categories[0].name;
+    for (let cat of categories) {
+      if (cat.id == id) return cat.name;
+    }
+  };
+
   const handleScroll = (nativeEvent: any) => {
     if (!refetching && isCloseToBottom(nativeEvent) && !isDone) {
       setRefetching(true);
@@ -144,6 +151,12 @@ export const Recipes: React.FC<any> = ({ navigation }) => {
                 }
                 categories={_categories.data!.recipeCategories as any}
               />
+              <Text style={styles.title}>
+                {get_category_name(
+                  category,
+                  _categories.data!.recipeCategories as any
+                )}
+              </Text>
               {_recipes.loading || _recipes.error ? (
                 <Loading />
               ) : (
@@ -179,6 +192,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     paddingBottom: 0,
+  },
+  title: {
+    fontSize: 27,
+    fontWeight: "bold",
+    fontFamily: "AvNextBold",
+    marginBottom: 10,
+    color: "#434343",
   },
   headingContainer: {
     //flex: 0.14,
