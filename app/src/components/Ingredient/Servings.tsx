@@ -52,7 +52,11 @@ export const RecipeServing: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: "stretch",
-    marginBottom: 15,
+    marginBottom: 25,
+    //backgroundColor: "#E8E7E1",
+    padding: 10,
+    //paddingVertical: 20,
+    //borderRadius: 22,
   },
   label: {
     fontSize: 17,
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
   },
   valTxt: {
-    fontSize: 17,
+    fontSize: 21,
     fontWeight: "bold",
     textAlign: "center",
     fontFamily: "AvNextBold",

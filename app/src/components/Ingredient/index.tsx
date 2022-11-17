@@ -59,7 +59,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
       />
       <Text style={styles.title}>Ingredients</Text>
       <LanguagePicker langChange={(l) => handleLangChange(l)} />
-      {fetching && <Text style={styles.hint}>please wait...</Text>}
+      {fetching ? <Text style={styles.hint}>please wait...</Text> : null}
       {translated.length === 0
         ? scaleRecipe(servings, scale, ingredients).map((ing, key) => (
             <IngredientItem

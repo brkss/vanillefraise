@@ -60,23 +60,24 @@ export const Overview: React.FC<any> = ({ navigation }) => {
               />
             )}
             <TopBar navigation={navigation} />
-            <View style={{ height: 10 }} />
+            <View style={{ height: 20 }} />
             <CaloriesOverview
               dietPressed={() => navigation.push("DietConfiguration")}
               refreshing={refreshing}
             />
-            <View style={{ height: 10 }} />
+            <View style={{ height: 25 }} />
             <MealsOverview refreshing={refreshing} navigation={navigation} />
+            <View style={{ height: 0 }} />
             <GroceryOverviewPanel
               refreshing={refreshing}
               view={() => navigation.navigate("GroceryList")}
             />
-            <View style={{ height: 10 }} />
+            <View style={{ height: 25 }} />
             <RecomendedRecipes
               refreshing={refreshing}
               navigation={navigation}
             />
-            <View style={{ height: 25 }} />
+            <View style={{ height: 40 }} />
             <NutritionIntakeDaily
               refreshing={refreshing}
               navigation={navigation}
