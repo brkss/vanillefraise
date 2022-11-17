@@ -11,7 +11,7 @@ export const SearchInput: React.FC<Props> = ({ change }) => {
       <TextInput
         style={styles.input}
         onChangeText={(v) => change(v)}
-        placeholder={"Search (title, nutritient, ingredient)..."}
+        placeholder={"What would you like to eat ?"}
         placeholderTextColor={"#c2c2c2"}
       />
     </View>

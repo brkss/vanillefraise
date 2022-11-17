@@ -9,7 +9,7 @@ interface Props {
 export const MealGrocery: React.FC<Props> = ({ ingredients }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>What you'll need</Text>
+      <Text style={styles.title}>What you'll need :</Text>
       <View style={styles.items}>
         {ingredients.map((ing, key) =>
           ing.ingredients ? (

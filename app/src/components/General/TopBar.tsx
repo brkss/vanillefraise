@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   title: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: "bold",
     color: "#434343",
-    fontFamily: "AvNextBold",
+    fontFamily: "AbFace",
+    lineHeight: 37,
     //display: "none",
     //backgroundColor: "red",
   },
