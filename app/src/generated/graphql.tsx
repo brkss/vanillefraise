@@ -297,6 +297,12 @@ export type IsAccountVerifiedResponse = {
   title: Scalars['String'];
 };
 
+export type Item = {
+  __typename?: 'Item';
+  nutrition: Nutrition;
+  recommendation: Scalars['Float'];
+};
+
 export type LanguagesResponse = {
   __typename?: 'LanguagesResponse';
   id: Scalars['String'];
@@ -614,6 +620,29 @@ export type MutationVerifyAccountArgs = {
   token: Scalars['String'];
 };
 
+export type NewPlanNutritionResponse = {
+  __typename?: 'NewPlanNutritionResponse';
+  category: NutritienCategory;
+  items: Array<Item>;
+};
+
+export type NutritienCategory = {
+  __typename?: 'NutritienCategory';
+  active: Scalars['Boolean'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  nutrients: Array<Nutrition>;
+};
+
+export type Nutrition = {
+  __typename?: 'Nutrition';
+  category: NutritienCategory;
+  code: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  unit: Scalars['String'];
+};
+
 export type NutritionCategoryData = {
   __typename?: 'NutritionCategoryData';
   id: Scalars['String'];
@@ -688,6 +717,7 @@ export type Query = {
   nutritionCategoryIntake: DailyNutritionIntakeResponse;
   nutritionCategoryItems: Array<NutritionCategoryItemsResponse>;
   nutritionIntakeChart: Array<NutritionIntakeChartResponse>;
+  nutritionsByCategory: Array<NewPlanNutritionResponse>;
   ping: Scalars['String'];
   planDetails?: Maybe<IPlan>;
   plans: Array<IPlan>;
@@ -696,6 +726,7 @@ export type Query = {
   recipeByNutrition: Array<Recipe>;
   recipeCategories: Array<RecipeCategory>;
   recipeEnergy: Scalars['Float'];
+  recipeReports: Array<RecipeReport>;
   recipes: Array<Recipe>;
   recommendedRecipes: Array<Recipe>;
   recordCategories: Array<RecordCategory>;
@@ -1325,6 +1356,11 @@ export type NutritionCategoryIntakeQueryVariables = Exact<{ [key: string]: never
 
 
 export type NutritionCategoryIntakeQuery = { __typename?: 'Query', nutritionCategoryIntake: { __typename?: 'DailyNutritionIntakeResponse', categories: Array<{ __typename?: 'NutritionCategoryData', name: string, intake: number, id: string }> } };
+
+export type NutritionsByCategoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NutritionsByCategoryQuery = { __typename?: 'Query', nutritionsByCategory: Array<{ __typename?: 'NewPlanNutritionResponse', category: { __typename?: 'NutritienCategory', id: string, name: string }, items: Array<{ __typename?: 'Item', recommendation: number, nutrition: { __typename?: 'Nutrition', id: string, name: string, unit: string } }> }> };
 
 export type UserNutritionQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2768,6 +2804,51 @@ export function useNutritionCategoryIntakeLazyQuery(baseOptions?: Apollo.LazyQue
 export type NutritionCategoryIntakeQueryHookResult = ReturnType<typeof useNutritionCategoryIntakeQuery>;
 export type NutritionCategoryIntakeLazyQueryHookResult = ReturnType<typeof useNutritionCategoryIntakeLazyQuery>;
 export type NutritionCategoryIntakeQueryResult = Apollo.QueryResult<NutritionCategoryIntakeQuery, NutritionCategoryIntakeQueryVariables>;
+export const NutritionsByCategoryDocument = gql`
+    query NutritionsByCategory {
+  nutritionsByCategory {
+    category {
+      id
+      name
+    }
+    items {
+      nutrition {
+        id
+        name
+        unit
+      }
+      recommendation
+    }
+  }
+}
+    `;
+
+/**
+ * __useNutritionsByCategoryQuery__
+ *
+ * To run a query within a React component, call `useNutritionsByCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNutritionsByCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNutritionsByCategoryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNutritionsByCategoryQuery(baseOptions?: Apollo.QueryHookOptions<NutritionsByCategoryQuery, NutritionsByCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NutritionsByCategoryQuery, NutritionsByCategoryQueryVariables>(NutritionsByCategoryDocument, options);
+      }
+export function useNutritionsByCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NutritionsByCategoryQuery, NutritionsByCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NutritionsByCategoryQuery, NutritionsByCategoryQueryVariables>(NutritionsByCategoryDocument, options);
+        }
+export type NutritionsByCategoryQueryHookResult = ReturnType<typeof useNutritionsByCategoryQuery>;
+export type NutritionsByCategoryLazyQueryHookResult = ReturnType<typeof useNutritionsByCategoryLazyQuery>;
+export type NutritionsByCategoryQueryResult = Apollo.QueryResult<NutritionsByCategoryQuery, NutritionsByCategoryQueryVariables>;
 export const UserNutritionDocument = gql`
     query UserNutrition {
   userNutrition {

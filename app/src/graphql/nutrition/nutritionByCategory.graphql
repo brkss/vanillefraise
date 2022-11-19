@@ -1,0 +1,16 @@
+query NutritionsByCategory{
+  nutritionsByCategory{
+    category{
+      id
+      name
+    }
+    items{
+      nutrition{
+        id
+        name
+        unit
+      }
+      recommendation
+    }
+  }
+}	
