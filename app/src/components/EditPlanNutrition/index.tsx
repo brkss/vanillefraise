@@ -36,7 +36,7 @@ export const EditPlanNutrition: React.FC<Props> = ({
   React.useEffect(() => {
     if (show) {
       shadowOpacity.value = withDelay(0, withTiming(1, { duration: 300 }));
-      boxHeight.value = withDelay(0, withTiming(320, { duration: 400 }));
+      boxHeight.value = withDelay(0, withTiming(220, { duration: 400 }));
       contentOpacity.value = withDelay(400, withTiming(1, { duration: 400 }));
     } else if (!show) {
       shadowOpacity.value = withDelay(0, withTiming(0, { duration: 300 }));
@@ -87,7 +87,7 @@ export const EditPlanNutrition: React.FC<Props> = ({
             unit={unit}
             changed={(val: number) => changed(val)}
           />
-          <Button clicked={() => {}} txt={"Save"} />
+          {/*<Button clicked={() => {}} txt={"Save"} />*/}
         </Animated.View>
       </Animated.View>
       {/*<View style={styles.shadow} />*/}

@@ -16,7 +16,7 @@ interface IAlterdNutrition {
   recommended: number;
 }
 
-export const CreateNewPlan: React.FC = () => {
+export const CreateNewPlan: React.FC<any> = ({ navigation }) => {
   const [show, setShow] = React.useState(false);
   const { data, loading, error } = useNutritionsByCategoryQuery();
   const [altredNutritions, setAltredNutrition] = React.useState<
@@ -33,20 +33,12 @@ export const CreateNewPlan: React.FC = () => {
     setShow(false);
   };
 
-  const valueHadChanged = (id: string, val: number): number => {
-    const index = altredNutritions.findIndex(x => x.id === id);
-    if(index === -1)
-      return val;
-    else
-      return altredNutritions[index].value;
-  }
-
   const handleChangedElement = (
     val: number,
     id: string,
     name: string,
     unit: string,
-    recommended: number,
+    recommended: number
   ) => {
     if (!id || !name) return;
     const index = altredNutritions.findIndex((x) => x.id === id);
@@ -63,7 +55,6 @@ export const CreateNewPlan: React.FC = () => {
       altredNutritions[index].value = val;
       setAltredNutrition([...altredNutritions]);
     }
-    
   };
 
   const handlePassEditNutrtion = (id: string, items: any[]) => {
@@ -94,7 +85,7 @@ export const CreateNewPlan: React.FC = () => {
                 nutritions={item.items}
                 edit={(id) => handlePassEditNutrtion(id, item.items)}
                 key={key}
-                changedElements={altredNutritions}   
+                changedElements={altredNutritions}
               />
             ))}
             <View style={{ height: 100 }} />
@@ -110,7 +101,11 @@ export const CreateNewPlan: React.FC = () => {
           }}
         >
           <BluredButton
-            clicked={() => console.log("altred : ", altredNutritions)}
+            clicked={() =>
+              navigation.navigate("FinishCreatingPlan", {
+                elements: altredNutritions,
+              })
+            }
             txt={"Create"}
           />
         </View>

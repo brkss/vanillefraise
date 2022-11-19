@@ -50,3 +50,4 @@ export * from "./GroceryItem";
 export * from "./AddNutritionPlan";
 export * from "./NewPlanNutritionSlider";
 export * from "./EditPlanNutrition";
+export * from './PlanTrackedElement'
