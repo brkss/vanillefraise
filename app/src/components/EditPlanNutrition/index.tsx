@@ -25,7 +25,7 @@ export const EditPlanNutrition: React.FC<Props> = ({
   unit,
   value,
   changed,
-  name
+  name,
 }) => {
   if (!show) return <></>;
 
@@ -74,11 +74,13 @@ export const EditPlanNutrition: React.FC<Props> = ({
             { justifyContent: "space-around", height: "100%" },
           ]}
         >
-          <View style={styles.header}>
-            <Text style={styles.title}>{name}</Text>
+          <View style={{alignItems: 'flex-end'}}>
             <Pressable onPress={close} style={styles.closeCircle}>
               <Text style={styles.closeText}>-</Text>
             </Pressable>
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.title}>{name}</Text>
           </View>
           <ValueSwitch
             val={value}
