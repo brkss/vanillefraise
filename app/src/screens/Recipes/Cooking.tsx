@@ -121,7 +121,8 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
                   instructions={data!.recipe.instructions.sort(
                     ({ index: a }, { index: b }) => a - b
                   )}
-                  finish={() => changeStep("finish")}
+                  finish={() => finish()}
+                  restart={() => changeStep("start")}
                 />
               ),
               finish: (

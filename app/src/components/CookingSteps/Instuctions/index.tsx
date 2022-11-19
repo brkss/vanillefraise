@@ -8,7 +8,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { Button } from "../../General/Button";
-import { Languages } from "../../Translation/Languages";
+
 import { TranslatedInstruction } from "../../../generated/graphql";
 
 interface Props {
@@ -16,6 +16,7 @@ interface Props {
   instructions: any[];
   navigation: any;
   title: string;
+  restart: () => void;
 }
 
 export const InstructionsStep: React.FC<Props> = ({
@@ -24,17 +25,11 @@ export const InstructionsStep: React.FC<Props> = ({
   navigation,
   title,
 }) => {
-  const [lang, setLang] = React.useState<string>("en");
   const shuffleBack = useSharedValue(false);
   const swipedAll = useSharedValue(false);
   const btnOpacity = useSharedValue(0);
 
-  const handleLang = (instruction: TranslatedInstruction) => {
-    if (lang === "es" && instruction.es) return instruction.es;
-    else if (lang === "fr" && instruction.fr) return instruction.fr;
-    else if (lang === "ar" && instruction.ar) return instruction.ar;
-    else return instruction.raw;
-  };
+  
 
   useAnimatedReaction(
     () => swipedAll.value,
@@ -60,14 +55,14 @@ export const InstructionsStep: React.FC<Props> = ({
             <Item
               swipedAll={swipedAll}
               shuffleBack={shuffleBack}
-              txt={handleLang(inst)}
+              txt={inst.raw}
               index={key}
               num={instructions.length - key - 1}
               key={key}
               clicked={() =>
                 navigation.push("ExpandedInstruction", {
                   index: instructions.length - key,
-                  txt: handleLang(inst),
+                  txt: inst.raw,
                   title: title,
                 })
               }
@@ -75,8 +70,13 @@ export const InstructionsStep: React.FC<Props> = ({
           );
         })}
       </View>
-      <Animated.View style={style}>
-        <Button txt={"Done !"} clicked={() => finish()} />
+      <Animated.View style={[styles.row, style]}>
+        <View style={styles.item}>
+          <Button txt={"Done"} clicked={() => finish()} />
+        </View>
+        <View style={styles.item}>
+          <Button txt={"Restart"} clicked={() => finish()} />
+        </View>
       </Animated.View>
     </View>
   );
@@ -94,5 +94,12 @@ const styles = StyleSheet.create({
   items: {
     flex: 1,
     //justifyContent: "center",
+  },
+  row: {
+    flexDirection: "row",
+  },
+  item: {
+    width: "50%",
+    padding: 10,
   },
 });

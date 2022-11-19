@@ -1,8 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { useFonts } from "expo-font";
 import { Button } from "../General/Button";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { colors } from "../../utils";
 
 interface Props {
@@ -11,10 +9,9 @@ interface Props {
 }
 
 export const FinishStep: React.FC<Props> = ({ finish, restart }) => {
-
   return (
     <View style={styles.container}>
-      <View style={{flex :1, justifyContent: 'center'}}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
         <Text style={styles.hint}>Did you make it ?</Text>
       </View>
       {/*
