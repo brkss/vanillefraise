@@ -4,9 +4,7 @@ import { isUserAuth } from "../../utils/middlewares";
 import { User } from "../../entity/User";
 import { IContext } from "../../utils/types/Context";
 import { filterRecipes } from "../../utils/helpers/FilterRecipes";
-//import { checkFilter } from '../../utils/helpers/checkRecipeFilter';
 import { RecipeByCategoryInput } from "../../utils/inputs/recipes";
-//import { random } from "../../utils/helpers/random";
 
 @Resolver()
 export class RecipesListResolver {

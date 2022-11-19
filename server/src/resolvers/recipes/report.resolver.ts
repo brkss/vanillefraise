@@ -1,4 +1,11 @@
-import { Resolver, Mutation, UseMiddleware, Arg, Ctx } from "type-graphql";
+import {
+  Resolver,
+  Mutation,
+  UseMiddleware,
+  Arg,
+  Ctx,
+  Query,
+} from "type-graphql";
 import { isUserAuth } from "../../utils/middlewares/auth.mw";
 import { IContext } from "../../utils/types/Context";
 import { User } from "../../entity/User";
@@ -35,5 +42,11 @@ export class ReportRecipeResolver {
       message: "Thank you ! recipe reported successfuly !",
       status: true,
     };
+  }
+
+  @Query(() => [RecipeReport])
+  async recipeReports(): Promise<RecipeReport[]> {
+    const reports = await RecipeReport.find();
+    return reports;
   }
 }

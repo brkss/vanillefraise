@@ -6,4 +6,4 @@ export * from './meals';
 export * from './admin';
 export * from './auth'
 export * from './tranlation';
-
+export * from './plans';

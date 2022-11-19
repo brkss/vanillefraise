@@ -43,6 +43,10 @@ let ReportRecipeResolver = class ReportRecipeResolver {
             status: true,
         };
     }
+    async recipeReports() {
+        const reports = await Recipe_1.RecipeReport.find();
+        return reports;
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(auth_mw_1.isUserAuth),
@@ -53,6 +57,12 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], ReportRecipeResolver.prototype, "reportRecipe", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => [Recipe_1.RecipeReport]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ReportRecipeResolver.prototype, "recipeReports", null);
 ReportRecipeResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], ReportRecipeResolver);

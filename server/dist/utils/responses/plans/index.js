@@ -14,15 +14,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthDefaultResponse = void 0;
-var default_response_1 = require("./auth/default.response");
-Object.defineProperty(exports, "AuthDefaultResponse", { enumerable: true, get: function () { return default_response_1.AuthDefaultResponse; } });
-__exportStar(require("./stripe"), exports);
-__exportStar(require("./recipes"), exports);
-__exportStar(require("./default.response"), exports);
-__exportStar(require("./meals"), exports);
-__exportStar(require("./admin"), exports);
-__exportStar(require("./auth"), exports);
-__exportStar(require("./tranlation"), exports);
-__exportStar(require("./plans"), exports);
+__exportStar(require("./newplannutritions.response"), exports);
 //# sourceMappingURL=index.js.map
