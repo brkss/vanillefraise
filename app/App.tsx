@@ -91,7 +91,7 @@ export default function App() {
     })();
   });
 
-  const [avNext] = useFonts({
+  const [fonts] = useFonts({
     AvNextBold: require("./src/assets/fonts/AvenirNextLTPro-Bold.otf"),
     AvNextIt: require("./src/assets/fonts/AvenirNextLTPro-It.otf"),
     AvNext: require("./src/assets/fonts/AvenirNextLTPro-Regular.otf"),
@@ -105,10 +105,10 @@ export default function App() {
   }, []);
 
   const onLayoutRootView = React.useCallback(async () => {
-    if (avNext) await SplashScreen.hideAsync();
-  }, [avNext]);
+    if (fonts) await SplashScreen.hideAsync();
+  }, [fonts]);
 
-  if (!avNext) return null;
+  if (!fonts) return null;
 
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>

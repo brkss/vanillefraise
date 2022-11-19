@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "stretch",
     marginBottom: 25,
-    //backgroundColor: "#E8E7E1",
+    width: "100%",
     padding: 10,
     //paddingVertical: 20,
     //borderRadius: 22,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     marginVertical: 10,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   val: {
     width: 30,

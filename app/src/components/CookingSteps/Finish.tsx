@@ -11,10 +11,6 @@ interface Props {
 }
 
 export const FinishStep: React.FC<Props> = ({ finish, restart }) => {
-  const [helviticaCondensed] = useFonts({
-    "helvitica-condesed": require("../../assets/helvitica-condensed.otf"),
-  });
-  if (!helviticaCondensed) return <View />;
 
   return (
     <View style={styles.container}>

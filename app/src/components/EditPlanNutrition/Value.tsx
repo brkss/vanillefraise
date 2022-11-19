@@ -15,12 +15,7 @@ interface Props {
 }
 
 export const ValueSwitch: React.FC<Props> = ({ plus, minus, val, unit }) => {
-  const scale = useSharedValue(0);
-
-  React.useEffect(() => {
-    scale.value = withTiming(1.3, { duration: 400 });
-    scale.value = withDelay(1400, withTiming(1, { duration: 400 }));
-  }, [val]);
+  const scale = useSharedValue(1);
 
   const valStyle = useAnimatedStyle(() => {
     return {

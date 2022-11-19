@@ -145,7 +145,9 @@ export const Meal: React.FC<any> = ({ route, navigation }) => {
         <View style={styles.row}>
           <Text style={[styles.title, { width: "50%" }]}>{mealName}</Text>
           <View style={[{ width: "50%", alignItems: "flex-end" }]}>
-            {loading || error ? null : (
+            {loading ||
+            error ||
+            data.getMealRecipes.mealrecipes.length === 0 ? null : (
               <MarkAsFinished
                 //marked={isCooked}
                 marked={data.getMealRecipes.cooked || isCooked}

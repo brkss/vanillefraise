@@ -60,9 +60,11 @@ export const Start: React.FC<Props> = ({
     <View style={styles.container}>
       <View style={{}} />
       {total !== "unknown" ? (
-        <Text style={styles.time}>About {total} in total</Text>
+        <Text style={styles.time}>
+          About <Text style={{ color: "black" }}>{total}min</Text> in total
+        </Text>
       ) : null}
-      <View>
+      <View style={{ width: "70%" }}>
         <RecipeServing
           onChange={(n) => onServingChange(n)}
           servings={servings}
