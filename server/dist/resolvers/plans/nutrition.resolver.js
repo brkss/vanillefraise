@@ -18,9 +18,10 @@ const auth_mw_1 = require("../../utils/middlewares/auth.mw");
 const User_1 = require("../../entity/User");
 const NutrientCategory_1 = require("../../entity/Nutrition/NutrientCategory");
 const responses_1 = require("../../utils/responses");
+const nutrition_1 = require("../../utils/helpers/nutrition");
 let PlanNutritionResolver = class PlanNutritionResolver {
     async newPlanNutritions(ctx) {
-        const user = await User_1.User.findOne({ where: { id: ctx.payload.userId } });
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user) {
             return [];
         }
@@ -31,10 +32,10 @@ let PlanNutritionResolver = class PlanNutritionResolver {
         for (let n of nutritions) {
             const obj = {
                 category: n,
-                items: n.nutrients.map((nutrition) => ({
+                items: await Promise.all(n.nutrients.map(async (nutrition) => ({
                     nutrition: nutrition,
-                    recommendation: 0,
-                })),
+                    recommendation: await (0, nutrition_1.getRecommnededAmount)(user, nutrition.code),
+                }))),
             };
             results.push(obj);
         }

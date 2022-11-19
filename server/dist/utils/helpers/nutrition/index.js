@@ -14,13 +14,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./time"), exports);
-__exportStar(require("./mealNutritionsCalc"), exports);
-__exportStar(require("./scale_recipe"), exports);
-__exportStar(require("./fraction"), exports);
-__exportStar(require("./mergeDates"), exports);
-__exportStar(require("./mailgun"), exports);
-__exportStar(require("./validation"), exports);
-__exportStar(require("./user"), exports);
-__exportStar(require("./nutrition"), exports);
+__exportStar(require("./getRecommendedAmount"), exports);
 //# sourceMappingURL=index.js.map
