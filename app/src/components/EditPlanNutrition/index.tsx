@@ -11,11 +11,22 @@ import { ValueSwitch } from "./Value";
 interface Props {
   show: boolean;
   close: () => void;
+  value: number;
+  unit: string;
+  changed: (val: number) => void;
+  name: string;
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export const EditPlanNutrition: React.FC<Props> = ({ show, close }) => {
+export const EditPlanNutrition: React.FC<Props> = ({
+  show,
+  close,
+  unit,
+  value,
+  changed,
+  name
+}) => {
   if (!show) return <></>;
 
   const shadowOpacity = useSharedValue(0);
@@ -64,12 +75,17 @@ export const EditPlanNutrition: React.FC<Props> = ({ show, close }) => {
           ]}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>Vitamin D (D2 + D3)</Text>
+            <Text style={styles.title}>{name}</Text>
             <Pressable onPress={close} style={styles.closeCircle}>
               <Text style={styles.closeText}>-</Text>
             </Pressable>
           </View>
-          <ValueSwitch val={19} unit={'mg'} plus={() => {}} minus={() => {}}  />
+          <ValueSwitch
+            val={value}
+            unit={unit}
+            plus={() => {}}
+            minus={() => {}}
+          />
           <Button clicked={() => {}} txt={"Save"} />
         </Animated.View>
       </Animated.View>

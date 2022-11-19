@@ -3,21 +3,31 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 
 interface Props {
   pressed: () => void;
+  recommended: number;
+  unit: string;
+  name: string;
 }
 
-export const Item: React.FC<Props> = ({ pressed }) => {
+export const Item: React.FC<Props> = ({ pressed, name, unit, recommended }) => {
   return (
     <Pressable onPress={pressed} style={styles.container}>
       <View
         style={{ flex: 1, justifyContent: "center", alignItems: "baseline" }}
       >
         <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-          <Text style={styles.val}>15</Text>
-          <Text style={styles.unit}>g</Text>
+          <Text style={styles.val}>
+            {recommended === -1 ? "_" : recommended}
+          </Text>
+          <Text style={styles.unit}>{unit}</Text>
         </View>
       </View>
-      <Text style={styles.hint}>WHO recommended 10g </Text>
-      <Text style={styles.title}>Vitamin D (D2 + D3) </Text>
+      {recommended > -1 && (
+        <Text style={styles.hint}>
+          WHO recommended {recommended}
+          {unit}{" "}
+        </Text>
+      )}
+      <Text style={styles.title}>{name}</Text>
     </Pressable>
   );
 };
@@ -36,6 +46,7 @@ const styles = StyleSheet.create({
     fontFamily: "AvNextBold",
     fontWeight: "bold",
     fontSize: 30,
+    marginRight: 5,
   },
   unit: {
     fontSize: 14,

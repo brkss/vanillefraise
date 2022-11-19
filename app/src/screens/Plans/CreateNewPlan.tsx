@@ -4,18 +4,36 @@ import {
   NewPlanNutritionSlider,
   EditPlanNutrition,
   BluredButton,
+  Loading,
 } from "../../components";
+import { useNutritionsByCategoryQuery } from "../../generated/graphql";
 
 export const CreateNewPlan: React.FC = () => {
   const [show, setShow] = React.useState(false);
+  const { data, loading, error } = useNutritionsByCategoryQuery();
+  const [selectedNutrition, setSelectedNutrition] = React.useState({
+    value: -1,
+    unit: "",
+    name: "",
+  });
 
-  const handleEditElement = () => {
-    setShow(true);
-  };
-  <BluredButton clicked={() => {}} txt={"Create"} />;
   const handleClose = () => {
     setShow(false);
   };
+
+  const handlePassEditNutrtion = (id: string, items: any[]) => {
+    const item = items.find((x) => x.nutrition.id === id);
+    if (item) {
+      setSelectedNutrition({
+        value: item.recommendation,
+        unit: item.nutrition.unit,
+        name: item.nutrition.name,
+      });
+      setShow(true);
+    }
+  };
+
+  if (loading || error) return <Loading />;
 
   return (
     <View style={styles.container}>
@@ -24,12 +42,14 @@ export const CreateNewPlan: React.FC = () => {
           <Text style={styles.title}>Create New Plan</Text>
           <View style={{ height: 15 }} />
           <ScrollView showsVerticalScrollIndicator={false}>
-            <NewPlanNutritionSlider edit={(id) => handleEditElement()} />
-            <NewPlanNutritionSlider edit={(id) => handleEditElement()} />
-            <NewPlanNutritionSlider edit={(id) => handleEditElement()} />
-            <NewPlanNutritionSlider edit={(id) => handleEditElement()} />
-            <NewPlanNutritionSlider edit={(id) => handleEditElement()} />
-            <NewPlanNutritionSlider edit={(id) => handleEditElement()} />
+            {data.nutritionsByCategory.map((item, key) => (
+              <NewPlanNutritionSlider
+                category={item.category}
+                nutritions={item.items}
+                edit={(id) => handlePassEditNutrtion(id, item.items)}
+                key={key}
+              />
+            ))}
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
@@ -45,7 +65,14 @@ export const CreateNewPlan: React.FC = () => {
           <BluredButton clicked={() => {}} txt={"Create"} />
         </View>
       </SafeAreaView>
-      <EditPlanNutrition close={handleClose} show={show} />
+      <EditPlanNutrition
+        name={selectedNutrition.name}
+        changed={(val) => {}}
+        unit={selectedNutrition.unit}
+        value={selectedNutrition.value}
+        close={handleClose}
+        show={show}
+      />
     </View>
   );
 };

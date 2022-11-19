@@ -4,19 +4,28 @@ import { Item } from "./Item";
 
 interface Props {
   edit: (id: string) => void;
+  category: any;
+  nutritions: any[];
 }
 
-export const NewPlanNutritionSlider: React.FC<Props> = ({ edit }) => {
+export const NewPlanNutritionSlider: React.FC<Props> = ({
+  edit,
+  nutritions,
+  category,
+}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Vitamins</Text>
+      <Text style={styles.title}>{category.name}</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-        <Item pressed={() => edit("hello")} />
-        <Item pressed={() => edit("hello")} />
-        <Item pressed={() => edit("hello")} />
-        <Item pressed={() => edit("hello")} />
-        <Item pressed={() => edit("hello")} />
-        <Item pressed={() => edit("hello")} />
+        {nutritions.map((nutrition, key) => (
+          <Item
+            recommended={nutrition.recommendation}
+            name={nutrition.nutrition.name}
+            unit={nutrition.nutrition.unit}
+            pressed={() => edit(nutrition.nutrition.id)}
+            key={key}
+          />
+        ))}
       </ScrollView>
     </View>
   );
