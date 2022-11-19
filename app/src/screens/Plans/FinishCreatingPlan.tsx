@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
-import { PlanTrackElement } from "../../components";
-
+import {
+  PlanTrackElement,
+  BluredButton,
+  NutritionPlanAlert,
+} from "../../components";
+<View style={{ height: 100 }} />;
 interface IAltredNutrition {
   id: string;
   name: string;
@@ -20,6 +24,8 @@ export const FinishCreatePlan: React.FC<any> = ({ route }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>Tracked Elements</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
+          <NutritionPlanAlert />
+          <View style={{ height: 18 }} />
           {elements.map((elm, key) => (
             <PlanTrackElement
               key={key}
@@ -30,6 +36,15 @@ export const FinishCreatePlan: React.FC<any> = ({ route }) => {
           ))}
           <View style={{ height: 100 }} />
         </ScrollView>
+        <View
+          style={{
+            position: "absolute",
+            bottom: 10,
+            width: "100%",
+          }}
+        >
+          <BluredButton clicked={() => {}} txt={"Save"} />
+        </View>
       </SafeAreaView>
     </View>
   );

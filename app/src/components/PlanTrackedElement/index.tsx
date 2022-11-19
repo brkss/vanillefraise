@@ -7,10 +7,15 @@ interface Props {
   unit: string;
 }
 
+const ADJUST_STR = (s: string) => {
+  if (s.length > 25) return `${s.slice(0, 22)}...`;
+  return s;
+};
+
 export const PlanTrackElement: React.FC<Props> = ({ name, value, unit }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{ADJUST_STR(name)}</Text>
       <Text style={styles.value}>
         {value} {unit}
       </Text>
@@ -23,7 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 15,
     paddingVertical: 25,
-    backgroundColor: "#fff",
+    backgroundColor: "#ECE8E8",
     borderRadius: 18,
     justifyContent: "space-between",
     marginBottom: 10,
