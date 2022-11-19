@@ -5,7 +5,7 @@ interface Props {
   pressed: () => void;
 }
 
-export const AddNutritionPlan: React.FC<Props> = ({pressed}) => {
+export const AddNutritionPlan: React.FC<Props> = ({ pressed }) => {
   return (
     <Pressable onPress={pressed} style={styles.container}>
       <Text style={styles.txt}>Create new plan.</Text>
@@ -15,7 +15,7 @@ export const AddNutritionPlan: React.FC<Props> = ({pressed}) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    height: 150,
     backgroundColor: "#DFDCDC",
     margin: 5,
     borderRadius: 17,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   txt: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
     fontFamily: "AvNextBold",
   },

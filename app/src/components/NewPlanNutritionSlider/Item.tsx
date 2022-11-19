@@ -5,7 +5,7 @@ interface Props {
   pressed: () => void;
 }
 
-export const Item: React.FC<Props> = ({pressed}) => {
+export const Item: React.FC<Props> = ({ pressed }) => {
   return (
     <Pressable onPress={pressed} style={styles.container}>
       <View
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     height: 146,
-    width: 122,
-    backgroundColor: "#DDEBCF",
+    width: 222,
+    backgroundColor: "#ECE8E8",
     marginRight: 10,
     marginTop: 10,
     borderRadius: 15,
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontFamily: "AvNextBold",
-    fontSize: 12,
+    fontSize: 16,
   },
   hint: {
-    fontSize: 7,
+    fontSize: 14,
     marginBottom: 3,
     opacity: 0.7,
   },

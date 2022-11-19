@@ -24,12 +24,11 @@ export const InstructionsStep: React.FC<Props> = ({
   instructions,
   navigation,
   title,
+  restart,
 }) => {
   const shuffleBack = useSharedValue(false);
   const swipedAll = useSharedValue(false);
   const btnOpacity = useSharedValue(0);
-
-  
 
   useAnimatedReaction(
     () => swipedAll.value,
@@ -75,7 +74,7 @@ export const InstructionsStep: React.FC<Props> = ({
           <Button txt={"Done"} clicked={() => finish()} />
         </View>
         <View style={styles.item}>
-          <Button txt={"Restart"} clicked={() => finish()} />
+          <Button txt={"Restart"} clicked={() => restart()} />
         </View>
       </Animated.View>
     </View>

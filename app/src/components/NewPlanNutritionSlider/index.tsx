@@ -24,7 +24,7 @@ export const NewPlanNutritionSlider: React.FC<Props> = ({ edit }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 25,
+    marginVertical: 15,
   },
   title: {
     fontSize: 22,

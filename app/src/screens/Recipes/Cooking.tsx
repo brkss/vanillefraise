@@ -7,16 +7,12 @@ import {
   FinishStep,
   Loading,
 } from "../../components";
-import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { colors } from "../../utils";
-import { LinearGradient } from "expo-linear-gradient";
 import {
   useRecipeQuery,
   useCookedRecipeMutation,
   UserCaloriesQuery,
   UserCaloriesDocument,
-  Ingredient,
   TranslatedIngredient,
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
