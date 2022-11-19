@@ -11,7 +11,7 @@ export const BluredButton: React.FC<Props> = ({ txt, clicked }) => {
   return (
     <Pressable onPress={() => clicked()} style={styles.container}>
       {Platform.OS === "android" ? (
-        <View style={styles.content}>
+        <View style={[styles.content, { backgroundColor: "#434343" }]}>
           <Text style={styles.txt}>{txt}</Text>
         </View>
       ) : (
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 19,
     width: "100%",
-    backgroundColor: "#434343",
+    //backgroundColor: "#434343",
   },
   txt: {
     fontFamily: "AvNextBold",
