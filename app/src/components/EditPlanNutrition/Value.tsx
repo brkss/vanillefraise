@@ -8,13 +8,12 @@ import Animated, {
 } from "react-native-reanimated";
 
 interface Props {
-  minus: () => void;
-  plus: () => void;
+  changed: (val: number) => void;
   val: number;
   unit: string;
 }
 
-export const ValueSwitch: React.FC<Props> = ({ plus, minus, val, unit }) => {
+export const ValueSwitch: React.FC<Props> = ({ changed, val, unit }) => {
   const scale = useSharedValue(1);
   const [value, setValue] = React.useState(val == -1 ? 0 : val);
   const valStyle = useAnimatedStyle(() => {
@@ -24,10 +23,14 @@ export const ValueSwitch: React.FC<Props> = ({ plus, minus, val, unit }) => {
   });
 
   const handlePlus = () => {
+    changed(value + 1);
     setValue((curr) => curr + 1);
   };
   const handleMinus = () => {
-    if (value > 0) setValue((curr) => curr - 1);
+    if (value > 0) {
+      changed(value - 1);
+      setValue((curr) => curr - 1);
+    }
   };
 
   return (

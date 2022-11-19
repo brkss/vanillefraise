@@ -74,7 +74,7 @@ export const EditPlanNutrition: React.FC<Props> = ({
             { justifyContent: "space-around", height: "100%" },
           ]}
         >
-          <View style={{alignItems: 'flex-end'}}>
+          <View style={{ alignItems: "flex-end" }}>
             <Pressable onPress={close} style={styles.closeCircle}>
               <Text style={styles.closeText}>-</Text>
             </Pressable>
@@ -85,8 +85,7 @@ export const EditPlanNutrition: React.FC<Props> = ({
           <ValueSwitch
             val={value}
             unit={unit}
-            plus={() => {}}
-            minus={() => {}}
+            changed={(val: number) => changed(val)}
           />
           <Button clicked={() => {}} txt={"Save"} />
         </Animated.View>

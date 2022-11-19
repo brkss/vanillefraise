@@ -8,17 +8,62 @@ import {
 } from "../../components";
 import { useNutritionsByCategoryQuery } from "../../generated/graphql";
 
+interface IAlterdNutrition {
+  id: string;
+  name: string;
+  value: number;
+  unit: string;
+  recommended: number;
+}
+
 export const CreateNewPlan: React.FC = () => {
   const [show, setShow] = React.useState(false);
   const { data, loading, error } = useNutritionsByCategoryQuery();
+  const [altredNutritions, setAltredNutrition] = React.useState<
+    IAlterdNutrition[]
+  >([]);
   const [selectedNutrition, setSelectedNutrition] = React.useState({
     value: -1,
     unit: "",
     name: "",
+    id: "",
   });
 
   const handleClose = () => {
     setShow(false);
+  };
+
+  const valueHadChanged = (id: string, val: number): number => {
+    const index = altredNutritions.findIndex(x => x.id === id);
+    if(index === -1)
+      return val;
+    else
+      return altredNutritions[index].value;
+  }
+
+  const handleChangedElement = (
+    val: number,
+    id: string,
+    name: string,
+    unit: string,
+    recommended: number,
+  ) => {
+    if (!id || !name) return;
+    const index = altredNutritions.findIndex((x) => x.id === id);
+    if (index === -1) {
+      const obj: IAlterdNutrition = {
+        value: val,
+        unit: unit,
+        name: name,
+        recommended: recommended,
+        id: id,
+      };
+      setAltredNutrition([...altredNutritions, obj]);
+    } else {
+      altredNutritions[index].value = val;
+      setAltredNutrition([...altredNutritions]);
+    }
+    
   };
 
   const handlePassEditNutrtion = (id: string, items: any[]) => {
@@ -28,6 +73,7 @@ export const CreateNewPlan: React.FC = () => {
         value: item.recommendation,
         unit: item.nutrition.unit,
         name: item.nutrition.name,
+        id: item.nutrition.id,
       });
       setShow(true);
     }
@@ -48,6 +94,7 @@ export const CreateNewPlan: React.FC = () => {
                 nutritions={item.items}
                 edit={(id) => handlePassEditNutrtion(id, item.items)}
                 key={key}
+                changedElements={altredNutritions}   
               />
             ))}
             <View style={{ height: 100 }} />
@@ -62,12 +109,23 @@ export const CreateNewPlan: React.FC = () => {
             padding: 10,
           }}
         >
-          <BluredButton clicked={() => {}} txt={"Create"} />
+          <BluredButton
+            clicked={() => console.log("altred : ", altredNutritions)}
+            txt={"Create"}
+          />
         </View>
       </SafeAreaView>
       <EditPlanNutrition
         name={selectedNutrition.name}
-        changed={(val) => {}}
+        changed={(val) =>
+          handleChangedElement(
+            val,
+            selectedNutrition.id,
+            selectedNutrition.name,
+            selectedNutrition.unit,
+            selectedNutrition.value
+          )
+        }
         unit={selectedNutrition.unit}
         value={selectedNutrition.value}
         close={handleClose}
