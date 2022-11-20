@@ -16,6 +16,7 @@ import {
 } from "../../components";
 import { usePlanDetailsQuery } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
+import Moment from "moment";
 
 export const PlanDetails: React.FC<any> = ({ route }) => {
   const [visible, setVisible] = React.useState(false);
@@ -37,13 +38,29 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
             resizeMode={"cover"}
             style={styles.image}
             source={{
-              uri: "https://cdn.dribbble.com/userupload/3930440/file/original-b07fce06e2297591d9f4b974e22ccefa.jpg?compress=1&resize=2048x1536",
+              uri: `${CDN}/${data.planDetails.image}`,
             }}
           />
           <View style={styles.content}>
-            <Text style={styles.description}>
-              {/*data.planDetails.description*/}
-            </Text>
+            {!data.planDetails.public && (
+              <View
+                style={{
+                  marginTop: 16,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.badge}>Created By You </Text>
+                <Text style={styles.date}>
+                  {Moment(data.planDetails.created_at).format("DD/MM/YYYY")}
+                </Text>
+              </View>
+            )}
+            {data.planDetails.description ? (
+              <Text style={styles.description}>
+                data.planDetails.description
+              </Text>
+            ) : null}
             <Text style={styles.title}>Nutritiens</Text>
             {data.planDetails.trackedElements.map((item, key) => (
               <PlanNutritientItem
@@ -104,5 +121,18 @@ const styles = StyleSheet.create({
     color: "#434343",
     marginTop: 20,
     marginBottom: 10,
+  },
+  badge: {
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
+    fontSize: 17,
+    //marginTop: 15,
+    opacity: 0.7,
+  },
+  date: {
+    opacity: 0.8,
+    fontSize: 17,
+    fontFamily: "AvNextBold",
+    fontWeight: "bold",
   },
 });

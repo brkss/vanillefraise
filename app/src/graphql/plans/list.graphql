@@ -2,6 +2,7 @@ query Plans{
   plans{
 		id
     name
+    image
     created_at
       }
 }

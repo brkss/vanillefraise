@@ -694,8 +694,11 @@ export type Plan = {
   __typename?: 'Plan';
   active: Scalars['Boolean'];
   created_at: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  image?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  public: Scalars['Boolean'];
   trackedElements: Array<TrackedElement>;
   user: User;
 };
@@ -1419,19 +1422,19 @@ export type CreatePlanMutationVariables = Exact<{
 }>;
 
 
-export type CreatePlanMutation = { __typename?: 'Mutation', createPlan: { __typename?: 'CreatePlanResponse', status: boolean, message?: string | null | undefined, plan?: { __typename?: 'Plan', id: string, name: string, created_at: any } | null | undefined } };
+export type CreatePlanMutation = { __typename?: 'Mutation', createPlan: { __typename?: 'CreatePlanResponse', status: boolean, message?: string | null | undefined, plan?: { __typename?: 'Plan', id: string, name: string, created_at: any, image?: string | null | undefined } | null | undefined } };
 
 export type PlanDetailsQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typename?: 'Plan', id: string, name: string, created_at: any, active: boolean, trackedElements: Array<{ __typename?: 'TrackedElement', id: string, quantity: number, nutriton: { __typename?: 'Nutrition', id: string, code: string, name: string, unit: string } }> } | null | undefined };
+export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typename?: 'Plan', id: string, name: string, created_at: any, active: boolean, image?: string | null | undefined, description?: string | null | undefined, public: boolean, trackedElements: Array<{ __typename?: 'TrackedElement', id: string, quantity: number, nutriton: { __typename?: 'Nutrition', id: string, code: string, name: string, unit: string } }> } | null | undefined };
 
 export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, created_at: any }> };
+export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, image?: string | null | undefined, created_at: any }> };
 
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3054,6 +3057,7 @@ export const CreatePlanDocument = gql`
       id
       name
       created_at
+      image
     }
   }
 }
@@ -3092,6 +3096,9 @@ export const PlanDetailsDocument = gql`
     name
     created_at
     active
+    image
+    description
+    public
     trackedElements {
       id
       quantity
@@ -3138,6 +3145,7 @@ export const PlansDocument = gql`
   plans {
     id
     name
+    image
     created_at
   }
 }

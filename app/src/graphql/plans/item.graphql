@@ -1,18 +1,21 @@
-query PlanDetails($id: String!){
-	planDetails(id: $id){
+query PlanDetails($id: String!) {
+  planDetails(id: $id) {
     id
     name
     created_at
     active
-    trackedElements{
+    image
+    description
+    public
+    trackedElements {
       id
       quantity
-      nutriton{
+      nutriton {
         id
         code
         name
         unit
       }
     }
-  }  
+  }
 }

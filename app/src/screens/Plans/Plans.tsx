@@ -49,7 +49,7 @@ export const NutritionPlans: React.FC<any> = ({ navigation }) => {
                 navigation.navigate("PlanDetails", { planId: item.id })
               }
               key={key}
-              //image={`${CDN}/${item.image}`}
+              image={`${CDN}/${item.image}`}
               title={item.name}
             />
           ))}

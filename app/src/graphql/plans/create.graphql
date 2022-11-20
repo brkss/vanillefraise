@@ -1,15 +1,16 @@
 type PlanElements {
-	nutrition_id: String!
-	quantity: Float!
+  nutrition_id: String!
+  quantity: Float!
 }
-mutation CreatePlan($name: String!, $elements: [PlanElements!]!){
-  createPlan(data: {name: $name, elements: $elements}){
+mutation CreatePlan($name: String!, $elements: [PlanElements!]!) {
+  createPlan(data: { name: $name, elements: $elements }) {
     status
     message
-    plan{
+    plan {
       id
-    	name
-    	created_at
+      name
+      created_at
+      image
     }
   }
 }
