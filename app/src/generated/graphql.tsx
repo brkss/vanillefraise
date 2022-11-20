@@ -1430,6 +1430,14 @@ export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PingQuery = { __typename?: 'Query', ping: string };
 
+export type CreatePlanMutationVariables = Exact<{
+  name: Scalars['String'];
+  elements: Array<PlanElements> | PlanElements;
+}>;
+
+
+export type CreatePlanMutation = { __typename?: 'Mutation', createPlan: { __typename?: 'CreatePlanResponse', status: boolean, message?: string | null | undefined, plan?: { __typename?: 'Plan', id: string, name: string, created_at: any } | null | undefined } };
+
 export type PlanDetailsQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -1440,7 +1448,7 @@ export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typenam
 export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, created_at: any, trackedElements: Array<{ __typename?: 'TrackedElement', id: string, quantity: number, nutriton: { __typename?: 'Nutrition', id: string, code: string, name: string, unit: string } }> }> };
+export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, created_at: any }> };
 
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3054,6 +3062,46 @@ export function usePingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PingQ
 export type PingQueryHookResult = ReturnType<typeof usePingQuery>;
 export type PingLazyQueryHookResult = ReturnType<typeof usePingLazyQuery>;
 export type PingQueryResult = Apollo.QueryResult<PingQuery, PingQueryVariables>;
+export const CreatePlanDocument = gql`
+    mutation CreatePlan($name: String!, $elements: [PlanElements!]!) {
+  createPlan(data: {name: $name, elements: $elements}) {
+    status
+    message
+    plan {
+      id
+      name
+      created_at
+    }
+  }
+}
+    `;
+export type CreatePlanMutationFn = Apollo.MutationFunction<CreatePlanMutation, CreatePlanMutationVariables>;
+
+/**
+ * __useCreatePlanMutation__
+ *
+ * To run a mutation, you first call `useCreatePlanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPlanMutation, { data, loading, error }] = useCreatePlanMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      elements: // value for 'elements'
+ *   },
+ * });
+ */
+export function useCreatePlanMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlanMutation, CreatePlanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePlanMutation, CreatePlanMutationVariables>(CreatePlanDocument, options);
+      }
+export type CreatePlanMutationHookResult = ReturnType<typeof useCreatePlanMutation>;
+export type CreatePlanMutationResult = Apollo.MutationResult<CreatePlanMutation>;
+export type CreatePlanMutationOptions = Apollo.BaseMutationOptions<CreatePlanMutation, CreatePlanMutationVariables>;
 export const PlanDetailsDocument = gql`
     query PlanDetails($id: String!) {
   planDetails(id: $id) {
@@ -3104,16 +3152,6 @@ export const PlansDocument = gql`
     id
     name
     created_at
-    trackedElements {
-      id
-      quantity
-      nutriton {
-        id
-        code
-        name
-        unit
-      }
-    }
   }
 }
     `;
