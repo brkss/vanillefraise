@@ -21,6 +21,7 @@ const EarlyAccess_1 = require("./UserInfo/EarlyAccess");
 const MealRecipes_1 = require("./Meals/MealRecipes");
 const Diet_1 = require("./Diet");
 const Recipe_1 = require("./Recipe");
+const Plan_1 = require("./Plan");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -152,6 +153,11 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => Recipe_1.RecipeReport, (report) => report.user),
     __metadata("design:type", Array)
 ], User.prototype, "reportedrecipes", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [Plan_1.Plan]),
+    (0, typeorm_1.OneToMany)(() => Plan_1.Plan, plans => plans.user),
+    __metadata("design:type", Array)
+], User.prototype, "plans", void 0);
 User = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("users")

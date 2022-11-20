@@ -9,49 +9,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Plan = void 0;
+exports.TrackedElement = void 0;
 const typeorm_1 = require("typeorm");
-trackedElements: TrackedElement_1.TrackedElement[];
 const type_graphql_1 = require("type-graphql");
-const User_1 = require("../User");
-const TrackedElement_1 = require("./TrackedElement");
-let Plan = class Plan extends typeorm_1.BaseEntity {
+const Plan_1 = require("./Plan");
+let TrackedElement = class TrackedElement extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
-], Plan.prototype, "id", void 0);
+], TrackedElement.prototype, "id", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], TrackedElement.prototype, "quantity", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Plan.prototype, "name", void 0);
+], TrackedElement.prototype, "code", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], TrackedElement.prototype, "unit", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], Plan.prototype, "created_at", void 0);
+], TrackedElement.prototype, "created_at", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)({ default: true }),
-    __metadata("design:type", Boolean)
-], Plan.prototype, "active", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(() => User_1.User),
-    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.plans, {
+    (0, type_graphql_1.Field)(() => Plan_1.Plan),
+    (0, typeorm_1.ManyToOne)(() => Plan_1.Plan, (plan) => plan.trackedElements, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     }),
-    __metadata("design:type", User_1.User)
-], Plan.prototype, "user", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(() => [TrackedElement_1.TrackedElement]),
-    (0, typeorm_1.OneToMany)(() => TrackedElement_1.TrackedElement, (trackedElement) => trackedElement.plan),
-    __metadata("design:type", Array)
-], Plan.prototype, "trackedElements", void 0);
-Plan = __decorate([
-    (0, typeorm_1.Entity)("plans")
-], Plan);
-exports.Plan = Plan;
-//# sourceMappingURL=Plan.js.map
+    __metadata("design:type", Plan_1.Plan)
+], TrackedElement.prototype, "plan", void 0);
+TrackedElement = __decorate([
+    (0, type_graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)("tracked_elements")
+], TrackedElement);
+exports.TrackedElement = TrackedElement;
+//# sourceMappingURL=TrackedElement.js.map

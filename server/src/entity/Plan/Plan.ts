@@ -1,12 +1,20 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm';
-import { ObjectType, Field } from 'type-graphql';
-import { User } from '../User';
+import {
+  Entity,
+  BaseEntity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
+  trackedElements: TrackedElement[]import { ObjectType, Field } from "type-graphql";
+import { User } from "../User";
+import { TrackedElement } from "./TrackedElement";
 
-@Entity('plans')
+@Entity("plans")
 export class Plan extends BaseEntity {
-  
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Field()
@@ -17,11 +25,18 @@ export class Plan extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
+  @Field()
+  @Column({default: true})
+  active: boolean
+
   @Field(() => User)
-  @ManyToOne(() => User, user => user.plans, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+  @ManyToOne(() => User, (user) => user.plans, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   })
   user: User;
 
-} 
+  @Field(() => [TrackedElement])
+  @OneToMany(() => TrackedElement, (trackedElement) => trackedElement.plan)
+  trackedElements: TrackedElement[];
+}
