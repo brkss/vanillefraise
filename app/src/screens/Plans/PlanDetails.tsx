@@ -31,25 +31,27 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.content}>
-            <Heading title={data.planDetails.title} />
+            <Heading title={data.planDetails.name} />
           </View>
           <Image
             resizeMode={"cover"}
             style={styles.image}
-            source={{ uri: `${CDN}/${data.planDetails.image}` }}
+            source={{
+              uri: "https://cdn.dribbble.com/userupload/3930440/file/original-b07fce06e2297591d9f4b974e22ccefa.jpg?compress=1&resize=2048x1536",
+            }}
           />
           <View style={styles.content}>
             <Text style={styles.description}>
-              {data.planDetails.description}
+              {/*data.planDetails.description*/}
             </Text>
             <Text style={styles.title}>Nutritiens</Text>
-            {data.planDetails.nutrients.map((item, key) => (
+            {data.planDetails.trackedElements.map((item, key) => (
               <PlanNutritientItem
                 key={key}
-                title={item.title}
-                unit={item.unit}
+                title={item.nutriton.name}
+                unit={item.nutriton.unit}
                 quantity={item.quantity}
-                description={item.description}
+                //description={item.description || ""}
               />
             ))}
           </View>

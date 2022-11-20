@@ -5,7 +5,7 @@ interface Props {
   title: string;
   quantity: number;
   unit: string;
-  description: string;
+  description?: string;
 }
 
 export const PlanNutritientItem: React.FC<Props> = ({
@@ -26,7 +26,7 @@ export const PlanNutritientItem: React.FC<Props> = ({
           </Text>
         </View>
       </View>
-      <Text style={styles.description}>{description}</Text>
+      {description ? <Text style={styles.description}>{description}</Text> : null }
     </View>
   );
 };
