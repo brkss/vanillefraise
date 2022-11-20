@@ -27,8 +27,20 @@ export class Plan extends BaseEntity {
   created_at: Date;
 
   @Field()
-  @Column({default: true})
-  active: boolean
+  @Column({ default: true })
+  active: boolean;
+
+  @Field({ nullable: true })
+  @Column({ default: "plans/default.webp" })
+  image?: string;
+
+  @Field()
+  @Column({ default: false })
+  public: boolean;
+
+  @Field({nullable: true})
+  @Column({nullable: true})
+  description: string;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.plans, {
