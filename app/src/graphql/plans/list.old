@@ -1,0 +1,7 @@
+query Plans{
+  plans{
+    id
+    title
+    image
+  }
+}

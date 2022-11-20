@@ -1,7 +1,17 @@
 query Plans{
   plans{
-    id
-    title
-    image
+		id
+    name
+    created_at
+    trackedElements {
+      id
+      quantity
+      nutriton{
+        id
+        code
+        name
+        unit
+      }
+    }
   }
 }

@@ -151,6 +151,18 @@ export type CreateMoodRecordInput = {
   moods: Array<Scalars['String']>;
 };
 
+export type CreatePlanInput = {
+  elements: Array<PlanElements>;
+  name: Scalars['String'];
+};
+
+export type CreatePlanResponse = {
+  __typename?: 'CreatePlanResponse';
+  message?: Maybe<Scalars['String']>;
+  plan?: Maybe<Plan>;
+  status: Scalars['Boolean'];
+};
+
 export type CreateRecipeCategoryInput = {
   icon: Scalars['String'];
   name: Scalars['String'];
@@ -444,6 +456,7 @@ export type Mutation = {
   cookedRecipes: CookedRecipesResponse;
   createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
+  createPlan: CreatePlanResponse;
   createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
   createRecord: CreateRecordResponse;
@@ -528,6 +541,11 @@ export type MutationCreateDietRecordArgs = {
 
 export type MutationCreateMoodRecordArgs = {
   data: CreateMoodRecordInput;
+};
+
+
+export type MutationCreatePlanArgs = {
+  data: CreatePlanInput;
 };
 
 
@@ -640,6 +658,7 @@ export type Nutrition = {
   code: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
+  trackedElements: Array<TrackedElement>;
   unit: Scalars['String'];
 };
 
@@ -688,6 +707,21 @@ export type NutritionOverviewResponse = {
   status: Scalars['Boolean'];
 };
 
+export type Plan = {
+  __typename?: 'Plan';
+  active: Scalars['Boolean'];
+  created_at: Scalars['DateTime'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  trackedElements: Array<TrackedElement>;
+  user: User;
+};
+
+export type PlanElements = {
+  nutrition_id: Scalars['String'];
+  quantity: Scalars['Float'];
+};
+
 export type Query = {
   __typename?: 'Query';
   activeFoodFilters: Array<HealthLabelRefrence>;
@@ -720,7 +754,7 @@ export type Query = {
   nutritionsByCategory: Array<NewPlanNutritionResponse>;
   ping: Scalars['String'];
   planDetails?: Maybe<IPlan>;
-  plans: Array<IPlan>;
+  plans: Array<Plan>;
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
   recipeByNutrition: Array<Recipe>;
@@ -1016,6 +1050,15 @@ export type TrackWeightResponse = {
   value: Scalars['Float'];
 };
 
+export type TrackedElement = {
+  __typename?: 'TrackedElement';
+  created_at: Scalars['DateTime'];
+  id: Scalars['String'];
+  nutriton: Nutrition;
+  plan: Plan;
+  quantity: Scalars['Float'];
+};
+
 export type TranslatedIngredient = {
   __typename?: 'TranslatedIngredient';
   amount?: Maybe<Scalars['Float']>;
@@ -1082,6 +1125,7 @@ export type User = {
   mealrecipes: Array<MealRecipes>;
   moodrecords: Array<MoodRecord>;
   name: Scalars['String'];
+  plans: Array<Plan>;
   records: Array<Record>;
   reportedrecipes: RecipeReport;
   specialconditions: Array<SpecialCondition>;
@@ -1396,7 +1440,7 @@ export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typenam
 export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'IPlan', id: string, title: string, image: string }> };
+export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, created_at: any, trackedElements: Array<{ __typename?: 'TrackedElement', id: string, quantity: number, nutriton: { __typename?: 'Nutrition', id: string, code: string, name: string, unit: string } }> }> };
 
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3058,8 +3102,18 @@ export const PlansDocument = gql`
     query Plans {
   plans {
     id
-    title
-    image
+    name
+    created_at
+    trackedElements {
+      id
+      quantity
+      nutriton {
+        id
+        code
+        name
+        unit
+      }
+    }
   }
 }
     `;
