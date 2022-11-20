@@ -13,7 +13,8 @@ import { Nutrition } from "../Nutrition/Nutrition";
 @ObjectType()
 @Entity("tracked_elements")
 export class TrackedElement extends BaseEntity {
-@Field()  @Field()
+  @Field()
+  @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 

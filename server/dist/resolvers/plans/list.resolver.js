@@ -14,9 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlansListResolver = void 0;
 const type_graphql_1 = require("type-graphql");
-const Plan_1 = require("../../utils/types/Plan");
-const data_1 = require("../../utils/data/tmp-plans/data");
-const Plan_2 = require("../../entity/Plan");
+const Plan_1 = require("../../entity/Plan");
 const middlewares_1 = require("../..//utils/middlewares");
 const User_1 = require("../../entity/User");
 let PlansListResolver = class PlansListResolver {
@@ -24,34 +22,38 @@ let PlansListResolver = class PlansListResolver {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return [];
-        const plans = await Plan_2.Plan.find({
+        const plans = await Plan_1.Plan.find({
             where: { user: user },
             relations: ["trackedElements", "trackedElements.nutriton"],
         });
         return plans;
     }
-    async planDetails(id) {
-        if (!id)
+    async planDetails(id, ctx) {
+        const user = await User_1.User.find({ where: { id: ctx.payload.userID } });
+        if (!user)
             return null;
-        const item = data_1.data.find((x) => x.id === id);
-        if (!item)
-            return null;
-        return item;
+        const plan = await Plan_1.Plan.findOne({
+            where: { id: id, user: user },
+            relations: ["trackedElements", "trackedElements.nutriton"],
+        });
+        return plan || null;
     }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
-    (0, type_graphql_1.Query)(() => [Plan_2.Plan]),
+    (0, type_graphql_1.Query)(() => [Plan_1.Plan]),
     __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], PlansListResolver.prototype, "plans", null);
 __decorate([
-    (0, type_graphql_1.Query)(() => Plan_1.IPlan, { nullable: true }),
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => Plan_1.Plan, { nullable: true }),
     __param(0, (0, type_graphql_1.Arg)("id")),
+    __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], PlansListResolver.prototype, "planDetails", null);
 PlansListResolver = __decorate([

@@ -20,11 +20,18 @@ export class PlansListResolver {
     return plans;
   }
 
-  @Query(() => IPlan, { nullable: true })
-  async planDetails(@Arg("id") id: string) {
-    if (!id) return null;
-    const item = data.find((x) => x.id === id);
-    if (!item) return null;
-    return item;
+  @UseMiddleware(isUserAuth)
+  @Query(() => Plan, { nullable: true })
+  async planDetails(
+    @Arg("id") id: string,
+    @Ctx() ctx: IContext
+  ): Promise<Plan | null> {
+    const user = await User.find({ where: { id: ctx.payload.userID } });
+    if (!user) return null;
+    const plan = await Plan.findOne({
+      where: { id: id, user: user },
+      relations: ["trackedElements", "trackedElements.nutriton"],
+    });
+    return plan || null;
   }
 }
