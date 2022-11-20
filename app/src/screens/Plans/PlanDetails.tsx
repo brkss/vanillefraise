@@ -56,6 +56,20 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
                 </Text>
               </View>
             )}
+            <Text
+              style={[
+                styles.badge,
+                {
+                  color: !data.planDetails.active ? "green" : "orange",
+                  marginTop: 10,
+                  textAlign: "right",
+                },
+              ]}
+            >
+              {!data.planDetails.active
+                ? "Active Tracking"
+                : "Inactive Tracking"}
+            </Text>
             {data.planDetails.description ? (
               <Text style={styles.description}>
                 data.planDetails.description
@@ -84,7 +98,7 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
         >
           <BluredButton
             clicked={() => setVisible(true)}
-            txt={"Apply This Plan"}
+            txt={`${!data.planDetails.active ? "Apply" : "Disable"} This Plan`}
           />
         </View>
       </SafeAreaView>
