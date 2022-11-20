@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./list.resolver"), exports);
 __exportStar(require("./nutrition.resolver"), exports);
 __exportStar(require("./create.resolver"), exports);
+__exportStar(require("./tracking.resolver"), exports);
 //# sourceMappingURL=index.js.map

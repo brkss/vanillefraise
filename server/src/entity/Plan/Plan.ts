@@ -38,8 +38,8 @@ export class Plan extends BaseEntity {
   @Column({ default: false })
   public: boolean;
 
-  @Field({nullable: true})
-  @Column({nullable: true})
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   description: string;
 
   @Field(() => User)
