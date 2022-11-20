@@ -2,10 +2,11 @@ import React from "react";
 import { Center, Box, Text, Image, Button, keyframes } from "@chakra-ui/react";
 import cheese from "../assets/sandwish-fly.png";
 import Sparkles from "./Sparkles";
+import { IoArrowDownCircleOutline } from "react-icons/io5";
 
 const spin = keyframes`
   0% { transform: translateY(0px); }
-  25% { transform: translateY(5px); }
+                <Sparkles> <IoArrowDownCircleOutline /> Download, It's free !</Sparkles>  25% { transform: translateY(5px); }
   50% { transform: translateY(10px); }
   75% { transform: translateY(5px); }
   100% { transform: translateY(0px) }`;
@@ -62,10 +63,16 @@ export const Intro: React.FC = () => {
                 background={"transparent"}
                 color={"#f3b7b7"}
                 padding={"23px 30px"}
-                fontSize={"26px"}
+                fontSize={{ md: "26px", base: "18px" }}
                 fontFamily={"AvBold"}
               >
-                <Sparkles>Guess what, It's free !</Sparkles>
+                <Sparkles>
+                  {" "}
+                  <IoArrowDownCircleOutline
+                    style={{ display: "inline", marginBottom: '-3px' }}
+                  />{" "}
+                  Download, It's free !
+                </Sparkles>
               </Button>
             </Box>
           </Box>

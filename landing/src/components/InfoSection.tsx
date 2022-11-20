@@ -30,7 +30,7 @@ export const InfoSection: React.FC<Props> = ({
   return (
     <Flex
       flexDir={{ md: reverse ? "row-reverse" : "unset", base: "column" }}
-      h={"100vh"}
+      h={"70vh"}
       //minH={{ md: "100vh", base: "50vh" }}
     >
       <Center h={"100%"} flex={1}>

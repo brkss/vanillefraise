@@ -10,7 +10,7 @@ import { getRecommnededAmount } from "../../utils/helpers/nutrition";
 export class PlanNutritionResolver {
   @UseMiddleware(isUserAuth)
   @Query(() => [NewPlanNutritionResponse])
-  async newPlanNutritions(
+  async nutritionsByCategory(
     @Ctx() ctx: IContext
   ): Promise<NewPlanNutritionResponse[]> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });

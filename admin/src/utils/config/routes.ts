@@ -8,6 +8,7 @@ import {
   Resourses,
   RecipeList,
 } from "../../pages";
+import { RecipeReports } from "../../pages/Recipe/Reports";
 export const routes: IRoute[] = [
   {
     name: "Login",
@@ -48,6 +49,13 @@ export const routes: IRoute[] = [
     name: "Recipes List",
     path: "/recipes",
     component: RecipeList,
+    exact: true,
+    protected: true,
+  },
+  {
+    name: "Recipe Reports",
+    path: "/recipes-reports",
+    component: RecipeReports,
     exact: true,
     protected: true,
   },

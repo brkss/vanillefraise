@@ -9,11 +9,15 @@ const links = [
   },
   {
     txt: "Users",
-    link: "/users"
+    link: "/users",
   },
   {
     txt: "Recipe's Categories",
-    link: "recipe-category"
+    link: "recipe-category",
+  },
+  {
+    txt: "Recipes Reports",
+    link: "recipe-reports",
   },
   {
     txt: "Users",

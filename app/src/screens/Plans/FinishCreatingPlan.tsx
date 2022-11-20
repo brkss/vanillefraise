@@ -4,6 +4,8 @@ import {
   PlanTrackElement,
   BluredButton,
   NutritionPlanAlert,
+  InvisibleInput,
+  Input,
 } from "../../components";
 <View style={{ height: 100 }} />;
 interface IAltredNutrition {
@@ -25,6 +27,8 @@ export const FinishCreatePlan: React.FC<any> = ({ route }) => {
         <Text style={styles.title}>Tracked Elements</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
           <NutritionPlanAlert />
+          <View style={{ marginVertical: 18, borderWidth: 1, opacity: 0.1 }} />
+          <Input onChange={(v) => {}} label={"Give your plan a title"} />
           <View style={{ height: 18 }} />
           {elements.map((elm, key) => (
             <PlanTrackElement

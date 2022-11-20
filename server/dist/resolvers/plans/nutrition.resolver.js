@@ -20,7 +20,7 @@ const NutrientCategory_1 = require("../../entity/Nutrition/NutrientCategory");
 const responses_1 = require("../../utils/responses");
 const nutrition_1 = require("../../utils/helpers/nutrition");
 let PlanNutritionResolver = class PlanNutritionResolver {
-    async newPlanNutritions(ctx) {
+    async nutritionsByCategory(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user) {
             return [];
@@ -49,7 +49,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], PlanNutritionResolver.prototype, "newPlanNutritions", null);
+], PlanNutritionResolver.prototype, "nutritionsByCategory", null);
 PlanNutritionResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], PlanNutritionResolver);
