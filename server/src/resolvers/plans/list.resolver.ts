@@ -1,12 +1,23 @@
-import { Resolver, Query, Arg } from "type-graphql";
+import { Resolver, Query, Arg, UseMiddleware, Ctx } from "type-graphql";
 import { IPlan } from "../../utils/types/Plan";
 import { data } from "../../utils/data/tmp-plans/data";
+import { Plan } from "../../entity/Plan";
+import { isUserAuth } from "../..//utils/middlewares";
+import { IContext } from "../../utils/types/Context";
+import { User } from "../../entity/User";
 
 @Resolver()
 export class PlansListResolver {
-  @Query(() => [IPlan])
-  async plans(): Promise<IPlan[]> {
-    return data;
+  @UseMiddleware(isUserAuth)
+  @Query(() => [Plan])
+  async plans(@Ctx() ctx: IContext): Promise<Plan[]> {
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
+    if (!user) return [];
+    const plans = await Plan.find({
+      where: { user: user },
+      relations: ["trackedElements", "trackedElements.nutriton"],
+    });
+    return plans;
   }
 
   @Query(() => IPlan, { nullable: true })
