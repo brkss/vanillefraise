@@ -29,13 +29,14 @@ let PlansListResolver = class PlansListResolver {
         return plans;
     }
     async planDetails(id, ctx) {
-        const user = await User_1.User.find({ where: { id: ctx.payload.userID } });
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return null;
         const plan = await Plan_1.Plan.findOne({
             where: { id: id, user: user },
             relations: ["trackedElements", "trackedElements.nutriton"],
         });
+        console.log("plan : ", id, user);
         return plan || null;
     }
 };

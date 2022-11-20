@@ -26,12 +26,13 @@ export class PlansListResolver {
     @Arg("id") id: string,
     @Ctx() ctx: IContext
   ): Promise<Plan | null> {
-    const user = await User.find({ where: { id: ctx.payload.userID } });
+    const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return null;
     const plan = await Plan.findOne({
       where: { id: id, user: user },
       relations: ["trackedElements", "trackedElements.nutriton"],
     });
+    console.log("plan : ", id, user);
     return plan || null;
   }
 }
