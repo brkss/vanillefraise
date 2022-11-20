@@ -7,10 +7,11 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-  trackedElements: TrackedElement[]import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field } from "type-graphql";
 import { User } from "../User";
 import { TrackedElement } from "./TrackedElement";
 
+@ObjectType()
 @Entity("plans")
 export class Plan extends BaseEntity {
   @Field()

@@ -13,9 +13,11 @@ exports.TrackedElement = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
 const Plan_1 = require("./Plan");
+const Nutrition_1 = require("../Nutrition/Nutrition");
 let TrackedElement = class TrackedElement extends typeorm_1.BaseEntity {
 };
 __decorate([
+    (0, type_graphql_1.Field)(),
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
@@ -25,16 +27,6 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], TrackedElement.prototype, "quantity", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TrackedElement.prototype, "code", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], TrackedElement.prototype, "unit", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)(),
@@ -48,6 +40,14 @@ __decorate([
     }),
     __metadata("design:type", Plan_1.Plan)
 ], TrackedElement.prototype, "plan", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.ManyToOne)(() => Nutrition_1.Nutrition, (nutrition) => nutrition.trackedElements, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    }),
+    __metadata("design:type", Nutrition_1.Nutrition)
+], TrackedElement.prototype, "nutriton", void 0);
 TrackedElement = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("tracked_elements")

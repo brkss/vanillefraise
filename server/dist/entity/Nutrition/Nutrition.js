@@ -13,6 +13,7 @@ exports.Nutrition = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
 const NutrientCategory_1 = require("./NutrientCategory");
+const TrackedElement_1 = require("../Plan/TrackedElement");
 let Nutrition = class Nutrition extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -40,6 +41,11 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => NutrientCategory_1.NutritienCategory, (category) => category.nutrients),
     __metadata("design:type", NutrientCategory_1.NutritienCategory)
 ], Nutrition.prototype, "category", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [TrackedElement_1.TrackedElement]),
+    (0, typeorm_1.OneToMany)(() => TrackedElement_1.TrackedElement, trackedElements => trackedElements.nutriton),
+    __metadata("design:type", Array)
+], Nutrition.prototype, "trackedElements", void 0);
 Nutrition = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Plan = void 0;
 const typeorm_1 = require("typeorm");
-trackedElements: TrackedElement_1.TrackedElement[];
 const type_graphql_1 = require("type-graphql");
 const User_1 = require("../User");
 const TrackedElement_1 = require("./TrackedElement");
@@ -51,6 +50,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Plan.prototype, "trackedElements", void 0);
 Plan = __decorate([
+    (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("plans")
 ], Plan);
 exports.Plan = Plan;

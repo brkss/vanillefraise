@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  OneToMany
 } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
 import { NutritienCategory } from "./NutrientCategory";
+import { TrackedElement } from '../Plan/TrackedElement'; 
 
 @ObjectType()
 @Entity()
@@ -30,4 +32,9 @@ export class Nutrition extends BaseEntity {
   @Field(() => NutritienCategory)
   @ManyToOne(() => NutritienCategory, (category) => category.nutrients)
   category: NutritienCategory;
+
+  @Field(() => [TrackedElement])
+  @OneToMany(() => TrackedElement, trackedElements => trackedElements.nutriton)
+  trackedElements: TrackedElement[]
+
 }

@@ -8,25 +8,18 @@ import {
 } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
 import { Plan } from "./Plan";
+import { Nutrition } from "../Nutrition/Nutrition";
 
 @ObjectType()
 @Entity("tracked_elements")
 export class TrackedElement extends BaseEntity {
-  @Field()
+@Field()  @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Field()
   @Column()
   quantity: number;
-
-  @Field()
-  @Column()
-  code: string;
-
-  @Field()
-  @Column()
-  unit: string;
 
   @Field()
   @CreateDateColumn()
@@ -38,4 +31,11 @@ export class TrackedElement extends BaseEntity {
     onUpdate: "CASCADE",
   })
   plan: Plan;
+
+  @Field()
+  @ManyToOne(() => Nutrition, (nutrition) => nutrition.trackedElements, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  nutriton: Nutrition;
 }
