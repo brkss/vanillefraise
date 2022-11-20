@@ -1,14 +1,18 @@
 query PlanDetails($id: String!){
- planDetails(id: $id){
-  id
-  title
-  description
-  image
-  nutrients{
-    title
-    quantity
-    unit
-    description
-  }
-}
+	planDetails(id: $id){
+    id
+    name
+    created_at
+    active
+    trackedElements{
+      id
+      quantity
+      nutriton{
+        id
+        code
+        name
+        unit
+      }
+    }
+  }  
 }

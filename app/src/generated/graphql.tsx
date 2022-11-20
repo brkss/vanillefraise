@@ -259,23 +259,6 @@ export type HealthLabelRefrence = {
   param: Scalars['String'];
 };
 
-export type IPlan = {
-  __typename?: 'IPlan';
-  description: Scalars['String'];
-  id: Scalars['String'];
-  image: Scalars['String'];
-  nutrients: Array<IPlanNutritien>;
-  title: Scalars['String'];
-};
-
-export type IPlanNutritien = {
-  __typename?: 'IPlanNutritien';
-  description: Scalars['String'];
-  quantity: Scalars['Float'];
-  title: Scalars['String'];
-  unit: Scalars['String'];
-};
-
 export type Ingredient = {
   __typename?: 'Ingredient';
   amount?: Maybe<Scalars['Float']>;
@@ -753,7 +736,7 @@ export type Query = {
   nutritionIntakeChart: Array<NutritionIntakeChartResponse>;
   nutritionsByCategory: Array<NewPlanNutritionResponse>;
   ping: Scalars['String'];
-  planDetails?: Maybe<IPlan>;
+  planDetails?: Maybe<Plan>;
   plans: Array<Plan>;
   recipe: RecipeItemResponse;
   recipeByCategory: Array<Recipe>;
@@ -1443,7 +1426,7 @@ export type PlanDetailsQueryVariables = Exact<{
 }>;
 
 
-export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typename?: 'IPlan', id: string, title: string, description: string, image: string, nutrients: Array<{ __typename?: 'IPlanNutritien', title: string, quantity: number, unit: string, description: string }> } | null | undefined };
+export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typename?: 'Plan', id: string, name: string, created_at: any, active: boolean, trackedElements: Array<{ __typename?: 'TrackedElement', id: string, quantity: number, nutriton: { __typename?: 'Nutrition', id: string, code: string, name: string, unit: string } }> } | null | undefined };
 
 export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3106,14 +3089,18 @@ export const PlanDetailsDocument = gql`
     query PlanDetails($id: String!) {
   planDetails(id: $id) {
     id
-    title
-    description
-    image
-    nutrients {
-      title
+    name
+    created_at
+    active
+    trackedElements {
+      id
       quantity
-      unit
-      description
+      nutriton {
+        id
+        code
+        name
+        unit
+      }
     }
   }
 }
