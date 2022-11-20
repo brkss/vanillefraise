@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 interface Props {
-  image: any;
+  image?: any;
   title: string;
   clicked: () => void;
 }
@@ -23,7 +23,7 @@ export const NutritionPlanThumbnail: React.FC<Props> = ({
       <ImageBackground
         imageStyle={{ borderRadius: 20 }}
         style={styles.image}
-        source={{ uri: image }}
+        source={{ uri: "https://cdn.dribbble.com/userupload/3930440/file/original-b07fce06e2297591d9f4b974e22ccefa.jpg?compress=1&resize=2048x1536"}}
       >
         <View style={styles.shadow}></View>
         <Text style={styles.title}>{title}</Text>

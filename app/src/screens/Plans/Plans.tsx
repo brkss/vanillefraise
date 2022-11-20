@@ -39,15 +39,18 @@ export const NutritionPlans: React.FC<any> = ({ navigation }) => {
               <Text style={styles.infoTitle}>What is this ?</Text>
             </Pressable>
           </View>
-          <AddNutritionPlan pressed={() => navigation.navigate("CreateNewPlan")} />
+          <AddNutritionPlan
+            pressed={() => navigation.navigate("CreateNewPlan")}
+          />
+
           {data.plans.map((item, key) => (
             <NutritionPlanThumbnail
               clicked={() =>
                 navigation.navigate("PlanDetails", { planId: item.id })
               }
               key={key}
-              image={`${CDN}/${item.image}`}
-              title={item.title}
+              //image={`${CDN}/${item.image}`}
+              title={item.name}
             />
           ))}
           {/*<Text style={styles.description}>
