@@ -51,6 +51,7 @@ const build = async () => {
             resolvers_1.ReportRecipeResolver,
             resolvers_1.GroceryResolver,
             resolvers_1.PlanNutritionResolver,
+            resolvers_1.CreatePlanResolver,
         ],
         validate: false,
         dateScalarMode: "isoDate",

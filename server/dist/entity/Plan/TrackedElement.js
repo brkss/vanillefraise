@@ -41,7 +41,7 @@ __decorate([
     __metadata("design:type", Plan_1.Plan)
 ], TrackedElement.prototype, "plan", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    (0, type_graphql_1.Field)(() => Nutrition_1.Nutrition),
     (0, typeorm_1.ManyToOne)(() => Nutrition_1.Nutrition, (nutrition) => nutrition.trackedElements, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",

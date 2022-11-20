@@ -32,7 +32,7 @@ export class TrackedElement extends BaseEntity {
   })
   plan: Plan;
 
-  @Field()
+  @Field(() => Nutrition)
   @ManyToOne(() => Nutrition, (nutrition) => nutrition.trackedElements, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",

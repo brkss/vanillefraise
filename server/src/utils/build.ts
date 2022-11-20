@@ -52,6 +52,7 @@ import {
   // ------- Grocery --------
   GroceryResolver,
   PlanNutritionResolver,
+  CreatePlanResolver,
 } from "../resolvers";
 export const build = async () => {
   return await buildSchema({
@@ -101,6 +102,7 @@ export const build = async () => {
       ReportRecipeResolver,
       GroceryResolver,
       PlanNutritionResolver,
+      CreatePlanResolver,
     ],
     validate: false,
     dateScalarMode: "isoDate",
