@@ -466,6 +466,7 @@ export type Mutation = {
   seedRecomendation: Scalars['Boolean'];
   seedRecordCategories: Scalars['Boolean'];
   seedSpecialConditions: Scalars['Boolean'];
+  togglePlanTracking: TogglePlanTrackingResponse;
   updateCategory: UpdateCategoryResponse;
   updateInfo: DefaultResponse;
   verifyAccount: DefaultResponse;
@@ -604,6 +605,11 @@ export type MutationResetPasswordArgs = {
 
 export type MutationSaveFoodFiltersArgs = {
   data: Array<Scalars['String']>;
+};
+
+
+export type MutationTogglePlanTrackingArgs = {
+  planId: Scalars['String'];
 };
 
 
@@ -1022,6 +1028,13 @@ export type SpecialCondition = {
   users: Array<User>;
 };
 
+export type TogglePlanTrackingResponse = {
+  __typename?: 'TogglePlanTrackingResponse';
+  current?: Maybe<Scalars['Boolean']>;
+  message?: Maybe<Scalars['String']>;
+  status: Scalars['Boolean'];
+};
+
 export type TrackMacronutrientsResponse = {
   __typename?: 'TrackMacronutrientsResponse';
   carbs: Scalars['Float'];
@@ -1435,6 +1448,13 @@ export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, image?: string | null | undefined, created_at: any }> };
+
+export type TogglePlanTrackingMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type TogglePlanTrackingMutation = { __typename?: 'Mutation', togglePlanTracking: { __typename?: 'TogglePlanTrackingResponse', status: boolean, message?: string | null | undefined, current?: boolean | null | undefined } };
 
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3177,6 +3197,41 @@ export function usePlansLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Plan
 export type PlansQueryHookResult = ReturnType<typeof usePlansQuery>;
 export type PlansLazyQueryHookResult = ReturnType<typeof usePlansLazyQuery>;
 export type PlansQueryResult = Apollo.QueryResult<PlansQuery, PlansQueryVariables>;
+export const TogglePlanTrackingDocument = gql`
+    mutation TogglePlanTracking($id: String!) {
+  togglePlanTracking(planId: $id) {
+    status
+    message
+    current
+  }
+}
+    `;
+export type TogglePlanTrackingMutationFn = Apollo.MutationFunction<TogglePlanTrackingMutation, TogglePlanTrackingMutationVariables>;
+
+/**
+ * __useTogglePlanTrackingMutation__
+ *
+ * To run a mutation, you first call `useTogglePlanTrackingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTogglePlanTrackingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [togglePlanTrackingMutation, { data, loading, error }] = useTogglePlanTrackingMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useTogglePlanTrackingMutation(baseOptions?: Apollo.MutationHookOptions<TogglePlanTrackingMutation, TogglePlanTrackingMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<TogglePlanTrackingMutation, TogglePlanTrackingMutationVariables>(TogglePlanTrackingDocument, options);
+      }
+export type TogglePlanTrackingMutationHookResult = ReturnType<typeof useTogglePlanTrackingMutation>;
+export type TogglePlanTrackingMutationResult = Apollo.MutationResult<TogglePlanTrackingMutation>;
+export type TogglePlanTrackingMutationOptions = Apollo.BaseMutationOptions<TogglePlanTrackingMutation, TogglePlanTrackingMutationVariables>;
 export const RecipeCategoriesDocument = gql`
     query RecipeCategories {
   recipeCategories {

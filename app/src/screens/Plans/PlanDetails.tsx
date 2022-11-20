@@ -14,18 +14,45 @@ import {
   Loading,
   NutritionPlanStatusModal,
 } from "../../components";
-import { usePlanDetailsQuery } from "../../generated/graphql";
+import {
+  PlanDetailsDocument,
+  PlanDetailsQuery,
+  usePlanDetailsQuery,
+} from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 import Moment from "moment";
+import { useTogglePlanTrackingMutation } from "../../generated/graphql";
 
 export const PlanDetails: React.FC<any> = ({ route }) => {
   const [visible, setVisible] = React.useState(false);
+  const [toggle] = useTogglePlanTrackingMutation();
+  const [active, setActive] = React.useState(false);
   const { planId } = route.params;
   const { data, loading, error } = usePlanDetailsQuery({
     variables: { id: planId },
+    fetchPolicy: "network-only",
+    onCompleted: (res) => {
+      setActive(res.planDetails.active);
+    },
   });
 
   if (loading || error) return <Loading />;
+
+  const handleTogglePlanTracking = (planId: string) => {
+    if (!planId) return;
+    toggle({
+      variables: {
+        id: planId,
+      },
+    })
+      .then((res) => {
+        if (res.data.togglePlanTracking.status)
+          setActive(res.data.togglePlanTracking.current);
+      })
+      .catch((e) => {
+        console.log("something went wrong toggling plan tracking : ", e);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -60,15 +87,13 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
               style={[
                 styles.badge,
                 {
-                  color: !data.planDetails.active ? "green" : "orange",
+                  color: active ? "green" : "orange",
                   marginTop: 10,
                   textAlign: "right",
                 },
               ]}
             >
-              {!data.planDetails.active
-                ? "Active Tracking"
-                : "Inactive Tracking"}
+              {active ? "Active Tracking" : "Inactive Tracking"}
             </Text>
             {data.planDetails.description ? (
               <Text style={styles.description}>
@@ -97,8 +122,8 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
           }}
         >
           <BluredButton
-            clicked={() => setVisible(true)}
-            txt={`${!data.planDetails.active ? "Apply" : "Disable"} This Plan`}
+            clicked={() => handleTogglePlanTracking(data.planDetails.id)}
+            txt={`${!active ? "Apply" : "Disable"} This Plan`}
           />
         </View>
       </SafeAreaView>

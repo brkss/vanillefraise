@@ -1,0 +1,7 @@
+mutation TogglePlanTracking($id: String!){
+  togglePlanTracking(planId: $id){
+    status
+    message
+		    current
+  }
+}
