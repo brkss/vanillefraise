@@ -52,3 +52,4 @@ export * from "./NewPlanNutritionSlider";
 export * from "./EditPlanNutrition";
 export * from './PlanTrackedElement'
 export * from './PlanTrackedElement/Alert'
+export * from './TrackedElement';

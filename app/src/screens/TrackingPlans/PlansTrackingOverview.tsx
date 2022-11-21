@@ -1,12 +1,66 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Pressable,
+  ScrollView,
+} from "react-native";
+import { TrackedElement, Loading } from "../../components";
+import { useTrackingQuery } from "../../generated/graphql";
 
 export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
+  const { data, error, loading } = useTrackingQuery();
+
+  if (loading || error) return <Loading />;
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>Tracking Nutrition Plans</Text>
-        <View style={styles.content}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            data.tracking.map((plan, key) => (
+              <View key={key}>
+                <Text
+            style={[
+              styles.title,
+              {
+                fontSize: 23,
+                textAlign: "left",
+                padding: 10,
+                paddingBottom: 0,
+              },
+            ]}
+          >
+                  {plan.plan.name}
+              </Text>
+              {
+                plan.elements.map((elm, key) => (
+                    <TrackedElement
+            current={elm.current}
+            name={elm.name}
+            target={elm.target}
+            unit={elm.unit}
+            key={key}
+          />
+                ))
+              }
+          
+              </View>
+          ))
+          }
+          
+          <TrackedElement
+            current={55}
+            name={"Vitamin C"}
+            target={90}
+            unit={"mg"}
+          />
+          <TrackedElement current={89} name={"Iron"} target={100} unit={"mg"} />
+        </ScrollView>
+        <View style={[styles.content, { display: "none" }]}>
           <Text style={styles.subtitle}>no selected plans.</Text>
           <Pressable
             onPress={() => navigation.navigate("Plans")}
