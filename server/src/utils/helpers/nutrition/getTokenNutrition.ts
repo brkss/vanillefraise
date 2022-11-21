@@ -6,7 +6,10 @@ import { Like } from "typeorm";
 export const getTokenNutrition = async (user: User, code: string) => {
   if (!user || !code) return -1;
   const cookedRecipes = await CookedRecipe.find({
-    where: { user: user, created_at: Like(`${dayjs().format("YYYY-MM-DD")}`) },
+    where: {
+      user: user,
+      created_at: Like(`%${dayjs().format("YYYY-MM-DD")}%`),
+    },
     relations: ["recipe", "recipe.totalnutrition"],
   });
   let results = 0;
