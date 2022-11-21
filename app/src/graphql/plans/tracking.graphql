@@ -1,0 +1,16 @@
+query Tracking{
+  tracking{
+    plan{
+      id
+      name
+      image
+    }
+  	elements{
+      target
+      name
+      unit
+      current
+      code
+    }
+  }
+}

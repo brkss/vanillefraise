@@ -762,6 +762,7 @@ export type Query = {
   trackCalories: Array<CaloriesTrackResponse>;
   trackMacronutrients: Array<TrackMacronutrientsResponse>;
   trackWeight: Array<TrackWeightResponse>;
+  tracking: Array<TrackingPlanResponse>;
   userCalories: UserCaloriesResponse;
   userNutrition: NutritionOverviewResponse;
   verifyResetToken: VerifyResetPasswordTokenResponse;
@@ -1056,6 +1057,21 @@ export type TrackedElement = {
   nutriton: Nutrition;
   plan: Plan;
   quantity: Scalars['Float'];
+};
+
+export type TrackedElements = {
+  __typename?: 'TrackedElements';
+  code: Scalars['String'];
+  current: Scalars['Float'];
+  name: Scalars['String'];
+  target: Scalars['Float'];
+  unit: Scalars['String'];
+};
+
+export type TrackingPlanResponse = {
+  __typename?: 'TrackingPlanResponse';
+  elements: Array<TrackedElements>;
+  plan: Plan;
 };
 
 export type TranslatedIngredient = {
@@ -1455,6 +1471,11 @@ export type TogglePlanTrackingMutationVariables = Exact<{
 
 
 export type TogglePlanTrackingMutation = { __typename?: 'Mutation', togglePlanTracking: { __typename?: 'TogglePlanTrackingResponse', status: boolean, message?: string | null | undefined, current?: boolean | null | undefined } };
+
+export type TrackingQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TrackingQuery = { __typename?: 'Query', tracking: Array<{ __typename?: 'TrackingPlanResponse', plan: { __typename?: 'Plan', id: string, name: string, image?: string | null | undefined }, elements: Array<{ __typename?: 'TrackedElements', target: number, name: string, unit: string, current: number, code: string }> }> };
 
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3232,6 +3253,51 @@ export function useTogglePlanTrackingMutation(baseOptions?: Apollo.MutationHookO
 export type TogglePlanTrackingMutationHookResult = ReturnType<typeof useTogglePlanTrackingMutation>;
 export type TogglePlanTrackingMutationResult = Apollo.MutationResult<TogglePlanTrackingMutation>;
 export type TogglePlanTrackingMutationOptions = Apollo.BaseMutationOptions<TogglePlanTrackingMutation, TogglePlanTrackingMutationVariables>;
+export const TrackingDocument = gql`
+    query Tracking {
+  tracking {
+    plan {
+      id
+      name
+      image
+    }
+    elements {
+      target
+      name
+      unit
+      current
+      code
+    }
+  }
+}
+    `;
+
+/**
+ * __useTrackingQuery__
+ *
+ * To run a query within a React component, call `useTrackingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTrackingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTrackingQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTrackingQuery(baseOptions?: Apollo.QueryHookOptions<TrackingQuery, TrackingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TrackingQuery, TrackingQueryVariables>(TrackingDocument, options);
+      }
+export function useTrackingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrackingQuery, TrackingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TrackingQuery, TrackingQueryVariables>(TrackingDocument, options);
+        }
+export type TrackingQueryHookResult = ReturnType<typeof useTrackingQuery>;
+export type TrackingLazyQueryHookResult = ReturnType<typeof useTrackingLazyQuery>;
+export type TrackingQueryResult = Apollo.QueryResult<TrackingQuery, TrackingQueryVariables>;
 export const RecipeCategoriesDocument = gql`
     query RecipeCategories {
   recipeCategories {
