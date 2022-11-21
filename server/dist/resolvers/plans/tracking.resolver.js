@@ -18,6 +18,7 @@ const User_1 = require("../../entity/User");
 const middlewares_1 = require("../../utils/middlewares");
 const Plan_1 = require("../../entity/Plan");
 const plans_1 = require("../../utils/responses/plans");
+const nutrition_1 = require("../../utils/helpers/nutrition");
 let PlanTrackingResolver = class PlanTrackingResolver {
     async togglePlanTracking(planId, ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -46,6 +47,33 @@ let PlanTrackingResolver = class PlanTrackingResolver {
             current: plan.active,
         };
     }
+    async tracking(ctx) {
+        const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
+        if (!user)
+            return [];
+        const plans = await Plan_1.Plan.find({
+            where: [
+                { user: user, public: false, active: true },
+                { public: true, active: true },
+            ],
+            relations: ["trackedElements", "trackedElements.nutriton"],
+        });
+        const response = [];
+        for (let plan of plans) {
+            const obj = {
+                plan: plan,
+                elements: await Promise.all(plan.trackedElements.map(async (item) => ({
+                    current: await (0, nutrition_1.getTokenNutrition)(user, item.nutriton.code),
+                    name: item.nutriton.name,
+                    target: item.quantity,
+                    unit: item.nutriton.unit,
+                    code: item.nutriton.code,
+                }))),
+            };
+            response.push(obj);
+        }
+        return response;
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
@@ -56,6 +84,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], PlanTrackingResolver.prototype, "togglePlanTracking", null);
+__decorate([
+    (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
+    (0, type_graphql_1.Query)(() => [plans_1.TrackingPlanResponse]),
+    __param(0, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PlanTrackingResolver.prototype, "tracking", null);
 PlanTrackingResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], PlanTrackingResolver);

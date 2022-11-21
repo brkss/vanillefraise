@@ -1,1 +1,2 @@
-export * from './getRecommendedAmount';
+export * from "./getRecommendedAmount";
+export * from "./getTokenNutrition";
