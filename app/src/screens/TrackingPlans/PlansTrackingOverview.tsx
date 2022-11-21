@@ -6,61 +6,72 @@ import {
   SafeAreaView,
   Pressable,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { TrackedElement, Loading } from "../../components";
 import { useTrackingQuery } from "../../generated/graphql";
 
+const wait = async (time: number) => {
+  return new Promise((resolve, _) => setTimeout(resolve, time));
+};
+
 export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
-  const { data, error, loading } = useTrackingQuery();
+  const { data, error, loading, refetch } = useTrackingQuery();
+  const [refreshing, setRefreshing] = React.useState(false);
 
   if (loading || error) return <Loading />;
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    wait(2000).then(() => {
+      setRefreshing(false);
+      refetch();
+    });
+  };
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>Tracking Nutrition Plans</Text>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {
-            data.tracking.map((plan, key) => (
-              <View key={key}>
-                <Text
-            style={[
-              styles.title,
-              {
-                fontSize: 23,
-                textAlign: "left",
-                padding: 10,
-                paddingBottom: 0,
-              },
-            ]}
-          >
-                  {plan.plan.name}
-              </Text>
-              {
-                plan.elements.map((elm, key) => (
-                    <TrackedElement
-            current={elm.current}
-            name={elm.name}
-            target={elm.target}
-            unit={elm.unit}
-            key={key}
-          />
-                ))
-              }
-          
-              </View>
-          ))
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
-          
-          <TrackedElement
-            current={55}
-            name={"Vitamin C"}
-            target={90}
-            unit={"mg"}
-          />
-          <TrackedElement current={89} name={"Iron"} target={100} unit={"mg"} />
+        >
+          {data.tracking.map((plan, key) => (
+            <View key={key}>
+              <Text
+                style={[
+                  styles.title,
+                  {
+                    fontSize: 23,
+                    textAlign: "left",
+                    padding: 10,
+                    paddingBottom: 0,
+                  },
+                ]}
+              >
+                {plan.plan.name}
+              </Text>
+              {plan.elements.map((elm, key) => (
+                <TrackedElement
+                  current={elm.current}
+                  name={elm.name}
+                  target={elm.target}
+                  unit={elm.unit}
+                  key={key}
+                />
+              ))}
+            </View>
+          ))}
         </ScrollView>
-        <View style={[styles.content, { display: "none" }]}>
+        <View
+          style={[
+            styles.content,
+            { display: data.tracking.length === 0 ? "flex" : "none" },
+          ]}
+        >
           <Text style={styles.subtitle}>no selected plans.</Text>
           <Pressable
             onPress={() => navigation.navigate("Plans")}
@@ -85,6 +96,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#434343",
     marginTop: 20,
+    paddingBottom: 10,
   },
   content: {
     flex: 1,
