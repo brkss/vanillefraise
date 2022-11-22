@@ -5,8 +5,9 @@ import {
   Intro,
   Subscribe,
   Footer,
-  InfoSection,
+  //InfoSection,
   Description,
+  Download
 } from "../components";
 import { data } from "../utils/data/infos";
 
@@ -15,16 +16,17 @@ export const Home: React.FC = () => {
     <Box>
       <TopBar />
       <Intro />
-      <Description />
-      {data.map((item, key) => (
+      <Download />
+      {/*<Description />*/}
+      {/*data.map((item, key) => (
         <InfoSection
           reverse={(key + 1) % 2 === 0}
           text={item.text}
           image={item.image}
           title={item.title}
         />
-      ))}
-      <Grid templateColumns="repeat(6, 1fr)">
+      ))*/}
+      <Grid display={'none'} templateColumns="repeat(6, 1fr)">
         <GridItem colSpan={{ md: 3, base: 6 }}>
           <Center
             h={"100vh"}

@@ -8,3 +8,4 @@ export * from './About';
 export * from './Info'
 export * from './InfoSection';
 export * from './Description';
+export * from './Download';
