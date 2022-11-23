@@ -23,6 +23,7 @@ export const Home: React.FC = () => {
         <Download />
         <ShowOff />
       </Box>
+        <Footer />
       {/*data.map((item, key) => (
         <InfoSection
           reverse={(key + 1) % 2 === 0}
@@ -68,7 +69,6 @@ export const Home: React.FC = () => {
           <Subscribe />
         </GridItem>
       </Grid>
-      <Footer />
     </Box>
   );
 };
