@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ConfigureDietFood, Loading } from "../../components";
+import { ConfigureDietFood, Loading, BluredButton } from "../../components";
 import {
   ActiveFoodFiltersDocument,
   ActiveFoodFiltersQuery,
@@ -56,9 +56,7 @@ export const FoodFilters: React.FC<any> = ({ navigation }) => {
           hidenavigation
         />
         {changed && (
-          <Pressable onPress={handleSave} style={styles.btn}>
-            <Text style={styles.btnText}>SAVE</Text>
-          </Pressable>
+          <BluredButton txt={'SAVE'} clicked={handleSave} />
         )}
       </SafeAreaView>
     </View>

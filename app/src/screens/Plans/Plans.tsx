@@ -90,5 +90,6 @@ const styles = StyleSheet.create({
     marginTop: -10,
     fontFamily: "AvNextBold",
     color: "#434343",
+    display: 'none'
   },
 });
