@@ -43,7 +43,7 @@ export const ShowOff : React.FC = () => {
         <Box w={'100%'}>
     <Text d={'none'} color={'white'} fontSize={'40px'} fontFamily={'AvBold'} textAlign={'center'} fontWeight={'bold'} mb={'20px'} >How Helpful ?</Text>
 
-        <Box paddingLeft={'40px'} whiteSpace={'nowrap'} overflow={'auto'} w={'100%'} > 
+        <Box className='imageslider' paddingLeft={'40px'} whiteSpace={'nowrap'} overflow={'auto'} w={'100%'} > 
         {
           screenshots.map((item, key) => (
             <Box  w={{md: '350px'}} mr={{base: '30px'}} d={'inline-block'} textAlign={'center'} key={key}>

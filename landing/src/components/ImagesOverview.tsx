@@ -16,7 +16,7 @@ export const ImageOverview : React.FC = () => {
 
   return (
     <Box mt={'60px'} textAlign={'center'} w={'100%'}>
-        <Image m={'auto'} src={s1} mr={'30px'} display={'inline-block'} w={'300px'}  />
+        <Image m={'auto'} src={s1} display={'inline-block'} w={{md: '300px', base: "200px"}}   />
     </Box>
     
   

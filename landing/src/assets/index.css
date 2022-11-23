@@ -31,3 +31,22 @@
     transform: translateY(10px);
   }
 }
+
+.imageslider {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.imageslider ::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.content-home {
+	height: 100vh;
+	scroll-snap-type: y mandatory;
+	overflow-y: scroll;
+}
+
+.content-home > * {
+	height: 100vh;
+  scroll-snap-align: start;
+}

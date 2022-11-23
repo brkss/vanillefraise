@@ -4,14 +4,15 @@ import { ImageOverview } from './ImagesOverview';
 
 export const Description: React.FC = () => {
   return (
-    <Box h={'100vh'} bg={'black'} p={{ md: "50px 20px 20px", base: "0px" }} pt={'50px'} >
-        <Box pos={"relative"}>
+    <Center h={'100vh'} bg={'black'} p={{ md: "50px 20px 20px", base: "0px" }} pt={'50px'} >
+      <Box>  
+      <Box pos={"relative"}>
           <Text
             textAlign={'center'}
             fontFamily={"AvBold"}
             mb={"15px"}
             fontWeight={"bold"}
-            fontSize={{ md: "30px", base: "18px" }}
+            fontSize={{ md: "30px", base: "23px" }}
             color={"white"}
           >
             Discover Recipes, Enjoy cooking and stay Healthy.
@@ -23,11 +24,11 @@ export const Description: React.FC = () => {
           m={'auto'}
           w={{md: '70%', base: '90%'}}
           textAlign={"center"}
-          fontSize={{ md: "18px", base: "12px" }}
+          fontSize={{ md: "18px", base: "13px" }}
           lineHeight={{ md: "32px", base: "16px" }}
-          fontWeight={"bold"}
+          //fontWeight={"bold"}
           color={"white"}
-          fontFamily={"AvBold"}
+          //fontFamily={"AvBold"}
         >
           Vanille Fraise is an app to help you balance you nutrition. With
           taking in consideration your food intolerances, intake limit or simply
@@ -35,5 +36,6 @@ export const Description: React.FC = () => {
         </Text>
         <ImageOverview />
     </Box>
+    </Center>
   );
 };

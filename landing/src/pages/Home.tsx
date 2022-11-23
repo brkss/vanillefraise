@@ -15,12 +15,14 @@ import { data } from "../utils/data/infos";
 
 export const Home: React.FC = () => {
   return (
-    <Box>
+    <Box >
       <TopBar />
-      <Intro />
-      <Description />
-      <Download />
-      <ShowOff />
+      <Box className="content-home">
+        <Intro />
+        <Description />
+        <Download />
+        <ShowOff />
+      </Box>
       {/*data.map((item, key) => (
         <InfoSection
           reverse={(key + 1) % 2 === 0}
