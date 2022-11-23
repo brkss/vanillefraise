@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
       <TopBar />
       <Intro />
       <Download />
-      {/*<Description />*/}
+      <Description />
       {/*data.map((item, key) => (
         <InfoSection
           reverse={(key + 1) % 2 === 0}
