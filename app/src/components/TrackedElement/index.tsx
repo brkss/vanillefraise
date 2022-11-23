@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { LoadingBar } from "./LoadingBar";
 
 interface Props {
@@ -7,6 +7,7 @@ interface Props {
   current: number;
   target: number;
   unit: string;
+  clicked: () => void;
 }
 
 export const TrackedElement: React.FC<Props> = ({
@@ -14,9 +15,10 @@ export const TrackedElement: React.FC<Props> = ({
   target,
   current,
   name,
+  clicked,
 }) => {
   return (
-    <View style={styles.container}>
+    <Pressable onPress={clicked} style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.value}>
@@ -24,7 +26,7 @@ export const TrackedElement: React.FC<Props> = ({
         </Text>
       </View>
       <LoadingBar progress={(current * 100) / target} />
-    </View>
+    </Pressable>
   );
 };
 

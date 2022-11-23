@@ -1,12 +1,12 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { PlansTrackingOverview, MentalHealthIntro } from "../screens";
 import { RecipeNavigation } from "./RecipesNavigation";
-import { ActivityNavigation } from "./ActivityNavigation";
+//import { ActivityNavigation } from "./ActivityNavigation";
 import { SettingsNavigation } from "./SettingsNavigation";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { OverviewNavigation } from "./OverviewNavigation";
 import { NutritionPlanNavigation } from "./PlanNavigation";
+import { PlansTrackingNavigation } from './PlansTrackingNavigation';
 
 export const TabsNavigation: React.FC = () => {
   const { Group, Screen, Navigator } = createBottomTabNavigator();
@@ -42,7 +42,7 @@ export const TabsNavigation: React.FC = () => {
       <Group>
         <Screen name={"Overview"} component={OverviewNavigation} />
         <Screen name={"Recipes"} component={RecipeNavigation} />
-        <Screen name={"Tracking"} component={PlansTrackingOverview} />
+        <Screen name={"Tracking"} component={PlansTrackingNavigation} />
         <Screen name={"Plans"} component={NutritionPlanNavigation} />
         {/*<Screen name={"Activity"} component={ActivityNavigation} />*}
         {/*<Screen name={"Record"} component={CreateRecord} />*/}
