@@ -1,5 +1,6 @@
 import React from "react";
 import { Center, Box, Text } from "@chakra-ui/react";
+import { ImageOverview } from './ImagesOverview';
 
 export const Description: React.FC = () => {
   return (
@@ -13,7 +14,7 @@ export const Description: React.FC = () => {
             fontSize={{ md: "30px", base: "18px" }}
             color={"white"}
           >
-            Discover Recipes, Enjoy cooking it yourself, Stay Healthy.
+            Discover Recipes, Enjoy cooking and stay Healthy.
           </Text>
           <Box />
         </Box>
@@ -22,7 +23,7 @@ export const Description: React.FC = () => {
           m={'auto'}
           w={{md: '70%', base: '90%'}}
           textAlign={"center"}
-          fontSize={{ md: "16px", base: "12px" }}
+          fontSize={{ md: "18px", base: "12px" }}
           lineHeight={{ md: "32px", base: "16px" }}
           fontWeight={"bold"}
           color={"white"}
@@ -32,6 +33,7 @@ export const Description: React.FC = () => {
           taking in consideration your food intolerances, intake limit or simply
           you just want to eat and stay healthy, we’ve got you covered.
         </Text>
+        <ImageOverview />
     </Box>
   );
 };

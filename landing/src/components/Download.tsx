@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, GridItem, Text, Grid, Center, Image } from '@chakra-ui/react';
 import apple from '../assets/donwload-section/apple.svg';
 import google from '../assets/donwload-section/google.svg';
+import bg from '../assets/donwload-section/3.jpg';
 
 export const Download : React.FC = () => {
   
@@ -18,10 +19,10 @@ export const Download : React.FC = () => {
           </Center>
         </GridItem>
         <GridItem colSpan={{md: 3, base: 6}}>
-          <Center h={{md: '100vh', base: "50vh"}}>
+          <Center h={{md: '100vh', base: "50vh"}} bgImg={bg} backgroundPosition={'center'} bgSize={'cover'} >
             <Box textAlign={'center'} paddingTop={'20px'}>
             <Image w={'50px'} m={'auto'} src={google} />
-            <Text fontFamily={'AvBold'} mt={'15px'} fontWeight={'bold'} >GET VANILLE FRAISE ON GOOGLE PLAY</Text>
+            <Text color={'white'} fontFamily={'AvBold'} mt={'15px'} fontWeight={'bold'} >GET VANILLE FRAISE ON GOOGLE PLAY</Text>
             </Box>
           </Center>
         </GridItem>
