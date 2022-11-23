@@ -33,13 +33,14 @@ export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.title}>Tracking Nutrition Plans</Text>
+        {data?.tracking.length > 0 ?
         <ScrollView
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
         >
-          {data.tracking.map((plan, key) => (
+          {data?.tracking.map((plan, key) => (
             <View key={key}>
               <Text
                 style={[
@@ -65,11 +66,11 @@ export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
               ))}
             </View>
           ))}
-        </ScrollView>
+        </ScrollView> : 
         <View
           style={[
             styles.content,
-            { display: data.tracking.length === 0 ? "flex" : "none" },
+            //{ display: data?.tracking.length === 0 ?  : "none" },
           ]}
         >
           <Text style={styles.subtitle}>no selected plans.</Text>
@@ -79,7 +80,7 @@ export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
           >
             <Text style={styles.btnText}>Select Plans</Text>
           </Pressable>
-        </View>
+        </View>}
       </SafeAreaView>
     </View>
   );
