@@ -7,9 +7,11 @@ import {
   Footer,
   //InfoSection,
   Description,
-  Download
+  Download,
+  ShowOff
 } from "../components";
 import { data } from "../utils/data/infos";
+
 
 export const Home: React.FC = () => {
   return (
@@ -18,6 +20,7 @@ export const Home: React.FC = () => {
       <Intro />
       <Description />
       <Download />
+      <ShowOff />
       {/*data.map((item, key) => (
         <InfoSection
           reverse={(key + 1) % 2 === 0}

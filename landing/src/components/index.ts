@@ -10,3 +10,4 @@ export * from './InfoSection';
 export * from './Description';
 export * from './Download';
 export * from './ImagesOverview';
+export * from './ShowOff';
