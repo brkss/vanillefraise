@@ -10,7 +10,7 @@ export const Description: React.FC = () => {
             fontFamily={"AvBold"}
             mb={"15px"}
             fontWeight={"bold"}
-            fontSize={{ md: "30px", base: "25px" }}
+            fontSize={{ md: "30px", base: "18px" }}
             color={"white"}
           >
             Discover Recipes, Enjoy cooking it yourself, Stay Healthy.
@@ -22,13 +22,13 @@ export const Description: React.FC = () => {
           m={'auto'}
           w={{md: '70%', base: '90%'}}
           textAlign={"center"}
-          fontSize={{ md: "16px", base: "14px" }}
-          lineHeight={{ md: "32px", base: "30px" }}
+          fontSize={{ md: "16px", base: "12px" }}
+          lineHeight={{ md: "32px", base: "16px" }}
           fontWeight={"bold"}
           color={"white"}
           fontFamily={"AvBold"}
         >
-          Vanille Fraise is an app that help you balance you nutrition. With
+          Vanille Fraise is an app to help you balance you nutrition. With
           taking in consideration your food intolerances, intake limit or simply
           you just want to eat and stay healthy, we’ve got you covered.
         </Text>

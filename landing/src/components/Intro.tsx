@@ -78,7 +78,7 @@ export const Intro: React.FC = () => {
           </Box>
         </Center>
       </Box>
-      <Box h={"10vh"} p={"10px 0"}>
+      <Box d={'none'} h={"10vh"} p={"10px 0"}>
         <Text
           zIndex={9}
           rounded={"17px"}
