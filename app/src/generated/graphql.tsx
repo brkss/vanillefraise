@@ -250,6 +250,15 @@ export type EarlyAccessRequest = {
   user: User;
 };
 
+export type ElementIntakeResponse = {
+  __typename?: 'ElementIntakeResponse';
+  code: Scalars['String'];
+  date: Scalars['String'];
+  intake: Scalars['Float'];
+  target: Scalars['Float'];
+  unit: Scalars['String'];
+};
+
 export type HealthLabelRefrence = {
   __typename?: 'HealthLabelRefrence';
   description: Scalars['String'];
@@ -723,6 +732,7 @@ export type Query = {
   categoryDetails?: Maybe<RecipeCategory>;
   cookedRecipesCount: Scalars['Float'];
   daysWithRecipes: MarkedDaysResponse;
+  elementIntake: Array<ElementIntakeResponse>;
   getDietConfig: DietConfigResponse;
   getMealRecipes: MealRecipeResponse;
   getRecipeNutrition: RecipeNutritionResponse;
@@ -777,6 +787,11 @@ export type QueryCategoryDetailsArgs = {
 
 export type QueryDaysWithRecipesArgs = {
   mealID: Scalars['String'];
+};
+
+
+export type QueryElementIntakeArgs = {
+  element_id: Scalars['String'];
 };
 
 
@@ -1063,6 +1078,7 @@ export type TrackedElements = {
   __typename?: 'TrackedElements';
   code: Scalars['String'];
   current: Scalars['Float'];
+  id: Scalars['String'];
   name: Scalars['String'];
   target: Scalars['Float'];
   unit: Scalars['String'];
@@ -1453,6 +1469,13 @@ export type CreatePlanMutationVariables = Exact<{
 
 export type CreatePlanMutation = { __typename?: 'Mutation', createPlan: { __typename?: 'CreatePlanResponse', status: boolean, message?: string | null | undefined, plan?: { __typename?: 'Plan', id: string, name: string, created_at: any, image?: string | null | undefined } | null | undefined } };
 
+export type ElementIntakeQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type ElementIntakeQuery = { __typename?: 'Query', elementIntake: Array<{ __typename?: 'ElementIntakeResponse', code: string, date: string, unit: string, intake: number, target: number }> };
+
 export type PlanDetailsQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -1475,7 +1498,7 @@ export type TogglePlanTrackingMutation = { __typename?: 'Mutation', togglePlanTr
 export type TrackingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TrackingQuery = { __typename?: 'Query', tracking: Array<{ __typename?: 'TrackingPlanResponse', plan: { __typename?: 'Plan', id: string, name: string, image?: string | null | undefined }, elements: Array<{ __typename?: 'TrackedElements', target: number, name: string, unit: string, current: number, code: string }> }> };
+export type TrackingQuery = { __typename?: 'Query', tracking: Array<{ __typename?: 'TrackingPlanResponse', plan: { __typename?: 'Plan', id: string, name: string, image?: string | null | undefined }, elements: Array<{ __typename?: 'TrackedElements', id: string, target: number, name: string, unit: string, current: number, code: string }> }> };
 
 export type RecipeCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3130,6 +3153,45 @@ export function useCreatePlanMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePlanMutationHookResult = ReturnType<typeof useCreatePlanMutation>;
 export type CreatePlanMutationResult = Apollo.MutationResult<CreatePlanMutation>;
 export type CreatePlanMutationOptions = Apollo.BaseMutationOptions<CreatePlanMutation, CreatePlanMutationVariables>;
+export const ElementIntakeDocument = gql`
+    query ElementIntake($id: String!) {
+  elementIntake(element_id: $id) {
+    code
+    date
+    unit
+    intake
+    target
+  }
+}
+    `;
+
+/**
+ * __useElementIntakeQuery__
+ *
+ * To run a query within a React component, call `useElementIntakeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useElementIntakeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useElementIntakeQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useElementIntakeQuery(baseOptions: Apollo.QueryHookOptions<ElementIntakeQuery, ElementIntakeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ElementIntakeQuery, ElementIntakeQueryVariables>(ElementIntakeDocument, options);
+      }
+export function useElementIntakeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ElementIntakeQuery, ElementIntakeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ElementIntakeQuery, ElementIntakeQueryVariables>(ElementIntakeDocument, options);
+        }
+export type ElementIntakeQueryHookResult = ReturnType<typeof useElementIntakeQuery>;
+export type ElementIntakeLazyQueryHookResult = ReturnType<typeof useElementIntakeLazyQuery>;
+export type ElementIntakeQueryResult = Apollo.QueryResult<ElementIntakeQuery, ElementIntakeQueryVariables>;
 export const PlanDetailsDocument = gql`
     query PlanDetails($id: String!) {
   planDetails(id: $id) {
@@ -3262,6 +3324,7 @@ export const TrackingDocument = gql`
       image
     }
     elements {
+      id
       target
       name
       unit

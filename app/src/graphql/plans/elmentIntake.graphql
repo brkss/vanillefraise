@@ -1,0 +1,9 @@
+query ElementIntake($id: String!){
+  elementIntake(element_id: $id){
+    code
+    date
+    unit
+    intake
+    target
+  }
+}

@@ -62,7 +62,7 @@ export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
                   target={elm.target}
                   unit={elm.unit}
                   key={key}
-                  clicked={() => navigation.navigate('NutritionInfo', {code: elm.code, title: elm.name})}
+                  clicked={() => navigation.navigate('NutritionInfo', {code: elm.code, title: elm.name, id: elm.id})}
                 />
               ))}
             </View>
