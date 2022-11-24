@@ -6,6 +6,7 @@ import {
   Cooking,
   RecipeNutrition,
   SavedRecipes,
+  Appetite
 } from "../screens";
 
 export const RecipeNavigation: React.FC = () => {
@@ -16,6 +17,7 @@ export const RecipeNavigation: React.FC = () => {
       <Group>
         <Screen name={"ListRecipes"} component={Recipes} />
         <Screen name={"SavedRecipes"} component={SavedRecipes} />
+        <Screen name={"Appetite"} component={Appetite} />
       </Group>
     </Navigator>
   );

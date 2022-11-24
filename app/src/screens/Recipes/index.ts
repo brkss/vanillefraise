@@ -5,3 +5,4 @@ export * from './Nutrition';
 export * from './RecipeByNutrition';
 export * from './Saved';
 export * from './ExpandedInstruction';
+export * from './Appetite';

@@ -26,7 +26,7 @@ export const TopBar: React.FC<Props> = ({ navigation }) => {
             pressed={() => navigation.push("CreateDietRecord")}
             />*/}
           <EnterDietButton
-            pressed={() => navigation.push("BatchCookingConfig")}
+            pressed={() => navigation.push("Appetite")}
           />
           <EnterFoodConfig pressed={() => navigation.push("DietFoodFilters")} />
         </View>

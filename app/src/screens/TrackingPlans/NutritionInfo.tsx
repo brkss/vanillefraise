@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   subtitle: {
-    marginTop: 10,
+    marginTop: 25,
     marginBottom: 20,
     fontFamily: 'AvNextBold',
     fontWeight: 'bold',
