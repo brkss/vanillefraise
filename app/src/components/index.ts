@@ -54,3 +54,4 @@ export * from './PlanTrackedElement'
 export * from './PlanTrackedElement/Alert'
 export * from './TrackedElement';
 export * from './TrackedElementDailyIntake';
+export * from './ApptiteRecipeSlider';
