@@ -34,7 +34,7 @@ import { send_verification_emails } from "./utils/helpers/automate/send_verifica
       origin: [
         "http://localhost:3001",
         "http://localhost:3000",
-        "https://api.opencc.tech",
+        "https://wwww.vanillefraise.me",
       ],
       credentials: true,
     })

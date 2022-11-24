@@ -18,7 +18,6 @@ let TrackedElement = class TrackedElement extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, type_graphql_1.Field)(),
     (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
 ], TrackedElement.prototype, "id", void 0);

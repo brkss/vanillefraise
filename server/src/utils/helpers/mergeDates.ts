@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 
 interface IData {
   intake: number;
-  date: string;
+  date: string | Date;
 }
 
 export const mergeDates = (data: IData[]) => {

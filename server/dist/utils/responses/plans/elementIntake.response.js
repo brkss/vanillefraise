@@ -9,20 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RecipeByCategoryInput = void 0;
+exports.ElementIntakeResponse = void 0;
 const type_graphql_1 = require("type-graphql");
-let RecipeByCategoryInput = class RecipeByCategoryInput {
+let ElementIntakeResponse = class ElementIntakeResponse {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
-], RecipeByCategoryInput.prototype, "cat_id", void 0);
+], ElementIntakeResponse.prototype, "code", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
-], RecipeByCategoryInput.prototype, "batch", void 0);
-RecipeByCategoryInput = __decorate([
-    (0, type_graphql_1.InputType)()
-], RecipeByCategoryInput);
-exports.RecipeByCategoryInput = RecipeByCategoryInput;
-//# sourceMappingURL=recipeByCategory.js.map
+], ElementIntakeResponse.prototype, "date", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], ElementIntakeResponse.prototype, "unit", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ElementIntakeResponse.prototype, "intake", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ElementIntakeResponse.prototype, "target", void 0);
+ElementIntakeResponse = __decorate([
+    (0, type_graphql_1.ObjectType)()
+], ElementIntakeResponse);
+exports.ElementIntakeResponse = ElementIntakeResponse;
+//# sourceMappingURL=elementIntake.response.js.map

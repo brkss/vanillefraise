@@ -36,7 +36,7 @@ const send_verification_email_1 = require("./utils/helpers/automate/send_verific
         origin: [
             "http://localhost:3001",
             "http://localhost:3000",
-            "https://api.opencc.tech",
+            "https://wwww.vanillefraise.me",
         ],
         credentials: true,
     }));

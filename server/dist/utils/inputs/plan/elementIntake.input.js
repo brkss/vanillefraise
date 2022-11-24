@@ -9,25 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateRecipeCategoryResponse = void 0;
+exports.ElementIntakeInput = void 0;
 const type_graphql_1 = require("type-graphql");
-const Category_1 = require("../../../entity/Recipe/Category");
-let CreateRecipeCategoryResponse = class CreateRecipeCategoryResponse {
+let ElementIntakeInput = class ElementIntakeInput {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
-    __metadata("design:type", Boolean)
-], CreateRecipeCategoryResponse.prototype, "status", void 0);
-__decorate([
-    (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
-], CreateRecipeCategoryResponse.prototype, "message", void 0);
+], ElementIntakeInput.prototype, "plan_id", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => Category_1.RecipeCategory, { nullable: true }),
-    __metadata("design:type", Category_1.RecipeCategory)
-], CreateRecipeCategoryResponse.prototype, "category", void 0);
-CreateRecipeCategoryResponse = __decorate([
-    (0, type_graphql_1.ObjectType)()
-], CreateRecipeCategoryResponse);
-exports.CreateRecipeCategoryResponse = CreateRecipeCategoryResponse;
-//# sourceMappingURL=createcategory.response.js.map
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], ElementIntakeInput.prototype, "element_id", void 0);
+ElementIntakeInput = __decorate([
+    (0, type_graphql_1.InputType)()
+], ElementIntakeInput);
+exports.ElementIntakeInput = ElementIntakeInput;
+//# sourceMappingURL=elementIntake.input.js.map

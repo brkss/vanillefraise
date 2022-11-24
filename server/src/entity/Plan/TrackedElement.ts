@@ -14,7 +14,6 @@ import { Nutrition } from "../Nutrition/Nutrition";
 @Entity("tracked_elements")
 export class TrackedElement extends BaseEntity {
   @Field()
-  @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 

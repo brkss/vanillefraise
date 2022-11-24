@@ -18,4 +18,5 @@ __exportStar(require("./newplannutritions.response"), exports);
 __exportStar(require("./create.response"), exports);
 __exportStar(require("./toggletracking.response"), exports);
 __exportStar(require("./tracking.response"), exports);
+__exportStar(require("./elementIntake.response"), exports);
 //# sourceMappingURL=index.js.map

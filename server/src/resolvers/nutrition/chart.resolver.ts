@@ -36,6 +36,6 @@ export class NutrionIntakeChartResolver {
       data.push(obj);
     }
     const results = mergeDates(data);
-    return results.reverse().slice(0, 7);
+    return results.reverse().slice(0, 7) as any;
   }
 }

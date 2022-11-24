@@ -7,13 +7,13 @@ exports.getTokenNutrition = void 0;
 const CookedRecipe_1 = require("../../../entity/UserInfo/CookedRecipe");
 const dayjs_1 = __importDefault(require("dayjs"));
 const typeorm_1 = require("typeorm");
-const getTokenNutrition = async (user, code) => {
+const getTokenNutrition = async (user, code, date) => {
     if (!user || !code)
         return -1;
     const cookedRecipes = await CookedRecipe_1.CookedRecipe.find({
         where: {
             user: user,
-            created_at: (0, typeorm_1.Like)(`%${(0, dayjs_1.default)().format("YYYY-MM-DD")}%`),
+            created_at: (0, typeorm_1.Like)(`%${(0, dayjs_1.default)(date || new Date()).format("YYYY-MM-DD")}%`),
         },
         relations: ["recipe", "recipe.totalnutrition"],
     });

@@ -15,7 +15,7 @@ import {
   TogglePlanTrackingResponse,
   TrackingPlanResponse,
 } from "../../utils/responses/plans";
-import { CookedRecipe } from "src/entity/UserInfo";
+//import { CookedRecipe } from '../../entity/UserInfo/CookedRecipe'
 import { getTokenNutrition } from "../../utils/helpers/nutrition";
 
 @Resolver()

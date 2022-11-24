@@ -1,6 +1,6 @@
 import { Resolver, Query, Arg, UseMiddleware, Ctx } from "type-graphql";
-import { IPlan } from "../../utils/types/Plan";
-import { data } from "../../utils/data/tmp-plans/data";
+//import { IPlan } from "../../utils/types/Plan";
+//import { data } from "../../utils/data/tmp-plans/data";
 import { Plan } from "../../entity/Plan";
 import { isUserAuth } from "../..//utils/middlewares";
 import { IContext } from "../../utils/types/Context";
