@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "flex-start",
     marginVertical: 10,
-    backgroundColor: "#D6D4D4",
+    backgroundColor: "#EEEEEE",
     borderRadius: 9,
     //width: "100%",
     //borderWidth: 1,
   },
   bar: {
-    height: 30,
-    backgroundColor: "#A3D7A6",
-    borderRadius: 9,
+    height: 22,
+    backgroundColor: "#C8E7BC",
+    borderRadius: 100,
   },
 });
