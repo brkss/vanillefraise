@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: "AvNextBold",
     fontWeight: "bold",
     color: "#434343",
-    fontSize: 20,
+    fontSize: 17,
     marginBottom: 5,
   },
   row: {

@@ -68,7 +68,7 @@ export const Item: React.FC<Props> = ({ image, title, clicked, index }) => {
       style={[styles.container, boxStyle]}
     >
       <ImageBackground
-        imageStyle={{ borderRadius: 10 }}
+        imageStyle={{ borderRadius: 0 }}
         source={{ uri: `${CDN}/${image}` }}
         style={styles.image}
       >
@@ -87,11 +87,11 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: 150,
-    borderRadius: 10,
+    //borderRadius: 10,
     justifyContent: "flex-end",
   },
   title: {
-    fontFamily: "AvNextBold",
+    fontFamily: "AbFace",
     color: "black",
     fontSize: 16,
     marginTop: 5,
@@ -105,6 +105,6 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "black",
     opacity: 0.2,
-    borderRadius: 10,
+    borderRadius: 0,
   },
 });

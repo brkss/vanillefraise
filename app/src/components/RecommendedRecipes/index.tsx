@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   container: {},
   title: {
     fontFamily: "AvNextBold",
-    fontSize: 20,
+    fontSize: 17,
     marginBottom: 10,
+    color: "#434343"
   },
 });

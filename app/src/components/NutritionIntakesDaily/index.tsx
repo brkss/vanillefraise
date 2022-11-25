@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "AvNextBold",
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "bold",
     color: "#434343",
     marginBottom: 10,

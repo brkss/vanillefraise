@@ -5,7 +5,10 @@ import {
   StyleSheet,
   ImageBackground,
   ScrollView,
+  Pressable,
+  Text,
 } from "react-native";
+import { opacity } from "react-native-redash";
 import {
   Close,
   Ingredients,
@@ -27,6 +30,7 @@ import {
 } from "../../generated/graphql";
 import { CDN } from "../../utils/config/defaults";
 import { saveRecipe, IRecipe, isRecipeSaved } from "../../utils/modules/save";
+import  Ionicons from 'react-native-vector-icons/Ionicons';
 
 const TABS = ["INGREDIENTS", "INSTRUCTIONS", "NUTRITIONS"];
 
@@ -117,6 +121,10 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               hl.label.split("_").join(" ")
             )}
           />*/}
+          <Pressable style={{alignItems: 'center', marginTop: 30, marginBottom: 10, flexDirection: 'row', justifyContent: 'center'}} onPress={() => setTab('NUTRITIONS')}>
+            <Ionicons size={22} style={{marginBottom: 1}} name='eye-outline' />
+            <Text style={styles.hint}>  Nutrition Facts</Text>
+          </Pressable>
           <RecipesTabs selectTab={(t) => setTab(t)} />
           {
             {
@@ -198,4 +206,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  hint: {
+    fontSize: 18,
+    fontFamily: 'AvNextBold',
+    textAlign: 'center',
+    opacity: .8
+  }
 });

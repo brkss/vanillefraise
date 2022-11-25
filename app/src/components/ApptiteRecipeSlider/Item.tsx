@@ -10,12 +10,18 @@ interface Props {
   clicked: () => void;
 }
 
+const ADJUST_TITLE = (title: string) => {
+  if(title.length <= 26)
+    return title;
+  return `${title.slice(0, 25)}...`
+}
+
 export const Item: React.FC<Props> = ({image, title, clicked}) => {
 
   return (
     <Pressable onPress={clicked} style={styles.container}>
       <Image style={styles.img} source={{uri:`${CDN}/${image}`}} />
-      <Text style={styles.title}>{title}</Text> 
+      <Text style={styles.title}>{ADJUST_TITLE(title)}</Text> 
     </Pressable>
   )
 }
