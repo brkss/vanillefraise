@@ -39,14 +39,14 @@ export const RecipeServing: React.FC<Props> = ({
           </Text>
         </View>
         <View style={[styles.row, {width: '50%', justifyContent: 'space-between', alignItems: 'center' }]}>
-          <Pressable onPress={() => more()} style={styles.btn}>
-            <Text style={styles.btnText}>+</Text>
+          <Pressable onPress={() => less()} style={styles.btn}>
+            <Text style={[styles.btnText, { fontSize: 22 }]}>-</Text>
           </Pressable>
           <View style={styles.val}>
             <Text style={styles.valTxt}>{serv}</Text>
           </View>
-          <Pressable onPress={() => less()} style={styles.btn}>
-            <Text style={[styles.btnText, { fontSize: 22 }]}>-</Text>
+          <Pressable onPress={() => more()} style={styles.btn}>
+            <Text style={styles.btnText}>+</Text>
           </Pressable>
         </View>
       </View>

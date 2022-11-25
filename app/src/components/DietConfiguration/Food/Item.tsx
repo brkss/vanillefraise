@@ -21,7 +21,7 @@ export const FoodItem: React.FC<Props> = ({
     <Pressable
       style={[
         styles.container,
-        { borderColor: selected ? "black" : "transparent" },
+        { borderColor: selected ? "#434343" : "transparent" },
       ]}
       onPress={pressed}
     >
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 15,
     padding: 15,
-    backgroundColor: "#e8e8e8",
+    backgroundColor: "#EEEDED",
+    //backgroundColor: "#e8e8e8",
     flexDirection: "row",
     borderRadius: 7,
     alignItems: "center",

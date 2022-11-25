@@ -42,7 +42,6 @@ export const NutritionPlans: React.FC<any> = ({ navigation }) => {
           <AddNutritionPlan
             pressed={() => navigation.navigate("CreateNewPlan")}
           />
-
           {data?.plans.map((item, key) => (
             <NutritionPlanThumbnail
               clicked={() =>

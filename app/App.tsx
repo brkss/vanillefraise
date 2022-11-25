@@ -116,7 +116,7 @@ export default function App() {
         <NotConnected />
       ) : (
         <ApolloProvider client={client}>
-          <StatusBar style={"dark"} />
+          <StatusBar style={"auto"} />
           <AuthProvider reset={async () => await cache.reset()}>
             <NativeBaseProvider>
               <MealScheduleNotification />
