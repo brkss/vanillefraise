@@ -53,7 +53,7 @@ export const MealItem: React.FC<Props> = ({
   return (
     <AnimatedPressable
       onPress={() => navigate()}
-      style={[styles.container, { backgroundColor: "#ECE8E8" }, boxStyle]}
+      style={[styles.container, { backgroundColor: "#E8FFB6" }, boxStyle]}
     >
       <Animated.Text style={[styles.recipes, txtStyle]}>
         {recipes} recipes

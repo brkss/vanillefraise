@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingVertical: 15,
-    backgroundColor: "#ECE8E8",
+    backgroundColor: "#F4FFDC",
     borderRadius: 14,
     marginBottom: 10,
   },
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   circle: {
     height: 40,
     width: 40,
-    backgroundColor: "#f2dfdf",
+    backgroundColor: "#CEEF86",
     borderRadius: 40,
     justifyContent: "center",
     alignItems: "center",
