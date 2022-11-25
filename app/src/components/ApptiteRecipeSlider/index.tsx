@@ -6,10 +6,13 @@ import { Loading } from '../General'
 
 const { width } = Dimensions.get('screen');
 
-export const AppetiteRecipeSlider : React.FC = () => {
+interface Props {
+  clicked: (id: string) => void;
+}
+
+export const AppetiteRecipeSlider : React.FC<Props> = ({clicked}) => {
 
   const {data, loading, error } = useRecommendedRecipesQuery();
-
 
   if(loading || error)
     return <Loading />
@@ -19,7 +22,7 @@ export const AppetiteRecipeSlider : React.FC = () => {
       <ScrollView snapToInterval={width - (width * 0.2)} decelerationRate={'fast'} style={{marginTop: 30}} horizontal showsHorizontalScrollIndicator={false}>
         {
           data?.recommendedRecipes.map((item, key) => (
-            <Item image={item.image} title={item.name} />
+            <Item clicked={() => clicked(item.id)} image={item.image} title={item.name} />
           ))
         }
       </ScrollView>

@@ -20,10 +20,7 @@ export const RecipeMetaData: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title.trim()} </Text>
-      <Info prep={prep} cook={cook} total={total} />
-      {false && description ? (
-        <Text style={styles.description}>{description}</Text>
-      ) : null}
+      <Text style={styles.total}>about {total} min to make</Text>
     </View>
   );
 };
@@ -36,9 +33,15 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "left",
-    fontFamily: "AvNextBold",
-    color: "#434343",
-    marginBottom: 7,
+    fontFamily: "AbFace",
+    color: "#292929",
+    marginBottom: 3,
+  },
+  total: {
+    fontFamily: 'AvNext',
+    fontSize: 16,
+    opacity: .6,
+    fontWeight: '700'
   },
   description: {
     fontSize: 14,

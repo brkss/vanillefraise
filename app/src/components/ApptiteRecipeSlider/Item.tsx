@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { Pressable, View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { CDN } from '../../utils/config/defaults';
 
 const { width } = Dimensions.get('screen')
@@ -7,15 +7,16 @@ const { width } = Dimensions.get('screen')
 interface Props {
   title: string;
   image: string;
+  clicked: () => void;
 }
 
-export const Item: React.FC<Props> = ({image, title}) => {
+export const Item: React.FC<Props> = ({image, title, clicked}) => {
 
   return (
-    <View style={styles.container}>
+    <Pressable onPress={clicked} style={styles.container}>
       <Image style={styles.img} source={{uri:`${CDN}/${image}`}} />
       <Text style={styles.title}>{title}</Text> 
-    </View>
+    </Pressable>
   )
 }
 

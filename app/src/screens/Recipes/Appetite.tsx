@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { AppetiteRecipeSlider } from '../../components';
 
-export const Appetite : React.FC = () => {
+export const Appetite : React.FC<any> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
         <Text style={styles.title}>Listen{'\n'}to your appetite</Text>
-        <AppetiteRecipeSlider />
+        <AppetiteRecipeSlider clicked={(id) => navigation.navigate("RecipeDetails", {id: id})} />
       </SafeAreaView>
     </View>    
   )

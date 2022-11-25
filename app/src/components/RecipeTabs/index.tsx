@@ -22,14 +22,14 @@ export const RecipesTabs: React.FC<Props> = ({ selectTab }) => {
         style={[
           styles.item,
           {
-            backgroundColor: selected === "INGREDIENTS" ? "#434343" : "#E5E1E1",
+            //backgroundColor: selected === "INGREDIENTS" ? "#434343" : "#E5E1E1",
           },
         ]}
       >
         <Text
           style={[
             styles.txt,
-            { color: selected === "INGREDIENTS" ? "white" : "#434343" },
+            { opacity: selected === "INGREDIENTS" ? 1 : .5 },
           ]}
         >
           Ingredients
@@ -40,15 +40,15 @@ export const RecipesTabs: React.FC<Props> = ({ selectTab }) => {
         style={[
           styles.item,
           {
-            backgroundColor:
-              selected === "INSTRUCTIONS" ? "#434343" : "#E5E1E1",
+            //backgroundColor:
+              //selected === "INSTRUCTIONS" ? "#434343" : "#E5E1E1",
           },
         ]}
       >
         <Text
           style={[
             styles.txt,
-            { color: selected === "INSTRUCTIONS" ? "white" : "#434343" },
+            { opacity : selected === "INSTRUCTIONS" ? 1 : .5 },
           ]}
         >
           Instructions
@@ -59,7 +59,8 @@ export const RecipesTabs: React.FC<Props> = ({ selectTab }) => {
         style={[
           styles.item,
           {
-            backgroundColor: selected === "NUTRITIONS" ? "#434343" : "#E5E1E1",
+            display: 'none',
+            //backgroundColor: selected === "NUTRITIONS" ? "#434343" : "#E5E1E1",
           },
         ]}
       >
@@ -81,19 +82,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-evenly",
-    marginVertical: 20,
+    marginVertical: 10,
   },
   item: {
-    margin: 5,
-    width: "30%",
+    margin: '1%',
+    width: "48%",
     //paddingHorizontal: ,
     paddingVertical: 12,
     borderRadius: 10,
-    backgroundColor: "#E5E1E1",
+    //backgroundColor: "#E5E1E1",
   },
   txt: {
     fontFamily: "AvNextBold",
-    fontSize: 15,
+    fontSize: 25,
     fontWeight: "bold",
     textAlign: "center",
   },

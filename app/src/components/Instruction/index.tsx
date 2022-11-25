@@ -57,9 +57,10 @@ export const Instructions: React.FC<Props> = ({ instructions }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
+    //marginTop: 25,
   },
   title: {
+    display: 'none',
     fontSize: 25,
     marginBottom: 15,
     fontWeight: "bold",

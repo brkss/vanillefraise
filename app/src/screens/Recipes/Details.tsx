@@ -68,11 +68,11 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
   const handleSavingRecipe = async () => {
     const recipe = data.recipe.recipe;
     const res: IRecipe = {
-      name: recipe.name,
-      id: recipe.id,
+      name: recipe?.name,
+      id: recipe?.id,
       carbs: "00",
-      img: recipe.image,
-      time: recipe.total,
+      img: recipe?.image,
+      time: recipe?.total,
     };
     await saveRecipe(res);
     SetSaved((curr) => !curr);
@@ -118,23 +118,16 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
             )}
           />*/}
           <RecipesTabs selectTab={(t) => setTab(t)} />
-
           {
             {
               NUTRITIONS: <RecipeNutrition recipeId={id} />,
               INGREDIENTS: (
-                <>
-                  {/*<Languages
-                    onSelect={(lang) => setLang(lang)}
-                    selected={lang}
-                  />*/}
                   <Ingredients
                     servings={data.recipe.recipe.serving || 1}
                     ingredients={
                       data.recipe.ingredients as TranslatedIngredient[]
                     }
                   />
-                </>
               ),
               INSTRUCTIONS: (
                 <Instructions

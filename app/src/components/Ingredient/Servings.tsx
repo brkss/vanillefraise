@@ -29,21 +29,26 @@ export const RecipeServing: React.FC<Props> = ({
       onChange(tmp - 1);
     }
   };
+  
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, { textAlign: center ? "center" : "center" }]}>
-        🍽 Servings
-      </Text>
       <View style={styles.row}>
-        <Pressable onPress={() => more()} style={styles.btn}>
-          <Text style={styles.btnText}>+</Text>
-        </Pressable>
-        <View style={styles.val}>
-          <Text style={styles.valTxt}>{serv}</Text>
+        <View style={{width: '50%', justifyContent: 'center', alignItems: 'flex-start'}}>
+          <Text style={[styles.label, { textAlign: center ? "center" : "center" }]}>
+            Servings
+          </Text>
         </View>
-        <Pressable onPress={() => less()} style={styles.btn}>
-          <Text style={[styles.btnText, { fontSize: 22 }]}>-</Text>
-        </Pressable>
+        <View style={[styles.row, {width: '50%', justifyContent: 'space-between', alignItems: 'center' }]}>
+          <Pressable onPress={() => more()} style={styles.btn}>
+            <Text style={styles.btnText}>+</Text>
+          </Pressable>
+          <View style={styles.val}>
+            <Text style={styles.valTxt}>{serv}</Text>
+          </View>
+          <Pressable onPress={() => less()} style={styles.btn}>
+            <Text style={[styles.btnText, { fontSize: 22 }]}>-</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -52,11 +57,13 @@ export const RecipeServing: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: "stretch",
-    marginBottom: 25,
+    marginTop: -20,
+    marginBottom: 10,
     width: "100%",
     padding: 10,
+    backgroundColor: '#F4F4F4',
     //paddingVertical: 20,
-    //borderRadius: 22,
+    borderRadius: 16,
   },
   label: {
     fontSize: 17,
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    marginVertical: 10,
+    //marginBottom: 10,
     justifyContent: "space-between",
   },
   val: {
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
   },
   valTxt: {
-    fontSize: 21,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
     fontFamily: "AvNextBold",
@@ -84,17 +91,17 @@ const styles = StyleSheet.create({
   btn: {
     //height: 17,
     //width: 17,
-    paddingVertical: 13,
-    paddingHorizontal: Platform.OS === "ios" ? 20 : 23,
+    paddingVertical: 8,
+    paddingHorizontal: Platform.OS === "ios" ? 15 : 18,
     justifyContent: "center",
     alignContent: "center",
-    backgroundColor: "#434343",
+    backgroundColor: "#EEEDED",
     //backgroundColor: "#FFEAD9",
-    borderRadius: 16,
+    borderRadius: 100,
   },
   btnText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "white",
+    color: "black",
   },
 });

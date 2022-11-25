@@ -50,8 +50,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
   };
 
   return (
-    <View style={[styles.container, ]}>
-      <LanguagePicker langChange={(l) => handleLangChange(l)} />
+    <View style={styles.container}>
       <RecipeServing
         servings={servings}
         onChange={(n: number) => {
@@ -59,6 +58,7 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
         }}
       />
       <Text style={styles.title}>Ingredients</Text>
+      <LanguagePicker langChange={(l) => handleLangChange(l)} />
       {fetching ? <Text style={styles.hint}>please wait...</Text> : null}
       {translated.length === 0
         ? scaleRecipe(servings, scale, ingredients).map((ing, key) => (
@@ -88,14 +88,12 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 5,
-    //backgroundColor: 'red'
   },
   title: {
     fontSize: 25,
     marginBottom: 15,
     fontWeight: "bold",
     fontFamily: "AvNextBold",
-    display: 'none'
   },
   hint: {
     fontFamily: "AvNextBold",
