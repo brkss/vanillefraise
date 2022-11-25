@@ -6,6 +6,10 @@ const tmp = [1, 2, 3, 4, 5, 6, 7, 8, 9] ;
 
 const screenshots = [
   {
+    title: '"Listen To Your Appetite"',
+    image: require('../assets/overview/ss-9.png')
+  },
+  {
     title: "Wide Overview",
     image: require('../assets/overview/ss-1.png')
   },
@@ -30,9 +34,14 @@ const screenshots = [
     image: require("../assets/overview/ss-6.png")
   },
   {
+    title: "Go nutrition-micro",
+    image: require("../assets/overview/ss-8.png")
+  },
+  {
     title: "With you in the kitchen",
     image: require("../assets/overview/ss-7.png")
-  }
+  },
+  
 ]
 
 export const ShowOff : React.FC = () => {
@@ -42,7 +51,7 @@ export const ShowOff : React.FC = () => {
     <Center pos={'relative'} h={'100vh'} bg={'black'}>
       <Box pos={'absolute'} w={'30%'} h={'100%'} background={'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)'} top={0} left={'70%'}  />
         <Box w={'100%'}>
-    <Text color={'white'} fontSize={{md: '35px', base: '30px'}} fontFamily={'AvBold'} pl={'45px'} textAlign={'left'} fontWeight={'bold'} mb={'40px'} >How Helpful ?</Text>
+    <Text color={'white'} fontSize={{md: '35px', base: '25px'}} fontFamily={'AvBold'} pl={'45px'} textAlign={'left'} fontWeight={'bold'} mb={'40px'} >Discover Vanille Fraise</Text>
 
         <Box className='imageslider' paddingLeft={'40px'} whiteSpace={'nowrap'} overflow={'auto'} w={'100%'} > 
         {

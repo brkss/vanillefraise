@@ -63,15 +63,15 @@ export const Intro: React.FC = () => {
                 background={"transparent"}
                 color={"#f3b7b7"}
                 padding={"23px 30px"}
-                fontSize={{ md: "26px", base: "18px" }}
+                fontSize={{ md: "23px", base: "17px" }}
                 fontFamily={"AvBold"}
               >
                 <Sparkles>
                   {" "}
                   <IoArrowDownCircleOutline
-                    style={{ display: "inline", marginBottom: '-3px' }}
+                    style={{ display: "none", marginBottom: '-3px' }}
                   />{" "}
-                  Download, It's free !
+                  Watch The Film
                 </Sparkles>
               </Button>
             </Box>

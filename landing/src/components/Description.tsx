@@ -24,7 +24,7 @@ export const Description: React.FC = () => {
           m={'auto'}
           w={{md: '70%', base: '90%'}}
           textAlign={"center"}
-          fontSize={{ md: "18px", base: "13px" }}
+          fontSize={{ md: "18px", base: "12px" }}
           lineHeight={{ md: "32px", base: "16px" }}
           //fontWeight={"bold"}
           color={"white"}
