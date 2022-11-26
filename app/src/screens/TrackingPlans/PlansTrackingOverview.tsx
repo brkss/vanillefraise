@@ -46,7 +46,7 @@ export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
                 style={[
                   styles.title,
                   {
-                    fontSize: 23,
+                    fontSize: 20,
                     textAlign: "left",
                     padding: 10,
                     paddingBottom: 0,
@@ -90,15 +90,16 @@ export const PlansTrackingOverview: React.FC<any> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //paddingTop: 30,
+    //paddingTop: 10,
   },
   title: {
     fontSize: 25,
     fontFamily: "AvNextBold",
-    textAlign: "center",
+    //textAlign: "center",
     color: "#434343",
     marginTop: 20,
     paddingBottom: 10,
+    paddingHorizontal: 10,
   },
   content: {
     flex: 1,

@@ -91,11 +91,12 @@ export const CreateNewPlan: React.FC<any> = ({ navigation }) => {
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
-        <View
+        {altredNutritions.length > 0 && <View
           style={{
             position: "absolute",
             width: "100%",
             bottom: 0,
+            
             //backgroundColor: "red",
             padding: 10,
           }}
@@ -108,7 +109,7 @@ export const CreateNewPlan: React.FC<any> = ({ navigation }) => {
             }
             txt={"Create"}
           />
-        </View>
+        </View>}
       </SafeAreaView>
       <EditPlanNutrition
         name={selectedNutrition.name}

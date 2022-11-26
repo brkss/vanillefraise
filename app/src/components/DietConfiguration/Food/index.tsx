@@ -66,14 +66,14 @@ export const ConfigureDietFood: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Enjoy what you're eating</Text>
-      <Text style={styles.subtitle}>select allergies and dislikes !</Text>
-      <Text style={[styles.hint, { display: "none" }]}>
-        setup filters for recipes, note that filters may affect your recipes
-        choises !
-      </Text>
-      <Text style={[styles.hint]}>{selected.length} selected</Text>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.items}>
+        <Text style={styles.title}>Enjoy what you're eating</Text>
+        <Text style={styles.subtitle}>select allergies and dislikes !</Text>
+        <Text style={[styles.hint, { display: "none" }]}>
+          setup filters for recipes, note that filters may affect your recipes
+          choises !
+        </Text>
+        <Text style={[styles.hint]}>{selected.length} selected</Text>
         {data.healthLabels.map((label, key) => (
           <FoodItem
             key={key}
@@ -88,9 +88,6 @@ export const ConfigureDietFood: React.FC<Props> = ({
         ))}
       </ScrollView>
 
-      {!hidenavigation && (
-        <Navigation previous={previous} next={next} showNext showPrevious />
-      )}
       <ItemInfoModal
         closed={() => setVisibleModal(false)}
         isVisible={visibleModal}

@@ -57,10 +57,11 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.content}>
+        <View style={styles.content}>
             <Heading title={data.planDetails.name} />
           </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          
           <Image
             resizeMode={"cover"}
             style={styles.image}
@@ -138,10 +139,11 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    //paddingTop: 20,
   },
   content: {
-    padding: 10,
+    paddingTop: 15,
+    paddingHorizontal: 10,
   },
   description: {
     marginTop: 10,

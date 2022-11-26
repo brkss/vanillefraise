@@ -34,10 +34,7 @@ export const NutritionPlans: React.FC<any> = ({ navigation }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.heading}>
-            <Pressable onPress={() => info()}>
               <Heading title={"Nutrition Plans"} />
-              <Text style={styles.infoTitle}>What is this ?</Text>
-            </Pressable>
           </View>
           <AddNutritionPlan
             pressed={() => navigation.navigate("CreateNewPlan")}

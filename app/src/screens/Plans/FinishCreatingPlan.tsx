@@ -29,6 +29,14 @@ export const FinishCreatePlan: React.FC<any> = ({ route, navigation }) => {
   const [create] = useCreatePlanMutation();
 
   const handleCreatePlan = () => {
+    if(name.length == 0){
+      setError("Make sure you give it a name !");
+      return;
+    }
+    if(name.length > 25){
+      setError("Name too long !");
+      return;
+    }
     const data = elements.map((elm) => ({
       nutrition_id: elm.id,
       quantity: elm.value,
