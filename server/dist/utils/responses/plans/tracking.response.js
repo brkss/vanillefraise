@@ -30,6 +30,10 @@ let TrackedElements = class TrackedElements {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], TrackedElements.prototype, "id", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
     __metadata("design:type", Number)
 ], TrackedElements.prototype, "target", void 0);
 __decorate([

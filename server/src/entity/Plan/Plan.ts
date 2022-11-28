@@ -42,12 +42,12 @@ export class Plan extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
-  @Field(() => User)
+  @Field(() => User, {nullable: true})
   @ManyToOne(() => User, (user) => user.plans, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  user: User;
+  user?: User;
 
   @Field(() => [TrackedElement])
   @OneToMany(() => TrackedElement, (trackedElement) => trackedElement.plan)

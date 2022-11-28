@@ -20,6 +20,8 @@ const plan_1 = require("../../utils/inputs/plan");
 const User_1 = require("../../entity/User");
 const Plan_1 = require("../../entity/Plan");
 const Nutrition_1 = require("../../entity/Nutrition/Nutrition");
+const default_response_1 = require("../../utils/responses/default.response");
+const plans_2 = require("../../utils/data/plan/plans");
 let CreatePlanResolver = class CreatePlanResolver {
     async createPlan(data, ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
@@ -66,6 +68,38 @@ let CreatePlanResolver = class CreatePlanResolver {
             };
         }
     }
+    async createPublicPlans() {
+        if (plans_2.plans.length === 0) {
+            return {
+                status: false,
+                message: "Invalid Plan seed ! "
+            };
+        }
+        for (let p of plans_2.plans) {
+            const plan = new Plan_1.Plan();
+            plan.name = p.name;
+            plan.public = true;
+            plan.image = p.image;
+            plan.description = p.description;
+            await plan.save();
+            for (let elm of p.elements) {
+                const nutrition = await Nutrition_1.Nutrition.findOne({ where: { id: elm.nutrition_id } });
+                if (!nutrition) {
+                    continue;
+                }
+                const te = new Plan_1.TrackedElement();
+                te.nutriton = nutrition;
+                te.quantity = elm.quantity;
+                te.description = elm.description;
+                te.plan = plan;
+                await te.save();
+            }
+        }
+        return {
+            status: true,
+            message: "Plans Created !"
+        };
+    }
 };
 __decorate([
     (0, type_graphql_1.UseMiddleware)(middlewares_1.isUserAuth),
@@ -76,6 +110,12 @@ __decorate([
     __metadata("design:paramtypes", [plan_1.CreatePlanInput, Object]),
     __metadata("design:returntype", Promise)
 ], CreatePlanResolver.prototype, "createPlan", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => default_response_1.DefaultResponse),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CreatePlanResolver.prototype, "createPublicPlans", null);
 CreatePlanResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], CreatePlanResolver);

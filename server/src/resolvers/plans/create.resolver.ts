@@ -6,6 +6,8 @@ import { CreatePlanInput } from "../../utils/inputs/plan";
 import { User } from "../../entity/User";
 import { Plan, TrackedElement } from "../../entity/Plan";
 import { Nutrition } from "../../entity/Nutrition/Nutrition";
+import { DefaultResponse } from '../../utils/responses/default.response';
+import { plans } from '../../utils/data/plan/plans';
 
 @Resolver()
 export class CreatePlanResolver {
@@ -60,4 +62,42 @@ export class CreatePlanResolver {
       };
     }
   }
+
+  @Mutation(() => DefaultResponse)
+  async createPublicPlans(): Promise<DefaultResponse>{
+
+    if(plans.length === 0){
+      return {
+        status: false,
+        message: "Invalid Plan seed ! "
+      }
+    }
+
+    for(let p of plans){
+      const plan = new Plan();
+      plan.name = p.name;
+      plan.public = true;
+      //plan.active = true;
+      plan.image = p.image;
+      plan.description = p.description;
+      await plan.save();
+      for(let elm of p.elements){
+        const nutrition = await Nutrition.findOne({where: {id: elm.nutrition_id}});
+        if(!nutrition){
+          continue;
+        }
+        const te = new TrackedElement();
+        te.nutriton = nutrition;
+        te.quantity = elm.quantity;
+        te.description = elm.description;
+        te.plan = plan;
+        await te.save();
+      }
+    }
+    return{
+      status: true,
+      message: "Plans Created !"
+    }
+  }
+
 }

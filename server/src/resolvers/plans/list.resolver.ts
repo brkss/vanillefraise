@@ -14,7 +14,7 @@ export class PlansListResolver {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return [];
     const plans = await Plan.find({
-      where: { user: user },
+      where: [{ user: user, public: false }, {public: true}],
       relations: ["trackedElements", "trackedElements.nutriton"],
     });
     return plans;

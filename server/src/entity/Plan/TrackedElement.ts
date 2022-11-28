@@ -25,6 +25,10 @@ export class TrackedElement extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
+  @Field({nullable: true})
+  @Column({nullable: true, type: 'text'})
+  description?: string;
+  
   @Field(() => Plan)
   @ManyToOne(() => Plan, (plan) => plan.trackedElements, {
     onDelete: "CASCADE",

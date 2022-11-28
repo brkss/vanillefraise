@@ -52,7 +52,7 @@ __decorate([
     __metadata("design:type", String)
 ], Plan.prototype, "description", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => User_1.User),
+    (0, type_graphql_1.Field)(() => User_1.User, { nullable: true }),
     (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.plans, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",

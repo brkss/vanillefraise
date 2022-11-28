@@ -12,6 +12,10 @@ export class TrackingPlanResponse {
 
 @ObjectType()
 class TrackedElements {
+  
+  @Field()
+  id: string
+
   @Field()
   target: number;
 

@@ -23,7 +23,7 @@ let PlansListResolver = class PlansListResolver {
         if (!user)
             return [];
         const plans = await Plan_1.Plan.find({
-            where: { user: user },
+            where: [{ user: user, public: false }, { public: true }],
             relations: ["trackedElements", "trackedElements.nutriton"],
         });
         return plans;

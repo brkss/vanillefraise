@@ -77,6 +77,7 @@ export class PlanTrackingResolver {
             target: item.quantity,
             unit: item.nutriton.unit,
             code: item.nutriton.code,
+            id: item.id
           }))
         ),
       };

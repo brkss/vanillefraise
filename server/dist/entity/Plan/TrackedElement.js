@@ -32,6 +32,11 @@ __decorate([
     __metadata("design:type", Date)
 ], TrackedElement.prototype, "created_at", void 0);
 __decorate([
+    (0, type_graphql_1.Field)({ nullable: true }),
+    (0, typeorm_1.Column)({ nullable: true, type: 'text' }),
+    __metadata("design:type", String)
+], TrackedElement.prototype, "description", void 0);
+__decorate([
     (0, type_graphql_1.Field)(() => Plan_1.Plan),
     (0, typeorm_1.ManyToOne)(() => Plan_1.Plan, (plan) => plan.trackedElements, {
         onDelete: "CASCADE",
