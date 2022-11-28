@@ -12,7 +12,7 @@ export const NutritionInfo : React.FC<any> = ({route}) => {
     }
   })
 
-  if(loading || error)
+  if(loading || error || !data)
     return <Loading />
 
   return (
@@ -20,8 +20,12 @@ export const NutritionInfo : React.FC<any> = ({route}) => {
       <SafeAreaView style={{flex: 1}}>
         <ScrollView showsVerticalScrollIndicator={false} >
           <Text style={styles.title}>{title}</Text>
-          <NutritionIntakeChart code={code} unit={'mg'} title={title} refreshing={false}  />
-          <Text style={styles.subtitle}>Daily Intake History </Text>
+          {data!.elementIntake!.length > 0 && <NutritionIntakeChart code={code} unit={'mg'} title={title} refreshing={false}  />}
+          {
+            data?.elementIntake.length === 0 ?
+              <Text style={styles.subtitle}>No Data Found</Text>
+            : <Text style={styles.subtitle}>Daily Intake History </Text> 
+          }
           {
             data?.elementIntake.map((elm, key) => (
               <TrackedElementDailyIntake date={elm.date} unit={elm.unit} title={title} intake={elm.intake} target={elm.target}  />
