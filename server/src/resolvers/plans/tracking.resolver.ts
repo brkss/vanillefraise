@@ -35,7 +35,7 @@ export class PlanTrackingResolver {
     }
     const plan = await Plan.findOne({
       where: [
-        { id: planId, public: true },
+        //{ id: planId, public: true },
         { id: planId, user: user, public: false },
       ],
     });

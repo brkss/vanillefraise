@@ -52,4 +52,6 @@ export class Plan extends BaseEntity {
   @Field(() => [TrackedElement])
   @OneToMany(() => TrackedElement, (trackedElement) => trackedElement.plan)
   trackedElements: TrackedElement[];
+  
+
 }

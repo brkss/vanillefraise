@@ -30,7 +30,6 @@ let PlanTrackingResolver = class PlanTrackingResolver {
         }
         const plan = await Plan_1.Plan.findOne({
             where: [
-                { id: planId, public: true },
                 { id: planId, user: user, public: false },
             ],
         });

@@ -33,10 +33,9 @@ let PlansListResolver = class PlansListResolver {
         if (!user)
             return null;
         const plan = await Plan_1.Plan.findOne({
-            where: { id: id, user: user },
+            where: [{ id: id, user: user, public: false }, { id: id, public: true }],
             relations: ["trackedElements", "trackedElements.nutriton"],
         });
-        console.log("plan : ", id, user);
         return plan || null;
     }
 };
