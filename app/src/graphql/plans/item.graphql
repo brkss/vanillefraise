@@ -7,6 +7,9 @@ query PlanDetails($id: String!) {
     image
     description
     public
+    userplans{
+      id
+    }
     trackedElements {
       id
       quantity

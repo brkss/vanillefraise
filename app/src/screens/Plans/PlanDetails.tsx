@@ -32,13 +32,14 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
     variables: { id: planId },
     fetchPolicy: "network-only",
     onCompleted: (res) => {
-      setActive(res.planDetails.active);
+      setActive(res?.planDetails!.userplans.length > 0);
     },
   });
 
-  if (loading || error) return <Loading />;
+  if (loading || error || !data) return <Loading />;
 
   const handleTogglePlanTracking = (planId: string) => {
+    console.log("plan id : ", planId);
     if (!planId) return;
     toggle({
       variables: {
@@ -46,6 +47,7 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
       },
     })
       .then((res) => {
+        
         if (res.data.togglePlanTracking.status)
           setActive(res.data.togglePlanTracking.current);
       })
@@ -96,13 +98,13 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
             >
               {active ? "Active Tracking" : "Inactive Tracking"}
             </Text>
-            {data.planDetails.description ? (
+            {data.planDetails?.description ? (
               <Text style={styles.description}>
                 data.planDetails.description
               </Text>
             ) : null}
             <Text style={styles.title}>Nutritiens</Text>
-            {data.planDetails.trackedElements.map((item, key) => (
+            {data.planDetails?.trackedElements.map((item, key) => (
               <PlanNutritientItem
                 key={key}
                 title={item.nutriton.name}
@@ -123,7 +125,7 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
           }}
         >
           <BluredButton
-            clicked={() => handleTogglePlanTracking(data.planDetails.id)}
+            clicked={() => handleTogglePlanTracking(data!.planDetails!.id)}
             txt={`${!active ? "Apply" : "Disable"} This Plan`}
           />
         </View>
