@@ -8,8 +8,10 @@ export const Description: React.FC = () => {
       <Box>  
       <Box pos={"relative"}>
           <Text
-            textAlign={'center'}
+            textAlign={'left'}
+             w={{md: '70%', base: '90%'}}
             fontFamily={"AvBold"}
+            m={'auto'}
             mb={"15px"}
             fontWeight={"bold"}
             fontSize={{ md: "30px", base: "23px" }}
@@ -23,7 +25,7 @@ export const Description: React.FC = () => {
           opacity={.8}
           m={'auto'}
           w={{md: '70%', base: '90%'}}
-          textAlign={"center"}
+          textAlign={"left"}
           fontSize={{ md: "18px", base: "12px" }}
           lineHeight={{ md: "32px", base: "16px" }}
           //fontWeight={"bold"}
