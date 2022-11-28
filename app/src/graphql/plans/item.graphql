@@ -13,6 +13,7 @@ query PlanDetails($id: String!) {
     trackedElements {
       id
       quantity
+      description
       nutriton {
         id
         code

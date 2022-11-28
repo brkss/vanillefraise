@@ -23,6 +23,7 @@ import { CDN } from "../../utils/config/defaults";
 import Moment from "moment";
 import { useTogglePlanTrackingMutation } from "../../generated/graphql";
 
+
 export const PlanDetails: React.FC<any> = ({ route }) => {
   const [visible, setVisible] = React.useState(false);
   const [toggle] = useTogglePlanTrackingMutation();
@@ -110,7 +111,7 @@ export const PlanDetails: React.FC<any> = ({ route }) => {
                 title={item.nutriton.name}
                 unit={item.nutriton.unit}
                 quantity={item.quantity}
-                //description={item.description || ""}
+                description={item.description || ""}
               />
             ))}
           </View>

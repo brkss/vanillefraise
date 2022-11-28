@@ -21,7 +21,7 @@ export const LoadingBar: React.FC<Props> = ({ progress }) => {
       650,
       withTiming(progress, { duration: 400 })
     );
-  }, []);
+  }, [progress]);
 
   const style = useAnimatedStyle(() => {
     return {

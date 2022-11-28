@@ -1492,7 +1492,7 @@ export type PlanDetailsQueryVariables = Exact<{
 }>;
 
 
-export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typename?: 'Plan', id: string, name: string, created_at: any, active: boolean, image?: string | null | undefined, description?: string | null | undefined, public: boolean, userplans: Array<{ __typename?: 'UserPlan', id: string }>, trackedElements: Array<{ __typename?: 'TrackedElement', id: string, quantity: number, nutriton: { __typename?: 'Nutrition', id: string, code: string, name: string, unit: string } }> } | null | undefined };
+export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typename?: 'Plan', id: string, name: string, created_at: any, active: boolean, image?: string | null | undefined, description?: string | null | undefined, public: boolean, userplans: Array<{ __typename?: 'UserPlan', id: string }>, trackedElements: Array<{ __typename?: 'TrackedElement', id: string, quantity: number, description?: string | null | undefined, nutriton: { __typename?: 'Nutrition', id: string, code: string, name: string, unit: string } }> } | null | undefined };
 
 export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3219,6 +3219,7 @@ export const PlanDetailsDocument = gql`
     trackedElements {
       id
       quantity
+      description
       nutriton {
         id
         code
