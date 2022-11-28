@@ -9,7 +9,7 @@ import {
 } from "type-graphql";
 import { User } from "../../entity/User";
 import { isUserAuth } from "../../utils/middlewares";
-import { Plan } from "../../entity/Plan";
+import { Plan, UserPlan } from "../../entity/Plan";
 import { IContext } from "../../utils/types/Context";
 import {
   TogglePlanTrackingResponse,
@@ -35,8 +35,8 @@ export class PlanTrackingResolver {
     }
     const plan = await Plan.findOne({
       where: [
-        //{ id: planId, public: true },
-        { id: planId, user: user, public: false },
+        { id: planId, public: true },
+        { id: planId, user: user },
       ],
     });
     if (!plan) {
@@ -45,11 +45,21 @@ export class PlanTrackingResolver {
         message: "Plan not found !",
       };
     }
-    plan.active = !plan.active;
-    await plan.save();
+    let current = true;
+    let userPlan = await UserPlan.findOne({where: {user: user, plan}});
+    if(!userPlan){
+      userPlan = new UserPlan()
+      userPlan.user = user;
+      userPlan.plan = plan;
+      await userPlan.save();
+    }else {
+      await userPlan.remove();
+      current = false;
+    }
+
     return {
       status: true,
-      current: plan.active,
+      current: current,
     };
   }
 
@@ -58,13 +68,21 @@ export class PlanTrackingResolver {
   async tracking(@Ctx() ctx: IContext): Promise<TrackingPlanResponse[]> {
     const user = await User.findOne({ where: { id: ctx.payload.userID } });
     if (!user) return [];
-    const plans = await Plan.find({
+    const data = await Plan.find({
       where: [
-        { user: user, public: false, active: true },
-        { public: true, active: true },
+        { user: user, public: false },
+        { public: true },
       ],
       relations: ["trackedElements", "trackedElements.nutriton"],
     });
+
+    const plans : Plan[] = [];  
+    for(let p of data){
+      const userPlan = await UserPlan.findOne({where: {user: user, plan: p}});
+      if(userPlan){
+        plans.push(p);
+      }
+    }
 
     const response: TrackingPlanResponse[] = [];
     for (let plan of plans) {

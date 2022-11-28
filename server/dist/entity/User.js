@@ -158,6 +158,11 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => Plan_1.Plan, plans => plans.user),
     __metadata("design:type", Array)
 ], User.prototype, "plans", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [Plan_1.UserPlan]),
+    (0, typeorm_1.OneToMany)(() => Plan_1.UserPlan, userplans => userplans.user),
+    __metadata("design:type", Array)
+], User.prototype, "userplans", void 0);
 User = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("users")

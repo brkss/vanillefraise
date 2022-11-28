@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
 const User_1 = require("../User");
 const TrackedElement_1 = require("./TrackedElement");
+const UserPlan_1 = require("./UserPlan");
 let Plan = class Plan extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -64,6 +65,11 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => TrackedElement_1.TrackedElement, (trackedElement) => trackedElement.plan),
     __metadata("design:type", Array)
 ], Plan.prototype, "trackedElements", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => [UserPlan_1.UserPlan]),
+    (0, typeorm_1.OneToMany)(() => UserPlan_1.UserPlan, userplans => userplans.plan),
+    __metadata("design:type", Array)
+], Plan.prototype, "userplans", void 0);
 Plan = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)("plans")

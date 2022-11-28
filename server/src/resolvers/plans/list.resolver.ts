@@ -30,7 +30,7 @@ export class PlansListResolver {
     if (!user) return null;
     const plan = await Plan.findOne({
       where: [{ id: id, user: user, public: false }, {id: id, public: true}],
-      relations: ["trackedElements", "trackedElements.nutriton"],
+      relations: ["trackedElements", "trackedElements.nutriton", "userplans"],
     });
     return plan || null;
   }

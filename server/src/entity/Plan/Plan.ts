@@ -10,6 +10,7 @@ import {
 import { ObjectType, Field } from "type-graphql";
 import { User } from "../User";
 import { TrackedElement } from "./TrackedElement";
+import { UserPlan } from './UserPlan';
 
 @ObjectType()
 @Entity("plans")
@@ -52,6 +53,10 @@ export class Plan extends BaseEntity {
   @Field(() => [TrackedElement])
   @OneToMany(() => TrackedElement, (trackedElement) => trackedElement.plan)
   trackedElements: TrackedElement[];
-  
+
+
+  @Field(() => [UserPlan])
+  @OneToMany(() => UserPlan, userplans => userplans.plan)
+  userplans: UserPlan[];
 
 }

@@ -30,7 +30,8 @@ let PlanTrackingResolver = class PlanTrackingResolver {
         }
         const plan = await Plan_1.Plan.findOne({
             where: [
-                { id: planId, user: user, public: false },
+                { id: planId, public: true },
+                { id: planId, user: user },
             ],
         });
         if (!plan) {
@@ -39,24 +40,41 @@ let PlanTrackingResolver = class PlanTrackingResolver {
                 message: "Plan not found !",
             };
         }
-        plan.active = !plan.active;
-        await plan.save();
+        let current = true;
+        let userPlan = await Plan_1.UserPlan.findOne({ where: { user: user, plan } });
+        if (!userPlan) {
+            userPlan = new Plan_1.UserPlan();
+            userPlan.user = user;
+            userPlan.plan = plan;
+            await userPlan.save();
+        }
+        else {
+            await userPlan.remove();
+            current = false;
+        }
         return {
             status: true,
-            current: plan.active,
+            current: current,
         };
     }
     async tracking(ctx) {
         const user = await User_1.User.findOne({ where: { id: ctx.payload.userID } });
         if (!user)
             return [];
-        const plans = await Plan_1.Plan.find({
+        const data = await Plan_1.Plan.find({
             where: [
-                { user: user, public: false, active: true },
-                { public: true, active: true },
+                { user: user, public: false },
+                { public: true },
             ],
             relations: ["trackedElements", "trackedElements.nutriton"],
         });
+        const plans = [];
+        for (let p of data) {
+            const userPlan = await Plan_1.UserPlan.findOne({ where: { user: user, plan: p } });
+            if (userPlan) {
+                plans.push(p);
+            }
+        }
         const response = [];
         for (let plan of plans) {
             const obj = {
