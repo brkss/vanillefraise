@@ -3,6 +3,7 @@ query Plans{
 		id
     name
     image
+    public 
     created_at
       }
 }

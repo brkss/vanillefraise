@@ -449,6 +449,7 @@ export type Mutation = {
   createDietRecord: DefaultResponse;
   createMoodRecord: DefaultResponse;
   createPlan: CreatePlanResponse;
+  createPublicPlans: DefaultResponse;
   createRecipe: CreateRecipeResponse;
   createRecipeCategory: CreateRecipeCategoryResponse;
   createRecord: CreateRecordResponse;
@@ -715,7 +716,7 @@ export type Plan = {
   name: Scalars['String'];
   public: Scalars['Boolean'];
   trackedElements: Array<TrackedElement>;
-  user: User;
+  user?: Maybe<User>;
 };
 
 export type PlanElements = {
@@ -1068,6 +1069,7 @@ export type TrackWeightResponse = {
 export type TrackedElement = {
   __typename?: 'TrackedElement';
   created_at: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   nutriton: Nutrition;
   plan: Plan;
@@ -1486,7 +1488,7 @@ export type PlanDetailsQuery = { __typename?: 'Query', planDetails?: { __typenam
 export type PlansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, image?: string | null | undefined, created_at: any }> };
+export type PlansQuery = { __typename?: 'Query', plans: Array<{ __typename?: 'Plan', id: string, name: string, image?: string | null | undefined, public: boolean, created_at: any }> };
 
 export type TogglePlanTrackingMutationVariables = Exact<{
   id: Scalars['String'];
@@ -3249,6 +3251,7 @@ export const PlansDocument = gql`
     id
     name
     image
+    public
     created_at
   }
 }
