@@ -3,6 +3,7 @@ import { Center, Box, Text, Image, Button, keyframes } from "@chakra-ui/react";
 import cheese from "../assets/sandwish-fly.png";
 import Sparkles from "./Sparkles";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
+import { AiOutlinePlayCircle } from 'react-icons/ai'
 
 const spin = keyframes`
   0% { transform: translateY(0px); }
@@ -59,6 +60,7 @@ export const Intro: React.FC = () => {
                 fontWeight={"bold"}
                 _focus={{ outline: "none", background: "transparent" }}
                 _hover={{ background: "transparent" }}
+                _active={{background: "transparent"}}
                 rounded={"50px"}
                 background={"transparent"}
                 color={"#f3b7b7"}
@@ -68,8 +70,8 @@ export const Intro: React.FC = () => {
               >
                 <Sparkles>
                   {" "}
-                  <IoArrowDownCircleOutline
-                    style={{ display: "none", marginBottom: '-3px' }}
+                  <AiOutlinePlayCircle
+                    style={{ marginBottom: '-3px', display: 'inline-block' }}
                   />{" "}
                   Watch The Film
                 </Sparkles>
