@@ -12,7 +12,7 @@ export const MarkAsFinished: React.FC<Props> = ({ marked, mark }) => {
     <Pressable
       style={[
         styles.container,
-        { backgroundColor: marked ? "#5EA353" : "black" },
+        { backgroundColor: marked ? "#c3f7bc" : "#e6e9ff" },
       ]}
       onPress={() => {
         if (!marked) mark();
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 4,
     paddingHorizontal: 10,
-    backgroundColor: "#434343",
+    backgroundColor: "#e6e9ff",
     borderRadius: 10,
     marginBottom: 3,
     flexDirection: "row",
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   txt: {
     //fontFamily: "AvNextBold",
     fontWeight: "bold",
-    color: "white",
+    color: "black",
     fontSize: 13,
     paddingHorizontal: 10,
     paddingVertical: 5,

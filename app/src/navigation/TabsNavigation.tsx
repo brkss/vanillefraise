@@ -1,6 +1,6 @@
 import React from "react";
 import { Platform } from 'react-native';
-import { createBottomTabNavigator, BottomTabBar } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator, BottomTabBar, BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { RecipeNavigation } from "./RecipesNavigation";
 //import { ActivityNavigation } from "./ActivityNavigation";
 import { SettingsNavigation } from "./SettingsNavigation";
@@ -13,7 +13,7 @@ import { BlurView } from 'expo-blur';
 export const TabsNavigation: React.FC = () => {
   const { Group, Screen, Navigator } = createBottomTabNavigator();
 
-  const TabBar = (props: any) => (
+  const TabBar = (props: BottomTabBarProps) => (
     <BlurView
       style={{
         position: 'absolute',
