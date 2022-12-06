@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#434343",
-    fontSize: 33,
+    fontSize: 29,
     fontWeight: "bold",
     fontFamily: "AvNextBold",
   },

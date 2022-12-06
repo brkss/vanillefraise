@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { FoodItem } from "./Item";
 import { Navigation } from "../Navigation";
-import { useHealthLabelsQuery } from "../../../generated/graphql";
+import { useHealthLabelsQuery, DietHealthLabelResponse } from "../../../generated/graphql";
 import { Loading } from "../../../components/General";
 //import Modal from "react-native-modal";
 import { ItemInfoModal } from "./ItemInfoModal";
@@ -23,7 +23,15 @@ export const ConfigureDietFood: React.FC<Props> = ({
   hidenavigation,
 }) => {
   const [visibleModal, setVisibleModal] = React.useState(false);
-  const { data, error, loading } = useHealthLabelsQuery();
+  const [labels, setLabels] = React.useState<DietHealthLabelResponse []>([]);
+  const { data, error, loading } = useHealthLabelsQuery({
+    onCompleted: (res) => {
+      if(res.healthLabels){
+        setLabels([...res!.healthLabels.
+          sort((a, b) => ( Number(isSelected(b.id)) - Number(isSelected(a.id))))])
+      }
+    }
+  });
   const [itemInfo, setItemInfo] = React.useState({
     title: "",
     desc: "",
@@ -74,7 +82,7 @@ export const ConfigureDietFood: React.FC<Props> = ({
           choises !
         </Text>
         <Text style={[styles.hint]}>{selected.length} selected</Text>
-        {data.healthLabels.map((label, key) => (
+        {labels.map((label, key) => (
           <FoodItem
             key={key}
             pressed={() => {
