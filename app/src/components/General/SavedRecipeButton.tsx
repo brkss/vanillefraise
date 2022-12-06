@@ -10,7 +10,7 @@ export const SavedRecipesButton: React.FC<Props> = ({ onClick }) => {
   return (
     <Pressable style={styles.container} onPress={() => onClick()}>
       <View style={styles.holder}>
-        <Ionicons color={"white"} size={16} name={"bookmark"} />
+        <Ionicons color={"#434343"} size={16} name={"bookmark"} />
         <Text style={styles.txt}>Saved Recipes</Text>
       </View>
     </Pressable>
@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
   txt: {
     fontSize: 15,
     paddingLeft: 5,
-    color: "white",
+    color: "#434343",
     fontWeight: 'bold'
   },
   holder: {
     padding: 7,
     borderRadius: 10,
-    backgroundColor: "black",
+    backgroundColor: "#e6e9ff",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

@@ -194,9 +194,9 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   title: {
-    fontSize: 27,
+    fontSize: 30,
     fontWeight: "bold",
-    fontFamily: "AvNextBold",
+    fontFamily: "AbFace", 
     marginBottom: 10,
     color: "#434343",
   },

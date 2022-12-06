@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#EBEBEB",
     fontWeight: "bold",
-    padding: 18,
+    padding: 15,
+    paddingBottom: 12,
     borderRadius: 10,
     fontFamily: "AvNextBold",
   },
