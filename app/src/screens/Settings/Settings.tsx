@@ -7,7 +7,7 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { Heading, Loading, SocialMedia } from "../../components";
+import { Heading, Loading, SocialMedia, SpecialBadge } from "../../components";
 import { AuthContext } from "../../utils/auth/AuthProvider";
 import * as SecureStore from "expo-secure-store";
 import { useMeQuery } from "../../generated/graphql";
@@ -52,7 +52,7 @@ export const Settings: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <Heading title={"Settings"} />
+        {/*<Heading title={"Settings"} />*/}
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.profile}>
             <View style={styles.profilePic}>
@@ -85,7 +85,7 @@ export const Settings: React.FC<any> = ({ navigation }) => {
             </Pressable>
             <SocialMedia />
             <Text
-              style={{ textAlign: "center", marginTop: 10, fontWeight: "bold" }}
+              style={{ textAlign: "center", marginTop: 10, fontWeight: "bold", opacity: .6 }}
             >
               V {Constants.manifest.version} (private edition)
             </Text>

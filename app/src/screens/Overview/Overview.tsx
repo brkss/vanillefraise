@@ -47,7 +47,7 @@ export const Overview: React.FC<any> = ({ navigation }) => {
           }}
         >
           <ScrollView
-            style={{ flex: 1 }}
+            style={{ flex: 2 }}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }

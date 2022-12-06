@@ -22,3 +22,4 @@ export * from "./BasicInput";
 export * from "./BluredButton";
 export * from "./LanguagePicker";
 export * from "./EmptyGroceryList";
+export * from './SpecialBadge'

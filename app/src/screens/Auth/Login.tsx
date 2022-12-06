@@ -150,20 +150,20 @@ export const Login: React.FC = () => {
                 onChange={(t) => handleForm("password", t)}
                 placeholder={"*********"}
               />
-              <View style={{ height: 20 }} />
+              <View style={{ height: 10 }} />
               <Pressable onPress={() => handleResetPassword()}>
                 <Text
                   style={{
-                    fontWeight: "bold",
-                    fontFamily: "AvNextBold",
-                    fontSize: 20,
+                    fontWeight: "700",
+                    //fontFamily: "AvNext",
+                    fontSize: 15,
                     opacity: 0.6,
                   }}
                 >
                   Forget your password ?
                 </Text>
               </Pressable>
-              <View style={{ height: 20 }} />
+              <View style={{ height: 0 }} />
               {error ? (
                 <Error txt={error} close={() => setError("")} />
               ) : (
@@ -213,4 +213,5 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#434343",
   },
+  
 });

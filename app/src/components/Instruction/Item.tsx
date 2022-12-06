@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
   numText: {
     color: "white",
     fontWeight: "bold",
-    fontFamily: "AvNextBold",
+    fontFamily: 'AbFace',
+    //fontFamily: "AvNextBold",
     marginTop: -5,
     //
   },

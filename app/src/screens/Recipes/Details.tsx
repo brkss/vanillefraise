@@ -109,6 +109,10 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
           }}
         ></ImageBackground>
         <View style={styles.content}>
+          <Pressable style={{alignItems: 'flex-end', marginTop: 10, marginBottom: 5, flexDirection: 'row', justifyContent: 'flex-start'}} onPress={() => setTab('NUTRITIONS')}>
+            <Ionicons size={22} style={{marginBottom: -2}} name='eye-outline' />
+            <Text style={styles.hint}>  Nutrition Facts</Text>
+          </Pressable>
           <RecipeMetaData
             title={data.recipe.recipe!.name}
             description={data.recipe.recipe!.description || undefined}
@@ -121,10 +125,7 @@ export const RecipeDetails: React.FC<any> = ({ route, navigation }) => {
               hl.label.split("_").join(" ")
             )}
           />*/}
-          <Pressable style={{alignItems: 'center', marginTop: 30, marginBottom: 10, flexDirection: 'row', justifyContent: 'center'}} onPress={() => setTab('NUTRITIONS')}>
-            <Ionicons size={22} style={{marginBottom: 1}} name='eye-outline' />
-            <Text style={styles.hint}>  Nutrition Facts</Text>
-          </Pressable>
+          
           <RecipesTabs selectTab={(t) => setTab(t)} />
           {
             {
