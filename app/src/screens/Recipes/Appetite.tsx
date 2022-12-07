@@ -9,13 +9,14 @@ export const Appetite : React.FC<any> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
+        
+        <Text style={styles.title}>Listen{'\n'}to your appetite</Text>
+        <AppetiteRecipeSlider clicked={(id) => navigation.navigate("RecipeDetails", {id: id})} />
         <View style={styles.close}>
-          <TouchableOpacity onPress={() => {console.log("clocked close !")}} style={styles.cbtn}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.cbtn}>
             <Ionicons size={20} color={'#424242'} name={'close-outline'} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.title}>Listen{'\n'}to your appetite</Text>
-        <AppetiteRecipeSlider clicked={(id) => navigation.navigate("RecipeDetails", {id: id})} />
       </SafeAreaView>
     </View>    
   )

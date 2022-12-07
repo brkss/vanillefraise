@@ -23,27 +23,33 @@ const getColor = (value: number) => {
 
 export const Item: React.FC<Props> = ({ status, title, value, clicked }) => {
   return (
+    
     <Pressable
       onPress={() => clicked()}
       style={[styles.container, { backgroundColor: getColor(value).box }]}
     >
-        <Text style={styles.txt}>{value > 100 ? 100 : value}%</Text>
-        <View style={{ justifyContent: "center"}}>
+      <View style={styles.row}>
+        <View
+          style={[styles.circle, { backgroundColor: getColor(value).circle }]}
+        >
+          <Text style={styles.txt}>{value > 100 ? 100 : value}%</Text>
+        </View>
+        <View style={{ justifyContent: "center", paddingLeft: 10 }}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.info}>{status}</Text>
         </View>
+      </View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "flex-end",
+    justifyContent: "center",
     backgroundColor: "#E3FFDC",
     padding: 12,
     borderRadius: 14,
-    marginBottom: 5,
-    height: 130,
+    marginBottom: 15,
     //borderWidth: 1,
     //borderColor: "#A7E19B",
   },
@@ -51,11 +57,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   txt: {
-    fontFamily: "AbFace",
+    fontFamily: "AvNextBold",
     fontWeight: "bold",
-    marginBottom: 5,
+    marginBottom: -2,
     color: "#434343",
-    fontSize: 40,
+    fontSize: 12,
   },
   circle: {
     height: 50,
@@ -66,8 +72,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FAA68D",
   },
   title: {
-    fontFamily: "AbFace",
-    fontSize: 21,
+    fontFamily: "AvNextBold",
+    fontSize: 17,
     color: "#434343",
   },
   info: {
@@ -77,6 +83,5 @@ const styles = StyleSheet.create({
     opacity: 0.8,
     marginTop: 5,
     fontSize: 12,
-    display: 'none'
   },
 });

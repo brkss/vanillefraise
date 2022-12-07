@@ -38,20 +38,23 @@ export const NutritionIntakeDaily: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Daily Nutrition Intake </Text>
-      {data.nutritionCategoryIntake.categories.map((item, key) => (
-        <Item
-          key={key}
-          clicked={() =>
-            navigation.navigate("NutritionOverview", {
-              cat_id: item.id,
-              cat_name: item.name,
-            })
-          }
-          status={GET_STATUS(item.intake)}
-          title={item.name}
-          value={Math.floor(item.intake)}
-        />
-      ))}
+      <View style={styles.row}>
+        {data?.nutritionCategoryIntake.categories.map((item, key) => (
+          <View key={key} style={styles.item}>
+            <Item
+              clicked={() =>
+                navigation.navigate("NutritionOverview", {
+                  cat_id: item.id,
+                  cat_name: item.name,
+                })
+              }
+              status={GET_STATUS(item.intake)}
+              title={item.name}
+              value={Math.floor(item.intake)}
+            />
+          </View>
+        ))}
+      </View>
     </View>
   );
 };
@@ -67,4 +70,12 @@ const styles = StyleSheet.create({
     color: "#434343",
     marginBottom: 10,
   },
+  row: {
+    flexWrap: 'wrap',
+    flexDirection: 'row'
+  },
+  item: {
+    width: '50%',
+    padding: 5
+  }
 });
