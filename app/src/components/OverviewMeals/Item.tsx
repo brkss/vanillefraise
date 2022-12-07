@@ -34,14 +34,15 @@ export const MealItem: React.FC<Props> = ({
       withTiming(1, { duration: 500 })
     );
     opacity.value = withDelay(
-      550 + DELAY_RATE * index,
+      100 + DELAY_RATE * index,
       withTiming(1, { duration: 500 })
     );
   }, []);
 
   const boxStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
+      opacity: opacity.value
+      //transform: [{ scale: scale.value }],
     };
   });
   const txtStyle = useAnimatedStyle(() => {

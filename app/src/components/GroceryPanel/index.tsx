@@ -22,9 +22,21 @@ export const GroceryOverviewPanel: React.FC<Props> = ({ view, refreshing }) => {
   const scale = useSharedValue(0);
   const opacity = useSharedValue(0);
 
+
+  React.useEffect(() => {
+    if (refreshing) {
+      console.log("refetching !");
+      refetch();
+    }
+    scale.value = withDelay(100, withTiming(1, { duration: 500 }));
+    opacity.value = withDelay(100, withTiming(1, { duration: 400 }));
+    opacity.value = withDelay(100, withTiming(1, { duration: 400 }));
+  }, [refreshing]);
+
   const boxStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
+      opacity: opacity.value
+      //transform: [{ scale: scale.value }],
     };
   });
   const txtStyle = useAnimatedStyle(() => {
@@ -33,15 +45,6 @@ export const GroceryOverviewPanel: React.FC<Props> = ({ view, refreshing }) => {
     };
   });
 
-  React.useEffect(() => {
-    if (refreshing) {
-      console.log("refetching !");
-      refetch();
-    }
-    scale.value = withDelay(100, withTiming(1, { duration: 500 }));
-    opacity.value = withDelay(600, withTiming(1, { duration: 400 }));
-    opacity.value = withDelay(600, withTiming(1, { duration: 400 }));
-  }, [refreshing]);
 
   if (loading || error) {
     return <Loading />;

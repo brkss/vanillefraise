@@ -86,7 +86,10 @@ export const Measurement: React.FC<Props> = ({ pass }) => {
       <View>
         <Text
           style={{
-            
+            fontSize: 19,
+            fontWeight: 'bold',
+            fontFamily: 'AvNextBold',
+            marginBottom: 10
           }}
         >
           Birthday
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
     color: "#434343",
     fontWeight: "bold",
-    fontFamily: "helvitica-condesed",
+    fontFamily: "AvNextBold",
   },
   label: {
 	fontSize: 25,
