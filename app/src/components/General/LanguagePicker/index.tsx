@@ -4,19 +4,19 @@ import { LanguageItem } from "./Item";
 
 const _langs = [
   {
-    txt: "English",
+    txt: "🇺🇸 English",
     id: "en",
   },
   {
-    txt: "French",
+    txt: "🇫🇷 French",
     id: "fr",
   },
   {
-    txt: "Arabic",
+    txt: "🇦🇪 Arabic",
     id: "ar",
   },
   {
-    txt: "Spanish",
+    txt: "🇪🇸 Spanish",
     id: "es",
   },
 ];
@@ -52,6 +52,6 @@ export const LanguagePicker: React.FC<Props> = ({ langChange }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: 40,
   },
 });

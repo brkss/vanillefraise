@@ -17,6 +17,7 @@ import {
   FoodFilters,
   BatchCookingConfig,
   GroceryList,
+  Appetite
 } from "../screens";
 import { EmailVerification } from "../components";
 
@@ -28,6 +29,7 @@ export const AppNavigation: React.FC = () => {
       <Navigator>
         <Group screenOptions={{ headerShown: false }}>
           <Screen name={"tabs"} component={TabsNavigation} />
+          <Screen name={"Appetite"} component={Appetite} />
           <Screen
             options={{
               headerLeft: () => null,

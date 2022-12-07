@@ -1,12 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import { AppetiteRecipeSlider } from '../../components';
+
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export const Appetite : React.FC<any> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
+        <View style={styles.close}>
+          <TouchableOpacity onPress={() => {console.log("clocked close !")}} style={styles.cbtn}>
+            <Ionicons size={20} color={'#424242'} name={'close-outline'} />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.title}>Listen{'\n'}to your appetite</Text>
         <AppetiteRecipeSlider clicked={(id) => navigation.navigate("RecipeDetails", {id: id})} />
       </SafeAreaView>
@@ -24,5 +31,22 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontFamily: 'AbFace',
     color: 'white'
+  },
+  close:{
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    
+  },
+  cbtn: {
+    height: 40,
+    width: 40,
+    backgroundColor: 'white',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  closeTxt: {
+    color: 'white',
   }
 })

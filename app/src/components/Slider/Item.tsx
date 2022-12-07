@@ -21,7 +21,7 @@ export const Item: React.FC<Props> = ({
       onPress={() => onSelect()}
       style={[
         styles.container,
-        { backgroundColor: selected ? "#ffe1b5" : color },
+        { backgroundColor: selected ? "#e6e9ff" : "#f7f8ff" },
       ]}
     >
       <Text style={styles.icon}>{icon}</Text>
@@ -54,7 +54,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 4,
     textAlign: "center",
-	fontFamily: "AvNextBold",
-	lineHeight: 13
+	  fontFamily: "AvNextBold",
+	  lineHeight: 13,
+    color: "#434343"
+  
   },
 });
