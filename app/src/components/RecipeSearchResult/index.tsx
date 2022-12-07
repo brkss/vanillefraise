@@ -18,6 +18,9 @@ export const RecipeSearchResult: React.FC<Props> = ({ query, navigation }) => {
     variables: {
       query: query,
     },
+    onCompleted: (res) => {
+      console.log("q : ", query, "res : ", res.searchRecipes)
+    }
   });
 
   if (loading || error) {
