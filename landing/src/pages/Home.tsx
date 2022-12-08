@@ -8,7 +8,9 @@ import {
   //InfoSection,
   Description,
   Download,
-  ShowOff
+  ShowOff,
+  Ways,
+  Ageing 
 } from "../components";
 import { data } from "../utils/data/infos";
 
@@ -20,10 +22,10 @@ export const Home: React.FC = () => {
       <Box className="content-home">
         <Intro />
         <Description />
+        <Ageing />
+        <Ways />
         <Download />
-        <ShowOff />
       </Box>
-        <Footer />
       {/*data.map((item, key) => (
         <InfoSection
           reverse={(key + 1) % 2 === 0}

@@ -36,7 +36,7 @@ export const Description: React.FC = () => {
           taking in consideration your food intolerances, intake limit or simply
           you just want to eat and stay healthy, we’ve got you covered.
         </Text>
-        <ImageOverview />
+        {/*<ImageOverview />*/}
     </Box>
     </Center>
   );

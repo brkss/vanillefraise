@@ -11,3 +11,5 @@ export * from './Description';
 export * from './Download';
 export * from './ImagesOverview';
 export * from './ShowOff';
+export * from './Ways'
+export * from './Ageing';
