@@ -42,7 +42,7 @@ export const Ways : React.FC = () => {
                   data.map((item, key) => (
 
                     <Text
-                      opacity={item.name !== curr.name ? .6 : 1}
+                      opacity={item.name !== curr.name ? .5 : 1}
                       key={key}
                       onClick={() => handleSelect(key)}
                       cursor={'pointer'}
@@ -60,7 +60,7 @@ export const Ways : React.FC = () => {
           </Center>
         </GridItem>
         <GridItem h={'100%'} textAlign={'center'} colSpan={{md: 12, base: 12}}>
-            <Box d={'inline-block'} p={'4px'} bg={'#4a4a4a'} minH={'433px'} rounded={'27px'}>
+            <Box d={'inline-block'} p={'6px'} bg={'#4a4a4a'} minH={'433px'} rounded={'40px'}>
               <video 
                 src={curr.video} 
                 autoPlay 
@@ -69,7 +69,7 @@ export const Ways : React.FC = () => {
                 //autoPlay={false}
                 //controls={false}
                 loop 
-                style={{width: '200px', borderRadius: '22px'}} 
+                style={{width: '200px', borderRadius: '35px'}} 
               /> 
             </Box>
         </GridItem>

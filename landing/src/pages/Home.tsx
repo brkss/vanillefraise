@@ -22,8 +22,8 @@ export const Home: React.FC = () => {
       <Box className="content-home">
         <Intro />
         <Description />
-        <Ageing />
         <Ways />
+        <Ageing />
         <Download />
       </Box>
       {/*data.map((item, key) => (

@@ -65,24 +65,24 @@ const _data = [
     min: 56,
     max: 59,
     risk_gn: 6,
-    risk_pn: 19.8,
+    risk_pn: 17.8,
   },
   {
     min: 60,
     max: 100,
     risk_gn: 6,
-    risk_pn: 22,
+    risk_pn: 20,
   },
 
 ]
 
 export const Ageing : React.FC = () => {
 
-  const [age, setAge] = React.useState(20);
+  const [age, setAge] = React.useState(22);
   const [risk, setRisk] = React.useState<{p: number, g: number}>({p: 0, g: 0});
 
   React.useEffect(() => {
-    changed(20); 
+    changed(22); 
   }, []);
 
   const changed = (val: number) => {
@@ -101,8 +101,16 @@ export const Ageing : React.FC = () => {
   return (
   
     <Box pos={'relative'} h={'100vh'} bg={'black'}>
-      <Box pos={'absolute'} top={'5%'} w={'100%'} p={'30px'}>
-        <Heading opacity={.9} textAlign={'center'} fontFamily={"'DM Serif Display', serif"} color={'white'} >Fatal Health Disease Risk</Heading>
+      <Box pos={'absolute'} top={'15%'} w={'100%'} p={'30px'}>
+        <Heading 
+          opacity={.9} 
+          textAlign={'center'} 
+          fontFamily={"'DM Serif Display', serif"} 
+          color={'white'}
+          fontSize={'25px'}
+        >
+          Risk Of Fatal Health Diseases Overtime
+        </Heading>
       </Box>
       <Grid h={'100%'} templateColumns={'repeat(12, 1fr)'}>
         <GridItem h={'100%'} colSpan={6}>
@@ -132,7 +140,7 @@ export const Ageing : React.FC = () => {
         >
           {age >= 60 ? `more than ${age} years` : age <= 10 ?  `less than ${age} years` :  `${age} years`}
         </Text>        
-        <Slider w={{md: '50%', base: "80%"}} aria-label='slider-ex-4' onChange={(val) => changed(val)} min={10} max={60} defaultValue={20}>
+        <Slider w={{md: '50%', base: "80%"}} aria-label='slider-ex-4' onChange={(val) => changed(val)} min={10} max={60} defaultValue={22}>
           <SliderTrack bg='red.100'>
             <SliderFilledTrack bg='white' />
           </SliderTrack>
