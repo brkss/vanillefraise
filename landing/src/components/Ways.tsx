@@ -65,6 +65,7 @@ export const Ways : React.FC = () => {
                 src={curr.video} 
                 autoPlay 
                 muted 
+                preload='auto'
                 //playsInline
                 //autoPlay={false}
                 //controls={false}
