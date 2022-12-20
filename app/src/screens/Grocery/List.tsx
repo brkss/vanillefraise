@@ -71,7 +71,6 @@ export const GroceryList: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Grocery List</Text>
-
       {data.grocery.length > 0 && (
         <LanguagePicker langChange={(l) => handleLangChange(l)} />
       )}
@@ -92,7 +91,7 @@ export const GroceryList: React.FC<any> = ({ navigation }) => {
           navigateToRecipes={() => navigation.navigate("Recipes")}
         />
       ) : null}
-      <ScrollView>
+      <ScrollView style={{top: -30}}>
         {translated.length === 0
           ? data.grocery.map((item, key) => (
               <GroceryItem

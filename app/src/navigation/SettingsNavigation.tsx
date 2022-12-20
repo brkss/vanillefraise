@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { PasswordSettings, Settings, PersonalInformation } from '../screens'
+import { PasswordSettings, Settings, PersonalInformation, About } from '../screens'
 
 export const SettingsNavigation : React.FC = () => {
 
@@ -12,6 +12,7 @@ export const SettingsNavigation : React.FC = () => {
         <Screen name={'SettingsMain'} component={Settings} />
         <Screen name={'PersonalInformation'} component={PersonalInformation} />
         <Screen name={'PasswordSettings'} component={PasswordSettings} />
+        <Screen name={'About'} component={About} />
       </Group>
     </Navigator>
   )

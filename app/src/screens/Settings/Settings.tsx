@@ -74,7 +74,10 @@ export const Settings: React.FC<any> = ({ navigation }) => {
             >
               <Text style={styles.optionText}>Change Password</Text>
             </Pressable>
-            <Pressable style={styles.option}>
+            <Pressable 
+              style={styles.option}
+              onPress={() => navigation.push('About')}
+            >
               <Text style={styles.optionText}>About This Version</Text>
             </Pressable>
             <Pressable

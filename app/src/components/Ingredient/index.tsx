@@ -63,11 +63,11 @@ export const Ingredients: React.FC<Props> = ({ ingredients, servings }) => {
       {translated.length === 0
         ? scaleRecipe(servings, scale, ingredients).map((ing, key) => (
             <IngredientItem
-              originUnit={ing.unit}
+              originUnit={ing.unit!}
               key={key}
-              txt={ing.ingredients}
-              amount={ing.amount.toString()}
-              unit={ing.unit}
+              txt={ing.ingredients!}
+              amount={ing.amount!.toString()}
+              unit={ing.unit!}
             />
           ))
         : translated
