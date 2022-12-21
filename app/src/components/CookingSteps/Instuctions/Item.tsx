@@ -108,7 +108,6 @@ export const Item: React.FC<Props> = ({
 		<Pressable onPress={clicked} pointerEvents={"box-none"} style={styles.box}>
 			<GestureDetector gesture={gesture}>
 				<Animated.View style={[styles.container, style]}>
-					<Text>test</Text>
 					<Text style={styles.number}>#{num + 1}</Text>
 					<Text style={styles.txt}>{txt}</Text>
 				</Animated.View>
