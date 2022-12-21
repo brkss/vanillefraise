@@ -9,7 +9,7 @@ import { Languages } from "../../../components/Translation/Languages";
 
 interface Props {
   finish: () => void;
-  ingredients: TranslatedIngredient[];
+  ingredients: any[];
   servings: number;
   originalServings: number;
 }

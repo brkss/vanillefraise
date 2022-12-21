@@ -1,6 +1,0 @@
-query Languages{
-  languages{
-    name
-    id
-  }
-}

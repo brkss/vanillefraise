@@ -40,7 +40,7 @@ export const TabsNavigation: React.FC = () => {
           else if (route.name == "Recipes")
             iconName = focused ? "pizza" : "pizza-outline";
           else if (route.name == "Overview")
-            iconName = focused ? "albums" : "albums-outline";
+            iconName = focused ? "eye" : "eye-outline";
           else if (route.name == "Plans")
             iconName = focused ? "reader" : "reader-outline";
           else if (route.name == "Reminders")
@@ -64,9 +64,6 @@ export const TabsNavigation: React.FC = () => {
         <Screen name={"Recipes"} component={RecipeNavigation} />
         {/*<Screen name={"Tracking"} component={PlansTrackingNavigation} />*/}
         {/*<Screen name={"Plans"} component={NutritionPlanNavigation} />*/}
-        {/*<Screen name={"Activity"} component={ActivityNavigation} />*}
-        {/*<Screen name={"Record"} component={CreateRecord} />*/}
-        {/*<Screen name={"Reminders"} component={RemindersNavigation} />*/}
         <Screen name={"Me"} component={SettingsNavigation} />
     </Navigator>
   );

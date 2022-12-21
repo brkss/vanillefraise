@@ -1,6 +1,5 @@
 import {
   CreateMealsResolver,
-  MoodResolver,
   NutrientCategoryResolver,
   NutritionGuideResolver,
   HealthLabelsResolver,
@@ -28,7 +27,6 @@ const cleanup = async () => {
 
 export const seed = async () => {
   const meals = new CreateMealsResolver();
-  const mood = new MoodResolver();
   const nutritient = new NutrientCategoryResolver();
   const nutrition_guide = new NutritionGuideResolver();
   const healthLalbel = new HealthLabelsResolver();
@@ -40,7 +38,6 @@ export const seed = async () => {
   await cleanup();
   // exec seeding !
   await meals.seedMeals();
-  await mood.seedMoodCategories();
   await nutritient.seedNutrientCategories();
   await nutrition_guide.seedNutritionGuide();
   await healthLalbel.seedHealthLabelRefrence();

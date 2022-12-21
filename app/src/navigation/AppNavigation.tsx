@@ -3,9 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { TabsNavigation } from "./TabsNavigation";
 import {
   Cooking,
-  ActivityConfig,
-  Active,
-  FinishExercise,
   RecipeDetails,
   MealsOptions,
   RecipesByNutritions,
@@ -37,9 +34,6 @@ export const AppNavigation: React.FC = () => {
             name={"Cooking"}
             component={Cooking}
           />
-          <Screen name={"ConfigActivity"} component={ActivityConfig} />
-          <Screen name={"Active"} component={Active} />
-          <Screen name={"FinishExercise"} component={FinishExercise} />
           {/* -- Diet Navigation -- */}
           <Screen name={"DietOverview"} component={DietOverview} />
           <Screen name={"DietSetting"} component={DietSettings} />

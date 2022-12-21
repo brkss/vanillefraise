@@ -1,8 +1,0 @@
-query RecordCategories{
-  recordCategories{
-    id
-    name
-    icon
-    unit
-  }
-}

@@ -1,7 +1,0 @@
-query Moods{
-  moods{
-    id
-    name
-    icon
-  }
-}

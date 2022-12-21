@@ -21,26 +21,11 @@ query Recipe($id: String!){
       raw
       amount
       ingredients
-      es {
-        unit
-        ingredient
-      }
-      fr {
-        unit
-        ingredient
-      }
-      ar {
-        unit
-        ingredient
-      }
     }
     instructions{
       id
       raw
       index
-      es
-      ar
-      fr
     }
   }
 }

@@ -14,9 +14,7 @@ const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
 const ResetPassword_1 = require("./ResetPassword");
 const Record_1 = require("./Record");
-const Mental_1 = require("./Mental");
 const UserInfo_1 = require("./UserInfo");
-const Activity_1 = require("./Activity");
 const EarlyAccess_1 = require("./UserInfo/EarlyAccess");
 const MealRecipes_1 = require("./Meals/MealRecipes");
 const Diet_1 = require("./Diet");
@@ -103,11 +101,6 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "banned", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => [Mental_1.MoodRecord]),
-    (0, typeorm_1.OneToMany)(() => Mental_1.MoodRecord, (moodrecords) => moodrecords.user),
-    __metadata("design:type", Array)
-], User.prototype, "moodrecords", void 0);
-__decorate([
     (0, type_graphql_1.Field)(() => [UserInfo_1.SpecialCondition]),
     (0, typeorm_1.ManyToMany)(() => UserInfo_1.SpecialCondition, (specialconditions) => specialconditions.users),
     (0, typeorm_1.JoinTable)(),
@@ -128,11 +121,6 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => MealRecipes_1.MealRecipes, (mealrecipes) => mealrecipes.user),
     __metadata("design:type", Array)
 ], User.prototype, "mealrecipes", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(() => [Activity_1.Activity]),
-    (0, typeorm_1.OneToMany)(() => Activity_1.Activity, (activities) => activities.user),
-    __metadata("design:type", Array)
-], User.prototype, "activities", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [Diet_1.DietFoodFilter]),
     (0, typeorm_1.OneToMany)(() => Diet_1.DietFoodFilter, (filter) => filter.user),

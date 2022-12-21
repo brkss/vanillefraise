@@ -13,7 +13,6 @@ import {
   useCookedRecipeMutation,
   UserCaloriesQuery,
   UserCaloriesDocument,
-  TranslatedIngredient,
 } from "../../generated/graphql";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -45,7 +44,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
       },
       update: (store, { data }) => {
         if (!data.cookedRecipe.status) return;
-        const caloriesData = store.readQuery<UserCaloriesQuery>({
+       const caloriesData = store.readQuery<UserCaloriesQuery>({
           query: UserCaloriesDocument,
         }).userCalories;
         console.log("UPDATE THAT SHIT");
@@ -105,7 +104,7 @@ export const Cooking: React.FC<any> = ({ route, navigation }) => {
                   originalServings={data!.recipe.recipe.serving}
                   servings={targetServing}
                   ingredients={
-                    data!.recipe.ingredients as TranslatedIngredient[]
+                    data!.recipe.ingredients as any
                   }
                   finish={() => changeStep("instructions")}
                 />

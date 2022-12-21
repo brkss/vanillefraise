@@ -17,37 +17,6 @@ export type Scalars = {
   DateTime: any;
 };
 
-export type Activity = {
-  __typename?: 'Activity';
-  calories?: Maybe<Scalars['Float']>;
-  category: ActivityCategory;
-  created_at: Scalars['DateTime'];
-  duration: Scalars['String'];
-  feedback?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  user: User;
-};
-
-export type ActivityCalories = {
-  __typename?: 'ActivityCalories';
-  category: ActivityCategory;
-  id: Scalars['String'];
-  name: Scalars['String'];
-  val: Scalars['Float'];
-  zone: Scalars['Float'];
-};
-
-export type ActivityCategory = {
-  __typename?: 'ActivityCategory';
-  activities: Array<Activity>;
-  calories: Array<ActivityCalories>;
-  highmet: Scalars['Float'];
-  icon?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  lowmet: Scalars['Float'];
-  name: Scalars['String'];
-};
-
 export type AddMealRecipeInput = {
   date?: InputMaybe<Scalars['DateTime']>;
   mealID: Scalars['String'];
@@ -145,10 +114,6 @@ export type CreateMealRecipeResponse = {
   mealId?: Maybe<Scalars['String']>;
   message: Scalars['String'];
   status: Scalars['Boolean'];
-};
-
-export type CreateMoodRecordInput = {
-  moods: Array<Scalars['String']>;
 };
 
 export type CreatePlanInput = {
@@ -307,12 +272,6 @@ export type Item = {
   recommendation: Scalars['Float'];
 };
 
-export type LanguagesResponse = {
-  __typename?: 'LanguagesResponse';
-  id: Scalars['String'];
-  name: Scalars['String'];
-};
-
 export type ListRecordsResponse = {
   __typename?: 'ListRecordsResponse';
   message?: Maybe<Scalars['String']>;
@@ -403,38 +362,6 @@ export type MealRecipesInput = {
   meal: Scalars['String'];
 };
 
-export type Mood = {
-  __typename?: 'Mood';
-  active: Scalars['Boolean'];
-  icon: Scalars['String'];
-  id: Scalars['String'];
-  name: Scalars['String'];
-  records: Array<MoodRecord>;
-};
-
-export type MoodOverviewData = {
-  __typename?: 'MoodOverviewData';
-  icon: Scalars['String'];
-  id: Scalars['String'];
-  name: Scalars['String'];
-  percent: Scalars['Float'];
-};
-
-export type MoodOverviewResponse = {
-  __typename?: 'MoodOverviewResponse';
-  data?: Maybe<Array<MoodOverviewData>>;
-  message?: Maybe<Scalars['String']>;
-  status: Scalars['Boolean'];
-};
-
-export type MoodRecord = {
-  __typename?: 'MoodRecord';
-  date: Scalars['DateTime'];
-  id: Scalars['String'];
-  mood: Mood;
-  user: User;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   addMealRecipe: CreateMealRecipeResponse;
@@ -447,7 +374,6 @@ export type Mutation = {
   cookedRecipe: CookedRecipesResponse;
   cookedRecipes: CookedRecipesResponse;
   createDietRecord: DefaultResponse;
-  createMoodRecord: DefaultResponse;
   createPlan: CreatePlanResponse;
   createPublicPlans: DefaultResponse;
   createRecipe: CreateRecipeResponse;
@@ -469,7 +395,6 @@ export type Mutation = {
   saveFoodFilters: Array<HealthLabelRefrence>;
   seedHealthLabelRefrence: Scalars['Boolean'];
   seedMeals: Scalars['Boolean'];
-  seedMoodCategories: Scalars['Boolean'];
   seedNutrientCategories: Scalars['Boolean'];
   seedNutritionGuide: Scalars['Boolean'];
   seedRecipeCategories: Scalars['Boolean'];
@@ -530,11 +455,6 @@ export type MutationCookedRecipesArgs = {
 
 export type MutationCreateDietRecordArgs = {
   data: CreateDietRecordInput;
-};
-
-
-export type MutationCreateMoodRecordArgs = {
-  data: CreateMoodRecordInput;
 };
 
 
@@ -745,13 +665,10 @@ export type Query = {
   helloDietData: Scalars['String'];
   isAccountVerified: IsAccountVerifiedResponse;
   isRequested: Scalars['Boolean'];
-  languages: Array<LanguagesResponse>;
   macros: UserMacrosResponse;
   me?: Maybe<User>;
   mealNutrition: MealNutritionResponse;
   meals: Array<MealListResponse>;
-  moodOverview: MoodOverviewResponse;
-  moods: Array<Mood>;
   nutritionCategoryIntake: DailyNutritionIntakeResponse;
   nutritionCategoryItems: Array<NutritionCategoryItemsResponse>;
   nutritionIntakeChart: Array<NutritionIntakeChartResponse>;
@@ -1142,7 +1059,6 @@ export type UpdateUserInfoInput = {
 
 export type User = {
   __typename?: 'User';
-  activities: Array<Activity>;
   banned: Scalars['Boolean'];
   birth: Scalars['DateTime'];
   bmi: Scalars['Float'];
@@ -1157,7 +1073,6 @@ export type User = {
   height: Scalars['Float'];
   id: Scalars['String'];
   mealrecipes: Array<MealRecipes>;
-  moodrecords: Array<MoodRecord>;
   name: Scalars['String'];
   plans: Array<Plan>;
   records: Array<Record>;
@@ -1395,23 +1310,6 @@ export type RemoveRecipeMutationVariables = Exact<{
 
 export type RemoveRecipeMutation = { __typename?: 'Mutation', removeRecipe: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
 
-export type CreateMoodRecordMutationVariables = Exact<{
-  moods: Array<Scalars['String']> | Scalars['String'];
-}>;
-
-
-export type CreateMoodRecordMutation = { __typename?: 'Mutation', createMoodRecord: { __typename?: 'DefaultResponse', status: boolean, message?: string | null | undefined } };
-
-export type MoodOverviewQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MoodOverviewQuery = { __typename?: 'Query', moodOverview: { __typename?: 'MoodOverviewResponse', status: boolean, message?: string | null | undefined, data?: Array<{ __typename?: 'MoodOverviewData', name: string, id: string, icon: string, percent: number }> | null | undefined } };
-
-export type MoodsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MoodsQuery = { __typename?: 'Query', moods: Array<{ __typename?: 'Mood', id: string, name: string, icon: string }> };
-
 export type UserCaloriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1543,7 +1441,7 @@ export type RecipeQueryVariables = Exact<{
 }>;
 
 
-export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, healthlabel: Array<{ __typename?: 'RecipeHealthLabel', label: string }> } | null | undefined, ingredients?: Array<{ __typename?: 'TranslatedIngredient', unit?: string | null | undefined, raw: string, amount?: number | null | undefined, ingredients?: string | null | undefined, es: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, fr: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined }, ar: { __typename?: 'IngredientLang', unit?: string | null | undefined, ingredient?: string | null | undefined } }> | null | undefined, instructions?: Array<{ __typename?: 'TranslatedInstruction', id: string, raw: string, index: number, es?: string | null | undefined, ar?: string | null | undefined, fr?: string | null | undefined }> | null | undefined } };
+export type RecipeQuery = { __typename?: 'Query', recipe: { __typename?: 'RecipeItemResponse', status: boolean, message?: string | null | undefined, recipe?: { __typename?: 'Recipe', id: string, name: string, description?: string | null | undefined, serving?: number | null | undefined, image: string, cook?: string | null | undefined, prep?: string | null | undefined, total?: string | null | undefined, healthlabel: Array<{ __typename?: 'RecipeHealthLabel', label: string }> } | null | undefined, ingredients?: Array<{ __typename?: 'TranslatedIngredient', unit?: string | null | undefined, raw: string, amount?: number | null | undefined, ingredients?: string | null | undefined }> | null | undefined, instructions?: Array<{ __typename?: 'TranslatedInstruction', id: string, raw: string, index: number }> | null | undefined } };
 
 export type RecommendedRecipesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1563,33 +1461,6 @@ export type SearchRecipesQueryVariables = Exact<{
 
 
 export type SearchRecipesQuery = { __typename?: 'Query', searchRecipes: { __typename?: 'SearchResultResponse', recipes: Array<{ __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string }>, ingredients: Array<{ __typename?: 'Ingredient', recipe: { __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string } }>, nutritients: Array<{ __typename?: 'RecipeTotalNutrition', recipe: { __typename?: 'Recipe', id: string, name: string, total?: string | null | undefined, image: string } }> } };
-
-export type RecordCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type RecordCategoriesQuery = { __typename?: 'Query', recordCategories: Array<{ __typename?: 'RecordCategory', id: string, name: string, icon: string, unit: string }> };
-
-export type CreateRecordMutationVariables = Exact<{
-  value: Scalars['Float'];
-  category: Scalars['Float'];
-  time: Scalars['DateTime'];
-  date: Scalars['DateTime'];
-}>;
-
-
-export type CreateRecordMutation = { __typename?: 'Mutation', createRecord: { __typename?: 'CreateRecordResponse', status: boolean, message: string, record: { __typename?: 'Record', id: string, value: number, time: any, date: any } } };
-
-export type RecordsQueryVariables = Exact<{
-  category: Scalars['Float'];
-}>;
-
-
-export type RecordsQuery = { __typename?: 'Query', records: { __typename?: 'ListRecordsResponse', status: boolean, message?: string | null | undefined, records?: Array<{ __typename?: 'Record', id: string, time: any, value: number, date: any, category: { __typename?: 'RecordCategory', id: string, name: string, unit: string } }> | null | undefined } };
-
-export type LanguagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LanguagesQuery = { __typename?: 'Query', languages: Array<{ __typename?: 'LanguagesResponse', name: string, id: string }> };
 
 export type CheckInfoValidtyMutationVariables = Exact<{
   username: Scalars['String'];
@@ -2622,117 +2493,6 @@ export function useRemoveRecipeMutation(baseOptions?: Apollo.MutationHookOptions
 export type RemoveRecipeMutationHookResult = ReturnType<typeof useRemoveRecipeMutation>;
 export type RemoveRecipeMutationResult = Apollo.MutationResult<RemoveRecipeMutation>;
 export type RemoveRecipeMutationOptions = Apollo.BaseMutationOptions<RemoveRecipeMutation, RemoveRecipeMutationVariables>;
-export const CreateMoodRecordDocument = gql`
-    mutation CreateMoodRecord($moods: [String!]!) {
-  createMoodRecord(data: {moods: $moods}) {
-    status
-    message
-  }
-}
-    `;
-export type CreateMoodRecordMutationFn = Apollo.MutationFunction<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>;
-
-/**
- * __useCreateMoodRecordMutation__
- *
- * To run a mutation, you first call `useCreateMoodRecordMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateMoodRecordMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createMoodRecordMutation, { data, loading, error }] = useCreateMoodRecordMutation({
- *   variables: {
- *      moods: // value for 'moods'
- *   },
- * });
- */
-export function useCreateMoodRecordMutation(baseOptions?: Apollo.MutationHookOptions<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>(CreateMoodRecordDocument, options);
-      }
-export type CreateMoodRecordMutationHookResult = ReturnType<typeof useCreateMoodRecordMutation>;
-export type CreateMoodRecordMutationResult = Apollo.MutationResult<CreateMoodRecordMutation>;
-export type CreateMoodRecordMutationOptions = Apollo.BaseMutationOptions<CreateMoodRecordMutation, CreateMoodRecordMutationVariables>;
-export const MoodOverviewDocument = gql`
-    query MoodOverview {
-  moodOverview {
-    status
-    message
-    data {
-      name
-      id
-      icon
-      percent
-    }
-  }
-}
-    `;
-
-/**
- * __useMoodOverviewQuery__
- *
- * To run a query within a React component, call `useMoodOverviewQuery` and pass it any options that fit your needs.
- * When your component renders, `useMoodOverviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMoodOverviewQuery({
- *   variables: {
- *   },
- * });
- */
-export function useMoodOverviewQuery(baseOptions?: Apollo.QueryHookOptions<MoodOverviewQuery, MoodOverviewQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MoodOverviewQuery, MoodOverviewQueryVariables>(MoodOverviewDocument, options);
-      }
-export function useMoodOverviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MoodOverviewQuery, MoodOverviewQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MoodOverviewQuery, MoodOverviewQueryVariables>(MoodOverviewDocument, options);
-        }
-export type MoodOverviewQueryHookResult = ReturnType<typeof useMoodOverviewQuery>;
-export type MoodOverviewLazyQueryHookResult = ReturnType<typeof useMoodOverviewLazyQuery>;
-export type MoodOverviewQueryResult = Apollo.QueryResult<MoodOverviewQuery, MoodOverviewQueryVariables>;
-export const MoodsDocument = gql`
-    query Moods {
-  moods {
-    id
-    name
-    icon
-  }
-}
-    `;
-
-/**
- * __useMoodsQuery__
- *
- * To run a query within a React component, call `useMoodsQuery` and pass it any options that fit your needs.
- * When your component renders, `useMoodsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMoodsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useMoodsQuery(baseOptions?: Apollo.QueryHookOptions<MoodsQuery, MoodsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MoodsQuery, MoodsQueryVariables>(MoodsDocument, options);
-      }
-export function useMoodsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MoodsQuery, MoodsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MoodsQuery, MoodsQueryVariables>(MoodsDocument, options);
-        }
-export type MoodsQueryHookResult = ReturnType<typeof useMoodsQuery>;
-export type MoodsLazyQueryHookResult = ReturnType<typeof useMoodsLazyQuery>;
-export type MoodsQueryResult = Apollo.QueryResult<MoodsQuery, MoodsQueryVariables>;
 export const UserCaloriesDocument = gql`
     query UserCalories {
   userCalories {
@@ -3544,26 +3304,11 @@ export const RecipeDocument = gql`
       raw
       amount
       ingredients
-      es {
-        unit
-        ingredient
-      }
-      fr {
-        unit
-        ingredient
-      }
-      ar {
-        unit
-        ingredient
-      }
     }
     instructions {
       id
       raw
       index
-      es
-      ar
-      fr
     }
   }
 }
@@ -3722,170 +3467,6 @@ export function useSearchRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type SearchRecipesQueryHookResult = ReturnType<typeof useSearchRecipesQuery>;
 export type SearchRecipesLazyQueryHookResult = ReturnType<typeof useSearchRecipesLazyQuery>;
 export type SearchRecipesQueryResult = Apollo.QueryResult<SearchRecipesQuery, SearchRecipesQueryVariables>;
-export const RecordCategoriesDocument = gql`
-    query RecordCategories {
-  recordCategories {
-    id
-    name
-    icon
-    unit
-  }
-}
-    `;
-
-/**
- * __useRecordCategoriesQuery__
- *
- * To run a query within a React component, call `useRecordCategoriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useRecordCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useRecordCategoriesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useRecordCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<RecordCategoriesQuery, RecordCategoriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<RecordCategoriesQuery, RecordCategoriesQueryVariables>(RecordCategoriesDocument, options);
-      }
-export function useRecordCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecordCategoriesQuery, RecordCategoriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<RecordCategoriesQuery, RecordCategoriesQueryVariables>(RecordCategoriesDocument, options);
-        }
-export type RecordCategoriesQueryHookResult = ReturnType<typeof useRecordCategoriesQuery>;
-export type RecordCategoriesLazyQueryHookResult = ReturnType<typeof useRecordCategoriesLazyQuery>;
-export type RecordCategoriesQueryResult = Apollo.QueryResult<RecordCategoriesQuery, RecordCategoriesQueryVariables>;
-export const CreateRecordDocument = gql`
-    mutation CreateRecord($value: Float!, $category: Float!, $time: DateTime!, $date: DateTime!) {
-  createRecord(
-    data: {value: $value, category: $category, time: $time, date: $date}
-  ) {
-    status
-    message
-    record {
-      id
-      value
-      time
-      date
-    }
-  }
-}
-    `;
-export type CreateRecordMutationFn = Apollo.MutationFunction<CreateRecordMutation, CreateRecordMutationVariables>;
-
-/**
- * __useCreateRecordMutation__
- *
- * To run a mutation, you first call `useCreateRecordMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateRecordMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createRecordMutation, { data, loading, error }] = useCreateRecordMutation({
- *   variables: {
- *      value: // value for 'value'
- *      category: // value for 'category'
- *      time: // value for 'time'
- *      date: // value for 'date'
- *   },
- * });
- */
-export function useCreateRecordMutation(baseOptions?: Apollo.MutationHookOptions<CreateRecordMutation, CreateRecordMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateRecordMutation, CreateRecordMutationVariables>(CreateRecordDocument, options);
-      }
-export type CreateRecordMutationHookResult = ReturnType<typeof useCreateRecordMutation>;
-export type CreateRecordMutationResult = Apollo.MutationResult<CreateRecordMutation>;
-export type CreateRecordMutationOptions = Apollo.BaseMutationOptions<CreateRecordMutation, CreateRecordMutationVariables>;
-export const RecordsDocument = gql`
-    query Records($category: Float!) {
-  records(cat_id: $category) {
-    status
-    message
-    records {
-      id
-      time
-      value
-      date
-      category {
-        id
-        name
-        unit
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useRecordsQuery__
- *
- * To run a query within a React component, call `useRecordsQuery` and pass it any options that fit your needs.
- * When your component renders, `useRecordsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useRecordsQuery({
- *   variables: {
- *      category: // value for 'category'
- *   },
- * });
- */
-export function useRecordsQuery(baseOptions: Apollo.QueryHookOptions<RecordsQuery, RecordsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<RecordsQuery, RecordsQueryVariables>(RecordsDocument, options);
-      }
-export function useRecordsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecordsQuery, RecordsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<RecordsQuery, RecordsQueryVariables>(RecordsDocument, options);
-        }
-export type RecordsQueryHookResult = ReturnType<typeof useRecordsQuery>;
-export type RecordsLazyQueryHookResult = ReturnType<typeof useRecordsLazyQuery>;
-export type RecordsQueryResult = Apollo.QueryResult<RecordsQuery, RecordsQueryVariables>;
-export const LanguagesDocument = gql`
-    query Languages {
-  languages {
-    name
-    id
-  }
-}
-    `;
-
-/**
- * __useLanguagesQuery__
- *
- * To run a query within a React component, call `useLanguagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useLanguagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLanguagesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useLanguagesQuery(baseOptions?: Apollo.QueryHookOptions<LanguagesQuery, LanguagesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<LanguagesQuery, LanguagesQueryVariables>(LanguagesDocument, options);
-      }
-export function useLanguagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LanguagesQuery, LanguagesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<LanguagesQuery, LanguagesQueryVariables>(LanguagesDocument, options);
-        }
-export type LanguagesQueryHookResult = ReturnType<typeof useLanguagesQuery>;
-export type LanguagesLazyQueryHookResult = ReturnType<typeof useLanguagesLazyQuery>;
-export type LanguagesQueryResult = Apollo.QueryResult<LanguagesQuery, LanguagesQueryVariables>;
 export const CheckInfoValidtyDocument = gql`
     mutation CheckInfoValidty($username: String!, $email: String!) {
   checkInfoValidity(data: {username: $username, email: $email}) {

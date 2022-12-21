@@ -33,7 +33,6 @@ export const Item: React.FC<Props> = ({ image, title, clicked, index }) => {
   const offset = useSharedValue(5);
   const boxOpacity = useSharedValue(0);
   const opacity = useSharedValue(0);
-  transform: [{ translateY: offset.value }],
     React.useEffect(() => {
       offset.value = withDelay(
         300 + DELAY_INTERVAL * index,
@@ -74,7 +73,7 @@ export const Item: React.FC<Props> = ({ image, title, clicked, index }) => {
       >
         <View style={styles.shadow} />
       </ImageBackground>
-      <Text style={[styles.title, txtStyle]}>{adjustTitle(title)}</Text>
+      <Animated.Text style={[styles.title, txtStyle]}>{adjustTitle(title)}</Animated.Text>
     </AnimatedPressable>
   );
 };

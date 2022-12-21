@@ -19,13 +19,11 @@ __exportStar(require("./auth"), exports);
 __exportStar(require("./recipes"), exports);
 __exportStar(require("./user"), exports);
 __exportStar(require("./records"), exports);
-__exportStar(require("./mental"), exports);
 __exportStar(require("./nutrition"), exports);
 __exportStar(require("./recomendation"), exports);
 __exportStar(require("./meals"), exports);
 __exportStar(require("./admin"), exports);
 __exportStar(require("./diet"), exports);
-__exportStar(require("./translating"), exports);
 __exportStar(require("./plans"), exports);
 __exportStar(require("./grocery"), exports);
 //# sourceMappingURL=index.js.map

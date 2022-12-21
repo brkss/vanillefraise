@@ -12,9 +12,7 @@ import {
 import { ObjectType, Field } from "type-graphql";
 import { ResetPassword } from "./ResetPassword";
 import { Record } from "./Record";
-import { MoodRecord } from "./Mental";
 import { SpecialCondition, CookedRecipe } from "./UserInfo";
-import { Activity } from "./Activity";
 import { EarlyAccessRequest } from "./UserInfo/EarlyAccess";
 import { MealRecipes } from "./Meals/MealRecipes";
 import { DietFoodFilter, MacrosConfig, DietRecord } from "./Diet";
@@ -91,9 +89,6 @@ export class User extends BaseEntity {
   @Column({ default: false })
   banned: boolean;
 
-  @Field(() => [MoodRecord])
-  @OneToMany(() => MoodRecord, (moodrecords) => moodrecords.user)
-  moodrecords: MoodRecord[];
 
   @Field(() => [SpecialCondition])
   @ManyToMany(
@@ -114,10 +109,6 @@ export class User extends BaseEntity {
   @Field(() => [MealRecipes])
   @OneToMany(() => MealRecipes, (mealrecipes) => mealrecipes.user)
   mealrecipes: MealRecipes[];
-
-  @Field(() => [Activity])
-  @OneToMany(() => Activity, (activities) => activities.user)
-  activities: Activity[];
 
   @Field(() => [DietFoodFilter])
   @OneToMany(() => DietFoodFilter, (filter) => filter.user)
